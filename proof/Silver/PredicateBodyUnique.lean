@@ -55,11 +55,11 @@ mutual
       (b : LoopAt (catalog := catalog) (procedures := procedures) text context scan rightLower rightUpper rightBody second) :
       leftLower = rightLower ∧ leftUpper = rightUpper ∧ leftBody = rightBody := by
     cases a with
-    | loop _ _ lowerRead upperRead _ bodyRead _ _ _ =>
+    | loop _ _ boundsRead _ bodyRead _ _ _ =>
         cases b with
-        | loop _ _ otherLower otherUpper _ otherBody _ _ _ =>
-            exact ⟨(ScalarExpression.at_unique lowerRead otherLower).1,
-              (ScalarExpression.at_unique upperRead otherUpper).1, body_unique bodyRead otherBody⟩
+        | loop _ _ otherBounds _ otherBody _ _ _ =>
+            exact ⟨(boundsRead.unique otherBounds).1,
+              (boundsRead.unique otherBounds).2, body_unique bodyRead otherBody⟩
   termination_by (bodyRemaining text scan, 1)
 
   theorem arrayLoop_unique {text context scan leftBody rightBody first second}

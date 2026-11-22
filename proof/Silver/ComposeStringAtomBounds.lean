@@ -34,10 +34,10 @@ theorem selected_binding_bounds {names : BindingEnvironment} {index : Nat} {info
 
 theorem value_fixed_bounds {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position : Nat} {value : Operand} {result : ValueResult} {integers : Integer.Store}
     (input : Source) (normal : NamesNormal names)
-    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result)
     (fixed : result.dynamicSeen = false) :
@@ -72,11 +72,11 @@ theorem value_fixed_bounds {text : Source} {names : BindingEnvironment}
 
 theorem value_objectBounds_length {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position : Nat} {value : Operand} {result : ValueResult} {integers : Integer.Store}
     {input : Source} {values : Values} (normal : NamesNormal names)
     (strings : Fits names.shape input values)
-    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
     (value.objectBounds names input integers).length = (value.evaluate values input integers).length := by
@@ -107,11 +107,11 @@ theorem canonical_bounds_valid {length : Nat} (bounded : length ≤ maxSourceLen
 
 theorem value_objectBounds_valid {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position : Nat} {value : Operand} {result : ValueResult} {integers : Integer.Store}
     {input : Source} (textBound : text.length ≤ maxSourceLength) (inputBound : input.length ≤ maxSourceLength)
     (metadata : NamesBoundsValid names)
-    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
     (value.objectBounds names input integers).Valid := by
@@ -144,10 +144,10 @@ theorem value_objectBounds_valid {text : Source} {names : BindingEnvironment}
 
 theorem value_objectBounds_firstBound {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position : Nat} {value : Operand} {result : ValueResult} {integers : Integer.Store}
     (input : Source) (metadata : NamesBoundsValid names)
-    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
     (value.objectBounds names input integers).FirstBound (namesBoundCeiling names) := by

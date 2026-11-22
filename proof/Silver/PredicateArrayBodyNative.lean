@@ -14,7 +14,7 @@ open Compose
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
   scalarLookup : Source → ScalarExpression.Environment → Nat → Nat → Nat
-  arrayLookup : Source → ArrayBindings.Metadata → Nat → Nat → Nat
+  arrayLookup : Source → ArrayBindings.Table → Nat → Nat → Nat
   token : Source → Nat → ShellToken → Nat
   readIndex : Source → Native.Context → Nat → ActiveFlow → ScalarExpression.Result
   readValue : Source → Native.Context → Nat → ActiveFlow → ScalarExpression.Result
@@ -26,10 +26,10 @@ def modelImports : Imports where
   skip := skipAt
   nameAfter := Compose.nameAfter
   scalarLookup := ScalarExpression.lookup
-  arrayLookup := ArrayBindings.lookup
+  arrayLookup := fun text names => ArrayBindings.lookup text names.items
   token := tokenAfter
   readIndex := fun text context position facts =>
-    ScalarExpression.read text position (context.model.readingNames facts)
+    ScalarExpression.ArrayGrammar.read text position (context.model.readingNames facts) context.arrayTable (arrayReads := .noElements)
   readValue := fun text context position facts =>
     readScalarInFlow text context.model position facts
   contains := ArrayBindings.contains
@@ -112,7 +112,7 @@ def Expr.eval (imports : Imports) (target : TargetCall) (frame : Frame) : Expr �
   | .nameAfter first => imports.nameAfter frame.text (first.eval imports target frame)
   | .scalarLookup first after => imports.scalarLookup frame.text frame.context.scalarNames
       (first.eval imports target frame) (after.eval imports target frame)
-  | .arrayLookup first after => imports.arrayLookup frame.text frame.context.arrayNames
+  | .arrayLookup first after => imports.arrayLookup frame.text frame.context.arrayTable
       (first.eval imports target frame) (after.eval imports target frame)
   | .arrayTarget position => target frame.text frame.context (position.eval imports target frame)
   | .token position tok => imports.token frame.text (position.eval imports target frame) tok
@@ -169,7 +169,8 @@ def Expr.render : Expr α → List String
   | .arrayTarget position => call "array_target" [["text"], ["context"], position.render]
   | .token position tok => call "take_token" [["text"], position.render, [Compose.Expressions.tokenName tok]]
   | .readIndex position => ["scalar_expressions", "."] ++ call "read_expression"
-      [["text"], position.render, call "reading_names" [["context"], ["scan", ".", "facts"]]]
+      [["text"], position.render, call "reading_names" [["context"], ["scan", ".", "facts"]],
+       ["arrays", "=>", "context", ".", "array_names"], ["array_reads", "=>", "scalar_expressions", ".", "no_elements"]]
   | .readValue position => call "read_scalar_in_flow" [["text"], ["context"], position.render, ["scan", ".", "facts"]]
   | .binding index => ["context", ".", "array_names", ".", "items", "("] ++ index.render ++ [")"]
   | .mutable item => item.render ++ [".", "mutable"]
@@ -362,14 +363,15 @@ def modelTarget : TargetCall := fun text context position => arrayTarget text co
 
 theorem targetEval_model (text : Source) (context : Native.Context) (position : Nat) :
     targetEval modelImports text context position = arrayTarget text context.model position := by
-  dsimp +instances only [targetEval, targetBody, Expr.eval, modelImports, arrayTarget, Native.Context.model]
+  dsimp +instances only [targetEval, targetBody, Expr.eval, modelImports, arrayTarget,
+    Native.Context.arrayTable, Native.Context.model]
   simp only [decide_eq_true_eq]
 
 theorem assignmentEval_model (text : Source) (context : Native.Context) (scan : BodyScan) :
     assignmentEval modelImports modelTarget text context scan = arrayAssignmentBody text context.model scan := by
   dsimp +instances only [assignmentEval, assignmentBody, Expr.eval, modelImports, modelTarget,
     arrayAssignmentBody, arrayIndex, arrayIndexStart, arrayValueStart, readScalarInFlow,
-    tokenAfter, ShellToken.symbol, Native.Context.model]
+    tokenAfter, ShellToken.symbol, Native.Context.model, Native.Context.arrayTable, ParseContext.arrayTable]
   simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
 theorem assignmentEval_model_count (text : Source) (context : Native.Context) (scan : BodyScan) :

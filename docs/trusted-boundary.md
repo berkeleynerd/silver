@@ -139,7 +139,7 @@ three 4,096-byte sources pass at an actual 8,192 KiB stack on native snapshot
 input-specific observations, not a universal stack bound or a new frame-size
 measurement.
 The [2026-11-15 Linux ARM64 observations](evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
-measure the current assertions-enabled compiler on three exact 4,096-byte
+measure the November 15 assertions-enabled compiler on three exact 4,096-byte
 sources with 2,001, 1,993 and 1,765 nested condition parentheses. All fail with
 `Storage_Error` at an 8,192 KiB stack; the first two also fail at 12,288 KiB;
 all pass at 16,384 KiB. Their 4,097-byte companions remain rejected as outside
@@ -147,8 +147,22 @@ the source limit. Object-code inspection and direct debugger stack-pointer
 measurements identify 6,416 bytes per nested group along this route. These
 measurements establish the cause and a sufficient setting for these cases,
 not an all-route or cross-platform stack bound. The setup instructions now use
-16 MiB for the current Linux ARM64 compiler; the existing sufficient-stack
+16 MiB for Linux ARM64; the existing sufficient-stack
 premise and unchanged source membership remain in force.
+
+The [2026-11-21 named-array observations](evidence/named-array-parameters-410-20261121/stack/README.md)
+measure the new Linux x86_64 metadata layout: `Body_Context` grows from 38,900
+to 64,264 bytes, and each nested loop copies that context. Three 4,096-byte
+counted/foreach/Range inputs fail admission with `Storage_Error` at 8 MiB and
+pass at 16 MiB. These reviewer observations are admission-only; the linked
+record tracks the separate managed full-route follow-up and the November 22
+external review's callable-body measurements. Counted loops in a function and
+procedure need 13,436 and 13,564 KiB respectively in that review's 64 KiB-resolution
+admission measurements; a formal-array Range nest needs 12,349 KiB. All fit the
+16 MiB setting. Setup guidance retains 16 MiB for both Linux architectures, but
+the named-array layout and callable cases have not been measured on ARM64.
+Record sizes and passing inputs do not establish a universal stack bound;
+source membership is unchanged.
 
 Per-level environment-copy redesign remains deferred with #119.
 The external
@@ -1310,7 +1324,7 @@ retains the earlier String/path evidence; the
 schemas, implementation and source-correspondence validation.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1
 --no-loop-unrolling`. All output
 routes use `--warnings=continue` to classify their exact permitted advisories
 from complete reports; null retains `--warnings=error`. Unexpected audited
@@ -1431,6 +1445,18 @@ The composed checked-source record also proves `Names.fixedAt = Compose.fixedAt`
 and `Names.take = Compose.fixedAfter`. These checked identities detect divergence
 between duplicated helpers; they do not remove the lexical-callee interpretation
 premise or derive arbitrary Names call records from source.
+
+One unchanged lexical callee is `Silver_Output_Lexical.Valid_Name_State`.
+The array-binding `Primitives.validNameState` law interprets its result as
+`(first = 0 ∧ after = 0) ∨ NameSpan text first after`, for valid source text and
+the complete cursor domain `first, after ≤ 4097`. This agrees with the Ada
+expression function, but its denotation is an interpretation premise rather
+than a separately source-derived typed-tree result. The law supplies side
+equivalences for named-table validity predicates. Separately,
+`PredicatesCorrect.validType` is consumed by the callable-frame equations. The
+[focused review and response](reviews/review-pr412-claude-response-20261122.md#focused-proof-dispositions)
+record this scope without changing the existing frontend boundary.
+
 Named associations select the actual library formal (`Item` or `Default`); no
 author-source rewriting is involved. Resolving these reviewed package
 imports and declarations retains the existing Ada/GNAT interpretation premise;

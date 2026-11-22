@@ -1,10 +1,12 @@
 with Silver_Profile;
 with Silver_Output_Lexical;
 with Silver_Scalars;
+with Silver_Array_Bindings;
 with Silver_Function_Bindings;
 
 package Silver_Procedure_Bindings with SPARK_Mode => On is
    use Silver_Profile;
+   use type Silver_Function_Bindings.Scalar_Kind;
    use Silver_Output_Lexical;
 
    --  Every complete procedure consumes more than 32 source bytes. Each
@@ -20,10 +22,11 @@ package Silver_Procedure_Bindings with SPARK_Mode => On is
       First, After : Literal_Position;
       Kind : Silver_Function_Bindings.Scalar_Kind;
       Bounds : Silver_Scalars.Interval;
+      Type_Id : Silver_Array_Bindings.Type_Count := 0;
       Mode : Parameter_Mode;
    end record;
    Empty_Formal : constant Formal :=
-     (0, 0, Silver_Function_Bindings.Integer_Kind, Silver_Scalars.Empty, Input);
+     (0, 0, Silver_Function_Bindings.Integer_Kind, Silver_Scalars.Empty, 0, Input);
    type Formal_Array is array (Formal_Index) of Formal;
    type Signature is record
       First, After : Literal_Position;
@@ -49,7 +52,10 @@ package Silver_Procedure_Bindings with SPARK_Mode => On is
          Procedures.Parameters (I).First > 0
          and then Valid_Name_State
            (Text, Procedures.Parameters (I).First, Procedures.Parameters (I).After)
-         and then not Silver_Scalars.Is_Empty (Procedures.Parameters (I).Bounds))
+         and then not Silver_Scalars.Is_Empty (Procedures.Parameters (I).Bounds)
+         and then (if Procedures.Parameters (I).Type_Id /= 0 then
+           Procedures.Parameters (I).Mode = Input
+           and then Procedures.Parameters (I).Kind = Silver_Function_Bindings.Integer_Kind))
       and then (for all I in 1 .. Procedures.Count =>
          Procedures.Items (I).First > 0
          and then Valid_Name_State

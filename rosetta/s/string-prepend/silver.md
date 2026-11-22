@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The existing initialized-buffer composition performs a real multi-character prepend, with an exact fit followed by whole refusal. The expected stdout is Hello World!\nfull\nHello World!\n. Character stores, a bounded length, counted loops and prefix output already exist; bounded-string-building is precise Rosetta metadata and introduces no language rule. The linked capability record separates final delivery evidence from inherited planning observations.
 
-Position 62 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 63 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

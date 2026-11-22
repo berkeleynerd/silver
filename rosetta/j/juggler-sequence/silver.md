@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task's 20..39 range is small and its values fit in 64 bits, so every check follows from subtype ranges and guards placed before the multiplication, with only the loop-carried term and square-root search needing careful guards. The optional big-integer part is skipped, and no annotations are needed.
 
-Position 240 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 242 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is straight-line floating-point code with no loop-carried values, so every check depends only on declared input ranges and guards, but float nonlinear arithmetic, elementary-function contracts and 10-decimal formatting make discharge dependent on careful program shape.
 
-Position 1099 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1022 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

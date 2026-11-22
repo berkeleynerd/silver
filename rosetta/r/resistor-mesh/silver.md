@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only a fixed-size grid and a bounded float relaxation, which is feasible with explicit bound guards and an iteration cap, but float range checks on loop-carried voltages and the convergence tolerance make discharge depend on careful program shape and on formatting a float to text.
 
-Position 1064 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 987 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

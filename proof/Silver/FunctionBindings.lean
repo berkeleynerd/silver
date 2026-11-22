@@ -2,6 +2,7 @@ module
 
 public import Silver.IntegerIntervals
 public import Silver.NamedIdentifier
+public import Silver.ArrayBindings
 
 @[expose] public section
 
@@ -21,6 +22,7 @@ structure Formal where
   after : Nat
   kind : ScalarKind
   bounds : Integer.Interval
+  typeId : Nat := 0
   deriving DecidableEq, Repr
 
 structure Signature where
@@ -37,7 +39,7 @@ structure Metadata where
   parameters : List Formal := []
   deriving DecidableEq, Repr
 
-def emptyFormal : Formal := ⟨0, 0, .integer, .empty⟩
+def emptyFormal : Formal := ⟨0, 0, .integer, .empty, 0⟩
 def emptySignature : Signature := ⟨0, 0, 0, 0, .integer, .empty⟩
 def signature (functions : Metadata) (index : Nat) : Signature :=
   functions.items.getD (index - 1) emptySignature
@@ -51,7 +53,8 @@ instance (text : Source) (first after : Nat) : Decidable (NameSpan text first af
   inferInstanceAs (Decidable (_ ∧ _ ∧ _))
 
 def ValidFormal (text : Source) (item : Formal) : Prop :=
-  NameSpan text item.first item.after ∧ item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper
+  NameSpan text item.first item.after ∧ item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper ∧
+    (item.typeId ≠ 0 → item.kind = .integer) ∧ item.typeId ≤ ArrayBindings.maxTypes
 
 def ValidSignature (text : Source) (functions : Metadata) (item : Signature) : Prop :=
   NameSpan text item.first item.after ∧ 0 < item.count ∧ 0 < item.formalFirst ∧
@@ -65,7 +68,7 @@ def ValidMetadata (text : Source) (functions : Metadata) : Prop :=
     (∀ item ∈ functions.items, ValidSignature text functions item)
 
 instance (text : Source) (item : Formal) : Decidable (ValidFormal text item) :=
-  inferInstanceAs (Decidable ((_ ∧ _ ∧ _) ∧ _ ∧ _))
+  inferInstanceAs (Decidable ((_ ∧ _ ∧ _) ∧ _ ∧ _ ∧ (_ → _) ∧ _))
 instance (text : Source) (functions : Metadata) (item : Signature) :
     Decidable (ValidSignature text functions item) :=
   inferInstanceAs (Decidable ((_ ∧ _ ∧ _) ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _))

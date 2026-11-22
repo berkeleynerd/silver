@@ -1,0 +1,10 @@
+{
+  "test_commit": "078b1ca9ba",
+  "test_file": "tests/test_array_parameters.py",
+  "test_sha256": "aa90be114932ff09f970b4e1513ef4c1af96e37c77ac11ee9a6bec2501ab230a",
+  "native_test_sha256": "aa90be114932ff09f970b4e1513ef4c1af96e37c77ac11ee9a6bec2501ab230a",
+  "successful_run": "20261121T203944-26f0b795d617",
+  "elapsed_test_seconds": 7.85,
+  "test_inventory": 785,
+  "scope": "one compiled/proved/audited/executed composition test; final full suite remains pending"
+}

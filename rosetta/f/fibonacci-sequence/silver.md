@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The callable function preserves F0 = 0 and F1 = 1. Before step i its pair is F(i-2), F(i-1); for i <= 46 both static guard bounds hold. The last addition produces F46 = 1836311903 and no unused F47 is computed. This is the complete nonnegative Fibonacci-index domain whose result fits Integer. Negative indices are optional and omitted. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 69 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 70 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

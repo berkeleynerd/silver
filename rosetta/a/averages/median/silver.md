@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over the array's own range and all indexes and float sums are bounded by declared types, so every check follows from declarations; only float formatting and float range reasoning need some care.
 
-Position 1029 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 952 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

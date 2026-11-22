@@ -39,6 +39,12 @@ class LeanCPUSelectionTests(unittest.TestCase):
         with mock.patch.object(check_lean, "os", SimpleNamespace(cpu_count=lambda: 6)):
             self.assertEqual(check_lean.available_cpus(), 6)
 
+    def test_host_allocation_caps_visible_cpus(self) -> None:
+        operating_system = SimpleNamespace(sched_getaffinity=lambda _pid: set(range(32)),
+                                           process_cpu_count=lambda: 32, cpu_count=lambda: 32)
+        with mock.patch.object(check_lean, "os", operating_system):
+            self.assertEqual(check_lean.available_cpus(), 8)
+
     def test_unavailable_affinity_does_not_prevent_cpu_detection(self) -> None:
         operating_system = SimpleNamespace(
             sched_getaffinity=mock.Mock(side_effect=OSError("affinity unavailable")),
@@ -406,12 +412,37 @@ class LeanRunnerPhaseTests(unittest.TestCase):
         patches.enter_context(mock.patch.object(check_lean, "native_layout", return_value=host))
         patches.enter_context(mock.patch.object(check_lean, "available_cpus", return_value=2))
         patches.enter_context(mock.patch("scripts.run_history.available_cpus", return_value=2))
+        patches.enter_context(mock.patch("scripts.run_history.process_cpus", return_value=2))
         patches.enter_context(mock.patch("scripts.run_history.registry",
                                          return_value=host.artifacts / "run-history"))
         patches.enter_context(mock.patch.object(check_lean, "lean_environment", return_value=dict(os.environ)))
         patches.enter_context(mock.patch.object(check_lean.subprocess, "run", side_effect=run))
         patches.enter_context(mock.patch.object(check_lean, "run_logged", side_effect=run_logged))
         return state
+
+    def test_automatic_threads_follow_the_shared_worker_grant(self) -> None:
+        state = self.fixture()
+        state.expected_workers = 1
+        with mock.patch("scripts.run_history.available_cpus", return_value=1), redirect_stdout(io.StringIO()):
+            check_lean.main(["--target", "Silver.Model"])
+        evidence = json.loads((state.host.artifacts / "lean-focused-evidence.json").read_text())
+        self.assertEqual((evidence["lake_workers"], evidence["threads_per_process"]), (1, 1))
+        self.assertIn("silverThreads=1", state.commands[0])
+        self.assertIn("-j1", state.commands[1])
+        from scripts import run_history
+        record, = run_history.status(state.host)["runs"]
+        self.assertEqual(record["allocation"]["threads"],
+                         {"requested": None, "automatic": 1, "actual": 1})
+        self.assertEqual(record["inputs"]["configuration"]["threads"], 1)
+        self.assertEqual(record["resource_reductions"], [])
+
+    def test_threads_cannot_exceed_an_explicit_worker_grant(self) -> None:
+        state = self.fixture()
+        with redirect_stdout(io.StringIO()), self.assertRaisesRegex(RuntimeError, "threads exceed the worker grant"):
+            check_lean.main(["--workers", "1", "--threads", "2",
+                             "--resource-reason", "host's eight-CPU allocation"])
+        self.assertEqual(state.phases, [])
+        self.assertFalse(state.host.proof.exists())
 
     def check_fails(self, state: SimpleNamespace, expected: str,
                     arguments: list[str] | None = None) -> None:
@@ -956,7 +987,8 @@ class LeanNativeDependencyTests(unittest.TestCase):
             host.lean.symlink_to(native.lean, target_is_directory=True)
             (root / "src").mkdir()
             inputs = {root / "proof" / name: contents.encode() for name, contents in (
-                ("lakefile.lean", "import Lake\nopen Lake DSL\npackage probe\nlean_lib Silver\n"),
+                ("lakefile.lean", "import Lake\nopen Lake DSL\npackage probe where\n"
+                 "  weakLeanArgs := #[\"-j1\"]\nlean_lib Silver\n"),
                 ("lean-toolchain", (ROOT / "proof/lean-toolchain").read_text()),
                 ("Silver/Removed.lean", "def Silver.removed : Nat := 42\n"),
                 ("Silver/Importer.lean", "import Silver.Removed\n"
@@ -967,6 +999,7 @@ class LeanNativeDependencyTests(unittest.TestCase):
                 ("Silver.lean", "import Silver.Transitive\nimport Silver.Independent\n"))}
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
+            environment["LEAN_NUM_THREADS"] = "1"
 
             def lake(*arguments: str) -> subprocess.CompletedProcess[str]:
                 return subprocess.run([str(host.lean / "bin/lake"), *arguments],
@@ -990,7 +1023,7 @@ class LeanNativeDependencyTests(unittest.TestCase):
             self.assertIn("Silver.Removed", result.stdout + result.stderr)
             probe = host.proof / "Probe.lean"
             probe.write_text("import Silver.Transitive\n#check Silver.transitive\n")
-            result = lake("env", "lean", "Probe.lean")
+            result = lake("env", "lean", "-j1", "Probe.lean")
             self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertIn("Silver.Removed", result.stdout + result.stderr)
             result = lake("build", "+Silver.Independent")
@@ -1003,6 +1036,8 @@ class LeanNativeDependencyTests(unittest.TestCase):
         native = native_layout(ROOT)
         if not (native.lean / "bin/lake").is_file():
             self.skipTest("install the pinned native Lean tools to check Lake configuration")
+        available = check_lean.available_cpus()
+        changed_workers, changed_threads = min(3, available), min(2, available)
         with tempfile.TemporaryDirectory(prefix="silver lean config-") as temporary:
             root = Path(temporary).resolve()
             host = HostLayout(root, native.key)
@@ -1044,25 +1079,27 @@ class LeanNativeDependencyTests(unittest.TestCase):
             self.assertIn("lake workers=1", first.stdout + first.stderr)
             artifact = host.proof / ".lake/build/lib/lean/Silver/Audit.olean"
             before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
-            build(3, 2, 512)
+            build(changed_workers, changed_threads, 512)
             self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
             # Force a new Lean process after changing only the cached Lake
             # configuration. Without --reconfigure it still receives -j1/-M256.
             (host.proof / "Silver/Audit.lean").write_bytes(
                 audit_source + b"example : 2 + 2 = 4 := rfl\n")
-            changed = build(3, 2, 512)
-            self.assertRegex(changed.stdout + changed.stderr, r"\s-j2\s-M512\b")
-            self.assertIn("lake workers=3", changed.stdout + changed.stderr)
-            # Returning to automatic settings preserves accepted objects and
-            # removes both overrides from the next actual compiler invocation.
+            changed = build(changed_workers, changed_threads, 512)
+            self.assertRegex(changed.stdout + changed.stderr, rf"\s-j{changed_threads}\s-M512\b")
+            self.assertIn(f"lake workers={changed_workers}", changed.stdout + changed.stderr)
+            # The runner resolves automatic threads to its grant explicitly.
+            # Returning to that allocation removes the memory override while
+            # preserving accepted objects, including on a one-CPU test grant.
             before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
-            build(3, None, None)
+            build(available, available, None)
             self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
             (host.proof / "Silver/Audit.lean").write_bytes(
                 audit_source + b"example : 3 + 3 = 6 := rfl\n")
-            automatic = build(3, None, None)
-            self.assertNotRegex(automatic.stdout + automatic.stderr, r"\s-[jM]\d+\b")
-            self.assertIn("lake workers=3", automatic.stdout + automatic.stderr)
+            automatic = build(available, available, None)
+            self.assertRegex(automatic.stdout + automatic.stderr, rf"\s-j{available}\b")
+            self.assertNotRegex(automatic.stdout + automatic.stderr, r"\s-M\d+\b")
+            self.assertIn(f"lake workers={available}", automatic.stdout + automatic.stderr)
 
     def test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects(self) -> None:
         native = native_layout(ROOT)
@@ -1099,6 +1136,7 @@ class LeanNativeDependencyTests(unittest.TestCase):
             inputs[root / "proof/Silver.lean"] = ("\n".join(imports) + "\n").encode()
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
+            environment["LEAN_NUM_THREADS"] = "1"
             command = [str(host.lean / "bin/lake"), "--rehash", "-K", "silverThreads=1",
                        "build", "Silver"]
 

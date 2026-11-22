@@ -13,14 +13,14 @@ theorem model_literal_operands (text : Source) (position : Nat) :
 
 theorem model_image_operands (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    (arrays : ArrayBindings.Table) (initials : ArrayBindings.Initials) (elaborating : Bool) :
     (imageAt text position names scalarNames integerHidden arrays initials elaborating).operands ≤ maxExpressionOperands := by
   unfold imageAt
   dsimp only
   split <;> simp [invalidValue, imageValue, maxExpressionOperands]
 
 theorem model_slice_operands (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool) :
     (indexedAt text position names scalarNames arrays initials elaborating false).operands ≤ maxExpressionOperands := by
   unfold indexedAt
@@ -40,7 +40,7 @@ theorem model_slice_operands (text : Source) (position : Nat) (names : BindingEn
 
 theorem model_value_operands (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    (arrays : ArrayBindings.Table) (initials : ArrayBindings.Initials) (elaborating : Bool) :
     (valueAt text position names scalarNames integerHidden arrays initials elaborating).operands ≤ maxExpressionOperands := by
   unfold valueAt
   dsimp only
@@ -60,7 +60,7 @@ theorem model_literal_native (text : Source) (valid : ValidText text) (position 
 
 theorem model_image_native (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    (arrays : ArrayBindings.Table) (initials : ArrayBindings.Initials) (elaborating : Bool) :
     NativeValue text (imageAt text position names scalarNames integerHidden arrays initials elaborating) := by
   have indices := model_image_index_bounds text position names
     (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
@@ -70,7 +70,7 @@ theorem model_image_native (text : Source) (position : Nat) (names : BindingEnvi
 
 theorem model_value_native (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (namesValid : NativeNames text names) :
     NativeValue text (valueAt text position names scalarNames integerHidden arrays initials elaborating) := by
   have indices := model_value_index_bounds text valid position names
@@ -81,7 +81,7 @@ theorem model_value_native (text : Source) (valid : ValidText text) (position : 
 
 theorem model_scan_native (text : Source) (valid : ValidText text) (names : BindingEnvironment)
     (scan : ExpressionState) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (namesValid : NativeNames text names) (scanValid : NativeScan text scan) :
     NativeScan text (expressionStep text names scan scalarNames integerHidden arrays initials elaborating) ∧
       ((expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position = 0 ∨

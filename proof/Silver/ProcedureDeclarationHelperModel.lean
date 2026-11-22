@@ -56,51 +56,51 @@ theorem parameterStep_native {text state arguments}
         · exact valid.bounds
         · exact (invalid_native text).bounds
 
-/-- This preservation lemma is used only by Prefix_Step, whose complete native
-domain supplies the nonempty formal. The separate raw Append interpreter above
-continues to cover arbitrary component-typed formals, including empty bounds. -/
+/-- Prefix_Step admits any component-typed formal with its written source
+name and nonempty interval. Its type/mode guards establish validity without
+requiring the stronger declaration-formal predicate. -/
+theorem appendParameter_native_raw {text frame parameter}
+    (valid : FunctionDeclarationNative.NativeValidState text frame)
+    (name : ProcedureBindings.NameSpan text parameter.first parameter.after)
+    (bounded : parameter.bounds.Bounded)
+    (nonempty : parameter.bounds.lower ≤ parameter.bounds.upper) :
+    FunctionDeclarationNative.NativeValidState text (appendProcedureParameter frame parameter) := by
+  refine ⟨?_, appendProcedureParameter_headerReady valid.ready nonempty, ?_⟩
+  · by_cases named : parameter.typeId ≠ 0
+    · rw [appendProcedureParameter, ite_eq_left named]
+      split
+      · exact Expressions.model_invalid_state_valid text
+      · exact appendArrayParameter_valid valid.base name
+    · exact appendProcedureParameter_valid valid.base
+        ⟨name, bounded, nonempty, (fun present => False.elim (named present)), by
+          have zero : parameter.typeId = 0 := Classical.not_not.mp named
+          simp [zero]⟩
+  · dsimp only [appendProcedureParameter, appendArrayParameter]
+    split <;> split <;> (try split) <;>
+      first | exact valid.bounds | exact (invalid_native text).bounds
+
 theorem appendParameter_native {text frame parameter}
     (valid : FunctionDeclarationNative.NativeValidState text frame)
     (formal : ProcedureBindings.ValidFormal text parameter) :
-    FunctionDeclarationNative.NativeValidState text (appendProcedureParameter frame parameter) := by
-  refine ⟨appendProcedureParameter_valid valid.base formal, ?_, ?_⟩
-  · dsimp only [appendProcedureParameter]
-    split
-    · split
-      · exact Predicate.ScalarMetadata.headerReady_empty
-      · apply valid.ready.append
-        · simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not]
-          have nonempty := formal.2.2
-          omega
-        · intro _
-          exact ⟨Int.le_refl _, Int.le_refl _⟩
-    · split
-      · exact Predicate.ScalarMetadata.headerReady_empty
-      · exact valid.ready
-  · dsimp only [appendProcedureParameter]
-    split <;> split
-    · exact (invalid_native text).bounds
-    · exact valid.bounds
-    · exact (invalid_native text).bounds
-    · exact valid.bounds
+    FunctionDeclarationNative.NativeValidState text (appendProcedureParameter frame parameter) :=
+  appendParameter_native_raw valid formal.1 formal.2.1 formal.2.2.1
 
 theorem prefixStep_native (text : Source) (readFrame frame : ParserState)
     (parameter : ProcedureBindings.Formal) (declarationCount : Nat)
     (valid : PrefixStepDomain text readFrame frame parameter declarationCount) :
     FunctionDeclarationNative.NativeValidState text
       (procedurePrefixStep text readFrame frame parameter declarationCount) := by
-  have formal : ProcedureBindings.ValidFormal text parameter :=
-    ⟨valid.2.2.2.2.2.2.1, valid.2.2.2.2.1.2.2, by
-      have nonempty := valid.2.2.2.2.2.2.2
-      simp only [Bool.not_eq_true', Integer.Interval.isEmpty, decide_eq_false_iff_not] at nonempty
-      omega⟩
   dsimp only [procedurePrefixStep]
   split
   · exact invalid_native text
-  · apply appendParameter_native
+  · apply appendParameter_native_raw
     · exact (FunctionDeclarationNative.StateInput.withPosition valid.1 valid.2.2.1 _
         (fixedAfter_result_bound text _ ";" false (by decide))).2
-    · exact formal
+    · exact valid.2.2.2.2.2.2.1
+    · exact valid.2.2.2.2.1.2.2.1
+    · have nonempty := valid.2.2.2.2.2.2.2
+      simp only [Bool.not_eq_true', Integer.Interval.isEmpty, decide_eq_false_iff_not] at nonempty
+      omega
 
 theorem model_contracts : HelperContracts modelCalls where
   parameterStep text tv state arguments valid :=

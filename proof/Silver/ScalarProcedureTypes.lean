@@ -4,8 +4,8 @@ public import Silver.ScalarFunctionTypes
 
 @[expose] public section
 
-/-! Procedure interfaces retain parameter modes and declared scalar domains.
-Inputs and outputs are separate tuples; an `out` formal has no incoming value. -/
+/-! Procedure interfaces distinguish immutable scalar or array inputs from
+scalar writable formals. An `out` formal has no incoming value. -/
 namespace Silver.ScalarProcedures
 open ScalarFunctions (ScalarType Value ArgumentsFit)
 
@@ -40,7 +40,8 @@ def outTypes : List Formal → List ScalarType
 
 def Signature.Valid (signature : Signature) : Prop :=
   signature.formals ≠ [] ∧
-    (∀ formal ∈ signature.formals, formal.domain.Valid) ∧
+    (∀ formal ∈ signature.formals, formal.domain.Valid ∧
+      (formal.mode = .input ∨ formal.domain.IsScalar)) ∧
     outputTypes signature.formals ≠ []
 
 abbrev Signatures := List Signature

@@ -1,0 +1,126 @@
+[
+  {
+    "run_id": "20261121T233118-8e63bc6baccb",
+    "kind": "tool-python3",
+    "outcome": "failure",
+    "error": "RuntimeError: native toolchain is not set up; run python3 scripts/bootstrap.py",
+    "started_utc": "2026-11-21T23:31:19.865776+00:00",
+    "finished_utc": "2026-11-21T23:31:20.345675+00:00",
+    "managed_duration_seconds": 1.036523337,
+    "allocation": {
+      "workers": {
+        "actual": 8,
+        "automatic": 8,
+        "requested": null
+      }
+    },
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "worktree": {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-proof-410",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-proof-410"
+    },
+    "command": [
+      "/usr/bin/python3",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-closeout-410/rosetta/refresh.py",
+      "--render",
+      "--output",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-closeout-410/rosetta",
+      "--list",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-closeout-410/rosetta.md"
+    ],
+    "test_returncode": []
+  },
+  {
+    "run_id": "20261121T233151-52b966341665",
+    "kind": "tool-python3",
+    "outcome": "success",
+    "error": null,
+    "started_utc": "2026-11-21T23:31:53.053018+00:00",
+    "finished_utc": "2026-11-21T23:31:56.223937+00:00",
+    "managed_duration_seconds": 3.366862748,
+    "allocation": {
+      "workers": {
+        "actual": 8,
+        "automatic": 8,
+        "requested": null
+      }
+    },
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "worktree": {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410"
+    },
+    "command": [
+      "/usr/bin/python3",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-closeout-410/rosetta/refresh.py",
+      "--render",
+      "--output",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-closeout-410/rosetta",
+      "--list",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-closeout-410/rosetta.md"
+    ],
+    "test_returncode": []
+  },
+  {
+    "run_id": "20261121T233202-07a8576e778c",
+    "kind": "test",
+    "outcome": "success",
+    "error": null,
+    "started_utc": "2026-11-21T23:32:03.544850+00:00",
+    "finished_utc": "2026-11-21T23:32:09.755591+00:00",
+    "managed_duration_seconds": 6.210652049,
+    "allocation": {
+      "workers": {
+        "actual": 8,
+        "automatic": 8,
+        "requested": null
+      }
+    },
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "worktree": {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-closeout-410",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-closeout-410"
+    },
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v",
+      "-p",
+      "test_rosetta.py"
+    ],
+    "test_returncode": [
+      0
+    ]
+  }
+]

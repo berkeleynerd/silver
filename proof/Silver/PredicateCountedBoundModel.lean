@@ -1,7 +1,7 @@
 module
 
 public import Silver.PredicateConditionAdmission
-public import Silver.ScalarExpressionAdmission
+public import Silver.ScalarArrayGrammarRecognition
 
 @[expose] public section
 
@@ -23,8 +23,8 @@ theorem countedArrays_valid {text : Source} {names : ArrayBindings.Metadata}
 
 def countedBoundGate (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (first after : Nat) : ScalarExpression.Result :=
-  ScalarExpression.read text position (context.readingNames facts) first after
-    (arrays := countedArrays context.arrayNames) (elaborating := context.elaborating)
+  ScalarExpression.ArrayGrammar.read text position (context.readingNames facts)
+    context.arrayTable first after (elaborating := context.elaborating) (arrayReads := .mutableElements)
 
 /-- Filtering is an admission gate. Successful readings retain the original
 scalar reader's complete result and its original array symbolic identities. -/
@@ -51,7 +51,7 @@ theorem readCountedBound_bound (text : Source) (context : ParseContext) (positio
   · simp [zero]
   · have original := readCountedBound_original zero
     rw [original] at zero ⊢
-    obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound bounded zero
+    obtain ⟨expression, parsed⟩ := ScalarExpression.ArrayGrammar.read_sound bounded zero
     exact parsed.cursorBounds.2.2
 
 end Silver.Predicate

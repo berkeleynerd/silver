@@ -64,9 +64,9 @@ def booleanArrayEquation (calls : Calls) (text : Source) (context : Context)
     (position : Nat) (facts : ActiveFlow) : Nat :=
   let first := calls.skip text position
   let after := calls.nameAfter text first
-  let target := calls.arrayLookup text context.arrayNames first after
+  let target := calls.arrayLookup text context.arrayTable first after
   let subscript := calls.scalarIndex text (calls.take text after .leftParenthesis)
-    (calls.readingNames context facts) context.maskFirst context.maskAfter
+    (calls.readingNames context facts) context.maskFirst context.maskAfter context.arrayTable .noElements
   let close := calls.take text subscript.after .rightParenthesis
   if first = 0 ∨ after ≤ first ∨ target = 0 ∨
       (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
@@ -84,7 +84,8 @@ def booleanAtomEquation (calls : Calls) (text : Source) (context : Context) (pos
       (context.maskFirst ≠ 0 ∧ calls.equalName text context.maskFirst context.maskAfter first after) ∨
       calls.scalarLookup text context.scalarNames first after ≠ 0 ∨
       calls.lookup text context.names first after ≠ 0 ∨
-      calls.arrayLookup text context.arrayNames first after ≠ 0 then 0
+      calls.arrayLookup text context.arrayTable first after ≠ 0 ∨
+      calls.arrayTypeLookup text context.arrayTypes first after ≠ 0 then 0
   else if calls.booleanLookup text context.booleanNames first after ≠ 0 then after
   else if (calls.nameIs text first after "true" && !context.trueHidden) ||
       (calls.nameIs text first after "false" && !context.falseHidden) then after else 0
@@ -103,7 +104,7 @@ def primaryEquation (calls : Calls) (text : Source) (context : Context) (positio
     ⟨calls.booleanAtom text context position, facts, facts⟩
   else if context.dynamicFirst = 0 then calls.invalidCondition facts
   else
-    let afterCall := calls.callAfter text context.names position .validity context.scalarNames context.arrayNames
+    let afterCall := calls.callAfter text context.names position .validity context.scalarNames context.arrayTable
       (context.subtypeHiding.get .validity ||
         (decide (context.maskFirst ≠ 0) && calls.nameIs text context.maskFirst context.maskAfter "input_is_valid"))
       context.booleanNames
@@ -132,9 +133,9 @@ def booleanRelationEquation (calls : Calls) (text : Source) (context : Context) 
 def characterEquation (calls : Calls) (text : Source) (context : Context) (position : Nat)
     (facts : ActiveFlow) (initials : ArrayBindings.Initials) : ConditionResult :=
   let overlay := calls.readingNames context facts
-  let left := calls.characterAt text position context.names overlay context.arrayNames initials context.elaborating
+  let left := calls.characterAt text position context.names overlay context.arrayTable initials context.elaborating
   let operator := calls.comparison text left.after
-  let right := calls.characterAt text operator.after context.names overlay context.arrayNames initials context.elaborating
+  let right := calls.characterAt text operator.after context.names overlay context.arrayTable initials context.elaborating
   if left.after = 0 ∨ operator.after = 0 ∨ right.after ≤ position ∨ !(left.nonliteralSeen || right.nonliteralSeen)
   then invalidCondition facts else ⟨right.after, facts, facts⟩
 
@@ -250,12 +251,13 @@ theorem booleanArray_denotation (calls : Calls) (text : Source) (context : Conte
   dsimp +instances only [booleanArrayBody, Expr.eval, Inputs.locals, Locals.set, Calls.get,
     Field.get, Expr.callSkip, Expr.callNameAfter, Expr.callArrayLookup, Expr.callScalarIndex,
     Expr.callTake, Expr.callReadingNames, Expr.callScalarLookup, Expr.callEqualName]
-  simp [booleanArrayEquation, or_assoc]
+  simp [booleanArrayEquation, Context.arrayTable, or_assoc]
+  rfl
 
 theorem booleanAtom_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) :
     booleanAtomBody.eval calls ({text, context, position} : Inputs).locals = booleanAtomEquation calls text context position := by
-  dsimp +instances only [booleanAtomBody, Expr.eval, Expr.declared, Expr.declaredCondition, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callEqualName, Expr.callNameIs, Expr.callArrayLookup, Expr.callBooleanLookup, Expr.callBooleanArray, Expr.callBooleanAtom, Expr.callBooleanFactor, Expr.callBooleanRelation, Expr.callCharacterCondition, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callScalarInFlow, Expr.callStringInFlow, Expr.callScalarCondition, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callXorFree, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
-  simp [booleanAtomEquation, or_assoc]
+  dsimp +instances only [booleanAtomBody, Expr.eval, Expr.declared, Expr.declaredCondition, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callEqualName, Expr.callNameIs, Expr.callArrayLookup, Expr.callArrayTypeLookup, Expr.callBooleanLookup, Expr.callBooleanArray, Expr.callBooleanAtom, Expr.callBooleanFactor, Expr.callBooleanRelation, Expr.callCharacterCondition, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callScalarInFlow, Expr.callStringInFlow, Expr.callScalarCondition, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callXorFree, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  simp [booleanAtomEquation, Context.arrayTable, or_assoc]
 
 theorem booleanFactor_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) (facts : ActiveFlow) (initials : ArrayBindings.Initials) :
     booleanFactorBody.eval calls ({text, context, position, facts, initials} : Inputs).locals = booleanFactorEquation calls text context position facts initials := by

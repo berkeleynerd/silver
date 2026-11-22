@@ -59,10 +59,10 @@ theorem loopInner_analysis {context : ParseContext} (header : LoopHeader)
     (space : context.scalarNames.length + 1 ≤ ArrayBindings.scalarLimit) :
     (loopInner context header).analysis = context.analysis.withIndex (context.scalarNames.length + 1)
       header.bounds := by
-  change ArrayFlow.analysis context.arrayNames (ScalarMetadata.analysis _ _) = _
+  change ArrayViews.analysis context.arrayNames (ScalarMetadata.analysis _ _) = _
   dsimp only [loopInner]
   rw [analysis_append_index _ _ _ declarationsBound rfl rfl]
-  exact ArrayFlow.analysis_withIndex _ _ _ _ space
+  exact ArrayViews.analysis_withIndex _ _ _ _ space
 
 theorem loopInner_baseReady {context : ParseContext} (header : LoopHeader)
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
@@ -116,10 +116,10 @@ theorem loopHeader_model {text : Source} {context : ParseContext} {scan : BodySc
     path := loopContext scan.facts.path bounds } = _
   rw [ParseContext.flow_withPath]
   simp only [ParseContext.flow, bodyMode]
-  change {ArrayFlow.flow context.arrayNames ((scan.facts.widen context.scalarNames).append bounds) with
+  change {ArrayViews.flow context.arrayNames ((scan.facts.widen context.scalarNames).append bounds) with
     path := loopContext scan.facts.path bounds} = _
-  rw [ArrayFlow.flow_append _ _ _ (by rw [ActiveFlow.widen_count _ _ count, count]; exact space),
-    ArrayFlow.flow_widen _ _ _ _ count ready,
+  rw [ArrayViews.flow_append _ _ _ (by rw [ActiveFlow.widen_count _ _ count, count]; exact space),
+    ArrayViews.flow_widen _ _ _ _ count ready,
     ActiveFlow.widen_count _ _ count, count]
   rfl
 
@@ -160,7 +160,7 @@ theorem loopAfterFlow_model {context : ParseContext} {before after : ActiveFlow}
     context.flow (loopAfterFlow context before after lower upper) =
       loopExit context.analysis (context.flow before) (context.flow after) lower upper := by
   have widened := congrArg Flow.scalars
-    (ArrayFlow.flow_widen context.arrayNames context.scalarNames context.declarationCount before count ready)
+    (ArrayViews.flow_widen context.arrayNames context.scalarNames context.declarationCount before count ready)
   cases empty : (Integer.loopBounds lower upper).isEmpty with
   | true => simp only [loopAfterFlow, loopExit, empty, ↓reduceIte, ParseContext.flow_withPath]; rfl
   | false =>
@@ -178,18 +178,20 @@ theorem loopAfterHeader_model {context : ParseContext} {before after : ActiveFlo
   unfold loopAfterHeader
   split
   · have widened := congrArg Flow.scalars
-      (ArrayFlow.flow_widen context.arrayNames context.scalarNames context.declarationCount before count ready)
-    simpa only [ParseContext.flow, bodyMode, arrayLoopExit, ArrayFlow.flow, ArrayFlow.ranges, ActiveFlow.model, ParseContext.analysis] using
+      (ArrayViews.flow_widen context.arrayNames context.scalarNames context.declarationCount before count ready)
+    simpa only [ParseContext.flow, bodyMode, arrayLoopExit, ArrayViews.flow, ArrayFlow.flow, ArrayFlow.ranges,
+      ArrayBindings.viewRanges, ArrayBindings.viewElaborating, Bool.false_and,
+      ActiveFlow.model, ParseContext.analysis, ArrayViews.analysis] using
       congrArg (fun ranges => Flow.mk after.path ranges) widened
   · exact loopAfterFlow_model bodyMode ready count _ _
 
 /-- Separation follows from the concrete allocation layout and the source
 scanner's capacity guard, never from a bound assumed for generic core names. -/
 theorem arrayBinding_scalar_apart (item : ArrayBindings.Binding) (index : Nat)
-    (low : index ≤ ArrayBindings.scalarLimit) : ¬item.descriptor.ContainsCell index := by
+    (low : index ≤ ArrayBindings.scalarLimit) : ¬item.viewDescriptor.ContainsCell index := by
   intro inside
-  simp only [ArrayBindings.Binding.descriptor, Integer.ArrayDescriptor.ContainsCell] at inside
-  omega
+  unfold ArrayBindings.Binding.viewDescriptor at inside
+  split at inside <;> simp only [ArrayBindings.Binding.descriptor, Integer.ArrayDescriptor.ContainsCell] at inside <;> omega
 
 theorem loopArrayReady {text : Source} {context : ParseContext} {scan : BodyScan}
     (bodyMode : context.elaborating = false)
@@ -197,50 +199,51 @@ theorem loopArrayReady {text : Source} {context : ParseContext} {scan : BodyScan
     (space : context.scalarNames.length + 1 ≤ ArrayBindings.scalarLimit)
     (allowed : loopArrayAllowed text context scan = true) :
     arrayLoopReady context.analysis (context.flow scan.facts) (context.scalarNames.length + 1)
-      (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor = true := by
+      (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).viewDescriptor = true := by
   have constraints := allowed
   simp only [loopArrayAllowed, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq] at constraints
-  have nonzero : loopArrayTarget text context scan ≠ 0 := constraints.1.1.1.2.2
+  have nonzero : loopArrayTarget text context scan ≠ 0 := constraints.1.1.1.1.2.2
   have immutable : (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).mutable = false :=
-    constraints.1.1.2
+    constraints.1.1.1.2
   have targetBound : loopArrayTarget text context scan ≤ context.arrayNames.length := by
     unfold loopArrayTarget arrayTarget
     dsimp only
     split
     · exact Nat.zero_le _
-    · exact ArrayBindings.Native.lookup_bound ..
-  have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
-  have valid := (arraysReady.1.2.1 _ member).2.2.2
+    · exact ArrayBindings.lookup_bound ..
+  have member := ArrayBindings.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
+  have valid := (arraysReady.member_valid member).2.1.1
   have integerKind : (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).isBoolean = false :=
-    constraints.2
-  have selected := ArrayBindings.mem_integerNames.mpr ⟨member, integerKind⟩
-  have metadata := ArrayBindings.integerNames_validBindings (fun entry found => (arraysReady.1.2.1 entry found).2.2.2)
-  have ordered := ArrayBindings.integerNames_ordered arraysReady.2
-  simp only [ParseContext.flow, bodyMode]
+    constraints.1.2
   apply (arrayLoopReady_iff _ _ _ _).mpr
-  refine ⟨ArrayBindings.binding_descriptor_valid valid, arrayBinding_scalar_apart _ _ space,
-    ArrayBindings.body_ranges_components
-      metadata ordered selected [] _, ArrayBindings.body_ranges_components
-      metadata ordered selected [] _, ?_, ArrayBindings.binding_component_valid valid⟩
-  intro cell inside
-  exact (ArrayBindings.ordered_mutability metadata ordered selected inside _).trans immutable
+  refine ⟨ArrayBindings.Binding.viewDescriptor_valid valid, arrayBinding_scalar_apart _ _ space,
+    ?_, ?_, ?_, ArrayBindings.Binding.viewDescriptor_componentValid valid⟩
+  · simpa only [ParseContext.flow, bodyMode, ParseContext.arrayTable] using
+      arraysReady.view_componentRanges member integerKind scan.facts.model.scalars
+  · simpa only [ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayFlow.ranges,
+      ArrayBindings.viewRanges, ArrayBindings.viewElaborating, Bool.false_and, ParseContext.arrayTable] using
+      arraysReady.view_componentRanges member integerKind
+        (ScalarMetadata.analysis context.scalarNames context.declarationCount).declared
+  · intro cell inside
+    exact (arraysReady.view_mutability member integerKind inside
+      (ScalarMetadata.analysis context.scalarNames context.declarationCount).mutable).trans immutable
 
 private theorem checked_statement_compatible {context : ParseContext} {before after : ActiveFlow}
     {item : Statement} {booleans : Boolean.Analysis} (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount before)
-    (checked : item.check (signatures := catalogSignatures catalog) (procedures := ProcedureBindings.catalogSignatures procedures) context.names.shape context.analysis (context.flow before) booleans = some (context.flow after))
+    (checked : item.check (signatures := catalogSignatures catalog context.arrayTypes) (procedures := ProcedureBindings.catalogSignatures procedures context.arrayTypes) context.names.shape context.analysis (context.flow before) booleans = some (context.flow after))
     (count : after.count = context.scalarNames.length) :
     ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount after := by
   apply ScalarMetadata.overlayCompatible_of_preserved compatible count
   intro index positive bounded mutable declared
   have readonly : context.analysis.mutable index = false := by
-    simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability, ArrayBindings.integerRefinability,
+    simp only [ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability, ArrayBindings.integerRefinability,
       ArrayBindings.mutability_scalar _ _ (Nat.le_trans bounded base.size),
       ScalarMetadata.analysis, ScalarExpression.mutability,
       show 0 < index ∧ index ≤ context.scalarNames.length from ⟨positive, bounded⟩,
       and_self, decide_true, Bool.true_and, mutable]
   have fixed : context.analysis.refinable index = false := by
-    simp only [ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
+    simp only [ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
       ArrayBindings.refinability_scalar _ _ (Nat.le_trans bounded base.size),
       ScalarMetadata.analysis, ScalarMetadata.refinable,
       mutable, Bool.false_or, show ¬context.declarationCount < index by omega,
@@ -307,7 +310,7 @@ mutual
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
       (bounded : scan.facts.path.Bounded) (parsed : StatementAt (catalog := catalog) (procedures := procedures) text context scan item result) :
       item.WellFormed context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-      item.lower.check (signatures := catalogSignatures catalog) (procedures := ProcedureBindings.catalogSignatures procedures) context.names.shape context.analysis (context.flow scan.facts) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = some (context.flow result.facts) ∧
+      item.lower.check (signatures := catalogSignatures catalog context.arrayTypes) (procedures := ProcedureBindings.catalogSignatures procedures context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = some (context.flow result.facts) ∧
       result.facts.path.Bounded := by
     cases parsed with
     | basic _ _ _ reading _ =>
@@ -332,10 +335,10 @@ mutual
       (SourceStatement.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
         lower upper body).WellFormed context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
       (SourceStatement.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
-        lower upper body).lower.check (signatures := catalogSignatures catalog) (procedures := ProcedureBindings.catalogSignatures procedures) context.names.shape context.analysis (context.flow scan.facts) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
+        lower upper body).lower.check (signatures := catalogSignatures catalog context.arrayTypes) (procedures := ProcedureBindings.catalogSignatures procedures context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
           some (context.flow result.facts) ∧ result.facts.path.Bounded := by
     cases parsed with
-    | loop counted allowed lowerRead upperRead _ bodyRead resultEq _ _ =>
+    | loop counted allowed boundsRead _ bodyRead resultEq _ _ =>
         have space := loopNameAllowed_space base.size allowed
         have bodyGood := body_meaning valid procedureValid (context := loopInner context (loopHeader text context scan))
           (scan := (loopHeader text context scan).entry) (by simpa only [loopInner] using bodyMode) normal
@@ -345,8 +348,8 @@ mutual
         have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
         simp only [bodyTokens_facts] at factsEq
         have ranges := context.reading_ranges compatible
-        have lowerInferred := lowerRead.inferred
-        have upperInferred := upperRead.inferred
+        have lowerInferred := (boundsRead.inferred counted arraysReady).1
+        have upperInferred := (boundsRead.inferred counted arraysReady).2
         rw [ranges] at lowerInferred upperInferred
         refine ⟨?_, ?_, ?_⟩
         · simp only [SourceStatement.WellFormed]
@@ -377,10 +380,10 @@ mutual
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
       (bounded : scan.facts.path.Bounded) (parsed : ArrayLoopAt (catalog := catalog) (procedures := procedures) text context scan body result) :
       (SourceStatement.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
-        (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body).WellFormed
+        (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).viewDescriptor body).WellFormed
           context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
       (SourceStatement.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
-        (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body).lower.check (signatures := catalogSignatures catalog) (procedures := ProcedureBindings.catalogSignatures procedures)
+        (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).viewDescriptor body).lower.check (signatures := catalogSignatures catalog context.arrayTypes) (procedures := ProcedureBindings.catalogSignatures procedures context.arrayTypes)
           context.names.shape context.analysis (context.flow scan.facts) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = some (context.flow result.facts) ∧
       result.facts.path.Bounded := by
     cases parsed with
@@ -405,7 +408,7 @@ mutual
         have componentValid := ((arrayLoopReady_iff _ _ _ _).mp ready).2.2.2.2.2
         have nonempty : (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds.isEmpty = false := by
           simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
-          exact componentValid.2
+          simpa only [ArrayBindings.Binding.viewDescriptor_components] using componentValid.2
         refine ⟨?_, ?_, ?_⟩
         · simp only [SourceStatement.WellFormed]
           exact ⟨by omega, body_nonempty (catalog := catalog) (procedures := procedures) bodyRead, bodyGood.1⟩
@@ -421,7 +424,7 @@ mutual
               simp only [loopEntry, arrayLoopEntry, loopContext, nonempty, Bool.false_eq_true, ↓reduceIte]
           rw [entry] at checked
           simp only [loopInner] at checked
-          simp only [ArrayBindings.Binding.descriptor] at checked ⊢
+          simp only [ArrayBindings.Binding.viewDescriptor_components] at checked ⊢
           rw [checked]
           simp only [Option.map_some, factsEq, loopAfterHeader_model bodyMode base.body compatible.count,
             isArray, ↓reduceIte]
@@ -441,7 +444,7 @@ mutual
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
       (bounded : scan.facts.path.Bounded) (parsed : ChoiceAt (catalog := catalog) (procedures := procedures) text context scan condition yes tail result) :
       (SourceStatement.choice condition yes tail).WellFormed context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-      (SourceStatement.choice condition yes tail).lower.check (signatures := catalogSignatures catalog) (procedures := ProcedureBindings.catalogSignatures procedures) context.names.shape context.analysis (context.flow scan.facts) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
+      (SourceStatement.choice condition yes tail).lower.check (signatures := catalogSignatures catalog context.arrayTypes) (procedures := ProcedureBindings.catalogSignatures procedures context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
         some (context.flow result.facts) ∧ result.facts.path.Bounded := by
     cases parsed with
     | choice conditionRead _ yesRead _ noRead resultEq _ _ =>
@@ -483,7 +486,7 @@ mutual
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
       (bounded : scan.facts.path.Bounded) (parsed : AlternativeAt (catalog := catalog) (procedures := procedures) text context scan tail result) :
       tail.WellFormed context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-      checkStatements (signatures := catalogSignatures catalog) (procedures := ProcedureBindings.catalogSignatures procedures) context.names.shape context.analysis (context.flow scan.facts) tail.lower (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = some (context.flow result.facts) ∧
+      checkStatements (signatures := catalogSignatures catalog context.arrayTypes) (procedures := ProcedureBindings.catalogSignatures procedures context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts) tail.lower (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = some (context.flow result.facts) ∧
       result.facts.path.Bounded := by
     cases parsed with
     | absent =>
@@ -531,7 +534,7 @@ mutual
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
       (bounded : scan.facts.path.Bounded) (parsed : BodyTailAt (catalog := catalog) (procedures := procedures) text context stop scan items result) :
       SourceStatementsWellFormed context.hasArguments context.names.shape items (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-      checkStatements (signatures := catalogSignatures catalog) (procedures := ProcedureBindings.catalogSignatures procedures) context.names.shape context.analysis (context.flow scan.facts) (lowerStatements items) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
+      checkStatements (signatures := catalogSignatures catalog context.arrayTypes) (procedures := ProcedureBindings.catalogSignatures procedures context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts) (lowerStatements items) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
         some (context.flow result.facts) ∧ result.facts.path.Bounded := by
     cases parsed with
     | done =>
@@ -560,7 +563,7 @@ mutual
       (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
       (bounded : scan.facts.path.Bounded) (parsed : BodyAt (catalog := catalog) (procedures := procedures) text context scan stop items result) :
       SourceStatementsWellFormed context.hasArguments context.names.shape items (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-      checkStatements (signatures := catalogSignatures catalog) (procedures := ProcedureBindings.catalogSignatures procedures) context.names.shape context.analysis (context.flow scan.facts) (lowerStatements items) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
+      checkStatements (signatures := catalogSignatures catalog context.arrayTypes) (procedures := ProcedureBindings.catalogSignatures procedures context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts) (lowerStatements items) (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
         some (context.flow result.facts) ∧ result.facts.path.Bounded := by
     cases parsed with
     | cons item _ rest _ =>
@@ -575,7 +578,14 @@ mutual
   termination_by (bodyRemaining text scan, 3)
 end
 
-theorem basicKind_closed {text context scan} (closed : ClosedFunctionContext context) :
+theorem LoopBoundsAt.source_frame {text context scan lower upper frame}
+    (reading : LoopBoundsAt text context scan lower upper) (closed : ClosedFunctionContext context frame) :
+    ScalarFunctions.frameExpression frame lower = true ∧ ScalarFunctions.frameExpression frame upper = true := by
+  cases reading with
+  | counted _ low high => exact ⟨closed.scalarExpression low, closed.scalarExpression high⟩
+  | range => exact ⟨rfl, rfl⟩
+
+theorem basicKind_closed {text context scan} (closed : ClosedFunctionContext context frame) :
     basicKind text context scan = .null ∨ basicKind text context scan = .scalarAssignment ∨
       basicKind text context scan = .booleanAssignment ∨ basicKind text context scan = .assignment := by
   unfold basicKind
@@ -584,41 +594,40 @@ theorem basicKind_closed {text context scan} (closed : ClosedFunctionContext con
   repeat' split <;> simp_all
 
 theorem basic_source_scalar {text context scan item result}
-    (closed : ClosedFunctionContext context)
+    (closed : ClosedFunctionContext context frame)
     (parsed : BasicAt (catalog := catalog) text context scan item result) :
     ScalarFunctions.pureStatement item.lower = true ∧
-      ScalarFunctions.scalarStatement item.lower = true := by
+      ScalarFunctions.frameStatement frame item.lower = true := by
   have kinds := basicKind_closed (text := text) (scan := scan) closed
   cases parsed.payload with
   | null => simp only [SourceStatement.lower, ScalarFunctions.pureStatement,
-      ScalarFunctions.scalarStatement, and_self]
+      ScalarFunctions.frameStatement, and_self]
   | output kind | put kind | reject kind | arrayAssignment kind | booleanArrayAssignment kind =>
       rcases kinds with allowed | allowed | allowed | allowed <;> simp_all
   | scalarCallAssignment _ reading | booleanCallAssignment _ reading =>
       simp only [SourceStatement.lower, ScalarFunctions.pureStatement,
-        ScalarFunctions.scalarStatement, actuals_source_scalar closed reading.call.actuals, and_self]
+        ScalarFunctions.frameStatement, actuals_source_scalar closed reading.call.actuals, and_self]
   | scalarAssignment _ _ reading =>
-      rw [closed.noArrays] at reading
       simp only [SourceStatement.lower, ScalarFunctions.pureStatement,
-        ScalarFunctions.scalarStatement, scalarExpression_source_scalar reading, and_self]
+        ScalarFunctions.frameStatement, closed.scalarExpression reading, and_self]
   | booleanAssignment _ _ reading =>
       simp only [SourceStatement.lower, ScalarFunctions.pureStatement,
-        ScalarFunctions.scalarStatement, condition_source_scalar closed reading, and_self]
+        ScalarFunctions.frameStatement, condition_source_scalar closed reading, and_self]
   | assignment kind _ =>
       have raw := basic_raw_positive (catalog := catalog) (parsed.equation ▸ parsed.positive)
       simp [basicRaw, kind, procedureCalleeAt_empty, closed.pure, invalidBody] at raw
 
 theorem ClosedFunctionContext.loopInner {context : ParseContext}
-    (closed : ClosedFunctionContext context) (header : LoopHeader) :
-    ClosedFunctionContext (loopInner context header) :=
-  ⟨closed.pure, closed.noArguments, closed.noNames, closed.noArrays⟩
+    (closed : ClosedFunctionContext context frame) (header : LoopHeader) :
+    ClosedFunctionContext (loopInner context header) frame :=
+  ⟨closed.pure, closed.noArguments, closed.noNames, closed.arrayViews⟩
 
 mutual
   theorem statement_source_scalar {text context scan item result}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : StatementAt (catalog := catalog) (procedures := {}) text context scan item result) :
       ScalarFunctions.pureStatement item.lower = true ∧
-        ScalarFunctions.scalarStatement item.lower = true := by
+        ScalarFunctions.frameStatement frame item.lower = true := by
     cases parsed with
     | basic _ _ _ reading _ => exact basic_source_scalar closed reading.empty_primitive
     | choice _ _ reading _ => exact choice_source_scalar closed reading
@@ -626,88 +635,84 @@ mutual
     | arrayLoop _ _ _ reading _ =>
         cases reading with
         | loop _ _ allowed _ _ _ _ _ =>
-            have emptyTarget : loopArrayTarget text context scan = 0 := by
-              simp only [loopArrayTarget, arrayTarget, closed.noArrays, ArrayBindings.lookup,
-                List.length_nil, ArrayBindings.lookupFrom]
-              split <;> rfl
-            simp [loopArrayAllowed, emptyTarget] at allowed
+            simp [loopArrayAllowed, closed.pure] at allowed
   termination_by (bodyRemaining text scan, 2)
 
   theorem loop_source_scalar {text context scan lower upper body result}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : LoopAt (catalog := catalog) (procedures := {}) text context scan lower upper body result) :
       ScalarFunctions.pureStatement (SourceStatement.forLoop (context.scalarNames.length + 1)
         (loopHeader text context scan).reverse lower upper body).lower = true ∧
-      ScalarFunctions.scalarStatement (SourceStatement.forLoop (context.scalarNames.length + 1)
+      ScalarFunctions.frameStatement frame (SourceStatement.forLoop (context.scalarNames.length + 1)
         (loopHeader text context scan).reverse lower upper body).lower = true := by
     cases parsed with
-    | loop _ _ lowerRead upperRead _ bodyRead _ _ _ =>
+    | loop _ _ boundsRead _ bodyRead _ _ _ =>
         have good := body_source_scalar (closed.loopInner _) bodyRead
-        rw [closed.noArrays] at lowerRead upperRead
+        have boundsGood := boundsRead.source_frame closed
         exact ⟨by simpa only [SourceStatement.lower, ScalarFunctions.pureStatement] using good.1,
-          by simp only [SourceStatement.lower, ScalarFunctions.scalarStatement,
-          scalarExpression_source_scalar lowerRead, scalarExpression_source_scalar upperRead,
+          by simp only [SourceStatement.lower, ScalarFunctions.frameStatement,
+          boundsGood.1, boundsGood.2,
           good.2, Bool.and_self]⟩
   termination_by (bodyRemaining text scan, 1)
 
   theorem choice_source_scalar {text context scan condition yes tail result}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : ChoiceAt (catalog := catalog) (procedures := {}) text context scan condition yes tail result) :
       ScalarFunctions.pureStatement (SourceStatement.choice condition yes tail).lower = true ∧
-        ScalarFunctions.scalarStatement (SourceStatement.choice condition yes tail).lower = true := by
+        ScalarFunctions.frameStatement frame (SourceStatement.choice condition yes tail).lower = true := by
     cases parsed with
     | choice conditionRead _ yesRead _ noRead _ _ _ =>
         have yesGood := body_source_scalar closed yesRead
         have noGood := alternative_source_scalar closed noRead
         simp only [SourceStatement.lower, ScalarFunctions.pureStatement,
-          ScalarFunctions.scalarStatement, condition_source_scalar closed conditionRead,
+          ScalarFunctions.frameStatement, condition_source_scalar closed conditionRead,
           yesGood.1, yesGood.2, noGood.1, noGood.2, Bool.and_self, and_self]
   termination_by (bodyRemaining text scan, 1)
 
   theorem alternative_source_scalar {text context scan tail result}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : AlternativeAt (catalog := catalog) (procedures := {}) text context scan tail result) :
       ScalarFunctions.pureStatements tail.lower = true ∧
-        ScalarFunctions.scalarStatements tail.lower = true := by
+        ScalarFunctions.frameStatements frame tail.lower = true := by
     cases parsed with
     | absent => simp only [SourceAlternative.lower, ScalarFunctions.pureStatements,
-        ScalarFunctions.scalarStatements, and_self]
+        ScalarFunctions.frameStatements, and_self]
     | otherwise _ _ _ _ bodyRead _ =>
         simpa only [SourceAlternative.lower] using body_source_scalar closed bodyRead
     | elsif _ _ conditionRead _ yesRead _ noRead _ _ _ =>
         have yesGood := body_source_scalar closed yesRead
         have noGood := alternative_source_scalar closed noRead
         simp only [SourceAlternative.lower, ScalarFunctions.pureStatements,
-          ScalarFunctions.scalarStatements, ScalarFunctions.pureStatement,
-          ScalarFunctions.scalarStatement, condition_source_scalar closed conditionRead,
+          ScalarFunctions.frameStatements, ScalarFunctions.pureStatement,
+          ScalarFunctions.frameStatement, condition_source_scalar closed conditionRead,
           yesGood.1, yesGood.2, noGood.1, noGood.2, Bool.and_self, and_self]
   termination_by (bodyRemaining text scan, 1)
 
   theorem bodyTail_source_scalar {text context stop scan items result}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : BodyTailAt (catalog := catalog) (procedures := {}) text context stop scan items result) :
       ScalarFunctions.pureStatements (lowerStatements items) = true ∧
-        ScalarFunctions.scalarStatements (lowerStatements items) = true := by
+        ScalarFunctions.frameStatements frame (lowerStatements items) = true := by
     cases parsed with
     | done => simp only [lowerStatements, ScalarFunctions.pureStatements,
-        ScalarFunctions.scalarStatements, and_self]
+        ScalarFunctions.frameStatements, and_self]
     | next _ _ itemRead _ restRead _ =>
         have first := statement_source_scalar closed itemRead
         have rest := bodyTail_source_scalar closed restRead
-        simp only [lowerStatements, ScalarFunctions.pureStatements, ScalarFunctions.scalarStatements,
+        simp only [lowerStatements, ScalarFunctions.pureStatements, ScalarFunctions.frameStatements,
           first.1, first.2, rest.1, rest.2, Bool.and_self, and_self]
   termination_by (bodyRemaining text scan, 3)
 
   theorem body_source_scalar {text context scan stop items result}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : BodyAt (catalog := catalog) (procedures := {}) text context scan stop items result) :
       ScalarFunctions.pureStatements (lowerStatements items) = true ∧
-        ScalarFunctions.scalarStatements (lowerStatements items) = true := by
+        ScalarFunctions.frameStatements frame (lowerStatements items) = true := by
     cases parsed with
     | cons itemRead _ restRead _ =>
         have first := statement_source_scalar closed itemRead
         have rest := bodyTail_source_scalar closed restRead
-        simp only [lowerStatements, ScalarFunctions.pureStatements, ScalarFunctions.scalarStatements,
+        simp only [lowerStatements, ScalarFunctions.pureStatements, ScalarFunctions.frameStatements,
           first.1, first.2, rest.1, rest.2, Bool.and_self, and_self]
   termination_by (bodyRemaining text scan, 3)
 end

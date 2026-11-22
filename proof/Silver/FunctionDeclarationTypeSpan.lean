@@ -44,4 +44,22 @@ theorem functionTypeAt_span (text : Source) (state : ParserState) (position : Na
         model_fixed_advances text _ "boolean" true (model_skip_valid text position positionBound) (by decide) nonzero,
         fixedAfter_result_bound text _ "boolean" true (by decide)⟩
 
+theorem formalTypeAt_span (text : Source) (state : ParserState) (position : Nat)
+    (positionBound : ValidCursor text position) :
+    (formalTypeAt text state position).after = 0 ∨
+      FunctionBindings.NameSpan text (skipAt text position) (formalTypeAt text state position).after := by
+  dsimp only [formalTypeAt]
+  split
+  · exact functionTypeAt_span text state position positionBound
+  · rename_i nominal
+    have name : 0 < skipAt text position ∧
+        skipAt text position < nameAfter text (skipAt text position) := by
+      dsimp only [arrayTypeAt] at nominal
+      split at nominal
+      · exact False.elim (nominal rfl)
+      · rename_i accepted
+        simp only [not_or] at accepted
+        omega
+    exact .inr ⟨name.1, name.2, function_nameAfter_bound text _⟩
+
 end Silver.Compose

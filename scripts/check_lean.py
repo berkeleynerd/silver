@@ -25,12 +25,12 @@ from typing import TextIO
 
 if __package__:
     from .bootstrap_lean import lean_environment
-    from .platforms import ROOT, HostLayout, native_layout
-    from .run_history import ManagedRun, allocation_report
+    from .platforms import ROOT, HostLayout, native_layout, process_cpus
+    from .run_history import ManagedRun, RunHistoryError, allocation_report
 else:
     from bootstrap_lean import lean_environment
-    from platforms import ROOT, HostLayout, native_layout
-    from run_history import ManagedRun, allocation_report
+    from platforms import ROOT, HostLayout, native_layout, process_cpus
+    from run_history import ManagedRun, RunHistoryError, allocation_report
 
 PROOF = ROOT / "proof"
 CERTIFICATE_ROOTS = {
@@ -257,27 +257,8 @@ def nonnegative_integer(value: str) -> int:
 
 
 def available_cpus() -> int:
-    """Respect process affinity and Python's CPU override, with a portable fallback.
-
-    CPU-time quotas and competing workloads can require an explicit lower worker
-    setting; an affinity mask does not describe those limits.
-    """
-    counts = []
-    for probe in (getattr(os, "process_cpu_count", None), os.cpu_count):
-        if probe is not None:
-            try:
-                count = probe()
-            except OSError:
-                continue
-            if count is not None and count > 0:
-                counts.append(count)
-    try:
-        affinity = len(os.sched_getaffinity(0))
-        if affinity > 0:
-            counts.append(affinity)
-    except (AttributeError, OSError):
-        pass
-    return min(counts, default=1)
+    """Respect the host allocation, affinity and Python's CPU override."""
+    return process_cpus(os)
 
 
 def lake_build_command(lake: Path, settings: list[str],
@@ -426,8 +407,8 @@ def main(arguments: list[str] | None = None) -> None:
                              "separate Lean process threads are not an OS thread cap; "
                              "a count below the available workers needs --resource-reason)")
     parser.add_argument("--threads", type=nonnegative_integer, default=0,
-                        help="threads per Lean build/audit process (default 0: available CPUs; "
-                             "separate from Lake workers; a count below the available CPUs needs --resource-reason)")
+                        help="threads per Lean build/audit process (default 0: worker grant; "
+                             "cannot exceed that grant; a lower count needs --resource-reason)")
     parser.add_argument("--memory-mb", type=positive_integer,
                         help="optional resident-memory threshold per Lean process, in MiB")
     parser.add_argument("--task", default=os.environ.get("SILVER_TASK", ""), help="issue or task reference for durable run history")
@@ -473,14 +454,21 @@ def main(arguments: list[str] | None = None) -> None:
     }
     command = [sys.executable, str(Path(__file__).resolve()),
                *(sys.argv[1:] if arguments is None else arguments)]
+
+    def allocation_for_grant(grant: int) -> dict[str, dict]:
+        automatic = min(cpus, grant)
+        if requested_threads is not None and requested_threads > automatic:
+            raise RunHistoryError(f"Lean threads exceed the worker grant ({requested_threads} > {automatic})")
+        args.threads = requested_threads or automatic
+        run_inputs["configuration"]["threads"] = args.threads
+        return {"threads": {"requested": requested_threads, "automatic": automatic, "actual": args.threads},
+                "memory_mb": {"requested": args.memory_mb, "automatic": None, "actual": args.memory_mb}}
+
     with ManagedRun(host=host, kind="lean", command=command, inputs=run_inputs,
                     resources=[host.proof, log, evidence], workers=args.workers or None,
                     task=args.task, reason=args.reason, expensive=args.clean or args.replay,
                     evidence=[log, evidence], failure_reports=[log], resource_reason=args.resource_reason,
-                    allocation={"threads": {"requested": requested_threads, "automatic": cpus,
-                                            "actual": args.threads},
-                                "memory_mb": {"requested": args.memory_mb, "automatic": None,
-                                              "actual": args.memory_mb}}) as run:
+                    allocation=allocation_for_grant) as run:
         args.workers = run.workers
         if host.artifacts.is_symlink():
             raise RuntimeError("host artifact directory must not be a symbolic link")

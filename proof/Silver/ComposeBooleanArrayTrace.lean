@@ -11,6 +11,9 @@ result state; they never enter the name or value environment of a sibling. -/
 namespace Silver.Compose
 open Bindings Predicate PathFacts _root_.Silver.Compose.Expressions
 
+set_option maxHeartbeats 2000000
+attribute [local irreducible] arrayDeclarationParts ScalarExpression.ArrayGrammar.read arrayTypeAt scalarTypeAt
+
 inductive BooleanArrayValuesAt (text : Source) (source : ParserState) (maskFirst maskAfter : Nat) :
     Nat → Nat → Nat → List Condition → Nat → Prop
   | done {position length parsed : Nat} : position ≠ 0 → length ≤ parsed →
@@ -113,7 +116,12 @@ theorem boolean_array_declaration_trace {text arguments state final}
       have bound : position ≤ text.length + 1 := by
         cases aggregate with
         | positional =>
-            rw [← partsEq]
+            have positionEq : parts.position =
+                fixedAfter text (fixedAfter text parts.typeAfter ":=" false) "(" false := by
+              rw [← partsEq]
+              unfold arrayDeclarationParts
+              rfl
+            rw [positionEq]
             exact fixedAfter_result_bound text _ "(" false (by decide)
         | singleton =>
             exact fixedAfter_result_bound text _ "=>" false (by decide)
@@ -148,9 +156,17 @@ theorem boolean_array_fresh_cell {text : Source} {state : ParserState} {cell : N
   · apply List.any_eq_false.mpr
     intro item member inside
     have inNames := (ArrayBindings.mem_booleanNames.mp member).1
-    have itemValid := (arrays.1.2.1 item inNames).2.2.2
+    have native := (arrays.1.member_valid inNames).2.1
+    have itemValid := native.1
     have length := ArrayBindings.binding_booleanDescriptor_length itemValid
-    have used := arrays.2.2.2 item inNames
+    have stored : item.viewSlot = 0 := by
+      by_cases zero : item.viewSlot = 0
+      · exact zero
+      · have notBoolean := (native.2.2.2.2 zero).2.2.2
+        have isBoolean := (ArrayBindings.mem_booleanNames.mp member).2
+        rw [isBoolean] at notBoolean
+        contradiction
+    have used := arrays.2.2.2 item inNames stored
     have contained := of_decide_eq_true inside
     change item.booleanDescriptor.base ≤ cell ∧
       cell < item.booleanDescriptor.base + item.booleanDescriptor.length at contained
@@ -211,7 +227,7 @@ theorem boolean_initializer_meaning {text state maskFirst maskAfter position raw
       (booleanInitializerFacts state) raw result state.arrayNames.values := by
   apply condition_valid normal valid.2.1 _ _ _ (boolean_declaration_facts_bounded state) parsed
   · exact ready.contextReady valid.2.2.2.2.2.1.1
-  · exact ⟨valid.2.2.2.2.2.2.1.1, valid.2.2.2.2.2.2.1.1.2.2⟩
+  · exact valid.arrays.1
   · exact ScalarMetadata.initial_compatible ..
 
 theorem BooleanArrayValuesAt.valid {text state maskFirst maskAfter position length parsed raw finish}
@@ -261,13 +277,13 @@ theorem boolean_array_declaration_checks_discharge {text state declaration check
     (fun value member => (values.valid normal valid ready value member).2.2)
 
 theorem boolean_initializer_ranges_exact {state : ParserState} {maskFirst maskAfter : Nat}
-    (static : ScalarExpression.StaticEnvironment state.scalarNames) :
+    (static : ScalarExpression.StaticEnvironment state.scalarNames) (stored : state.StoredArrays) :
     ExactScalarRanges ((booleanInitializerContext state maskFirst maskAfter).flow
       (booleanInitializerFacts state) state.arrayNames.values).scalars := by
   intro index bounds found
-  change ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
+  change ArrayBindings.viewRanges state.arrayNames.names state.arrayNames.values true
     (ActiveFlow.initial state.scalarNames _).model.scalars index = some bounds at found
-  rw [ActiveFlow.initial_model] at found
+  rw [ActiveFlow.initial_model, ArrayBindings.viewRanges_stored stored] at found
   unfold ArrayBindings.integerRanges ArrayBindings.ranges at found
   split at found
   · cases found
@@ -278,19 +294,20 @@ theorem boolean_initializer_ranges_exact {state : ParserState} {maskFirst maskAf
     rfl
 
 theorem boolean_initializer_ranges_fit {state : ParserState} {maskFirst maskAfter : Nat}
-    (static : ScalarExpression.StaticEnvironment state.scalarNames) :
+    (static : ScalarExpression.StaticEnvironment state.scalarNames) (stored : state.StoredArrays) :
     Integer.Fits ((booleanInitializerContext state maskFirst maskAfter).flow
       (booleanInitializerFacts state) state.arrayNames.values).scalars
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) := by
-  change Integer.Fits (ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
+  change Integer.Fits (ArrayBindings.viewRanges state.arrayNames.names state.arrayNames.values true
     (ActiveFlow.initial state.scalarNames _).model.scalars) _
   rw [ActiveFlow.initial_model]
-  exact frozenIntegers_fits static
+  exact frozenIntegers_view_fits (arrays := state.arrayNames.table) static stored
 
 theorem boolean_array_declaration_frozen_valid {text state declaration checks finalShape}
     (normal : NamesNormal state.names) (valid : ValidState text state)
     (ready : ScalarMetadata.HeaderReady state.scalarNames)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (extension : ShapeExtends state.names.shape finalShape)
     (trace : BooleanArrayDeclarationChecksAt text state declaration checks) :
     ∀ value ∈ declaration.values, value.Grammatical ∧
@@ -308,8 +325,8 @@ theorem boolean_array_declaration_frozen_valid {text state declaration checks fi
   have current := meaning value rawMember
   have readable := value.freezeIntegers_readable
     (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) current.2.1
-  have checked := (value.freezeIntegers_checked (boolean_initializer_ranges_exact static)
-    (boolean_initializer_ranges_fit static) current.2.2).1
+  have checked := (value.freezeIntegers_checked (boolean_initializer_ranges_exact static stored)
+    (boolean_initializer_ranges_fit static stored) current.2.2).1
   exact ⟨value.freezeIntegers_grammatical _ current.1,
     Condition.readable_extends extension readable,
     (Condition.checkBounds_extends extension readable Integer.Analysis.empty _).trans checked⟩
@@ -322,6 +339,7 @@ theorem boolean_array_declaration_snapshot {text arguments state next declaratio
     (normal : NamesNormal state.names) (stateValid : ValidState text state)
     (ready : ScalarMetadata.HeaderReady state.scalarNames)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (parsed : BooleanArrayDeclarationAt text arguments state next)
     (trace : BooleanArrayDeclarationChecksAt text state declaration checks)
     (fits : Fits state.names.shape input values)
@@ -329,7 +347,7 @@ theorem boolean_array_declaration_snapshot {text arguments state next declaratio
     executeBooleanDeclarations values input valid Integer.emptyStore declaration.initializations incoming =
       snapshotBooleanDeclarations values input valid Integer.emptyStore incoming declaration.initializations incoming := by
   have allocation := boolean_array_declaration_analysis stateValid parsed trace
-  have frozen := boolean_array_declaration_frozen_valid normal stateValid ready static
+  have frozen := boolean_array_declaration_frozen_valid normal stateValid ready static stored
     (fun _ _ present => present) trace
   apply declaration.initializations_snapshot allocation.2.1
     (fun value member => (frozen value member).2.1)

@@ -62,11 +62,17 @@ when available and authorized; avoid a fixed vendor or verifier-count rule.
 
 Agent concurrency is separate from native worker and memory allocation. Respect
 actual session slots, workspace leases and host headroom. Use managed runners
-and their worker reservations. Start Lean runs with all available CPUs: omit
-`--workers` and `--threads` unless a current resource constraint calls for fewer.
-Scale down as needed and retain `--resource-reason` for deliberate proof-command
-reductions below the automatic worker/thread allocation; automatic reductions
-from managed reservations need no reason. Build, test and arbitrary-tool commands
+and their worker reservations. This host has an eight-CPU allocation, even while
+the pre-reboot sandbox reports 22 CPUs. Cap all GNATprove/build/Lean workers and
+Lean process threads at the smaller effective host allocation and managed share;
+shared reservations must fit that allocation. Enforce the ceiling with an OS
+cpuset or affinity covering every existing thread and all descendants. Select
+CPU IDs from the allowed guest mask, not physical host CPU numbers. Use automatic
+settings only when they respect this ceiling; otherwise supply bounded counts
+and `--resource-reason "host's eight-CPU allocation"` for proof commands. Retain
+`--resource-reason` for other deliberate reductions below the automatic
+worker/thread allocation; automatic reductions from managed reservations need
+no reason. Build, test and arbitrary-tool commands
 still report allocation without that reason gate. `--reason` separately explains
 an identical-success expensive rerun. Do not carry a previous run's one-worker or
 one-thread restriction forward by habit. Serialize dense runs

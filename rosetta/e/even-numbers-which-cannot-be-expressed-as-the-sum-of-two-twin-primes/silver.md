@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop (sieve strides can be done as an inner for over multiples using guarded index arithmetic), all indexes and sums are bounded by declared ranges or guards, and no function needs termination variants, so proofs should discharge without annotations.
 
-Position 892 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 894 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

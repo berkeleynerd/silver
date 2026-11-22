@@ -32,20 +32,24 @@ structure Context where
   maskAfter : Nat := 0
   pure : Bool := false
   integerHidden : Bool := false
+  arrayTypes : ArrayBindings.TypeEnvironment := []
   deriving DecidableEq, Repr
+
+def Context.arrayTable (context : Context) : ArrayBindings.Table :=
+  ⟨context.arrayNames, context.arrayTypes⟩
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden⟩
+    context.pure, context.integerHidden, context.arrayTypes⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
     (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
     ScalarExpression.ValidEnvironment text context.scalarNames ∧
     ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating ∧
-    ArrayBindings.ValidMetadata text context.arrayNames ∧
+    ArrayBindings.ValidTable text context.arrayTable ∧
     BooleanBindings.ValidEnvironment text context.booleanNames ∧
     (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text ∧
     Compose.NamesBoundsValid context.names
@@ -56,7 +60,7 @@ theorem ValidContext.base {text : Source} {context : Context}
 
 theorem ValidContext.arrays {text : Source} {context : Context}
     (valid : ValidContext text context) :
-    ArrayBindings.ValidMetadata text context.arrayNames := valid.2.2.2.2.1
+    ArrayBindings.ValidTable text context.arrayTable := valid.2.2.2.2.1
 
 theorem ValidContext.booleans {text : Source} {context : Context}
     (valid : ValidContext text context) :

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every access is a for-loop index over the constant text's own range or is preceded by an explicit length guard, and all work is in procedures with no function loops, so no variant or invariant is needed.
 
-Position 539 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 541 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

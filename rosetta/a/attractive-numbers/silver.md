@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Seven successful removals would require an input >=128, so there are at most six throughout the declared factor-count domain; neither the count guard nor seven attempts per factor suppresses a required removal. Smaller primes are exhausted before any composite factor, hence only prime factors are removed and multiplicity is counted. In particular 20 removes 2, 2 and 5. Independent prime-power multiplicity and sieve expectations establish the complete 74-value sequence through 120. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 86 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 87 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

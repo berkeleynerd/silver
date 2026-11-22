@@ -9,7 +9,7 @@ open Bindings StringObjectBounds
 
 def SourceAtoms (text : Source) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool)
+    (arrays : ArrayBindings.Table) (initials : ArrayBindings.Initials) (elaborating : Bool)
     (expression : Expression) : Prop :=
   ∀ atom ∈ expression, ∃ position result, ValueAt (scalarNames := scalarNames)
     (integerHidden := integerHidden) (arrays := arrays) (initials := initials)
@@ -17,7 +17,7 @@ def SourceAtoms (text : Source) (names : BindingEnvironment)
 
 theorem emission_sourceAtoms {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {state : ExpressionState} {expression : Expression}
     (parsed : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state expression) :
@@ -35,7 +35,7 @@ theorem emission_sourceAtoms {text : Source} {names : BindingEnvironment}
 
 theorem expressionTail_sourceAtoms {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
     (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state expression result) :
@@ -93,12 +93,12 @@ theorem namesBoundCeiling_next (names : BindingEnvironment) :
 
 theorem grouped_source_bounds {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {grouped : GroupedExpression} {input : Source} {values : Values} {integers : Integer.Store}
     (textBound : text.length ≤ maxSourceLength) (inputBound : input.length ≤ maxSourceLength)
     (namesBound : names.length ≤ maxBindings) (metadata : NamesBoundsValid names)
     (strings : Fits names.shape input values)
-    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (sources : SourceAtoms text names scalarNames integerHidden arrays initials elaborating grouped.flatten)
     (bounded : (grouped.evaluate values input integers).length ≤ maxSourceLength) :
     (grouped.objectBounds names input integers).Valid ∧
@@ -137,7 +137,7 @@ theorem grouped_source_bounds {text : Source} {names : BindingEnvironment}
 
 theorem expressionAt_grouped_objectBounds {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position capacity : Nat} {expression : Expression} {result : ExpressionResult}
     {grouped : GroupedExpression} {input : Source} {values : Values} {integers : Integer.Store}
     (textBound : text.length ≤ maxSourceLength) (inputMax : input.length ≤ maxSourceLength)
@@ -145,7 +145,7 @@ theorem expressionAt_grouped_objectBounds {text : Source} {names : BindingEnviro
     (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position expression result)
     (fitsResult : fits result capacity = true) (strings : Fits names.shape input values)
-    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (inputBound : input.length ≤ capacity) (ordered : grouped.flatten = expression) :
     grouped.BoundsSafe names input integers ∧
       (expression.objectBounds names input integers).Valid ∧

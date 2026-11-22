@@ -20,25 +20,25 @@ private theorem iterations_effectless
 
 mutual
   theorem scalar_statement_effectless (functions : ScalarFunctions.Environment) (earlier : Environment)
-      (item : Statement) (closed : scalarStatement item = true)
+      {arrays : List (Nat × Integer.ArrayDescriptor)} (item : Statement) (closed : frameStatement arrays item = true)
       (values : Values) (integers : Integer.Store) (booleans : Boolean.Store) :
       (item.execute [] true values integers booleans functions earlier).effects = [] := by
     cases item with
-    | simple item => cases item <;> simp_all [scalarStatement, Statement.execute, executeSimpleStatement]
+    | simple item => cases item <;> simp_all [frameStatement, Statement.execute, executeSimpleStatement]
     | scalarAssign | callAssign | procedureCall | booleanAssign => simp only [Statement.execute]
     | arrayAssign | booleanArrayAssign | reject | arrayLoop =>
-        simp only [scalarStatement, Bool.false_eq_true] at closed
+        simp only [frameStatement, Bool.false_eq_true] at closed
     | choice condition yes no =>
-        have both : (ScalarFunctions.scalarCondition condition = true ∧ scalarStatements yes = true) ∧
-            scalarStatements no = true := by
-          simpa only [scalarStatement, Bool.and_eq_true] using closed
+        have both : (ScalarFunctions.frameCondition arrays condition = true ∧ frameStatements arrays yes = true) ∧
+            frameStatements arrays no = true := by
+          simpa only [frameStatement, Bool.and_eq_true] using closed
         simp only [Statement.execute]
         split
         · exact scalar_statements_effectless functions earlier yes both.1.2 values integers booleans
         · exact scalar_statements_effectless functions earlier no both.2 values integers booleans
     | forLoop index reverse lower upper body =>
-        simp only [scalarStatement, Bool.and_eq_true] at closed
-        have bodyClosed : scalarStatements body = true := closed.2
+        simp only [frameStatement, Bool.and_eq_true] at closed
+        have bodyClosed : frameStatements arrays body = true := closed.2
         simp only [Statement.execute]
         apply iterations_effectless
         intro current scalars flags value
@@ -46,14 +46,14 @@ mutual
           bodyClosed current (Integer.put scalars index value) flags
   termination_by sizeOf item
   theorem scalar_statements_effectless (functions : ScalarFunctions.Environment) (earlier : Environment)
-      (items : List Statement) (closed : scalarStatements items = true)
+      {arrays : List (Nat × Integer.ArrayDescriptor)} (items : List Statement) (closed : frameStatements arrays items = true)
       (values : Values) (integers : Integer.Store) (booleans : Boolean.Store) :
       (executeStatements [] true values items integers booleans functions earlier).effects = [] := by
     cases items with
     | nil => simp only [executeStatements]
     | cons item rest =>
-        have both : scalarStatement item = true ∧ scalarStatements rest = true := by
-          simpa only [scalarStatements, Bool.and_eq_true] using closed
+        have both : frameStatement arrays item = true ∧ frameStatements arrays rest = true := by
+          simpa only [frameStatements, Bool.and_eq_true] using closed
         simp only [executeStatements, scalar_statement_effectless functions earlier item both.1,
           scalar_statements_effectless functions earlier rest both.2, List.nil_append]
   termination_by sizeOf items
@@ -73,7 +73,8 @@ theorem Definition.inputFrame_fits {definition : Definition} {functions : Scalar
     {inputs : List ScalarFunctions.Value} (fitting : ArgumentsFit (inputTypes definition.signature.formals) inputs) :
     Integer.Fits definition.inputAnalysis.declared (definition.inputFrame inputs).integers := by
   simp only [inputAnalysis, parameterAnalysis_declared, inputFormals_domains, inputFrame]
-  exact ScalarFunctions.bindArguments_fits fitting _ _ _ _ (definition.local_fits checked)
+  exact ScalarFunctions.bindArguments_fits fitting _ _ _ _
+    (ScalarFunctions.bindArrayArguments_fits fitting 1 _ _ (definition.local_fits checked))
 
 theorem Definition.initializers_safe {definition : Definition} {functions : ScalarFunctions.Signatures}
     {earlier : Signatures} {after : Flow} (formed : definition.WellFormed)
@@ -136,7 +137,8 @@ theorem Definition.execute_effectless {functions : ScalarFunctions.Environment} 
     (definition.executeBody functions earlier inputs).effects = [] := by
   have ready := (definition.ready_iff functions.signatures).mp
     ((definition.check_iff functions.signatures earlier.signatures after).mp checked).1
-  have bodyClosed : scalarStatements definition.body = true := (Bool.and_eq_true_iff.mp ready.2.2.2.1).2
+  have bodyClosed : frameStatements (ScalarFunctions.formalArrays 1 (inputTypes definition.signature.formals))
+      definition.body = true := (Bool.and_eq_true_iff.mp ready.2.2.2.1).2
   exact scalar_statements_effectless _ _ _ bodyClosed _ _ _
 
 /-- Every fitting input tuple produces fitting outputs, agrees with checked

@@ -127,7 +127,7 @@ theorem expression_reading_ready {text names scalarNames integerHidden arrays in
     (normal : NamesNormal names) (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position expression result) :
     (expression.StringReadable names.shape ∧ expression.LiteralsPrintable ∧
       expression ≠ [] ∧ expression.length ≤ maxExpressionOperands) ∧
-      expression.inferLength names.shape (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
+      expression.inferLength names.shape (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
   have readable := expressionTail_readable parsed
   have count := expressionTail_count normal (by simp) parsed
   have nonempty := expressionTail_nonempty normal (by simp) rfl rfl parsed

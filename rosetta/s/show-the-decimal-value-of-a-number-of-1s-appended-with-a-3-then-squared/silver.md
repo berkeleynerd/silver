@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The measured obstacle is the direct wide-type/range and larger-square limitation, rather than missing Integer Image or bounded output building. Required n remains 0 .. 7. Rejected direct approaches do not establish impossibility of a digit or multiword solution; those alternatives are unassessed. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 106 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 108 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

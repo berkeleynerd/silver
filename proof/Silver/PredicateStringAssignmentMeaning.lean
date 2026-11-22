@@ -64,7 +64,7 @@ theorem indexedReplacement_inferLength {text names scalarNames arrays initials e
     (source : CharacterAt text names scalarNames arrays initials elaborating rhsPosition rhs rhsResult) :
     Expression.inferLength
       [.replace (indexedParts text position names scalarNames arrays initials elaborating true).target info.firstIndex lower rhs]
-      names.shape (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) =
+      names.shape (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) =
         some ⟨info.staticLength, info.staticLength, 0, false⟩ := by
   have checked := indexed_check normal indexed
   have replacement := character_check normal source
@@ -101,13 +101,13 @@ theorem stringAssignment_meaning {text context scan update}
     SimpleWellFormed context.names.shape (.assign update) ∧
       checkAssignment context.names.shape scan.facts.path update (context.flow scan.facts).scalars = true := by
   have rangesEq := context.reading_ranges compatible
-  have characterRanges : ArrayBindings.integerRanges context.arrayNames [] false
+  have characterRanges : ArrayBindings.viewRanges context.arrayNames [] false
       (ScalarExpression.ranges (context.readingNames scan.facts)) = (context.flow scan.facts).scalars := by
     simpa only [bodyMode] using rangesEq
   cases reading with
   | whole target kind source =>
       have ready := expression_reading_ready normal source
-      rw [rangesEq] at ready
+      rw [show context.arrayTable.items = context.arrayNames from rfl, rangesEq] at ready
       obtain ⟨name, info, _, found, _, mutable, _, _⟩ := target
       change context.names.get (stringAssignmentTarget text context scan).target = some info at found
       have positive : (stringAssignmentTarget text context scan).target ≠ 0 := by
@@ -140,7 +140,7 @@ theorem stringAssignment_meaning {text context scan update}
         simp only [BindingEnvironment.shape, found, Option.map_some, BindingInfo.cell, mutable,
           BindingInfo.bound, metadata.1, metadata.2, Bool.false_eq_true, ↓reduceIte]
       have known := characterExpression_inferLength normal source
-      rw [characterRanges] at known
+      rw [show context.arrayTable.items = context.arrayNames from rfl, characterRanges] at known
       exact fixed_assignment_meaning selected known (single_ready known (character_literals source)) (by decide)
   | @element info index upper value result target kind indexed source =>
       obtain ⟨name, targetInfo, _, found, _, mutable, _, _⟩ := target
@@ -149,7 +149,7 @@ theorem stringAssignment_meaning {text context scan update}
         intro zero
         simp [BindingEnvironment.get, zero] at found
       have targetEq : (indexedParts text scan.position context.names (context.readingNames scan.facts)
-          context.arrayNames [] false true).target = (stringAssignmentTarget text context scan).target :=
+          context.arrayTable [] false true).target = (stringAssignmentTarget text context scan).target :=
         (stringAssignment_target_index positive).symm
       have same : info = targetInfo := by
         have selected := indexed.selected
@@ -161,7 +161,7 @@ theorem stringAssignment_meaning {text context scan update}
         simp only [BindingEnvironment.shape, found, Option.map_some, BindingInfo.cell, mutable,
           BindingInfo.bound, indexed.fixed, Bool.false_eq_true, ↓reduceIte]
       have known := indexedReplacement_inferLength normal indexed source
-      rw [targetEq, characterRanges] at known
+      rw [targetEq, show context.arrayTable.items = context.arrayNames from rfl, characterRanges] at known
       have bound : info.staticLength ≤ maxSourceLength := (namesValid.2 _ (List.mem_of_getElem? (by
         simpa only [BindingEnvironment.get, positive, ↓reduceIte] using found))).2.2
       exact fixed_assignment_meaning selected known (single_ready known (character_literals source)) bound

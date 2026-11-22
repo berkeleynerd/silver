@@ -1,0 +1,15 @@
+{
+  "utc": "2026-11-21T20:53:44.786892+00:00",
+  "source_run": "20261121T194543-302f3f4f1b24",
+  "source_manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-callable-initializers-410/tmp/procedure-source-continuation-20261121/procedure-source-cache-manifest.json",
+  "modules": 578,
+  "copied_artifacts": 1140,
+  "skipped_source_mismatch": [
+    "proof/Silver/ArrayBindingsBodyCertificate.lean",
+    "proof/Silver/ArrayBindingsSpecCertificate.lean",
+    "proof/Silver/FunctionBindingsSpecCertificate.lean",
+    "proof/Silver/ProcedureBindingsSpecCertificate.lean",
+    "proof/Silver/ScalarExpressionSpecCertificate.lean"
+  ],
+  "note": "Matching source modules; original traces and all companions preserved. Managed Lake rehash/audit still required."
+}

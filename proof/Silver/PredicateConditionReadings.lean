@@ -54,8 +54,8 @@ inductive BooleanArrayAt (text : Source) (context : ParseContext) (position : Na
       (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position))) ≠ 0 → (ArrayBindings.binding context.arrayNames (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position)))).isBoolean = true →
       ScalarExpression.lookup text context.scalarNames (skipAt text position) (nameAfter text (skipAt text position)) = 0 →
       ¬(context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter (skipAt text position) (nameAfter text (skipAt text position)) = true) →
-      ScalarExpression.At text (context.readingNames facts) (fixedAfter text (nameAfter text (skipAt text position)) "(" false) index subscript
-        context.maskFirst context.maskAfter →
+      ScalarExpression.ArrayGrammar.At text (context.readingNames facts) (fixedAfter text (nameAfter text (skipAt text position)) "(" false) index subscript
+        context.maskFirst context.maskAfter (arrays := context.arrayTable) (arrayReads := .noElements) →
       subscript.operands ≠ ScalarExpression.maxOperands →
       ArrayBindings.contains (ArrayBindings.binding context.arrayNames (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position)))) subscript.bounds = true →
       position < fixedAfter text subscript.after ")" false →
@@ -97,10 +97,10 @@ mutual
     | valid {position facts} : position ≠ 0 → fixedAfter text position "(" false = 0 →
         booleanArrayAfter text context position facts = 0 →
         booleanAtomAfter text context position = 0 → context.hasArguments = true →
-        callAfter text context.names position .validity context.scalarNames context.arrayNames
+        callAfter text context.names position .validity context.scalarNames context.arrayTable
           (context.validityHidden text) context.booleanNames ≠ 0 →
         PrimaryAtCore text context initials position facts .inputValid
-          ⟨callAfter text context.names position .validity context.scalarNames context.arrayNames
+          ⟨callAfter text context.names position .validity context.scalarNames context.arrayTable
             (context.validityHidden text) context.booleanNames,
             {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
 
@@ -150,10 +150,10 @@ mutual
     | scalars {position facts left right leftResult rightResult} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
         leftResult.after ≠ 0 →
-        ScalarExpression.At text (context.readingNames facts) position left leftResult
-          (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
-        ScalarExpression.At text (context.readingNames facts) (comparisonAt text leftResult.after).after right rightResult
-          (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
+        ScalarExpression.ArrayGrammar.At text (context.readingNames facts) position left leftResult
+          (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) →
+        ScalarExpression.ArrayGrammar.At text (context.readingNames facts) (comparisonAt text leftResult.after).after right rightResult
+          (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) →
         position < rightResult.after →
         RelationAtCore text context initials position facts
           (.scalarCompare (comparisonAt text leftResult.after).operator.toInteger left right)
@@ -169,10 +169,10 @@ mutual
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
         (readScalarInFlow text context position facts (initials := initials)).after = 0 →
         ExpressionAt text context.names position left leftResult (scalarNames := context.readingNames facts)
-          (integerHidden := context.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
+          (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) →
         ExpressionAt text context.names (comparisonAt text leftResult.after).after right rightResult
           (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text)
-          (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
+          (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) →
         StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after) →
         position < rightResult.after →
         context.pure = false →
@@ -301,8 +301,8 @@ theorem relation_complete {text context position facts condition result initials
       simp [positive, noNot, lengthAt_complete left, leftPositive, lengthAt_complete right, Nat.not_le.mpr advanced]
   | scalars positive noNot noLength leftPositive left right advanced =>
       rw [readRelation]
-      simp only [readScalarInFlow, positive, noNot, noLength, ScalarExpression.read_complete left,
-        leftPositive, ScalarExpression.read_complete right, Nat.not_le.mpr advanced,
+      simp only [readScalarInFlow, positive, noNot, noLength, ScalarExpression.ArrayGrammar.read_complete left,
+        leftPositive, ScalarExpression.ArrayGrammar.read_complete right, Nat.not_le.mpr advanced,
         ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
   | pureBoolean positive noNot noLength noScalar pure inner =>
       simp only [readRelation, positive, noNot, noLength, noScalar, pure,

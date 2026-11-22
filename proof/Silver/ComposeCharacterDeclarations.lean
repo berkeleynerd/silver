@@ -12,7 +12,7 @@ inductive CharacterDeclarationAt (text : Source) (arguments : Bool) : ParserStat
   | declaration {state : ParserState} {parts : CharacterDeclarationParts} {value : Character.Expr} :
       characterDeclarationParts text state = parts →
       characterDeclarationRejected text state arguments parts = false → parts.following ≠ 0 →
-      CharacterAt text state.names state.scalarNames state.arrayNames.names state.arrayNames.values true
+      CharacterAt text state.names state.scalarNames state.arrayNames.table state.arrayNames.values true
         (fixedAfter text parts.typeAfter ":=" false) value parts.value →
       CharacterDeclarationAt text arguments state
         ⟨state.names.length + 1, decide (parts.constantAfter = 0),
@@ -47,7 +47,7 @@ theorem character_declaration_sound (text : Source) (state : ParserState) (argum
     rw [← partsEq]
     rfl
   have valueEq : parts.value = characterAt text (fixedAfter text parts.typeAfter ":=" false)
-      state.names state.scalarNames state.arrayNames.names state.arrayNames.values true := by
+      state.names state.scalarNames state.arrayNames.table state.arrayNames.values true := by
     rw [← partsEq]
     rfl
   have valuePositive : parts.value.after ≠ 0 := fixedAfter_nonzero (finish ▸ following)
@@ -72,13 +72,14 @@ theorem character_declaration_normal {text arguments state next declaration}
 
 theorem character_declaration_shape {text arguments state next declaration}
     (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : ∀ item ∈ state.arrayNames.names, item.viewSlot = 0)
     (parsed : CharacterDeclarationAt text arguments state declaration next) :
     declaration.Valid state.names.shape (.fixed 1) ∧
       next.names.shape = declaration.extend state.names.shape (.fixed 1) := by
   cases parsed with
   | declaration _ _ _ source =>
       have known := characterExpression_inferLength normal source
-      have scalars := frozenIntegers_fits (arrays := state.arrayNames.names) (initials := state.arrayNames.values) static
+      have scalars := frozenIntegers_view_fits (arrays := state.arrayNames.table) (initials := state.arrayNames.values) static stored
       have safe := characterExpression_frozen_safe normal source scalars
       have summary := Expression.freezeImages_summary known (show (⟨1, 1, 0, false⟩ : LengthSummary).exact = some ⟨1, 0⟩ from by decide) scalars
       have metadata := character_metadata source

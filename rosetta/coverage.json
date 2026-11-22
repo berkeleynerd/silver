@@ -29,7 +29,8 @@
   "scalar-functions",
   "scalar-procedures",
   "named-scalar-arguments",
-  "bounded-string-building"
+  "bounded-string-building",
+  "named-integer-array-parameters"
  ],
  "tasks": {
   "100 doors": {
@@ -18724,25 +18725,36 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "arrays",
-    "unconstrained-arrays",
-    "for-loops",
-    "functions",
-    "scalar-image"
+    "named-integer-array-parameters",
+    "named-integer-subtypes",
+    "bounded-mutable-integers",
+    "integer-image",
+    "scalar-functions",
+    "named-scalar-arguments"
    ],
    "outlook": "likely",
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "The accumulator is loop-carried, so element subtypes bounded to +/-1000 and a sum subtype sized for 100 elements keep each product and partial sum within Integer, with a length guard rejecting longer vectors."
+     "explanation": "Each declared component is -10 .. 10, so each corresponding product is -100 .. 100, their first sum is -200 .. 200 and their complete sum is -300 .. 300 for every pair of formal inputs."
+    },
+    {
+     "obligation": "index",
+     "explanation": "Both inputs have the same named Vector identity and fixed bounds 1 .. 3. First, First+1 and Last are therefore valid component indexes for every formal value."
     }
    ],
-   "size": 40,
-   "approach": "Declare a bounded element subtype (-1000..1000), a vector type indexed 1..100 as an unconstrained array, and a function that returns 0 and rejects visibly when lengths differ or exceed 100, otherwise sums products in a for loop over a'Range into an Integer accumulator. Main embeds the two 3-element vectors, calls the function, and prints the result with Integer'Image through Put_Line. The accumulator is declared with a range wide enough for 100 products of the bounded elements, so every addition discharges from types alone.",
-   "summary": "Every check follows from bounded element ranges, a fixed maximum length and a for loop over the array's own range, so no annotation is needed.",
-   "confidence": "high"
+   "size": 25,
+   "approach": "The delivered samples/rosetta_dot_product.adb defines a named constrained Vector (1 .. 3) of Component (-10 .. 10) and a function Dot with two read-only Vector inputs and Product (-300 .. 300) result. Its terminal expression sums all three corresponding products using First, First+1 and Last queries. Main calls Dot with [1, 3, -5] and [4, -2, -1] through named associations and prints the resulting 3 with Integer'Image. The fixed length is faithful because arbitrary length is optional in the task.",
+   "summary": "The constrained callable driver preserves the required dot-product function and equal vector lengths by nominal type identity. All products and partial sums fit for every declared input, independently of Main's aggregates. Expected stdout is Dot product: 3 followed by LF. Complete Linux native/Lean/actual-source assurance, final regression coverage and scoped independent reviews are recorded in the [delivery record](../../../rosetta/assessment-named-array-parameters-20261121.md#delivery) and its linked evidence. The precise named-integer-array-parameters construct is supported; broad arrays, writable arrays and unconstrained arrays remain unsupported.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-21",
+    "record": "assessment-named-array-parameters-20261121.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Integration lead selected Astra Extra High; live runtime model and effort not independently exposed",
+    "method": "Targeted cached task/solution and exact driver source comparison; independent full-domain arithmetic and expected-output derivation; delivered assurance and regression evidence linked separately from this task/source review"
+   }
   },
   "Double twin primes": {
    "revision": 409007,
@@ -31358,30 +31370,39 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "booleans",
-    "arrays",
-    "unconstrained-arrays",
-    "for-loops",
-    "procedures",
-    "scalar-image"
+    "named-integer-array-parameters",
+    "named-integer-subtypes",
+    "bounded-mutable-integers",
+    "integer-image",
+    "scalar-procedures",
+    "scalar-boolean-objects",
+    "scalar-guard-refinement",
+    "integer-for-loops",
+    "named-scalar-arguments"
    ],
-   "outlook": "plausible",
+   "outlook": "likely",
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "The loop-carried accumulator product Res * X is nonlinear, so it discharges only because a guard checks that Res is within a documented bound just before each step and declared ranges bound X and every coefficient; if the guard fails, the routine sets Ok to False instead of computing."
+     "explanation": "Before every performed step the executable accumulator guard gives -98 .. 98, the full argument domain is -10 .. 10 and every coefficient is -20 .. 20. The product is therefore -980 .. 980 and the multiply-add fits -1000 .. 1000."
     },
     {
-     "obligation": "range",
-     "explanation": "Assigning Res * X + Coeffs (I) back to the bounded accumulator subtype needs the guarded bound on Res combined with the coefficient and X ranges, so the bound constants must be chosen so the worst-case result fits the accumulator subtype."
+     "obligation": "index",
+     "explanation": "The reverse counted loop uses Coefficients'Range (0 .. 3), so every component read is in bounds for every formal value. No predicate relation is retained in the Boolean success flag."
     }
    ],
-   "size": 40,
-   "approach": "Coefficients are an unconstrained array of a bounded coefficient subtype (for example -1000 .. 1000), and the example data (-19, 7, -4, 6) with x = 3 is embedded. A Horner procedure walks the array's own range in reverse with a for loop and returns the value and an Ok flag through out parameters; before each multiply-add it checks that the accumulator is within a documented bound, and otherwise it sets Ok to False and leaves the accumulator unchanged. Main prints the value with 'Image, or prints a visible \"result exceeds limit\" message when Ok is False.",
-   "summary": "Index checks discharge from the reverse for loop over Coeffs'Range. The only non-routine checks are overflow and range checks on the loop-carried accumulator's nonlinear multiply-add, and a guard on the accumulator placed just before each step makes them provable without an invariant.",
-   "confidence": "high"
+   "size": 55,
+   "approach": "The delivered samples/rosetta_horner_polynomial.adb declares a named Polynomial (0 .. 3) of Coefficient (-20 .. 20). Procedure Horner takes that read-only array with scalar X (-10 .. 10), a scalar result (-1000 .. 1000) and a Boolean success output. It traverses the coefficient Range in reverse, implementing Horner's recurrence only after a fresh -98 .. 98 accumulator guard. Refusal persists and returns zero with Succeeded=False; Main suppresses the numeric result and prints capacity exceeded. The embedded coefficients [-19, 7, -4, 6] give 128 at x=3; x=10 visibly exercises refusal. Both mixed and positional calls use existing scalar output/copy-back rules.",
+   "summary": "The constrained routine accepts coefficients in increasing-power order and x as the task requires. Full-domain bounds justify every performed multiply-add; reverse Range iteration justifies every index. Independent sequences are 0,6,14,49,128 at x=3 and 0,6,56,567 then refusal at x=10. Expected lines are At 3: 128 and At 10: capacity exceeded. Complete Linux native/Lean/actual-source assurance, final regression coverage and scoped independent reviews are recorded in the [delivery record](../../../rosetta/assessment-named-array-parameters-20261121.md#delivery) and its linked evidence. The precise named-integer-array-parameters construct is supported; broad arrays, writable arrays and unconstrained arrays remain unsupported.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-21",
+    "record": "assessment-named-array-parameters-20261121.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Integration lead selected Astra Extra High; live runtime model and effort not independently exposed",
+    "method": "Targeted cached task/solution and exact driver source comparison; independent full-domain arithmetic and expected-output derivation; delivered assurance and regression evidence linked separately from this task/source review"
+   }
   },
   "Horse racing": {
    "revision": 414256,

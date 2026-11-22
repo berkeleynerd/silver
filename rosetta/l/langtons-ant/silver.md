@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared subtypes, the array's own index ranges and a bounds guard before each move, and the task's exception-based exit is replaced by an explicit guard, so no annotation is needed.
 
-Position 766 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 768 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

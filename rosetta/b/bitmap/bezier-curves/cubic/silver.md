@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a function of a for-loop index over subtypes with small declared ranges, so all overflow, division and index checks follow from types and static bounds with no loop-carried state, though nonlinear integer arithmetic needs the ranges to be tight.
 
-Position 888 in the [progression](../../../../progression.md#stage-15), in stage 15.
+Position 890 in the [progression](../../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

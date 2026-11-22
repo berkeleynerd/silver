@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from range types and explicit guards just before the arithmetic and array store, and the unannotatable termination question is avoided by using a procedure, so no annotation is needed but several loop-carried values need careful guards.
 
-Position 238 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 240 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

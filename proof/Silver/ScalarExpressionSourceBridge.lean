@@ -28,46 +28,62 @@ theorem interpreted_array_helpers (calls : Native.Calls) (source : InterpretedSo
     ArrayBindings.SourceBridge.InterpretedSource calls.arrays :=
   ⟨source.primitives.arrayPrimitives, source.primitives.arrayEquations⟩
 
-theorem interpreted_readExpression_arrays (calls : Native.Calls) (source : InterpretedSource calls)
+theorem interpreted_readExpression_table (calls : Native.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Native.ValidText text) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
-    (initials : ArrayBindings.Initials) (elaborating : Bool) (bound : position ≤ text.length + 1)
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Table)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) (arrayReads : ArrayReadMode) (bound : position ≤ text.length + 1)
     (environment : ValidEnvironment text names) (mask : ValidMask text maskFirst maskAfter)
-    (metadata : ArrayBindings.ValidMetadata text arrays) (values : ArrayBindings.ValidInitials initials) :
-    calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating =
-      read text position names maskFirst maskAfter allowSign arrays initials elaborating :=
-  Native.interpreted_readExpression_arrays calls source.primitives source.definitions
-    text valid position names maskFirst maskAfter allowSign arrays initials elaborating bound environment mask metadata values
+    (metadata : ArrayBindings.ValidTable text arrays) (values : ArrayBindings.ValidInitials initials) :
+    calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads =
+      ArrayGrammar.read text position names arrays maskFirst maskAfter allowSign initials elaborating arrayReads :=
+  Native.interpreted_readExpression_table calls source.primitives source.definitions
+    text valid position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads bound environment mask metadata values
 
-theorem interpreted_admission_arrays (calls : Native.Calls) (source : InterpretedSource calls)
+theorem interpreted_admission_table (calls : Native.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Native.ValidText text) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
-    (initials : ArrayBindings.Initials) (elaborating : Bool) (bound : position ≤ text.length + 1)
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Table)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) (arrayReads : ArrayReadMode) (bound : position ≤ text.length + 1)
     (environment : ValidEnvironment text names) (mask : ValidMask text maskFirst maskAfter)
-    (metadata : ArrayBindings.ValidMetadata text arrays) (values : ArrayBindings.ValidInitials initials)
+    (metadata : ArrayBindings.ValidTable text arrays) (values : ArrayBindings.ValidInitials initials)
     (result : Result) :
-    (∃ expression, At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating) ↔
-      calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating = result ∧ result.after ≠ 0 := by
-  rw [interpreted_readExpression_arrays calls source text valid position names maskFirst maskAfter allowSign
-    arrays initials elaborating bound environment mask metadata values]
-  exact admission_iff bound
+    (∃ expression, ArrayGrammar.At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating arrayReads) ↔
+      calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads = result ∧ result.after ≠ 0 := by
+  rw [interpreted_readExpression_table calls source text valid position names maskFirst maskAfter allowSign
+    arrays initials elaborating arrayReads bound environment mask metadata values]
+  constructor
+  · rintro ⟨expression, parsed⟩
+    exact ⟨ArrayGrammar.read_complete parsed, by have bounds := parsed.cursorBounds; omega⟩
+  · rintro ⟨same, success⟩
+    obtain ⟨expression, parsed⟩ := ArrayGrammar.read_sound bound (show
+      (ArrayGrammar.read text position names arrays maskFirst maskAfter allowSign initials elaborating arrayReads).after ≠ 0
+      from by rwa [same])
+    exact ⟨expression, by simpa only [same] using parsed⟩
 
-theorem interpreted_safe_arrays (calls : Native.Calls) (source : InterpretedSource calls)
+theorem interpreted_safe_table (calls : Native.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Native.ValidText text) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
-    (initials : ArrayBindings.Initials) (elaborating : Bool) (bound : position ≤ text.length + 1)
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Table)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) (arrayReads : ArrayReadMode) (bound : position ≤ text.length + 1)
     (environment : ValidEnvironment text names) (mask : ValidMask text maskFirst maskAfter)
-    (metadata : ArrayBindings.ValidMetadata text arrays) (initialsValid : ArrayBindings.ValidInitials initials)
-    (values : Integer.Store) (fits : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) values)
-    (success : (calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating).after ≠ 0) :
+    (metadata : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials)
+    (values : Integer.Store) (fits : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ranges names)) values)
+    (success : (calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads).after ≠ 0) :
     ∃ expression : Integer.Expr, expression.Safe values ∧
-      (calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating).bounds.Contains
+      (calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads).bounds.Contains
         (expression.evaluate values) ∧
       expression.checkedEvaluate values = some (expression.evaluate values) := by
-  rw [interpreted_readExpression_arrays calls source text valid position names maskFirst maskAfter allowSign
-    arrays initials elaborating bound environment mask metadata initialsValid] at success ⊢
-  obtain ⟨expression, parsed⟩ := read_sound bound success
-  exact ⟨expression, at_safe parsed fits⟩
+  rw [interpreted_readExpression_table calls source text valid position names maskFirst maskAfter allowSign
+    arrays initials elaborating arrayReads bound environment mask metadata initialsValid] at success ⊢
+  exact ArrayGrammar.read_safe success fits
+
+theorem interpreted_arrayAttribute (calls : Native.Calls) (source : InterpretedSource calls)
+    (text : Source) (valid : Native.ValidText text) (position : Nat) (names : Environment)
+    (arrays : ArrayBindings.Table) (maskFirst maskAfter : Nat) (rangeQuery : Bool)
+    (bound : position ≤ text.length + 1) (environment : ValidEnvironment text names)
+    (mask : ValidMask text maskFirst maskAfter) (metadata : ArrayBindings.ValidTable text arrays) :
+    calls.readArrayAttribute text position names arrays maskFirst maskAfter rangeQuery =
+      ArrayAttributes.read text position names arrays maskFirst maskAfter rangeQuery :=
+  Native.interpreted_arrayAttribute calls source.primitives source.definitions
+    text valid position names arrays maskFirst maskAfter rangeQuery bound environment mask metadata
 
 theorem interpreted_lookup (calls : Native.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Native.ValidText text) (names : Environment)
@@ -110,14 +126,24 @@ theorem actual_source_correspondence : SourceChecks.CheckedSource ∧
         read text position names maskFirst maskAfter allowSign :=
   ⟨SourceChecks.checked_source, interpreted_readExpression⟩
 
-theorem actual_arrays_source_correspondence : SourceChecks.CheckedSource ∧
+theorem actual_table_source_correspondence : SourceChecks.CheckedSource ∧
     ArrayBindings.SourceChecks.CheckedSource ∧
     ∀ calls, InterpretedSource calls → ∀ text, Native.ValidText text →
-      ∀ position names maskFirst maskAfter allowSign arrays initials elaborating,
+      ∀ position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads,
       position ≤ text.length + 1 → ValidEnvironment text names → ValidMask text maskFirst maskAfter →
-      ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
-      calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating =
-        read text position names maskFirst maskAfter allowSign arrays initials elaborating :=
-  ⟨SourceChecks.checked_source, ArrayBindings.SourceChecks.checked_source, interpreted_readExpression_arrays⟩
+      ArrayBindings.ValidTable text arrays → ArrayBindings.ValidInitials initials →
+      calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads =
+        ArrayGrammar.read text position names arrays maskFirst maskAfter allowSign initials elaborating arrayReads :=
+  ⟨SourceChecks.checked_source, ArrayBindings.SourceChecks.checked_source, interpreted_readExpression_table⟩
+
+theorem actual_attribute_source_correspondence : SourceChecks.CheckedSource ∧
+    ArrayBindings.SourceChecks.CheckedSource ∧
+    ∀ calls, InterpretedSource calls → ∀ text, Native.ValidText text →
+      ∀ position names arrays maskFirst maskAfter rangeQuery,
+      position ≤ text.length + 1 → ValidEnvironment text names → ValidMask text maskFirst maskAfter →
+      ArrayBindings.ValidTable text arrays →
+      calls.readArrayAttribute text position names arrays maskFirst maskAfter rangeQuery =
+        ArrayAttributes.read text position names arrays maskFirst maskAfter rangeQuery :=
+  ⟨SourceChecks.checked_source, ArrayBindings.SourceChecks.checked_source, interpreted_arrayAttribute⟩
 
 end Silver.ScalarExpression.SourceBridge

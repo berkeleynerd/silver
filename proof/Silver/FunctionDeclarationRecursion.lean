@@ -9,6 +9,8 @@ public import Silver.ComposeBounds
 namespace Silver.Compose
 open Silver.Compose.Expressions
 
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read
+
 private theorem scalarTypeAt_position_bound (text : Source) (state : ParserState) (position : Nat) :
     (scalarTypeAt text state position).after ≤ text.length + 1 := by
   dsimp only [scalarTypeAt]
@@ -29,6 +31,13 @@ theorem functionTypeAt_position_bound (text : Source) (state : ParserState) (pos
     · exact Nat.zero_le _
     · exact fixedAfter_result_bound text _ "boolean" true (by decide)
 
+theorem formalTypeAt_position_bound (text : Source) (state : ParserState) (position : Nat) :
+    (formalTypeAt text state position).after ≤ text.length + 1 := by
+  dsimp only [formalTypeAt]
+  split
+  · exact functionTypeAt_position_bound text state position
+  · exact function_nameAfter_bound text _
+
 theorem parameterStep_position (text : Source) (state : ParserState) (arguments : Bool) :
     (parameterStep text state arguments).state.position ≤ text.length + 1 ∧
       ((parameterStep text state arguments).state.position = 0 ∨
@@ -37,8 +46,8 @@ theorem parameterStep_position (text : Source) (state : ParserState) (arguments 
   generalize firstEq : skipAt text state.position = first
   generalize afterEq : nameAfter text first = after
   generalize startEq : fixedAfter text (fixedAfter text after ":" false) "in" true = start
-  generalize valueEq : functionTypeAt text state start = value
-  have valueBound := functionTypeAt_position_bound text state start
+  generalize valueEq : formalTypeAt text state start = value
+  have valueBound := formalTypeAt_position_bound text state start
   rw [valueEq] at valueBound
   split
   · exact ⟨Nat.zero_le _, .inl rfl⟩
@@ -66,7 +75,7 @@ private theorem scalarDeclaration_position (text : Source) (state : ParserState)
     have advances : state.position < (scalarDeclarationParts text state).following := by
       simp only [Bool.or_eq_true, decide_eq_true_eq, not_or] at accepted
       omega
-    exact ⟨fixedAfter_result_bound text _ ";" false (by decide), .inr advances⟩
+    exact ⟨fixedAfter_result_bound text (scalarDeclarationParts text state).value.after ";" false (by decide), .inr advances⟩
 
 private theorem booleanDeclaration_position (text : Source) (state : ParserState) (arguments : Bool) :
     (booleanDeclarationAt text state arguments).position ≤ text.length + 1 ∧
@@ -94,12 +103,17 @@ theorem appendParameter_functions (frame : ParserState) (parameter : FunctionBin
       (appendParameter frame parameter).functions = frame.functions := by
   dsimp only [appendParameter]
   split
-  · split
+  · unfold appendArrayParameter
+    split
     · exact .inl rfl
     · exact .inr rfl
   · split
-    · exact .inl rfl
-    · exact .inr rfl
+    · split
+      · exact .inl rfl
+      · exact .inr rfl
+    · split
+      · exact .inl rfl
+      · exact .inr rfl
 
 namespace FunctionDeclarationNative
 

@@ -27,6 +27,7 @@ inductive FunctionStepAt (text : Source) (form : Compose.Form) :
   | declarations {state next definitions} : FunctionDeclarationsAt text form.hasArguments state definitions next →
       FunctionStepAt text form .declarations state definitions next
   | other {token state next} : token ≠ ShellToken.declarations → next.functions = state.functions →
+      next.procedures = state.procedures → next.arrayNames.types = state.arrayNames.types →
       FunctionStepAt text form token state [] next
 
 theorem step_function_trace {text form token state next event}
@@ -41,16 +42,29 @@ theorem step_function_trace {text form token state next event}
       (by rw [equation]; exact parsed.following)
     rw [equation] at source
     exact ⟨definitions, .declarations source⟩
-  · exact ⟨[], .other declaration (step_functions_preserved declaration parsed)⟩
+  · exact ⟨[], .other declaration (step_functions_preserved declaration parsed)
+      (step_procedures_preserved declaration parsed)
+      (by rw [step_arrayNames_preserved declaration parsed])⟩
+
+theorem FunctionStepAt.callableTypesKnown {text form token state definitions next}
+    (source : FunctionStepAt text form token state definitions next)
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    CallableTypesKnown next := by
+  cases source with
+  | declarations source => exact source.callableTypesKnown textValid valid known
+  | other _ functions procedures types =>
+      constructor
+      · simpa only [functions, types] using known.functions
+      · simpa only [procedures, types] using known.procedures
 
 theorem FunctionStepAt.checked {text form token state definitions next}
     (source : FunctionStepAt text form token state definitions next)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    DefinitionsChecked (catalogSignatures state.functions) definitions ∧
-      catalogSignatures next.functions = catalogSignatures state.functions ++ definitions.map Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) definitions ∧
+      catalogSignatures next.functions next.arrayNames.types = catalogSignatures state.functions state.arrayNames.types ++ definitions.map Definition.signature := by
   cases source with
-  | declarations source => exact source.checked textValid valid
-  | other _ same => exact ⟨trivial, by simp only [same, List.map_nil, List.append_nil]⟩
+  | declarations source => exact source.checked textValid valid known
+  | other _ same _ types => exact ⟨trivial, by simp only [same, types, List.map_nil, List.append_nil]⟩
 
 theorem FunctionStepAt.unique {text form token state left right next}
     (a : FunctionStepAt text form token state left next)
@@ -86,18 +100,29 @@ theorem tokens_function_trace {text form tokens state events final}
     obtain ⟨rest, following⟩ := ih nextValid
     exact ⟨first ++ rest, .next head source following⟩
 
+theorem FunctionTokensAt.callableTypesKnown {text form tokens state definitions final}
+    (source : FunctionTokensAt text form tokens state definitions final)
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    CallableTypesKnown final := by
+  induction source with
+  | done => exact known
+  | @next token tokens state middle final event firstDefinitions restDefinitions head first _ ih =>
+    have nextValid := model_step_valid text textValid form token state valid
+    rw [head.scanned] at nextValid
+    exact ih nextValid (first.callableTypesKnown textValid valid known)
+
 theorem FunctionTokensAt.checked {text form tokens state definitions final}
     (source : FunctionTokensAt text form tokens state definitions final)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    DefinitionsChecked (catalogSignatures state.functions) definitions ∧
-      catalogSignatures final.functions = catalogSignatures state.functions ++ definitions.map Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) definitions ∧
+      catalogSignatures final.functions final.arrayNames.types = catalogSignatures state.functions state.arrayNames.types ++ definitions.map Definition.signature := by
   induction source with
   | done => exact ⟨trivial, (List.append_nil _).symm⟩
   | @next token tokens state middle final event firstDefinitions restDefinitions head first _ ih =>
-    have checked := first.checked textValid valid
+    have checked := first.checked textValid valid known
     have nextValid := model_step_valid text textValid form token state valid
     rw [head.scanned] at nextValid
-    have following := ih nextValid
+    have following := ih nextValid (first.callableTypesKnown textValid valid known)
     rw [checked.2] at following
     exact ⟨checked.1.append following.1,
       by simpa only [List.map_append, List.append_assoc] using following.2⟩

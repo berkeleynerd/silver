@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values stay far below 2**61 so a guard before each addition discharges overflow and range checks with only for loops and fixed array bounds, though loop-carried array contents need that guard to be placed carefully.
 
-Position 678 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 680 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

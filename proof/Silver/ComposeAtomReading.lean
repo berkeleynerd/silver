@@ -85,7 +85,7 @@ theorem fixedAfter_result_bound (text : Source) (position : Nat) (word : String)
 structure ImageReading (text : Source) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
     (position : Nat) (expression : Integer.Expr)
-    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (arrays : ArrayBindings.Table := {}) (initials : ArrayBindings.Initials := [])
     (elaborating : Bool := false) : Prop where
   visible : integerHidden = false
   typePresent : (imageParts text position scalarNames arrays initials elaborating).typeAfter ≠ 0
@@ -93,39 +93,44 @@ structure ImageReading (text : Source) (names : BindingEnvironment)
     (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0
   scalarClear : ScalarExpression.lookup text scalarNames (imageParts text position scalarNames arrays initials elaborating).first
     (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0
-  arrayClear : ArrayBindings.lookup text arrays (imageParts text position scalarNames arrays initials elaborating).first
+  arrayClear : ArrayBindings.lookup text arrays.items (imageParts text position scalarNames arrays initials elaborating).first
+    (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0
+  arrayTypeClear : ArrayBindings.lookupType text arrays.types
+    (imageParts text position scalarNames arrays initials elaborating).first
     (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0
   attributePositive : (imageParts text position scalarNames arrays initials elaborating).attributeFirst ≠ 0
   attributeOrdered : (imageParts text position scalarNames arrays initials elaborating).attributeFirst <
     (imageParts text position scalarNames arrays initials elaborating).attributeAfter
   attributeName : Named.nameIs text (imageParts text position scalarNames arrays initials elaborating).attributeFirst
     (imageParts text position scalarNames arrays initials elaborating).attributeAfter ("image".toList.map Char.toNat) = true
-  scalar : ScalarExpression.At text scalarNames (imageParts text position scalarNames arrays initials elaborating).scalarPosition
+  scalar : ScalarExpression.ArrayGrammar.At text scalarNames (imageParts text position scalarNames arrays initials elaborating).scalarPosition
     expression (imageParts text position scalarNames arrays initials elaborating).scalar
     (arrays := arrays) (initials := initials) (elaborating := elaborating)
   following : position < (imageParts text position scalarNames arrays initials elaborating).following
 
 theorem image_complete {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {expression : Integer.Expr} (parsed : ImageReading text names scalarNames integerHidden position expression arrays initials elaborating) :
     imageAt text position names scalarNames integerHidden arrays initials elaborating = imageValue (imageParts text position scalarNames arrays initials elaborating) := by
   have attr := parsed.attributeName
   change Named.nameIs text (imageParts text position scalarNames arrays initials elaborating).attributeFirst
     (imageParts text position scalarNames arrays initials elaborating).attributeAfter [105, 109, 97, 103, 101] = true at attr
-  simp [imageAt, parsed.visible, parsed.typePresent, parsed.stringClear, parsed.scalarClear, parsed.arrayClear,
+  simp [imageAt, parsed.visible, parsed.typePresent, parsed.stringClear, parsed.scalarClear, parsed.arrayClear, parsed.arrayTypeClear,
     parsed.attributePositive, Nat.not_le.mpr parsed.attributeOrdered, attr,
     Nat.not_le.mpr parsed.following]
 
 theorem image_sound {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     (accepted : (imageAt text position names scalarNames integerHidden arrays initials elaborating).after ≠ 0) :
     ∃ expression, ImageReading text names scalarNames integerHidden position expression arrays initials elaborating := by
   have good : integerHidden = false ∧ (imageParts text position scalarNames arrays initials elaborating).typeAfter ≠ 0 ∧
       lookupName text names (imageParts text position scalarNames arrays initials elaborating).first (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0 ∧
       ScalarExpression.lookup text scalarNames (imageParts text position scalarNames arrays initials elaborating).first (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0 ∧
-      ArrayBindings.lookup text arrays (imageParts text position scalarNames arrays initials elaborating).first
+      ArrayBindings.lookup text arrays.items (imageParts text position scalarNames arrays initials elaborating).first
+        (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0 ∧
+      ArrayBindings.lookupType text arrays.types (imageParts text position scalarNames arrays initials elaborating).first
         (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0 ∧
       (imageParts text position scalarNames arrays initials elaborating).attributeFirst ≠ 0 ∧
       (imageParts text position scalarNames arrays initials elaborating).attributeFirst < (imageParts text position scalarNames arrays initials elaborating).attributeAfter ∧
@@ -139,7 +144,7 @@ theorem image_sound {text : Source} {names : BindingEnvironment}
       simp only [Bool.or_eq_true, decide_eq_true_eq, Bool.not_eq_true', not_or, Bool.not_eq_true,
         Bool.not_eq_true', Nat.not_le] at good
       rcases good with ⟨⟨⟨hidden, typeGood⟩, attributeName⟩, following⟩
-      rcases typeGood with ⟨typePresent, stringClear, scalarClear, arrayClear, attributePositive, attributeOrdered⟩
+      rcases typeGood with ⟨typePresent, stringClear, scalarClear, arrayClear, arrayTypeClear, attributePositive, attributeOrdered⟩
       have attributeTrue : Named.nameIs text
           (imageParts text position scalarNames arrays initials elaborating).attributeFirst
           (imageParts text position scalarNames arrays initials elaborating).attributeAfter ("image".toList.map Char.toNat) = true := by
@@ -148,18 +153,18 @@ theorem image_sound {text : Source} {names : BindingEnvironment}
           (imageParts text position scalarNames arrays initials elaborating).attributeAfter ("image".toList.map Char.toNat)) with found | absent
         · exact found
         · exact False.elim (attributeName absent)
-      exact ⟨hidden, typePresent, by omega, by omega, by omega,
+      exact ⟨hidden, typePresent, by omega, by omega, by omega, by omega,
         attributePositive, attributeOrdered, attributeTrue, following⟩
   have scalarPositive : (imageParts text position scalarNames arrays initials elaborating).scalar.after ≠ 0 := by
     intro zero
-    have following := good.2.2.2.2.2.2.2.2
+    have following := good.2.2.2.2.2.2.2.2.2
     change position < fixedAfter text (imageParts text position scalarNames arrays initials elaborating).scalar.after ")" false at following
     simp [zero, fixedAfter] at following
   have bound : (imageParts text position scalarNames arrays initials elaborating).scalarPosition ≤ text.length + 1 :=
     fixedAfter_result_bound text _ "(" false (by decide)
-  obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound bound scalarPositive
+  obtain ⟨expression, parsed⟩ := ScalarExpression.ArrayGrammar.read_sound bound scalarPositive
   exact ⟨expression, good.1, good.2.1, good.2.2.1, good.2.2.2.1, good.2.2.2.2.1,
-    good.2.2.2.2.2.1, good.2.2.2.2.2.2.1, good.2.2.2.2.2.2.2.1, parsed, good.2.2.2.2.2.2.2.2⟩
+    good.2.2.2.2.2.1, good.2.2.2.2.2.2.1, good.2.2.2.2.2.2.2.1, good.2.2.2.2.2.2.2.2.1, parsed, good.2.2.2.2.2.2.2.2.2⟩
 
 /-- Typed source metadata links actual Ada bounds to the byte-store shape. -/
 def BindingInfo.WellTyped (info : BindingInfo) : Prop :=

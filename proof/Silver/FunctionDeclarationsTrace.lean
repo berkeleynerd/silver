@@ -28,13 +28,20 @@ theorem functionDeclarations_source {text arguments state}
     ∃ definitions, FunctionDeclarationsAt text arguments state definitions (declarationsAt text state arguments) :=
   functionDeclarationsLoop_source text arguments _ state textValid valid accepted
 
+theorem FunctionDeclarationsAt.callableTypesKnown {text arguments state definitions final}
+    (source : FunctionDeclarationsAt text arguments state definitions final)
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    CallableTypesKnown final := by
+  obtain ⟨procedures, trace⟩ := source
+  exact trace.callableTypesKnown textValid valid known
+
 theorem FunctionDeclarationsAt.checked {text arguments state definitions final}
     (source : FunctionDeclarationsAt text arguments state definitions final)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    DefinitionsChecked (catalogSignatures state.functions) definitions ∧
-      catalogSignatures final.functions = catalogSignatures state.functions ++ definitions.map Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) definitions ∧
+      catalogSignatures final.functions final.arrayNames.types = catalogSignatures state.functions state.arrayNames.types ++ definitions.map Definition.signature := by
   obtain ⟨procedures, trace⟩ := source
-  exact trace.functions_checked textValid valid
+  exact trace.functions_checked textValid valid known
 
 theorem FunctionDeclarationsAt.unique {text arguments state left right leftFinal rightFinal}
     (a : FunctionDeclarationsAt text arguments state left leftFinal)

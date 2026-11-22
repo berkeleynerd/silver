@@ -208,12 +208,18 @@ theorem actual_write_noninterference {actual : ScalarFunctions.Actual} {shape : 
     | boolean condition =>
         have next := condition_integer_write_noninterference value safe absent
         exact ⟨next.1, congrArg Value.boolean next.2⟩
+    | array typeId source =>
+        have outside : ¬ source.ContainsCell identity := by
+          simpa only [targetCell, valueMentions, decide_eq_false_iff_not] using absent
+        exact ⟨trivial, congrArg Value.array
+          (NamedArrayParameters.capture_put_outside typeId source state.integers identity value outside)⟩
   · rename_i identity value
     cases actual with
     | integer expression => exact ⟨safe, by trivial⟩
     | boolean condition =>
         have next := condition_boolean_write_noninterference value safe absent
         exact ⟨next.1, congrArg Value.boolean next.2⟩
+    | array _ _ => exact ⟨trivial, rfl⟩
 
 theorem actual_copyBack_noninterference {actual : ScalarFunctions.Actual} {shape : Bindings.Shape}
     {state : State} {targets : List Target} (values : List Value) (safe : actual.Safe shape state)

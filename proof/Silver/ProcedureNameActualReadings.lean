@@ -12,18 +12,24 @@ reader, independently of the declared parameter domain. -/
 theorem ActualAt.advance {text context position facts formal actual after}
     (source : ActualAt text context position facts formal actual after) : position < after := by
   cases source.payload with
-  | integer kind reading nonempty included =>
+  | integer scalar kind reading nonempty included =>
       have bounds := reading.cursorBounds
       have positive : (readScalarInFlow text context position facts).after ≠ 0 := by omega
       have finish := source.equation
-      simp only [actualAfter, kind, reduceCtorEq, ↓reduceIte, positive, nonempty, included,
+      simp only [actualAfter, scalar, ne_eq, not_true_eq_false, kind, reduceCtorEq, ↓reduceIte, positive, nonempty, included,
         Bool.not_true, Bool.false_eq_true, or_self] at finish
       omega
-  | boolean kind reading =>
+  | boolean scalar kind reading =>
       have finish : (readCondition text context position facts).after = after := by
-        simpa only [actualAfter, kind, ↓reduceIte] using source.equation
+        simpa only [actualAfter, scalar, ne_eq, not_true_eq_false, kind, ↓reduceIte] using source.equation
       rw [← finish]
       exact condition_source_advance reading
+
+  | array reading =>
+      have finish := source.equation
+      rw [actualAfter, ite_eq_left (Nat.ne_of_gt reading.nominal)] at finish
+      rw [← finish]
+      exact (reading.cursorBounds reading.inputBound).1
 
 theorem ActualNameFreeTrace.valueActual {text : Source} {context : ParseContext} {facts : ActiveFlow}
     {position limit targetFirst targetAfter after : Nat} {formal : FunctionBindings.Formal}
@@ -34,11 +40,11 @@ theorem ActualNameFreeTrace.valueActual {text : Source} {context : ParseContext}
     (spelling : CellSpelling text context targetFirst targetAfter target) (targetBound : target.InScalarNamespace) :
     valueMentions target actual = false ∧ ActualNameFreeTrace text limit targetFirst targetAfter after := by
   cases source.payload with
-  | integer kind reading nonempty included =>
+  | integer scalar kind reading nonempty included =>
       have bounds := reading.cursorBounds
       have positive : (readScalarInFlow text context position facts).after ≠ 0 := by omega
       have finish := source.equation
-      simp only [actualAfter, kind, reduceCtorEq, ↓reduceIte, positive, nonempty, included,
+      simp only [actualAfter, scalar, ne_eq, not_true_eq_false, kind, reduceCtorEq, ↓reduceIte, positive, nonempty, included,
         Bool.not_true, Bool.false_eq_true, or_self] at finish
       rw [← finish] at finishBound ⊢
       obtain ⟨free, following⟩ := trace.scalar reading finishBound
@@ -47,11 +53,30 @@ theorem ActualNameFreeTrace.valueActual {text : Source} {context : ParseContext}
       cases target with
       | integer => exact free
       | boolean => rfl
-  | boolean kind reading =>
+  | boolean scalar kind reading =>
       have finish : (readCondition text context position facts).after = after := by
-        simpa only [actualAfter, kind, ↓reduceIte] using source.equation
+        simpa only [actualAfter, scalar, ne_eq, not_true_eq_false, kind, ↓reduceIte] using source.equation
       rw [← finish] at finishBound ⊢
       exact trace.conditionSyntax reading positionBound finishBound spelling targetBound
+
+  | @array item reading =>
+      have finish := source.equation
+      rw [actualAfter, ite_eq_left (Nat.ne_of_gt reading.nominal)] at finish
+      have endpoint := reading.afterName.trans finish
+      refine ⟨?_, ?_⟩
+      · cases target with
+        | boolean => rfl
+        | integer identity =>
+          have low : identity ≤ ArrayBindings.scalarLimit := targetBound
+          have base : ArrayBindings.scalarLimit < item.viewDescriptor.base := by
+            by_cases stored : item.viewSlot = 0 <;>
+              simp only [ArrayBindings.Binding.viewDescriptor, stored, ↓reduceIte, ArrayBindings.Binding.descriptor] <;> omega
+          have apart : ¬item.viewDescriptor.ContainsCell identity := fun inside => by
+            have lower := inside.1
+            omega
+          simp [valueMentions, apart]
+      · rw [← endpoint] at finishBound ⊢
+        exact trace.nameEnd positionBound (fun zero => source.positive (endpoint.symm.trans zero)) finishBound
 
 theorem WritableNameAt.advance {text : Source} {context : ParseContext} {position after : Nat} {cell : Cell}
     (source : WritableNameAt text context position after cell) (positionBound : position ≤ text.length + 1) :

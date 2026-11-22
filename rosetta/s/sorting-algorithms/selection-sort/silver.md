@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The selection-sort candidate admitted using existing fixed arrays, bounded scalar indexes, counted loops and Integer Image output, including negative and duplicate data. This is admission evidence only; sorted execution output and final application proof/build evidence were not measured. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 111 in the [progression](../../../progression.md#stage-4), in stage 4.
+Position 113 in the [progression](../../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

@@ -1,0 +1,21 @@
+{
+  "requested_at": "2026-11-22T01:06:00.562064+00:00",
+  "authorization": "Please request a claude review using the appropriate model, effort, and prompt.",
+  "pr": 412,
+  "base": "5f97477d5be1c9da974e6df95300bb8f2bb8fcfb",
+  "target": "5a4b0ad8ac05ed431d2f0c8baee2c2cc75686267",
+  "selected_model": "claude-fable-5-2",
+  "selected_effort": "max",
+  "rationale": "Critical full-domain and actual-source proof review; retained cross-provider role guidance assigns hardest proof questions to Fable, and the previous direct review confirmed Fable5.2 availability. No silent fallback.",
+  "cli_version": "2.1.330 (Claude Code)",
+  "scope": "Full PR412 increment and affected inherited compositions; read-only repository/GitHub, scratch only outside detached worktree.",
+  "cpu_ceiling": 8,
+  "allowed_guest_cpus": "0-7",
+  "official_docs_refresh": "Requests to platform.claude.com and code.claude.com returned HTTP403; no new provider recommendation is claimed. CLI help confirms max effort.",
+  "publication": "No merge authorized; review results are local pending owner/lead disposition.",
+  "observed_model": "claude-fable-5-2",
+  "model_observation": "stream-json init and first assistant message",
+  "effort_observation": "Explicit CLI --effort max; no server-side effort field confirmed",
+  "session_id": "8a829a52-584e-45ed-af91-8499f28cf390",
+  "managed_run": "20261122T010909-5521bb0d015c"
+}

@@ -1,0 +1,62 @@
+{
+  "utc": "2026-11-22T10:54:02.838403+00:00",
+  "reviewed_baseline": "5a4b0ad8ac05ed431d2f0c8baee2c2cc75686267",
+  "current_commit": "39c6ff1baf41d00d826d0fe8d4fc263043205d00",
+  "scope": "Exact retained proof/build input comparison; test/manifest/records repairs are separate and require affected-test validation.",
+  "checks": {
+    "native_source_comparison": {
+      "count": 145,
+      "mismatches": []
+    },
+    "lean_shared_inputs": {
+      "count": 1191,
+      "mismatches": []
+    },
+    "lean_workspace_equivalent_sources": {
+      "count": 1085,
+      "mismatches": []
+    },
+    "compiler_build_inputs": {
+      "count": 2635,
+      "mismatches": []
+    }
+  },
+  "binary_sha256": "7493908501d3a51169be75791589476eeb54473edd61a9696420d9edc842bf9b",
+  "changed_paths": [
+    "README.md",
+    "development.md",
+    "docs/evidence/named-array-parameters-410-20261121/stack/README.md",
+    "docs/named-array-parameters-report-capacity.md",
+    "docs/named-array-parameters.md",
+    "docs/session-memory.md",
+    "docs/trusted-boundary.md",
+    "samples/manifest.json",
+    "tests/test_array_parameters.py",
+    "tests/test_samples.py"
+  ],
+  "protected_input_diff": [],
+  "unchanged_proof_inputs_through_commit": "3258c573a79d93e680fd9e13149cc0d2a9c5dffa",
+  "independent_review": "docs/reviews/review-pr412-repair-applicability-20261122.md",
+  "regression_status": {
+    "discovered_identities": 787,
+    "retained_applicable": 783,
+    "fresh_passed": 3,
+    "pending_identity": "test_samples.SupportedSampleTests.test_maximum_dynamic_expression",
+    "pending_run": "20261122T105525-650db3ffe211",
+    "sorted_inventory_sha256": "ecd2f159f8ad4708b4248883464b38d071203bf7954ec8f8d38119c04c49ad65"
+  },
+  "final_regression_closeout": {
+    "finished_at": "2026-11-22T12:09:08.210708+00:00",
+    "run_id": "20261122T105525-650db3ffe211",
+    "outcome": "success",
+    "discovered_identities": 787,
+    "retained_applicable": 783,
+    "fresh_passed": 4,
+    "remaining_identities": [],
+    "test_samples_sha256": "df8939c8470e50730597866e9c0d2364a37e644495a3f5e09531a3c60f6d7e56",
+    "evidence": "maximal/README.md",
+    "scope": "Completes the previously pending identity on the frozen reviewed inputs. Earlier comparison and pending-state fields above retain their timestamped historical scope.",
+    "independent_check": "maximal/closeout-check.md",
+    "matched_prepared_run_inputs": 1400
+  }
+}

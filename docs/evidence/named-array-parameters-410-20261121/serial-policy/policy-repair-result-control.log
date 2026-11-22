@@ -1,0 +1,3 @@
+Managed run: 20261121T202537-af32fdd0a5e1 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261121T202537-af32fdd0a5e1)
+Resource allocation: workers requested=1 actual=1 automatic=2; deliberate reduction: workers
+PASS: retained serial proof accepted; wrong step limit, declaration-only and undone-only sessions rejected.

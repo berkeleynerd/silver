@@ -35,7 +35,9 @@ def procedureDeclarationBody : Command .state :=
       (.update .firstProcedureParameter
         (.update .hiding
           (.update .procedures
-            (.update .functions (.update .subtypes (.update .pure (.update .position .initial opening) (.truth true)) (.field .subtypes state))
+            (.update .functions (.update .subtypes
+              (.update .arrayEnvironment (.update .pure (.update .position .initial opening) (.truth true))
+                (.emptyArrayFrame state)) (.field .subtypes state))
               (.field .functions state))
             (.field .procedures state))
           (apply4 (.function .hideName) text (apply2 (.function .hiddenOuter) text state) first after))
@@ -81,6 +83,7 @@ def declarationInitial (calls : Calls) (text : Source) (state : ParserState)
     (parts : DeclarationParts) : ParserState :=
   {initialState with
     position := parts.opening, pure := true,
+    arrayNames := {types := state.arrayNames.types},
     subtypeNames := state.subtypeNames, functions := state.functions, procedures := state.procedures,
     «hiding» := calls .hideName text (calls .hiddenOuter text state) parts.first parts.after,
     firstProcedureParameter := state.procedures.parameters.length + 1}

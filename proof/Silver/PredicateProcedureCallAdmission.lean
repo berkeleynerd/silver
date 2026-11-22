@@ -1,5 +1,6 @@
 module
 
+public import Silver.PredicateFunctionCallTypes
 public import Silver.PredicateBodyPrimitives
 public import Silver.ProcedureNameScanner
 
@@ -26,7 +27,7 @@ def procedureTargetActual (text : Source) (context : ParseContext) (position : N
   let after := nameAfter text first
   let scalar := scalarTarget text context position
   let flag := booleanTarget text context position
-  if first = 0 ∨ after ≤ first then invalidProcedureActual
+  if first = 0 ∨ after ≤ first ∨ parameter.typeId ≠ 0 then invalidProcedureActual
   else if parameter.kind = .integer then
     let binding := ScalarExpression.binding context.scalarNames scalar
     let incoming := facts.values.getD (scalar - 1) Integer.Interval.empty
@@ -42,7 +43,7 @@ def procedureTargetActual (text : Source) (context : ParseContext) (position : N
 def procedureActualAfter (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (parameter : ProcedureBindings.Formal) : Nat :=
   if parameter.mode = .input then
-    actualAfter text context position facts ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩
+    actualAfter text context position facts (procedureInputFormal parameter)
   else (procedureTargetActual text context position facts parameter).after
 
 def procedureActualsTailModel (text : Source) (context : ParseContext) (position : Nat)
@@ -144,7 +145,8 @@ def procedureCalleeAt (text : Source) (context : ParseContext) (position : Nat)
   if first = 0 ∨ after ≤ first ∨ lookupName text context.names first after ≠ 0 ∨
       ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
       BooleanBindings.lookup text context.booleanNames first after ≠ 0 ∨
-      ArrayBindings.lookup text context.arrayNames first after ≠ 0
+      ArrayBindings.lookup text context.arrayNames first after ≠ 0 ∨
+      ArrayBindings.lookupType text context.arrayTypes first after ≠ 0
   then 0 else ProcedureBindings.lookup text catalog first after
 
 def procedureCallBody (text : Source) (context : ParseContext) (scan : BodyScan)

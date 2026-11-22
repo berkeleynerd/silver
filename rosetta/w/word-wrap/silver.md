@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The greedy wrap is plain index scanning over a constant string inside a procedure with while loops, so checks follow from guards before each index and slice, but several loop-carried indices need careful guard placement without invariants. No annotation-only facts, recursion or heap are needed, so discharge is plausible rather than certain.
 
-Position 1000 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1087 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

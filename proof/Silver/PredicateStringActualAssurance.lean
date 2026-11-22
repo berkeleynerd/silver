@@ -93,7 +93,9 @@ theorem source_actual_initializers_bounds {source program} (meaning : SourceMean
   obtain ⟨form, before, after, strings, region, lead, trace⟩ := source_raw_initializers_bounds meaning arguments
   obtain ⟨events, leading⟩ := region.leading
   have ready := actual_tokens_outer_ready textValid leading (OuterReadiness.initial_valid source)
-  have static := (Sequence.tokens_valid domain.2.1 leading Compose.initial_valid).1.2.2.2
+  have elaborated := (Sequence.tokens_valid domain.2.1 leading Compose.initial_valid).1.2.2.2
+  have static := elaborated.1
+  have stored := elaborated.2
   have inputDomain := program.input_domain arguments
   have entryFits : Fits before.names.shape (program.input arguments)
       (executeDeclarations (program.input arguments) (headerLeadDeclarations form) emptyValues) := by
@@ -106,7 +108,7 @@ theorem source_actual_initializers_bounds {source program} (meaning : SourceMean
         simpa only [argumentShape, argumentDeclaration, Declaration.extend] using
           Bindings.declaration_preserves (empty_fits (program.input arguments)) inputDomain.2 argument_declaration_valid
   have actual := trace.actual_bounds domain.2.1 inputDomain.1 inputDomain.2 ready.base.2.1.1 ready.bounds
-    entryFits static (header_lead_actual_compatible region arguments)
+    entryFits static stored (header_lead_actual_compatible region arguments)
   refine ⟨?_, form, before, after, strings, region, ?_, actual.2⟩
   · simpa only [Program.actualBounds, region.declarationList, region.names, executeDeclarationsBounds_append] using actual.1
   · intro hasArguments

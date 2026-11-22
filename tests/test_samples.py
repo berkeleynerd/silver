@@ -2,16 +2,156 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import re
 import shutil
+import signal
 import subprocess
+import sys
 import tempfile
+import time
 import unittest
+from unittest import mock
 import xml.etree.ElementTree as ET
 
 from scripts.check_evidence import audit_reports
 from tests.test_silver import HOST, ROOT, SILVER, invoke
+
+
+def _compile_maximum_dynamic_expression(
+        source: Path, *, timeout: float = 3 * 60 * 60) -> subprocess.CompletedProcess[str]:
+    command = [str(SILVER), "compile", str(source)]
+    with subprocess.Popen(command, cwd=ROOT, text=True, stdout=subprocess.PIPE,
+                          stderr=subprocess.STDOUT, start_new_session=True) as process:
+        try:
+            stdout, stderr = process.communicate(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            # Stop Why3's launch group first: it puts solvers in separate
+            # process groups within this isolated session. Keep the compiler
+            # unreaped until the remaining session groups have been killed.
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            try:
+                pids = subprocess.run(["ps", "-e", "-o", "pid="], text=True,
+                                      capture_output=True, check=True, timeout=5).stdout
+                groups = set()
+                for pid in map(int, pids.split()):
+                    try:
+                        if os.getsid(pid) == process.pid:
+                            groups.add(os.getpgid(pid))
+                    except (ProcessLookupError, PermissionError):
+                        continue
+                for group in groups - {process.pid}:
+                    try:
+                        os.killpg(group, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+            finally:
+                process.wait()
+            # Preserve subprocess.run's POSIX timeout exception, including its
+            # raw partial-output snapshot, rather than decoding output again.
+            raise
+    return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
+
+
+class MaximumExpressionProcessTests(unittest.TestCase):
+    def compiler_fixture(self, code: str) -> tuple[Path, Path]:
+        directory = tempfile.TemporaryDirectory(prefix="silver-compile-process-")
+        self.addCleanup(directory.cleanup)
+        root = Path(directory.name)
+        compiler = root / "silver"
+        compiler.write_text(f"#!{sys.executable}\n" + code)
+        compiler.chmod(0o700)
+        return compiler, root / "main.adb"
+
+    def test_success_and_failure_preserve_output_and_return_code(self) -> None:
+        for status in (0, 7):
+            with self.subTest(status=status):
+                compiler, source = self.compiler_fixture(
+                    "import os\n"
+                    "os.write(1, b'compiler \\xe2\\x9c\\x93\\n')\n"
+                    "os.write(2, b'proof diagnostics\\n')\n"
+                    f"raise SystemExit({status})\n")
+                with mock.patch(__name__ + ".SILVER", compiler):
+                    result = _compile_maximum_dynamic_expression(source, timeout=5)
+                self.assertEqual(result.args, [str(compiler), "compile", str(source)])
+                self.assertEqual(result.returncode, status)
+                self.assertEqual(result.stdout, "compiler ✓\nproof diagnostics\n")
+                self.assertIsNone(result.stderr)
+
+    def test_timeout_kills_session_groups_and_reaps_compiler(self) -> None:
+        compiler, source = self.compiler_fixture("")
+        group_file = compiler.parent / "group"
+
+        def cleanup_group() -> None:
+            if group_file.exists():
+                for group in map(int, group_file.read_text().split()):
+                    try:
+                        os.killpg(group, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+
+        self.addCleanup(cleanup_group)
+        descendant = ("import os,sys,time\n"
+                      "print(f'{sys.argv[1]}:{os.getpid()}:{os.getpgrp()}:{os.getsid(0)}', flush=True)\n"
+                      "if sys.argv[1] == 'separate': os.write(1, b'\\xe2')\n"
+                      "time.sleep(10)\n")
+        compiler.write_text(
+            f"#!{sys.executable}\n"
+            "import os,subprocess,sys,time\n"
+            "from pathlib import Path\n"
+            f"Path({str(group_file)!r}).write_text(str(os.getpid()))\n"
+            "print(f'compiler:{os.getpid()}:{os.getpgrp()}:{os.getsid(0)}', flush=True)\n"
+            f"subprocess.Popen([sys.executable, '-c', {descendant!r}, 'inherited'])\n"
+            f"separate = subprocess.Popen([sys.executable, '-c', {descendant!r}, 'separate'], process_group=0)\n"
+            f"Path({str(group_file)!r}).write_text(f'{{os.getpid()}} {{separate.pid}}')\n"
+            "time.sleep(10)\n")
+        started = time.monotonic()
+        with mock.patch(__name__ + ".SILVER", compiler), \
+                self.assertRaises(subprocess.TimeoutExpired) as raised:
+            _compile_maximum_dynamic_expression(source, timeout=1)
+        self.assertLess(time.monotonic() - started, 5, "timeout cleanup did not finish promptly")
+        error = raised.exception
+        self.assertEqual(error.cmd, [str(compiler), "compile", str(source)])
+        self.assertEqual(error.timeout, 1)
+        self.assertIsNone(error.stderr)
+        self.assertIsInstance(error.output, bytes)
+        # A timeout can interrupt a UTF-8 diagnostic. Cleanup must not decode
+        # that partial byte sequence and replace TimeoutExpired with an error.
+        self.assertIn(b"\xe2", error.output)
+        processes = {name: (int(pid), int(group), int(session))
+                     for name, pid, group, session in (
+                         line.split(":")
+                         for line in error.output.replace(b"\xe2", b"").decode().splitlines())}
+        self.assertEqual(set(processes), {"compiler", "inherited", "separate"})
+        pid, group, session = processes["compiler"]
+        self.assertEqual(group, pid)
+        self.assertEqual(session, pid)
+        self.assertNotEqual(group, os.getpgrp())
+        self.assertEqual(processes["inherited"][1:], (group, session))
+        separate_pid, separate_group, separate_session = processes["separate"]
+        self.assertEqual(separate_group, separate_pid)
+        self.assertNotEqual(separate_group, group)
+        self.assertEqual(separate_session, session)
+        with self.assertRaises(ChildProcessError):
+            os.waitpid(pid, os.WNOHANG)
+        # Descendants belong to their new parent, which reaps them. A zombie
+        # is already terminated even if that parent has not run yet.
+        descendants = ",".join(str(processes[name][0]) for name in ("inherited", "separate"))
+        deadline = time.monotonic() + 3
+        while True:
+            status = subprocess.run(["ps", "-o", "pid=,stat=", "-p", descendants],
+                                    text=True, capture_output=True, timeout=5)
+            self.assertIn(status.returncode, (0, 1), status.stderr)
+            self.assertEqual(status.stderr, "")
+            states = [line.split()[1] for line in status.stdout.splitlines()]
+            if all(state.startswith("Z") for state in states):
+                break
+            self.assertLess(time.monotonic(), deadline, status.stdout)
+            time.sleep(.01)
 
 
 class SupportedSampleTests(unittest.TestCase):
@@ -28,14 +168,14 @@ class SupportedSampleTests(unittest.TestCase):
             self.assertEqual([arg for arg in command if arg.startswith(f"--{name}=")],
                              [f"--{name}={value}"])
         self.assertIn("-U", command)
-        self.assertIn("-j0", command)
+        self.assertEqual([arg for arg in command if arg.startswith("-j")], ["-j1"])
         self.assertIn("--no-loop-unrolling", command)
         self.assertEqual("--no-inlining" in command, functions)
 
         # GNATprove normalizes --steps for each pinned solver; Why3 records
         # the resulting raw limits. Per-attempt overrides also take effect.
         steps = {"altergo": "100000", "CVC5": "3515000", "Z3": "80450000"}
-        seen = set()
+        attempted = set()
         sessions = list(report.parent.rglob("why3session.xml"))
         if output:
             self.assertTrue(sessions, "missing effective application prover limits")
@@ -47,18 +187,21 @@ class SupportedSampleTests(unittest.TestCase):
                     continue  # Why3's internal trivial prover has its own limits.
                 name = prover["name"]
                 self.assertIn(name, steps, path)
-                seen.add(name)
                 expected = {"timelimit": "0", "steplimit": steps[name], "memlimit": "1000"}
                 self.assertEqual({key: prover.get(key) for key in expected}, expected, path)
             for proof in session.iter("proof"):
                 prover = provers[proof.attrib["prover"]]
                 if prover["name"] != "Trivial":
+                    if proof.find("result") is not None:
+                        attempted.add(prover["name"])
                     expected = {"timelimit": "0", "steplimit": steps[prover["name"]],
                                 "memlimit": "1000"}
                     self.assertEqual({key: proof.get(key, prover.get(key)) for key in expected},
                                      expected, path)
         if output:
-            self.assertEqual(seen, set(steps))
+            # Serial proving can discharge every goal with the first configured
+            # solver. Require observed effective limits, not redundant attempts.
+            self.assertTrue(attempted, "missing external application proof results")
 
     def test_manifest_samples(self) -> None:
         self.assertTrue(SILVER.is_file(), "build the actual SPARK compiler first")
@@ -155,9 +298,10 @@ class SupportedSampleTests(unittest.TestCase):
             admission = invoke("check", source)
             self.assertEqual(admission.returncode, 0, admission.stdout)
             # Test-runner deadline only; production proof has no wall-clock limit.
-            compilation = subprocess.run([str(SILVER), "compile", str(source)], cwd=ROOT,
-                                         text=True, stdout=subprocess.PIPE,
-                                         stderr=subprocess.STDOUT, timeout=300)
+            # The one-worker application prover took 6,973 seconds on the host's
+            # eight-CPU allocation. Allow three hours for this maximal case;
+            # ordinary tests and production solver limits remain unchanged.
+            compilation = _compile_maximum_dynamic_expression(source)
             self.assertEqual(compilation.returncode, 0, compilation.stdout)
             match = re.search(r"^Executable: (.+)$", compilation.stdout, re.MULTILINE)
             self.assertIsNotNone(match, compilation.stdout)

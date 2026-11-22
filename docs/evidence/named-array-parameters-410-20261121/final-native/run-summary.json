@@ -1,0 +1,30 @@
+[
+  {
+    "run_id": "20261121T135513-089c46fa489d",
+    "outcome": "failure",
+    "duration_seconds": 16179.599457131,
+    "error": "EvidenceError: silver_scalar_expressions: unexpected operator-reassociation advisory",
+    "utc": "2026-11-21T18:24:54.765957+00:00"
+  },
+  {
+    "run_id": "20261121T185537-7700045ce968",
+    "outcome": "failure",
+    "duration_seconds": 45.186365422,
+    "error": "EvidenceError: no fully analyzed entity at the requested focused selection",
+    "utc": "2026-11-21T18:56:23.562264+00:00"
+  },
+  {
+    "run_id": "20261121T185720-c8b8943aaecb",
+    "outcome": "success",
+    "duration_seconds": 30.342736814,
+    "error": null,
+    "utc": "2026-11-21T18:57:51.307120+00:00"
+  },
+  {
+    "run_id": "20261121T191055-5cced625eb47",
+    "outcome": "success",
+    "duration_seconds": 492.55996186,
+    "error": null,
+    "utc": "2026-11-21T19:19:09.153210+00:00"
+  }
+]

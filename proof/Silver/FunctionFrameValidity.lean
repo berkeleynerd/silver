@@ -87,7 +87,7 @@ theorem parameterStep_state_valid {text state arguments}
         · rename_i noAdvance
           simpa only [noAdvance, ↓reduceIte] using model_invalid_state_valid text
   · have extension := (parameterStep_valid text state arguments valid.functions
-        valid.2.2.2.2.2.2.2.1).resolve_left rejected
+        valid.2.2.2.2.2.2.2.1 valid.arrayTypes).resolve_left rejected
     have fields := (parameterStep_fields_or_rejected text state arguments).resolve_left rejected
     have cursor := parameterStep_cursor text state arguments
     have growth := extension.grows
@@ -97,33 +97,121 @@ theorem parameterStep_state_valid {text state arguments}
     exact ⟨cursor, names, dynamic, target, capacity, scalars, arrays, subtypes,
       booleans, extension.valid, by dsimp; omega, parameterCapacity⟩
 
+/-- The immutable view record installed by the native frame helper. Its
+component domain is the named declaration, never the caller's initialized cells. -/
+def arrayParameterBinding (frame : ParserState) (first after typeId : Nat) : ArrayBindings.Binding :=
+  let item := ArrayBindings.arrayType frame.arrayNames.types typeId
+  ⟨first, after, item.bounds, 0, (item.bounds.upper - item.bounds.lower + 1).toNat,
+    false, item.componentBounds, false, typeId, frame.arrayNames.names.length + 1⟩
+
+theorem appendParameter_array {frame parameter}
+    (named : parameter.typeId ≠ 0)
+    (accepted : (appendParameter frame parameter).position ≠ 0) :
+    appendParameter frame parameter =
+      {frame with arrayNames := {frame.arrayNames with names := frame.arrayNames.names ++
+        [arrayParameterBinding frame parameter.first parameter.after parameter.typeId]}} := by
+  rw [appendParameter, ite_eq_left named] at accepted ⊢
+  unfold appendArrayParameter at accepted ⊢
+  split at accepted
+  · exact False.elim (accepted rfl)
+  · rename_i allowed
+    rw [ite_eq_right allowed]
+    rfl
+
+theorem appendParameter_type_known {frame parameter}
+    (accepted : (appendParameter frame parameter).position ≠ 0) :
+    parameter.typeId ≤ frame.arrayNames.types.length := by
+  by_cases named : parameter.typeId ≠ 0
+  · rw [appendParameter, ite_eq_left named] at accepted
+    unfold appendArrayParameter at accepted
+    split at accepted
+    · exact False.elim (accepted rfl)
+    · rename_i allowed
+      simp only [not_or] at allowed
+      omega
+  · omega
+
+theorem appendArrayParameter_valid {text frame first after typeId}
+    (valid : ValidState text frame) (span : FunctionBindings.NameSpan text first after) :
+    ValidState text (appendArrayParameter frame first after typeId) := by
+  unfold appendArrayParameter
+  split
+  · exact model_invalid_state_valid text
+  · rename_i allowed
+    simp only [not_or, Classical.not_not] at allowed
+    have known : typeId ≤ frame.arrayNames.types.length := by omega
+    have room : frame.arrayNames.names.length < ArrayBindings.maxBindings := by
+      have capacity : frame.arrayNames.names.length ≤ ArrayBindings.maxBindings := valid.arrays.1.2.1
+      omega
+    have shape := allowed.2.2.2.1
+    have nonempty := shape.2.1
+    have lengthBound := shape.length_bound
+    have typed : ArrayBindings.ValidNativeBinding (arrayParameterBinding frame first after typeId) := by
+      refine ⟨⟨shape.1, nonempty, ?_, ?_, ?_, shape.2.2.1, shape.2.2.2.1⟩,
+        ?_, ?_, ?_, ?_⟩
+      · dsimp only [arrayParameterBinding]
+        omega
+      · simpa only [arrayParameterBinding, Nat.zero_add] using lengthBound
+      · dsimp only [arrayParameterBinding]
+        omega
+      · change typeId ≤ ArrayBindings.maxTypes
+        exact Nat.le_trans known valid.arrayTypes.1
+      · change frame.arrayNames.names.length + 1 ≤ ArrayBindings.maxBindings
+        omega
+      · intro _
+        rfl
+      · intro _
+        exact ⟨allowed.1, rfl, rfl, rfl⟩
+    have table := valid.arrays.1.append (item := arrayParameterBinding frame first after typeId) room span typed
+      (show ArrayBindings.TypeCoherent frame.arrayNames.types (arrayParameterBinding frame first after typeId) from
+        ⟨known, fun _ => ⟨rfl, rfl⟩⟩)
+      (fun _ => rfl) (by
+        intro positive
+        have prior : (ArrayBindings.binding frame.arrayNames.names frame.arrayNames.names.length).viewSlot ≠ 0 :=
+          fun zero => allowed.2.2.2.2 ⟨positive, zero⟩
+        simpa only [ArrayBindings.Env.table, ArrayBindings.Adjacent, arrayParameterBinding,
+          Nat.add_eq_zero_iff, Nat.one_ne_zero, and_false, false_iff, false_implies, and_true] using prior)
+    have arrays : ArrayBindings.ValidNativeEnvironment text
+        {frame.arrayNames with names := frame.arrayNames.names ++ [arrayParameterBinding frame first after typeId]} := by
+      refine ⟨table, valid.arrays.2.1, valid.arrays.2.2.1, ?_⟩
+      intro item member stored
+      rcases List.mem_append.mp member with old | fresh
+      · exact valid.arrays.2.2.2 item old stored
+      · have same := List.mem_singleton.mp fresh
+        subst item
+        simp [arrayParameterBinding] at stored
+    exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
+      valid.2.2.2.2.1, valid.2.2.2.2.2.1, arrays, valid.2.2.2.2.2.2.2⟩
+
 theorem appendParameter_valid {text frame parameter}
     (valid : ValidState text frame) (typed : FunctionBindings.ValidFormal text parameter) :
     ValidState text (appendParameter frame parameter) := by
   unfold appendParameter
   split
+  · exact appendArrayParameter_valid valid typed.1
   · split
-    · exact model_invalid_state_valid text
-    · rename_i room
-      have space : frame.scalarNames.length < ScalarExpression.maxBindings := by
-        have bounded := valid.2.2.2.2.2.1.1
-        omega
-      have scalars := ScalarExpression.validEnvironment_append valid.2.2.2.2.2.1 space
-        (item := ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩)
-        ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1⟩
-      exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
-        valid.2.2.2.2.1, scalars, valid.2.2.2.2.2.2⟩
-  · split
-    · exact model_invalid_state_valid text
-    · rename_i room
-      have space : frame.booleanNames.length < BooleanBindings.maxBindings := by
-        have bounded := valid.booleans.1
-        omega
-      have booleans := BooleanBindings.valid_append valid.booleans space
-        (item := ⟨parameter.first, parameter.after, false⟩) typed.1
-      exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
-        valid.2.2.2.2.1, valid.2.2.2.2.2.1, valid.2.2.2.2.2.2.1,
-        valid.2.2.2.2.2.2.2.1, booleans, valid.2.2.2.2.2.2.2.2.2⟩
+    · split
+      · exact model_invalid_state_valid text
+      · rename_i room
+        have space : frame.scalarNames.length < ScalarExpression.maxBindings := by
+          have bounded := valid.2.2.2.2.2.1.1
+          omega
+        have scalars := ScalarExpression.validEnvironment_append valid.2.2.2.2.2.1 space
+          (item := ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩)
+          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1⟩
+        exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
+          valid.2.2.2.2.1, scalars, valid.2.2.2.2.2.2⟩
+    · split
+      · exact model_invalid_state_valid text
+      · rename_i room
+        have space : frame.booleanNames.length < BooleanBindings.maxBindings := by
+          have bounded := valid.booleans.1
+          omega
+        have booleans := BooleanBindings.valid_append valid.booleans space
+          (item := ⟨parameter.first, parameter.after, false⟩) typed.1
+        exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
+          valid.2.2.2.2.1, valid.2.2.2.2.2.1, valid.2.2.2.2.2.2.1,
+          valid.2.2.2.2.2.2.2.1, booleans, valid.2.2.2.2.2.2.2.2.2⟩
 
 
 theorem parametersModel_state_valid {text state arguments}
@@ -189,13 +277,18 @@ theorem appendParameter_headerReady {frame parameter}
     Predicate.ScalarMetadata.HeaderReady (appendParameter frame parameter).scalarNames := by
   unfold appendParameter
   split
-  · split
-    · exact Predicate.ScalarMetadata.headerReady_empty
-    · exact ready.append (by simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not]; omega)
-        (by simp)
-  · split
+  · unfold appendArrayParameter
+    split
     · exact Predicate.ScalarMetadata.headerReady_empty
     · exact ready
+  · split
+    · split
+      · exact Predicate.ScalarMetadata.headerReady_empty
+      · exact ready.append (by simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not]; omega)
+          (by simp)
+    · split
+      · exact Predicate.ScalarMetadata.headerReady_empty
+      · exact ready
 
 theorem parameterFrameModel_headerReady {text frame} (index : Nat)
     (valid : ValidState text frame) (positive : 0 < index)
@@ -209,7 +302,7 @@ theorem parameterFrameModel_headerReady {text frame} (index : Nat)
     · rename_i inside
       have typed := valid.functions.2.2.1 _ (FunctionBindings.parameter_mem positive (by omega))
       have nextValid := appendParameter_valid valid typed
-      have nextReady := appendParameter_headerReady ready typed.2.2
+      have nextReady := appendParameter_headerReady ready typed.2.2.1
       dsimp only
       split
       · exact Predicate.ScalarMetadata.headerReady_empty
@@ -302,11 +395,16 @@ decreasing_by assumption
 theorem appendParameter_nameBounds {frame : ParserState} {parameter : FunctionBindings.Formal}
     (bounds : NamesBoundsValid frame.names) : NamesBoundsValid (appendParameter frame parameter).names := by
   unfold appendParameter
-  split <;> split
-  · exact frame_empty_nameBounds
-  · exact bounds
-  · exact frame_empty_nameBounds
-  · exact bounds
+  split
+  · unfold appendArrayParameter
+    split
+    · exact frame_empty_nameBounds
+    · exact bounds
+  · split <;> split
+    · exact frame_empty_nameBounds
+    · exact bounds
+    · exact frame_empty_nameBounds
+    · exact bounds
 
 theorem parameterFrameModel_nameBounds {frame : ParserState} (index : Nat)
     (bounds : NamesBoundsValid frame.names) : NamesBoundsValid (parameterFrameModel frame index).names := by

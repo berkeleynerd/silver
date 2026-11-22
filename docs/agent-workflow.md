@@ -42,7 +42,16 @@ session's four total slots; it is a host setting, not a universal project limit.
 It does not reserve native proof workers or cap process memory. Read the managed
 run summary and use `--jobs N` or `--workers N` for actual validation. Preserve
 one writer per resolved workspace and account for dense jobs' combined memory
-requirements. `--task` labels work; use `--reason` where the existing runner
+requirements. The current host allocation is eight CPUs; the pre-reboot
+sandbox's raw count of 22 does not enlarge it. All GNATprove/build/Lean workers
+and Lean process threads must fit the smaller effective allocation and managed
+share. Enforce that ceiling through an OS cpuset or affinity covering existing
+threads and descendants, with guest CPU IDs selected from the allowed mask.
+When explicit proof-command counts are needed to impose this ceiling, use
+`--resource-reason "host's eight-CPU allocation"`. Report an unchangeable live
+launch flag separately from the enforced mask. After reboot, verify eight-CPU
+detection and cpuset consistency before resuming and record the result.
+`--task` labels work; use `--reason` where the existing runner
 workflow requires a rationale. Model usage limits are separate resource limits:
 retain completed evidence and report interrupted work, without treating an
 unavailable agent as a proof failure or silently selecting a weaker model.

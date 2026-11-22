@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Dijkstra on a fixed 6-vertex graph needs only bounded for loops, small arrays and range-typed distances, so every check follows from types and local guards, though the nested loop-carried distance arithmetic needs careful shaping.
 
-Position 699 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 701 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

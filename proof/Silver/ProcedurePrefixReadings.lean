@@ -16,7 +16,7 @@ def procedurePrefixFacts (readFrame : ParserState) (declarationCount : Nat) : Ac
     (initialFacts (procedurePrefixContext readFrame declarationCount).hasArguments)
 
 def procedurePrefixFormal (formal : ProcedureBindings.Formal) : FunctionBindings.Formal :=
-  ⟨formal.first, formal.after, formal.kind, formal.bounds⟩
+  Predicate.procedureInputFormal formal
 
 def procedurePrefixValueAfter (text : Source) (readFrame frame : ParserState)
     (formal : ProcedureBindings.Formal) (declarationCount : Nat) : Nat :=
@@ -89,17 +89,18 @@ theorem ProcedurePrefixStepAt.complete {text readFrame declarationCount frame fo
       Bool.not_true, Bool.false_eq_true, source.value.positive, Nat.not_le_of_gt source.advances,
       or_self, not_false_eq_true]
   simp only [procedurePrefixValueAfter, procedurePrefixContext, procedurePrefixFacts,
-    procedurePrefixFormal] at allowed
+    procedurePrefixFormal, procedureInputFormal] at allowed
   rw [ite_eq_right allowed]
   exact source.installed.symm
 
-/-- Only consumed source position and the two binding lists vary through the
-prefix; earlier callable metadata and every visibility flag remain unchanged. -/
+/-- A prefix helper advances the cursor and can install a formal binding.
+The declared types, physical array pool and callable metadata stay in scope. -/
 def ProcedurePrefixFields (before after : ParserState) : Prop :=
   after = {before with
     position := after.position
     scalarNames := after.scalarNames
-    booleanNames := after.booleanNames}
+    booleanNames := after.booleanNames
+    arrayNames := {before.arrayNames with names := after.arrayNames.names}}
 
 theorem ProcedurePrefixFields.trans {first middle last : ParserState}
     (before : ProcedurePrefixFields first middle) (after : ProcedurePrefixFields middle last) :
@@ -122,7 +123,8 @@ theorem ProcedurePrefixStepAt.fields {text readFrame declarationCount frame form
   change final = {frame with
     position := final.position
     scalarNames := final.scalarNames
-    booleanNames := final.booleanNames}
+    booleanNames := final.booleanNames
+    arrayNames := {frame.arrayNames with names := final.arrayNames.names}}
   rw [position]
   exact preserved
 
@@ -217,6 +219,20 @@ theorem ProcedurePrefixAt.fields {text readFrame declarationCount frame index ac
   | skip _ _ _ _ ih => exact ih
   | next _ _ _ first _ _ ih => exact first.fields.trans ih
 
+/-- The output prefix selects writable scalar formals. Its successful steps preserve
+all input array descriptors as well as the type environment and physical pool. -/
+theorem ProcedurePrefixAt.arrays {text readFrame declarationCount frame index actuals final}
+    (source : ProcedurePrefixAt text readFrame declarationCount frame index actuals final) :
+    final.arrayNames = frame.arrayNames := by
+  induction source with
+  | done => rfl
+  | skip _ _ _ _ ih => exact ih
+  | next _ _ output step _ _ ih =>
+      have accepted := step.installed ▸ step.accepted
+      have scalar := appendProcedureParameter_writable_type (by rw [output]; decide) accepted
+      exact ih.trans ((congrArg ParserState.arrayNames step.installed).trans
+        (appendProcedureParameter_scalar_arrays scalar accepted))
+
 theorem ProcedurePrefixAt.positive {text readFrame declarationCount frame index actuals final}
     (source : ProcedurePrefixAt text readFrame declarationCount frame index actuals final) : final.position ≠ 0 := by
   induction source with
@@ -235,9 +251,10 @@ theorem ProcedurePrefixAt.grows {text readFrame declarationCount frame index act
       exact ⟨Nat.le_trans step.1 ih.1, Nat.le_trans step.2 ih.2⟩
 
 theorem ProcedurePrefixAt.length {text readFrame declarationCount frame index actuals final}
-    (source : ProcedurePrefixAt text readFrame declarationCount frame index actuals final) :
+    (source : ProcedurePrefixAt text readFrame declarationCount frame index actuals final)
+    (types : ArrayBindings.TypeEnvironment := []) :
     actuals.length = (ScalarProcedures.outTypes (ProcedureBindings.formalModels frame.procedures index
-      (frame.procedures.parameters.length + 1 - index))).length := by
+      (frame.procedures.parameters.length + 1 - index) types)).length := by
   induction source with
   | @done before index _ stopped =>
       have empty : before.procedures.parameters.length + 1 - index = 0 := by omega

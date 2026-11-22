@@ -39,7 +39,7 @@ class ImageModelTests(unittest.TestCase):
 end Probe;
 ''')
         built = subprocess.run(alire_command(host, "exec", "--", "gprbuild", "-P", project,
-                                             "-j2", "-p"), cwd=host.context,
+                                             "-j1", "-p"), cwd=host.context,
                                env=tool_environment(host), capture_output=True,
                                text=True, timeout=120)
         if built.returncode:

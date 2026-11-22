@@ -19,7 +19,7 @@ def inheritedCalls
     (booleans : BooleanBindings.SourceBridge.InterpretedSource) : Calls where
   reading := reading
   scalar text position names first after arrays initials elaborating :=
-    scalars.readExpression text position names first after true arrays initials elaborating
+    scalars.readExpression text position names first after true arrays initials elaborating .allElements
   string text position names scalarNames hidden arrays initials elaborating :=
     composed.function .expression text position names scalarNames hidden arrays initials elaborating
   booleanHidesInteger := booleans.hidesInteger
@@ -36,8 +36,8 @@ theorem inherited_meaning {reading composed scalars}
   booleanHidesInteger text tv names nv := booleans.hidesInteger_meaning text tv names nv
   nameIs text tv first after nv := composedEquations.nameIs text tv first after "integer" nv (by decide) (by decide)
   scalar text tv position names first after arrays initials elaborating pv nv mask av iv :=
-    ScalarExpression.Native.interpreted_readExpression_arrays scalars primitives equations
-      text tv position names first after true arrays initials elaborating pv nv mask av iv
+    ScalarExpression.Native.interpreted_readExpression_table scalars primitives equations
+      text tv position names first after true arrays initials elaborating .allElements pv nv mask av iv
   string text tv position names scalarNames hidden arrays initials elaborating pv nv sv av iv :=
     Expressions.interpreted_expression composed composedEquations text tv position names pv nv sv av iv
 

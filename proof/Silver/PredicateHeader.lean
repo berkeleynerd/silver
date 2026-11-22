@@ -88,7 +88,7 @@ theorem prefix_scalar_checked {source form values}
       ScalarExpression.ranges (prefixScan source form).state.scalarNames =
         Integer.Constants.ranges (ScalarExpression.constants (prefixScan source form).state.scalarNames) := by
   have checked := Sequence.scalar_tokens_checked trace ScalarExpression.static_empty (by simp [initialState])
-    (Sequence.initial_subtypes_valid source)
+    (Sequence.initial_subtypes_valid source) initialState_stored
   exact ⟨checked.1, checked.2, ScalarExpression.static_ranges checked.2⟩
 
 theorem prefix_scalar_objects {source form values}
@@ -98,19 +98,20 @@ theorem prefix_scalar_objects {source form values}
   simpa only [initialState, ScalarExpression.constants, ScalarExpression.objectBindings,
     List.map_nil, List.nil_append] using
     Sequence.scalar_tokens_objects trace ScalarExpression.static_empty (by simp [initialState])
-      (Sequence.initial_subtypes_valid source)
+      (Sequence.initial_subtypes_valid source) initialState_stored
 
 theorem prefix_initializer_checked {source form checks}
     (domain : source.length ≤ maxSourceLength)
     (trace : Sequence.InitializerTokensAt source form.helper form.prefix initialState checks
       (prefixScan source form).state) : Integer.discharged checks = true :=
   Sequence.initializer_tokens_discharge domain trace Compose.initial_valid
-    (Sequence.initial_subtypes_valid source)
+    (Sequence.initial_subtypes_valid source) (Sequence.initial_array_types_valid source)
 
 theorem prefix_array_ready {source form events}
     (parsed : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state) :
     ArrayBindings.SourceReady source (prefixScan source form).state.arrayNames :=
-  Sequence.tokens_array_ready parsed (Sequence.initial_array_ready source) (Sequence.initial_subtypes_valid source)
+  Sequence.tokens_array_ready parsed (Sequence.initial_array_ready source)
+    (Sequence.initial_array_types_valid source) (Sequence.initial_subtypes_valid source)
 
 theorem prefix_scalar_count_bound {source form values}
     (trace : Sequence.ScalarTokensAt source form.helper form.prefix initialState values

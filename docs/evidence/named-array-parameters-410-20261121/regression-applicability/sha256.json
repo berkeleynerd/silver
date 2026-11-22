@@ -1,0 +1,34 @@
+{
+  "current-input-comparisons.json": {
+    "gzip_sha256": "38c4d2861dfe572f2073d376417c4837291976d93f13e6dbeea13d15319148bb",
+    "source_sha256": "ecb8a8507ccd615663eb33dfe809a24da9e4cad4ffe6bf669163846c280424cb"
+  },
+  "final-inventory.csv": {
+    "gzip_sha256": "1ebc1c8adeacd5f0e8fb8a6243c6cda8132fd086a3dd0904c777b3a2bd1656e7",
+    "source_sha256": "713d10cee27cae00eee04f3dfbebf09c067b2689c9e090339eac1291879ddbf4"
+  },
+  "fresh-full-suite-inventory.txt": {
+    "gzip_sha256": "f2931202b50b6b82253a455a0d31c220dc0033fbde8ff612c153b287b007829f",
+    "source_sha256": "4ab3cbdeb953e9224ab31ca3e2610dc81d16f421881cf9c895bd3da0669d407f"
+  },
+  "handoff-refresh.json": {
+    "gzip_sha256": "6cace571bf5149bb77c1061645684638b29add10a4dfba54c61a8ce9dd4cf5b4",
+    "source_sha256": "60dd7f4d015bff54aef088a05ed02eb68d532ae532d65f85d16dbd5f8744e249"
+  },
+  "inventory-summary.json": {
+    "gzip_sha256": "f7cb49051f849de1ff401a56db6afb1f69c2d193c524f93cad6e5bb9aa1ac1b2",
+    "source_sha256": "7807f1155a1bc5641fafdd9967172c4a9a0238deb3a4696f976ebccdc9b3719d"
+  },
+  "manifest-195239-terminal.json": {
+    "gzip_sha256": "b0c3dbc047fde405b510e1fea3ee5e2e01e78c3f85e7ed6117912bb76943ceaa",
+    "source_sha256": "e7ac9c3e2034d69ac7c4783638255cfd4ea982e3cf852a3eae101fce779f2370"
+  },
+  "review-target-inputs.json": {
+    "gzip_sha256": "2acf8e1827271b497e047480d1ce25a016a761e5a52edf4cad24ef7fc7b79646",
+    "source_sha256": "5324d92809bda934e3b13a00616ff6b545235c39eadd84f372d8384c5d07fac3"
+  },
+  "reviewed-run-records.json": {
+    "gzip_sha256": "7afe64e683b3955b1fbd4e14414b0d5262a5a18b1081e6d370d4adad4994fcd5",
+    "source_sha256": "ffa0dbafc16bf4531a9395b2a194d3a4370bb191ee65962ad814c8a6b9e036bf"
+  }
+}

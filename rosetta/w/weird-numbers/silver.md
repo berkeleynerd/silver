@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic and Boolean-array DP with for-loop-derived indexes, so checks follow from subtypes and loop ranges, but the loop-carried sums and the capacity guards need careful shaping, with no annotation required.
 
-Position 405 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 407 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

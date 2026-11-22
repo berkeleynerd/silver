@@ -11,7 +11,7 @@ namespace Silver.ScalarExpression.Native
 
 inductive Ty
   | number | integer | truth | source | environment | binding | interval | check | literal | result
-  | arrays | arrayBinding | initials
+  | arrays | arrayBinding | initials | arrayTypes | arrayType | arrayReadMode
   | arrow (domain codomain : Ty)
   deriving DecidableEq
 
@@ -19,21 +19,23 @@ inductive Ty
   | .number => Nat | .integer => Int | .truth => Bool | .source => Source
   | .environment => Environment | .binding => Binding | .interval => Integer.Interval
   | .check => Integer.CheckResult | .literal => ScalarLiteral.Result | .result => Result
-  | .arrays => ArrayBindings.Metadata | .arrayBinding => ArrayBindings.Binding | .initials => ArrayBindings.Initials
+  | .arrayTypes => ArrayBindings.TypeEnvironment | .arrayType => ArrayBindings.ArrayType | .arrayReadMode => ArrayReadMode
+  | .arrays => ArrayBindings.Table | .arrayBinding => ArrayBindings.Binding | .initials => ArrayBindings.Initials
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
   | .number => 0 | .integer => 0 | .truth => false | .source => [] | .environment => []
   | .binding => emptyBinding | .interval => Integer.Interval.empty
   | .check => ⟨false, Integer.Interval.empty⟩ | .literal => ScalarLiteral.invalid | .result => invalid
-  | .arrays | .initials => [] | .arrayBinding => ArrayBindings.emptyBinding
+  | .arrays => {} | .initials | .arrayTypes => [] | .arrayBinding => ArrayBindings.emptyBinding
+  | .arrayType => ArrayBindings.emptyType | .arrayReadMode => .allElements
   | .arrow _ b => fun _ => b.default
 
 inductive Function
   | lookupModel | lookup | skip | symbol | nameAfter | binaryAfter | nameIs | lowercase
   | literalResult | unaryResult | binaryResult | closeResult
-  | readArrayAtom | readAtom | readUnary | readCompound | readGroup | readExpression | readExpressionDefault | readExpressionScalar
-  | arrayLookup | arrayContains | arrayReadBounds
+  | readArrayAtom | readAtom | readUnary | readCompound | readGroup | readExpression | readExpressionDefault | readExpressionIndex
+  | arrayLookup | arrayTypeLookup | arrayContains | arrayReadBounds | readArrayAttribute | scalarSingleton
   | integerLiteral | equalName | scalarChecked | scalarNegate | scalarAdd | scalarSubtract | scalarMultiply | scalarDivide | scalarModulo | scalarRemainder | scalarNormalize
   deriving DecidableEq
 
@@ -44,11 +46,14 @@ def Function.name : Function → List String
   | .literalResult => ["literal_result"] | .unaryResult => ["unary_result"]
   | .binaryResult => ["binary_result"] | .closeResult => ["close_result"]
   | .readArrayAtom => ["read_array_atom"]
+  | .readArrayAttribute => ["read_array_attribute"]
+  | .arrayTypeLookup => ["array_bindings", ".", "lookup_type"]
+  | .scalarSingleton => ["scalars", ".", "singleton"]
   | .arrayLookup => ["array_bindings", ".", "lookup"]
   | .arrayContains => ["array_bindings", ".", "contains"]
   | .arrayReadBounds => ["array_bindings", ".", "read_bounds"]
   | .readAtom => ["read_atom"] | .readUnary => ["read_unary"] | .readCompound => ["read_compound"]
-  | .readGroup => ["read_group"] | .readExpression | .readExpressionDefault | .readExpressionScalar => ["read_expression"]
+  | .readGroup => ["read_group"] | .readExpression | .readExpressionDefault | .readExpressionIndex => ["read_expression"]
   | .integerLiteral => ["silver_scalar_literals", ".", "read_integer"]
   | .equalName => ["equal_name"] | .scalarChecked => ["scalars", ".", "checked"]
   | .scalarNegate => ["scalars", ".", "negate"] | .scalarAdd => ["scalars", ".", "add"]
@@ -70,10 +75,13 @@ def Function.type : Function → Ty
   | .binaryResult => .arrow .result (.arrow .result (.arrow .number .result))
   | .closeResult => .arrow .source (.arrow .result .result)
   | .readArrayAtom => .arrow .source (.arrow .number (.arrow .environment (.arrow .number (.arrow .number (.arrow .number (.arrow .arrays (.arrow .initials (.arrow .truth (.result)))))))))
-  | .readAtom | .readExpression => .arrow .source (.arrow .number (.arrow .environment (.arrow .number (.arrow .number (.arrow .truth (.arrow .arrays (.arrow .initials (.arrow .truth (.result)))))))))
-  | .readUnary | .readGroup | .readExpressionDefault => .arrow .source (.arrow .number (.arrow .environment (.arrow .number (.arrow .number (.arrow .arrays (.arrow .initials (.arrow .truth (.result))))))))
-  | .readExpressionScalar => .arrow .source (.arrow .number (.arrow .environment (.arrow .number (.arrow .number (.result)))))
-  | .readCompound => .arrow .source (.arrow .number (.arrow .environment (.arrow .result (.arrow .number (.arrow .number (.arrow .arrays (.arrow .initials (.arrow .truth (.result)))))))))
+  | .readAtom | .readExpression => .arrow .source (.arrow .number (.arrow .environment (.arrow .number (.arrow .number (.arrow .truth (.arrow .arrays (.arrow .initials (.arrow .truth (.arrow .arrayReadMode .result)))))))))
+  | .readUnary | .readGroup | .readExpressionDefault => .arrow .source (.arrow .number (.arrow .environment (.arrow .number (.arrow .number (.arrow .arrays (.arrow .initials (.arrow .truth (.arrow .arrayReadMode .result))))))))
+  | .readExpressionIndex => .arrow .source (.arrow .number (.arrow .environment (.arrow .number (.arrow .number (.arrow .arrays (.arrow .arrayReadMode .result))))))
+  | .readCompound => .arrow .source (.arrow .number (.arrow .environment (.arrow .result (.arrow .number (.arrow .number (.arrow .arrays (.arrow .initials (.arrow .truth (.arrow .arrayReadMode .result)))))))))
+  | .scalarSingleton => .arrow .integer .interval
+  | .arrayTypeLookup => .arrow .source (.arrow .arrayTypes (.arrow .number (.arrow .number .number)))
+  | .readArrayAttribute => .arrow .source (.arrow .number (.arrow .environment (.arrow .arrays (.arrow .number (.arrow .number .result)))))
   | .arrayLookup => .arrow .source (.arrow .arrays (.arrow .number (.arrow .number (.number))))
   | .arrayContains => .arrow .arrayBinding (.arrow .interval (.truth))
   | .arrayReadBounds => .arrow .arrays (.arrow .initials (.arrow .truth (.arrow .number (.arrow .interval (.interval)))))
@@ -91,12 +99,15 @@ def Calls.get (calls : Calls) : (fn : Function) → fn.type.meaning
   | .literalResult => calls.literalResult | .unaryResult => calls.unaryResult
   | .binaryResult => calls.binaryResult | .closeResult => calls.closeResult
   | .readArrayAtom => calls.readArrayAtom
+  | .arrayTypeLookup => calls.arrays.lookupType | .scalarSingleton => calls.arrays.singleton
+  | .readArrayAttribute => fun text position names arrays maskFirst maskAfter =>
+      calls.readArrayAttribute text position names arrays maskFirst maskAfter false
   | .readAtom => @calls.readAtom | .readUnary => @calls.readUnary | .readCompound => @calls.readCompound
   | .readGroup => @calls.readGroup | .readExpression => @calls.readExpression
-  | .readExpressionDefault => fun text position names maskFirst maskAfter arrays initials elaborating =>
-      calls.readExpression text position names maskFirst maskAfter true arrays initials elaborating
-  | .readExpressionScalar => fun text position names maskFirst maskAfter =>
-      calls.readExpression text position names maskFirst maskAfter true
+  | .readExpressionDefault => fun text position names maskFirst maskAfter arrays initials elaborating arrayReads =>
+      calls.readExpression text position names maskFirst maskAfter true arrays initials elaborating arrayReads
+  | .readExpressionIndex => fun text position names maskFirst maskAfter arrays arrayReads =>
+      calls.readExpression text position names maskFirst maskAfter true arrays [] false arrayReads
   | .arrayLookup => calls.arrays.lookup | .arrayContains => calls.arrays.contains
   | .arrayReadBounds => calls.arrays.readBounds
   | .integerLiteral => calls.integerLiteral | .equalName => calls.equalName
@@ -115,13 +126,18 @@ inductive Field : Ty → Ty → Type
   | resultOperands : Field .result .number | literalValue : Field .literal .integer
   | count : Field .environment .number
   | arrayBooleanElements : Field .arrayBinding .truth
+  | arrayMutable : Field .arrayBinding .truth | arrayBounds : Field .arrayBinding .interval
+  | arrayTypes : Field .arrays .arrayTypes | typeBounds : Field .arrayType .interval
+  | lower : Field .interval .integer | upper : Field .interval .integer
 
 def Field.name : Field a b → String
   | .resultAfter | .literalAfter | .bindingAfter => "after" | .bindingFirst => "first"
   | .bindingBounds | .resultBounds | .checkBounds => "bounds" | .checkSafe => "safe"
   | .bindingStatic | .resultStatic => "static" | .resultOperands => "operands"
   | .literalValue => "value" | .count => "count"
-  | .arrayBooleanElements => "boolean_elements"
+  | .arrayBooleanElements => "boolean_elements" | .arrayMutable => "mutable"
+  | .arrayBounds | .typeBounds => "bounds" | .arrayTypes => "types"
+  | .lower => "lower" | .upper => "upper"
 
 def Field.get : Field a b → a.meaning → b.meaning
   | .resultAfter, value => value.after | .literalAfter, value => value.after
@@ -131,9 +147,18 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .bindingStatic, value => value.isStatic | .resultStatic, value => value.isStatic
   | .resultOperands, value => value.operands | .literalValue, value => Int.ofNat value.value
   | .count, value => value.length
-  | .arrayBooleanElements, value => value.isBoolean
+  | .arrayBooleanElements, value => value.isBoolean | .arrayMutable, value => value.mutable
+  | .arrayBounds, value => value.bounds | .typeBounds, value => value.bounds | .arrayTypes, value => value.types
+  | .lower, value => value.lower | .upper, value => value.upper
 
 inductive Expr : Ty → Type
+  | readMode (mode : ArrayReadMode) : Expr .arrayReadMode
+  | modeEq : Expr .arrayReadMode → Expr .arrayReadMode → Expr .truth
+  | wide : Expr .integer → Expr .integer
+  | scalarValue : Expr .integer → Expr .integer
+  | intSub : Expr .integer → Expr .integer → Expr .integer
+  | intAdd : Expr .integer → Expr .integer → Expr .integer
+  | intOne : Expr .integer
   | number (value : Nat) : Expr .number
   | word (value : String) : Expr .source
   | character (value : Nat) : Expr .number
@@ -142,11 +167,14 @@ inductive Expr : Ty → Type
   | variable (name : String) : Expr ty
   | function (fn : Function) : Expr fn.type
   | app : Expr (.arrow a b) → Expr a → Expr b
-  | arrayArguments : Expr (.arrow .arrays (.arrow .initials (.arrow .truth b))) →
-      Expr .arrays → Expr .initials → Expr .truth → Expr b
+  | arrayArguments : Expr (.arrow .arrays (.arrow .initials (.arrow .truth (.arrow .arrayReadMode b)))) →
+      Expr .arrays → Expr .initials → Expr .truth → Expr .arrayReadMode → Expr b
+  | indexArguments : Expr (.arrow .arrays (.arrow .arrayReadMode b)) →
+      Expr .arrays → Expr .arrayReadMode → Expr b
   | field : Field a b → Expr a → Expr b
   | binding : Expr .environment → Expr .number → Expr .binding
   | arrayBinding : Expr .arrays → Expr .number → Expr .arrayBinding
+  | arrayType : Expr .arrayTypes → Expr .number → Expr .arrayType
   | add : Expr .number → Expr .number → Expr .number
   | sub : Expr .number → Expr .number → Expr .number
   | neg : Expr .integer → Expr .integer
@@ -186,7 +214,17 @@ def Locals.set (locals : Locals) (ty : Ty) (name : String) (value : ty.meaning) 
 def positional (values : List (List String)) : List String :=
   ["("] ++ List.flatten (List.intersperse [","] values) ++ [")"]
 
+def ArrayReadMode.token : ArrayReadMode → String
+  | .allElements => "all_elements" | .mutableElements => "mutable_elements" | .noElements => "no_elements"
+
 def Expr.render : Expr ty → List String
+  | .readMode mode => [ArrayReadMode.token mode]
+  | .modeEq a b => a.render ++ ["="] ++ b.render
+  | .wide value => ["scalars", ".", "wide", "("] ++ value.render ++ [")"]
+  | .scalarValue value => ["scalars", ".", "value", "("] ++ value.render ++ [")"]
+  | .intSub a b => a.render ++ ["-"] ++ b.render
+  | .intAdd a b => a.render ++ ["+"] ++ b.render
+  | .intOne => ["1"]
   | .number value => [toString value]
   | .word value => ["\"" ++ value ++ "\""]
   | .character value => ["'" ++ String.singleton (Char.ofNat value) ++ "'"]
@@ -196,11 +234,14 @@ def Expr.render : Expr ty → List String
   | .app fn argument => match fn with
     | .app _ _ => fn.render.dropLast ++ [","] ++ argument.render ++ [")"]
     | _ => fn.render ++ ["("] ++ argument.render ++ [")"]
-  | .arrayArguments fn arrays initials elaborating => fn.render.dropLast ++ [",", "arrays", "=>"] ++
+  | .indexArguments fn arrays mode => fn.render.dropLast ++ [",", "arrays", "=>"] ++
+      arrays.render ++ [",", "array_reads", "=>"] ++ mode.render ++ [")"]
+  | .arrayArguments fn arrays initials elaborating mode => fn.render.dropLast ++ [",", "arrays", "=>"] ++
       arrays.render ++ [",", "initials", "=>"] ++ initials.render ++
-      [",", "elaborating", "=>"] ++ elaborating.render ++ [")"]
+      [",", "elaborating", "=>"] ++ elaborating.render ++
+      [",", "array_reads", "=>"] ++ mode.render ++ [")"]
   | .field projection value => value.render ++ [".", projection.name]
-  | .binding names index | .arrayBinding names index => names.render ++ [".", "items", "("] ++ index.render ++ [")"]
+  | .binding names index | .arrayBinding names index | .arrayType names index => names.render ++ [".", "items", "("] ++ index.render ++ [")"]
   | .add left right => left.render ++ ["+"] ++ right.render
   | .sub left right => left.render ++ ["-"] ++ right.render
   | .neg value => ["-"] ++ value.render
@@ -238,15 +279,23 @@ def Expr.render : Expr ty → List String
   | .invalid => ["invalid"] | .invalidCheck => ["scalars", ".", "invalid"]
 
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
+  | .readMode mode => mode
+  | .modeEq a b => decide (a.eval calls locals = b.eval calls locals)
+  | .wide value | .scalarValue value => value.eval calls locals
+  | .intSub a b => a.eval calls locals - b.eval calls locals
+  | .intAdd a b => a.eval calls locals + b.eval calls locals
+  | .intOne => 1
   | .number value | .character value | .characterVal value => value
   | .word value => value.toList.map Char.toNat
   | .truth value => value | .variable name => locals _ name | .function fn => calls.get fn
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
-  | .arrayArguments fn arrays initials elaborating =>
-      fn.eval calls locals (arrays.eval calls locals) (initials.eval calls locals) (elaborating.eval calls locals)
+  | .arrayArguments fn arrays initials elaborating mode =>
+      fn.eval calls locals (arrays.eval calls locals) (initials.eval calls locals) (elaborating.eval calls locals) (mode.eval calls locals)
+  | .indexArguments fn arrays mode => fn.eval calls locals (arrays.eval calls locals) (mode.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
   | .binding names index => ScalarExpression.binding (names.eval calls locals) (index.eval calls locals)
-  | .arrayBinding names index => ArrayBindings.binding (names.eval calls locals) (index.eval calls locals)
+  | .arrayBinding names index => ArrayBindings.binding (names.eval calls locals).items (index.eval calls locals)
+  | .arrayType types index => ArrayBindings.arrayType (types.eval calls locals) (index.eval calls locals)
   | .add left right => left.eval calls locals + right.eval calls locals
   | .sub left right => left.eval calls locals - right.eval calls locals
   | .neg value => -value.eval calls locals
@@ -284,7 +333,9 @@ structure Context where
   text : Source := []
   position : Nat := 0
   names : Environment := []
-  arrays : ArrayBindings.Metadata := []
+  arrays : ArrayBindings.Table := {}
+  arrayReads : ArrayReadMode := .allElements
+  rangeQuery : Bool := false
   initials : ArrayBindings.Initials := []
   elaborating : Bool := false
   target : Nat := 0
@@ -304,6 +355,7 @@ structure Context where
   right : Result := invalid
 
 def Context.locals (context : Context) : Locals
+  | .arrayReadMode, "array_reads" => context.arrayReads | .truth, "range_query" => context.rangeQuery
   | .arrays, "arrays" => context.arrays | .initials, "initials" => context.initials
   | .truth, "elaborating" => context.elaborating | .number, "target" => context.target
   | .source, "text" => context.text | .environment, "names" => context.names
@@ -331,8 +383,11 @@ def apply6 {a b c d e f g : Ty} (fn : Expr (.arrow a (.arrow b (.arrow c (.arrow
 def arrayArgs (fn : Expr (.arrow .arrays (.arrow .initials (.arrow .truth b)))) : Expr b :=
   .app (.app (.app fn (.variable "arrays")) (.variable "initials")) (.variable "elaborating")
 
-def namedArrayArgs (fn : Expr (.arrow .arrays (.arrow .initials (.arrow .truth b)))) : Expr b :=
-  .arrayArguments fn (.variable "arrays") (.variable "initials") (.variable "elaborating")
+def readArrayArgs (fn : Expr (.arrow .arrays (.arrow .initials (.arrow .truth (.arrow .arrayReadMode b))))) : Expr b :=
+  .app (arrayArgs fn) (.variable "array_reads")
+
+def namedArrayArgs (fn : Expr (.arrow .arrays (.arrow .initials (.arrow .truth (.arrow .arrayReadMode b))))) : Expr b :=
+  .arrayArguments fn (.variable "arrays") (.variable "initials") (.variable "elaborating") (.variable "array_reads")
 
 def lookupBody : Expr .number :=
   let text : Expr .source := .variable "text"
@@ -399,7 +454,7 @@ def closeBody : Expr .result :=
     .group <| .ite (.eq after (.number 0)) .invalid (.deltaAfter value after)
 
 def readCall (position : Expr .number) (allowSign : Expr .truth) : Expr .result :=
-  arrayArgs (apply6 (.function .readExpression) (.variable "text") position (.variable "names")
+  readArrayArgs (apply6 (.function .readExpression) (.variable "text") position (.variable "names")
     (.variable "mask_first") (.variable "mask_after") allowSign)
 
 def readDefaultCall (position : Expr .number) : Expr .result :=
@@ -419,8 +474,8 @@ def arrayAtomBody : Expr .result :=
     .group <| .ite (.orElse (.eq opened (.number 0))
       (.field .arrayBooleanElements (.arrayBinding arrays target))) .invalid <|
     .group <| .locals <| .local "subscript" ["expression_result"]
-      (apply5 (.function .readExpressionScalar) text opened (.variable "names")
-        (.variable "mask_first") (.variable "mask_after")) <|
+      (.indexArguments (apply5 (.function .readExpressionIndex) text opened (.variable "names")
+        (.variable "mask_first") (.variable "mask_after")) arrays (.readMode .noElements)) <|
     .local "close_after" ["literal_position"]
       (apply3 (.function .symbol) text (.field .resultAfter subscript) (.character 41)) <|
     .group <| .ite (.orElse (.orElse (.le closed position)
@@ -458,7 +513,13 @@ def atomBody : Expr .result :=
       .elsif (.ne index (.number 0))
         (.result after (.app (.function .scalarNormalize) (.field .bindingBounds (.binding names index)))
           (.number 1) (.field .bindingStatic (.binding names index))) <|
-      .elsif (.eq (.variable "target") (.number 0)) .invalid <|
+      .elsif (.ne (apply3 (.function .symbol) text after (.characterVal 39)) (.number 0))
+      (apply6 (.function .readArrayAttribute) text (.variable "position") names (.variable "arrays")
+        (.variable "mask_first") (.variable "mask_after")) <|
+    .elsif (.orElse (.orElse (.eq (.variable "target") (.number 0))
+      (.modeEq (.variable "array_reads") (.readMode .noElements)))
+      (.group <| .andThen (.modeEq (.variable "array_reads") (.readMode .mutableElements))
+        (.not (.field .arrayMutable (.arrayBinding (.variable "arrays") (.variable "target")))))) .invalid <|
       arrayArgs (apply6 (.function .readArrayAtom) text after names
         (.variable "mask_first") (.variable "mask_after") (.variable "target"))
 
@@ -519,23 +580,23 @@ def expressionBody : Expr .result :=
     .group <| .ite (.orElse (.eq first (.number 0)) (.gt first (.last text))) .invalid <|
     .elsif (.eq (.byteAt text first) (.characterVal 40))
       (namedArrayArgs (apply5 (.function .readGroup) text first (.variable "names") (.variable "mask_first") (.variable "mask_after")))
-      (arrayArgs (apply6 (.function .readAtom) text first (.variable "names") (.variable "mask_first")
+      (readArrayArgs (apply6 (.function .readAtom) text first (.variable "names") (.variable "mask_first")
         (.variable "mask_after") (.variable "allow_sign")))
 
 /-- Rendering retains Ada precedence, homogeneous Boolean chains and explicit
 parentheses. This is checked independently for every body translated below. -/
 def Expr.primary : Expr ty → Bool
-  | .number _ | .word _ | .character _ | .characterVal _ | .truth _ | .variable _ | .function _ | .app _ _
-  | .arrayArguments _ _ _ _ | .field _ _ | .binding _ _ | .arrayBinding _ _ | .byteAt _ _ | .last _ | .maxOperands | .group _
+  | .readMode _ | .wide _ | .scalarValue _ | .intOne | .number _ | .word _ | .character _ | .characterVal _ | .truth _ | .variable _ | .function _ | .app _ _
+  | .arrayArguments _ _ _ _ _ | .indexArguments _ _ _ | .field _ _ | .binding _ _ | .arrayBinding _ _ | .arrayType _ _ | .byteAt _ _ | .last _ | .maxOperands | .group _
   | .result _ _ _ _ | .check _ _ | .deltaAfter _ _ | .deltaBounds _ _ | .invalid | .invalidCheck => true
   | _ => false
 
 def Expr.simple : Expr ty → Bool
-  | .add _ _ | .sub _ _ | .neg _ => true
+  | .intAdd _ _ | .intSub _ _ | .add _ _ | .sub _ _ | .neg _ => true
   | value => value.primary
 
 def Expr.relation : Expr ty → Bool
-  | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .choices _ _ _ | .operators _ | .not _ => true
+  | .modeEq _ _ | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .choices _ _ _ | .operators _ | .not _ => true
   | value => value.simple
 
 def Expr.andHead : Expr ty → Bool
@@ -551,18 +612,27 @@ def Expr.isLocal : Expr ty → Bool | .local _ _ _ _ => true | _ => false
 def Expr.functionSpine : Expr ty → Bool
   | .function _ => true | .app fn _ => fn.functionSpine | _ => false
 
+def Expr.prefix : Expr ty → Bool
+  | .variable _ | .function _ | .app _ _ | .field _ _ | .binding _ _ | .arrayBinding _ _
+  | .arrayType _ _ | .byteAt _ _ | .arrayArguments _ _ _ _ _ | .indexArguments _ _ _
+  | .invalid | .invalidCheck => true
+  | _ => false
+
 def Expr.wellFormed : Expr ty → Bool
   | .character value => decide (32 ≤ value ∧ value ≤ 126 ∧ value ≠ 39 ∧ value ≠ 40)
   | .characterVal value => decide (value ≤ 255)
   | .app fn argument => fn.wellFormed && argument.wellFormed && fn.functionSpine && argument.condition
-  | .arrayArguments fn arrays initials elaborating => fn.wellFormed && fn.functionSpine &&
+  | .arrayArguments fn arrays initials elaborating mode => fn.wellFormed && fn.functionSpine &&
       arrays.wellFormed && arrays.condition && initials.wellFormed && initials.condition &&
-      elaborating.wellFormed && elaborating.condition
-  | .field _ value | .last value => value.wellFormed && value.primary
-  | .binding names index | .arrayBinding names index => names.wellFormed && names.primary && index.wellFormed && index.simple
-  | .add left right | .sub left right => left.wellFormed && right.wellFormed && left.simple && right.primary
+      elaborating.wellFormed && elaborating.condition && mode.wellFormed && mode.condition
+  | .indexArguments fn arrays mode => fn.wellFormed && fn.functionSpine &&
+      arrays.wellFormed && arrays.condition && mode.wellFormed && mode.condition
+  | .wide value | .scalarValue value => value.wellFormed && value.simple
+  | .field _ value | .last value => value.wellFormed && value.prefix
+  | .binding names index | .arrayBinding names index | .arrayType names index => names.wellFormed && names.prefix && index.wellFormed && index.simple
+  | .intAdd left right | .intSub left right | .add left right | .sub left right => left.wellFormed && right.wellFormed && left.simple && right.primary
   | .neg value => value.wellFormed && value.primary
-  | .eq left right | .ne left right | .lt left right | .le left right | .gt left right =>
+  | .modeEq left right | .eq left right | .ne left right | .lt left right | .le left right | .gt left right =>
       left.wellFormed && right.wellFormed && left.simple && right.simple
   | .choices value lower upper =>
       value.wellFormed && lower.wellFormed && upper.wellFormed && value.simple && lower.simple && upper.simple
@@ -575,7 +645,7 @@ def Expr.wellFormed : Expr ty → Bool
       condition.wellFormed && condition.condition && yes.wellFormed && yes.simple && no.wellFormed && (no.simple || no.isElsif)
   | .local _ _ value rest => value.wellFormed && value.simple && rest.wellFormed && (rest.isLocal || rest.primary)
   | .locals body => body.wellFormed && body.isLocal
-  | .byteAt text position => text.wellFormed && text.primary && position.wellFormed && position.simple
+  | .byteAt text position => text.wellFormed && text.prefix && position.wellFormed && position.simple
   | .result after bounds operands static => after.wellFormed && after.simple && bounds.wellFormed && bounds.simple &&
       operands.wellFormed && operands.simple && static.wellFormed && static.condition
   | .check safe bounds => safe.wellFormed && safe.condition && bounds.wellFormed && bounds.simple
@@ -585,7 +655,8 @@ def Expr.wellFormed : Expr ty → Bool
       adding.wellFormed && adding.simple && subtracting.wellFormed && subtracting.simple &&
       multiplying.wellFormed && multiplying.simple && dividing.wellFormed && dividing.simple &&
       modulo.wellFormed && modulo.simple && remainder.wellFormed && remainder.simple && otherwise.wellFormed && otherwise.simple
-  | _ => true
+  | .readMode _ | .intOne | .number _ | .word _ | .truth _ | .variable _ | .function _
+  | .maxOperands | .invalid | .invalidCheck => true
 
 abbrev WellFormedTrees : Prop := lookupBody.wellFormed = true ∧ symbolBody.wellFormed = true ∧
   literalBody.wellFormed = true ∧ unaryBody.wellFormed = true ∧ binaryBody.wellFormed = true ∧

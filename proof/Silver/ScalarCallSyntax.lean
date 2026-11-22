@@ -12,6 +12,7 @@ namespace Silver.ScalarFunctions
 inductive Actual
   | integer (expression : Integer.Expr)
   | boolean (condition : Predicate.Condition)
+  | array (typeId : Nat) (source : Integer.ArrayDescriptor)
   deriving DecidableEq, Repr
 
 structure Call where
@@ -38,6 +39,7 @@ def Actual.Readable (hasArguments : Bool) (shape : Bindings.Shape)
     (booleans : Boolean.Analysis) : Actual → Prop
   | .integer _ => True
   | .boolean condition => condition.Grammatical ∧ condition.Readable hasArguments shape booleans
+  | .array _ _ => True
 
 def Call.Readable (hasArguments : Bool) (shape : Bindings.Shape)
     (booleans : Boolean.Analysis) (call : Call) : Prop :=

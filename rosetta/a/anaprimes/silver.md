@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses fixed-bound arrays and guarded loop-carried values with no recursion or heap, so no annotation is needed, but several accumulators each need a careful guard.
 
-Position 826 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 828 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

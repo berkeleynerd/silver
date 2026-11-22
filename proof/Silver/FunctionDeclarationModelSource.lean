@@ -11,6 +11,7 @@ namespace Silver.Compose.FunctionDeclarationNative
 proved typed-tree denotations, not hypotheses equating a scanner to admission. -/
 theorem model_header_equations : HeaderEquations modelCalls where
   functionType text _ state position _ _ := (functionType_model text state position).symm
+  formalType text _ state position _ _ := (formalType_model text state position).symm
   parameterStep text _ state arguments _ := (parameterStep_model text state arguments).symm
   parametersModel text _ state arguments _ := (parametersModel_model text state arguments).symm
   parameters _ _ _ _ _ := rfl
@@ -19,6 +20,9 @@ theorem model_header_equations : HeaderEquations modelCalls where
   locals _ _ _ _ _ := rfl
 
 theorem model_frame_equations : FrameEquations modelCalls where
+  appendArrayParameterModel frame first after typeId _ _ _ _ :=
+    (appendArrayParameter_model frame first after typeId).symm
+  appendArrayParameter _ _ _ _ _ _ _ _ := rfl
   appendParameter frame parameter _ _ := (appendParameter_model frame parameter).symm
   parameterModel frame index _ _ _ := (parameterFrameModel_model frame index).symm
   parameterFrame _ _ _ _ _ _ := rfl
@@ -56,6 +60,8 @@ theorem model_links : OrdinaryLinks modelCalls Expressions.modelCalls FunctionBi
   booleans := rfl
   subtypes := rfl
   arrays := rfl
+  arrayTypes := rfl
+  arrayType := rfl
   functions := rfl
   procedures := rfl
   appendFormal := rfl
@@ -97,6 +103,9 @@ noncomputable def model_interpreted (domain : Expressions.StateDomain)
   headers := model_header_equations
   headerContracts := model_header_contracts
   frames := model_frame_equations
+  arrayLibrary := ArrayBindings.Native.modelCalls
+  arrayLibrarySource := ArrayBindings.SourceBridge.model_interpreted
+  arrayValidType := rfl
   equations := model_ordinary_equations
   contracts := model_traversal_contracts
   lexical := ⟨Guarded.Expressions.modelCalls, fixedAt, rfl, Lexical.model_interpreted⟩
@@ -107,14 +116,14 @@ noncomputable def model_interpreted (domain : Expressions.StateDomain)
   actualImports := {Predicate.FunctionCallNative.modelImports with token := Expressions.modelCalls.function .takeToken}
   actualCalls := Predicate.FunctionCallNative.modelCalls
   assignment := fun text context scan catalog => Predicate.callAssignmentBody text context.model scan catalog
-  actualLinks := Predicate.FunctionCallNative.model_imports_links
+  actualLinks := Predicate.FunctionCallNative.model_imports_links inherited.toRawHelperEquations
   actualEquations := Predicate.FunctionCallNative.model_definitions_of_meaning
     (Predicate.FunctionCallNative.imports_meaning inherited.toRawHelperEquations
       (Predicate.BodyLibraries.predicate_helpers Predicate.BodyLibraries.modelCalls
         inherited.toRawHelperEquations (Predicate.BodyLibraries.model_definitions inherited.toRawHelperEquations
           (Lexical.interpreted_primitives Guarded.Expressions.modelCalls fixedAt Lexical.model_interpreted)))
       Predicate.Native.model_definition_equations Predicate.Native.model_contracts
-      Predicate.FunctionCallNative.model_imports_links)
+      (Predicate.FunctionCallNative.model_imports_links inherited.toRawHelperEquations))
   actualLink := rfl
 
 theorem model_interpreted_inherited (domain : Expressions.StateDomain)

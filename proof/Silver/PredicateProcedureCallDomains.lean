@@ -106,6 +106,8 @@ noncomputable def totalizeCalls (calls : Calls) : Calls := by
         if FunctionCallNative.BooleanLookupDomain text names first after then calls .booleanLookup text names first after else modelCalls .booleanLookup text names first after
     | .arrayLookup => fun text names first after =>
         if FunctionCallNative.ArrayLookupDomain text names first after then calls .arrayLookup text names first after else modelCalls .arrayLookup text names first after
+    | .arrayTypeLookup => fun text names first after =>
+        if FunctionCallNative.ArrayTypeLookupDomain text names first after then calls .arrayTypeLookup text names first after else modelCalls .arrayTypeLookup text names first after
     | .procedureLookup => fun text catalog first after =>
         if ProcedureLookupDomain text catalog first after then calls .procedureLookup text catalog first after else modelCalls .procedureLookup text catalog first after
     | .token => fun text position token =>
@@ -180,6 +182,7 @@ structure ImportsMeaning (calls : Calls) : Prop where
   scalarLookup : totalizeCalls calls .scalarLookup = modelCalls .scalarLookup
   booleanLookup : totalizeCalls calls .booleanLookup = modelCalls .booleanLookup
   arrayLookup : totalizeCalls calls .arrayLookup = modelCalls .arrayLookup
+  arrayTypeLookup : totalizeCalls calls .arrayTypeLookup = modelCalls .arrayTypeLookup
   procedureLookup : totalizeCalls calls .procedureLookup = modelCalls .procedureLookup
   token : totalizeCalls calls .token = modelCalls .token
   isEmpty : totalizeCalls calls .isEmpty = modelCalls .isEmpty

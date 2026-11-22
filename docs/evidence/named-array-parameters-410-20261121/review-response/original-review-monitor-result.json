@@ -1,0 +1,153 @@
+{
+  "observed_at": "2026-11-22T02:00:59.956976+00:00",
+  "target": "5a4b0ad8ac05ed431d2f0c8baee2c2cc75686267",
+  "verified_worktree_head": "5a4b0ad8ac05ed431d2f0c8baee2c2cc75686267",
+  "tracked_worktree_status": "",
+  "tracked_diff_exit_code": 0,
+  "tracked_worktree_unchanged": true,
+  "selected_model": "claude-fable-5-2",
+  "selected_effort": "max",
+  "observed_models": [
+    "claude-fable-5-2"
+  ],
+  "server_effort_confirmed": false,
+  "exit": {
+    "started_at": "2026-11-22T01:09:13.339730+00:00",
+    "finished_at": "2026-11-22T01:59:56.205805+00:00",
+    "elapsed_seconds": 3042.8152215439986,
+    "returncode": 0,
+    "session_id": "8a829a52-584e-45ed-af91-8499f28cf390"
+  },
+  "result_subtype": "success",
+  "terminal_reason": "completed",
+  "is_error": false,
+  "duration_ms": 3041423,
+  "duration_api_ms": 2819102,
+  "total_cost_usd": 45.675361,
+  "usage": {
+    "input_tokens": 386,
+    "cache_creation_input_tokens": 916402,
+    "cache_read_input_tokens": 100529005,
+    "output_tokens": 272601,
+    "output_tokens_details": {
+      "thinking_tokens": 183704
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 916402,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1473,
+        "cache_read_input_tokens": 919440,
+        "cache_creation_input_tokens": 1820,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1820
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "model_usage": {
+    "claude-fable-5-2": {
+      "inputTokens": 386,
+      "outputTokens": 272601,
+      "cacheReadInputTokens": 100529005,
+      "cacheCreationInputTokens": 916402,
+      "webSearchRequests": 0,
+      "costUSD": 45.675361,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 183704,
+      "cacheCreationEphemeral5mInputTokens": 0,
+      "cacheCreationEphemeral1hInputTokens": 916402,
+      "canonicalModel": "claude-fable-5-2",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "num_turns": 199,
+  "permission_denials": [],
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "verdict": "No blocker found",
+  "findings": {
+    "blocker": 0,
+    "medium": 1,
+    "low": 3,
+    "info": 6
+  },
+  "admission_probes_reported": 200,
+  "artifacts": {
+    "report.md": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/report.md",
+      "sha256": "416e48f6de5501a5841b4aeaa2e14c791663fe45ec7ace1943a10457d51f7e61",
+      "bytes": 19670
+    },
+    "status.md": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/status.md",
+      "sha256": "4a008500e1bb15f7cb3fa72dab9faec62277ce00a48a05758fd0da770a9e243e",
+      "bytes": 4081
+    },
+    "interim-findings.md": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/interim-findings.md",
+      "sha256": "76adb79f9a2afc648b993fc4f7477a04157e771f562ee94138067727277193da",
+      "bytes": 2766
+    },
+    "exit.json": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/exit.json",
+      "sha256": "5236432f69b570b25c73ad0d381727900886d7d3faf96acc2df7c7e26e883d51",
+      "bytes": 224
+    },
+    "stream.jsonl": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/stream.jsonl",
+      "sha256": "5900d17d5b143579e8375958950572fce5cf93b70dbe34961257c061dd7e9640",
+      "bytes": 5191420
+    },
+    "stderr.log": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "report_runtime_caveat": "Report header approximates 01:09\u201302:05 UTC; actual captured launch/exit is 01:09:13\u201301:59:56 UTC (3042.815 s).",
+  "limitations": [
+    "No compile/prove/run/Lean build/test suite or kernel replay; only admission probes and retained-evidence inspection.",
+    "Lean review sampled roots, changed tree languages and theorem statements rather than all 347 changed files.",
+    "Linux x86_64 only; no ARM64/macOS validation.",
+    "Indicative baseline admission probes used a main-checkout binary not named among authorized probe binaries; reviewer did not establish its build provenance.",
+    "Server-side effort not observable."
+  ]
+}

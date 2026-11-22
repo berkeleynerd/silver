@@ -29,16 +29,18 @@ theorem linked_form_imports (implementation : Implementation.Calls)
       source.definitions.outer text form
   executable := linked.readForm
 
-/-- Source admission, exact metadata selection and the program's procedure
-inventory share one interpreted scanner. This is the count used by the native
-report inventory and its full-domain no-inlining selection. -/
+/-- Source admission, exact metadata selection and nominal formal type
+resolution share one interpreted scanner and the same selected accepted scan.
+The procedure count remains the count used by the native report inventory and
+its full-domain no-inlining selection. -/
 theorem actual_source_correspondence :
     SourceBridge.CheckedSource ∧
     SourceChecks.Checked Source.outputSpecTokens Source.outputBodyTokens ∧
     ∀ implementation, SourceBridge.InterpretedSource implementation →
       ∀ metadata, LinkedSource implementation metadata → ∀ text program,
         SourceMeaning text program →
-        ProcedureBindings.catalogSignatures (metadata.executable text) =
+        ProcedureBindings.catalogSignatures (metadata.executable text)
+          (selectTypes (metadata.form .executable) text) =
           program.procedures.map ScalarProcedures.Definition.signature ∧
         (metadata.executable text).items.length = program.procedures.length := by
   refine ⟨SourceBridge.checked_source, Silver.ProcedureMetadataSourceChecks.checked_source, ?_⟩

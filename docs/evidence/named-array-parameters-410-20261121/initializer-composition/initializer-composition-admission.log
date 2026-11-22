@@ -1,0 +1,8 @@
+Managed run: 20261121T203903-e251444a3ecb (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261121T203903-e251444a3ecb)
+Resource allocation: workers requested=2 actual=2 automatic=2
+function 2 Rejected: source is outside the Silver catalogue.
+procedure 2 Rejected: source is outside the Silver catalogue.
+main_boolean 0 Accepted: silver.
+boolean_array 0 Accepted: silver.
+string 0 Accepted: silver.
+character 0 Accepted: silver.

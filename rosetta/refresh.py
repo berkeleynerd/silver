@@ -340,6 +340,7 @@ SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "bounded-mutable-integers": "bounded mutable Integer objects",
                   "interval-integer-division": "interval-checked Integer division",
                   "fixed-integer-arrays": "fixed-size Integer arrays",
+                  "named-integer-array-parameters": "named constrained Integer-array inputs and static bounds queries",
                   "fixed-boolean-arrays": "fixed-size Boolean arrays",
                   "constant-integer-array-iteration": "constant Integer-array iteration",
                   "named-integer-subtypes": "named Integer subtypes, bounded components and scalar signatures",
@@ -373,6 +374,7 @@ USES = {"stdin": "standard input", "files": "files", "arguments": "arguments", "
 # The question each construct's admission must answer: the decidable rule under which every program
 # using it proves automatically.
 ADMISSION = {
+    "named-integer-array-parameters": "How do ordered nominal identities, nonempty static bounds, immutable symbolic inputs with full declared component domains and exact same-type actuals compose with existing closed function/procedure bodies, scalar writable outputs and static First/Last/Length/Range queries to preserve source correspondence, safety, termination and complete automatic discharge? Writable, unconstrained and returned arrays, Boolean named arrays/queries and an independent local-array expansion remain outside this fragment.",
     "bounded-string-building": "Existing fully initialized fixed-bound Strings, bounded logical lengths, guarded Character stores and counted copy/shift loops compose with filled-prefix output after conditionals. A whole literal is copied only when it fits; full refusal leaves both buffer and length unchanged. This identifier adds no admission rule, resizing, String parameters or arbitrary Image/prefix/slice bulk append.",
     "named-scalar-arguments": "How do case-insensitive selectors, unique complete formal coverage and source-order to formal-order correspondence preserve payload checking in the incoming state, alias exclusion, copy-back and automatic discharge for reordered and mixed scalar calls?",
     "scalar-procedures": "How do closed scalar procedures, source-written ordered out initialization, full formal-domain body checks, earlier-only calls, finite loops and same-state actual checks establish initialization, disjoint copy-back, preservation of unrelated caller state, exact-source correspondence, termination and complete automatic discharge?",

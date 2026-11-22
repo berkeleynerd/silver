@@ -60,7 +60,7 @@ class LeanRunHistoryTests(unittest.TestCase):
         evidence = json.loads((state.host.artifacts / "lean-evidence.json").read_text())
         self.assertEqual(evidence["run_id"], run["run_id"])
 
-    def test_automatic_workers_use_remaining_budget_without_changing_process_threads(self):
+    def test_automatic_workers_and_threads_use_remaining_budget(self):
         state = self.fixture()
         state.expected_workers = 1
         with run_history.ManagedRun(state.host, "fixture", [], {},
@@ -69,10 +69,10 @@ class LeanRunHistoryTests(unittest.TestCase):
             self.invoke()
         evidence = json.loads((state.host.artifacts / "lean-evidence.json").read_text())
         self.assertEqual(evidence["lake_workers"], 1)
-        self.assertEqual(evidence["threads_per_process"], 2)
+        self.assertEqual(evidence["threads_per_process"], 1)
         first = next(run for run in self.runs(state) if run["kind"] == "lean")
         self.assertEqual(first["allocation"]["workers"], {"requested": None, "automatic": 1, "actual": 1})
-        self.assertEqual(first["allocation"]["threads"], {"requested": None, "automatic": 2, "actual": 2})
+        self.assertEqual(first["allocation"]["threads"], {"requested": None, "automatic": 1, "actual": 1})
         self.assertEqual((first["resource_reductions"], first["resource_reason"]), ([], ""))
         state.expected_workers = 2
         self.invoke()
@@ -85,7 +85,7 @@ class LeanRunHistoryTests(unittest.TestCase):
         for arguments, refused in ((["--workers", "1"], "workers 1 < 2"),
                                    (["--workers", "1", "--reason", "Repeat a successful clean check"], "workers 1 < 2"),
                                    (["--threads", "1"], "threads 1 < 2"),
-                                   (["--workers", "1", "--threads", "1"], "threads 1 < 2, workers 1 < 2")):
+                                   (["--workers", "1", "--threads", "1"], "workers 1 < 2")):
             with self.subTest(arguments=arguments), self.assertRaisesRegex(
                     run_history.RunHistoryError,
                     "deliberate reduction below the automatic allocation needs --resource-reason: "
@@ -98,29 +98,28 @@ class LeanRunHistoryTests(unittest.TestCase):
         output = io.StringIO()
         with redirect_stdout(output):
             check_lean.main(["--workers", "1", "--threads", "1", "--resource-reason", reason])
-        with self.assertRaisesRegex(run_history.RunHistoryError, "--resource-reason: threads 1 < 2, workers 1 < 2$"):
+        with self.assertRaisesRegex(run_history.RunHistoryError, "--resource-reason: workers 1 < 2$"):
             self.invoke(["--workers", "1", "--threads", "1"])
         run, = self.runs(state)
         self.assertEqual(run["state"], "success")
         self.assertEqual(run["allocation"], {"workers": {"requested": 1, "automatic": 2, "actual": 1},
-                                             "threads": {"requested": 1, "automatic": 2, "actual": 1},
+                                             "threads": {"requested": 1, "automatic": 1, "actual": 1},
                                              "memory_mb": {"requested": None, "automatic": None, "actual": None}})
-        self.assertEqual((run["resource_reductions"], run["resource_reason"]), (["threads", "workers"], reason))
+        self.assertEqual((run["resource_reductions"], run["resource_reason"]), (["workers"], reason))
         evidence = json.loads((state.host.artifacts / "lean-evidence.json").read_text())
         self.assertEqual((evidence["lake_workers"], evidence["threads_per_process"]), (1, 1))
         self.assertIn("silverThreads=1", state.commands[0])
         lines = output.getvalue().splitlines()
         concurrency = next(index for index, line in enumerate(lines) if line.startswith("Lean concurrency:"))
         self.assertEqual(lines[concurrency + 1],
-                         "Resource allocation: threads requested=1 actual=1 automatic=2; "
+                         "Resource allocation: threads requested=1 actual=1 automatic=1; "
                          "workers requested=1 actual=1 automatic=2; "
-                         f"deliberate reduction: threads, workers; reason: {reason}")
+                         f"deliberate reduction: workers; reason: {reason}")
 
     def test_default_and_full_requests_need_no_resource_reason(self):
         state = self.fixture()
         for arguments, workers, threads in (([], None, None), (["--workers", "0", "--threads", "0"], None, None),
-                                            (["--workers", "2", "--threads", "2"], 2, 2),
-                                            (["--threads", "3"], None, 3)):
+                                            (["--workers", "2", "--threads", "2"], 2, 2)):
             with self.subTest(arguments=arguments):
                 self.invoke(arguments)
                 run = self.runs(state)[-1]
@@ -130,6 +129,8 @@ class LeanRunHistoryTests(unittest.TestCase):
                 self.assertEqual((run["state"], run["resource_reductions"], run["resource_reason"]),
                                  ("success", [], ""))
                 self.assertIn(f"silverThreads={threads or 2}", state.commands[-2])
+        with self.assertRaisesRegex(run_history.RunHistoryError, "threads exceed the worker grant"):
+            self.invoke(["--threads", "3"])
 
     def test_resource_only_change_preserves_lake_cache_and_clean_guard(self):
         state = self.fixture()

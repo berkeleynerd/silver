@@ -28,7 +28,8 @@ def targetBody : Command .actual :=
     (apply3 (.function .scalarTarget) text context position) <|
   .letValue "flag" ["boolean_count"] (apply3 (.function .booleanTarget) text context position) <|
   .beginBody <|
-  .guard (.orElse (.eq first (.number 0)) (.le after first)) .invalidActual <|
+  .guard (.orElse (.orElse (.eq first (.number 0)) (.le after first))
+    (.ne (.field .formalTypeId parameter) (.number 0))) .invalidActual <|
   .branch (.eqKind (.field .formalKind parameter) (.kind .integer))
     (.guard
       (.orElse (.orElse (.orElse (.orElse
@@ -52,7 +53,7 @@ def actualBody : Expr .number :=
   .ite (.eqMode (.field .formalMode parameter) (.mode .input))
     (apply5 (.function .functionActual) text context position facts
       (.functionFormal (.field .formalFirst parameter) (.field .formalAfter parameter)
-        (.field .formalKind parameter) (.field .formalBounds parameter)))
+        (.field .formalKind parameter) (.field .formalBounds parameter) (.field .formalTypeId parameter)))
     (.field .actualAfter (apply5 (.function .target) text context position facts parameter))
 
 def actualsTailBody : Expr .number :=
@@ -207,12 +208,13 @@ def calleeBody : Expr .number :=
   .declare <| .letValue "first" (apply2 (.function .skip) text position) <|
     .letValue "after" (apply2 (.function .nameAfter) text first) <|
     .beginValue <| .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.orElse
+      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
         (.eq first (.number 0)) (.le after first))
         (.ne (apply4 (.function .namesLookup) text (.field .contextNames context) first after) (.number 0)))
         (.ne (apply4 (.function .scalarLookup) text (.field .contextScalars context) first after) (.number 0)))
         (.ne (apply4 (.function .booleanLookup) text (.field .contextBooleans context) first after) (.number 0)))
         (.ne (apply4 (.function .arrayLookup) text (.field .contextArrays context) first after) (.number 0)))
+        (.ne (apply4 (.function .arrayTypeLookup) text (.field .arrayTypes (.field .contextArrays context)) first after) (.number 0)))
       (.number 0) (apply4 (.function .procedureLookup) text catalog first after)
 
 def callBody : Command .scan :=
@@ -247,7 +249,8 @@ def modelCalls : Calls
   | .namesLookup => lookupName
   | .scalarLookup => ScalarExpression.lookup
   | .booleanLookup => BooleanBindings.lookup
-  | .arrayLookup => ArrayBindings.lookup
+  | .arrayLookup => fun text names => ArrayBindings.lookup text names.items
+  | .arrayTypeLookup => ArrayBindings.lookupType
   | .procedureLookup => ProcedureBindings.lookup
   | .token => tokenAfter
   | .isEmpty => Integer.Interval.isEmpty

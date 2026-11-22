@@ -17,17 +17,12 @@ path-fact implementation. Frames share immutable declaration names. -/
 namespace Silver.Predicate
 open Compose Bindings PathFacts
 
-def arrayTarget (text : Source) (context : ParseContext) (position : Nat) : Nat :=
-  let first := skipAt text position
-  let after := nameAfter text first
-  if ScalarExpression.lookup text context.scalarNames first after ≠ 0 then 0
-  else ArrayBindings.lookup text context.arrayNames first after
-
 def arrayIndexStart (text : Source) (scan : BodyScan) : Nat :=
   fixedAfter text (nameAfter text (skipAt text scan.position)) "(" false
 
 def arrayIndex (text : Source) (context : ParseContext) (scan : BodyScan) : ScalarExpression.Result :=
-  ScalarExpression.read text (arrayIndexStart text scan) (context.readingNames scan.facts)
+  ScalarExpression.ArrayGrammar.read text (arrayIndexStart text scan) (context.readingNames scan.facts)
+    context.arrayTable (arrayReads := .noElements)
 
 def arrayValueStart (text : Source) (context : ParseContext) (scan : BodyScan) : Nat :=
   fixedAfter text (fixedAfter text (arrayIndex text context scan).after ")" false) ":=" false
@@ -55,9 +50,9 @@ inductive BasicKind | null | output | put | reject | scalarAssignment | arrayAss
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
   if fixedAfter text scan.position "null" true ≠ 0 then .null
-  else if !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0) then .output
-  else if !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) then .put
-  else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames ≠ 0)
+  else if !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames ≠ 0) then .output
+  else if !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) then .put
+  else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames ≠ 0)
     then .reject
   else if scalarTarget text context scan.position ≠ 0 then .scalarAssignment
   else if !context.pure && decide (arrayTarget text context scan.position ≠ 0) then
@@ -86,7 +81,7 @@ def stringAssignmentStart (text : Source) (context : ParseContext) (scan : BodyS
 
 def elementTargetRead (text : Source) (context : ParseContext) (scan : BodyScan) : ValueResult :=
   indexedAt text scan.position context.names (context.readingNames scan.facts)
-    context.arrayNames [] false true
+    context.arrayTable [] false true
 
 def characterAssignmentPosition (text : Source) (context : ParseContext) (scan : BodyScan) : Nat :=
   if stringAssignmentKind text context scan = .element then
@@ -99,7 +94,7 @@ def stringAssignmentBody (text : Source) (context : ParseContext) (scan : BodySc
   match stringAssignmentKind text context scan with
   | .character | .element =>
       let value := characterAt text (characterAssignmentPosition text context scan)
-        context.names (context.readingNames scan.facts) context.arrayNames
+        context.names (context.readingNames scan.facts) context.arrayTable
       if value.after = 0 then invalidBody scan
       else {target with position := value.after, assigned := true}
   | .whole =>
@@ -117,21 +112,21 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan)
   match basicKind text context scan with
   | .null => bodyToken text scan (.word "null")
   | .output =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames) "(" false) false}
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames) "(" false) false}
       let value := readStringInFlow text context call.position call.facts
       if value.after = 0 ∨ call.facts.path.invalidReachable ∨ !fitsLengthSummary call.facts.path (summaryOf value)
       then invalidBody scan else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .put =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames) "(" false) false}
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames) "(" false) false}
       let value := readStringInFlow text context call.position call.facts
       if value.after = 0 ∨ call.facts.path.invalidReachable ∨ !fitsLengthSummary call.facts.path (summaryOf value)
       then invalidBody scan else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .reject =>
-      let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames}
+      let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames}
       {call with facts := {call.facts with path := call.facts.path.reject}}
   | .scalarAssignment =>
       let called := callAssignmentBody text context scan catalog
@@ -207,6 +202,17 @@ def loopLowerPosition (text : Source) (scan : BodyScan) : Nat :=
   if loopReverse text scan then fixedAfter text (loopInAfter text scan) "reverse" true
   else loopInAfter text scan
 
+/-- A Range prefix is resolved before introducing the binder, using the native
+context names rather than their flow overlay. The new binder is masked. -/
+def loopRange (text : Source) (context : ParseContext) (scan : BodyScan) : ScalarExpression.Result :=
+  ScalarExpression.ArrayAttributes.read text (loopLowerPosition text scan)
+    context.scalarNames context.arrayTable (loopFirst text scan) (loopNameAfter text scan) true
+
+/-- Semantic endpoint values captured by a Range query. These are not claimed
+to be scalar expressions written in the source. -/
+def loopEndpoint (after : Nat) (value : Int) : ScalarExpression.Result :=
+  ⟨after, .singleton value, 1, true⟩
+
 /-- Capture the iterable's binding identity before appending the element name.
 The scoped name is masked in its own iterator specification. -/
 def loopArrayTarget (text : Source) (context : ParseContext) (scan : BodyScan) : Nat :=
@@ -218,7 +224,7 @@ def loopArrayAllowed (text : Source) (context : ParseContext) (scan : BodyScan) 
   let after := nameAfter text first
   decide (first ≠ 0 ∧ first < after ∧ target ≠ 0) && !(ArrayBindings.binding context.arrayNames target).mutable &&
     !Named.equalName text (loopFirst text scan) (loopNameAfter text scan) first after &&
-    !(ArrayBindings.binding context.arrayNames target).isBoolean
+    !(ArrayBindings.binding context.arrayNames target).isBoolean && !context.pure
 
 def LoopHeader.bounds (header : LoopHeader) : Integer.Interval :=
   if header.isArray then header.componentBounds else Integer.loopBounds header.lower.bounds header.upper.bounds
@@ -227,10 +233,13 @@ def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : Loop
   let first := loopFirst text scan
   let after := loopNameAfter text scan
   let isArray := loopIsArray text scan
+  let shape := loopRange text context scan
   let lower := if isArray then ScalarExpression.invalid else
-    readCountedBound text context (loopLowerPosition text scan) scan.facts first after
+    if shape.after ≠ 0 then loopEndpoint shape.after shape.bounds.lower else
+      readCountedBound text context (loopLowerPosition text scan) scan.facts first after
   let upper := if isArray then ScalarExpression.invalid else
-    readCountedBound text context (fixedAfter text lower.after ".." false) scan.facts first after
+    if shape.after ≠ 0 then loopEndpoint shape.after shape.bounds.upper else
+      readCountedBound text context (fixedAfter text lower.after ".." false) scan.facts first after
   let components := (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds
   let bounds := if isArray then components else Integer.loopBounds lower.bounds upper.bounds
   let opening := if isArray then
@@ -399,7 +408,7 @@ def contextOf (scan : ScanResult) : ParseContext :=
     ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls,
     scan.state.booleanNames, scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
     scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden,
-    false, 0, 0, scan.state.pure, scan.state.hiding.integerHidden⟩
+    false, 0, 0, scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types⟩
 
 def bodyOf (scan : ScanResult) : BodyScan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity,

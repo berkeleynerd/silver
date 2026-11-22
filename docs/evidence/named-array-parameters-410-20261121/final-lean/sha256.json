@@ -1,0 +1,134 @@
+{
+  "runs/20261121T210604-4b2b25ed79cf/events.jsonl.gz": {
+    "source_sha256": "aa8dac9cef6a91d05089b108e9072356c2630ebd62232e8b5c50b3540176786e",
+    "stored_sha256": "c5a5f299bf65a58f0c955562a5efccb1b83b688fb2f29159161351c29665e864"
+  },
+  "runs/20261121T210604-4b2b25ed79cf/reports/0/lean-proof.log.gz": {
+    "source_sha256": "9d7018823d3b2dde5b0a0d3db8b2911f4648b01fa5aa687f69c47f33fc8dbc7e",
+    "stored_sha256": "96564b08a142681a7ef4c9d6c494f495b0e729a4b2faf77eef79f19eeaddbdf9"
+  },
+  "runs/20261121T212510-16882cbcff36/events.jsonl.gz": {
+    "source_sha256": "00ee5802aa94d7d7c71c1a712cf7892c8a4ebe98e115dea02350b8def682d00d",
+    "stored_sha256": "b6f3c0a731c31181f8c3f24524d3dae9a25a784c26d9231dbe1d019f8303887c"
+  },
+  "runs/20261121T212510-16882cbcff36/previous-evidence/lean-focused-evidence.json.gz": {
+    "source_sha256": "a8b5ed290aced040512f723aefc4eeb086dadf163c22a4019d9d918dbdcc0a38",
+    "stored_sha256": "2fc5bb26cc66fc2614d5ce58af1add5b69a1e542527e5a6e2e47cdef514b113e"
+  },
+  "runs/20261121T212510-16882cbcff36/previous-evidence/lean-focused.log.gz": {
+    "source_sha256": "a5b27ab11529b98d3cf84c99f8eac87cec0ddaae005d878e7c49ac575fe86131",
+    "stored_sha256": "3dcc176174e2193f33f4ee6062c9a543901c36768a76faee4b062e7f2b88e8c3"
+  },
+  "runs/20261121T212510-16882cbcff36/reports/0/lean-focused.log.gz": {
+    "source_sha256": "f784868a859f79d5a35a1ef599f02db307a009c85ff359a197f38b3f238fe96e",
+    "stored_sha256": "c05287752109a14f2d28a57cf8a8ea36f51ec8f87a84dedf336a26b66b87aa9d"
+  },
+  "runs/20261121T214023-0f622151717c/lean-focused-evidence.json.gz": {
+    "source_sha256": "78eca832887c9ebe750af1101dcc6f0c67572fd64b5074916460638cf076b5ed",
+    "stored_sha256": "b3ff06443f428f8a1f4d3e1336394e343dc7765bf4a450d17a901044bfef9072"
+  },
+  "runs/20261121T214023-0f622151717c/events.jsonl.gz": {
+    "source_sha256": "616249c186fc32134f86f730e2b876bf244c7e09271d9d04e054323e14ce9043",
+    "stored_sha256": "60f7e0f0c42ba76b29d8dedab1f907f481aa948040d52885fff583cc3069428b"
+  },
+  "runs/20261121T214023-0f622151717c/lean-focused.log.gz": {
+    "source_sha256": "248b95c88796fd5d1b9f88b64f4831c3a6ba9c85c2906b9696c240fda66a3f44",
+    "stored_sha256": "16d99bcb419a7820b80d06bc934adb12a0f2815e0e2ca1262dbe5096356ec71d"
+  },
+  "runs/20261121T214023-0f622151717c/previous-evidence/lean-focused.log.gz": {
+    "source_sha256": "f784868a859f79d5a35a1ef599f02db307a009c85ff359a197f38b3f238fe96e",
+    "stored_sha256": "c05287752109a14f2d28a57cf8a8ea36f51ec8f87a84dedf336a26b66b87aa9d"
+  },
+  "runs/20261121T214156-37d0db242e83/events.jsonl.gz": {
+    "source_sha256": "a8115c5680b98683473ec25e98490fb6b29efd09b40c6b4c18771897b97a1fe3",
+    "stored_sha256": "6245b3762064414b70b56e9472be9bda438ab5cdc71c0bc7c371d2c9f0c3e15b"
+  },
+  "runs/20261121T214156-37d0db242e83/previous-evidence/lean-proof.log.gz": {
+    "source_sha256": "9d7018823d3b2dde5b0a0d3db8b2911f4648b01fa5aa687f69c47f33fc8dbc7e",
+    "stored_sha256": "96564b08a142681a7ef4c9d6c494f495b0e729a4b2faf77eef79f19eeaddbdf9"
+  },
+  "runs/20261121T214156-37d0db242e83/reports/0/lean-proof.log.gz": {
+    "source_sha256": "70a1a1d9c97ca29fdfacca1285bb98992cd64d15e070e4d7d499e81fa048518f",
+    "stored_sha256": "35e484f40268631c67703122d4c4e8da72979aaa1cffc2bbe11706778d621b32"
+  },
+  "runs/20261121T214735-7e1a499a3d93/lean-focused-evidence.json.gz": {
+    "source_sha256": "01cdc2daf486f303c7b12cba713a0ee8e932564ac7beb58a264de5f44964e280",
+    "stored_sha256": "3d878525659f928d972febdbbe9f5f415a390c11149df299a1b49e07889c131e"
+  },
+  "runs/20261121T214735-7e1a499a3d93/events.jsonl.gz": {
+    "source_sha256": "5c9054e279d789028d30e2276b7e7705425c1b4955cf8a93e68ab5063417fed5",
+    "stored_sha256": "52e61d018b39b4d62a9d03925645b6a1019293a7a38908f24ad124ce625f2d53"
+  },
+  "runs/20261121T214735-7e1a499a3d93/lean-focused.log.gz": {
+    "source_sha256": "288fd46d56ceb5357e5c9e1b42ff125286f3ed53f1acca2804124b926f085ad9",
+    "stored_sha256": "07692740984b6a71d3f1724199708243521a0e7a7152db0e49fdf249a09a4dfd"
+  },
+  "runs/20261121T214735-7e1a499a3d93/previous-evidence/lean-focused-evidence.json.gz": {
+    "source_sha256": "78eca832887c9ebe750af1101dcc6f0c67572fd64b5074916460638cf076b5ed",
+    "stored_sha256": "b3ff06443f428f8a1f4d3e1336394e343dc7765bf4a450d17a901044bfef9072"
+  },
+  "runs/20261121T214735-7e1a499a3d93/previous-evidence/lean-focused.log.gz": {
+    "source_sha256": "248b95c88796fd5d1b9f88b64f4831c3a6ba9c85c2906b9696c240fda66a3f44",
+    "stored_sha256": "16d99bcb419a7820b80d06bc934adb12a0f2815e0e2ca1262dbe5096356ec71d"
+  },
+  "runs/20261121T214832-3b05e086bcb8/events.jsonl.gz": {
+    "source_sha256": "4f68ece9323589c3b4f6b09e81dfe3c6a0c69e9d4f10bbb19d46a3b44ec42a82",
+    "stored_sha256": "d0c267b52d6041d456eb93f7510c7fc4ee820b7f866cac247b9cb0aa37ad35b2"
+  },
+  "runs/20261121T214832-3b05e086bcb8/previous-evidence/lean-proof.log.gz": {
+    "source_sha256": "70a1a1d9c97ca29fdfacca1285bb98992cd64d15e070e4d7d499e81fa048518f",
+    "stored_sha256": "35e484f40268631c67703122d4c4e8da72979aaa1cffc2bbe11706778d621b32"
+  },
+  "runs/20261121T214832-3b05e086bcb8/reports/0/lean-proof.log.gz": {
+    "source_sha256": "dfe1ab0b0ce262b82073690b4cd0d700c47485d9dc9cdecbbe107a258c6696fd",
+    "stored_sha256": "22c4fc68618d481415b39e3da8d7ca1dade34e83df6f5e1bdf7f3d084bca2525"
+  },
+  "runs/20261121T215031-4717b14d556a/lean-focused-evidence.json.gz": {
+    "source_sha256": "6b56a0901c866de3df14bd1f2c2721b63e407cb487a47e8817d0129b216b5fb9",
+    "stored_sha256": "e7c92d78f1772775c922abbcf328d6a35cfd781328f446e8a9babdd6a9b7c8c9"
+  },
+  "runs/20261121T215031-4717b14d556a/events.jsonl.gz": {
+    "source_sha256": "12e4b3daef98f57b72c77462c66150d7655dc54d96db44a71d02b47c689f0eb8",
+    "stored_sha256": "250ca82e971174c536c59f52e730b793adebae653bc0d075c4cbd26bdbf4c3fb"
+  },
+  "runs/20261121T215031-4717b14d556a/lean-focused.log.gz": {
+    "source_sha256": "a2cd1d0dca8176af54c08729ad1993094e61ff939c1531ae46b8a413b23e6cd4",
+    "stored_sha256": "64336bf5c4123b48a91141a9b0434d78c75e07100fe5365bdc3f859b48db58dc"
+  },
+  "runs/20261121T215031-4717b14d556a/previous-evidence/lean-focused-evidence.json.gz": {
+    "source_sha256": "01cdc2daf486f303c7b12cba713a0ee8e932564ac7beb58a264de5f44964e280",
+    "stored_sha256": "3d878525659f928d972febdbbe9f5f415a390c11149df299a1b49e07889c131e"
+  },
+  "runs/20261121T215031-4717b14d556a/previous-evidence/lean-focused.log.gz": {
+    "source_sha256": "288fd46d56ceb5357e5c9e1b42ff125286f3ed53f1acca2804124b926f085ad9",
+    "stored_sha256": "07692740984b6a71d3f1724199708243521a0e7a7152db0e49fdf249a09a4dfd"
+  },
+  "runs/20261121T215140-529c8575a3d7/events.jsonl.gz": {
+    "source_sha256": "062c1a94b3080da8583d2316b62ff12a564248b0b0435f883e123c388db73df3",
+    "stored_sha256": "4cfdfa942b06489aee92da2c11a4e44e146a1405d7355324ade1f7d498c6b094"
+  },
+  "runs/20261121T215140-529c8575a3d7/previous-evidence/lean-proof.log.gz": {
+    "source_sha256": "dfe1ab0b0ce262b82073690b4cd0d700c47485d9dc9cdecbbe107a258c6696fd",
+    "stored_sha256": "22c4fc68618d481415b39e3da8d7ca1dade34e83df6f5e1bdf7f3d084bca2525"
+  },
+  "runs/20261121T215140-529c8575a3d7/reports/0/lean-proof.log.gz": {
+    "source_sha256": "f19732a1595374c1ec832b20f0566d4ef8be2d0cef43827d77d3a581b3d86de7",
+    "stored_sha256": "54c884aa9ee282dbb9c55a0424816e41402d257dbe58b1c60149058ab9e06e77"
+  },
+  "runs/20261121T215449-12cec2fc5976/lean-proof.log.gz": {
+    "source_sha256": "874fc5d8b1efd95e44d6883cfccdbd443a1c7efceeb54a68b4aec4d3e810eb4d",
+    "stored_sha256": "6990c4912215de68554fdc7c1d1a779bda3205b5db56cf739545cc9e93277e84"
+  },
+  "runs/20261121T215449-12cec2fc5976/lean-evidence.json.gz": {
+    "source_sha256": "43c664a362d6294a28edb93d6c7d3b7652da2006999c49eb124ca8bf2ccfed2d",
+    "stored_sha256": "03ab934def2b88151b42a24bdce62898d9c33837375762204a59dd6742fb06c4"
+  },
+  "runs/20261121T215449-12cec2fc5976/events.jsonl.gz": {
+    "source_sha256": "42140fd7ef262073b0f0b4d041f6b40edda091583a2b5173347c653d30c6748d",
+    "stored_sha256": "55caa17df490fc7a577fdc140d57852ebb07bb7f337b70bb5dbf3d2172b53dfd"
+  },
+  "runs/20261121T215449-12cec2fc5976/previous-evidence/lean-proof.log.gz": {
+    "source_sha256": "f19732a1595374c1ec832b20f0566d4ef8be2d0cef43827d77d3a581b3d86de7",
+    "stored_sha256": "54c884aa9ee282dbb9c55a0424816e41402d257dbe58b1c60149058ab9e06e77"
+  }
+}

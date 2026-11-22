@@ -22,9 +22,11 @@ theorem parameterStep_position (text : Source) (state : ParserState) (arguments 
   generalize colonEq : fixedAfter text after ":" false = colonEnd
   generalize inEq : fixedAfter text colonEnd "in" true = inEnd
   generalize outEq : fixedAfter text (if inEnd = 0 then colonEnd else inEnd) "out" true = outEnd
+  generalize modeEq : (if inEnd = 0 then ProcedureBindings.Mode.output
+    else if outEnd = 0 then ProcedureBindings.Mode.input else ProcedureBindings.Mode.inputOutput) = mode
   generalize startEq : (if outEnd ≠ 0 then outEnd else inEnd) = start
-  generalize valueEq : functionTypeAt text state start = value
-  have valueBound := functionTypeAt_position_bound text state start
+  generalize valueEq : formalTypeAt text state start = value
+  have valueBound := formalTypeAt_position_bound text state start
   rw [valueEq] at valueBound
   split
   · exact ⟨Nat.zero_le _, .inl rfl⟩

@@ -18,7 +18,7 @@ def modelTarget : TargetCall := fun text context position => arrayTarget text co
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
   scalarLookup : Source → ScalarExpression.Environment → Nat → Nat → Nat
-  arrayLookup : Source → ArrayBindings.Metadata → Nat → Nat → Nat
+  arrayLookup : Source → ArrayBindings.Table → Nat → Nat → Nat
   targetAfter : Source → Native.Context → Nat → ActiveFlow → Nat
   assignment : Source → Nat → Nat
   condition : Source → Native.Context → Nat → ActiveFlow → ConditionResult
@@ -81,7 +81,7 @@ def Expr.eval (imports : Imports) (target : TargetCall) (frame : Frame) : Expr �
   | .nameAfter first => imports.nameAfter frame.text (first.eval imports target frame)
   | .scalarLookup first after => imports.scalarLookup frame.text frame.context.scalarNames
       (first.eval imports target frame) (after.eval imports target frame)
-  | .arrayLookup first after => imports.arrayLookup frame.text frame.context.arrayNames
+  | .arrayLookup first after => imports.arrayLookup frame.text frame.context.arrayTable
       (first.eval imports target frame) (after.eval imports target frame)
   | .target position => target frame.text frame.context (position.eval imports target frame)
   | .targetAfter position => imports.targetAfter frame.text frame.context (position.eval imports target frame) frame.scan.facts
@@ -260,7 +260,7 @@ def targetEquation (imports : Imports) (text : Source) (context : Native.Context
   let first := imports.skip text position
   let after := imports.nameAfter text first
   if imports.scalarLookup text context.scalarNames first after ≠ 0 then 0
-  else imports.arrayLookup text context.arrayNames first after
+  else imports.arrayLookup text context.arrayTable first after
 
 def assignmentEquation (imports : Imports) (targetCall : TargetCall) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
   let target := targetCall text context scan.position
@@ -318,7 +318,7 @@ def modelImports : Imports where
   skip := skipAt
   nameAfter := Compose.nameAfter
   scalarLookup := ScalarExpression.lookup
-  arrayLookup := ArrayBindings.lookup
+  arrayLookup := fun text names => ArrayBindings.lookup text names.items
   targetAfter := fun text context position facts => booleanArrayAfter text context.model position facts
   assignment := fun text position => fixedAfter text position ":=" false
   condition := fun text context position facts => readCondition text context.model position facts

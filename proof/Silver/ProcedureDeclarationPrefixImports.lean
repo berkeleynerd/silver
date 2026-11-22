@@ -24,7 +24,7 @@ def prefixParts (calls : Calls) (text : Source) (readFrame frame : ParserState)
   let after := calls .nameAfter text first
   let context := {calls .contextOf ⟨readFrame, false, false⟩ with declarationCount}
   let valueAfter := calls .actualAfter text context (calls .take text after (.fixed ":=" false))
-    (calls .initialFlow context) ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩
+    (calls .initialFlow context) ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds, parameter.typeId⟩
   ⟨first, after, valueAfter, calls .take text valueAfter (.fixed ";" false)⟩
 
 def prefixRejected (calls : Calls) (text : Source) (frame : ParserState)
@@ -69,11 +69,11 @@ structure PrefixLexical (calls : Calls) (text : Source) (readFrame frame : Parse
   actual : let context := prefixContext readFrame declarationCount
     calls .actualAfter text context (fixedAfter text (Compose.nameAfter text (skipAt text frame.position)) ":=" false)
       (Predicate.ActiveFlow.initial context.scalarNames (Predicate.initialFacts context.model.hasArguments))
-      ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩ =
+      ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds, parameter.typeId⟩ =
     Predicate.actualAfter text context.model
       (fixedAfter text (Compose.nameAfter text (skipAt text frame.position)) ":=" false)
       (Predicate.ActiveFlow.initial context.scalarNames (Predicate.initialFacts context.model.hasArguments))
-      ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩
+      ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds, parameter.typeId⟩
   following : let p := prefixParts modelCalls text readFrame frame parameter declarationCount
     calls .take text p.valueAfter (.fixed ";" false) = fixedAfter text p.valueAfter ";" false
 

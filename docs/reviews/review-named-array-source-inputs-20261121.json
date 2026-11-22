@@ -1,0 +1,146 @@
+{
+  "integration_commit": "ba0e9fee9a825f08c78c19a8993f940b36ad9a5c",
+  "proof_tree": "83a283fb452838c5b376e1aa3890004727f8305c",
+  "native_tree": "fc67c2e1da24fc53b03e11a459bd46d7a490e6d5",
+  "method": "Compared each audited module against the immutable per-run prepared copy, the source snapshot manifest, the integrated Git blob and prepared Lean workspace. Compared captured Ada hashes with the integrated Git tree. Verified success and foundations in the retained run events and audit logs. No new toolchain or proof run.",
+  "runs": [
+    {
+      "run_id": "20261121T193933-afb215e6c72b",
+      "targets": [
+        "Silver.FunctionSourceChecks"
+      ],
+      "matched_prepared_modules": 284,
+      "matched_event_lean_sources": 265,
+      "matched_generated_lean_sources": 19,
+      "matched_captured_ada_sources": 135,
+      "declarations": 89212,
+      "workers": 2,
+      "threads_per_process": 2,
+      "evidence_sha256": "6c84780651697e1526fcf4658c2f6e81f8e53b9742f8e6ff81ead8140bc0e3de",
+      "source_manifest_sha256": "3853da99bbf803db9b4e614870d4d21ec06f589f721c56a5bdcb0ca616522984",
+      "clean_build": false,
+      "kernel_recheck": null
+    },
+    {
+      "run_id": "20261121T194149-127c5bf09e72",
+      "targets": [
+        "Silver.ComposeSourceChecks",
+        "Silver.ComposeModel",
+        "Silver.SequenceModel"
+      ],
+      "matched_prepared_modules": 291,
+      "matched_event_lean_sources": 274,
+      "matched_generated_lean_sources": 17,
+      "matched_captured_ada_sources": 135,
+      "declarations": 96072,
+      "workers": 2,
+      "threads_per_process": 2,
+      "evidence_sha256": "a8b5ed290aced040512f723aefc4eeb086dadf163c22a4019d9d918dbdcc0a38",
+      "source_manifest_sha256": "2629bb8f9e9a0d63bdab0cd26224e24011dd1a8c9acf70e6161941a843f454e4",
+      "clean_build": false,
+      "kernel_recheck": null
+    },
+    {
+      "run_id": "20261121T210103-c7ca3f0d2b24",
+      "targets": [
+        "Silver.PredicateStringBoundsExecution",
+        "Silver.PredicateStringActualExecution",
+        "Silver.PredicateStringActualInitializers",
+        "Silver.PredicateStringActualAssurance"
+      ],
+      "matched_prepared_modules": 344,
+      "matched_event_lean_sources": 344,
+      "matched_generated_lean_sources": 0,
+      "matched_captured_ada_sources": 135,
+      "declarations": 28231,
+      "workers": 4,
+      "threads_per_process": 4,
+      "evidence_sha256": "7d413ee3f61f0cff4dbc8c80ead61aa98dde3f366ee41a376b887d9cf88d6375",
+      "source_manifest_sha256": "8fc1b29645c0581a18e5780b9e8503738a982a818cf87cd12182ab79ee20ba10",
+      "clean_build": false,
+      "kernel_recheck": null
+    },
+    {
+      "run_id": "20261121T210207-8de88d24fdb5",
+      "targets": [
+        "Silver.ComposeSourceBridge",
+        "Silver.PredicateInheritedReady"
+      ],
+      "matched_prepared_modules": 650,
+      "matched_event_lean_sources": 619,
+      "matched_generated_lean_sources": 31,
+      "matched_captured_ada_sources": 135,
+      "declarations": 138806,
+      "workers": 2,
+      "threads_per_process": 2,
+      "evidence_sha256": "16a04503b7a5e53e64f21b43873bed123dd8ccc9752c4651be4c760eac3ad721",
+      "source_manifest_sha256": "cd18090624158b91850c87baad87c53633f070e562d6ec677a11f24a45f260f2",
+      "clean_build": false,
+      "kernel_recheck": null
+    }
+  ],
+  "reviewed_worker_postimages": {
+    "f74ab6da7d": {
+      "integrated_as": "37a763f225",
+      "matching_paths": [
+        "proof/Silver/ComposeArrayImportMeaning.lean"
+      ]
+    },
+    "0557a262e3": {
+      "integrated_as": "1b4e5c27d1",
+      "matching_paths": [
+        "proof/Silver/ComposeBooleanDeclarationDomain.lean",
+        "proof/Silver/ComposeBooleanDeclarationLibraries.lean",
+        "proof/Silver/ComposeBooleanImportMeaning.lean"
+      ]
+    },
+    "e1cd85d094": {
+      "integrated_as": "99277a6e31",
+      "matching_paths": [
+        "proof/Silver/FunctionSourceCandidate.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationExpressionAppendArrayParameterModel.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationExpressionFormalTypeAt.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderAppendArrayParameterImpl.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderAppendArrayParameterModelImpl.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderAppendArrayParameterModelSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderAppendArrayParameterSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFormalTypeAtImpl.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationHeaderFormalTypeAtSpec.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationOrdinaryAppendArrayParameter.lean",
+        "proof/Silver/FunctionSourceParts/DeclarationTypeResult.lean"
+      ]
+    },
+    "4c70540049": {
+      "integrated_as": "fceb2b7603",
+      "matching_paths": [
+        "proof/Silver/PredicateStringActualAssurance.lean",
+        "proof/Silver/PredicateStringActualExecution.lean",
+        "proof/Silver/PredicateStringActualInitializers.lean",
+        "proof/Silver/PredicateStringBoundsExecution.lean"
+      ]
+    },
+    "dc4c490205": {
+      "integrated_as": "ba0e9fee9a",
+      "matching_paths": [
+        "proof/Silver/ComposeSourceBridge.lean",
+        "proof/Silver/PredicateInheritedReady.lean"
+      ]
+    },
+    "cd22b24b73": {
+      "integrated_as": "f824b1bf36",
+      "matching_paths": [
+        "proof/Silver/ProcedureDeclarationHelperLibraries.lean",
+        "proof/Silver/ProcedureDeclarationHelperModel.lean",
+        "proof/Silver/ProcedureDeclarationHelperModelSource.lean",
+        "proof/Silver/ProcedureDeclarationParameterLibraries.lean",
+        "proof/Silver/ProcedureDeclarationPrefixImports.lean",
+        "proof/Silver/ProcedureDeclarationPrefixLibraries.lean",
+        "proof/Silver/ProcedureDeclarationTraversalModel.lean"
+      ]
+    }
+  },
+  "public_source_assurance_signature_sha256_unchanged_from_45b4bb8b65": {
+    "source_actual_initializers_bounds": "64886dff24299e8898f718a349a9ba8a0451f09f74dcafb257a72d8c5f25f324",
+    "source_actual_string_bounds_assured": "f6e0a1b34ad82bafb3430040ab8541dff0ca410517a7d5ae1ad607e36eeb92ea"
+  }
+}

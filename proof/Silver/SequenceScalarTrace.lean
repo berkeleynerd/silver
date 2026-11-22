@@ -55,10 +55,11 @@ theorem scalar_step_static {text form token state next values}
 
 theorem scalar_step_source_bounds {text form token state next values}
     (trace : ScalarStepAt text form token state values next)
-    (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames)
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
     ∀ declaration ∈ values, ScalarDeclarationSourceBounds text declaration := by
   cases trace with
-  | declarations reading => exact scalar_declarations_source_bounds reading elaborated
+  | declarations reading => exact scalar_declarations_source_bounds reading elaborated bounded
   | other => simp
 
 theorem scalar_step_count_bound {text form token state next values}
@@ -73,22 +74,24 @@ theorem scalar_step_checked {text form token state next values}
     (trace : ScalarStepAt text form token state values next)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
     (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
-    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames)
+    (stored : state.StoredArrays) :
     Integer.checkDeclarations (ScalarExpression.constants state.scalarNames) values =
       some (ScalarExpression.constants next.scalarNames) := by
   cases trace with
-  | declarations reading => exact scalar_declarations_checked reading static bounded subtypes
+  | declarations reading => exact scalar_declarations_checked reading static bounded subtypes stored
   | other _ same => simp only [Integer.checkDeclarations, same]
 
 theorem scalar_step_objects {text form token state next values}
     (trace : ScalarStepAt text form token state values next)
     (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames)
     (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
-    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames)
+    (stored : state.StoredArrays) :
     ScalarExpression.objectBindings next.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
       Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
   cases trace with
-  | declarations reading => exact scalar_declarations_objects reading exact bounded subtypes
+  | declarations reading => exact scalar_declarations_objects reading exact bounded subtypes stored
   | other _ same => simp only [same, Integer.elaborate, List.append_nil]
 
 theorem scalar_step_declared_bounds {text form token state next values}
@@ -141,15 +144,16 @@ private theorem check_append (constants : Integer.Constants) (first rest : List 
 
 theorem scalar_tokens_source_bounds {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)
-    (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames)
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
     ∀ declaration ∈ values, ScalarDeclarationSourceBounds text declaration := by
   induction trace with
   | done => simp
   | next head reading rest ih =>
       intro declaration member
       rcases List.mem_append.mp member with member | member
-      · exact scalar_step_source_bounds reading elaborated declaration member
-      · exact ih (scalar_step_static reading elaborated) declaration member
+      · exact scalar_step_source_bounds reading elaborated bounded declaration member
+      · exact ih (scalar_step_static reading elaborated) (scalar_step_count_bound reading bounded) declaration member
 
 theorem scalar_tokens_count_bound {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)
@@ -163,31 +167,33 @@ theorem scalar_tokens_checked {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
     (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
-    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames)
+    (stored : state.StoredArrays) :
     Integer.checkDeclarations (ScalarExpression.constants state.scalarNames) values =
       some (ScalarExpression.constants final.scalarNames) ∧
       ScalarExpression.StaticEnvironment final.scalarNames := by
   induction trace with
   | done => exact ⟨rfl, static⟩
   | next head reading rest ih =>
-      obtain ⟨checked, finalStatic⟩ := ih (scalar_step_static reading static) (scalar_step_count_bound reading bounded) (step_subtypes_valid head subtypes)
+      obtain ⟨checked, finalStatic⟩ := ih (scalar_step_static reading static) (scalar_step_count_bound reading bounded) (step_subtypes_valid head subtypes) (step_stored head stored)
       refine ⟨?_, finalStatic⟩
-      rw [check_append, scalar_step_checked reading static bounded subtypes]
+      rw [check_append, scalar_step_checked reading static bounded subtypes stored]
       exact checked
 
 theorem scalar_tokens_objects {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)
     (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames)
     (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
-    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames)
+    (stored : state.StoredArrays) :
     ScalarExpression.objectBindings final.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
       Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
   induction trace with
   | done => simp [Integer.elaborate]
   | next head reading rest ih =>
-      have objects := scalar_step_objects reading exact bounded subtypes
-      have values := (Integer.declarations_sound (scalar_step_checked reading exact bounded subtypes)).1
-      rw [ih (scalar_step_static reading exact) (scalar_step_count_bound reading bounded) (step_subtypes_valid head subtypes), objects, Integer.elaborate_append, values]
+      have objects := scalar_step_objects reading exact bounded subtypes stored
+      have values := (Integer.declarations_sound (scalar_step_checked reading exact bounded subtypes stored)).1
+      rw [ih (scalar_step_static reading exact) (scalar_step_count_bound reading bounded) (step_subtypes_valid head subtypes) (step_stored head stored), objects, Integer.elaborate_append, values]
       simp only [List.append_assoc]
 
 theorem scalar_tokens_declared_bounds {text form tokens state values final}

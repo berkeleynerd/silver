@@ -12,6 +12,12 @@ open Silver.SourceBridge
 
 def expectedTokens (text : String) : List String := (Source.lexLine text).getD []
 
+def arrayActualImpl : List String := expectedTokens
+  "(Text : String; Context : Body_Context; Position : Literal_Position; Type_Id : Array_Bindings.Type_Count) return Literal_Position"
+
+def arrayActualSpec : List String := arrayActualImpl ++ expectedTokens
+  "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context), Post => Array_Actual_After'Result = 0 or else Array_Actual_After'Result in Position + 1 .. Text'Last + 1"
+
 def actualModelSpec : List String := expectedTokens
   "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Parameter : Functions.Formal) return Literal_Position with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Actual_Model'Result = 0 or else Actual_Model'Result in Position + 1 .. Text'Last + 1"
 
@@ -88,6 +94,11 @@ structure Checked (tokens : List String) : Prop where
   included_impl : functionHeader "included" "is" tokens =
     some (expectedTokens "(Value, Bounds : Scalars.Interval) return Boolean")
   included_body : Source.expressionBody "included" tokens = some includedBody.render
+  arrayActual_spec : functionHeader "array_actual_after" ";" tokens = some arrayActualSpec
+  arrayActual_impl : functionHeader "array_actual_after" "is" tokens = some arrayActualImpl
+  arrayActual_body : Source.expressionBody "array_actual_after" tokens = some arrayActualBody.render
+  actualAfter_body : Compose.BooleanDeclarationNative.SourceChecks.ordinaryFunction "actual_after" tokens =
+    some actualImplementation.render
   actualModel_spec : functionHeader "actual_model" ";" tokens = some actualModelSpec
   actualModel_impl : functionHeader "actual_model" "is" tokens = some actualModelImpl
   actualAfter_spec : functionHeader "actual_after" ";" tokens = some actualAfterSpec

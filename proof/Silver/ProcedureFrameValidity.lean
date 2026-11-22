@@ -6,11 +6,13 @@ public import Silver.ProcedureHeaderAdmission
 
 namespace Silver.Compose
 
-/-- Successful formal binding changes only the two scalar binding tables.
-In particular, signature pools, name-hiding flags and both formal cursors stay
-attached to their exact declaration frame. -/
+/-- Binding an input can append an Integer, Boolean or read-only array name.
+The type environment and physical value pool come from the declaration frame. -/
 def ProcedureFrameFields (before after : ParserState) : Prop :=
-  after = {before with scalarNames := after.scalarNames, booleanNames := after.booleanNames}
+  after = {before with
+    scalarNames := after.scalarNames
+    booleanNames := after.booleanNames
+    arrayNames := {before.arrayNames with names := after.arrayNames.names}}
 
 theorem ProcedureFrameFields.trans {first middle last : ParserState}
     (before : ProcedureFrameFields first middle) (after : ProcedureFrameFields middle last) :
@@ -22,14 +24,45 @@ theorem ProcedureFrameFields.trans {first middle last : ParserState}
 theorem appendProcedureParameter_fields (frame : ParserState) (parameter : ProcedureBindings.Formal)
     (accepted : (appendProcedureParameter frame parameter).position ≠ 0) :
     ProcedureFrameFields frame (appendProcedureParameter frame parameter) := by
-  dsimp only [appendProcedureParameter] at accepted ⊢
-  split <;> split <;> simp_all [ProcedureFrameFields, invalidState]
+  dsimp only [appendProcedureParameter, appendArrayParameter] at accepted ⊢
+  split <;> split <;> (try split) <;> simp_all [ProcedureFrameFields, invalidState]
 
 theorem appendProcedureParameter_grows (frame : ParserState) (parameter : ProcedureBindings.Formal)
     (accepted : (appendProcedureParameter frame parameter).position ≠ 0) :
     frame.scalarNames.length ≤ (appendProcedureParameter frame parameter).scalarNames.length ∧
       frame.booleanNames.length ≤ (appendProcedureParameter frame parameter).booleanNames.length := by
-  dsimp only [appendProcedureParameter] at accepted ⊢
+  dsimp only [appendProcedureParameter, appendArrayParameter] at accepted ⊢
+  split <;> split <;> (try split) <;> simp_all [invalidState]
+
+theorem appendProcedureParameter_named_input {frame : ParserState} {parameter : ProcedureBindings.Formal}
+    (named : parameter.typeId ≠ 0)
+    (accepted : (appendProcedureParameter frame parameter).position ≠ 0) :
+    parameter.mode = .input := by
+  apply Classical.not_not.mp
+  intro writable
+  rw [appendProcedureParameter, ite_eq_left named, ite_eq_left writable] at accepted
+  exact accepted rfl
+
+theorem appendProcedureParameter_named {frame : ParserState} {parameter : ProcedureBindings.Formal}
+    (named : parameter.typeId ≠ 0)
+    (accepted : (appendProcedureParameter frame parameter).position ≠ 0) :
+    appendProcedureParameter frame parameter = appendParameter frame (Predicate.procedureInputFormal parameter) := by
+  have input := appendProcedureParameter_named_input named accepted
+  rw [appendProcedureParameter, ite_eq_left named, ite_eq_right (fun writable => writable input)]
+  rw [appendParameter, ite_eq_left (show (Predicate.procedureInputFormal parameter).typeId ≠ 0 from named)]
+  rfl
+
+theorem appendProcedureParameter_writable_type {frame : ParserState} {parameter : ProcedureBindings.Formal}
+    (writable : parameter.mode ≠ .input)
+    (accepted : (appendProcedureParameter frame parameter).position ≠ 0) :
+    parameter.typeId = 0 :=
+  Classical.not_not.mp (fun named => writable (appendProcedureParameter_named_input named accepted))
+
+theorem appendProcedureParameter_scalar_arrays {frame : ParserState} {parameter : ProcedureBindings.Formal}
+    (scalar : parameter.typeId = 0)
+    (accepted : (appendProcedureParameter frame parameter).position ≠ 0) :
+    (appendProcedureParameter frame parameter).arrayNames = frame.arrayNames := by
+  simp only [appendProcedureParameter, scalar, ne_eq, not_true_eq_false, ↓reduceIte] at accepted ⊢
   split <;> split <;> simp_all [invalidState]
 
 theorem procedureInputFrameModel_preserves (frame : ParserState) (index : Nat) :

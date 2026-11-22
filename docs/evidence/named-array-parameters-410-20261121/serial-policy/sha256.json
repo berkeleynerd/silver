@@ -1,0 +1,21 @@
+{
+  "check-policy-repair.py": "ba0493fc3ea81a0d065d23f77bd1150fe868a1499b4556e9fd15b224a1839663",
+  "hello_world/gnatprove.out": "cbbd870391fec4932d6c7b23ab96d2f99024cd2886aa0c30249e61a079dba22f",
+  "hello_world/gnatprove.sarif": "f5354c2f1f952c4c53da62d4a7696a1eef7c1f4189234f92100bbd053f0b20c3",
+  "hello_world/main.adb": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+  "hello_world/main~1.spark": "eae054215a73065dcd495202a95041cbbe9c833697d89aac21bd4449a7cb3843",
+  "hello_world/silver_arguments.spark": "035f7b9aa92b83847a76b1db94f2c05c58af98517911ebd163013f3c5a48cc5b",
+  "hello_world/silver_arguments__first_or_default/why3session.xml": "653a058fb858c584d33f211cf1cd99fc1cb55a3630fbc610953f0d437380f551",
+  "hello_world/silver_arguments__input_is_valid/why3session.xml": "4b40ceef6b6be4c535c6d8e6eb10cf756d752fcf7f3803997b53f930f7675ee4",
+  "hello_world/silver_arguments__is_message/why3session.xml": "a329a1a1b516ee80b84c5173fcecc9cbacbcbb094b234704e2cdc5cff5ce562a",
+  "hello_world/silver_io.spark": "fc68f9683d47f0e49e9242f52d1a9aadfe07f9b3a09b8dee44294ad555d6c971",
+  "hello_world/silver_io__put/why3session.xml": "599d9e47a6450514544370fd129b9bd44d338c038948a240e005307aa6d037d0",
+  "hello_world/silver_io__put_line/why3session.xml": "0b6439d66201c5a37c1b0b2b23385446fd63903b42d84a29e191cc037ca6889a",
+  "hello_world/silver_output_libc.spark": "0c0a6f502683dd30496584dc2863feb022cfa493a80be5cca9c67378904faef4",
+  "hello_world/silver_runtime.spark": "3ac85ae352f08941202a0d30143a7a8e98707f0d7d5ff59810f5660ca1978ef7",
+  "manifest-snapshot.json": "4bd60a0bcc7330a26343400ea2fdcf961176c4053fd0ee48d692c7851cb58d92",
+  "policy-repair-check.log": "a12279dc53615a52ad0f1817455d8f36aa6a9568cb49fa0d94970750b48fff1e",
+  "policy-repair-result-control.log": "43462576587a91d0f215f9ad4c88f08c2d3bbfef69ded99b0dec14019e5a6e97",
+  "serial-scheduling-review.md": "eda21bb8f66c66dedd7eafa2c85f7e0536fdef4e6577259fe307f5a464bf42bc",
+  "serial-task-observations.jsonl": "8b33d7af5a953ee9c2bbf67f3d234d818af679b052a07df4c72bb46ee678869b"
+}

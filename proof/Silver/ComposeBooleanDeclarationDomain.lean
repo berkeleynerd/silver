@@ -26,13 +26,13 @@ def toNative (context : BooleanDeclarationNative.Context) : Native.Context :=
   ⟨context.names, context.dynamicFirst, context.dynamicAfter, context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden⟩
+    context.pure, context.integerHidden, context.arrayTypes⟩
 
 def fromNative (context : Native.Context) : BooleanDeclarationNative.Context :=
   ⟨context.names, context.dynamicFirst, context.dynamicAfter, context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden⟩
+    context.pure, context.integerHidden, context.arrayTypes⟩
 
 @[simp] theorem toNative_model (context : BooleanDeclarationNative.Context) :
     (toNative context).model = context.model := rfl

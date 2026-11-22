@@ -38,21 +38,27 @@ theorem actual_after_bound (text : Source) (context : Predicate.Native.Context) 
     Predicate.actualAfter text context.model position facts formal ≤ text.length + 1 := by
   unfold Predicate.actualAfter
   split
-  · exact Predicate.Native.condition_bound text context.model position facts tv cv.1 bounded
-  · dsimp only
+  · dsimp only [Predicate.arrayActualAfter]
     split
     · exact Nat.zero_le _
-    · rename_i accepted
-      have nonzero : (Predicate.readScalarInFlow text context.model position facts).after ≠ 0 :=
-        fun zero => accepted (.inl zero)
-      obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound bounded nonzero
-      exact parsed.cursorBounds.2.2
+    · exact function_nameAfter_bound text _
+  · split
+    · exact Predicate.Native.condition_bound text context.model position facts tv cv.1 bounded
+    · dsimp only
+      split
+      · exact Nat.zero_le _
+      · rename_i accepted
+        have nonzero : (Predicate.readScalarInFlow text context.model position facts).after ≠ 0 :=
+          fun zero => accepted (.inl zero)
+        obtain ⟨expression, parsed⟩ := ScalarExpression.ArrayGrammar.read_sound bounded nonzero
+        exact parsed.cursorBounds.2.2
 
 theorem prefix_step_imports {domain calls inherited ordinary metadata visibility}
     (source : Expressions.RawHelperEquations inherited (domain := domain))
     (links : ParameterLinks calls inherited ordinary metadata visibility)
     (visibilityPrimitives : FunctionVisibilityNative.Primitives visibility.calls)
     (equations : HelperEquations calls)
+    (arrays : ArrayAppendMeaning calls)
     (reader : Predicate.BodyNative.Calls)
     (flow : Predicate.FlowSourceBridge.Calls)
     (flowMeaning : Predicate.FlowSourceBridge.CallsMeaning flow)
@@ -81,7 +87,7 @@ theorem prefix_step_imports {domain calls inherited ordinary metadata visibility
     (fixedAfter text (Compose.nameAfter text (skipAt text frame.position)) ":=" false)
     (Predicate.ActiveFlow.initial (prefixContext readFrame declarationCount).scalarNames
       (Predicate.initialFacts (prefixContext readFrame declarationCount).model.hasArguments))
-    ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩ valid.1 contextValid assignmentBound
+    ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds, parameter.typeId⟩ valid.1 contextValid assignmentBound
   refine {
     skip := lexical.skip text valid.1 _ valid.2.2.1.2.base.1,
     nameAfter := lexical.nameAfter text valid.1 _ firstBound,
@@ -102,13 +108,13 @@ theorem prefix_step_imports {domain calls inherited ordinary metadata visibility
         (fixedAfter text (Compose.nameAfter text (skipAt text frame.position)) ":=" false)
         (Predicate.ActiveFlow.initial (prefixContext readFrame declarationCount).scalarNames
           (Predicate.initialFacts (prefixContext readFrame declarationCount).model.hasArguments))
-        ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩ :=
+        ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds, parameter.typeId⟩ :=
       ⟨⟨⟨valid.1, contextValid, assignmentBound⟩, initialValid⟩, valid.2.2.2.2.1⟩
     have interpreted := congrArg (fun fn => fn text (prefixContext readFrame declarationCount)
         (fixedAfter text (Compose.nameAfter text (skipAt text frame.position)) ":=" false)
         (Predicate.ActiveFlow.initial (prefixContext readFrame declarationCount).scalarNames
           (Predicate.initialFacts (prefixContext readFrame declarationCount).model.hasArguments))
-        ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds⟩)
+        ⟨parameter.first, parameter.after, parameter.kind, parameter.bounds, parameter.typeId⟩)
       (Predicate.FunctionCallNative.normalized_actual actualMeaning actualEquations)
     simpa only [Predicate.FunctionCallNative.totalizeCalls, Predicate.FunctionCallNative.modelCalls,
       actualDomain, ↓reduceIte] using interpreted
@@ -119,7 +125,7 @@ theorem prefix_step_imports {domain calls inherited ordinary metadata visibility
       ⟨by omega, ordered, afterBound⟩ valid.2.2.2.2.2.2.1
   · dsimp only
     intro _
-    apply interpreted_appendParameter calls equations.toFrameEquations (scalar_append_meaning source links)
+    apply interpreted_appendParameter calls equations.toFrameEquations (scalar_append_meaning source links) arrays
     refine ⟨?_, valid.2.2.2.2.1⟩
     exact (FunctionDeclarationNative.StateInput.withPosition valid.1 valid.2.2.1 _
       (fixedAfter_result_bound text _ ";" false (by decide))).1
@@ -129,6 +135,7 @@ theorem prefix_imports {domain calls inherited ordinary metadata visibility}
     (links : ParameterLinks calls inherited ordinary metadata visibility)
     (visibilityPrimitives : FunctionVisibilityNative.Primitives visibility.calls)
     (equations : HelperEquations calls)
+    (arrays : ArrayAppendMeaning calls)
     (reader : Predicate.BodyNative.Calls)
     (flow : Predicate.FlowSourceBridge.Calls)
     (flowMeaning : Predicate.FlowSourceBridge.CallsMeaning flow)
@@ -140,7 +147,7 @@ theorem prefix_imports {domain calls inherited ordinary metadata visibility}
     (actualMeaning : Predicate.FunctionCallNative.ImportsMeaning actualImports)
     (actualEquations : Predicate.FunctionCallNative.DefinitionEquations actualImports actualCalls assignment)
     (prefixLinks : PrefixLinks calls reader initial actualCalls) : PrefixMeaning calls where
-  step := prefix_step_imports source links visibilityPrimitives equations reader flow flowMeaning
+  step := prefix_step_imports source links visibilityPrimitives equations arrays reader flow flowMeaning
     initial initialEquations actualImports actualCalls assignment actualMeaning actualEquations prefixLinks
 
 end Silver.Compose.ProcedureDeclarationNative

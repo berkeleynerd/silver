@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The hand-written scanner replaces the exception-based Float'Value, so no exception handling is needed, and every check follows from the for-loop range over Item'Range and a state subtype whose transitions assign only constants. No loop-carried arithmetic or annotation is needed, and the for loop terminates by itself inside the function.
 
-Position 973 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1061 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

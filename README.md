@@ -143,8 +143,10 @@ anonymous one-dimensional arrays with nonempty static bounds, explicit
 initialization and checked indexed reads and writes. Declaration snapshots stay
 exact; body reads use declared component intervals (full Integer for `of Integer`). The
 [rotation sample](samples/rosetta_shift_list_left_3.adb) moves the first three
-values to the end. Named array types, array attributes and whole-array
-operations remain outside this fragment. The
+values to the end. That increment did not include named array types, array
+attributes or whole-array operations. Named constrained Integer arrays and bounds queries are covered by
+the later [named-array capability](docs/named-array-parameters.md); whole-array
+operations remain unsupported. The
 [delivery evidence](docs/fixed-integer-arrays.md#delivery-assurance-and-validation)
 records its assurance and validation scope.
 
@@ -240,6 +242,22 @@ Lean/actual-source checkpoints and the complete regression suite passed, with
 independent review recorded in the capability account. This evidence is separate
 from the original deliveries.
 
+The [named Integer-array parameter capability #410](docs/named-array-parameters.md#delivery-assurance-and-validation)
+adds constrained named Integer arrays, read-only inputs to existing functions
+and procedures, and static `'First`, `'Last`, `'Length` and `'Range` queries,
+including queries on existing anonymous Integer-array objects. Nominal type
+identity controls array actuals; every callable body is checked over its full
+declared component domains. [Dot product](samples/rosetta_dot_product.adb) and
+[Horner polynomial evaluation](samples/rosetta_horner_polynomial.adb) are its two
+faithful drivers. Complete Linux native and Lean/actual-source audits, final
+regression coverage and scoped independent reviews are retained in the
+[capability record](docs/named-array-parameters.md#delivery-assurance-and-validation).
+The [producer account](docs/named-array-parameters-report-capacity.md) retains
+the existing report envelope. Writable, returned, unconstrained and Boolean
+named arrays remain unsupported. The accompanying delivery is prepared for
+[PR #412](https://github.com/berkeleynerd/silver/pull/412); merge requires a
+separate owner instruction.
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 
@@ -320,12 +338,19 @@ requires Python 3.11+ and native development libraries: libc development files
 on Linux, or Xcode Command Line Tools on macOS. On Debian/Ubuntu, the required
 native package is `libc6-dev`.
 
-For the current Linux ARM64 compiler, use a **16 MiB process stack** for
-validation and compiler invocations (`ulimit -S -s 16384` in the invoking shell,
+For Linux validation and compiler invocations, use a **16 MiB process stack**
+on x86_64 and ARM64
+(`ulimit -S -s 16384` in the invoking shell,
 where its hard limit permits this). The [ARM64 boundary measurements](docs/evidence/scalar-procedures-20261115/regression-recovery/arm64-stack/README.md)
 show all three deeply parenthesized 4,096-byte regression inputs passing at that
-setting and failing at 8 MiB; two also fail at 12 MiB. This is a measured
-configuration for these inputs and this build, not a universal stack bound.
+setting and failing at 8 MiB; two also fail at 12 MiB. The
+[named-array x86_64 observations](docs/evidence/named-array-parameters-410-20261121/stack/README.md)
+likewise find that source-limit counted, foreach and Range loops need the higher
+setting after metadata growth, with callable-body nests using more stack than
+the Main-body fixtures. The ARM64 observations describe the November 15 build;
+the named-array metadata and callable cases have been measured only on x86_64.
+These are measured configurations for specific
+inputs and builds; they do not establish a universal stack bound.
 The compiler does not raise the process limit automatically. Earlier Linux
 8 MiB observations below retain their exact build/platform scope.
 

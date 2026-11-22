@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for a picture, which text art satisfies, and a straight sequence of Put_Line calls on literals needs no proof beyond what Silver already discharges.
 
-Position 84 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 85 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

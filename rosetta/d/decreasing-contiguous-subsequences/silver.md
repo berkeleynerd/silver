@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The full required 901-value candidate admitted and ran, producing bins 7, 6, 4, 2, 2, 0 from a 3855-byte source. Preserve this measured complete-sequence scope; it is inherited planning evidence and adds no promised sample or final delivery checkpoint result. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 114 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 116 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

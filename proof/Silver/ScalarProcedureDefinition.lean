@@ -12,28 +12,34 @@ namespace Silver.ScalarProcedures
 open Bindings Predicate
 open ScalarFunctions (ScalarType Frame State ArgumentsFit)
 
-def scalarActual : Actual → Bool
-  | .value value => ScalarFunctions.scalarActual value
+def frameActual (arrays : List (Nat × Integer.ArrayDescriptor)) : Actual → Bool
+  | .value value => ScalarFunctions.frameActual arrays value
   | .target _ => true
 
+def scalarActual := frameActual []
+
 mutual
-  def scalarStatement : Statement → Bool
+  def frameStatement (arrays : List (Nat × Integer.ArrayDescriptor)) : Statement → Bool
     | .simple .null => true
-    | .scalarAssign update => ScalarFunctions.scalarExpression update.value
-    | .callAssign update => update.call.actuals.all ScalarFunctions.scalarActual
-    | .procedureCall call => call.actuals.all scalarActual
-    | .booleanAssign update => ScalarFunctions.scalarCondition update.value
+    | .scalarAssign update => ScalarFunctions.frameExpression arrays update.value
+    | .callAssign update => update.call.actuals.all (ScalarFunctions.frameActual arrays)
+    | .procedureCall call => call.actuals.all (frameActual arrays)
+    | .booleanAssign update => ScalarFunctions.frameCondition arrays update.value
     | .choice condition yes no =>
-        ScalarFunctions.scalarCondition condition && scalarStatements yes && scalarStatements no
+        ScalarFunctions.frameCondition arrays condition && frameStatements arrays yes && frameStatements arrays no
     | .forLoop _ _ lower upper body =>
-        ScalarFunctions.scalarExpression lower && ScalarFunctions.scalarExpression upper && scalarStatements body
+        ScalarFunctions.frameExpression arrays lower && ScalarFunctions.frameExpression arrays upper &&
+          frameStatements arrays body
     | _ => false
   termination_by item => sizeOf item
-  def scalarStatements : List Statement → Bool
+  def frameStatements (arrays : List (Nat × Integer.ArrayDescriptor)) : List Statement → Bool
     | [] => true
-    | item :: rest => scalarStatement item && scalarStatements rest
+    | item :: rest => frameStatement arrays item && frameStatements arrays rest
   termination_by items => sizeOf items
 end
+
+def scalarStatement := frameStatement []
+def scalarStatements := frameStatements []
 
 structure Definition where
   signature : Signature
@@ -53,7 +59,8 @@ def Definition.localFlow (definition : Definition) : Flow :=
   ⟨ScalarFunctions.entryContext, definition.localAnalysis.declared⟩
 
 def Definition.inputAnalysis (definition : Definition) : Integer.Analysis :=
-  parameterAnalysis definition.integers.length (inputFormals definition.signature.formals) definition.localAnalysis
+  parameterAnalysis definition.integers.length (inputFormals definition.signature.formals)
+    (ScalarFunctions.arrayAnalysis 1 (inputTypes definition.signature.formals) definition.localAnalysis)
 
 def Definition.inputBooleanAnalysis (definition : Definition) : Boolean.Analysis :=
   parameterBooleans definition.booleans.length (inputFormals definition.signature.formals)
@@ -91,8 +98,10 @@ def Definition.localFrame (definition : Definition) : Frame :=
   ⟨integers, executeBooleanDeclarations emptyValues [] true integers definition.booleans Boolean.emptyStore⟩
 
 def Definition.inputFrame (definition : Definition) (inputs : List ScalarFunctions.Value) : Frame :=
+  let integers := ScalarFunctions.bindArrayArguments 1 (inputTypes definition.signature.formals)
+    inputs definition.localFrame.integers
   ScalarFunctions.bindArguments definition.integers.length definition.booleans.length
-    (inputTypes definition.signature.formals) inputs definition.localFrame
+    (inputTypes definition.signature.formals) inputs {definition.localFrame with integers := integers}
 
 def Definition.prefixState (definition : Definition) (inputs : List ScalarFunctions.Value) : State :=
   let frame := definition.inputFrame inputs
@@ -127,9 +136,10 @@ def Definition.outputCheck (definition : Definition) : Bool :=
     definition.booleanAnalysis (outputTypes definition.signature.formals) definition.outputReads
 
 def Definition.scalarOnly (definition : Definition) : Bool :=
+  let arrays := ScalarFunctions.formalArrays 1 (inputTypes definition.signature.formals)
   definition.integers.all (fun item => ScalarFunctions.scalarExpression item.value) &&
     definition.booleans.all (fun item => ScalarFunctions.scalarCondition item.value) &&
-    definition.initializers.all ScalarFunctions.scalarActual && scalarStatements definition.body
+    definition.initializers.all (ScalarFunctions.frameActual arrays) && frameStatements arrays definition.body
 
 def Definition.ready (functions : ScalarFunctions.Signatures) (definition : Definition) : Bool :=
   definition.localCheck && definition.prefixCheck && definition.outputCheck && definition.scalarOnly &&

@@ -69,7 +69,9 @@ theorem procedureParameterStep_items (text : Source) (state : ParserState) (argu
   generalize inEq : fixedAfter text colonEnd "in" true = inEnd
   generalize outEq : fixedAfter text (if inEnd = 0 then colonEnd else inEnd) "out" true = outEnd
   generalize startEq : (if outEnd ≠ 0 then outEnd else inEnd) = start
-  generalize valueEq : functionTypeAt text state start = value
+  generalize valueEq : formalTypeAt text state start = value
+  generalize modeEq : (if inEnd = 0 then ProcedureBindings.Mode.output else
+    if outEnd = 0 then .input else .inputOutput) = mode
   split
   · exact .inl rfl
   · split

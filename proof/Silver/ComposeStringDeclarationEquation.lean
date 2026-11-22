@@ -23,10 +23,13 @@ def stringDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
     decide (take first (.word "integer") = after)) ||
     calls.function .booleanHidesInteger text state.booleanNames || state.hiding.integerHidden
   let value := calls.function .expression text (take typeAfter (.symbol ":=")) state.names
-    state.scalarNames hidden state.arrayNames.names state.arrayNames.values true
+    state.scalarNames hidden state.arrayNames.table state.arrayNames.values true
   let following := take value.after (.symbol ";")
   if !calls.function .newName text state first after arguments || decide (following = 0) ||
-      decide (state.names.length = maxBindings) || !calls.function .fits value maxSourceLength ||
+      decide (state.names.length = maxBindings) ||
+      decide (calls.function .arrayTypeLookup text state.arrayNames.types
+        (calls.function .skip text (if decide (constant ≠ 0) then constant else colon)) typeAfter ≠ 0) ||
+      !calls.function .fits value maxSourceLength ||
       value.emptyValue || decide (value.minimumLength ≠ value.staticLength) ||
       (decide (value.dynamicCount = 0) &&
         (calls.function .scalarEmpty value.firstIndex || calls.function .scalarEmpty value.lastIndex ||

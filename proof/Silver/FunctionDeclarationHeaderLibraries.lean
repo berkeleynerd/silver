@@ -4,6 +4,7 @@ public import Silver.FunctionDeclarationHeaderEquations
 public import Silver.FunctionVisibilityEquations
 public import Silver.FunctionBindingsSourceBridge
 public import Silver.ComposeHelperEquations
+public import Silver.ComposeArrayTypeEquations
 
 @[expose] public section
 
@@ -37,6 +38,8 @@ structure HeaderLinks (calls : Calls) (inherited : Expressions.Calls)
   booleans : calls .lookupBoolean = inherited.function .booleanLookup
   subtypes : calls .lookupSubtype = inherited.function .subtypeLookup
   arrays : calls .lookupArray = inherited.function .arrayLookup
+  arrayTypes : calls .lookupArrayType = inherited.function .arrayTypeLookup
+  arrayType : calls .arrayTypeAt = inherited.function .arrayTypeAt
   functions : calls .lookupFunction = metadata.lookup
   procedures : calls .lookupProcedure = inherited.function .procedureLookup
   appendFormal : calls .appendFormal = metadata.appendFormal
@@ -88,7 +91,7 @@ theorem header_type_imports {domain calls inherited metadata visibility}
   have lexical := header_lexical source links
   have firstBound := Expressions.model_skip_valid text position bound
   have afterBound := fixedAfter_result_bound text (skipAt text position) "boolean" true (by decide)
-  refine ⟨?_, lexical.skip text tv position bound, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, lexical.skip text tv position bound, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · rw [links.scalarType]
     exact Expressions.interpreted_scalarType inherited source text tv state position native bound
   · exact lexical.take text tv _ _ _ firstBound (native_token_valid .booleanName)
@@ -107,7 +110,10 @@ theorem header_type_imports {domain calls inherited metadata visibility}
       native.valid.2.2.2.2.2.2.2.1 firstBound afterBound
   · dsimp only
     rw [links.arrays]
-    exact source.arrayLookup text tv state.arrayNames.names _ _ native.valid.2.2.2.2.2.2.1.1 firstBound afterBound
+    exact source.arrayLookup text tv state.arrayNames.table _ _ native.valid.arrays.1 firstBound afterBound
+  · dsimp only
+    rw [links.arrayTypes]
+    exact source.arrayTypeLookup text tv state.arrayNames.types _ _ native.valid.arrayTypes firstBound afterBound
   · dsimp only
     rw [links.functions]
     exact functions.lookup text tv state.functions native.valid.2.2.2.2.2.2.2.2.2.1 _ _ firstBound afterBound
@@ -118,6 +124,26 @@ theorem header_type_imports {domain calls inherited metadata visibility}
     rw [links.formalHides]
     exact FunctionVisibilityNative.formalHides_meaning visibility visibilityPrimitives visibilityEquations
       text tv state valid.2 _ _ firstBound afterBound
+
+theorem header_formalType_imports {domain calls inherited metadata visibility}
+    (source : Expressions.RawHelperEquations inherited (domain := domain))
+    (exactDomain : ExactDomain domain) (functions : FunctionBindings.SourceBridge.ImplementationCorrect metadata)
+    (visibilityPrimitives : FunctionVisibilityNative.Primitives visibility.calls)
+    (visibilityEquations : FunctionVisibilityNative.Equations visibility)
+    (links : HeaderLinks calls inherited metadata visibility) (equations : HeaderEquations calls)
+    (text : Source) (tv : FunctionBindings.Native.ValidText text) (state : ParserState) (position : Nat)
+    (valid : StateInput text state) (bound : position ≤ text.length + 1) :
+    FormalTypeImports calls text state position := by
+  have lexical := header_lexical source links
+  refine ⟨?_, ?_, lexical.skip text tv position bound,
+    lexical.nameAfter text tv _ (Expressions.model_skip_valid text position bound)⟩
+  · rw [links.arrayType]
+    exact Expressions.interpreted_arrayTypeAt inherited source text tv state position
+      (valid.2.inherited exactDomain) bound
+  · rw [equations.functionType text tv state position valid bound]
+    exact functionType_imports calls text state position
+      (header_type_imports source exactDomain functions visibilityPrimitives visibilityEquations links
+        text tv state position valid bound)
 
 structure StepBounds (text : Source) (state : ParserState) : Prop where
   first : (stepParts modelCalls text state).first ≤ text.length + 1
@@ -130,7 +156,7 @@ theorem step_bounds (text : Source) (state : ParserState) (bound : state.positio
     StepBounds text state := by
   refine ⟨Expressions.model_skip_valid text state.position bound, function_nameAfter_bound text _,
     fixedAfter_result_bound text _ ":" false (by decide),
-    fixedAfter_result_bound text _ "in" true (by decide), functionTypeAt_position_bound text state _⟩
+    fixedAfter_result_bound text _ "in" true (by decide), formalTypeAt_position_bound text state _⟩
 
 structure StepAdmitted (text : Source) (state : ParserState) (arguments : Bool) : Prop where
   allowed : newNameAllowed text state (stepParts modelCalls text state).first
@@ -157,16 +183,17 @@ theorem header_step_imports {domain calls inherited metadata visibility}
   have native := valid.2.inherited exactDomain
   have lexical := header_lexical source links
   have bounds := step_bounds text state valid.2.base.1
-  have functionType : calls .functionType text state (stepParts modelCalls text state).start =
-      functionTypeAt text state (stepParts modelCalls text state).start := by
-    rw [equations.functionType text tv state _ valid bounds.start]
-    exact functionType_imports calls text state _
-      (header_type_imports source exactDomain functions visibilityPrimitives visibilityEquations links text tv state _ valid bounds.start)
+  have formalType : calls .formalType text state (stepParts modelCalls text state).start =
+      formalTypeAt text state (stepParts modelCalls text state).start := by
+    rw [equations.formalType text tv state _ valid bounds.start]
+    exact formalType_imports calls text state _
+      (header_formalType_imports source exactDomain functions visibilityPrimitives visibilityEquations links equations
+        text tv state _ valid bounds.start)
   refine {
     skip := lexical.skip text tv _ valid.2.base.1,
     nameAfter := lexical.nameAfter text tv _ bounds.first,
     colon := lexical.take text tv _ _ _ bounds.after (native_token_valid .colon),
-    inKeyword := lexical.take text tv _ _ _ bounds.colon (native_token_valid .inKeyword), functionType := functionType,
+    inKeyword := lexical.take text tv _ _ _ bounds.colon (native_token_valid .inKeyword), formalType := formalType,
     newName := ?_, skipType := ?_, equal := ?_, append := ?_, hide := ?_, separator := ?_, close := ?_}
   all_goals dsimp only
   · rw [links.newName]
@@ -178,14 +205,15 @@ theorem header_step_imports {domain calls inherited metadata visibility}
     rw [links.equal]
     exact visibilityPrimitives.equalName text tv _ _ _ _
       (Expressions.model_new_name_valid text state _ _ arguments bounds.after admitted.allowed)
-      ((functionTypeAt_span text state _ bounds.start).resolve_left admitted.value)
+      ((formalTypeAt_span text state _ bounds.start).resolve_left admitted.value)
   · intro accepted _
     have admitted := step_admitted text state arguments valid accepted
-    have bounded := ((functionTypeAt_good text state _ valid.2.base.2.2.2.2.2.2.2.1).resolve_left admitted.value).1
+    have bounded := ((formalTypeAt_good text state _ valid.2.base.2.2.2.2.2.2.2.1 valid.2.base.arrayTypes).resolve_left admitted.value).1
     rw [links.appendFormal]
     exact functions.appendFormal state.functions valid.1.functions _
       ⟨Nat.le_trans bounds.first (Nat.add_le_add_right tv.2 1),
-        Nat.le_trans bounds.after (Nat.add_le_add_right tv.2 1), bounded⟩ admitted.space
+        Nat.le_trans bounds.after (Nat.add_le_add_right tv.2 1), bounded,
+        Nat.le_trans (formalTypeAt_typeId_bound text state _) valid.2.base.arrayTypes.1⟩ admitted.space
   · intro accepted _
     have admitted := step_admitted text state arguments valid accepted
     rw [links.hideName]
@@ -203,6 +231,7 @@ theorem header_imports {domain calls inherited metadata visibility}
     (visibilityEquations : FunctionVisibilityNative.Equations visibility)
     (links : HeaderLinks calls inherited metadata visibility) (equations : HeaderEquations calls) : HeaderImports calls where
   functionType := header_type_imports source.toRawHelperEquations exactDomain functions visibilityPrimitives visibilityEquations links
+  formalType := header_formalType_imports source.toRawHelperEquations exactDomain functions visibilityPrimitives visibilityEquations links equations
   step := header_step_imports source.toRawHelperEquations exactDomain functions visibilityPrimitives visibilityEquations links equations
   localStep text tv state arguments valid := by
     have native := valid.2.inherited exactDomain

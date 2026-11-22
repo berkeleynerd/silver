@@ -11,16 +11,16 @@ namespace Silver.Compose.Expressions
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
-attribute [local irreducible] ScalarExpression.read
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read
 
 /-! Concrete equation witnesses for optional scalar constraints and named
 Integer subtype helpers, independent of the recognizer's refinement proof. -/
 
-theorem model_definition_scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames baseBounds,
+theorem model_definition_scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames baseBounds arrays,
     ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
-    baseBounds.Bounded →
-    modelCalls.function .scalarConstraint text position scalarNames baseBounds =
-      scalarConstraintBody.eval modelCalls (Context.locals {text,position,scalarNames,baseBounds}) := by
+    baseBounds.Bounded → ArrayBindings.ValidTable text arrays →
+    modelCalls.function .scalarConstraint text position scalarNames baseBounds arrays =
+      scalarConstraintBody.eval modelCalls (Context.locals {text,position,scalarNames,baseBounds,arrays}) := by
   intros
   rw [scalarConstraint_denotation]
   dsimp +zetaHave only [scalarConstraintEquation]
@@ -33,7 +33,7 @@ theorem model_definition_subtypeLookupModel : ∀ text, ValidText text → ∀ s
     modelCalls.function .subtypeLookupModel text subtypeNames first after index =
       subtypeLookupModelBody.eval modelCalls (Context.locals {text,subtypeNames,first,after,index}) := by
   intro text _ subtypeNames first after index _ _ _ _
-  dsimp +instances only [subtypeLookupModelBody, Expr.eval, modelCalls, Context.locals, Field.get, Calls.get, modelPrimitives]
+  dsimp +instances only [subtypeLookupModelBody, lookupArrayType, Expr.eval, modelCalls, Context.locals, Field.get, Calls.get, modelPrimitives]
   cases index with
   | zero => simp [IntegerSubtypes.lookupFrom]
   | succ index => simp [IntegerSubtypes.lookupFrom, Bool.or_eq_true]
@@ -52,6 +52,7 @@ theorem model_definition_scalarType : ∀ text, ValidText text → ∀ state pos
   rw [scalarType_denotation]
   dsimp +instances only [scalarTypeEquation, modelCalls, scalarTypeAt]
   simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
+  all_goals rfl
 
 theorem model_definition_subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state → modelCalls.function .subtypeDeclaration text state arguments =
@@ -62,13 +63,14 @@ theorem model_definition_subtypeDeclaration : ∀ text, ValidText text → ∀ s
     addSubtypeBinding, IntegerSubtypes.append, IntegerSubtypes.CallHiding.add,
     IntegerSubtypes.CallHiding.get, spelling, isWord, ShellToken.word, ShellToken.symbol]
   simp only [Bool.decide_coe, Bool.decide_or, Bool.or_assoc]
+  all_goals rfl
 
 theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
     modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans =
       callAfterBody.eval modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
   intros
-  dsimp +instances only [modelCalls, Names.modelCalls, Context.locals, Expr.eval, Calls.get, Locals.set, callAfterBody, callAfter] <;> simp +instances [Bool.or_assoc]
+  dsimp +instances only [modelCalls, Names.modelCalls, Context.locals, lookupArrayType, Expr.eval, Calls.get, Locals.set, callAfterBody, Field.get, callAfter] <;> simp +instances [Bool.or_assoc]
 
 
 theorem model_definition_scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
@@ -88,7 +90,8 @@ theorem model_definition_scalarDeclaration : ∀ text, ValidText text → ∀ st
           Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat) ||
           decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0) ||
           decide (ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0) ||
-          decide (ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
+          decide (ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0) ||
+          decide (ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter ≠ 0)
         then invalidState else addScalarBinding state parts) := by
     rw [scalarDeclaration_denotation]
     dsimp +zetaHave only [scalarDeclarationEquation]
@@ -97,6 +100,7 @@ theorem model_definition_scalarDeclaration : ∀ text, ValidText text → ∀ st
       scalarDeclarationTypeAfter, scalarDeclarationValuePosition, declarationFirst, declarationAfter,
       declarationConstantAfter, declarationColonAfter, addScalarBinding]
     simp only [decide_eq_true_eq]
+    rfl
   change scalarDeclarationAt text state arguments = _
   rw [body]
   change (if !newNameAllowed text state parts.first parts.after arguments ||
@@ -109,7 +113,8 @@ theorem model_definition_scalarDeclaration : ∀ text, ValidText text → ∀ st
       decide (fixedAfter text parts.first "integer" true = parts.after) ||
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
-        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter ≠ 0)
     then invalidState else addScalarBinding state parts) = _
   by_cases allowed : newNameAllowed text state parts.first parts.after arguments = true
   · have own := declaration_nameIs_integer text state arguments parts.first parts.after rfl rfl allowed
@@ -124,7 +129,7 @@ theorem model_definition_declaration : ∀ text, ValidText text → ∀ state ar
     modelCalls.function .declaration text state arguments =
       declarationBody.eval modelCalls (Context.locals {text,state,arguments}) := by
   intros
-  dsimp +instances only [modelCalls, Context.locals, Expr.eval, Calls.get, Locals.set, Field.get, declarationBody, declarationAt] <;> simp +instances
+  dsimp +instances only [modelCalls, Context.locals, lookupArrayType, Expr.eval, Calls.get, Locals.set, Field.get, declarationBody, declarationAt] <;> simp +instances
 
 
 theorem model_definition_declarations : ∀ text, ValidText text → ∀ state arguments,
@@ -136,13 +141,14 @@ theorem model_definition_declarations : ∀ text, ValidText text → ∀ state a
     declarationsAt_equation text state arguments (by
       have strings := stateValid.2.1.1
       have scalars := stateValid.2.2.2.2.2.1.1
-      have arrays := stateValid.2.2.2.2.2.2.1.1.1
+      have arrays : state.arrayNames.names.length ≤ ArrayBindings.maxBindings := stateValid.arrays.1.2.1
+      have types := stateValid.arrayTypes.1
       have subtypes := stateValid.2.2.2.2.2.2.2.1.1
       have booleans := stateValid.booleans.1
       have functions := stateValid.functions.1
       have procedures := stateValid.procedures.1
       omega)]
-  dsimp +instances only [declarationsBody, Expr.eval, Context.locals, modelCalls, Calls.get, Field.get, spelling, isWord]
+  dsimp +instances only [declarationsBody, lookupArrayType, Expr.eval, Context.locals, modelCalls, Calls.get, Field.get, spelling, isWord]
   simp only [decide_eq_true_eq, ite_not]
 
 

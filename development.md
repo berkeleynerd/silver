@@ -232,7 +232,9 @@ without unrelated proof or test reruns.
 GNATprove uses incremental analysis and its native local filesystem result cache.
 The default `--jobs 0` reserves the available managed worker budget; use `--jobs N`
 to reserve a smaller share for concurrent work or memory pressure. With no other
-managed run, the budget starts at the detected CPU count. Incremental runs preserve
+managed run, the budget starts at the effective CPU allocation, bounded by the
+host ceiling and allowed guest CPU mask. This host's ceiling is eight CPUs, even
+while the pre-reboot sandbox reports 22. Incremental runs preserve
 sessions and reports but invalidate the previous completed full-audit manifest. They
 provide development feedback, not a new full assurance record.
 
@@ -258,10 +260,21 @@ cache. See the [module migration](docs/lean-modules.md) for measurements and
 invalidation controls. `--workers N` controls Lake's workers for independent
 modules; its default `0` reserves the available managed worker budget.
 `--threads N` separately controls each Lean build/audit process. Its default `0`
-selects the CPUs available through process affinity and Python's CPU count.
-Start future Lean runs with these automatic defaults, allowing all available
-CPUs. Use explicit lower counts when CPU quotas, competing workloads or observed
-memory pressure require them, and retain `--resource-reason TEXT` for each
+selects the effective CPU allocation. All GNATprove/build/Lean worker counts and
+Lean process thread counts must fit the smaller host allocation and managed
+share; concurrent reservations together must fit the host allocation. On this
+host that allocation is eight CPUs, including before reboot while raw detection
+reports 22. Enforce the ceiling with an OS cpuset or affinity for every existing
+thread and all descendants; worker/thread flags alone are insufficient. Choose
+CPU IDs from the allowed guest mask rather than physical host CPU numbering.
+Use automatic defaults only when bounded accordingly, otherwise supply explicit
+counts with `--resource-reason "host's eight-CPU allocation"` for proof commands.
+After reboot, confirm detection reports eight CPUs and agrees with the effective
+cpuset before resuming validation, then record the observed result. Preserve a
+productive live job whose launch flags cannot change without interruption;
+record any temporarily larger flag separately from its enforced CPU mask and do
+not report the flag as retuned. Use lower counts when competing workloads or
+observed memory pressure require them, and retain `--resource-reason TEXT` for each
 deliberate reduction below the current automatic worker/thread allocation.
 Automatic reductions from existing managed reservations need no reason. Native
 `prove`, direct `tool gnatprove` and Lean proof commands enforce this distinction;
@@ -315,11 +328,14 @@ python3 scripts/dev.py test
 python3 scripts/check_lean.py
 ```
 
-For the current Linux ARM64 compiler, set the invoking shell's stack to
+For Linux validation (x86_64 and ARM64), set the invoking shell's stack to
 16 MiB (`ulimit -S -s 16384`, where permitted) before native regression/compiler
 checks. The [setup guidance](README.md#set-up-verify-and-build) links the exact
-boundary measurements; this environment setting is not a universal stack bound
-or a change to source membership. Capture the actual limit with run evidence.
+boundary measurements. ARM64 evidence is from the November 15 build; named-array
+metadata and callable-body observations are x86_64 only. This environment setting
+is not a universal stack bound or a change to source membership. Capture the
+actual limit with run evidence; the named-array source-limit test sets and restores
+the Linux limit itself.
 
 The regression and sample-test requirement may be satisfied by a completed
 full-suite run plus successful repair reruns when a recorded independent review

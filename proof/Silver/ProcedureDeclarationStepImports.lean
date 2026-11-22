@@ -25,11 +25,13 @@ def stepParts (calls : Calls) (text : Source) (state : ParserState) : StepParts 
   let outEnd := calls .take text (if inEnd = 0 then colonEnd else inEnd) (.fixed "out" true)
   let mode : ProcedureBindings.Mode := if inEnd = 0 then .output else if outEnd = 0 then .input else .inputOutput
   let start := if outEnd ≠ 0 then outEnd else inEnd
-  ⟨first, after, start, calls .functionType text state start, mode⟩
+  ⟨first, after, start, calls .formalType text state start, mode⟩
 
 def stepPrefix (calls : Calls) (text : Source) (state : ParserState) (arguments : Bool) (parts : StepParts) : Bool :=
   !calls .newName text state parts.first parts.after arguments || decide (parts.start = 0) ||
-    decide (parts.value.after ≤ state.position) || decide (state.procedures.parameters.length = ProcedureBindings.maxFormals)
+    decide (parts.value.after ≤ state.position) ||
+    (decide (parts.value.typeId ≠ 0) && decide (parts.mode ≠ .input)) ||
+    decide (state.procedures.parameters.length = ProcedureBindings.maxFormals)
 
 def stepEquation (calls : Calls) (text : Source) (state : ParserState) (arguments : Bool) (parts : StepParts) : ProcedureParameterStepResult :=
   if stepPrefix calls text state arguments parts ||
@@ -38,7 +40,7 @@ def stepEquation (calls : Calls) (text : Source) (state : ParserState) (argument
   else
     let next := {state with
       position := parts.value.after,
-      procedures := calls .appendProcedureFormal state.procedures ⟨parts.first, parts.after, parts.value.kind, parts.value.bounds, parts.mode⟩,
+      procedures := calls .appendProcedureFormal state.procedures ⟨parts.first, parts.after, parts.value.kind, parts.value.bounds, parts.mode, parts.value.typeId⟩,
       «hiding» := calls .hideName text state.hiding parts.first parts.after}
     let separator := calls .take text parts.value.after (.fixed ";" false)
     let close := calls .take text parts.value.after (.fixed ")" false)
@@ -65,9 +67,23 @@ theorem step_denotation (calls : Calls) (text : Source) (state : ParserState) (a
     Capacity.value, String.reduceEq, ne_eq, not_false_eq_true, decide_eq_true_eq, ↓reduceIte]
   rfl
 
+private theorem reorder_rejection (a b c d e f : Prop) :
+    (a ∨ b ∨ c ∨ d ∨ e ∨ f) ↔ (a ∨ b ∨ c ∨ f ∨ d ∨ e) := by
+  simp only [or_left_comm, or_comm]
+
 theorem step_model_equation (text : Source) (state : ParserState) (arguments : Bool) :
     procedureParameterStep text state arguments = stepEquation modelCalls text state arguments (stepParts modelCalls text state) := by
-  rw [← procedureParameterStep_model, step_denotation]
+  dsimp only [procedureParameterStep, stepEquation, stepPrefix, stepParts, modelCalls, tokenAfter]
+  simp only [Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq, Bool.not_eq_true',
+    or_assoc]
+  congr 1
+  apply propext
+  exact reorder_rejection _ _ _ _ _ _
+
+theorem procedureParameterStep_model (text : Source) (state : ParserState) (arguments : Bool) :
+    procedureParameterStepBody.eval modelCalls ({text, state, arguments} : Frame).locals =
+      procedureParameterStep text state arguments := by
+  rw [step_denotation, step_model_equation]
 
 structure StepLexical (calls : Calls) (text : Source) (state : ParserState) : Prop where
   skip : calls .skip text state.position = skipAt text state.position
@@ -80,15 +96,15 @@ structure StepLexical (calls : Calls) (text : Source) (state : ParserState) : Pr
     let inEnd := fixedAfter text colonEnd "in" true
     calls .take text (if inEnd = 0 then colonEnd else inEnd) (.fixed "out" true) =
       fixedAfter text (if inEnd = 0 then colonEnd else inEnd) "out" true
-  functionType : let colonEnd := fixedAfter text (Compose.nameAfter text (skipAt text state.position)) ":" false
+  formalType : let colonEnd := fixedAfter text (Compose.nameAfter text (skipAt text state.position)) ":" false
     let inEnd := fixedAfter text colonEnd "in" true
     let outEnd := fixedAfter text (if inEnd = 0 then colonEnd else inEnd) "out" true
     let start := if outEnd ≠ 0 then outEnd else inEnd
-    calls .functionType text state start = functionTypeAt text state start
+    calls .formalType text state start = formalTypeAt text state start
 
 theorem step_parts_meaning (calls : Calls) (text : Source) (state : ParserState)
     (imports : StepLexical calls text state) : stepParts calls text state = stepParts modelCalls text state := by
-  simp only [stepParts, imports.skip, imports.nameAfter, imports.colon, imports.inKeyword, imports.outKeyword, imports.functionType]
+  simp only [stepParts, imports.skip, imports.nameAfter, imports.colon, imports.inKeyword, imports.outKeyword, imports.formalType]
   rfl
 
 /-- Later imports are required only after the exact source prefix and name
@@ -106,8 +122,8 @@ structure StepImports (calls : Calls) (text : Source) (state : ParserState) (arg
   append : let p := stepParts modelCalls text state
     stepPrefix modelCalls text state arguments p = false →
     Named.equalName text p.first p.after (skipAt text p.start) p.value.after = false →
-    calls .appendProcedureFormal state.procedures ⟨p.first, p.after, p.value.kind, p.value.bounds, p.mode⟩ =
-      ProcedureBindings.appendFormal state.procedures ⟨p.first, p.after, p.value.kind, p.value.bounds, p.mode⟩
+    calls .appendProcedureFormal state.procedures ⟨p.first, p.after, p.value.kind, p.value.bounds, p.mode, p.value.typeId⟩ =
+      ProcedureBindings.appendFormal state.procedures ⟨p.first, p.after, p.value.kind, p.value.bounds, p.mode, p.value.typeId⟩
   hide : let p := stepParts modelCalls text state
     stepPrefix modelCalls text state arguments p = false →
     Named.equalName text p.first p.after (skipAt text p.start) p.value.after = false →

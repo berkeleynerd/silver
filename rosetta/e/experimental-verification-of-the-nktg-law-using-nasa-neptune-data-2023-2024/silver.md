@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is fixed embedded data with straight-line floating-point arithmetic in for loops, so all checks follow from ranged float subtypes and constant divisors. The risk is moderate because the program needs floating-point types, sqrt and float formatting, which Silver does not yet have, and the provers must bound products of roughly 1e37.
 
-Position 1070 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 993 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

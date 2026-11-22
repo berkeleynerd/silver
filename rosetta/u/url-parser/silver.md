@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or range check on slice bounds from loop-found positions, which can each be protected by explicit guards before use, and there are no while loops, recursion or floating point, so no annotation is needed. Discharge depends on careful guard placement across many loop-carried positions, hence plausible rather than likely.
 
-Position 1025 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1112 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

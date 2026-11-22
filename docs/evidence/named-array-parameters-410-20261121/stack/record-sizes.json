@@ -1,0 +1,42 @@
+[
+  {
+    "label": "main",
+    "binary": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+    "sha256": "b27ae765f286949d3814810d25d9fe6a2dcbbdd058830ea628064207df67ffe7",
+    "dwarf_sizes": {
+      "silver_output_profile__body_context": [
+        38900
+      ],
+      "silver_array_bindings__metadata": [
+        6804
+      ]
+    },
+    "baseline_checks": [
+      {
+        "name": "old_counted",
+        "stack_mib": 8,
+        "code": 0,
+        "output": "Accepted: silver.\n"
+      },
+      {
+        "name": "old_foreach",
+        "stack_mib": 8,
+        "code": 0,
+        "output": "Accepted: silver.\n"
+      }
+    ]
+  },
+  {
+    "label": "native410",
+    "binary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-native-410/.silver/linux-x86_64/compiler/bin/silver",
+    "sha256": "2aa21a64455795ca6b5ced2cfc86954d74fa38cafdb7541c4f5c61348447c1f4",
+    "dwarf_sizes": {
+      "silver_output_profile__body_context": [
+        64264
+      ],
+      "silver_array_bindings__metadata": [
+        32168
+      ]
+    }
+  }
+]

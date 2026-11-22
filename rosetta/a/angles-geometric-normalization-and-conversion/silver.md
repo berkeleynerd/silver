@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from for loops over the array range and all float operations are bounded by the subtype and loop guards, but float arithmetic and float-to-text formatting need careful range-shaped code, so discharge is plausible rather than routine.
 
-Position 1102 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1025 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

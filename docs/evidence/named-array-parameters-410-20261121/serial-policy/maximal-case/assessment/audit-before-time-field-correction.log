@@ -1,0 +1,52 @@
+Managed run: 20261121T211459-873a1a5e4968 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261121T211459-873a1a5e4968)
+Resource allocation: workers requested=2 actual=2 automatic=2
+{
+  "original_test_run": "20261121T191653-cdd01ba978f7",
+  "test_outcome": "failed at 1800-second deadline; unchanged",
+  "observation_run": "20261121T194920-1da1c3dafb35",
+  "original_prover_exit_status": "unavailable after original parent exited",
+  "prover_started": "2026-11-21T19:16:55.580000+00:00",
+  "report_written": "2026-11-21T21:13:08.188643+00:00",
+  "elapsed_until_report_seconds": 6972.608643,
+  "independent_report_audit": {
+    "units": 5,
+    "entities": 17,
+    "flow_checks": 19,
+    "proof_checks": 110,
+    "limitation_notes": 0,
+    "imported_entities": 6,
+    "trusted_math_notes": 0,
+    "vendor_spec_entities": 0,
+    "array_initialization_advisories": 0,
+    "operator_reassociation_advisories": 0,
+    "assignment_advisories": 0,
+    "image_advisories": 0,
+    "termination_checks": 0,
+    "initialization_checks": 0
+  },
+  "recorded_solver_results": {
+    "Trivial": {
+      "results": {
+        "valid": 44
+      },
+      "recorded_seconds": 0.0,
+      "maximum_seconds": 0.0
+    },
+    "CVC5": {
+      "results": {
+        "valid": 147,
+        "steplimitexceeded": 95
+      },
+      "recorded_seconds": 0.0,
+      "maximum_seconds": 0.0
+    },
+    "Z3": {
+      "results": {
+        "valid": 95
+      },
+      "recorded_seconds": 0.0,
+      "maximum_seconds": 0.0
+    }
+  },
+  "scope": "retained report/policy audit only; no compiler build, execution or fresh end-to-end test claim"
+}

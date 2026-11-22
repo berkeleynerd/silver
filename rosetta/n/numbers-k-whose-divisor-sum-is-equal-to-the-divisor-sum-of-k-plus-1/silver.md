@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small integer arithmetic with for-loop indexes and a capped accumulator guard, so it should discharge with careful program shape, though the accumulator and search limit need explicit guards. No annotations, recursion, or exotic effects are needed beyond console output.
 
-Position 901 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 903 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

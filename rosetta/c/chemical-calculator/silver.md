@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nested groups, symbol lookup and decimal masses can be handled with scaled integers, a bounded explicit stack and guards before each loop-carried addition, so no annotation is needed, but the guard placement needs care.
 
-Position 861 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 863 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -37,7 +37,9 @@ theorem initial_valid (text : Source) : ValidState text initialState := by
   simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
     Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
-    ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
+    ArrayBindings.ValidNativeEnvironment, ArrayBindings.ValidTable, ArrayBindings.Env.table,
+    ArrayBindings.ValidTypes, ArrayBindings.maxTypes, ArrayBindings.maxBindings, ArrayBindings.maxElements,
+    ArrayBindings.ValidInitials,
     IntegerSubtypes.ValidEnvironment, BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings,
     FunctionBindings.ValidMetadata, FunctionBindings.maxFormals, FunctionBindings.maxFunctions,
     ProcedureBindings.ValidMetadata, ProcedureBindings.maxFormals, ProcedureBindings.maxProcedures]
@@ -49,6 +51,15 @@ theorem subtypeDeclaration_ready (text : Source) (state : ParserState) (argument
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (subtypeDeclarationAt text state arguments).scalarNames := by
   unfold subtypeDeclarationAt
+  dsimp only
+  split
+  · exact ScalarMetadata.headerReady_empty
+  · exact ready
+
+theorem arrayTypeDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames) :
+    ScalarMetadata.HeaderReady (arrayTypeDeclarationAt text state arguments).scalarNames := by
+  unfold arrayTypeDeclarationAt
   dsimp only
   split
   · exact ScalarMetadata.headerReady_empty
@@ -123,18 +134,20 @@ theorem declaration_ready (text : Source) (state : ParserState) (arguments : Boo
     rw [(callableDeclarationAt_preserves_outer _ _ _ accepted).scalarNames]
     exact ready
   · split
-    · exact subtypeDeclaration_ready text state arguments ready
+    · exact arrayTypeDeclaration_ready text state arguments ready
     · split
-      · exact scalarDeclaration_ready text state arguments ready
+      · exact subtypeDeclaration_ready text state arguments ready
       · split
-        · rename_i accepted
-          rw [(arrayDeclarationAt_count accepted).2.1]
-          exact ready
+        · exact scalarDeclaration_ready text state arguments ready
         · split
-          · exact booleanDeclaration_ready text state arguments ready
+          · rename_i accepted
+            rw [(arrayDeclarationAt_count accepted).2.1]
+            exact ready
           · split
-            · exact characterDeclaration_ready text state arguments ready
-            · exact stringDeclaration_ready text state arguments ready
+            · exact booleanDeclaration_ready text state arguments ready
+            · split
+              · exact characterDeclaration_ready text state arguments ready
+              · exact stringDeclaration_ready text state arguments ready
 private theorem declarationsLoop_ready (text : Source) (arguments : Bool) (fuel : Nat) (state : ParserState)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (declarationsLoop text arguments fuel state).scalarNames := by

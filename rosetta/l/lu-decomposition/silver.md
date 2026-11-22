@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops with bounded indexes in procedures, so indexes and termination are routine, but the loop-carried accumulations and scaled fixed-point products need careful range guards and decimal formatting is manual, so discharge is plausible rather than likely.
 
-Position 841 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 843 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

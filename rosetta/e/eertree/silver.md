@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small declared ranges and a guard before each text index, and the only unbounded loop is a while loop in a procedure, so no annotation is needed, but the tree-building shape with loop-carried node numbers and the capacity guard needs care.
 
-Position 701 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 703 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -69,10 +69,10 @@ decreasing_by omega
 theorem boolean_array_declaration_binding_valid {text arguments state parts lower upper}
     (partsEq : arrayDeclarationParts text state = parts)
     (ready : BooleanArrayDeclarationReady text state arguments parts)
-    (low : ScalarExpression.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true))
-    (high : ScalarExpression.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)) :
+    (low : ScalarExpression.ArrayGrammar.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
+      (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true))
+    (high : ScalarExpression.ArrayGrammar.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
+      (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true)) :
     ArrayBindings.ValidBinding (parts.binding state) := by
   have component : parts.componentBounds = Integer.Interval.full := by
     rw [← partsEq]
@@ -193,7 +193,7 @@ theorem array_declaration_kinds_disjoint {text arguments state declaration first
     (boolean : BooleanArrayDeclarationAt text arguments state second) : False := by
   have kind := boolean_array_declaration_kind boolean
   cases integer with
-  | declaration parts ready _ _ _ _ _ _ _ =>
+  | declaration parts ready _ _ _ _ _ =>
       rw [parts, ready.integer] at kind
       contradiction
 
@@ -202,12 +202,58 @@ theorem array_declaration_boolean_analysis {text arguments state declaration fin
     ArrayBindings.booleanAnalysis final.arrayNames.names (BooleanBindings.analysis final.booleanNames) =
       ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames) := by
   cases reading with
-  | @declaration values parts lower upper position following expressions _ ready _ _ _ _ valuesRead _ _ =>
+  | @declaration values parts position following expressions _ ready _ _ valuesRead _ _ =>
       have fields := arrayValues_fields valuesRead
       have names : values.arrayNames.names = state.arrayNames.names := congrArg (fun s => s.arrayNames.names) fields
       have booleans : values.booleanNames = state.booleanNames := congrArg (fun s => s.booleanNames) fields
       change ArrayBindings.booleanAnalysis (values.arrayNames.names ++ [parts.binding state])
         (BooleanBindings.analysis values.booleanNames) = _
       rw [names, booleans, ArrayBindings.booleanAnalysis_append_integer _ _ ready.integer]
+
+theorem boolean_array_declaration_native_valid {text arguments state final}
+    (reading : BooleanArrayDeclarationAt text arguments state final)
+    (valid : ArrayBindings.ValidNativeEnvironment text state.arrayNames) :
+    ArrayBindings.ValidNativeEnvironment text final.arrayNames := by
+  cases reading with
+  | @declaration values parts lower upper position following partsEq ready low high aggregate valuesEq positive followingEq advances =>
+      have bindingValid := boolean_array_declaration_binding_valid partsEq ready low high
+      have fields := booleanArrayValuesModel_fields text state state position parts.length 0 parts.first parts.after
+        (valuesEq.symm ▸ positive)
+      rw [valuesEq] at fields
+      have used : values.arrayNames.used = state.arrayNames.used + parts.length := by
+        simpa only [valuesEq, Nat.sub_zero] using booleanArrayValuesModel_used text state state position parts.length 0
+          parts.first parts.after (valuesEq.symm ▸ positive)
+      have capacity : state.arrayNames.used + parts.length ≤ ArrayBindings.maxElements := bindingValid.2.2.2.1
+      have initials : ArrayBindings.ValidInitials values.arrayNames.values := by
+        simpa only [valuesEq] using booleanArrayValuesModel_initials_valid text state state position parts.length 0
+          parts.first parts.after (valuesEq.symm ▸ positive) valid.2.2.1 (by simpa only [Nat.sub_zero] using capacity)
+      have nameBound : parts.after ≤ text.length + 1 := by
+        rw [← partsEq]
+        exact model_name_valid text _
+      have allowed := ready.1
+      simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
+      have span : ArrayBindings.NameSpan text parts.first parts.after := ⟨by omega, by omega, nameBound⟩
+      have room : state.arrayNames.names.length < ArrayBindings.maxBindings := by
+        have available := ready.2.2.2.2.1
+        have cap : state.arrayNames.names.length ≤ ArrayBindings.maxBindings := valid.1.2.1
+        omega
+      have anonymous : parts.typeId = 0 := partsEq ▸ arrayParts_boolean_anonymous (partsEq.symm ▸ ready.kind)
+      have shape : ArrayBindings.ValidNativeBinding (parts.binding state) := by
+        refine ⟨bindingValid, ?_, ?_, ?_, ?_⟩ <;> simp [ArrayDeclarationParts.binding, anonymous]
+      have coherent : ArrayBindings.TypeCoherent state.arrayNames.types (parts.binding state) := by
+        simp [ArrayBindings.TypeCoherent, ArrayDeclarationParts.binding, anonymous]
+      have previous : 0 < state.arrayNames.names.length →
+          (ArrayBindings.binding state.arrayNames.names state.arrayNames.names.length).viewSlot = 0 := by
+        rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, stored, _⟩
+        exact stored
+      have same : values.arrayNames = {state.arrayNames with
+          used := state.arrayNames.used + parts.length
+          values := values.arrayNames.values} := by
+        have arrays := congrArg (fun state : ParserState => state.arrayNames) fields
+        simpa only [used] using arrays
+      change ArrayBindings.ValidNativeEnvironment text
+        {values.arrayNames with names := values.arrayNames.names ++ [parts.binding state]}
+      rw [same]
+      exact append_physical_array_native values.arrayNames.values valid room span shape coherent rfl rfl previous initials
 
 end Silver.Compose

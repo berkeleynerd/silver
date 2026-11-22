@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-bound for loops over a 100-element array with component values constrained by a subtype, so index, range and overflow checks follow from types and loop bounds with no loop-carried unbounded values.
 
-Position 162 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 164 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

@@ -40,7 +40,7 @@ theorem target_after_ranges {target : Target} {domain : ScalarType}
   | boolean identity => exact ⟨refined, bounded⟩
   | integer identity target =>
       cases domain with
-      | boolean => simp [Target.check] at checked
+      | boolean | array _ => simp [Target.check] at checked
       | integer domain =>
           obtain ⟨_, present, nonempty, included⟩ := Target.integer_check checked
           have ordered : domain.lower ≤ domain.upper := by
@@ -88,7 +88,7 @@ theorem target_after_unchanged {target : Target} {domain : ScalarType}
   | boolean index => rfl
   | integer index bounds =>
       cases domain with
-      | boolean => rfl
+      | boolean | array _ => rfl
       | integer result =>
           have writable := (Target.integer_check checked).1
           have other : identity ≠ index := by

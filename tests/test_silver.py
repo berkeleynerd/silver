@@ -85,7 +85,8 @@ class SilverIntegrationTests(unittest.TestCase):
                          "boolean_assignment", "boolean_comparison", "scalar_function", "scalar_function_call",
                          "scalar_procedure", "scalar_procedure_call",
                          "integer_range_constraint", "named_integer_subtype", "integer_assignment", "integer_expression",
-                         "integer_array_object", "integer_array_read", "integer_array_assignment",
+                         "named_integer_array_type", "integer_array_object", "integer_array_read", "integer_array_assignment",
+                         "integer_array_bound_query", "integer_array_range",
                          "boolean_array_object", "boolean_array_read", "boolean_array_assignment",
                          "integer_comparison", "scalar_guard_refinement", "integer_image",
                          "for_loop", "character_literal", "named_character_constant",
@@ -162,7 +163,7 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertEqual(declarations["items"],
                              ["named_string_constant", "named_string_variable", "named_integer_constant",
                               "named_integer_variable", "named_boolean_constant", "named_boolean_variable",
-                              "named_integer_subtype", "integer_array_object", "boolean_array_object",
+                              "named_integer_subtype", "named_integer_array_type", "integer_array_object", "boolean_array_object",
                               "named_character_constant", "named_character_variable", "scalar_function",
                               "scalar_procedure"])
             self.assertEqual(declarations["minimum"], 0)
@@ -257,8 +258,9 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(constructs["integer_image"]["conditions"]["length_range"], [2, 11])
         loop = constructs["for_loop"]["conditions"]
         self.assertEqual(loop["bound_visibility"],
-                         "initialized Integer objects and mutable-array components, and differently named "
-                         "enclosing indexes and elements; direct constant-array component reads excluded")
+                         "initialized Integer objects and mutable-array components, static Integer-array "
+                         "bounds queries, and differently named enclosing indexes and elements; direct "
+                         "constant-object or read-only-formal component reads excluded")
         slices = constructs["string_slice"]["conditions"]
         self.assertEqual(slices["endpoint_separation"],
                          "b-c <= 2147483647, computed in wide arithmetic before every consumer; "
@@ -309,6 +311,69 @@ class SilverIntegrationTests(unittest.TestCase):
         grammar_words |= {"boolean", "true", "false", "xor", "function", "return", "out"}
         self.assertEqual(set(catalogue["word_tokens"]), grammar_words)
         self.assertEqual(len(catalogue["word_tokens"]), len(grammar_words))
+
+    def test_named_integer_array_catalogue_contract(self) -> None:
+        result = invoke("catalogue")
+        self.assertEqual(result.returncode, 0, result.stdout)
+        catalogue = json.loads(result.stdout)
+        constructs = {item["id"]: item["conditions"] for item in catalogue["constructs"]}
+        array_type = constructs["named_integer_array_type"]
+        self.assertEqual(array_type["dimensions"], 1)
+        self.assertEqual(array_type["index_endpoint_range"], [-2147483648, 2147483647])
+        self.assertEqual(array_type["length_range"], [1, 2048])
+        self.assertIn("even for unused declarations", array_type["length_calculation"])
+        self.assertIn("distinct declarations remain distinct", array_type["type_identity"])
+        self.assertIn("no collective formal-cell charge", array_type["length_limit_purpose"])
+        for excluded in ("dynamic_bounds", "null_arrays", "unconstrained_arrays",
+                         "component_constraints", "subprogram_local_types"):
+            self.assertIs(array_type[excluded], False)
+
+        array_object = constructs["integer_array_object"]
+        self.assertIs(array_object["named_types"], True)
+        self.assertEqual(array_object["attributes"], ["First", "Last", "Length", "Range"])
+        self.assertIn("no subprogram-local array objects", array_object["declaration_context"])
+        self.assertIn("immutable named Integer-array in formal",
+                      constructs["integer_array_read"]["prefix"])
+        self.assertIn("full declared component interval",
+                      constructs["integer_array_read"]["formal_read_interval"])
+        self.assertIs(constructs["integer_array_read"]["ada_static"], False)
+        self.assertIn("array in formals and their components are immutable",
+                      constructs["integer_array_assignment"]["target"])
+
+        query = constructs["integer_array_bound_query"]
+        self.assertEqual(query["attributes"], ["First", "Last", "Length"])
+        self.assertEqual(query["results"],
+                         {"First": "L", "Last": "H", "Length": "H - L + 1 computed in wide arithmetic"})
+        self.assertIs(query["ada_static"], True)
+        self.assertEqual((query["operand_count"], query["operator_count"]), (1, 0))
+        self.assertIs(query["synthetic_bound_arithmetic_uses_operator_budget"], False)
+        for excluded in ("explicit_dimension", "boolean_arrays", "component_prefixes"):
+            self.assertIs(query[excluded], False)
+        self.assertIn("integer_array_bound_query",
+                      constructs["integer_expression"]["operand_kinds"])
+        array_range = constructs["integer_array_range"]
+        self.assertIn("complete counted-loop range only", array_range["position"])
+        self.assertIn("not a scalar expression", array_range["position"])
+        self.assertIs(array_range["explicit_dimension"], False)
+        self.assertIs(array_range["boolean_arrays"], False)
+        self.assertIn("Range attribute", constructs["for_loop"]["range_alternative"])
+        self.assertIn("named or anonymous constant Main", constructs["integer_array_iteration"]["iterable"])
+
+        for kind in ("function", "procedure"):
+            callable_rules = constructs["scalar_" + kind]
+            self.assertIn("scalar/array formals may mix", callable_rules["array_in_formal_type"])
+            self.assertIn("full declared interval", callable_rules["array_formal_domain"])
+            self.assertIn("no array or component writes", callable_rules["array_formal_domain"])
+            actual = constructs["scalar_" + kind + "_call"]["array_actual"]
+            self.assertIn("exactly the same positive source type-declaration identity", actual)
+            self.assertIn("anonymous arrays excluded", actual)
+            self.assertIn("repeated read-only inputs and earlier-callee forwarding permitted", actual)
+        self.assertEqual(constructs["scalar_function_call"]["array_actual"],
+                         constructs["scalar_procedure_call"]["array_actual"])
+        # Existing anonymous Boolean arrays do not gain named types or attributes.
+        self.assertIs(constructs["boolean_array_object"]["named_types"], False)
+        self.assertNotIn("boolean_array_bound_query", constructs)
+        self.assertEqual(catalogue["max_source_bytes"], 4096)
 
     def test_accepted_lexical_forms(self) -> None:
         cases = {

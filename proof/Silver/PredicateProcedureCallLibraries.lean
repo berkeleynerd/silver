@@ -21,6 +21,7 @@ structure ImportsLinks (calls : Calls) (inherited : Compose.Expressions.Calls) (
   scalarLookup : calls .scalarLookup = predicate.scalarLookup
   booleanLookup : calls .booleanLookup = predicate.booleanLookup
   arrayLookup : calls .arrayLookup = predicate.arrayLookup
+  arrayTypeLookup : calls .arrayTypeLookup = predicate.arrayTypeLookup
   procedureLookup : calls .procedureLookup = inherited.function .procedureLookup
   token : ∀ text position token, TokenDomain text position token →
     calls .token text position token = inherited.function .takeToken text position token
@@ -126,6 +127,15 @@ theorem imports_meaning {calls inherited predicate}
     · rename_i valid
       rw [links.arrayLookup]
       exact helpers.arrayLookup text valid.1 names first after valid.2.1 valid.2.2.1 valid.2.2.2
+    · rfl
+  arrayTypeLookup := by
+    classical
+    funext text names first after
+    dsimp only [totalizeCalls]
+    split
+    · rename_i valid
+      rw [links.arrayTypeLookup]
+      exact helpers.arrayTypeLookup text valid.1 names first after valid.2.1 valid.2.2.1 valid.2.2.2
     · rfl
   procedureLookup := by
     classical
@@ -311,18 +321,19 @@ theorem model_imports_links
   scalarLookup := rfl
   booleanLookup := rfl
   arrayLookup := rfl
+  arrayTypeLookup := rfl
   procedureLookup := rfl
   token text position token valid := by
     have member := valid.2
     simp only [callTokens, List.mem_cons, List.mem_nil_iff, or_false] at member
     rcases member with rfl | rfl | rfl <;> rfl
   isEmpty := rfl
-  included := ⟨_, FunctionCallNative.model_imports_links, rfl⟩
+  included := ⟨_, FunctionCallNative.model_imports_links source, rfl⟩
   targets := ⟨_, FunctionCallNative.model_target_links source, rfl, rfl⟩
-  functionActual := ⟨_, FunctionCallNative.modelCalls, _, FunctionCallNative.model_imports_links,
+  functionActual := ⟨_, FunctionCallNative.modelCalls, _, FunctionCallNative.model_imports_links source,
     FunctionCallNative.model_definitions_of_meaning
       (FunctionCallNative.imports_meaning source Native.model_helper_meaning
-        Native.model_definition_equations Native.model_contracts FunctionCallNative.model_imports_links), rfl⟩
+        Native.model_definition_equations Native.model_contracts (FunctionCallNative.model_imports_links source)), rfl⟩
   nameFree := ⟨_, _, _, ProcedureNameNative.model_definitions, rfl, rfl⟩
   association := ⟨AssociationNative.modelCalls, AssociationNative.model_imports_links,
     AssociationNative.model_definitions, rfl⟩

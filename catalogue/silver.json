@@ -828,7 +828,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array types, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules",
         "type_mark_visible": true,
         "declaration_context": "every output shell after argument initialization when present, or a scalar function/procedure local declaration under its closed initialization rules",
         "count": "finite_within_complete_source_bound",
@@ -866,7 +866,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array types, Integer/Boolean arrays and scalar functions/procedures; scoped local/formal names and loop binders obey their hiding rules",
         "type_mark_visible": true,
         "declaration_context": "every output shell after argument initialization when present, or a scalar function/procedure local declaration under its closed initialization rules",
         "count": "finite_within_complete_source_bound",
@@ -887,12 +887,12 @@
       "ada_kind": "subtype_declaration",
       "conditions": {
         "parent": "visible predefined Integer directly",
-        "bounds": "existing scalar expressions over literals and earlier Ada-static Integer constants; every intermediate fits Integer",
+        "bounds": "existing scalar expressions over literals, earlier Ada-static Integer constants and visible static Integer-array bounds queries; every intermediate fits Integer",
         "range": "nonempty and contained in predefined Integer",
         "type_identity": "constrains Integer without creating a distinct type",
         "uses": [
           "scalar constant or mutable object subtype mark",
-          "fixed anonymous Integer-array component mark",
+          "fixed named or anonymous Integer-array component mark",
           "scalar function formal or result subtype mark",
           "scalar procedure formal subtype mark"
         ],
@@ -913,7 +913,7 @@
       "ada_kind": "range_constraint",
       "conditions": {
         "placement": "object-local constraint of Integer or named Integer-subtype constants or mutable objects",
-        "bounds": "existing scalar expressions over literals and earlier Ada-static Integer constants",
+        "bounds": "existing scalar expressions over literals, earlier Ada-static Integer constants and visible static Integer-array bounds queries; every intermediate fits Integer",
         "bounds_fit_integer": true,
         "ordered_bounds": true,
         "initializer_in_range": true,
@@ -944,8 +944,75 @@
       }
     },
     {
+      "id": "named_integer_array_type",
+      "ada_kind": "full_type_declaration",
+      "conditions": {
+        "declaration_context": "ordered Main declarations in either output shell, after argument initialization when present; unused types need no object",
+        "dimensions": 1,
+        "index_bounds": "existing scalar expressions over literals, earlier Ada-static Integer constants and visible static Integer-array bounds queries; every intermediate fits Integer",
+        "index_endpoint_range": [
+          -2147483648,
+          2147483647
+        ],
+        "component_type": "visible predefined Integer or earlier visible named Integer subtype, including subtype named Boolean; predefined Boolean/Character components excluded",
+        "length_range": [
+          1,
+          2048
+        ],
+        "length_calculation": "H - L + 1 in wide arithmetic; enforce the per-type limit even for unused declarations",
+        "length_limit_purpose": "explicit Silver scope limit matching the maximum stored-cell pool and ensuring materializable Integer-valued Length; no collective formal-cell charge",
+        "type_identity": "positive source declaration identity; distinct declarations remain distinct even with equal bounds and component marks",
+        "name_rules": "shared case-insensitive Main namespace; Integer excluded; Boolean may hide predefined Boolean; formal/local names cannot collide with earlier named types; loop binders may hide them",
+        "visibility": "earlier declarations only; own name hidden in its declaration; ordered type metadata visible inside closed callable bodies without exposing outer objects",
+        "dynamic_bounds": false,
+        "null_arrays": false,
+        "unconstrained_arrays": false,
+        "component_constraints": false,
+        "subprogram_local_types": false
+      }
+    },
+    {
+      "id": "integer_array_bound_query",
+      "ada_kind": "attribute_reference",
+      "conditions": {
+        "attributes": [
+          "First",
+          "Last",
+          "Length"
+        ],
+        "prefix": "simple visible named constrained Integer-array type, initialized named constant/mutable object, named array in formal, or existing anonymous Integer-array object",
+        "results": {
+          "First": "L",
+          "Last": "H",
+          "Length": "H - L + 1 computed in wide arithmetic"
+        },
+        "ada_static": true,
+        "staticness": "fixed constrained bounds, independent of mutability or component values; Ada RM 4.9 paragraphs 8 and 32",
+        "positions": "every existing scalar/static expression context, including declarations/bounds, subscripts, singleton aggregate choices, predicates and scalar actuals, under ordinary context and visibility rules",
+        "operand_count": 1,
+        "operator_count": 0,
+        "synthetic_bound_arithmetic_uses_operator_budget": false,
+        "local_initializer_visibility": "earlier visible type queries permitted; formal queries unavailable until body entry; no captured Main object queries",
+        "explicit_dimension": false,
+        "boolean_arrays": false,
+        "component_prefixes": false
+      }
+    },
+    {
+      "id": "integer_array_range",
+      "ada_kind": "range_attribute_reference",
+      "conditions": {
+        "prefix": "same visible simple Integer-array type/object/formal prefixes as integer_array_bound_query",
+        "position": "complete counted-loop range only, optionally reverse; not a scalar expression or component read",
+        "bounds": "fixed L .. H from the resolved prefix metadata",
+        "composition": "existing finite captured-bound loop rules, range masks and scoped hiding; binder does not resolve to itself in its own specification",
+        "explicit_dimension": false,
+        "boolean_arrays": false
+      }
+    },
+    {
       "id": "integer_array_object",
-      "ada_kind": "anonymous_array_object_declaration",
+      "ada_kind": "array_object_declaration",
       "conditions": {
         "dimensions": 1,
         "index_bounds": "Ada-static nonempty Integer range; existing static scalar expressions",
@@ -956,33 +1023,43 @@
         "body_read_interval": "declared component range for constant and mutable arrays; full Integer for of Integer",
         "array_reads_ada_static": false,
         "derived_total_element_capacity": "shared Integer/Boolean cell budget: floor(complete source byte count / 2), at most 2048; no compact expansion",
-        "named_types": false,
+        "named_types": true,
         "component_constraints": false,
         "others_aggregates": false,
         "null_arrays": false,
         "whole_array_operations": false,
-        "attributes": false
+        "attributes": [
+          "First",
+          "Last",
+          "Length",
+          "Range"
+        ],
+        "declaration_context": "ordered Main declarations only; no subprogram-local array objects",
+        "type_form": "inline anonymous constrained array or earlier visible named constrained Integer-array type; unknown, later and wrong-kind marks excluded",
+        "named_type_identity": "objects retain the positive identity of their source type declaration; anonymous objects have no named identity and cannot be array actuals",
+        "formal_storage": "array in formals use metadata without charging component lengths against the stored-object cell pool"
       }
     },
     {
       "id": "integer_array_read",
       "ada_kind": "indexed_component",
       "conditions": {
-        "prefix": "visible initialized Integer array object",
-        "index": "existing scalar expression grammar without array reads",
+        "prefix": "visible initialized named or anonymous Integer-array object, or immutable named Integer-array in formal in a function or procedure body",
+        "index": "existing scalar expression grammar without component reads; static Integer-array bounds queries permitted",
         "index_safety": "nonempty inferred interval contained in static array bounds, including dead arms and empty loops",
-        "positions": "ordinary scalar contexts, including initializers, Image, comparisons and loop bounds",
+        "positions": "ordinary scalar contexts; direct constant-object or read-only-formal component loop bounds excluded; bounds queries remain permitted",
         "operands": "one array-name operand plus all index operands within existing 64-leaf limit",
         "ada_static": false,
         "element_guard_refinement": false,
-        "nested_subscripts": false
+        "nested_subscripts": false,
+        "formal_read_interval": "full declared component interval, nonstatic and independent of caller aggregate values or Main state"
       }
     },
     {
       "id": "integer_array_assignment",
       "ada_kind": "assignment_statement",
       "conditions": {
-        "target": "checked indexed component of a visible mutable Integer array",
+        "target": "checked indexed component of a visible mutable Main Integer-array object, named or anonymous; array in formals and their components are immutable",
         "value": "integer_expression; nonempty inferred interval contained in the declared component range; every intermediate fits Integer",
         "evaluation": "index and RHS read incoming state; update only the selected component",
         "preserves": "array bounds, other elements, scalar flow, String/input facts and earlier snapshots",
@@ -1000,6 +1077,7 @@
           "scoped_for_index",
           "scoped_for_element",
           "integer_array_read",
+          "integer_array_bound_query",
           "immutable nonstatic Integer in formal in a function or procedure body"
         ],
         "min_operands": 1,
@@ -1148,7 +1226,7 @@
       "id": "integer_array_iteration",
       "ada_kind": "loop_statement",
       "conditions": {
-        "iterable": "one visible existing constant anonymous fixed-size Integer-array object",
+        "iterable": "one visible existing named or anonymous constant Main fixed-size Integer-array object; array formals and callable-body iteration excluded",
         "directions": [
           "forward",
           "reverse"
@@ -1207,7 +1285,7 @@
         "nested": true,
         "index_immutable": true,
         "index_scope": "body only; own name hidden in both bounds, including outer homonyms; restore only the scoped index on exit",
-        "bound_visibility": "initialized Integer objects and mutable-array components, and differently named enclosing indexes and elements; direct constant-array component reads excluded",
+        "bound_visibility": "initialized Integer objects and mutable-array components, static Integer-array bounds queries, and differently named enclosing indexes and elements; direct constant-object or read-only-formal component reads excluded",
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
         "excluded_names": [
           "Silver_IO"
@@ -1229,7 +1307,8 @@
         "scalar_writes": "carry across iterations and out of loops; writes to bound objects do not change captured iteration bounds",
         "scalar_body_flow": "widen every mutable scalar to declared range; retain entry immutable, outer-index and outer-element facts; append captured new index; no loop-carried scalar invariant",
         "scalar_exit_flow": "empty restores entry; possibly executing widens mutables and restores entry immutable/outer-index/outer-element facts; remove new index; body-derived outer-index/outer-element refinements do not escape",
-        "intentional_empty_loop_exclusion": "precise entry bounds can reveal an empty index-dependent assignment RHS, which remains excluded even if earlier wider analysis admitted it"
+        "intentional_empty_loop_exclusion": "precise entry bounds can reveal an empty index-dependent assignment RHS, which remains excluded even if earlier wider analysis admitted it",
+        "range_alternative": "visible fixed Integer-array type, object or in formal Range attribute; same forward/reverse captured-bound and hiding rules"
       }
     },
     {
@@ -1399,20 +1478,20 @@
       "conditions": {
         "declaration_context": "ordered Main declarations in either output shell, after argument initialization when present",
         "formal_list": "nonempty; exactly one name per formal; explicit in; no default",
-        "formal_and_result_types": [
+        "scalar_formal_and_result_types": [
           "visible predefined Integer",
           "earlier visible named Integer subtype",
           "visible predefined Boolean"
         ],
-        "locals": "initialized Integer/Boolean scalar constants or variables; earlier exact local snapshots; no formal, captured-object or call reads during initialization",
+        "locals": "initialized Integer/Boolean scalar constants or variables; earlier exact local snapshots and visible type bounds queries; no formal, captured-object or call reads during initialization",
         "body": "zero or more null statements, local scalar assignments, earlier-function call assignments, pure scalar/Boolean conditions and finite counted loops, followed by one typed terminal return",
         "formal_domain": "full product of declared subtype domains, independently of actual callers, including unused functions",
         "integer_formal_flow": "immutable, nonstatic, full declared entry interval; bare-name guards refine; mutable loop widening preserves entry formal facts",
         "return": "Integer interval nonempty and contained in result subtype; Boolean condition safe without retained predicate facts",
-        "visibility": "case-insensitive distinct Main declarations; formal/local names distinct and cannot collide with earlier subtype names; preserve outer hiding; local values and loop binders may hide earlier functions",
+        "visibility": "case-insensitive distinct Main declarations; formal/local names distinct and cannot collide with earlier Integer-subtype or named Integer-array type names; preserve outer hiding; local values and loop binders may hide earlier functions",
         "calls": "only earlier completely accepted functions; no self, forward or recursive calls",
         "effects": "no outer object reads or writes, output, input acquisition/query or Reject",
-        "scope_purpose": "closed scalar bodies and terminal returns establish total pure function composition without captures, early-return analysis or general expression calls",
+        "scope_purpose": "closed bodies with scalar results and terminal returns establish total pure function composition without captures, early-return analysis or general expression calls",
         "budgets": "4096 complete source bytes; existing 64 expression operands and source-wide 63 arithmetic/concatenation operators across all bodies; pooled source-derived signature/formal storage",
         "explicit_in_purpose": "one-name Integer formals consume at least seven disjoint bytes and Boolean formals thirteen, preserving existing binding capacities",
         "excluded": [
@@ -1424,9 +1503,12 @@
           "nested functions",
           "early returns",
           "local subtype/String/Character/array declarations",
-          "String/Character/length/validity conditions in functions",
+          "String/Character/String-length/validity conditions in functions; scalar Integer-array length comparisons remain permitted",
+          "array results, array out/in out formals and callable-body array iteration",
           "author contracts or annotations"
-        ]
+        ],
+        "array_in_formal_type": "earlier visible named constrained Integer-array type; scalar/array formals may mix; results remain Integer/Boolean",
+        "array_formal_domain": "every component independently ranges over its full declared interval; reads are nonstatic; fixed bounds queries are static; no array or component writes"
       }
     },
     {
@@ -1435,7 +1517,7 @@
       "conditions": {
         "position": "whole RHS of assignment to an existing mutable scalar Integer/Boolean object; result kind matches target",
         "callee": "visible earlier completely accepted function, not hidden by a local value or loop binder",
-        "actuals": "positional, named in arbitrary order, or positional prefix followed by named suffix; exactly one actual per formal; existing scalar expressions or Boolean conditions in caller scope; no nested calls",
+        "actuals": "positional, named in arbitrary order, or positional prefix followed by named suffix; exactly one actual per formal; scalar Integer expressions, Boolean conditions or bare matching named-array actuals in caller scope; no nested calls",
         "selectors": "callee formal names, case-insensitive; unknown, duplicate or missing selectors and positional-after-named are rejected; labels are not caller reads",
         "actual_state": "all actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals",
         "integer_actual": "nonempty interval contained in formal subtype",
@@ -1454,7 +1536,8 @@
           "array-element assignment",
           "other actual"
         ],
-        "scope_purpose": "keep calls outside existing expression grammar and respect Ada argument-evaluation freedom"
+        "scope_purpose": "keep calls outside existing expression grammar and respect Ada argument-evaluation freedom",
+        "array_actual": "bare visible initialized named-array object or enclosing array in formal with exactly the same positive source type-declaration identity; equal shape is insufficient; anonymous arrays excluded; repeated read-only inputs and earlier-callee forwarding permitted"
       }
     },
     {
@@ -1468,13 +1551,13 @@
           "earlier visible named Integer subtype",
           "visible predefined Boolean"
         ],
-        "locals": "initialized Integer/Boolean scalar constants or variables; no formal, captured-object or call reads during initialization",
+        "locals": "initialized Integer/Boolean scalar constants or variables; visible type bounds queries permitted; no formal, captured-object or call reads during initialization",
         "output_initialization": "one unconditional assignment per out formal immediately after begin, in formal declaration order, before ordinary statements",
-        "prefix_inputs": "initialized locals and in/in out formals in the same frozen pre-output frame; no out reads or function calls",
+        "prefix_inputs": "initialized locals and scalar in/in out formals or checked array in components/static bounds queries in the same frozen pre-output frame; no out reads or function calls",
         "body_entry": "every writable Integer formal has its full declared range; narrower prefix output intervals are not retained",
         "body": "local scalar assignments, earlier-function call assignments, earlier-procedure call statements, null, pure scalar/Boolean conditions and finite counted loops; no return statements; at least one ordinary statement when there are no out-prefix assignments",
         "formal_domain": "full product of declared in and in out subtype domains, independently of actual callers, including unused procedures",
-        "visibility": "case-insensitive distinct Main declarations; formal/local names distinct and cannot collide with earlier subtype names; unavailable out formals still hide outer names; local values and loop binders may hide callees",
+        "visibility": "case-insensitive distinct Main declarations; formal/local names distinct and cannot collide with earlier Integer-subtype or named Integer-array type names; unavailable out formals still hide outer names; local values and loop binders may hide callees",
         "calls": "only earlier completely accepted functions and procedures; functions cannot call procedures in this fragment",
         "effects": "only explicit writable actuals change at the caller; no outer capture, I/O, input acquisition/query or Reject in a procedure",
         "budgets": "4096 complete source bytes; existing 64 expression operands and source-wide 63 arithmetic/concatenation operators across all bodies; pooled source-derived signature/formal storage",
@@ -1487,10 +1570,12 @@
           "nested subprograms",
           "recursion",
           "early returns",
-          "String/Character/array signatures or locals",
+          "String/Character signatures or locals; local array objects, array results, array out/in out formals and callable-body array iteration",
           "local subtype declarations",
           "author contracts or annotations"
-        ]
+        ],
+        "array_in_formal_type": "earlier visible named constrained Integer-array type; scalar/array formals may mix; writable formals remain scalar",
+        "array_formal_domain": "every component independently ranges over its full declared interval; reads are nonstatic; fixed bounds queries are static; no array or component writes"
       }
     },
     {
@@ -1499,7 +1584,7 @@
       "conditions": {
         "position": "standalone statement in Main or an admitted scalar procedure body, including branches and finite loops",
         "callee": "visible earlier completely accepted procedure, not hidden by a local value or loop binder",
-        "actuals": "positional, named in arbitrary order, or positional prefix followed by named suffix; exactly one actual per formal; in actuals use existing scalar expressions or Boolean conditions in caller scope; no nested calls",
+        "actuals": "positional, named in arbitrary order, or positional prefix followed by named suffix; exactly one actual per formal; scalar in actuals use Integer expressions or Boolean conditions and array in actuals use bare matching named-array names; no nested calls",
         "selectors": "callee formal names, case-insensitive; unknown, duplicate or missing selectors and positional-after-named are rejected; labels are not caller reads",
         "writable_actuals": "existing mutable bare Integer/Boolean names of the matching kind; no constants, immutable formals, loop binders or array components",
         "actual_state": "all input actuals checked independently in the same incoming state; Boolean outcomes do not refine other actuals",
@@ -1518,7 +1603,8 @@
           "subscript",
           "loop bound",
           "other actual"
-        ]
+        ],
+        "array_actual": "bare visible initialized named-array object or enclosing array in formal with exactly the same positive source type-declaration identity; equal shape is insufficient; anonymous arrays excluded; repeated read-only inputs and earlier-callee forwarding permitted"
       }
     }
   ],
@@ -1553,6 +1639,7 @@
           "named_boolean_constant",
           "named_boolean_variable",
           "named_integer_subtype",
+          "named_integer_array_type",
           "integer_array_object",
           "boolean_array_object",
           "named_character_constant",
@@ -1607,6 +1694,7 @@
           "named_boolean_constant",
           "named_boolean_variable",
           "named_integer_subtype",
+          "named_integer_array_type",
           "integer_array_object",
           "boolean_array_object",
           "named_character_constant",
@@ -1696,7 +1784,7 @@
   "identifier_bytes": [48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,95,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122],
   "comment_prefix": "--",
   "comment_end_bytes": [10,13],
-  "word_tokens": ["procedure","main","is","pragma","spark_mode","on","begin","null","end","with","silver_io","put_line","constant","string","silver_arguments","first_or_default","if","input_is_valid","then","else","elsif","reject","and","or","not","length","integer","for","in","reverse","loop","function","return","out","use","item","default","put","image","range","array","of","subtype","boolean","true","false","xor","character"],
+  "word_tokens": ["procedure","main","is","pragma","spark_mode","on","begin","null","end","with","silver_io","put_line","constant","string","silver_arguments","first_or_default","if","input_is_valid","then","else","elsif","reject","and","or","not","length","integer","for","in","reverse","loop","function","return","out","use","item","default","put","image","range","array","of","subtype","boolean","true","false","xor","character","type","first","last"],
   "casefold_bytes": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255],
   "null_tokens": ["procedure","main","is","pragma","spark_mode","(","on",")",";","begin","null",";","end","main",";"],
   "with_clause_tokens": ["with","<package_list>",";"],
@@ -1729,6 +1817,15 @@
   "integer_assignment_tokens": ["<integer_assignment_target>",":=","<integer_expression>",";"],
   "integer_array_declaration_tokens": ["<declaration_name>",":","array","(","<static_integer_expression>","..","<static_integer_expression>",")","of","<integer_subtype_mark>",":=","<explicit_integer_array_aggregate>",";"],
   "integer_array_constant_declaration_tokens": ["<declaration_name>",":","constant","array","(","<static_integer_expression>","..","<static_integer_expression>",")","of","<integer_subtype_mark>",":=","<explicit_integer_array_aggregate>",";"],
+  "named_integer_array_type_tokens": ["type","<type_name>","is","array","(","<static_integer_expression>","..","<static_integer_expression>",")","of","<integer_subtype_mark>",";"],
+  "named_integer_array_declaration_tokens": ["<declaration_name>",":","<earlier_named_integer_array_type>",":=","<explicit_integer_array_aggregate>",";"],
+  "named_integer_array_constant_declaration_tokens": ["<declaration_name>",":","constant","<earlier_named_integer_array_type>",":=","<explicit_integer_array_aggregate>",";"],
+  "integer_array_in_formal_tokens": ["<formal_name>",":","in","<earlier_named_integer_array_type>"],
+  "integer_array_first_tokens": ["<integer_array_query_prefix>","'","first"],
+  "integer_array_last_tokens": ["<integer_array_query_prefix>","'","last"],
+  "integer_array_length_tokens": ["<integer_array_query_prefix>","'","length"],
+  "integer_array_range_loop_tokens": ["for","<index_name>","in","<integer_array_query_prefix>","'","range","loop","<statements>","end","loop",";"],
+  "reverse_integer_array_range_loop_tokens": ["for","<index_name>","in","reverse","<integer_array_query_prefix>","'","range","loop","<statements>","end","loop",";"],
   "integer_array_read_tokens": ["<integer_array_name>","(","<scalar_index_expression>",")"],
   "integer_array_assignment_tokens": ["<mutable_integer_array_name>","(","<scalar_index_expression>",")",":=","<integer_expression>",";"],
   "boolean_array_declaration_tokens": ["<declaration_name>",":","array","(","<static_integer_expression>","..","<static_integer_expression>",")","of","boolean",":=","<explicit_boolean_array_aggregate>",";"],

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is two nested for loops over indexes bounded by the string's own length, so index checks follow from loop ranges and types with no invariants; the plausible rating reflects unconstrained-string index arithmetic and output line construction needing careful guards.
 
-Position 993 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1080 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

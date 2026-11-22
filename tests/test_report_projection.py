@@ -35,7 +35,7 @@ end Probe;
 ''')
         host = native_layout()
         built = subprocess.run(
-            alire_command(host, "exec", "--", "gprbuild", "-P", cls.project_file, "-j2", "-p",
+            alire_command(host, "exec", "--", "gprbuild", "-P", cls.project_file, "-j1", "-p",
                           "-XSILVER_HOST=" + host.key),
             cwd=host.context, env=tool_environment(host), capture_output=True,
             text=True, timeout=120)

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a fixed-size buffer, a guarded count, a bounded remainder subtype and for-loop indexes, so no annotation is needed; the 34-character limit is a documented resource limit that rejects longer input visibly.
 
-Position 785 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 787 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

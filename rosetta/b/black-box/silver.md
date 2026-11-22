@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and positions are bounded by subtypes and guards placed before each step, and the only loop carrying state is a while loop inside a procedure, so no annotation is needed, though the loop-carried beam state needs careful guard placement.
 
-Position 827 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 829 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

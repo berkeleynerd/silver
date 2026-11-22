@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from bounded subtypes and guards placed just before each multiply or divide in for loops, with no annotations needed, but the loop-carried accumulators (especially the floating-point one) make discharge depend on careful program shape.
 
-Position 1062 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 985 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

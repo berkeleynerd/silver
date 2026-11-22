@@ -41,7 +41,7 @@ theorem guarded_denotation (calls : Calls) (text : Source) (position limit depth
 
 /-- Staged interpretation of the declarations and returns of the native index reader. -/
 def indexedEquation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating element : Bool) : ValueResult :=
   let take := calls.function .takeToken text
   let first := calls.function .skip text position
@@ -77,7 +77,7 @@ def indexedEquation (calls : Calls) (text : Source) (position : Nat) (names : Bi
         operands + 1, low.bounds, high.bounds⟩
 
 theorem indexed_denotation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating element : Bool) :
     indexedBody.eval calls
       (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating,characterElement := element}) =
@@ -86,7 +86,7 @@ theorem indexed_denotation (calls : Calls) (text : Source) (position : Nat) (nam
 
 /-- The recursive call is an explicit callee, with its returned cursor updated in place. -/
 def characterEquation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool) : ValueResult :=
   let first := calls.function .skip text position
   let quoted := calls.function .characterLiteral text first
@@ -104,7 +104,7 @@ def characterEquation (calls : Calls) (text : Source) (position : Nat) (names : 
   else calls.function .indexed text position names scalarNames arrays initials elaborating true
 
 theorem character_denotation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool) :
     characterBody.eval calls (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating}) =
       characterEquation calls text position names scalarNames arrays initials elaborating := by
@@ -139,14 +139,15 @@ def characterDeclarationEquation (calls : Calls) (text : Source) (state : Parser
   let typeFirst := calls.function .skip text (if decide (constantAfter ≠ 0) then constantAfter else colonAfter)
   let typeAfter := take typeFirst (.word "character")
   let value := calls.function .characterValue text (take typeAfter (.symbol ":=")) state.names state.scalarNames
-    state.arrayNames.names state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true
   let following := take value.after (.symbol ";")
   if !calls.function .newName text state first after arguments ||
       decide (typeAfter = 0) || decide (following ≤ state.position) || decide (state.names.length = maxBindings) ||
       calls.function .nameIs text first after "character" ||
       decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .arrayLookup text state.arrayNames.table typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .arrayTypeLookup text state.arrayNames.types typeFirst typeAfter ≠ 0) ||
       decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
@@ -175,6 +176,7 @@ theorem characterDeclaration_progress_guard (text : Source) (state : ParserState
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0) ||
+      decide (ArrayBindings.lookupType text state.arrayNames.types parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0) ||
       decide (FunctionBindings.lookup text state.functions parts.typeFirst parts.typeAfter ≠ 0) ||

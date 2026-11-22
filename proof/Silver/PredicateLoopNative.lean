@@ -27,6 +27,7 @@ model is one interpretation; source bridges supply the actual interpretation. -/
   equalName : Source → Nat → Nat → Nat → Nat → Bool
   arrayTarget : Source → Native.Context → Nat → Nat
   readScalar : Source → Native.Context → Nat → ActiveFlow → Nat → Nat → ScalarExpression.Result
+  readRange : Source → Native.Context → Nat → Nat → Nat → ScalarExpression.Result
   widen : Native.Context → ActiveFlow → ActiveFlow
   isEmpty : Integer.Interval → Bool
   normalize : Integer.Interval → Integer.Interval
@@ -46,6 +47,8 @@ def modelImports : Imports where
   arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
   readScalar := fun text context position facts first after =>
     readCountedBound text context.model position facts first after
+  readRange := fun text context position first after =>
+    ScalarExpression.ArrayAttributes.read text position context.scalarNames context.arrayTable first after true
   widen := fun context facts => ActiveFlow.widen context.scalarNames facts
   isEmpty := Integer.Interval.isEmpty
   normalize := Integer.Interval.normalize
@@ -71,9 +74,10 @@ structure Frame where
   arrayFirst : Nat := 0
   arrayAfter : Nat := 0
   arrayTarget : Nat := 0
+  shape : ScalarExpression.Result := ScalarExpression.invalid
 
 inductive Test
-  | invalidName | array | invalidArray | reverse | nonadvancing | innerNonadvancing | empty | definite
+  | invalidName | array | pure | hasRange | invalidArray | reverse | nonadvancing | innerNonadvancing | empty | definite
   deriving DecidableEq
 
 def Test.eval (frame : Frame) : Test → Bool
@@ -84,6 +88,8 @@ def Test.eval (frame : Frame) : Test → Bool
         Named.nameIs frame.text frame.first frame.after ("silver_arguments".toList.map Char.toNat)) ||
       decide (frame.context.scalarNames.length = ScalarExpression.maxBindings)
   | .array => decide (fixedAfter frame.text frame.after "of" true ≠ 0)
+  | .pure => frame.context.pure
+  | .hasRange => decide (frame.shape.after ≠ 0)
   | .invalidArray => decide (frame.arrayFirst = 0 ∨ frame.arrayAfter ≤ frame.arrayFirst) ||
       Named.equalName frame.text frame.first frame.after frame.arrayFirst frame.arrayAfter ||
       decide (frame.arrayTarget = 0) || (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).mutable ||
@@ -102,6 +108,8 @@ def Test.evalWith (imports : Imports) (frame : Frame) : Test → Bool
         imports.nameIs frame.text frame.first frame.after "silver_arguments") ||
       decide (frame.context.scalarNames.length = ScalarExpression.maxBindings)
   | .array => decide (imports.token frame.text frame.after (.word "of") ≠ 0)
+  | .pure => frame.context.pure
+  | .hasRange => decide (frame.shape.after ≠ 0)
   | .invalidArray => decide (frame.arrayFirst = 0 ∨ frame.arrayAfter ≤ frame.arrayFirst) ||
       imports.equalName frame.text frame.first frame.after frame.arrayFirst frame.arrayAfter ||
       decide (frame.arrayTarget = 0) || (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).mutable ||
@@ -125,6 +133,8 @@ def Test.render : Test → List String
       call "name_is" [["text"], ["first"], ["after"], ["\"silver_arguments\""]] ++ [")", "or", "else",
       "context", ".", "scalar_names", ".", "count", "=", "scalar_expressions", ".", "max_bindings"]
   | .array => call "take_token" [["text"], ["after"], ["of_keyword"]] ++ ["/=", "0"]
+  | .pure => ["context", ".", "pure"]
+  | .hasRange => ["shape", ".", "after", "/=", "0"]
   | .invalidArray => ["array_first", "=", "0", "or", "else", "array_after", "<=", "array_first", "or", "else"] ++
       call "equal_name" [["text"], ["first"], ["after"], ["array_first"], ["array_after"]] ++
       ["or", "else", "target", "=", "0", "or", "else", "context", ".", "array_names", ".", "items", "(", "target", ")", ".", "mutable"] ++
@@ -204,8 +214,15 @@ def enterArrayWith (imports : Imports) (frame : Frame) : Frame :=
     arrayAfter := imports.nameAfter frame.text first
     arrayTarget := imports.arrayTarget frame.text frame.context frame.result.position}
 
+def enterRange (frame : Frame) : Frame :=
+  {frame with shape := (ScalarExpression.ArrayAttributes.read frame.text frame.result.position
+    frame.context.scalarNames frame.context.arrayTable frame.first frame.after true)}
+
+def enterRangeWith (imports : Imports) (frame : Frame) : Frame :=
+  {frame with shape := imports.readRange frame.text frame.context frame.result.position frame.first frame.after}
+
 inductive Update
-  | inside | iterable | reverse | low | delimiter | high | opening | arrayOpening | bounds | arrayBounds | definite | arrayDefinite | widen | inner
+  | inside | iterable | reverse | low | delimiter | high | opening | arrayOpening | rangeOpening | bounds | arrayBounds | rangeBounds | definite | arrayDefinite | widen | inner
   | copyToInner (field : ScanField) | copyFromInner (field : ScanField)
   | innerPath | clearInnerValues | copyInnerValues | indexValue
   | restoreFacts | bodyPath | joinFacts | readBody | token (value : ShellToken)
@@ -226,8 +243,10 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
       frame.scan.facts frame.first frame.after)}
   | .opening => {frame with result := {frame.result with position := fixedAfter frame.text frame.high.after "loop" true}}
   | .arrayOpening => {frame with result := {frame.result with position := fixedAfter frame.text frame.arrayAfter "loop" true}}
+  | .rangeOpening => {frame with result := {frame.result with position := fixedAfter frame.text frame.shape.after "loop" true}}
   | .bounds => {frame with bounds := Integer.loopBounds frame.low.bounds frame.high.bounds}
   | .arrayBounds => {frame with bounds := (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).componentBounds}
+  | .rangeBounds => {frame with bounds := frame.shape.bounds}
   | .definite => {frame with definite := Integer.loopDefinite frame.low.bounds frame.high.bounds}
   | .arrayDefinite => {frame with definite := true}
   | .widen => {frame with result := {frame.result with facts := ActiveFlow.widen frame.context.scalarNames frame.result.facts}}
@@ -259,9 +278,11 @@ def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update
   | .high => {frame with high := imports.readScalar frame.text frame.context frame.result.position frame.scan.facts frame.first frame.after}
   | .opening => {frame with result := {frame.result with position := imports.token frame.text frame.high.after (.word "loop")}}
   | .arrayOpening => {frame with result := {frame.result with position := imports.token frame.text frame.arrayAfter (.word "loop")}}
+  | .rangeOpening => {frame with result := {frame.result with position := imports.token frame.text frame.shape.after (.word "loop")}}
   | .bounds => {frame with bounds := if imports.isEmpty frame.low.bounds || imports.isEmpty frame.high.bounds
       then imports.emptyBounds else imports.normalize ⟨frame.low.bounds.lower, frame.high.bounds.upper⟩}
   | .arrayBounds => {frame with bounds := (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).componentBounds}
+  | .rangeBounds => {frame with bounds := frame.shape.bounds}
   | .definite => {frame with definite := (!imports.isEmpty frame.low.bounds && !imports.isEmpty frame.high.bounds &&
       decide (frame.low.bounds.upper ≤ frame.high.bounds.lower))}
   | .arrayDefinite => {frame with definite := true}
@@ -301,10 +322,12 @@ def Update.render : Update → List String
       [["text"], ["context"], ["result", ".", "position"], ["scan", ".", "facts"], ["first"], ["after"]] ++ [";"]
   | .opening => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["high", ".", "after"], ["loop_keyword"]] ++ [";"]
   | .arrayOpening => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["array_after"], ["loop_keyword"]] ++ [";"]
+  | .rangeOpening => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["shape", ".", "after"], ["loop_keyword"]] ++ [";"]
   | .bounds => ["index_bounds", ":=", "(", "if"] ++ emptyBounds "low" ++ ["or", "else"] ++ emptyBounds "high" ++
       ["then", "scalars", ".", "empty", "else", "scalars", "."] ++
       call "normalize" [["(", "low", ".", "bounds", ".", "lower", ",", "high", ".", "bounds", ".", "upper", ")"]] ++ [")", ";"]
   | .arrayBounds => ["index_bounds", ":=", "context", ".", "array_names", ".", "items", "(", "target", ")", ".", "component_bounds", ";"]
+  | .rangeBounds => ["index_bounds", ":=", "shape", ".", "bounds", ";"]
   | .definite => ["definite", ":=", "not"] ++ emptyBounds "low" ++ ["and", "then", "not"] ++ emptyBounds "high" ++
       ["and", "then", "low", ".", "bounds", ".", "upper", "<=", "high", ".", "bounds", ".", "lower", ";"]
   | .arrayDefinite => ["definite", ":=", "true", ";"]
@@ -359,6 +382,7 @@ inductive Command
   | nothing | update (value : Update) | invalid | result
   | scope (body : Command)
   | arrayScope (body : Command)
+  | rangeScope (body : Command)
   | sequence (first second : Command) | choose (test : Test) (yes no : Command)
   deriving DecidableEq
 
@@ -369,6 +393,7 @@ def Command.eval (read : Reader) (frame : Frame) (next : Frame → BodyScan) : C
   | .result => frame.result
   | .scope body => body.eval read (enterScope frame) next
   | .arrayScope body => body.eval read (enterArray frame) next
+  | .rangeScope body => body.eval read (enterRange frame) next
   | .sequence first second => first.eval read frame (fun updated => second.eval read updated next)
   | .choose test yes no => if test.eval frame then yes.eval read frame next else no.eval read frame next
 
@@ -379,6 +404,7 @@ def Command.evalWith (imports : Imports) (read : Reader) (frame : Frame) (next :
   | .result => frame.result
   | .scope body => body.evalWith imports read (enterScope frame) next
   | .arrayScope body => body.evalWith imports read (enterArrayWith imports frame) next
+  | .rangeScope body => body.evalWith imports read (enterRangeWith imports frame) next
   | .sequence first second => first.evalWith imports read frame
       (fun updated => second.evalWith imports read updated next)
   | .choose test yes no => if test.evalWith imports frame then yes.evalWith imports read frame next
@@ -392,6 +418,7 @@ def Command.evalWith (imports : Imports) (read : Reader) (frame : Frame) (next :
   | choose test yes no ihYes ihNo => simp only [evalWith, eval, Test.evalWith_model, ihYes, ihNo]
   | scope body ih => exact ih (enterScope frame) next
   | arrayScope body ih => exact ih (enterArray frame) next
+  | rangeScope body ih => exact ih (enterRange frame) next
   | invalid => rfl
   | _ => simp only [evalWith, eval, Update.evalWith_model]
 
@@ -406,6 +433,11 @@ mutual
         [";", "array_after", ":", "constant", "literal_position", ":="] ++ call "name_after" [["text"], ["array_first"]] ++
         [";", "target", ":", "constant", "array_bindings", ".", "binding_count", ":="] ++
         call "array_target" [["text"], ["context"], ["result", ".", "position"]] ++ [";", "begin"] ++ body.render ++ ["end", ";"]
+    | .rangeScope body => ["declare", "shape", ":", "constant", "scalar_expressions", ".", "expression_result", ":=",
+        "scalar_expressions", "."] ++ call "read_array_attribute"
+        [["text"], ["result", ".", "position"], ["context", ".", "scalar_names"],
+          ["context", ".", "array_names"], ["first"], ["after"], ["range_query", "=>", "true"]] ++
+        [";", "begin"] ++ body.render ++ ["end", ";"]
     | .sequence first second => first.render ++ second.render
     | .choose test yes no => ["if"] ++ test.render ++ ["then"] ++ yes.render ++ no.renderElse ++ ["end", "if", ";"]
   def Command.renderElse : Command → List String
@@ -419,12 +451,14 @@ def guard (test : Test) : Command := .choose test .invalid .nothing
 
 def commands : Command := .list [guard .invalidName,
   .choose .array
-    (.list [.update .iterable, .choose .reverse (.update .reverse) .nothing,
+    (.list [guard .pure, .update .iterable, .choose .reverse (.update .reverse) .nothing,
       .arrayScope (.list [guard .invalidArray, .update .arrayOpening, .update .arrayBounds]),
       .update .arrayDefinite])
     (.list [.update .inside, .choose .reverse (.update .reverse) .nothing,
-      .update .low, .update .delimiter, .update .high, .update .opening,
-      .update .bounds, .update .definite]),
+      .rangeScope (.choose .hasRange
+        (.list [.update .rangeOpening, .update .rangeBounds, .update .arrayDefinite])
+        (.list [.update .low, .update .delimiter, .update .high, .update .opening,
+          .update .bounds, .update .definite]))]),
   guard .nonadvancing, .update .widen,
   .scope (.list [.update .inner,
     .update (.copyToInner .position), .update (.copyToInner .target), .update (.copyToInner .capacity),
@@ -487,7 +521,7 @@ set_option backward.dsimp.instances true
 set_option maxRecDepth 10000
 set_option maxHeartbeats 3000000
 
-attribute [local irreducible] ScalarExpression.read
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read loopRange
 
 theorem invalidName_allowed (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata) :
     Test.invalidName.eval (initial text context scan catalog procedures) =
@@ -551,14 +585,16 @@ private theorem tail_eval (read : Reader) (frame : Frame) (next : Frame → Body
   repeat' first | rfl | (simp_all +instances; done) | split
 
 private def arrayCommands : Command := .list [
-  .update .iterable, .choose .reverse (.update .reverse) .nothing,
+  guard .pure, .update .iterable, .choose .reverse (.update .reverse) .nothing,
   .arrayScope (.list [guard .invalidArray, .update .arrayOpening, .update .arrayBounds]),
   .update .arrayDefinite]
 
 private def countedCommands : Command := .list [
   .update .inside, .choose .reverse (.update .reverse) .nothing,
-  .update .low, .update .delimiter, .update .high, .update .opening,
-  .update .bounds, .update .definite]
+  .rangeScope (.choose .hasRange
+    (.list [.update .rangeOpening, .update .rangeBounds, .update .arrayDefinite])
+    (.list [.update .low, .update .delimiter, .update .high, .update .opening,
+      .update .bounds, .update .definite]))]
 
 private def arrayFrame (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata) : Frame :=
   {initial text context scan catalog procedures with
@@ -573,10 +609,11 @@ private def countedFrame (text : Source) (context : Native.Context) (scan : Body
   let header := loopHeader text context.model scan
   {initial text context scan catalog procedures with
     result := {scan with position := header.entry.position}
-    low := header.lower
-    high := header.upper
-    bounds := header.bounds
-    definite := Integer.loopDefinite header.lower.bounds header.upper.bounds}
+    low := if (loopRange text context.model scan).after ≠ 0 then ScalarExpression.invalid else header.lower
+    high := if (loopRange text context.model scan).after ≠ 0 then ScalarExpression.invalid else header.upper
+    bounds := if (loopRange text context.model scan).after ≠ 0 then (loopRange text context.model scan).bounds else header.bounds
+    definite := if (loopRange text context.model scan).after ≠ 0 then true else Integer.loopDefinite header.lower.bounds header.upper.bounds
+    shape := loopRange text context.model scan}
 
 private theorem invalid_array_guard (first after target : Nat) (equal mutable boolean : Bool) :
     (decide (first = 0 ∨ after ≤ first) || equal || decide (target = 0) || mutable || boolean) =
@@ -600,9 +637,12 @@ private theorem reverse_eval (read : Reader) (frame : Frame) (next : Frame → B
     reverseFrame, decide_eq_true_eq]
   split <;> rfl
 
-private theorem iterator_invalid (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata) :
+private theorem iterator_invalid (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata)
+    (pure : context.pure = false) :
     Test.invalidArray.eval (enterArray (iteratorFrame text context scan catalog procedures)) =
       !loopArrayAllowed text context.model scan := by
+  have modelPure : context.model.pure = false := pure
+  simp only [loopArrayAllowed, modelPure, Bool.not_false, Bool.and_true]
   exact invalid_array_guard (skipAt text (loopLowerPosition text scan))
     (nameAfter text (skipAt text (loopLowerPosition text scan))) (loopArrayTarget text context.model scan)
     (Named.equalName text (loopFirst text scan) (loopNameAfter text scan)
@@ -615,39 +655,69 @@ private theorem array_eval (read : Reader) (text : Source) (context : Native.Con
     arrayCommands.eval read (initial text context scan catalog procedures) next =
       if loopArrayAllowed text context.model scan then next (arrayFrame text context scan catalog procedures)
       else invalidBody scan := by
-  change (Command.choose .reverse (.update .reverse) .nothing).eval read
-    (Update.iterable.eval read (initial text context scan catalog procedures))
-    (fun frame => (Command.arrayScope (.list [guard .invalidArray, .update .arrayOpening, .update .arrayBounds])).eval read frame
-      (fun frame => next (Update.arrayDefinite.eval read frame))) = _
-  rw [reverse_eval]
-  have cursor : reverseFrame (Update.iterable.eval read (initial text context scan catalog procedures)) =
-      iteratorFrame text context scan catalog procedures := by
-    simp only [reverseFrame, iteratorFrame, loopLowerPosition, loopReverse, loopInAfter,
-      iterable, ↓reduceIte, decide_eq_true_eq]
-    rfl
-  rw [cursor]
-  simp only [Command.eval, Command.list, List.foldr_cons, List.foldr_nil, guard]
-  rw [iterator_invalid]
-  cases permitted : loopArrayAllowed text context.model scan with
-  | false => simp only [Bool.not_false, Bool.false_eq_true, ↓reduceIte]; rfl
-  | true =>
-      simp only [Bool.not_true, Bool.false_eq_true, ↓reduceIte]
-      congr 1
-      simp only [Update.eval, enterArray, iteratorFrame, arrayFrame, loopHeader, iterable, permitted, ↓reduceIte]
+  by_cases pure : context.pure = true
+  · have disallowed : loopArrayAllowed text context.model scan = false := by
+      simp [loopArrayAllowed, Native.Context.model, pure]
+    simp only [arrayCommands, Command.list, List.foldr_cons, List.foldr_nil, guard, Command.eval,
+      Test.eval, initial, pure, ↓reduceIte, disallowed, Bool.false_eq_true]
+  · have impure : context.pure = false := Bool.eq_false_iff.mpr pure
+    change (if context.pure then invalidBody scan else _) = _
+    rw [show context.pure = false from impure]
+    simp only [Bool.false_eq_true, ↓reduceIte]
+    change (Command.choose .reverse (.update .reverse) .nothing).eval read
+      (Update.iterable.eval read (initial text context scan catalog procedures))
+      (fun frame => (Command.arrayScope (.list [guard .invalidArray, .update .arrayOpening, .update .arrayBounds])).eval read frame
+        (fun frame => next (Update.arrayDefinite.eval read frame))) = _
+    rw [reverse_eval]
+    have cursor : reverseFrame (Update.iterable.eval read (initial text context scan catalog procedures)) =
+        iteratorFrame text context scan catalog procedures := by
+      simp only [reverseFrame, iteratorFrame, loopLowerPosition, loopReverse, loopInAfter,
+        iterable, ↓reduceIte, decide_eq_true_eq]
       rfl
-
+    rw [cursor]
+    simp only [Command.eval, Command.list, List.foldr_cons, List.foldr_nil, guard]
+    rw [iterator_invalid text context scan catalog procedures impure]
+    cases permitted : loopArrayAllowed text context.model scan with
+    | false => simp only [Bool.not_false, Bool.false_eq_true, ↓reduceIte]; rfl
+    | true =>
+        simp only [Bool.not_true, Bool.false_eq_true, ↓reduceIte]
+        congr 1
+        simp only [Update.eval, enterArray, iteratorFrame, arrayFrame, loopHeader, iterable, permitted, ↓reduceIte]
+        rfl
 private theorem counted_eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata)
     (next : Frame → BodyScan) (counted : loopIsArray text scan = false) :
     countedCommands.eval read (initial text context scan catalog procedures) next = next (countedFrame text context scan catalog procedures) := by
-  simp only [countedCommands, Command.list, List.foldr_cons, List.foldr_nil, Command.eval]
-  dsimp only [Update.eval, Test.eval, initial]
-  unfold countedFrame
-  simp only [loopHeader, LoopHeader.bounds, counted, Bool.false_eq_true, ↓reduceIte, loopInAfter,
-    loopLowerPosition, loopReverse, loopNameAfter, loopFirst, initial, bodyToken, tokenAfter, ShellToken.word]
-  by_cases reverse : fixedAfter text (fixedAfter text (nameAfter text
-      (skipAt text (fixedAfter text scan.position "for" true))) "in" true) "reverse" true ≠ 0
-  all_goals try simp_all +instances
-  all_goals rfl
+  change (Command.choose .reverse (.update .reverse) .nothing).eval read
+    (Update.inside.eval read (initial text context scan catalog procedures))
+    (fun frame => (Command.rangeScope (.choose .hasRange
+      (.list [.update .rangeOpening, .update .rangeBounds, .update .arrayDefinite])
+      (.list [.update .low, .update .delimiter, .update .high, .update .opening,
+        .update .bounds, .update .definite]))).eval read frame next) = _
+  rw [reverse_eval]
+  have cursor : reverseFrame (Update.inside.eval read (initial text context scan catalog procedures)) =
+      iteratorFrame text context scan catalog procedures := by
+    simp only [reverseFrame, iteratorFrame, loopLowerPosition, loopReverse, loopInAfter,
+      counted, Bool.false_eq_true, ↓reduceIte, decide_eq_true_eq]
+    rfl
+  rw [cursor]
+  have shape : (enterRange (iteratorFrame text context scan catalog procedures)).shape =
+      loopRange text context.model scan := by unfold loopRange; rfl
+  simp only [Command.eval, Test.eval, shape, decide_eq_true_eq]
+  by_cases range : (loopRange text context.model scan).after ≠ 0
+  · rw [ite_eq_left range]
+    simp only [Command.list, List.foldr_cons, List.foldr_nil, Command.eval,
+      Update.eval, enterRange, iteratorFrame, countedFrame, loopHeader, LoopHeader.bounds,
+      counted, Bool.false_eq_true, ↓reduceIte]
+    simp only [ite_eq_left range]
+    unfold loopRange
+    rfl
+  · rw [ite_eq_right range]
+    simp only [Command.list, List.foldr_cons, List.foldr_nil, Command.eval,
+      Update.eval, enterRange, iteratorFrame, countedFrame, loopHeader, LoopHeader.bounds,
+      counted, Bool.false_eq_true, ↓reduceIte]
+    simp only [ite_eq_right range]
+    unfold loopRange
+    rfl
 
 private def headerFrame (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata) : Frame :=
   let header := loopHeader text context.model scan
@@ -681,17 +751,17 @@ private theorem header_exit (context : Native.Context) (before after : ActiveFlo
       split <;> rfl
 
 private theorem header_components_nonempty (text : Source) (context : Native.Context) (scan : BodyScan)
-    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
+    (metadata : ArrayBindings.ValidTable text context.arrayTable) :
     (loopHeader text context.model scan).componentBounds.isEmpty = false := by
   have valid := ArrayBindings.binding_components_valid
-    (fun item member => (metadata.2.1 item member).2.2.2)
+    (fun item member => (metadata.member_valid member).2.1.1)
     (loopArrayTarget text context.model scan)
   change (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).componentBounds.isEmpty = false
   simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
-  simpa only [ArrayBindings.Binding.descriptor] using valid.2
+  simpa only [ArrayBindings.Binding.descriptor, Native.Context.arrayTable] using valid.2
 
 private theorem header_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata)
-    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
+    (metadata : ArrayBindings.ValidTable text context.arrayTable) :
     tailEquation read (headerFrame text context scan catalog procedures) = headerContinuation read text context scan catalog procedures := by
   unfold tailEquation headerFrame
   dsimp only [initial]
@@ -700,7 +770,7 @@ private theorem header_tail (read : Reader) (text : Source) (context : Native.Co
 
 private theorem array_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata)
     (iterable : loopIsArray text scan = true)
-    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
+    (metadata : ArrayBindings.ValidTable text context.arrayTable) :
     tailEquation read (arrayFrame text context scan catalog procedures) = headerContinuation read text context scan catalog procedures := by
   rw [← header_tail read text context scan catalog procedures metadata]
   have selected : (loopHeader text context.model scan).isArray = true := iterable
@@ -710,11 +780,36 @@ private theorem array_tail (read : Reader) (text : Source) (context : Native.Con
 
 private theorem counted_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata)
     (counted : loopIsArray text scan = false)
-    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
+    (metadata : ArrayBindings.ValidTable text context.arrayTable) :
     tailEquation read (countedFrame text context scan catalog procedures) = headerContinuation read text context scan catalog procedures := by
   rw [← header_tail read text context scan catalog procedures metadata]
   have selected : (loopHeader text context.model scan).isArray = false := counted
-  simp only [tailEquation, countedFrame, headerFrame, selected, Bool.false_eq_true, ↓reduceIte]
+  have boundsSame : (countedFrame text context scan catalog procedures).bounds =
+      (headerFrame text context scan catalog procedures).bounds := by
+    by_cases range : (loopRange text context.model scan).after ≠ 0
+    · have safe := loopRange_safe (show ArrayBindings.ValidTable text context.model.arrayTable from metadata) range
+      have nonempty : ¬ (loopRange text context.model scan).bounds.upper <
+          (loopRange text context.model scan).bounds.lower := by omega
+      change (if (loopRange text context.model scan).after ≠ 0 then _ else _) = _
+      rw [ite_eq_left range]
+      simp only [headerFrame, LoopHeader.bounds, loopHeader, counted, Bool.false_eq_true, ↓reduceIte]
+      rw [ite_eq_left range, ite_eq_left range]
+      simp only [loopEndpoint, Integer.loopBounds, Integer.Interval.singleton, Integer.Interval.isEmpty,
+        Int.lt_irrefl, decide_false, Bool.false_or, Bool.false_eq_true, ↓reduceIte,
+        Integer.Interval.normalize, nonempty]
+    · simp only [countedFrame, headerFrame, range, ↓reduceIte]
+  have definiteSame : (countedFrame text context scan catalog procedures).definite =
+      (headerFrame text context scan catalog procedures).definite := by
+    by_cases range : (loopRange text context.model scan).after ≠ 0
+    · have safe := loopRange_safe (show ArrayBindings.ValidTable text context.model.arrayTable from metadata) range
+      change (if (loopRange text context.model scan).after ≠ 0 then _ else _) = _
+      rw [ite_eq_left range]
+      simp only [headerFrame, loopHeader, counted, Bool.false_eq_true, ↓reduceIte]
+      rw [ite_eq_left range, ite_eq_left range]
+      simp [loopEndpoint, Integer.loopDefinite, Integer.Interval.singleton, Integer.Interval.isEmpty, safe.2]
+    · simp only [countedFrame, headerFrame, range, selected, Bool.false_eq_true, ↓reduceIte]
+  unfold tailEquation
+  rw [boundsSame, definiteSame]
   rfl
 
 private theorem commands_decompose :
@@ -725,7 +820,7 @@ attribute [local irreducible] tailCommands arrayCommands countedCommands
 
 theorem eval_equation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) (catalog : FunctionBindings.Metadata) (procedures : ProcedureBindings.Metadata)
     (count : scan.facts.count = context.scalarNames.length)
-    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
+    (metadata : ArrayBindings.ValidTable text context.arrayTable) :
     eval read text context scan catalog procedures = equation read text context scan catalog procedures := by
   rw [eval, commands_decompose]
   change (guard .invalidName).eval read (initial text context scan catalog procedures)

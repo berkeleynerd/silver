@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeCharacterDeclarations
+public import Silver.ComposeStoredArrays
 
 @[expose] public section
 
@@ -49,6 +50,17 @@ theorem declaration_sound (text : Source) (state : ParserState) (arguments : Boo
     obtain ⟨declaration, source⟩ := string_declaration_sound text state arguments stringPositive
     exact ⟨declaration, by simpa only [objectDeclarationAt, character, ↓reduceIte] using DeclarationAt.string noCharacter source⟩
 
+theorem declaration_stored {text arguments state next declaration}
+    (stored : state.StoredArrays) (parsed : DeclarationAt text arguments state declaration next) :
+    next.StoredArrays := by
+  cases parsed with
+  | string _ source =>
+      rw [← string_declaration_complete source]
+      exact stringDeclarationAt_stored text state arguments stored
+  | character source =>
+      rw [← character_declaration_complete source]
+      exact characterDeclarationAt_stored text state arguments stored
+
 theorem declaration_count {text arguments state next declaration}
     (parsed : DeclarationAt text arguments state declaration next) : next.names.length = state.names.length + 1 := by
   cases parsed with
@@ -57,11 +69,12 @@ theorem declaration_count {text arguments state next declaration}
 
 theorem declaration_shape {text arguments state next declaration}
     (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (parsed : DeclarationAt text arguments state declaration next) :
     ∃ bound, declaration.Valid state.names.shape bound ∧ next.names.shape = declaration.extend state.names.shape bound := by
   cases parsed with
-  | string _ source => exact string_declaration_shape normal static source
-  | character source => exact ⟨.fixed 1, character_declaration_shape normal static source⟩
+  | string _ source => exact string_declaration_shape normal static stored source
+  | character source => exact ⟨.fixed 1, character_declaration_shape normal static stored source⟩
 
 theorem declaration_normal {text arguments state next declaration}
     (normal : NamesNormal state.names) (parsed : DeclarationAt text arguments state declaration next) : NamesNormal next.names := by

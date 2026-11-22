@@ -47,7 +47,7 @@ theorem parameters_post {text state arguments}
     (accepted : (procedureParametersModel text state arguments).position ≠ 0) :
     ParametersPost state (procedureParametersModel text state arguments) := by
   have extension := (procedureParametersModel_valid text state arguments valid.base.procedures
-    valid.base.2.2.2.2.2.2.2.1).resolve_left accepted
+    valid.base.2.2.2.2.2.2.2.1 valid.base.arrayTypes).resolve_left accepted
   have fields := (procedureParametersModel_fields_or_rejected text state arguments).resolve_left accepted
   unfold ProcedureParameterFields at fields
   have pure := congrArg ParserState.pure fields
@@ -126,7 +126,7 @@ theorem prefix_native (text : Source) (readFrame frame : ParserState) (index dec
           (ProcedureBindings.parameter frame.procedures index) declarationCount :=
         ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1, typed, formal.1.1, formal.1, by
           simp only [Integer.Interval.isEmpty, Bool.not_eq_true', decide_eq_false_iff_not]
-          have nonempty := formal.2.2
+          have nonempty := formal.2.2.1
           omega⟩
       split
       · exact prefix_native text readFrame frame (index + 1) declarationCount

@@ -16,7 +16,7 @@ def SimpleObjectBoundsSafe (names : Compose.BindingEnvironment) (values : Values
 def CallActualObjectBoundsSafe (names : Compose.BindingEnvironment) (values : Values)
     (input : Source) (valid : Bool) (integers : Integer.Store) (booleans : Boolean.Store) :
     ScalarFunctions.Actual → Prop
-  | .integer _ => True
+  | .integer _ | .array _ _ => True
   | .boolean condition => condition.ObjectBoundsSafe names values input valid integers booleans
 
 def CallObjectBoundsSafe (names : Compose.BindingEnvironment) (values : Values)
@@ -49,10 +49,10 @@ theorem actuals_objectBoundsSafe {program : Program} {names : Compose.BindingEnv
             fun context summary present => certificates context summary (List.mem_append_left _ present)
           have first : CallActualObjectBoundsSafe names values input valid integers flags actual := by
             cases actual with
-            | integer _ => trivial
+            | integer _ | array _ _ => trivial
             | boolean condition =>
                 cases formal with
-                | integer bounds => simp [ScalarFunctions.Actual.check] at checks
+                | integer bounds | array domain => simp [ScalarFunctions.Actual.check] at checks
                 | boolean =>
                     exact condition_objectBounds_from_raw_certificates metadata state (origin (.boolean condition) (by simp))
                       (readable (.boolean condition) (by simp)).2 allowed checks.1 firstCertificates

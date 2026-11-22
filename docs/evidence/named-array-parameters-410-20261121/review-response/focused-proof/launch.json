@@ -1,0 +1,43 @@
+{
+  "started_at": "2026-11-22T10:46:54.921890+00:00",
+  "pid": 211561,
+  "pgid": 211561,
+  "session_id": "00c8c1e9-7bce-4a1d-ab7e-ed51f14666c2",
+  "command": [
+    "/home/agent/.local/bin/claude",
+    "--print",
+    "--model",
+    "claude-fable-5-2",
+    "--effort",
+    "max",
+    "--safe-mode",
+    "--strict-mcp-config",
+    "--permission-mode",
+    "dontAsk",
+    "--permission-prompts",
+    "none",
+    "--tools",
+    "Bash,Read,Glob,Grep,Write",
+    "--allowedTools",
+    "Bash,Read,Glob,Grep,Write",
+    "--add-dir",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-proof-review-pr412-5a4b0ad8ac",
+    "--add-dir",
+    "/home/canto/src/github.com/berkeleynerd/silver",
+    "--session-id",
+    "00c8c1e9-7bce-4a1d-ab7e-ed51f14666c2",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--name",
+    "Silver PR412 focused proof review"
+  ],
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/worktree",
+  "selected_model": "claude-fable-5-2",
+  "selected_effort": "max",
+  "inherited_cpu_affinity": [
+    0,
+    1
+  ],
+  "effort_environment": {}
+}

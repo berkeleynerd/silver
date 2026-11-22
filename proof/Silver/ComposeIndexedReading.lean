@@ -10,7 +10,7 @@ open Named Bindings
 /-- The source judgment retains each scalar source tree, its inferred interval,
 the actual selected String metadata and the shared operand count. -/
 structure IndexedReading (text : Source) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating element : Bool) (position : Nat)
     (info : BindingInfo) (lower upper : Integer.Expr) : Prop where
   targetPositive : (indexedParts text position names scalarNames arrays initials elaborating element).target ≠ 0
@@ -20,7 +20,7 @@ structure IndexedReading (text : Source) (names : BindingEnvironment)
   unmasked : ScalarExpression.lookup text scalarNames
     (indexedParts text position names scalarNames arrays initials elaborating element).first
     (indexedParts text position names scalarNames arrays initials elaborating element).after = 0
-  lowerSource : ScalarExpression.At text scalarNames
+  lowerSource : ScalarExpression.ArrayGrammar.At text scalarNames
     (fixedAfter text (indexedParts text position names scalarNames arrays initials elaborating element).after "(" false)
     lower (indexedParts text position names scalarNames arrays initials elaborating element).lower
     (arrays := arrays) (initials := initials) (elaborating := elaborating)
@@ -30,7 +30,7 @@ structure IndexedReading (text : Source) (names : BindingEnvironment)
     (indexedParts text position names scalarNames arrays initials elaborating element).lower.operands ≠ maxExpressionOperands ∧
     info.firstIndex ≤ (indexedParts text position names scalarNames arrays initials elaborating element).lower.bounds.lower ∧
     (indexedParts text position names scalarNames arrays initials elaborating element).lower.bounds.upper ≤ info.lastIndex
-  upperSource : element = false → ScalarExpression.At text scalarNames
+  upperSource : element = false → ScalarExpression.ArrayGrammar.At text scalarNames
     (fixedAfter text (indexedParts text position names scalarNames arrays initials elaborating element).lower.after ".." false)
     upper (indexedParts text position names scalarNames arrays initials elaborating element).upper
     (arrays := arrays) (initials := initials) (elaborating := elaborating)
@@ -63,7 +63,7 @@ def indexedValue (parts : IndexedParts) (element : Bool) : ValueResult :=
       parts.target, parts.lower.operands + parts.upper.operands + 1, parts.lower.bounds, parts.upper.bounds⟩
 
 theorem indexed_complete {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating element : Bool} {position : Nat}
     {info : BindingInfo} {lower upper : Integer.Expr}
     (parsed : IndexedReading text names scalarNames arrays initials elaborating element position info lower upper) :
@@ -92,7 +92,7 @@ theorem indexed_complete {text : Source} {names : BindingEnvironment}
         parsed.guardedStatic rfl]
 
 theorem indexed_sound {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating element : Bool} {position : Nat}
     (accepted : (indexedAt text position names scalarNames arrays initials elaborating element).after ≠ 0) :
     ∃ info lower upper, IndexedReading text names scalarNames arrays initials elaborating element position info lower upper := by
@@ -105,9 +105,9 @@ theorem indexed_sound {text : Source} {names : BindingEnvironment}
     obtain ⟨_, _, info, present, _⟩ := lookupName_found ready.1
     have present' : names.get (indexedParts text position names scalarNames arrays initials elaborating element).target = some info := present
     simp only [present', Option.getD_some] at ready
-    obtain ⟨lower, lowerSource⟩ := ScalarExpression.read_sound
+    obtain ⟨lower, lowerSource⟩ := ScalarExpression.ArrayGrammar.read_sound
       (fixedAfter_result_bound text _ "(" false (by decide)) ready.2.2.2.2.1
-    have source : ScalarExpression.At text scalarNames
+    have source : ScalarExpression.ArrayGrammar.At text scalarNames
         (fixedAfter text (indexedParts text position names scalarNames arrays initials elaborating element).after "(" false)
         lower (indexedParts text position names scalarNames arrays initials elaborating element).lower
         (arrays := arrays) (initials := initials) (elaborating := elaborating) := lowerSource
@@ -135,9 +135,9 @@ theorem indexed_sound {text : Source} {names : BindingEnvironment}
               have progress := bounds.1
               change position < fixedAfter text (indexedParts text position names scalarNames arrays initials elaborating false).upper.after ")" false at progress
               simp [zero, fixedAfter] at progress
-            obtain ⟨upper, upperSource⟩ := ScalarExpression.read_sound
+            obtain ⟨upper, upperSource⟩ := ScalarExpression.ArrayGrammar.read_sound
               (fixedAfter_result_bound text _ ".." false (by decide)) upperPositive
-            have upperSource' : ScalarExpression.At text scalarNames
+            have upperSource' : ScalarExpression.ArrayGrammar.At text scalarNames
                 (fixedAfter text (indexedParts text position names scalarNames arrays initials elaborating false).lower.after ".." false)
                 upper (indexedParts text position names scalarNames arrays initials elaborating false).upper
                 (arrays := arrays) (initials := initials) (elaborating := elaborating) := upperSource
@@ -150,13 +150,13 @@ theorem indexed_sound {text : Source} {names : BindingEnvironment}
             omega
 
 theorem indexed_check {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {info : BindingInfo} {lower upper : Integer.Expr} (normal : NamesNormal names)
     (parsed : IndexedReading text names scalarNames arrays initials elaborating true position info lower upper) :
     (Character.Expr.indexed
       (indexedParts text position names scalarNames arrays initials elaborating true).target info.firstIndex lower).check
-      names.shape.fixedLengths (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
+      names.shape.fixedLengths (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) = true := by
   have metadata := (normal.typed _ _ parsed.selected).2 parsed.fixed
   have bounds := parsed.elementBounds rfl
   have nonempty := parsed.lowerNonempty
@@ -166,7 +166,7 @@ theorem indexed_check {text : Source} {names : BindingEnvironment}
   omega
 
 theorem slice_check {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {info : BindingInfo} {lower upper : Integer.Expr} (normal : NamesNormal names)
     (parsed : IndexedReading text names scalarNames arrays initials elaborating false position info lower upper) :
@@ -183,14 +183,14 @@ theorem slice_check {text : Source} {names : BindingEnvironment}
   rcases bounds.2.2.1 with empty | contained <;> omega
 
 theorem indexed_unique {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating element : Bool} {position : Nat}
     {leftInfo rightInfo : BindingInfo} {leftLower leftUpper rightLower rightUpper : Integer.Expr}
     (left : IndexedReading text names scalarNames arrays initials elaborating element position leftInfo leftLower leftUpper)
     (right : IndexedReading text names scalarNames arrays initials elaborating element position rightInfo rightLower rightUpper) :
     leftInfo = rightInfo ∧ leftLower = rightLower ∧ (element = false → leftUpper = rightUpper) := by
   exact ⟨Option.some.inj (left.selected.symm.trans right.selected),
-    (ScalarExpression.at_unique left.lowerSource right.lowerSource).1,
-    fun slice => (ScalarExpression.at_unique (left.upperSource slice) (right.upperSource slice)).1⟩
+    (ScalarExpression.ArrayGrammar.at_unique left.lowerSource right.lowerSource).1,
+    fun slice => (ScalarExpression.ArrayGrammar.at_unique (left.upperSource slice) (right.upperSource slice)).1⟩
 
 end Silver.Compose

@@ -29,6 +29,9 @@ structure HeaderEquations (calls : Calls) : Prop where
   functionType : ∀ text, FunctionBindings.Native.ValidText text → ∀ state position,
     StateInput text state → position ≤ text.length + 1 →
     calls .functionType text state position = functionTypeBody.eval calls ({text, state, position} : Frame).locals
+  formalType : ∀ text, FunctionBindings.Native.ValidText text → ∀ state position,
+    StateInput text state → position ≤ text.length + 1 →
+    calls .formalType text state position = formalTypeBody.eval calls ({text, state, position} : Frame).locals
   parameterStep : ∀ text, FunctionBindings.Native.ValidText text → ∀ state arguments,
     StateInput text state →
     calls .parameterStep text state arguments = parameterStepBody.eval calls ({text, state, arguments} : Frame).locals
@@ -64,6 +67,8 @@ structure HeaderContracts (calls : Calls) : Prop where
 structure HeaderImports (calls : Calls) : Prop where
   functionType : ∀ text, FunctionBindings.Native.ValidText text → ∀ state position,
     StateInput text state → position ≤ text.length + 1 → TypeImports calls text state position
+  formalType : ∀ text, FunctionBindings.Native.ValidText text → ∀ state position,
+    StateInput text state → position ≤ text.length + 1 → FormalTypeImports calls text state position
   step : ∀ text, FunctionBindings.Native.ValidText text → ∀ state arguments,
     StateInput text state → StepImports calls text state arguments
   localStep : ∀ text, FunctionBindings.Native.ValidText text → ∀ state arguments,
@@ -77,6 +82,13 @@ theorem interpreted_functionType (calls : Calls) (equations : HeaderEquations ca
     calls .functionType text state position = functionTypeAt text state position := by
   rw [equations.functionType text textValid state position valid bound]
   exact functionType_imports calls text state position (imports.functionType text textValid state position valid bound)
+
+theorem interpreted_formalType (calls : Calls) (equations : HeaderEquations calls) (imports : HeaderImports calls)
+    (text : Source) (textValid : FunctionBindings.Native.ValidText text) (state : ParserState) (position : Nat)
+    (valid : StateInput text state) (bound : position ≤ text.length + 1) :
+    calls .formalType text state position = formalTypeAt text state position := by
+  rw [equations.formalType text textValid state position valid bound]
+  exact formalType_imports calls text state position (imports.formalType text textValid state position valid bound)
 
 theorem interpreted_parameterStep (calls : Calls) (equations : HeaderEquations calls) (imports : HeaderImports calls)
     (text : Source) (textValid : FunctionBindings.Native.ValidText text) (state : ParserState) (arguments : Bool)

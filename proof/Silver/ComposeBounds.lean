@@ -101,12 +101,12 @@ theorem model_fixed_advances (text : Source) (position : Nat) (spelling : String
       omega
     · contradiction
 
-theorem model_callAfter_valid (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata} (position : Nat)
+theorem model_callAfter_valid (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table} (position : Nat)
     (operation : Names.Operation) (bound : ValidCursor text position) (subtypeHidden : Bool := false) (booleans : BooleanBindings.Environment := []) :
     ValidCursor text (callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) text names position operation) :=
   Names.operationAfter_bound text position operation _ bound
 
-theorem model_callAfter_advances (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata} (position : Nat)
+theorem model_callAfter_advances (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table} (position : Nat)
     (operation : Names.Operation) {subtypeHidden : Bool} {booleans : BooleanBindings.Environment} (bound : ValidCursor text position)
     (nonzero : callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) text names position operation ≠ 0) :
     position < callAfter (scalarNames := scalarNames) (arrays := arrays) (subtypeHidden := subtypeHidden) (booleans := booleans) text names position operation :=
@@ -152,7 +152,7 @@ theorem image_lengthBounds_bounded (bounds : Integer.Interval) (bounded : bounds
 
 theorem model_image_valid (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (arrays : ArrayBindings.Table := {}) (initials : ArrayBindings.Initials := [])
     (elaborating : Bool := false) :
     ValidValue text (imageAt text position names scalarNames integerHidden arrays initials elaborating) := by
   by_cases rejected : (imageAt text position names scalarNames integerHidden arrays initials elaborating).after = 0
@@ -176,7 +176,7 @@ theorem model_image_valid (text : Source) (position : Nat) (names : BindingEnvir
     split <;> simp only <;> unfold maxSourceLength maxBindings <;> omega
 
 theorem model_indexed_valid (text : Source) (position : Nat) (names : BindingEnvironment)
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating element : Bool} (namesValid : ValidNames text names) :
     ValidValue text (indexedAt text position names scalarNames arrays initials elaborating element) := by
   have following : (indexedParts text position names scalarNames arrays initials elaborating element).following ≤ text.length + 1 :=
@@ -219,7 +219,7 @@ theorem model_indexed_valid (text : Source) (position : Nat) (names : BindingEnv
 
 theorem model_value_valid (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (namesValid : ValidNames text names) :
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} (namesValid : ValidNames text names) :
     ValidValue text (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
   unfold valueAt
   dsimp only
@@ -241,7 +241,7 @@ theorem model_value_valid (text : Source) (valid : ValidText text) (position : N
 
 theorem value_source_advances {text : Source} {position : Nat} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {value : Operand} {result : ValueResult} (bound : ValidCursor text position)
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
@@ -267,7 +267,7 @@ theorem value_source_advances {text : Source} {position : Nat} {names : BindingE
   | image _ _ _ source => exact source.following
 
 theorem model_value_advances (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (bound : ValidCursor text position) (nonzero : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
     position < (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after := by
   obtain ⟨value, parsed⟩ := value_sound text position names nonzero
@@ -278,7 +278,7 @@ theorem model_invalid_scan_valid (text : Source) : ValidScan text invalidExpress
 
 theorem model_scan_valid (text : Source) (valid : ValidText text)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState)
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState)
     (namesValid : ValidNames text names) (scanValid : ValidScan text scan) :
     ValidScan text (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan) ∧
       ((expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).position = 0 ∨
@@ -337,7 +337,7 @@ theorem model_result_valid (text : Source) (scan : ExpressionState)
 
 theorem model_tail_valid (text : Source) (valid : ValidText text)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState)
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState)
     (namesValid : ValidNames text names) (scanValid : ValidScan text scan) :
     ValidResult text (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan) := by
   rw [expressionTail]
@@ -358,14 +358,14 @@ termination_by text.length + 1 - scan.position
 
 theorem model_expression_valid (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (bound : ValidCursor text position)
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} (bound : ValidCursor text position)
     (namesValid : ValidNames text names) : ValidResult text (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
   apply model_tail_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names _ namesValid
   exact ⟨bound, by simp, by simp, by simp, by simp,
     by change position = 0 ∨ 0 < position; omega, by simp⟩
 
 theorem model_scan_completed_position (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (scan : ExpressionState) (finished : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).complete = true) :
     (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).position = scan.position := by
   unfold expressionStep at finished ⊢
@@ -376,7 +376,7 @@ theorem model_scan_completed_position (text : Source) (names : BindingEnvironmen
 /-- Even outside the verified machine domain, successful recursion cannot move
 backwards: completed steps retain the cursor and recursive calls strictly advance. -/
 theorem model_tail_nondecreasing (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState) :
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState) :
     (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).after = 0 ∨
       scan.position ≤ (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).after := by
   rw [expressionTail]
@@ -404,7 +404,7 @@ theorem model_fixed_input_nonzero (text : Source) (position : Nat) (spelling : S
   simp [fixedAfter, zero] at nonzero
 
 theorem model_expression_input_nonzero (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (nonzero : (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) : position ≠ 0 := by
   intro zero
   subst position

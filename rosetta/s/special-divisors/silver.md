@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by small declared ranges, the reverse function needs no loop or recursion so it has no termination obligation, and the only loops are for loops with static bounds, so every check follows from types and one visible guard.
 
-Position 331 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 333 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

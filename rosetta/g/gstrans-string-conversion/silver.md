@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks come from ranged subtypes, a capacity guard before each buffer append and for loops in procedures, so no annotations are needed and the recursive encoder in the existing solution becomes simple iteration. Error checking is expressed as an explicit rejection outcome rather than a silently altered result.
 
-Position 799 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 801 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

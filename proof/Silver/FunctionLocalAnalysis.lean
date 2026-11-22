@@ -47,7 +47,8 @@ theorem FunctionLocalsAt.static_flags {text arguments state final integers boole
 
 theorem FunctionLocalsAt.local_analysis {text arguments state final integers booleans checks booleanChecks}
     (source : FunctionLocalsAt text arguments state integers booleans checks booleanChecks final)
-    (valid : ValidState text state) (empty : state.scalarNames = []) :
+    (valid : ValidState text state) (empty : state.scalarNames = [])
+    (stored : state.StoredArrays) :
     functionScalarAnalysis final final.scalarNames.length = Integer.Analysis.ofDeclarations integers := by
   have elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames := by
     rw [empty]
@@ -55,7 +56,7 @@ theorem FunctionLocalsAt.local_analysis {text arguments state final integers boo
   have objects : ScalarExpression.objectBindings final.scalarNames = Integer.elaborate [] integers := by
     simpa only [empty, ScalarExpression.objectBindings, ScalarExpression.constants,
       List.map_nil, List.nil_append] using
-      source.scalar_objects elaborated valid.2.2.2.2.2.1.1 valid.2.2.2.2.2.2.2.1
+      source.scalar_objects elaborated valid.2.2.2.2.2.1.1 valid.2.2.2.2.2.2.2.1 stored
   have flags := source.static_flags
   simp only [empty, List.map_nil] at flags
   have ranges := ScalarExpression.objectBindings_ranges final.scalarNames
@@ -121,9 +122,10 @@ theorem FunctionLocalsAt.initializers_checked
   have ready : ScalarMetadata.HeaderReady state.scalarNames := by
     rw [emptyIntegers]
     exact ScalarMetadata.headerReady_empty
-  have integersChecked := source.scalars_checked static valid.2.2.2.2.2.1.1 valid.2.2.2.2.2.2.2.1
+  have stored : state.StoredArrays := closed.stored
+  have integersChecked := source.scalars_checked static valid.2.2.2.2.2.1.1 valid.2.2.2.2.2.2.2.1 stored
   have rawChecked := source.initializer_checks normal valid ready
-  have booleansChecked := source.booleans_valid normal valid ready static
+  have booleansChecked := source.booleans_valid normal valid ready static stored
   have transported := (source.boolean_checks_independent closed state.names.shape emptyShape
     Integer.Analysis.empty (Integer.Analysis.ofDeclarations integers)
     ⟨(booleanDeclarationFacts state).path, Integer.emptyRanges⟩

@@ -22,9 +22,9 @@ theorem ProcedureCallAt.meaning {text context scan catalog call result}
     (valid : ProcedureBindings.ValidMetadata text catalog) :
     call.Readable context.hasArguments context.names.shape
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-    call.check (ProcedureBindings.catalogSignatures catalog) context.names.shape context.analysis (context.flow scan.facts)
+    call.check (ProcedureBindings.catalogSignatures catalog context.arrayTypes) context.names.shape context.analysis (context.flow scan.facts)
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = true ∧
-    call.after (ProcedureBindings.catalogSignatures catalog) (context.flow scan.facts) = context.flow result.facts := by
+    call.after (ProcedureBindings.catalogSignatures catalog context.arrayTypes) (context.flow scan.facts) = context.flow result.facts := by
   have inside : call.callee ≤ catalog.items.length := by
     rw [source.callee]
     exact procedureCalleeAt_bound ..
@@ -42,8 +42,8 @@ theorem ProcedureCallAt.meaning {text context scan catalog call result}
     (fixedAfter_result_bound text _ "(" false (by decide))
   rw [count] at arguments
   obtain ⟨bound, bindings, readable, inputs, outputs, changed⟩ := arguments.binding
-  have resolved : call.resolve (ProcedureBindings.catalogSignatures catalog) =
-      some ⟨ProcedureBindings.signatureModel catalog (ProcedureBindings.signature catalog call.callee), bound⟩ := by
+  have resolved : call.resolve (ProcedureBindings.catalogSignatures catalog context.arrayTypes) =
+      some ⟨ProcedureBindings.signatureModel catalog (ProcedureBindings.signature catalog call.callee) context.arrayTypes, bound⟩ := by
     simp only [Call.resolve, ProcedureBindings.catalogSignatures_lookup positive inside, Option.bind_some,
       ProcedureBindings.signatureModel, bindings, Option.map_some]
   refine ⟨readable, ?_, ?_⟩

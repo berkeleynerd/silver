@@ -1,5 +1,150 @@
 # Session memory
 
+## 2026-11-22 — PR #412 merge authorized
+
+After the final readiness assessment, the owner instructed **“Please merge.”**
+This authorizes merging [PR #412](https://github.com/berkeleynerd/silver/pull/412),
+whose [completed review response](reviews/review-pr412-claude-response-20261122.md)
+and final validation are recorded at `f71304cef2`. This authorization entry
+changes no validated production, proof or test inputs. Complete the linked
+issue, milestone and board bookkeeping with the merge. The earlier merge holds
+for this PR are superseded; other holds remain unchanged. Ravenscar foundations
+remain the planned successor, with implementation requiring its own instruction.
+CLI memory was not updated.
+
+## 2026-11-22 — Ravenscar foundations prioritized; Jorvik reassessment next
+
+The owner instructed **“Let's update the near-term roadmap to prioritize these
+5 items and ravenscar profile support. The next item should then be re-asses
+jorvik as the next item.”** This authorizes the planning update and priority,
+not feature implementation or merge. Finish PR #412's active review/validation
+closeout first. The [roadmap](../roadmap.md#ravenscar-priority--2026-11-22) and
+[bounded plan](ravenscar-tasking-plan.md) record the order and assurance boundaries.
+
+[Proposed milestone 28](https://github.com/berkeleynerd/silver/milestone/28) is the
+one provisional successor: #416 packages/library units, #417 protected state,
+#418 static tasks/persistent loops, #419 protected entries, #420 clock/absolute
+delay, with #421 profile/runtime feasibility upfront and complete integration at
+the end. All implementation issues remain Backlog. Immediately after Ravenscar
+delivery, [#422](https://github.com/berkeleynerd/silver/issues/422) reassesses Jorvik
+using actual evidence/cost; no second implementation milestone is selected.
+
+This priority supersedes waiting for the whole Rosetta natural surface before
+tasking. The unchanged Oracle permits the proposed compiler-owned profile
+configuration route, applied identically to original author units for proof/build;
+no author contracts, hidden annotated copies or weakened guarantees are selected.
+Persistent task safety does not claim hard deadlines or fairness. No new feature
+is admitted by this plan. PR #385 stays held, #381/#382 and #398 remain deferred,
+and Worca remains stopped. Earlier dated records retain their historical scope.
+CLI memory was not updated.
+
+## 2026-11-22 — External PR #412 review response and focused proof follow-up
+
+The owner agreed to the proposed response to the first Claude review and
+instructed **“Agree. Please kick that off in the background while we address the
+current issues.”** This authorizes the focused Claude Fable 5.2 / Max proof pass
+and the existing PR's callable stack-test, timeout-cleanup, manifest and record
+repairs. The [response record](reviews/review-pr412-claude-response-20261122.md)
+tracks every finding, validation and the separate proof-review coverage.
+
+The follow-up reviews fixed source `5a4b0ad8ac` through full-domain array/frame/call
+arguments, native preconditions and imported meanings, the safety and automatic
+discharge chain, and feature-local report capacity. Test/record repairs proceed
+alongside it under the host's shared eight-CPU ceiling. Preserve completed native
+and Lean evidence when its actual inputs remain unchanged. No merge, successor
+feature, Worca action or production worker-policy redesign is authorized. The
+conservative all-host CPU ceiling and serial application execution remain for
+this response; allocation-aware application workers remain a separate follow-up.
+The [completed response](reviews/review-pr412-claude-response-20261122.md) records
+the focused review assessment and final successful regression on November 22.
+PR #412 is technically ready; this status does not authorize merge or successor
+implementation. Unrelated root edits and caches are preserved. CLI memory was
+not updated.
+
+## 2026-11-22 — Named constrained Integer-array PR ready for owner review
+
+The lead accepted and published the local closeout `959fe0742a` and
+the [independent delivery confirmation](reviews/review-named-array-delivery-20261122.md)
+with its record corrections as `9c1115ee80`. [PR #412](https://github.com/berkeleynerd/silver/pull/412)
+is ready for review. Complete native/Lean assurance, regression coverage and
+the final Rosetta checks remain those of the November 21 validation checkpoint;
+the closing review introduced no new implementation or proof input.
+
+Issues #410, #413, #414 and #415 remain open and In review until the authorized
+merge. The precise construct's Stage is now 1; all other existing stage fields
+were checked and retain their values and statuses. Broad arrays #12 remains
+Backlog. All validation jobs have finished under the host's eight-CPU allocation.
+No merge, successor feature or Worca action is authorized. PR #385 remains held.
+CLI memory was not updated; these checked-in records retain the handoff.
+
+## 2026-11-21 — Named constrained Integer-array capability delivered locally
+
+Authorized #410 implementation, complete Linux native/Lean/source assurance,
+final regression coverage and scoped independent reviews are complete at their
+recorded scopes. The [delivery record](named-array-parameters.md#delivery-assurance-and-validation)
+links the exact implementation endpoint, failed attempts/repairs, full 785-test
+suite, 15 proof-reader reruns, final deterministic render and 12 Rosetta checks.
+Named constrained Integer arrays, read-only nominal inputs in existing functions
+and procedures, and selected static bounds queries are supported; Dot product
+and Horner gain faithful callable mappings. Broad/writable/returned/
+unconstrained arrays and Boolean named arrays/queries remain excluded.
+
+The delivery patch is prepared locally for the lead's review and accompanying
+PR #412 preparation. This entry does not assert publication, PR readiness or
+merge. The lead owns issue/stage reconciliation for #410/#413/#414/#415. No merge,
+Worca, successor feature or Oracle amendment is authorized; PR #385 remains held.
+November 21 selection/review dates retain their history. CLI memory was not
+updated.
+
+## 2026-11-21 — Resume after the eight-CPU microVM restart
+
+The owner instructed **“We are back. Please resume.”** Resume authorized #410
+implementation, validation, independent review and draft PR #412 preparation.
+Linux now detects eight CPUs; process affinity and the effective cpuset are guest
+CPUs 0–7, matching the managed budget. The
+[resource evidence](evidence/host-eight-cpu-allocation-20261121.json) records the
+post-reboot check. The pause is lifted; the eight-CPU ceiling remains in force.
+
+The final pre-pause native run proved all obligations at the tool level but
+failed Silver's strict audit on a new operator-reassociation advisory. Its failed
+outcome remains preserved alongside the failed regression run. The corrected
+native audit and complete Lean/source checkpoint now pass; the
+[capability record](named-array-parameters.md) retains their exact scopes,
+integration repairs and independent reviews. Final regression coverage and
+Rosetta delivery remain in progress.
+No PR merge, Worca, successor feature or Oracle amendment is authorized. Existing
+worktrees, caches and unrelated root records remain preserved. CLI memory was
+not updated.
+
+## 2026-11-21 — Eight-CPU host allocation and pause after current jobs
+
+The owner directed use of this host's eight-CPU allocation, superseding the
+2026-11-05 unrestricted-core instruction for this host. The current pre-reboot
+Linux sandbox reports 22 CPUs; that raw count is not the allocation. All
+GNATprove/build/Lean workers and Lean process threads must fit the smaller
+effective allocation and shared managed reservations. An OS cpuset or affinity
+must cover every existing thread and all descendants; select guest CPU IDs from
+the allowed guest mask rather than physical host numbers. Where explicit counts
+reduce a proof command's automatic allocation, retain the exact reason
+`host's eight-CPU allocation`.
+
+The owner authorized the smallest runner/guidance correction while existing
+validation jobs finish; it may accompany any PR. Preserve productive jobs. The
+already-launched native `-j10` flag cannot be changed in place without
+interruption: report that exception and its separately verified CPU confinement
+honestly, rather than claiming a runtime flag change. The owner still wants a
+pause once existing validation jobs finish; no new feature or proof work starts.
+After the VM reboot, confirm eight-CPU detection and cpuset consistency before
+resuming and record the result. That reboot verification remains pending.
+
+The [resource review](reviews/review-eight-cpu-limit-20261121.md) links the
+observed enforcement, flag exceptions, focused tests and remaining validation.
+
+This work is tracked with [#410](https://github.com/berkeleynerd/silver/issues/410).
+It does not authorize Worca, an Oracle amendment or a PR merge. Unrelated root
+session-memory edits and feature worktrees remain preserved. CLI memory was not
+updated.
+
 ## 2026-11-21 — Named constrained Integer-array parameters selected
 
 The owner instructed **“Proceed”** after the recommendation of one new language

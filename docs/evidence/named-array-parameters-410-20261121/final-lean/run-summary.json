@@ -1,0 +1,188 @@
+[
+  {
+    "run_id": "20261121T210604-4b2b25ed79cf",
+    "outcome": "failure",
+    "scope": "complete",
+    "workers": 6,
+    "duration_seconds": 960.76983362,
+    "started_at": "2026-11-21T21:06:05.639082+00:00",
+    "finished_at": "2026-11-21T21:22:06.408817+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 954.892,
+        "exit_code": 1
+      }
+    ]
+  },
+  {
+    "run_id": "20261121T212510-16882cbcff36",
+    "outcome": "failure",
+    "scope": [
+      "Silver.ComposeBooleanDeclarationCandidate",
+      "Silver.ComposeSourceChecks",
+      "Silver.PredicateBodySourceCandidate",
+      "Silver.PredicateFunctionFlags",
+      "Silver.PredicateSelectors"
+    ],
+    "workers": 6,
+    "duration_seconds": 873.906536079,
+    "started_at": "2026-11-21T21:25:11.548827+00:00",
+    "finished_at": "2026-11-21T21:39:45.506482+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 868.065,
+        "exit_code": 1
+      }
+    ]
+  },
+  {
+    "run_id": "20261121T214023-0f622151717c",
+    "outcome": "success",
+    "scope": [
+      "Silver.ComposeBooleanDeclarationCandidate",
+      "Silver.ComposeSourceChecks",
+      "Silver.PredicateBodySourceCandidate",
+      "Silver.PredicateFunctionFlags",
+      "Silver.PredicateSelectors"
+    ],
+    "workers": 6,
+    "duration_seconds": 23.582569182,
+    "started_at": "2026-11-21T21:40:24.838947+00:00",
+    "finished_at": "2026-11-21T21:40:48.421719+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 5.81,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "elapsed_seconds": 4.828,
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "run_id": "20261121T214156-37d0db242e83",
+    "outcome": "failure",
+    "scope": "complete",
+    "workers": 6,
+    "duration_seconds": 14.224196529,
+    "started_at": "2026-11-21T21:41:58.154913+00:00",
+    "finished_at": "2026-11-21T21:42:12.379180+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 8.491,
+        "exit_code": 1
+      }
+    ]
+  },
+  {
+    "run_id": "20261121T214735-7e1a499a3d93",
+    "outcome": "success",
+    "scope": [
+      "Silver.ProcedureMetadataMeaning",
+      "Silver.ProcedureMetadataSourceBridge"
+    ],
+    "workers": 6,
+    "duration_seconds": 23.88318738,
+    "started_at": "2026-11-21T21:47:36.203662+00:00",
+    "finished_at": "2026-11-21T21:48:00.087146+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 5.488,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "elapsed_seconds": 5.549,
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "run_id": "20261121T214832-3b05e086bcb8",
+    "outcome": "failure",
+    "scope": "complete",
+    "workers": 6,
+    "duration_seconds": 26.771405503,
+    "started_at": "2026-11-21T21:48:33.336948+00:00",
+    "finished_at": "2026-11-21T21:49:00.108402+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 10.365,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "elapsed_seconds": 5.957,
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "run_id": "20261121T215031-4717b14d556a",
+    "outcome": "success",
+    "scope": [
+      "Silver.FunctionArrayFrameValidity"
+    ],
+    "workers": 6,
+    "duration_seconds": 19.189317686,
+    "started_at": "2026-11-21T21:50:32.752045+00:00",
+    "finished_at": "2026-11-21T21:50:51.941630+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 3.771,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "elapsed_seconds": 2.76,
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "run_id": "20261121T215140-529c8575a3d7",
+    "outcome": "failure",
+    "scope": "complete",
+    "workers": 6,
+    "duration_seconds": 11.566432612,
+    "started_at": "2026-11-21T21:51:41.861935+00:00",
+    "finished_at": "2026-11-21T21:51:53.428447+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 5.806,
+        "exit_code": 1
+      }
+    ]
+  },
+  {
+    "run_id": "20261121T215449-12cec2fc5976",
+    "outcome": "success",
+    "scope": "complete",
+    "workers": 6,
+    "duration_seconds": 27.798019413,
+    "started_at": "2026-11-21T21:54:50.623907+00:00",
+    "finished_at": "2026-11-21T21:55:18.422151+00:00",
+    "phases": [
+      {
+        "phase": "build",
+        "elapsed_seconds": 9.376,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "elapsed_seconds": 5.838,
+        "exit_code": 0
+      }
+    ]
+  }
+]

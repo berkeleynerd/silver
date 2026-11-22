@@ -1,0 +1,302 @@
+[
+  {
+    "run_id": "20261122T104832-971d15ff5a61",
+    "started": {
+      "allocation": {
+        "workers": {
+          "actual": 1,
+          "automatic": 6,
+          "requested": 1
+        }
+      },
+      "available_cpus": 8,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_samples.py",
+        "-k",
+        "MaximumExpressionProcessTests"
+      ],
+      "cpu_affinity": [
+        2
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "event": "started",
+      "evidence": [],
+      "expensive": false,
+      "fingerprint": "60681afb785dedf8642fd0ab47257a624431089f5d3c42941639d5a57c025c8c",
+      "host": "linux-x86_64",
+      "inputs": {
+        "arguments": [
+          "-p",
+          "test_samples.py",
+          "-k",
+          "MaximumExpressionProcessTests"
+        ],
+        "mode": "test",
+        "scope": [
+          "-p",
+          "test_samples.py",
+          "-k",
+          "MaximumExpressionProcessTests"
+        ]
+      },
+      "kind": "test",
+      "machine": "silver",
+      "monotonic_ns": 57759022138836,
+      "pid": 212306,
+      "reason": "",
+      "requested_workers": 1,
+      "resource_reason": "host's eight-CPU allocation",
+      "resource_reductions": [
+        "workers"
+      ],
+      "resources": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-timeout-repair-412/.silver/linux-x86_64",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-timeout-repair-412/.silver/linux-x86_64"
+        }
+      ],
+      "run_id": "20261122T104832-971d15ff5a61",
+      "schema": 1,
+      "scope": [
+        "-p",
+        "test_samples.py",
+        "-k",
+        "MaximumExpressionProcessTests"
+      ],
+      "task": "pr412-c412-i6-timeout-cleanup",
+      "utc": "2026-11-22T10:48:33.267072+00:00",
+      "workers": 1,
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-timeout-repair-412",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-timeout-repair-412"
+      }
+    },
+    "finished": {
+      "duration_seconds": 2.854619871,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104832-971d15ff5a61/native.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104832-971d15ff5a61/native.log"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [],
+      "monotonic_ns": 57761876681660,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261122T104832-971d15ff5a61",
+      "utc": "2026-11-22T10:48:36.121617+00:00"
+    }
+  },
+  {
+    "run_id": "20261122T104947-be031f0bee17",
+    "started": {
+      "allocation": {
+        "workers": {
+          "actual": 6,
+          "automatic": 6,
+          "requested": 6
+        }
+      },
+      "available_cpus": 8,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_array_parameters.py",
+        "-k",
+        "test_source_limit_loop_shapes_complete_the_native_route"
+      ],
+      "cpu_affinity": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "event": "started",
+      "evidence": [],
+      "expensive": false,
+      "fingerprint": "1805fa95a3d4ee401a2e29100e1c2ab3d686bc70d2b1194f10c7ae494348ffb2",
+      "host": "linux-x86_64",
+      "inputs": {
+        "arguments": [
+          "-p",
+          "test_array_parameters.py",
+          "-k",
+          "test_source_limit_loop_shapes_complete_the_native_route"
+        ],
+        "mode": "test",
+        "scope": [
+          "-p",
+          "test_array_parameters.py",
+          "-k",
+          "test_source_limit_loop_shapes_complete_the_native_route"
+        ]
+      },
+      "kind": "test",
+      "machine": "silver",
+      "monotonic_ns": 57834556156706,
+      "pid": 212843,
+      "reason": "",
+      "requested_workers": 6,
+      "resource_reason": "host's eight-CPU allocation",
+      "resource_reductions": [],
+      "resources": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64"
+        }
+      ],
+      "run_id": "20261122T104947-be031f0bee17",
+      "schema": 1,
+      "scope": [
+        "-p",
+        "test_array_parameters.py",
+        "-k",
+        "test_source_limit_loop_shapes_complete_the_native_route"
+      ],
+      "task": "pr412-callable-stack-repair",
+      "utc": "2026-11-22T10:49:48.801090+00:00",
+      "workers": 6,
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410"
+      }
+    },
+    "finished": {
+      "duration_seconds": 43.3958193,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104947-be031f0bee17/native.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104947-be031f0bee17/native.log"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [],
+      "monotonic_ns": 57877951815645,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261122T104947-be031f0bee17",
+      "utc": "2026-11-22T10:50:32.196750+00:00"
+    }
+  },
+  {
+    "run_id": "20261122T105339-12d0cd057611",
+    "started": {
+      "allocation": {
+        "workers": {
+          "actual": 1,
+          "automatic": 6,
+          "requested": 1
+        }
+      },
+      "available_cpus": 8,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_samples.py",
+        "-k",
+        "MaximumExpressionProcessTests"
+      ],
+      "cpu_affinity": [
+        2
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "event": "started",
+      "evidence": [],
+      "expensive": false,
+      "fingerprint": "60681afb785dedf8642fd0ab47257a624431089f5d3c42941639d5a57c025c8c",
+      "host": "linux-x86_64",
+      "inputs": {
+        "arguments": [
+          "-p",
+          "test_samples.py",
+          "-k",
+          "MaximumExpressionProcessTests"
+        ],
+        "mode": "test",
+        "scope": [
+          "-p",
+          "test_samples.py",
+          "-k",
+          "MaximumExpressionProcessTests"
+        ]
+      },
+      "kind": "test",
+      "machine": "silver",
+      "monotonic_ns": 58066115645495,
+      "pid": 214920,
+      "reason": "",
+      "requested_workers": 1,
+      "resource_reason": "host's eight-CPU allocation",
+      "resource_reductions": [
+        "workers"
+      ],
+      "resources": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-timeout-repair-412/.silver/linux-x86_64",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-timeout-repair-412/.silver/linux-x86_64"
+        }
+      ],
+      "run_id": "20261122T105339-12d0cd057611",
+      "schema": 1,
+      "scope": [
+        "-p",
+        "test_samples.py",
+        "-k",
+        "MaximumExpressionProcessTests"
+      ],
+      "task": "pr412-c412-i6-session-cleanup",
+      "utc": "2026-11-22T10:53:40.360580+00:00",
+      "workers": 1,
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-timeout-repair-412",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-timeout-repair-412"
+      }
+    },
+    "finished": {
+      "duration_seconds": 2.861529203,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T105339-12d0cd057611/native.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T105339-12d0cd057611/native.log"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [],
+      "monotonic_ns": 58068977211546,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261122T105339-12d0cd057611",
+      "utc": "2026-11-22T10:53:43.222147+00:00"
+    }
+  }
+]

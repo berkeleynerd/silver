@@ -13,11 +13,11 @@ set_option backward.dsimp.instances true
 /-- Value equations for the typed declaration bodies. Naming the intermediate
 values keeps dependent local lookup reduction separate from callee refinement. -/
 def scalarConstraintEquation (calls : Calls) (text : Source) (position : Nat)
-    (names : ScalarExpression.Environment) (baseBounds : Integer.Interval) : ScalarConstraintResult :=
+    (names : ScalarExpression.Environment) (baseBounds : Integer.Interval) (arrays : ArrayBindings.Table) : ScalarConstraintResult :=
   let rangeAfter := calls.function .takeToken text position (.word "range")
-  let low := calls.function .scalarRead text rangeAfter names [] [] false
+  let low := calls.function .scalarRead text rangeAfter names arrays [] false
   let delimiterAfter := calls.function .takeToken text low.after (.symbol "..")
-  let high := calls.function .scalarRead text delimiterAfter names [] [] false
+  let high := calls.function .scalarRead text delimiterAfter names arrays [] false
   if decide (rangeAfter = 0) then ⟨position, baseBounds⟩
   else if decide (low.after = 0) || decide (delimiterAfter = 0) || decide (high.after = 0) ||
       !low.isStatic || !high.isStatic || calls.function .scalarEmpty low.bounds ||
@@ -34,7 +34,8 @@ def scalarTypeEquation (calls : Calls) (text : Source) (state : ParserState) (po
   if decide (first = 0) || decide (after ≤ first) ||
       decide (calls.function .lookupName text state.names first after ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames first after ≠ 0) ||
-      decide (calls.function .arrayLookup text state.arrayNames.names first after ≠ 0) ||
+      decide (calls.function .arrayLookup text state.arrayNames.table first after ≠ 0) ||
+      decide (calls.function .arrayTypeLookup text state.arrayNames.types first after ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames first after ≠ 0) ||
       decide (calls.function .functionLookup text state.functions first after ≠ 0) ||
       decide (calls.function .procedureLookup text state.procedures first after ≠ 0) ||
@@ -50,7 +51,7 @@ def subtypeDeclarationEquation (calls : Calls) (text : Source) (state : ParserSt
   let after := calls.function .nameAfter text first
   let typeFirst := calls.function .skip text (calls.function .takeToken text after (.word "is"))
   let typeAfter := calls.function .takeToken text typeFirst (.word "integer")
-  let constraint := calls.function .scalarConstraint text typeAfter state.scalarNames .full
+  let constraint := calls.function .scalarConstraint text typeAfter state.scalarNames .full state.arrayNames.table
   let following := calls.function .takeToken text constraint.after (.symbol ";")
   if !calls.function .newName text state first after arguments ||
       calls.function .nameIs text first after "integer" ||
@@ -60,7 +61,8 @@ def subtypeDeclarationEquation (calls : Calls) (text : Source) (state : ParserSt
       calls.function .scalarEmpty constraint.bounds ||
       decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .arrayLookup text state.arrayNames.table typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .arrayTypeLookup text state.arrayNames.types typeFirst typeAfter ≠ 0) ||
       decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0) ||
       decide (calls.function .functionLookup text state.functions typeFirst typeAfter ≠ 0) ||
       decide (calls.function .procedureLookup text state.procedures typeFirst typeAfter ≠ 0) ||
@@ -100,10 +102,10 @@ def scalarDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
   let typeFirst := calls.function .skip text (if decide (constant ≠ 0) then constant else colon)
   let typeMark := calls.function .scalarType text state typeFirst
   let typeAfter := typeMark.after
-  let constraint := calls.function .scalarConstraint text typeAfter state.scalarNames typeMark.bounds
+  let constraint := calls.function .scalarConstraint text typeAfter state.scalarNames typeMark.bounds state.arrayNames.table
   let value := calls.function .scalarRead text
     (calls.function .takeToken text constraint.after (.symbol ":=")) state.scalarNames
-    state.arrayNames.names state.arrayNames.values true
+    state.arrayNames.table state.arrayNames.values true
   let following := calls.function .takeToken text value.after (.symbol ";")
   if !calls.function .newName text state first after arguments ||
       decide (typeAfter = 0) || decide (constraint.after = 0) ||
@@ -116,14 +118,15 @@ def scalarDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
       calls.function .nameIs text first after "integer" ||
       decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0)
+      decide (calls.function .arrayLookup text state.arrayNames.table typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .arrayTypeLookup text state.arrayNames.types typeFirst typeAfter ≠ 0)
     then invalidState
     else {state with position := following, scalarNames := (calls.function .scalarAppend state.scalarNames ⟨first, after, value.bounds, decide (constant ≠ 0) && value.isStatic, constraint.bounds, decide (constant = 0)⟩)}
 
 theorem scalarConstraint_denotation (calls : Calls) (text : Source) (position : Nat)
-    (scalarNames : ScalarExpression.Environment) (baseBounds : Integer.Interval) :
-    scalarConstraintBody.eval calls (Context.locals {text,position,scalarNames,baseBounds}) =
-      scalarConstraintEquation calls text position scalarNames baseBounds := by
+    (scalarNames : ScalarExpression.Environment) (baseBounds : Integer.Interval) (arrays : ArrayBindings.Table) :
+    scalarConstraintBody.eval calls (Context.locals {text,position,scalarNames,baseBounds,arrays}) =
+      scalarConstraintEquation calls text position scalarNames baseBounds arrays := by
   rfl
 
 theorem scalarDeclaration_denotation (calls : Calls) (text : Source) (state : ParserState)

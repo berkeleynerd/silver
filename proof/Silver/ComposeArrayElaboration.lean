@@ -10,6 +10,9 @@ maintains an exact prefix and ordered, disjoint allocation. -/
 namespace Silver.Compose
 open Expressions
 
+set_option maxHeartbeats 4000000
+set_option maxRecDepth 10000
+
 theorem arrayValues_fields {text source componentBounds result position length parsed expressions final}
     (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
     final = {result with position := final.position, arrayNames := {result.arrayNames with
@@ -71,21 +74,17 @@ theorem arrayValues_initials_valid {text source componentBounds result position 
       · exact putInitial_valid valid (by omega) (Integer.Expr.infer_bounded reading.inferred).1
       · dsimp only; omega
 
-theorem array_declaration_binding_valid {text arguments state parts lower upper}
+theorem array_declaration_binding_valid {text arguments state parts}
     (ready : ArrayDeclarationReady text state arguments parts)
-    (typeMark : ScalarTypeAt text state parts.typeFirst ⟨parts.typeAfter, parts.componentBounds⟩)
-    (low : ScalarExpression.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true))
-    (high : ScalarExpression.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true))
+    (header : IntegerArrayHeaderAt text state parts)
+    (types : ArrayBindings.ValidTypes text state.arrayNames.types)
     (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ArrayBindings.ValidBinding (parts.binding state) := by
+  have bounded := header.bounded types subtypes
   rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, ordered, capacity, _, _, _⟩
-  have lowSafe := (Integer.Expr.infer_bounded low.inferred).1
-  have highSafe := (Integer.Expr.infer_bounded high.inferred).1
   simp only [ArrayBindings.ValidBinding, ArrayDeclarationParts.binding, ArrayDeclarationParts.length]
-  exact ⟨⟨lowSafe, highSafe⟩, ordered, by omega, by omega, by omega,
-    typeMark.bounded subtypes, typeMark.nonempty subtypes⟩
+  exact ⟨⟨bounded.1.1, bounded.2.1.1⟩, ordered, by omega, by omega, by omega,
+    bounded.2.2.1, bounded.2.2.2⟩
 
 theorem arrayValues_componentFit {text source componentBounds result position length parsed expressions final}
     (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
@@ -102,11 +101,12 @@ theorem arrayValues_componentFit {text source componentBounds result position le
 
 theorem array_declaration_checked {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final)
+    (types : ArrayBindings.ValidTypes text state.arrayNames.types)
     (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ∃ items, declaration.check (declarationRanges state) = some items := by
   cases reading with
-  | declaration _ ready typeMark low high _ values _ _ =>
-      have bindingValid := array_declaration_binding_valid ready typeMark low high subtypes
+  | declaration _ ready header _ values _ _ =>
+      have bindingValid := array_declaration_binding_valid ready header types subtypes
       have descriptorValid := ArrayBindings.binding_descriptor_valid bindingValid
       have count := arrayValues_length values
       obtain ⟨items, checked⟩ := arrayValues_initialValues values
@@ -121,11 +121,12 @@ theorem array_declaration_checked {text arguments state declaration final}
 theorem array_declaration_array_valid {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final)
     (valid : ArrayBindings.ValidEnvironment text state.arrayNames)
+    (types : ArrayBindings.ValidTypes text state.arrayNames.types)
     (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ArrayBindings.ValidEnvironment text final.arrayNames := by
   cases reading with
-  | @declaration values parts lower upper position following expressions partsEq ready typeMark low high _ valuesRead _ _ =>
-      have bindingValid := array_declaration_binding_valid ready typeMark low high subtypes
+  | @declaration values parts position following expressions partsEq ready header _ valuesRead _ _ =>
+      have bindingValid := array_declaration_binding_valid ready header types subtypes
       have fields := arrayValues_fields valuesRead
       have metadata : values.arrayNames.names = state.arrayNames.names := congrArg (fun s => s.arrayNames.names) fields
       have used : values.arrayNames.used = state.arrayNames.used + parts.length := by
@@ -169,11 +170,12 @@ theorem array_declaration_array_valid {text arguments state declaration final}
 theorem array_declaration_source_ready {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final)
     (ready : ArrayBindings.SourceReady text state.arrayNames)
+    (types : ArrayBindings.ValidTypes text state.arrayNames.types)
     (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ArrayBindings.SourceReady text final.arrayNames := by
-  have valid := array_declaration_array_valid reading ready.1 subtypes
+  have valid := array_declaration_array_valid reading ready.1 types subtypes
   cases reading with
-  | @declaration values parts lower upper position following expressions _ allowed typeMark low high _ valuesRead _ _ =>
+  | @declaration values parts position following expressions _ allowed header _ valuesRead _ _ =>
       obtain ⟨items, checked, table, canonical⟩ := arrayValues_canonical valuesRead ready.2.1
       have metadata : values.arrayNames.names = state.arrayNames.names :=
         congrArg (fun s => s.arrayNames.names) (arrayValues_fields valuesRead)
@@ -182,7 +184,7 @@ theorem array_declaration_source_ready {text arguments state declaration final}
         rw [table, List.length_append, ready.2.1] at canonical
         simp only [Nat.sub_zero] at used
         omega
-      have bindingValid := array_declaration_binding_valid allowed typeMark low high subtypes
+      have bindingValid := array_declaration_binding_valid allowed header types subtypes
       refine ⟨valid, ?_, valid.1.2.2, ?_⟩
       · exact (arrayValues_canonical valuesRead ready.2.1).choose_spec.2.2
       · change ArrayBindings.InitialsFit (values.arrayNames.names ++ [parts.binding state]) values.arrayNames.values
@@ -201,14 +203,14 @@ theorem array_declaration_advances {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) :
     state.position < final.position := by
   cases reading with
-  | declaration _ _ _ _ _ _ _ _ advances => exact advances
+  | declaration _ _ _ _ _ _ advances => exact advances
 
 theorem array_declaration_fields {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) :
     final.capacity = state.capacity ∧ final.target = state.target ∧
       final.dynamicFirst = state.dynamicFirst ∧ final.dynamicAfter = state.dynamicAfter := by
   cases reading with
-  | declaration _ _ _ _ _ _ values _ _ =>
+  | declaration _ _ _ _ values _ _ =>
       have fields := arrayValues_fields values
       exact ⟨congrArg (fun s => s.capacity) fields, congrArg (fun s => s.target) fields,
         congrArg (fun s => s.dynamicFirst) fields, congrArg (fun s => s.dynamicAfter) fields⟩
@@ -217,7 +219,7 @@ theorem array_declaration_subtypes {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) :
     final.subtypeNames = state.subtypeNames := by
   cases reading with
-  | declaration _ _ _ _ _ _ values _ _ =>
+  | declaration _ _ _ _ values _ _ =>
       exact congrArg (fun s => s.subtypeNames) (arrayValues_fields values)
 
 theorem arrayValues_unique {text source componentBounds result position length parsed left right firstFinal secondFinal}
@@ -235,7 +237,7 @@ theorem arrayValues_unique {text source componentBounds result position length p
       cases second with
       | done _ finished => omega
       | next _ _ other _ _ _ tail =>
-          obtain ⟨rfl, rfl⟩ := ScalarExpression.at_unique reading other
+          obtain ⟨rfl, rfl⟩ := ScalarExpression.ArrayGrammar.at_unique reading other
           rw [ih tail states]
 
 theorem array_declaration_unique {text arguments state left right firstFinal secondFinal}
@@ -245,9 +247,9 @@ theorem array_declaration_unique {text arguments state left right firstFinal sec
   have states := (array_declaration_complete first).symm.trans (array_declaration_complete second)
   refine ⟨?_, states⟩
   cases first with
-  | declaration parts _ _ _ _ aggregate values _ _ =>
+  | declaration parts _ _ aggregate values _ _ =>
       cases second with
-      | declaration otherParts _ _ _ _ otherAggregate otherValues _ _ =>
+      | declaration otherParts _ _ otherAggregate otherValues _ _ =>
           have sameParts := parts.symm.trans otherParts
           cases sameParts
           have samePosition := (arrayAggregate_complete aggregate).symm.trans (arrayAggregate_complete otherAggregate)
@@ -255,5 +257,87 @@ theorem array_declaration_unique {text arguments state left right firstFinal sec
           have sameValues := (arrayValues_unique values otherValues).1
           cases sameValues
           rfl
+
+/-- Appending a physical object preserves the complete native table, including
+named type coherence. The caller's guard establishes the preceding slot mode. -/
+theorem append_physical_array_native {text : Source} {environment : ArrayBindings.Env}
+    {item : ArrayBindings.Binding} (initials : ArrayBindings.Initials)
+    (valid : ArrayBindings.ValidNativeEnvironment text environment)
+    (room : environment.names.length < ArrayBindings.maxBindings)
+    (span : ArrayBindings.NameSpan text item.first item.after)
+    (shape : ArrayBindings.ValidNativeBinding item)
+    (coherent : ArrayBindings.TypeCoherent environment.types item)
+    (stored : item.viewSlot = 0) (offset : item.offset = environment.used)
+    (previous : 0 < environment.names.length →
+      (ArrayBindings.binding environment.names environment.names.length).viewSlot = 0)
+    (values : ArrayBindings.ValidInitials initials) :
+    ArrayBindings.ValidNativeEnvironment text
+      {environment with names := environment.names ++ [item], used := environment.used + item.length, values := initials} := by
+  have capacity := shape.1.2.2.2.1
+  rw [offset] at capacity
+  refine ⟨?_, capacity, values, ?_⟩
+  · apply valid.1.append room span shape coherent
+    · intro viewed
+      exact False.elim (viewed stored)
+    · intro positive
+      change 0 < environment.names.length at positive
+      change ArrayBindings.Adjacent (ArrayBindings.binding environment.names environment.names.length) item
+      have lastStored := previous positive
+      have lastMember := ArrayBindings.binding_mem positive (Nat.le_refl environment.names.length)
+      have lastEnd := valid.2.2.2 _ lastMember lastStored
+      exact ⟨by simp only [stored, lastStored], by intro _; simpa only [offset] using lastEnd⟩
+  · intro entry member entryStored
+    simp only [List.mem_append, List.mem_singleton] at member
+    rcases member with old | rfl
+    · have last := valid.2.2.2 entry old entryStored
+      dsimp only
+      omega
+    · dsimp only
+      rw [offset]
+      exact Nat.le_refl _
+
+theorem array_declaration_native_valid {text arguments state declaration final}
+    (reading : ArrayDeclarationAt text arguments state declaration final)
+    (valid : ArrayBindings.ValidNativeEnvironment text state.arrayNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
+    ArrayBindings.ValidNativeEnvironment text final.arrayNames := by
+  cases reading with
+  | @declaration values parts position following expressions partsEq ready header aggregate valuesRead followingEq advances =>
+      have bindingValid := array_declaration_binding_valid ready header valid.1.1 subtypes
+      have fields := arrayValues_fields valuesRead
+      have used : values.arrayNames.used = state.arrayNames.used + parts.length := by
+        simpa only [Nat.sub_zero] using arrayValues_used valuesRead
+      have capacity : state.arrayNames.used + parts.length ≤ ArrayBindings.maxElements := bindingValid.2.2.2.1
+      have initials := arrayValues_initials_valid valuesRead valid.2.2.1 (by simpa only [Nat.sub_zero] using capacity)
+      have nameBound : parts.after ≤ text.length + 1 := by
+        rw [← partsEq]
+        exact model_name_valid text _
+      have allowed := ready.1
+      simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
+      have span : ArrayBindings.NameSpan text parts.first parts.after := ⟨by omega, by omega, nameBound⟩
+      have room : state.arrayNames.names.length < ArrayBindings.maxBindings := by
+        have available := ready.2.2.2.2.1
+        have cap : state.arrayNames.names.length ≤ ArrayBindings.maxBindings := valid.1.2.1
+        omega
+      have typeCap : parts.typeId ≤ ArrayBindings.maxTypes := Nat.le_trans header.coherent.1 valid.1.1.1
+      have shape : ArrayBindings.ValidNativeBinding (parts.binding state) := by
+        refine ⟨bindingValid, typeCap, by simp [ArrayDeclarationParts.binding], ?_, ?_⟩
+        · intro _
+          exact ready.integer
+        · simp [ArrayDeclarationParts.binding]
+      have previous : 0 < state.arrayNames.names.length →
+          (ArrayBindings.binding state.arrayNames.names state.arrayNames.names.length).viewSlot = 0 := by
+        rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, stored, _⟩
+        exact stored
+      have same : values.arrayNames = {state.arrayNames with
+          used := state.arrayNames.used + parts.length
+          values := values.arrayNames.values} := by
+        have arrays := congrArg (fun state : ParserState => state.arrayNames) fields
+        simpa only [used] using arrays
+      change ArrayBindings.ValidNativeEnvironment text
+        {values.arrayNames with names := values.arrayNames.names ++ [parts.binding state]}
+      rw [same]
+      exact append_physical_array_native values.arrayNames.values valid room span shape header.coherent
+        rfl rfl previous initials
 
 end Silver.Compose

@@ -70,7 +70,7 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
             cases arguments : context.hasArguments with
             | false => simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, invalidCondition] at accepted
             | true => rfl
-          have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayNames
+          have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayTable
               (context.validityHidden text) context.booleanNames ≠ 0 := by
             intro absent
             simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, absent, invalidCondition] at accepted

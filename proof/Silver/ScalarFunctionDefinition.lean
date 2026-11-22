@@ -1,6 +1,6 @@
 module
 
-public import Silver.ScalarFunctionFrame
+public import Silver.ScalarFunctionArrayShape
 public import Silver.PredicateExecution
 public import Silver.BooleanDeclarationObligations
 
@@ -25,40 +25,43 @@ mutual
 end
 
 
-def scalarExpression : Integer.Expr → Bool
-  | .literal _ | .snapshot _ | .name _ => true
-  | .indexed _ _ => false
-  | .positive value | .negative value | .parenthesized value => scalarExpression value
-  | .add left right | .subtract left right | .multiply left right | .divide left right |
-    .modulo left right | .remainder left right => scalarExpression left && scalarExpression right
-
-def scalarCondition : Condition → Bool
+def frameCondition (arrays : List (Nat × Integer.ArrayDescriptor)) : Condition → Bool
   | .booleanLiteral _ | .booleanName _ => true
-  | .scalarCompare _ left right => scalarExpression left && scalarExpression right
-  | .parenthesized inner | .negated inner => scalarCondition inner
+  | .scalarCompare _ left right => frameExpression arrays left && frameExpression arrays right
+  | .parenthesized inner | .negated inner => frameCondition arrays inner
   | .andThen left right | .orElse left right | .eager _ left right | .booleanCompare _ left right =>
-      scalarCondition left && scalarCondition right
+      frameCondition arrays left && frameCondition arrays right
   | _ => false
 
-def scalarActual : Actual → Bool
-  | .integer expression => scalarExpression expression
-  | .boolean condition => scalarCondition condition
+def frameActual (arrays : List (Nat × Integer.ArrayDescriptor)) : Actual → Bool
+  | .integer expression => frameExpression arrays expression
+  | .boolean condition => frameCondition arrays condition
+  | .array identity source => arrays.contains (identity, source)
+
+def scalarExpression := frameExpression []
+def scalarCondition := frameCondition []
+def scalarActual := frameActual []
 
 mutual
-  def scalarStatement : Statement → Bool
+  def frameStatement (arrays : List (Nat × Integer.ArrayDescriptor)) : Statement → Bool
     | .simple .null => true
-    | .scalarAssign update => scalarExpression update.value
-    | .callAssign update => update.call.actuals.all scalarActual
-    | .booleanAssign update => scalarCondition update.value
-    | .choice condition yes no => scalarCondition condition && scalarStatements yes && scalarStatements no
-    | .forLoop _ _ lower upper body => scalarExpression lower && scalarExpression upper && scalarStatements body
+    | .scalarAssign update => frameExpression arrays update.value
+    | .callAssign update => update.call.actuals.all (frameActual arrays)
+    | .booleanAssign update => frameCondition arrays update.value
+    | .choice condition yes no =>
+        frameCondition arrays condition && frameStatements arrays yes && frameStatements arrays no
+    | .forLoop _ _ lower upper body =>
+        frameExpression arrays lower && frameExpression arrays upper && frameStatements arrays body
     | _ => false
   termination_by item => sizeOf item
-  def scalarStatements : List Statement → Bool
+  def frameStatements (arrays : List (Nat × Integer.ArrayDescriptor)) : List Statement → Bool
     | [] => true
-    | item :: rest => scalarStatement item && scalarStatements rest
+    | item :: rest => frameStatement arrays item && frameStatements arrays rest
   termination_by items => sizeOf items
 end
+
+def scalarStatement := frameStatement []
+def scalarStatements := frameStatements []
 
 structure Definition where
   signature : Signature
@@ -71,11 +74,12 @@ structure Definition where
   deriving Repr
 
 /-- Explicit grammar prevents effect-free but unselected String, Character,
-array and input-query expressions from entering the function fragment. -/
+and input-query expressions. Only visible array formals can occur in the body. -/
 def Definition.scalarOnly (definition : Definition) : Bool :=
   definition.integers.all (fun item => scalarExpression item.value) &&
     definition.booleans.all (fun item => scalarCondition item.value) &&
-    scalarStatements definition.body && scalarActual definition.result
+    frameStatements (formalArrays 1 definition.signature.formals) definition.body &&
+    frameActual (formalArrays 1 definition.signature.formals) definition.result
 
 def entryContext : PathFacts.Context := ⟨some ⟨0, 0⟩, false, false⟩
 
@@ -88,7 +92,8 @@ def Definition.localFlow (definition : Definition) : Flow :=
 def parameterAnalysis : Nat → List ScalarType → Integer.Analysis → Integer.Analysis
   | count, .integer bounds :: rest, analysis =>
       parameterAnalysis (count + 1) rest (analysis.withIndex (count + 1) bounds)
-  | count, .boolean :: rest, analysis => parameterAnalysis count rest analysis
+  | count, .boolean :: rest, analysis
+  | count, .array _ :: rest, analysis => parameterAnalysis count rest analysis
   | _, [], analysis => analysis
 
 theorem parameterAnalysis_declared (count : Nat) (formals : List ScalarType) (analysis : Integer.Analysis) :
@@ -98,13 +103,15 @@ theorem parameterAnalysis_declared (count : Nat) (formals : List ScalarType) (an
   | cons formal rest ih => cases formal <;> simp [parameterAnalysis, parameterRanges, ih, Integer.Analysis.withIndex]
 
 def parameterBooleans : Nat → List ScalarType → Boolean.Analysis → Boolean.Analysis
-  | count, .integer _ :: rest, analysis => parameterBooleans count rest analysis
+  | count, .integer _ :: rest, analysis
+  | count, .array _ :: rest, analysis => parameterBooleans count rest analysis
   | count, .boolean :: rest, analysis =>
       parameterBooleans (count + 1) rest (analysis.initialize (count + 1) false)
   | _, [], analysis => analysis
 
 def Definition.analysis (definition : Definition) : Integer.Analysis :=
-  parameterAnalysis definition.integers.length definition.signature.formals definition.localAnalysis
+  parameterAnalysis definition.integers.length definition.signature.formals
+    (arrayAnalysis 1 definition.signature.formals definition.localAnalysis)
 
 def Definition.booleanAnalysis (definition : Definition) : Boolean.Analysis :=
   parameterBooleans definition.booleans.length definition.signature.formals (booleanBodyAnalysis definition.booleans)
@@ -116,8 +123,9 @@ def Definition.localFrame (definition : Definition) : Frame :=
   ⟨integers, executeBooleanDeclarations emptyValues [] true integers definition.booleans Boolean.emptyStore⟩
 
 def Definition.frame (definition : Definition) (arguments : List Value) : Frame :=
+  let integers := bindArrayArguments 1 definition.signature.formals arguments definition.localFrame.integers
   bindArguments definition.integers.length definition.booleans.length
-    definition.signature.formals arguments definition.localFrame
+    definition.signature.formals arguments {definition.localFrame with integers := integers}
 
 def Definition.check (earlier : Signatures) (definition : Definition) : Option Flow :=
   (Integer.checkDeclarations [] definition.integers).bind fun _ =>

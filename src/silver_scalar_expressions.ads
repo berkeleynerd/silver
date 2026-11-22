@@ -77,6 +77,24 @@ package Silver_Scalar_Expressions with SPARK_Mode => On is
       Static : Boolean;
    end record;
    Invalid : constant Expression_Result := (0, Silver_Scalars.Empty, 0, False);
+   type Array_Read_Mode is (All_Elements, Mutable_Elements, No_Elements);
+   --  Shape queries remain available when indexed component reads are excluded.
+   --  Range_Query selects the discrete-range spelling, never an Integer atom.
+   function Read_Array_Attribute
+     (Text : String; Position : Literal_Position; Names : Environment;
+      Arrays : Silver_Array_Bindings.Metadata;
+      Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0;
+      Range_Query : Boolean := False) return Expression_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Environment (Text, Names)
+         and then Valid_Name_State (Text, Mask_First, Mask_After)
+         and then Silver_Array_Bindings.Valid_Metadata (Text, Arrays),
+       Post => Read_Array_Attribute'Result.After = 0
+         or else (Read_Array_Attribute'Result.After in Position + 1 .. Text'Last + 1
+           and then not Silver_Scalars.Is_Empty (Read_Array_Attribute'Result.Bounds)
+           and then Read_Array_Attribute'Result.Operands = 1
+           and then Read_Array_Attribute'Result.Static);
    --  Unary signs on literals may be bare; every other unary or binary
    --  operation is explicitly parenthesized. The mask
    --  excludes a newly declared loop index from its own bounds, as Ada requires.
@@ -86,7 +104,8 @@ package Silver_Scalar_Expressions with SPARK_Mode => On is
       Allow_Sign : Boolean := True;
       Arrays : Silver_Array_Bindings.Metadata := Silver_Array_Bindings.Empty_Metadata;
       Initials : Silver_Array_Bindings.Element_Array := Silver_Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False;
+      Array_Reads : Array_Read_Mode := All_Elements)
       return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length

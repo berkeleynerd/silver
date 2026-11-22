@@ -9,18 +9,10 @@ set_option maxRecDepth 5000
 set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
 
-theorem procedureParameterStep_model (text : Source) (state : ParserState) (arguments : Bool) :
-    procedureParameterStepBody.eval modelCalls ({text, state, arguments} : Frame).locals =
-      procedureParameterStep text state arguments := by
-  simp [procedureParameterStepBody, Expr.eval, apply2, apply3, apply4, apply5,
-    Frame.locals, Locals.set, modelCalls, Field.get, StateField.set, Token.shell,
-    tokenAfter, ShellToken.word, ShellToken.symbol, procedureParameterStep,
-    Bool.or_eq_true, or_assoc, Capacity.value]
-
 theorem appendProcedureParameter_model (frame : ParserState) (parameter : ProcedureBindings.Formal) :
     appendProcedureParameterBody.eval modelCalls ({frame, procedureParameter := parameter} : Frame).locals =
       appendProcedureParameter frame parameter := by
-  dsimp +instances only [appendProcedureParameterBody, Expr.eval, apply2, Frame.locals,
+  dsimp +instances only [appendProcedureParameterBody, Expr.eval, apply2, apply3, apply4, Frame.locals,
     modelCalls, Field.get, StateField.set, appendProcedureParameter, Capacity.value]
   simp
 

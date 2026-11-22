@@ -3,6 +3,7 @@ module
 public import Silver.ScalarProcedureComposition
 public import Silver.FunctionSourceUnique
 public import Silver.ProcedureDeclarationMeaning
+public import Silver.NoncallableDeclarationHistory
 
 @[expose] public section
 
@@ -51,121 +52,19 @@ theorem declarationAt_functions_of_no_function {text state arguments}
     (noFunction : (functionDeclarationAt text state arguments).position = 0)
     (accepted : (declarationAt text state arguments).position ≠ 0) :
     (declarationAt text state arguments).functions = state.functions := by
-  dsimp only [declarationAt] at accepted ⊢
-  rw [ite_eq_right (not_not_intro noFunction)] at accepted ⊢
-  split at accepted
-  · rename_i acceptedProcedure
-    rw [ite_eq_left acceptedProcedure]
-    exact (procedureDeclarationAt_preserves_outer text state arguments acceptedProcedure).functions
-  · rename_i noProcedure
-    rw [ite_eq_right noProcedure]
-    split at accepted
-    · rename_i positive
-      rw [ite_eq_left positive]
-      have source := subtype_declaration_sound text state arguments positive
-      generalize nextEq : subtypeDeclarationAt text state arguments = next at source ⊢
-      cases source
-      rfl
-    · rename_i noSubtype
-      rw [ite_eq_right noSubtype]
-      split at accepted
-      · rename_i positive
-        rw [ite_eq_left positive]
-        obtain ⟨declaration, source⟩ := scalar_declaration_sound text state arguments positive
-        generalize nextEq : scalarDeclarationAt text state arguments = next at source ⊢
-        cases source
-        rfl
-      · rename_i noScalar
-        rw [ite_eq_right noScalar]
-        split at accepted
-        · rename_i positive
-          rw [ite_eq_left positive]
-          exact arrayDeclarationAt_functions positive
-        · rename_i noArray
-          rw [ite_eq_right noArray]
-          split at accepted
-          · rename_i positive
-            rw [ite_eq_left positive]
-            have source := boolean_declaration_sound text state arguments positive
-            generalize nextEq : booleanDeclarationAt text state arguments = next at source ⊢
-            cases source
-            rfl
-          · rename_i noBoolean
-            rw [ite_eq_right noBoolean]
-            split at accepted
-            · rename_i positive
-              rw [ite_eq_left positive]
-              obtain ⟨declaration, source⟩ := character_declaration_sound text state arguments positive
-              generalize nextEq : characterDeclarationAt text state arguments = next at source ⊢
-              cases source
-              rfl
-            · rename_i noCharacter
-              rw [ite_eq_right noCharacter]
-              obtain ⟨declaration, source⟩ := string_declaration_sound text state arguments accepted
-              generalize nextEq : stringDeclarationAt text state arguments = next at source ⊢
-              cases source
-              rfl
-
+  by_cases procedure : (procedureDeclarationAt text state arguments).position ≠ 0
+  · rw [declarationAt, ite_eq_right (not_not_intro noFunction), ite_eq_left procedure]
+    exact (procedureDeclarationAt_preserves_outer text state arguments procedure).functions
+  · exact (declarationAt_noncallable_fields noFunction (by omega) accepted).functions
 
 theorem declarationAt_procedures_of_no_procedure {text state arguments}
     (noProcedure : (procedureDeclarationAt text state arguments).position = 0)
     (accepted : (declarationAt text state arguments).position ≠ 0) :
     (declarationAt text state arguments).procedures = state.procedures := by
-  dsimp only [declarationAt] at accepted ⊢
-  split at accepted
-  · rename_i acceptedFunction
-    rw [ite_eq_left acceptedFunction]
-    exact (functionDeclarationAt_preserves_outer text state arguments acceptedFunction).procedures
-  · rename_i noFunction
-    rw [ite_eq_right noFunction]
-    rw [ite_eq_right (not_not_intro noProcedure)] at accepted ⊢
-    split at accepted
-    · rename_i positive
-      rw [ite_eq_left positive]
-      have source := subtype_declaration_sound text state arguments positive
-      generalize nextEq : subtypeDeclarationAt text state arguments = next at source ⊢
-      cases source
-      rfl
-    · rename_i noSubtype
-      rw [ite_eq_right noSubtype]
-      split at accepted
-      · rename_i positive
-        rw [ite_eq_left positive]
-        obtain ⟨declaration, source⟩ := scalar_declaration_sound text state arguments positive
-        generalize nextEq : scalarDeclarationAt text state arguments = next at source ⊢
-        cases source
-        rfl
-      · rename_i noScalar
-        rw [ite_eq_right noScalar]
-        split at accepted
-        · rename_i positive
-          rw [ite_eq_left positive]
-          exact arrayDeclarationAt_procedures positive
-        · rename_i noArray
-          rw [ite_eq_right noArray]
-          split at accepted
-          · rename_i positive
-            rw [ite_eq_left positive]
-            have source := boolean_declaration_sound text state arguments positive
-            generalize nextEq : booleanDeclarationAt text state arguments = next at source ⊢
-            cases source
-            rfl
-          · rename_i noBoolean
-            rw [ite_eq_right noBoolean]
-            split at accepted
-            · rename_i positive
-              rw [ite_eq_left positive]
-              obtain ⟨declaration, source⟩ := character_declaration_sound text state arguments positive
-              generalize nextEq : characterDeclarationAt text state arguments = next at source ⊢
-              cases source
-              rfl
-            · rename_i noCharacter
-              rw [ite_eq_right noCharacter]
-              obtain ⟨declaration, source⟩ := string_declaration_sound text state arguments accepted
-              generalize nextEq : stringDeclarationAt text state arguments = next at source ⊢
-              cases source
-              rfl
-
+  by_cases function : (functionDeclarationAt text state arguments).position ≠ 0
+  · rw [declarationAt, ite_eq_left function]
+    exact (functionDeclarationAt_preserves_outer text state arguments function).procedures
+  · exact (declarationAt_noncallable_fields (by omega) noProcedure accepted).procedures
 
 theorem ProcedureBodySource.unique {text frame first after arguments left right}
     (a : ProcedureBodySource text frame first after arguments left)
@@ -262,46 +161,70 @@ theorem mixedDeclarations_source {text arguments state}
       (declarationsAt text state arguments) :=
   mixedDeclarationsLoop_source text arguments _ state textValid valid accepted
 
+theorem MixedDeclarationsAt.callableTypesKnown {text arguments state functions procedures final}
+    (source : MixedDeclarationsAt text arguments state functions procedures final)
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    CallableTypesKnown final := by
+  induction source with
+  | done => exact known
+  | function _ _ first _ ih =>
+      exact ih (model_function_declaration_valid textValid valid)
+        (functionDeclarationAt_callable_types_known valid known first.accepted)
+  | procedure _ _ _ first _ ih =>
+      exact ih (model_procedure_declaration_valid textValid valid)
+        (procedureDeclarationAt_callable_types_known valid known first.accepted)
+  | other _ _ noFunction noProcedure accepted _ ih =>
+      exact ih (model_declaration_valid _ textValid _ _ valid)
+        ((declarationAt_noncallable_fields noFunction noProcedure accepted).callableTypesKnown known)
+
 theorem MixedDeclarationsAt.functions_checked {text arguments state functions procedures final}
     (source : MixedDeclarationsAt text arguments state functions procedures final)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
-      catalogSignatures final.functions =
-        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) functions ∧
+      catalogSignatures final.functions final.arrayNames.types =
+        catalogSignatures state.functions state.arrayNames.types ++ functions.map ScalarFunctions.Definition.signature := by
   induction source with
   | done => exact ⟨trivial, (List.append_nil _).symm⟩
   | procedure _ _ _ first _ ih =>
     have following := ih (model_procedure_declaration_valid textValid valid)
-    rw [(procedureDeclarationAt_preserves_outer _ _ _ first.accepted).functions] at following
+      (procedureDeclarationAt_callable_types_known valid known first.accepted)
+    rw [(procedureDeclarationAt_preserves_outer _ _ _ first.accepted).functions,
+      (procedureDeclarationAt_preserves_outer _ _ _ first.accepted).arrayNames] at following
     exact following
   | function _ _ first _ ih =>
     have following := ih (model_function_declaration_valid textValid valid)
+      (functionDeclarationAt_callable_types_known valid known first.accepted)
     rw [first.catalog valid] at following
     refine ⟨⟨first.checked valid, following.1⟩, ?_⟩
     simpa only [List.map_cons, List.append_assoc, List.singleton_append] using following.2
-  | other _ _ noFunction _ accepted _ ih =>
-    have following := ih (model_declaration_valid _ textValid _ _ valid)
-    rw [declarationAt_functions_of_no_function noFunction accepted] at following
+  | other _ _ noFunction noProcedure accepted _ ih =>
+    have extension := declarationAt_noncallable_fields noFunction noProcedure accepted
+    have following := ih (model_declaration_valid _ textValid _ _ valid) (extension.callableTypesKnown known)
+    rw [(extension.catalogs valid known).1] at following
     exact following
 
 theorem MixedDeclarationsAt.procedure_catalog {text arguments state functions procedures final}
     (source : MixedDeclarationsAt text arguments state functions procedures final)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ProcedureBindings.catalogSignatures final.procedures =
-      ProcedureBindings.catalogSignatures state.procedures ++ procedures.map ScalarProcedures.Definition.signature := by
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ProcedureBindings.catalogSignatures final.procedures final.arrayNames.types =
+      ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types ++ procedures.map ScalarProcedures.Definition.signature := by
   induction source with
   | done => exact (List.append_nil _).symm
   | procedure _ _ _ first _ ih =>
     have following := ih (model_procedure_declaration_valid textValid valid)
+      (procedureDeclarationAt_callable_types_known valid known first.accepted)
     rw [first.catalog valid] at following
     simpa only [List.map_cons, List.append_assoc, List.singleton_append] using following
   | function _ _ first _ ih =>
     have following := ih (model_function_declaration_valid textValid valid)
-    rw [(functionDeclarationAt_preserves_outer _ _ _ first.accepted).procedures] at following
+      (functionDeclarationAt_callable_types_known valid known first.accepted)
+    rw [(functionDeclarationAt_preserves_outer _ _ _ first.accepted).procedures,
+      (functionDeclarationAt_preserves_outer _ _ _ first.accepted).arrayNames] at following
     exact following
-  | other _ _ _ noProcedure accepted _ ih =>
-    have following := ih (model_declaration_valid _ textValid _ _ valid)
-    rw [declarationAt_procedures_of_no_procedure noProcedure accepted] at following
+  | other _ _ noFunction noProcedure accepted _ ih =>
+    have extension := declarationAt_noncallable_fields noFunction noProcedure accepted
+    have following := ih (model_declaration_valid _ textValid _ _ valid) (extension.callableTypesKnown known)
+    rw [(extension.catalogs valid known).2] at following
     exact following
 
 theorem MixedDeclarationsAt.unique {text arguments state leftFunctions leftProcedures rightFunctions rightProcedures leftFinal rightFinal}
@@ -340,41 +263,44 @@ theorem MixedDeclarationsAt.unique {text arguments state leftFunctions leftProce
 /-- Every procedure is checked with the function prefix visible at its declaration. -/
 theorem MixedDeclarationsAt.procedures_checked {text arguments state functions procedures final}
     (source : MixedDeclarationsAt text arguments state functions procedures final)
-    (textValid : ValidText text) (valid : ValidState text state) :
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
     ScalarProcedures.DefinitionsChecked
-      (catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature)
-      (ProcedureBindings.catalogSignatures state.procedures) procedures := by
+      (catalogSignatures state.functions state.arrayNames.types ++ functions.map ScalarFunctions.Definition.signature)
+      (ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types) procedures := by
   induction source with
   | done => trivial
   | procedure _ _ _ first _ ih =>
     have following := ih (model_procedure_declaration_valid textValid valid)
-    rw [(procedureDeclarationAt_preserves_outer _ _ _ first.accepted).functions,
-      first.catalog valid] at following
+      (procedureDeclarationAt_callable_types_known valid known first.accepted)
+    rw [first.catalog valid, (procedureDeclarationAt_preserves_outer _ _ _ first.accepted).functions,
+      (procedureDeclarationAt_preserves_outer _ _ _ first.accepted).arrayNames] at following
     exact ⟨ScalarProcedures.Definition.checked_functions_append (first.checked valid) _, following⟩
   | function _ _ first _ ih =>
     have following := ih (model_function_declaration_valid textValid valid)
+      (functionDeclarationAt_callable_types_known valid known first.accepted)
     rw [first.catalog valid,
-      (functionDeclarationAt_preserves_outer _ _ _ first.accepted).procedures] at following
+      (functionDeclarationAt_preserves_outer _ _ _ first.accepted).procedures,
+      (functionDeclarationAt_preserves_outer _ _ _ first.accepted).arrayNames] at following
     simpa only [List.map_cons, List.append_assoc, List.singleton_append] using following
   | other _ _ noFunction noProcedure accepted _ ih =>
-    have following := ih (model_declaration_valid _ textValid _ _ valid)
-    rw [declarationAt_functions_of_no_function noFunction accepted,
-      declarationAt_procedures_of_no_procedure noProcedure accepted] at following
+    have extension := declarationAt_noncallable_fields noFunction noProcedure accepted
+    have following := ih (model_declaration_valid _ textValid _ _ valid) (extension.callableTypesKnown known)
+    rw [(extension.catalogs valid known).1, (extension.catalogs valid known).2] at following
     exact following
 
 theorem MixedDeclarationsAt.checked {text arguments state functions procedures final}
     (source : MixedDeclarationsAt text arguments state functions procedures final)
-    (textValid : ValidText text) (valid : ValidState text state) :
-    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions) functions ∧
-      ScalarProcedures.DefinitionsChecked (catalogSignatures final.functions)
-        (ProcedureBindings.catalogSignatures state.procedures) procedures ∧
-      catalogSignatures final.functions =
-        catalogSignatures state.functions ++ functions.map ScalarFunctions.Definition.signature ∧
-      ProcedureBindings.catalogSignatures final.procedures =
-        ProcedureBindings.catalogSignatures state.procedures ++ procedures.map ScalarProcedures.Definition.signature := by
-  have functionsChecked := source.functions_checked textValid valid
-  refine ⟨functionsChecked.1, ?_, functionsChecked.2, source.procedure_catalog textValid valid⟩
+    (textValid : ValidText text) (valid : ValidState text state) (known : CallableTypesKnown state) :
+    ScalarFunctions.DefinitionsChecked (catalogSignatures state.functions state.arrayNames.types) functions ∧
+      ScalarProcedures.DefinitionsChecked (catalogSignatures final.functions final.arrayNames.types)
+        (ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types) procedures ∧
+      catalogSignatures final.functions final.arrayNames.types =
+        catalogSignatures state.functions state.arrayNames.types ++ functions.map ScalarFunctions.Definition.signature ∧
+      ProcedureBindings.catalogSignatures final.procedures final.arrayNames.types =
+        ProcedureBindings.catalogSignatures state.procedures state.arrayNames.types ++ procedures.map ScalarProcedures.Definition.signature := by
+  have functionsChecked := source.functions_checked textValid valid known
+  refine ⟨functionsChecked.1, ?_, functionsChecked.2, source.procedure_catalog textValid valid known⟩
   rw [functionsChecked.2]
-  exact source.procedures_checked textValid valid
+  exact source.procedures_checked textValid valid known
 
 end Silver.Compose

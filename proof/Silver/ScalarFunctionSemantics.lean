@@ -69,7 +69,8 @@ theorem Definition.frame_fits {definition : Definition} {earlier : Signatures} {
     (fitting : ArgumentsFit definition.signature.formals arguments) :
     Integer.Fits definition.analysis.declared (definition.frame arguments).integers := by
   simp only [analysis, parameterAnalysis_declared, frame]
-  exact bindArguments_fits fitting _ _ _ _ (definition.local_fits checked)
+  exact bindArguments_fits fitting _ _ _ _
+    (bindArrayArguments_fits fitting 1 _ _ (definition.local_fits checked))
 
 theorem Definition.initializers_safe {definition : Definition} {earlier : Signatures} {after : Flow}
     (formed : definition.WellFormed) (checked : definition.check earlier = some after) :

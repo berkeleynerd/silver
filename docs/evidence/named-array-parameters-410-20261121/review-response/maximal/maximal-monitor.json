@@ -1,0 +1,119 @@
+{
+  "utc": "2026-11-22T12:09:32.038779+00:00",
+  "observation": 145,
+  "runs": {
+    "maximal": {
+      "run_id": "20261122T105525-650db3ffe211",
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T105525-650db3ffe211",
+      "managed_state": "finished",
+      "finished_event": {
+        "duration_seconds": 4421.903831695,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T105525-650db3ffe211/native.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T105525-650db3ffe211/native.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [],
+        "monotonic_ns": 62593914814377,
+        "outcome": "success",
+        "retained_reports": [],
+        "returncode": null,
+        "run_id": "20261122T105525-650db3ffe211",
+        "utc": "2026-11-22T12:09:08.210708+00:00"
+      },
+      "elapsed_seconds": 4445.783,
+      "root_pid": 215432,
+      "root_present": false,
+      "expected_affinity": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "started_allocation": {
+        "workers": {
+          "actual": 6,
+          "automatic": 6,
+          "requested": 6
+        }
+      },
+      "process_count": 0,
+      "thread_count": 0,
+      "runnable_threads_sample": 0,
+      "cpu_ticks_total_sample": 0,
+      "processes": []
+    },
+    "review": {
+      "run_id": "20261122T104651-c6826d4fd799",
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799",
+      "managed_state": "finished",
+      "finished_event": {
+        "duration_seconds": 3688.146322676,
+        "error": "RuntimeError: declared run inputs changed during execution",
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799/native.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799/native.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [],
+        "monotonic_ns": 61346680471910,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-proof-review-pr412-5a4b0ad8ac/scratch/producer-probe-selected/reports/gnatprove.out",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799/reports/0/scratch/producer-probe-selected/reports/gnatprove.out"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-proof-review-pr412-5a4b0ad8ac/scratch/producer-probe-selected/reports/main~1.spark",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799/reports/0/scratch/producer-probe-selected/reports/main~1.spark"
+          }
+        ],
+        "returncode": null,
+        "run_id": "20261122T104651-c6826d4fd799",
+        "utc": "2026-11-22T11:48:20.976366+00:00"
+      },
+      "elapsed_seconds": 4959.259,
+      "root_pid": 211534,
+      "root_present": false,
+      "expected_affinity": [
+        0,
+        1
+      ],
+      "started_allocation": {
+        "workers": {
+          "actual": 2,
+          "automatic": 8,
+          "requested": 2
+        }
+      },
+      "process_count": 0,
+      "thread_count": 0,
+      "runnable_threads_sample": 0,
+      "cpu_ticks_total_sample": 0,
+      "processes": []
+    }
+  },
+  "exceptions": [],
+  "maximal_test_samples_sha256": "df8939c8470e50730597866e9c0d2364a37e644495a3f5e09531a3c60f6d7e56",
+  "final_verification": {
+    "utc": "2026-11-22T12:10:05.694750+00:00",
+    "observation_count": 146,
+    "affinity_or_hash_exceptions_total": 0,
+    "observed_maximal_session_ids": [
+      215432,
+      215438
+    ],
+    "observed_maximal_process_group_count": 93,
+    "survivors_matching_observed_pid_identity_session_or_group": [],
+    "native_log_result": "test_maximum_dynamic_expression ... ok; Ran 1 test in 4420.116s; OK",
+    "managed_duration_seconds": 4421.903831695
+  }
+}

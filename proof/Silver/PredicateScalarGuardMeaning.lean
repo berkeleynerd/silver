@@ -1,6 +1,7 @@
 module
 
-public import Silver.PredicateConditionReadings
+public import Silver.PredicateConditionAdmission
+public import Silver.ScalarArrayGrammarSyntax
 public import Silver.PredicateFlowInvariant
 
 @[expose] public section
@@ -114,7 +115,7 @@ theorem syntax_bareTarget {text : Source} {context : ParseContext} {facts : Acti
             rw [← lookup]
             exact ScalarExpression.lookup_bound ..
           simp only [bareTarget, last, lookup, nonzeroIndex, ne_eq, not_false_eq_true, true_and,
-            guardTarget, ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
+            guardTarget, ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
             ArrayBindings.refinability_scalar _ _ (Nat.le_trans bounded size),
             ScalarMetadata.analysis, ScalarMetadata.refinable,
             show 0 < index ∧ index ≤ context.scalarNames.length from ⟨by omega, bounded⟩,
@@ -143,36 +144,41 @@ theorem syntax_bareTarget {text : Source} {context : ParseContext} {facts : Acti
       rw [opened.2.2.1]
       decide
 
-theorem arraysSyntax_bareTarget {text : Source} {context : ParseContext} {facts : ActiveFlow}
-    {position maskFirst maskAfter : Nat} {allowSign : Bool} {value : ScalarExpression.Parsed}
+private theorem bareTarget_hidden_scalar {text : Source} {context : ParseContext} {facts : ActiveFlow}
+    {position after finish : Nat} {bytes : Source} (nonzero : ScalarExpression.skip text position ≠ 0)
+    (identifier : Named.IdentifierAt text (ScalarExpression.skip text position) bytes after)
+    (scalar : ScalarExpression.lookup text (context.readingNames facts) (ScalarExpression.skip text position) after = 0) :
+    bareTarget text context position finish = 0 := by
+  have nameEnd : nameAfter text (skipAt text position) = after := by
+    change Named.IdentifierAt text (skipAt text position) bytes after at identifier
+    simpa only [nameAfter, show skipAt text position ≠ 0 from nonzero, ↓reduceIte] using
+      Named.identifierEnd_complete identifier
+  have absent : ScalarExpression.lookup text context.scalarNames (skipAt text position) after = 0 := by
+    change ScalarExpression.lookup text (context.readingNames facts) (skipAt text position) after = 0 at scalar
+    simpa only [ParseContext.readingNames, ScalarMetadata.readingNames_lookup] using scalar
+  simp only [bareTarget, nameEnd, absent, ne_eq, not_true_eq_false, false_and, ↓reduceIte]
+
+theorem sourceSyntax_bareTarget {text : Source} {context : ParseContext} {facts : ActiveFlow}
+    {position maskFirst maskAfter : Nat} {mode : ScalarExpression.ArrayReadMode}
+    {allowSign : Bool} {value : ScalarExpression.Parsed}
     (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
-    (parsed : ScalarExpression.ArraysSyntaxAt text (context.readingNames facts)
-      context.arrayNames maskFirst maskAfter allowSign position value) :
+    (parsed : ScalarExpression.ArrayGrammar.SourceAt text (context.readingNames facts)
+      context.arrayTable maskFirst maskAfter mode allowSign position value) :
     bareTarget text context position value.after = guardTarget context value.expression := by
   cases parsed with
-  | atom nonzero within notGroup atom =>
-      have fixed := skip_idempotent text position
-      cases atom with
-      | ordinary atom =>
-          exact syntax_bareTarget size (.atom nonzero within notGroup atom)
-      | @indexed bytes after target opened closed index _ _ _ _ named noScalar _ _ _ _ _ _ _ =>
-          have last := Named.identifierEnd_complete named
-          rw [fixed] at last noScalar
-          have firstNonzero : skipAt text position ≠ 0 := nonzero
-          have nameEnd : nameAfter text (skipAt text position) = after := by
-            change Named.identifierEnd text (skipAt text position) = after at last
-            simpa only [nameAfter, firstNonzero, ↓reduceIte] using last
-          have lookup : ScalarExpression.lookup text context.scalarNames (skipAt text position) after = 0 := by
-            change ScalarExpression.lookup text (context.readingNames facts) (skipAt text position) after = 0 at noScalar
-            simpa only [ParseContext.readingNames, ScalarMetadata.readingNames_lookup] using noScalar
-          simp only [bareTarget, nameEnd, lookup, ne_eq, not_true_eq_false, false_and, ↓reduceIte,
-            guardTarget]
+  | ordinary nonzero within notGroup atom =>
+      exact syntax_bareTarget size (.atom nonzero within notGroup atom)
+  | shape _ _ _ _ reading =>
+      cases reading with
+      | read positive spelling scalar _ _ _ _ _ _ => exact bareTarget_hidden_scalar positive spelling scalar
+  | indexed nonzero _ _ _ _ _ spelling scalar _ _ _ _ _ _ _ _ _ _ =>
+      exact bareTarget_hidden_scalar nonzero spelling scalar
   | signed opened _ _ _ =>
       apply bareTarget_nonletter
       change Named.letter (Cursor.byteAt text (ScalarExpression.skip text position)) = false
       rw [opened.2.2.1]
       decide
-  | @unary position closed allowSign value opened _ _ _ _ =>
+  | @unary mode position closed allowSign value opened _ _ _ _ =>
       have noTarget := bareTarget_nonletter text context position closed (by
         change Named.letter (Cursor.byteAt text (ScalarExpression.skip text position)) = false
         rw [opened.2.2.1]; decide)
@@ -190,20 +196,6 @@ theorem arraysSyntax_bareTarget {text : Source} {context : ParseContext} {facts 
       change Named.letter (Cursor.byteAt text (ScalarExpression.skip text position)) = false
       rw [opened.2.2.1]
       decide
-
-theorem sourceSyntax_bareTarget {text : Source} {context : ParseContext} {facts : ActiveFlow}
-    {position maskFirst maskAfter : Nat} {allowSign : Bool} {value : ScalarExpression.Parsed}
-    (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
-    (parsed : ScalarExpression.sourceSyntaxAt text (context.readingNames facts)
-      context.arrayNames maskFirst maskAfter allowSign position value) :
-    bareTarget text context position value.after = guardTarget context value.expression := by
-  cases arrays : context.arrayNames with
-  | nil =>
-      rw [arrays] at parsed
-      exact syntax_bareTarget size parsed
-  | cons head tail =>
-      rw [arrays] at parsed
-      exact arraysSyntax_bareTarget size (by simpa only [arrays, ScalarExpression.sourceSyntaxAt] using parsed)
 
 theorem inferred_staticness {names : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
     {initials : ArrayBindings.Initials} {elaborating : Bool} {expression : Integer.Expr}
@@ -240,7 +232,7 @@ theorem inferred_staticness {names : ScalarExpression.Environment} {arrays : Arr
 
 theorem scalarAt_staticness {text : Source} {context : ParseContext} {facts : ActiveFlow} {initials : ArrayBindings.Initials}
     {position : Nat} {expression : Integer.Expr} {result : ScalarExpression.Result}
-    (parsed : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position expression result) :
+    (parsed : ScalarExpression.ArrayGrammar.At (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position expression result) :
     result.isStatic = expression.isStatic context.analysis.static := by
   rw [parsed.staticValue, inferred_staticness parsed.inferred]
   simp only [ParseContext.readingNames, ScalarMetadata.readingNames_staticness]
@@ -264,7 +256,7 @@ theorem guardCandidate_target (context : ParseContext) (left right : Integer.Exp
   rename_i index
   by_cases refinable : context.analysis.refinable index = true
   · have positive : 0 < index := by
-      change ArrayBindings.refinability (ArrayBindings.integerNames context.arrayNames)
+      change ArrayBindings.refinability (ArrayBindings.integerNames (ArrayBindings.viewNames context.arrayNames))
         (ScalarMetadata.refinable context.scalarNames context.declarationCount) index = true at refinable
       unfold ArrayBindings.refinability at refinable
       split at refinable
@@ -279,7 +271,7 @@ theorem guardTarget_bound (context : ParseContext) (expression : Integer.Expr) :
   cases expression <;> simp only [guardTarget] <;> try omega
   split
   · rename_i refinable
-    change ArrayBindings.refinability (ArrayBindings.integerNames context.arrayNames)
+    change ArrayBindings.refinability (ArrayBindings.integerNames (ArrayBindings.viewNames context.arrayNames))
       (ScalarMetadata.refinable context.scalarNames context.declarationCount) _ = true at refinable
     unfold ArrayBindings.refinability at refinable
     split at refinable
@@ -293,8 +285,8 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
     {leftResult rightResult : ScalarExpression.Result} {operator : Comparison}
     (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
-    (rightRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult)
+    (leftRead : ScalarExpression.ArrayGrammar.At (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
+    (rightRead : ScalarExpression.ArrayGrammar.At (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult)
     (truth : Bool) :
     context.flow (if truth then (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenTrue
       else (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse) initials =
@@ -302,9 +294,10 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
   have ranges := context.reading_ranges compatible initials
   have l := leftRead.inferred
   have r := rightRead.inferred
-  rw [ranges] at l r
-  have leftTarget := sourceSyntax_bareTarget size leftRead.grammar
-  have rightTarget := sourceSyntax_bareTarget size rightRead.grammar
+  change _ = some _ at l r
+  rw [show context.arrayTable.items = context.arrayNames from rfl, ranges] at l r
+  have leftTarget := sourceSyntax_bareTarget size leftRead.source
+  have rightTarget := sourceSyntax_bareTarget size rightRead.source
   have leftStatic := scalarAt_staticness leftRead
   have rightStatic := scalarAt_staticness rightRead
   have selected : (if truth then (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenTrue
@@ -338,8 +331,8 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
     · simp only [ite_eq_right chooseLeft, ite_eq_left chooseRight]
       rfl
     · simp only [chooseLeft, chooseRight, ↓reduceIte, Integer.Ranges.refineName,
-        ParseContext.flow, ArrayBindings.integerRanges,
-        ArrayBindings.ranges_scalar _ _ _ _ (show 0 ≤ ArrayBindings.scalarLimit by decide),
+        ParseContext.flow,
+        ArrayBindings.viewRanges_scalar _ _ _ _ (show 0 ≤ ArrayBindings.scalarLimit by decide),
         ActiveFlow.model, ActiveFlow.ranges, ↓reduceIte]
 
 theorem scalarCondition_whenTrue_model {text : Source} {context : ParseContext} {facts : ActiveFlow} {initials : ArrayBindings.Initials}
@@ -347,8 +340,8 @@ theorem scalarCondition_whenTrue_model {text : Source} {context : ParseContext} 
     {leftResult rightResult : ScalarExpression.Result} {operator : Comparison}
     (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
-    (rightRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult) :
+    (leftRead : ScalarExpression.ArrayGrammar.At (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
+    (rightRead : ScalarExpression.ArrayGrammar.At (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult) :
     context.flow (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenTrue initials =
       (Condition.scalarCompare operator.toInteger left right).refine context.names.shape context.analysis (context.flow facts initials) true :=
   scalarCondition_outcome_model size compatible leftRead rightRead true
@@ -358,8 +351,8 @@ theorem scalarCondition_whenFalse_model {text : Source} {context : ParseContext}
     {leftResult rightResult : ScalarExpression.Result} {operator : Comparison}
     (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
-    (rightRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult) :
+    (leftRead : ScalarExpression.ArrayGrammar.At (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
+    (rightRead : ScalarExpression.ArrayGrammar.At (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult) :
     context.flow (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse initials =
       (Condition.scalarCompare operator.toInteger left right).refine context.names.shape context.analysis (context.flow facts initials) false :=
   scalarCondition_outcome_model size compatible leftRead rightRead false

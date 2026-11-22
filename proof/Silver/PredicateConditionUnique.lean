@@ -38,7 +38,7 @@ theorem booleanArray_unique {text context position facts left right leftAfter ri
   | read _ _ _ _ index _ _ _ =>
       cases second with
       | read _ _ _ _ other _ _ _ =>
-          exact congrArg (Condition.booleanArrayRead _) (ScalarExpression.at_unique index other).1
+          exact congrArg (Condition.booleanArrayRead _) (ScalarExpression.ArrayGrammar.at_unique index other).1
 
 
 mutual
@@ -145,12 +145,12 @@ mutual
             rw [lengthAt_complete left] at noLength
             exact False.elim (leftPositive noLength)
         | scalars _ _ _ _ otherLeft otherRight _ =>
-            obtain ⟨rfl, rfl⟩ := ScalarExpression.at_unique leftRead otherLeft
-            obtain ⟨rfl, _⟩ := ScalarExpression.at_unique rightRead otherRight
+            obtain ⟨rfl, rfl⟩ := ScalarExpression.ArrayGrammar.at_unique leftRead otherLeft
+            obtain ⟨rfl, _⟩ := ScalarExpression.ArrayGrammar.at_unique rightRead otherRight
             rfl
         | pureBoolean _ _ _ noScalar | strings _ _ _ noScalar | character _ _ _ noScalar | primary _ _ _ noScalar =>
-            change (ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
-            rw [ScalarExpression.read_complete leftRead] at noScalar
+            change (ScalarExpression.ArrayGrammar.read text position (context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
+            rw [ScalarExpression.ArrayGrammar.read_complete leftRead] at noScalar
             exact False.elim (leftPositive noScalar)
     | pureBoolean _ noNot noLength noScalar pure inner =>
         cases second with
@@ -159,9 +159,9 @@ mutual
             rw [lengthAt_complete left] at noLength
             exact False.elim (leftPositive noLength)
         | scalars _ _ _ leftPositive left _ _ =>
-            change (ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames)
+            change (ScalarExpression.ArrayGrammar.read text position (context.readingNames facts) (arrays := context.arrayTable)
               (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
-            rw [ScalarExpression.read_complete left] at noScalar
+            rw [ScalarExpression.ArrayGrammar.read_complete left] at noScalar
             exact False.elim (leftPositive noScalar)
         | pureBoolean _ _ _ _ _ other => exact booleanRelation_unique inner other
         | strings _ _ _ _ _ _ _ _ impure
@@ -175,8 +175,8 @@ mutual
             rw [lengthAt_complete left] at noLength
             exact False.elim (leftPositive noLength)
         | scalars _ _ _ leftPositive left _ _ =>
-            change (ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
-            rw [ScalarExpression.read_complete left] at noScalar
+            change (ScalarExpression.ArrayGrammar.read text position (context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
+            rw [ScalarExpression.ArrayGrammar.read_complete left] at noScalar
             exact False.elim (leftPositive noScalar)
         | strings _ _ _ _ otherLeft otherRight _ _ =>
             obtain ⟨rfl, rfl⟩ := expressionTail_unique leftRead otherLeft
@@ -193,8 +193,8 @@ mutual
             rw [lengthAt_complete left] at noLength
             exact False.elim (leftPositive noLength)
         | scalars _ _ _ leftPositive left _ _ =>
-            change (ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
-            rw [ScalarExpression.read_complete left] at noScalar
+            change (ScalarExpression.ArrayGrammar.read text position (context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
+            rw [ScalarExpression.ArrayGrammar.read_complete left] at noScalar
             exact False.elim (leftPositive noScalar)
         | strings _ _ _ _ left _ ready _ =>
             rw [show readStringInFlow text context position facts initials = _ from expressionTail_complete left] at noExpression
@@ -212,8 +212,8 @@ mutual
             rw [lengthAt_complete left] at noLength
             exact False.elim (leftPositive noLength)
         | scalars _ _ _ leftPositive left _ _ =>
-            change (ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
-            rw [ScalarExpression.read_complete left] at noScalar
+            change (ScalarExpression.ArrayGrammar.read text position (context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
+            rw [ScalarExpression.ArrayGrammar.read_complete left] at noScalar
             exact False.elim (leftPositive noScalar)
         | strings _ _ _ _ left _ ready _ =>
             rw [show readStringInFlow text context position facts initials = _ from expressionTail_complete left] at noExpression

@@ -19,17 +19,20 @@ def Actual.evaluate (state : State) : Actual → Value
   | .integer expression => .integer (expression.evaluate state.integers)
   | .boolean condition => .boolean
       (condition.evaluate state.values state.input state.inputValid state.integers state.booleans)
+  | .array typeId source => .array (NamedArrayParameters.capture typeId source state.integers)
 
 def Actual.checkedEvaluate (state : State) : Actual → Option Value
   | .integer expression => (expression.checkedEvaluate state.integers).map Value.integer
   | .boolean condition =>
       (condition.checkedEvaluate state.values state.input state.inputValid
         state.integers state.booleans).map Value.boolean
+  | .array typeId source => some (.array (NamedArrayParameters.capture typeId source state.integers))
 
 def Actual.Safe (shape : Bindings.Shape) (state : State) : Actual → Prop
   | .integer expression => expression.Safe state.integers
   | .boolean condition => condition.Safe shape state.values state.input state.inputValid
       state.integers state.booleans
+  | .array _ _ => True
 
 theorem Actual.checkedEvaluate_agrees {shape : Bindings.Shape} {state : State} {actual : Actual}
     (strings : Bindings.Fits shape state.input state.values)
@@ -39,6 +42,7 @@ theorem Actual.checkedEvaluate_agrees {shape : Bindings.Shape} {state : State} {
       simp only [checkedEvaluate, evaluate, Integer.Expr.checkedEvaluate_agrees safe, Option.map_some]
   | boolean condition =>
       simp only [checkedEvaluate, evaluate, Predicate.Condition.checkedEvaluate_refines safe strings, Option.map_some]
+  | array _ _ => rfl
 
 theorem Actual.check_sound {shape : Bindings.Shape} {analysis : Integer.Analysis}
     {flow : Predicate.Flow} {booleans : Boolean.Analysis} {formal : ScalarType}
@@ -51,6 +55,7 @@ theorem Actual.check_sound {shape : Bindings.Shape} {analysis : Integer.Analysis
   cases formal with
   | integer target =>
       cases actual with
+      | array _ _ => simp [Actual.check] at checked
       | boolean condition => simp [Actual.check] at checked
       | integer expression =>
           cases inferred : expression.infer flow.scalars with
@@ -63,9 +68,17 @@ theorem Actual.check_sound {shape : Bindings.Shape} {analysis : Integer.Analysis
               exact ⟨sound.2, Integer.Interval.included_sound included sound.1⟩
   | boolean =>
       cases actual with
+      | array _ _ => simp [Actual.check] at checked
       | integer expression => simp [Actual.check] at checked
       | boolean condition =>
           exact ⟨condition.checkBounds_sound strings readable.2 allowed checked, trivial⟩
+  | array domain =>
+      cases actual with
+      | integer _ | boolean _ => simp [Actual.check] at checked
+      | array typeId source =>
+          have checks := Bool.and_eq_true_iff.mp checked
+          exact ⟨trivial, NamedArrayParameters.capture_of_checked_ranges
+            (of_decide_eq_true checks.1) checks.2 allowed.2⟩
 
 def evaluateActuals (state : State) (actuals : List Actual) : List Value :=
   actuals.map (Actual.evaluate state)
@@ -180,16 +193,16 @@ theorem Target.checkedWrite_agrees {target : Target} {result : ScalarType} {valu
   cases target with
   | integer identity bounds =>
       cases result with
-      | boolean => simp [Target.check] at checked
+      | boolean | array _ => simp [Target.check] at checked
       | integer result =>
           cases value with
-          | boolean value => contradiction
+          | boolean _ | array _ => contradiction
           | integer value =>
               have within := Integer.Interval.included_sound (Target.integer_check checked).2.2.2 contained
               simp only [checkedWrite, write, within, ↓reduceIte]
   | boolean identity =>
       cases result with
-      | integer bounds => simp [Target.check] at checked
+      | integer _ | array _ => simp [Target.check] at checked
       | boolean => cases value <;> simp_all [ScalarType.Contains, checkedWrite, write]
 
 theorem Target.write_frame (target : Target) (value : Value) (state : State) :
@@ -216,10 +229,10 @@ theorem Target.check_write_fits {target : Target} {result : ScalarType} {value :
   cases target with
   | integer identity targetBounds =>
       cases result with
-      | boolean => simp [Target.check] at checked
+      | boolean | array _ => simp [Target.check] at checked
       | integer bounds =>
           cases value with
-          | boolean value => contradiction
+          | boolean _ | array _ => contradiction
           | integer value =>
               cases found : analysis.declared identity with
               | none => simp [Target.check, found] at checked
@@ -242,10 +255,10 @@ theorem Target.check_write_fits {target : Target} {result : ScalarType} {value :
                   · exact Integer.put_fits incoming contained
   | boolean identity =>
       cases result with
-      | integer bounds => simp [Target.check] at checked
+      | integer _ | array _ => simp [Target.check] at checked
       | boolean =>
           cases value with
-          | integer value => contradiction
+          | integer _ | array _ => contradiction
           | boolean value => exact ⟨declared, incoming⟩
 
 theorem Assignment.check_execution_sound {signatures : Signatures} {calls : CallValues}
@@ -304,7 +317,7 @@ theorem Assignment.integer_unchanged {signatures : Signatures} {calls : CallValu
   | integer index bounds =>
       rw [targetEq] at targetChecked
       cases result with
-      | boolean => simp [Target.check] at targetChecked
+      | boolean | array _ => simp [Target.check] at targetChecked
       | integer result =>
           have writable := (Target.integer_check targetChecked).1
           have other : identity ≠ index := by intro same; rw [← same, readonly] at writable; contradiction
@@ -323,7 +336,7 @@ theorem Assignment.boolean_unchanged {signatures : Signatures} {calls : CallValu
   | boolean index =>
       rw [targetEq] at targetChecked
       cases result with
-      | integer result => simp [Target.check] at targetChecked
+      | integer _ | array _ => simp [Target.check] at targetChecked
       | boolean =>
           have writable := Boolean.canWrite_mutable targetChecked
           have other : identity ≠ index := by intro same; rw [← same, readonly] at writable; contradiction

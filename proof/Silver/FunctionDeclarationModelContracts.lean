@@ -12,6 +12,8 @@ namespace Silver.Compose.FunctionDeclarationNative
 set_option maxRecDepth 6000
 set_option maxHeartbeats 3000000
 
+attribute [local irreducible] ScalarExpression.ArrayGrammar.read
+
 private theorem parameters_progress (text : Source) (state : ParserState) (arguments : Bool) :
     (parametersModel text state arguments).position = 0 ∨
       state.position < (parametersModel text state arguments).position := by
@@ -90,12 +92,17 @@ private theorem append_post (frame : ParserState) (parameter : FunctionBindings.
     (appendParameter frame parameter).position = 0 ∨ FramePost frame (appendParameter frame parameter) := by
   dsimp only [appendParameter]
   split
-  · split
+  · unfold appendArrayParameter
+    split
     · exact .inl rfl
-    · exact .inr ⟨rfl, rfl, by simp, Nat.le_refl _⟩
+    · exact .inr ⟨rfl, rfl, Nat.le_refl _, Nat.le_refl _⟩
   · split
-    · exact .inl rfl
-    · exact .inr ⟨rfl, rfl, Nat.le_refl _, by simp⟩
+    · split
+      · exact .inl rfl
+      · exact .inr ⟨rfl, rfl, by simp, Nat.le_refl _⟩
+    · split
+      · exact .inl rfl
+      · exact .inr ⟨rfl, rfl, Nat.le_refl _, by simp⟩
 
 private theorem frame_post (frame : ParserState) (index : Nat) :
     (parameterFrameModel frame index).position = 0 ∨ FramePost frame (parameterFrameModel frame index) := by
@@ -127,13 +134,20 @@ private theorem type_bounded (text : Source) (state : ParserState) (position : N
     · exact Integer.Interval.empty_bounded
     · exact Integer.Interval.full_bounded
 
+private theorem type_id_bounded (text : Source) (state : ParserState) (position : Nat) :
+    (functionTypeAt text state position).typeId ≤ ArrayBindings.maxTypes := by
+  dsimp only [functionTypeAt]
+  split
+  · exact Nat.zero_le _
+  · split <;> exact Nat.zero_le _
+
 private theorem actual_post (text : Source) (context : Predicate.Native.Context) (position : Nat)
-    (facts : Predicate.ActiveFlow) (formal : FunctionBindings.Formal)
+    (facts : Predicate.ActiveFlow) (formal : FunctionBindings.Formal) (scalar : formal.typeId = 0)
     (tv : FunctionBindings.Native.ValidText text) (cv : Predicate.Native.ValidContext text context)
     (bounded : position ≤ text.length + 1) (accepted : Predicate.actualAfter text context.model position facts formal ≠ 0) :
     0 < position ∧ position < Predicate.actualAfter text context.model position facts formal ∧
       Predicate.actualAfter text context.model position facts formal ≤ text.length + 1 := by
-  unfold Predicate.actualAfter at accepted ⊢
+  simp only [Predicate.actualAfter, scalar, ne_eq, not_true_eq_false, ↓reduceIte] at accepted ⊢
   split
   · rename_i boolean
     simp only [boolean, ↓reduceIte] at accepted
@@ -150,7 +164,7 @@ private theorem actual_post (text : Source) (context : Predicate.Native.Context)
     · rename_i allowed
       have nonzero : (Predicate.readScalarInFlow text context.model position facts).after ≠ 0 :=
         fun zero => allowed (.inl zero)
-      obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound bounded nonzero
+      obtain ⟨expression, parsed⟩ := ScalarExpression.ArrayGrammar.read_sound bounded nonzero
       simp only [allowed, ↓reduceIte]
       exact parsed.cursorBounds
 
@@ -164,7 +178,7 @@ private theorem return_post (text : Source) (context : Predicate.Native.Context)
   · exact .inl zero
   · have startBound := fixedAfter_result_bound text scan.position "return" true (by decide)
     have after := actual_post text context (fixedAfter text scan.position "return" true) scan.facts
-      ⟨0, 0, resultType.kind, resultType.bounds⟩ tv valid.context startBound zero
+      ⟨0, 0, resultType.kind, resultType.bounds, 0⟩ rfl tv valid.context startBound zero
     have start := Expressions.model_fixed_advances text scan.position "return" true valid.scan.1 (by decide)
       (Nat.ne_of_gt after.1)
     exact .inr ⟨Nat.lt_trans start after.2.1, after.2.2⟩
@@ -186,7 +200,7 @@ theorem model_traversal_contracts : TraversalContracts modelCalls where
     by_cases zero : (parametersAt text state arguments).position = 0
     · exact .inl zero
     · have extension := (parametersAt_valid text state arguments valid.2.base.functions
-        valid.2.base.2.2.2.2.2.2.2.1).resolve_left zero
+        valid.2.base.2.2.2.2.2.2.2.1 valid.2.base.arrayTypes).resolve_left zero
       have fields := parametersAt_fields zero
       unfold ParameterFieldsPreserved at fields
       have purity := congrArg ParserState.pure fields
@@ -209,7 +223,7 @@ theorem model_traversal_contracts : TraversalContracts modelCalls where
       (functionTypeAt text state position).after ≤ text.length + 1 ∧
       (functionTypeAt text state position).bounds.isEmpty = false)
     have afterBound := functionTypeAt_position_bound text state position
-    refine ⟨⟨by change (functionTypeAt text state position).after ≤ 4097; have size := tv.2; omega, type_bounded text state position valid.2⟩, ?_⟩
+    refine ⟨⟨by change (functionTypeAt text state position).after ≤ 4097; have size := tv.2; omega, type_bounded text state position valid.2, type_id_bounded text state position⟩, ?_⟩
     by_cases zero : (functionTypeAt text state position).after = 0
     · exact .inl zero
     · have span := (functionTypeAt_span text state position bound).resolve_left zero

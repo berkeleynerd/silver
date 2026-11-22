@@ -5,6 +5,8 @@ public import Silver.PredicateChecking
 public import Silver.IntegerLiteral
 public import Silver.PredicateFlowOverlay
 public import Silver.PredicateArrayFlow
+public import Silver.ArrayBindingsMetadata
+public import Silver.ScalarArrayGrammar
 public import Silver.IntegerSubtypeBindings
 public import Silver.PredicateXorAdmission
 
@@ -32,26 +34,39 @@ structure ParseContext where
   maskAfter : Nat := 0
   pure : Bool := false
   outerIntegerHidden : Bool := false
+  arrayTypes : ArrayBindings.TypeEnvironment := []
   deriving Repr
 
+def ParseContext.arrayTable (context : ParseContext) : ArrayBindings.Table :=
+  ⟨context.arrayNames, context.arrayTypes⟩
+
 def ParseContext.analysis (context : ParseContext) : Integer.Analysis :=
-  ArrayFlow.analysis context.arrayNames (ScalarMetadata.analysis context.scalarNames context.declarationCount)
+  ArrayViews.analysis context.arrayNames (ScalarMetadata.analysis context.scalarNames context.declarationCount)
 
 def ParseContext.flow (context : ParseContext) (facts : ActiveFlow)
     (initials : ArrayBindings.Initials := []) : Flow :=
-  ⟨facts.path, ArrayBindings.integerRanges context.arrayNames initials context.elaborating facts.model.scalars⟩
+  ⟨facts.path, ArrayBindings.viewRanges context.arrayNames initials context.elaborating facts.model.scalars⟩
 
 def ParseContext.readingNames (context : ParseContext) (facts : ActiveFlow) : ScalarExpression.Environment :=
   ScalarMetadata.readingNames context.scalarNames context.declarationCount facts
 
 def ParseContext.ArraysReady (context : ParseContext) (text : Source) : Prop :=
-  ArrayBindings.ValidMetadata text context.arrayNames ∧
-    context.arrayNames.Pairwise (fun left right => left.offset + left.length ≤ right.offset)
+  ArrayBindings.ValidTable text context.arrayTable
+
+theorem ParseContext.ArraysReady.componentRanges {context : ParseContext} {text : Source}
+    (ready : context.ArraysReady text) (body : context.elaborating = false)
+    {item : ArrayBindings.Binding} (member : item ∈ context.arrayNames)
+    (nominal : item.typeId ≠ 0) (facts : ActiveFlow) :
+    item.viewDescriptor.componentRanges (context.flow facts).scalars = true := by
+  have kind := (ready.member_valid member).2.1.2.2.2.1 nominal
+  apply (Integer.ArrayDescriptor.componentRanges_iff _ _).mpr
+  simpa only [ParseContext.flow, body, ParseContext.arrayTable] using
+    ready.view_componentRanges member kind facts.model.scalars
 
 theorem ParseContext.reading_ranges {context : ParseContext} {facts : ActiveFlow}
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
     (initials : ArrayBindings.Initials := []) :
-    ArrayBindings.integerRanges context.arrayNames initials context.elaborating
+    ArrayBindings.viewRanges context.arrayNames initials context.elaborating
         (ScalarExpression.ranges (context.readingNames facts)) =
       (context.flow facts initials).scalars := by
   unfold ParseContext.readingNames
@@ -66,7 +81,7 @@ theorem ParseContext.flow_scalar (context : ParseContext) (facts : ActiveFlow)
     {index : Nat} (low : index ≤ ArrayBindings.scalarLimit)
     (initials : ArrayBindings.Initials := []) :
     (context.flow facts initials).scalars index = facts.model.scalars index :=
-  ArrayBindings.ranges_scalar (ArrayBindings.integerNames context.arrayNames) initials context.elaborating facts.model.scalars low
+  ArrayBindings.viewRanges_scalar context.arrayNames initials context.elaborating facts.model.scalars low
 
 theorem ParseContext.flow_join (context : ParseContext) (left right : ActiveFlow)
     (initials : ArrayBindings.Initials := []) :
@@ -77,15 +92,7 @@ theorem ParseContext.flow_join (context : ParseContext) (left right : ActiveFlow
   simp only [ParseContext.flow, Flow.join, path]
   congr 1
   rw [scalars]
-  funext cell
-  unfold ArrayBindings.integerRanges ArrayBindings.ranges Integer.Ranges.join
-  cases covered : ArrayBindings.covers (ArrayBindings.integerNames context.arrayNames) cell with
-  | true =>
-    simp only [covered, ↓reduceIte]
-    cases context.elaborating
-    · exact congrArg some (ArrayBindings.componentRange_join_self (ArrayBindings.integerNames context.arrayNames) cell).symm
-    · simp [Integer.Interval.join, Integer.Interval.singleton, Integer.Interval.isEmpty]
-  | false => simp only [covered, Bool.false_eq_true, ↓reduceIte]
+  exact ArrayBindings.viewRanges_join context.arrayNames initials context.elaborating _ _
 
 theorem ParseContext.flow_refine (context : ParseContext) (facts : ActiveFlow)
     (index : Nat) (operator : Integer.Comparison) (threshold : Int) (truth : Bool)
@@ -97,11 +104,11 @@ theorem ParseContext.flow_refine (context : ParseContext) (facts : ActiveFlow)
   simp only [ParseContext.flow, ActiveFlow.refine_path]
   congr 1
   rw [scalars]
-  unfold Integer.Ranges.refineName ArrayBindings.integerRanges
-  rw [ArrayBindings.ranges_scalar (ArrayBindings.integerNames context.arrayNames) initials context.elaborating facts.model.scalars low]
+  unfold Integer.Ranges.refineName
+  rw [ArrayBindings.viewRanges_scalar context.arrayNames initials context.elaborating facts.model.scalars low]
   cases facts.model.scalars index with
   | none => rfl
-  | some bounds => exact ArrayBindings.ranges_put (ArrayBindings.integerNames context.arrayNames) initials context.elaborating _ low _
+  | some bounds => exact ArrayBindings.viewRanges_put context.arrayNames initials context.elaborating _ low _
 
 @[simp] theorem ParseContext.flow_withPath (context : ParseContext) (facts : ActiveFlow)
     (path : Context) (initials : ArrayBindings.Initials := []) :
@@ -109,8 +116,8 @@ theorem ParseContext.flow_refine (context : ParseContext) (facts : ActiveFlow)
 
 def readScalarInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (maskFirst maskAfter : Nat := 0) (initials : ArrayBindings.Initials := []) : ScalarExpression.Result :=
-  ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter
-    (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)
+  ScalarExpression.ArrayGrammar.read text position (context.readingNames facts)
+    context.arrayTable maskFirst maskAfter (initials := initials) (elaborating := context.elaborating)
 
 def ParseContext.integerHidden (context : ParseContext) (text : Source) : Bool :=
   context.outerIntegerHidden || BooleanBindings.hidesInteger text context.booleanNames ||
@@ -124,7 +131,7 @@ def ParseContext.validityHidden (context : ParseContext) (text : Source) : Bool 
 def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (initials : ArrayBindings.Initials := []) : ExpressionResult :=
   expressionAt text position context.names (context.readingNames facts)
-    (context.integerHidden text) context.arrayNames initials context.elaborating
+    (context.integerHidden text) context.arrayTable initials context.elaborating
 
 def Comparison.toInteger : Comparison → Integer.Comparison
   | .eq => .eq | .ne => .ne | .lt => .lt | .le => .le | .gt => .gt | .ge => .ge
@@ -172,9 +179,9 @@ def invalidCondition (facts : ActiveFlow) : ConditionResult := ⟨0, facts.inval
 def characterCondition (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (initials : ArrayBindings.Initials := []) : ConditionResult :=
   let overlay := context.readingNames facts
-  let left := characterAt text position context.names overlay context.arrayNames initials context.elaborating
+  let left := characterAt text position context.names overlay context.arrayTable initials context.elaborating
   let operator := comparisonAt text left.after
-  let right := characterAt text operator.after context.names overlay context.arrayNames initials context.elaborating
+  let right := characterAt text operator.after context.names overlay context.arrayTable initials context.elaborating
   if left.after = 0 ∨ operator.after = 0 ∨ right.after ≤ position ∨
       !(left.nonliteralSeen || right.nonliteralSeen) then invalidCondition facts
   else ⟨right.after, facts, facts⟩
@@ -247,8 +254,8 @@ def booleanArrayAfter (text : Source) (context : ParseContext) (position : Nat)
   let first := skipAt text position
   let after := nameAfter text first
   let target := ArrayBindings.lookup text context.arrayNames first after
-  let subscript := ScalarExpression.read text (fixedAfter text after "(" false)
-    (context.readingNames facts) context.maskFirst context.maskAfter
+  let subscript := ScalarExpression.ArrayGrammar.read text (fixedAfter text after "(" false)
+    (context.readingNames facts) context.arrayTable context.maskFirst context.maskAfter (arrayReads := .noElements)
   let close := fixedAfter text subscript.after ")" false
   if first = 0 ∨ after ≤ first ∨ target = 0 ∨
       (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
@@ -266,7 +273,8 @@ def booleanAtomAfter (text : Source) (context : ParseContext) (position : Nat) :
       (context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter first after) ∨
       ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
       lookupName text context.names first after ≠ 0 ∨
-      ArrayBindings.lookup text context.arrayNames first after ≠ 0 then 0
+      ArrayBindings.lookup text context.arrayNames first after ≠ 0 ∨
+      ArrayBindings.lookupType text context.arrayTypes first after ≠ 0 then 0
   else if BooleanBindings.lookup text context.booleanNames first after ≠ 0 then after
   else if (Named.nameIs text first after ("true".toList.map Char.toNat) && !context.trueHidden) ||
       (Named.nameIs text first after ("false".toList.map Char.toNat) && !context.falseHidden)
@@ -289,7 +297,7 @@ mutual
       ⟨booleanAtomAfter text context position, facts, facts⟩
     else if !context.hasArguments then invalidCondition facts
     else
-      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayNames
+      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayTable
         (context.validityHidden text) context.booleanNames
       if afterCall = 0 then invalidCondition facts else
         ⟨afterCall, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩

@@ -25,7 +25,7 @@ def stringReferenceValue (after index : Nat) (info : BindingInfo) : ValueResult 
 
 inductive ValueAtCore (text : Source) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    (arrays : ArrayBindings.Table) (initials : ArrayBindings.Initials) (elaborating : Bool) :
     Nat → Operand → ValueResult → Prop
   | literal {position after : Nat} {bytes : Source} :
       skipAt text position ≠ 0 → skipAt text position ≤ text.length →
@@ -58,7 +58,7 @@ inductive ValueAtCore (text : Source) (names : BindingEnvironment)
 
 abbrev ValueAt (text : Source) (names : BindingEnvironment) (position : Nat)
     (value : Operand) (result : ValueResult) (scalarNames : ScalarExpression.Environment := [])
-    (integerHidden : Bool := false) (arrays : ArrayBindings.Metadata := [])
+    (integerHidden : Bool := false) (arrays : ArrayBindings.Table := {})
     (initials : ArrayBindings.Initials := []) (elaborating : Bool := false) : Prop :=
   ValueAtCore text names scalarNames integerHidden arrays initials elaborating position value result
 
@@ -70,7 +70,7 @@ theorem noQuotedValue {text : Source} {position : Nat} (absent : ¬ QuotedValueA
 
 theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
     {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat} {value : Operand} {result : ValueResult}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat} {value : Operand} {result : ValueResult}
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
     valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names = result := by
   cases parsed with
@@ -97,7 +97,7 @@ theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames
 
 theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment)
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (accepted : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
     ∃ value, ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value
       (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
@@ -157,10 +157,10 @@ def ValueResult.bound (result : ValueResult) : Bindings.Bound :=
 
 theorem value_inferLength {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult} (normal : NamesNormal names)
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
-    value.inferLength names.shape (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
+    value.inferLength names.shape (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
   cases parsed with
   | literal => rfl
   | reference positive identifier selected nonzero unmasked present typed noParen =>
@@ -185,7 +185,7 @@ theorem value_inferLength {text : Source} {names : BindingEnvironment}
 
 theorem value_literals {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult}
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
     value.PrintableLiterals := by
@@ -224,7 +224,7 @@ theorem Expression.length_le_sourceOperands (expression : Expression) :
 
 theorem value_operands {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult}
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
@@ -240,7 +240,7 @@ theorem value_operands {text : Source} {names : BindingEnvironment}
 
 theorem value_readable {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult}
     (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
@@ -253,7 +253,7 @@ theorem value_readable {text : Source} {names : BindingEnvironment}
   | slice _ _ source => exact ⟨_, fixedLengths_of_info source.selected source.fixed⟩
 
 theorem value_unique {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {left right : Operand} {leftResult rightResult : ValueResult}
     (first : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position left leftResult)
     (second : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position right rightResult) :
@@ -302,6 +302,6 @@ theorem value_unique {text : Source} {names : BindingEnvironment} {scalarNames :
           simp [stringReference, nameAfter, positive, identifierEnd_complete name,
             selected, nonzero, unmasked, present, typed]
       | slice _ yesSlice => exact False.elim (noSlice yesSlice)
-      | image _ _ _ other => exact congrArg Bindings.Value.image (ScalarExpression.at_unique parsed.scalar other.scalar).1
+      | image _ _ _ other => exact congrArg Bindings.Value.image (ScalarExpression.ArrayGrammar.at_unique parsed.scalar other.scalar).1
 
 end Silver.Compose

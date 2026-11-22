@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over fixed-capacity arrays with range-subtype indices and mod-based wraparound, so checks follow from types and guards, though the sort comparison and inverse mapping need careful shaping. No annotations are required, and the nested loops carry no facts beyond types.
 
-Position 1015 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1102 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

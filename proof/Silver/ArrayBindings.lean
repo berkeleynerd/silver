@@ -12,7 +12,8 @@ finite zero-extended list: arbitrary native tables can use all 2048 entries,
 while source elaboration maintains the canonical initialized prefix. -/
 namespace Silver.ArrayBindings
 
-def maxBindings : Nat := 4096 / 24
+def maxBindings : Nat := 4096 / 7
+def maxTypes : Nat := 4096 / 24
 def maxElements : Nat := 4096 / 2
 def scalarLimit : Nat := 4096 / 7
 
@@ -25,22 +26,57 @@ structure Binding where
   mutable : Bool
   componentBounds : Integer.Interval := .full
   isBoolean : Bool := false
+  typeId : Nat := 0
+  viewSlot : Nat := 0
   deriving DecidableEq, Repr
 
 abbrev Metadata := List Binding
 abbrev Initials := List Int
 
+structure ArrayType where
+  first : Nat
+  after : Nat
+  bounds : Integer.Interval
+  componentBounds : Integer.Interval
+  deriving DecidableEq, Repr
+
+abbrev TypeEnvironment := List ArrayType
+
+/-- The active native metadata prefixes. `Metadata` is the item projection;
+the type prefix remains explicit at every native metadata boundary. -/
+structure Table where
+  items : Metadata := []
+  types : TypeEnvironment := []
+  deriving DecidableEq, Repr
+
 structure Env where
   names : Metadata := []
   used : Nat := 0
   values : Initials := []
+  types : TypeEnvironment := []
   deriving DecidableEq, Repr
 
-def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, 0, 0, false, .full, false⟩
+def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, 0, 0, false, .full, false, 0, 0⟩
 def binding (names : Metadata) (index : Nat) : Binding := names.getD (index - 1) emptyBinding
+
+def emptyType : ArrayType := ⟨0, 0, .empty, .empty⟩
+def arrayType (types : TypeEnvironment) (index : Nat) : ArrayType :=
+  types.getD (index - 1) emptyType
+
+def Env.table (environment : Env) : Table :=
+  { items := environment.names, types := environment.types }
 
 def Binding.descriptor (item : Binding) : Integer.ArrayDescriptor :=
   ⟨scalarLimit + 1 + item.offset, item.bounds, item.componentBounds⟩
+
+/-- Symbolic formals have disjoint semantic cells and never read native pool
+values. Slot zero selects the existing stored-object layout. -/
+def Binding.viewDescriptor (item : Binding) : Integer.ArrayDescriptor :=
+  if item.viewSlot = 0 then item.descriptor
+  else ⟨scalarLimit + 1 + item.viewSlot * maxElements, item.bounds, item.componentBounds⟩
+
+@[simp] theorem Binding.viewDescriptor_stored (item : Binding) (stored : item.viewSlot = 0) :
+    item.viewDescriptor = item.descriptor := by simp [Binding.viewDescriptor, stored]
 
 def Binding.booleanDescriptor (item : Binding) : Boolean.ArrayDescriptor :=
   ⟨BooleanBindings.maxBindings + 1 + item.offset, item.bounds⟩
@@ -212,6 +248,20 @@ def readBounds (names : Metadata) (values : Initials) (elaborating : Bool)
     hullModel values (elementSlot (binding names target) indices.lower)
       (elementSlot (binding names target) indices.upper)
   else (binding names target).componentBounds
+
+def readViewBounds (names : Metadata) (values : Initials) (elaborating : Bool)
+    (target : Nat) (indices : Integer.Interval) : Integer.Interval :=
+  readBounds names values (elaborating && decide ((binding names target).viewSlot = 0)) target indices
+
+@[simp] theorem readViewBounds_stored (names : Metadata) (values : Initials) (elaborating : Bool)
+    (target : Nat) (indices : Integer.Interval) (stored : (binding names target).viewSlot = 0) :
+    readViewBounds names values elaborating target indices = readBounds names values elaborating target indices := by
+  simp [readViewBounds, stored]
+
+theorem readViewBounds_formal (names : Metadata) (values : Initials) (elaborating : Bool)
+    (target : Nat) (indices : Integer.Interval) (formal : (binding names target).viewSlot ≠ 0) :
+    readViewBounds names values elaborating target indices = (binding names target).componentBounds := by
+  simp [readViewBounds, readBounds, formal]
 
 def covers (names : Metadata) (cell : Nat) : Bool :=
   names.any fun item => decide (item.descriptor.ContainsCell cell)

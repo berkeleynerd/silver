@@ -1,0 +1,21 @@
+{
+  "utc": "2026-11-21T20:54:36.772883+00:00",
+  "source_run": "20261121T193933-afb215e6c72b",
+  "source_manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-call-source-410/tmp/resume-20261121-source/source-cache-manifest.json",
+  "modules": 273,
+  "copied_artifacts": 411,
+  "skipped_source_mismatch": [
+    "proof/Silver/FunctionBindingsSpecCertificate.lean",
+    "proof/Silver/OutputBodyCertificate.lean",
+    "proof/Silver/OutputBodyLines0.lean",
+    "proof/Silver/OutputBodyLines1.lean",
+    "proof/Silver/OutputBodyLines2.lean",
+    "proof/Silver/OutputBodyLines3.lean",
+    "proof/Silver/OutputBodyLines4.lean",
+    "proof/Silver/OutputBodyLines5.lean",
+    "proof/Silver/OutputBodyLines6.lean",
+    "proof/Silver/OutputBodyLines7.lean",
+    "proof/Silver/OutputSpecCertificate.lean"
+  ],
+  "note": "Matching source modules; original traces and all companions preserved. Managed Lake rehash/audit still required."
+}

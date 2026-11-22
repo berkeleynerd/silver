@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the Candidate range, the for-loop index range and one explicit guard before the accumulator addition, so no annotation is needed and the proofs should discharge.
 
-Position 312 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 314 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

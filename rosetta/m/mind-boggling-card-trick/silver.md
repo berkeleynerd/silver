@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, range-typed counters and guards just before pile stores and mod divisors, but several loop-carried values (pile counts, generator state, success count) need careful typing and guards, so discharge depends on program shape.
 
-Position 191 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 193 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

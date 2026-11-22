@@ -39,28 +39,94 @@ affected Rosetta tests rerun after resolving the session-history conflict.
 
 ## Near-term feature queue
 
-**Selected language capability, 2026-11-21.** The owner instructed **“Proceed”**
-with named constrained fixed-size Integer-array types, read-only array `in`
-parameters in existing Main-local functions **and procedures** alongside scalar
-arguments, and static `'First`, `'Last`, `'Length` and `'Range` bounds queries
-on named arrays and existing anonymous Integer-array objects. Anonymous arrays
-remain excluded as call actuals; Boolean-array types, parameters and queries are
-unselected.
-[#410](https://github.com/berkeleynerd/silver/issues/410), in
-[milestone 27](https://github.com/berkeleynerd/silver/milestone/27), owns the
-[capability plan](docs/named-array-parameters.md). Dot product and Horner polynomial
-evaluation are the drivers. This is one coherent language batch with one shared
-final checkpoint; no samples-only detour or separate agent-sized delivery is
-selected. Its implementation, validation, independent review and feature PR are
-authorized by the [dated instruction](docs/session-memory.md#2026-11-21--named-constrained-integer-array-parameters-selected).
-The capability is not yet supported. Preserve full declared-domain checking,
-complete native and Lean/actual-source assurance and precise Rosetta progression.
-Writable, returned and unconstrained arrays and a separate expansion of array
-locals remain outside this batch. The capability plan records nominal identity,
-visibility, static-query and declared-domain rules; establish metadata/capacity
-and source-proof composition before admission.
-No provisional successor is selected. Deferred #381/#382 and #398 remain outside
-this queue; PR #385 stays held and Worca remains stopped.
+**Delivered language capability, 2026-11-21.** The owner selected
+[#410](https://github.com/berkeleynerd/silver/issues/410) on 2026-11-21, in
+[milestone 27](https://github.com/berkeleynerd/silver/milestone/27), as one coherent
+batch. It adds named constrained nonempty Integer-array types and initialized
+objects, read-only same-nominal-type inputs in existing Main-local functions and
+procedures, and static `'First`, `'Last`, `'Length` and `'Range` queries on named
+arrays and existing anonymous Integer-array objects. Anonymous arrays remain
+excluded as call actuals. Writable, returned, unconstrained and Boolean named
+arrays and a separate expansion of subprogram-local arrays remain outside scope.
+
+The capability is supported within those rules. The
+[complete native packet](docs/evidence/named-array-parameters-410-20261121/final-native/README.md)
+records 19,994 discharged checks, and the
+[complete Lean/source packet](docs/evidence/named-array-parameters-410-20261121/final-lean/README.md)
+records 1,083 project modules and 173,026 declarations. The
+[final regression packet](docs/evidence/named-array-parameters-410-20261121/final-regression/README.md)
+records the completed 785-test suite, the 15 proof-affected rechecks, final
+Rosetta checks and exact input applicability. The
+[capability record](docs/named-array-parameters.md#delivery-assurance-and-validation)
+retains the scoped independent reviews, failed attempts, repairs, resource
+settings, delivery time and feature-local producer account. Dot product and
+Horner evaluation gain two faithful callable mappings under
+`named-integer-array-parameters`; broad arrays #12 stays open.
+[Stage issue #415](https://github.com/berkeleynerd/silver/issues/415) tracks
+this precise supported construct in generated Stage 1. The November 21
+assessment/review dates retain their separate attribution. The November 22
+closing confirmation accepted the delivery, PR #412 is ready for owner review,
+and the issue/stage bookkeeping is reconciled. No merge is authorized by
+capability completion.
+
+### Ravenscar priority — 2026-11-22
+
+The owner selected the five foundations below and Ravenscar profile support as
+near-term planning priorities, followed immediately by a Jorvik reassessment.
+PR #412's review response, focused proof review and applicable validation
+completed on November 22, with its final implementation and proof inputs
+preserved. It is ready for an owner-authorized merge before successor work.
+The proposed successor is
+[milestone 28, Ravenscar foundations](https://github.com/berkeleynerd/silver/milestone/28);
+its [bounded plan](docs/ravenscar-tasking-plan.md) records scope, dependencies,
+assurance questions and completion criteria. This instruction authorizes planning
+and priority, not feature implementation or merge. All six implementation issues
+remain Backlog; packages are the first implementation increment once authorized.
+
+| Order | Planned increment | Issue |
+| --- | --- | --- |
+| 1 | Bounded library packages, initialized library-level state and multiple application units | [#416](https://github.com/berkeleynerd/silver/issues/416) |
+| 2 | Library-level protected objects with initialized scalar state and nonblocking protected procedures/functions | [#417](https://github.com/berkeleynerd/silver/issues/417) |
+| 3 | A static set of library-level tasks with restricted persistent outer loops | [#418](https://github.com/berkeleynerd/silver/issues/418) |
+| 4 | Protected entries with simple Boolean barriers and statically bounded callers/queues | [#419](https://github.com/berkeleynerd/silver/issues/419) |
+| 5 | Selected real-time clock operations, safe `Time`/`Time_Span` arithmetic and `delay until` | [#420](https://github.com/berkeleynerd/silver/issues/420) |
+| Cross-cutting; final delivery | Compiler-owned profile configuration, runtime feasibility and integrated tasking assurance | [#421](https://github.com/berkeleynerd/silver/issues/421) |
+
+The #421 configuration/runtime feasibility check begins upfront, before protected
+object proof work; it is not deferred until the final integration. The pinned
+[SPARK concurrency guide](references/spark/16.1/docs/ug/en/source/concurrency.rst)
+permits `pragma Profile (Ravenscar)` and
+`pragma Partition_Elaboration_Policy (Sequential)` in a configuration file.
+Use compiler-owned configuration consistently for proof, build and binding,
+while retaining the Oracle's sole permitted pragma in application source.
+Confirm the pinned toolchain/runtime recipe and its documented assumptions;
+this plan requires no Oracle amendment or hidden replacement of author source.
+Remaining design decisions include whole-program unit/resource bounds, static
+priority/ceiling choices, the exact shared-state and caller rules, clock-domain
+exhaustion behavior and the runtime's external assumptions. Resolve these in the
+bounded plan before implementing the affected forms; records, task arrays and a
+general-purpose library system are not implicit additions to the scope.
+
+Each increment must establish decidable admission, full-domain safety, complete
+automatic obligation discharge and correspondence to every actual author unit
+and selected library body. Persistent tasks require safety over reachable steps
+and finite execution prefixes while proof checking itself terminates; existing
+finite-program guarantees remain intact. No scheduler fairness, eventual barrier
+opening or hard-deadline guarantee follows merely from Bronze/Silver discharge.
+A bounded event/mailbox worker and a periodic-release variant motivate the
+compositions. General records, enumerations, generics, heap allocation and
+general `while` loops are not prerequisites. Complete applicable assurance and
+independent review remain necessary before any new fragment is supported.
+
+Immediately after Ravenscar delivery, the next planning item is
+[Jorvik reassessment #422](https://github.com/berkeleynerd/silver/issues/422),
+using delivered evidence and cost to assess multiple protected entries, additional
+queued callers, richer barriers and relative delays. It remains Backlog, with no
+separate provisional implementation milestone or automatic Jorvik admission.
+Existing Rosetta candidates remain inputs to later choices; this dated owner
+priority supersedes waiting for the whole natural surface before tasking.
+Deferred #381/#382 and #398 remain outside this queue; PR #385 stays held and
+Worca remains stopped. No other feature proposal is removed by this priority.
 
 **Reduced package complete on Linux, 2026-11-21 (PR #406).** The owner instructed
 **“Approved. Proceed to completion and the accompanying PR”** for
@@ -728,8 +794,10 @@ and operator budgets are unchanged.
 Rosetta support is limited to `fixed-integer-arrays` and the exact rotation
 approach. Broad `arrays` and
 [stage #12](https://github.com/berkeleynerd/silver/issues/12) remain open for
-named array types, dynamic or null arrays, array attributes, whole-array
-operations, mutable/general iteration and other unadmitted forms. Other #11 constructs,
+dynamic or null arrays, whole-array operations, mutable/general iteration and
+other unadmitted forms. Named constrained Integer-array types and the selected
+static bounds queries are delivered separately by [#410](docs/named-array-parameters.md).
+Other #11 constructs,
 capacity/assurance-mode work and further proof-performance packages remain
 outside this increment.
 
@@ -1229,24 +1297,32 @@ dispositions, not unfinished milestones.
 
 ## Language surface direction
 
-Decided on 2026-10-15. The [Rosetta progression](rosetta/progression.md) is the
-short-term plan for filling out Silver's natural surface under the Oracle. It
-orders the Rosetta Code candidates whose proofs are likely or plausible to
-discharge automatically into stages, each adding the constructs its samples
-need, the most widely needed first. Each stage states the admission question for
-every construct it adds; a stage that adds an input construct is driven by a
-sample that uses that input and names the failure paths to test. A stage is a
-candidate for a milestone, not an authorization: each still needs its own scope,
-the owner's authorization and the complete assurance in
-[development.md](development.md).
+The 2026-10-15 [Rosetta progression](rosetta/progression.md) remains an input
+for filling out Silver's natural surface under the Oracle. It orders the Rosetta
+Code candidates whose proofs are likely or plausible to discharge automatically
+into stages, each adding the constructs its samples need, the most widely needed
+first. Each stage states the admission question for every construct it adds; a
+stage that adds an input construct is driven by a sample that uses that input and
+names the failure paths to test. A stage is a candidate for a milestone, not an
+authorization: each still needs its own scope, the owner's authorization and the
+complete assurance in [development.md](development.md).
 
 The assessments are model judgments, not proofs, and the corpus underrepresents
-input handling, failure outcomes, modularity and library design. Once the natural
-surface is filled out, reassess networking, parallelism (whose required profile
-pragma the Oracle does not permit in program source) and other demanding samples,
-and add real-world target programs where Rosetta is thin. The
+input handling, failure outcomes, modularity and library design. The owner's
+[Ravenscar priority of 2026-11-22](#ravenscar-priority--2026-11-22) supersedes the
+former plan to wait until the natural surface was filled out before reassessing
+parallelism. Bounded packages, protected state, static tasks, entries and absolute
+delay are now the proposed successor, with Jorvik reassessment immediately after
+that delivery. General records, enumerations, generics, heap allocation and
+general `while` loops are not prerequisites for this fragment. The pinned SPARK
+guide permits Ravenscar and sequential-elaboration pragmas in compiler-owned
+configuration, so the Oracle's restriction on application-source pragmas is not
+a blanket ban on tasking. The same configuration and author units must be used
+for proof and build. Networking and other demanding programs remain candidate
+work; add real-world targets where Rosetta is thin. The
 [Rosetta README](rosetta/README.md) describes the assessments, the inclusion
-policy and the supported-construct list.
+policy and the supported-construct list. No support or Rosetta stage changes are
+claimed by this planning update.
 
 ## Planning and tracking
 
@@ -1350,6 +1426,7 @@ sequence.
 | Fixed-size Boolean arrays | Supported | Explicitly initialized anonymous one-dimensional predefined Boolean arrays, safe scalar-only indexes and mutable component writes; exact snapshots and typed stored flags without retained predicate facts. [Linux evidence and closing confirmation](docs/boolean-arrays.md#delivery-assurance-and-validation--2026-11-07). Broad arrays/booleans and Boolean iteration/`others` remain separate. | [Sieve through 100](samples/rosetta_sieve_of_eratosthenes.adb), [elementary cellular automata](samples/rosetta_elementary_cellular_automaton.adb) |
 | Small nonrecursive scalar procedures | Supported | Explicit scalar parameter modes, source-written output initialization, nonaliasing scalar calls and range-checked copy-back; [original delivery evidence](docs/scalar-procedures.md#delivery-assurance-and-validation). The named/mixed extension is recorded separately below. Broad procedures remain separate. | [Return multiple values](samples/rosetta_return_multiple_values.adb) |
 | Named scalar arguments | Supported | Fully positional, reordered fully named and positional-prefix/named-suffix calls of existing Integer/Boolean scalar functions and procedures; case-insensitive callee-formal selectors, every formal exactly once, unchanged full domains, incoming-state checks, aliases, copy-back, source and budgets. [Complete native/Lean/suite evidence and closing review](docs/named-scalar-arguments.md#delivery-assurance-and-validation); precise [stage #393](https://github.com/berkeleynerd/silver/issues/393). Defaults remain excluded; broad functions/procedures and arrays (#11/#12) remain separate. | [Named parameters](samples/rosetta_named_parameters.adb) |
+| Named constrained Integer-array parameters | Supported | Main-level named nonempty constrained Integer-array types and initialized objects; read-only same-nominal-type inputs in existing functions and procedures; static First/Last/Length/Range queries on named types, objects and formals and existing anonymous Integer-array objects. Full declared component domains and existing scalar outputs/copy-back apply. [Complete Linux assurance and delivery validation](docs/named-array-parameters.md#delivery-assurance-and-validation); precise [stage #415](https://github.com/berkeleynerd/silver/issues/415). Writable, returned, unconstrained and Boolean named arrays remain excluded; broad arrays #12 stays separate. | [Dot product](samples/rosetta_dot_product.adb), [Horner evaluation](samples/rosetta_horner_polynomial.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

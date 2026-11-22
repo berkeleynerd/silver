@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small integer work bounded by a documented search limit, and the only loop-carried hazards (digit product and factor sum) can be handled with caps and range types without annotations, though the careful shape makes discharge plausible rather than routine.
 
-Position 403 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 405 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

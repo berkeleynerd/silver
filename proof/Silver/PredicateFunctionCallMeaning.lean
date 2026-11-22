@@ -4,6 +4,7 @@ public import Silver.PredicateFunctionCallReadings
 public import Silver.PredicateConditionValidity
 public import Silver.PredicateFlowInvariant
 public import Silver.ScalarFunctionDefinition
+public import Silver.ScalarArrayGrammarFrames
 
 @[expose] public section
 
@@ -19,22 +20,31 @@ theorem actual_meaning {text context position facts formal actual after}
     (arraysReady : context.ArraysReady text)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
     (bounded : facts.path.Bounded)
-    (parsed : ActualAt text context position facts formal actual after) :
+    (parsed : ActualAt text context position facts formal actual after)
+    (body : formal.typeId ≠ 0 → context.elaborating = false) :
     actual.Readable context.hasArguments context.names.shape
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
     actual.check context.names.shape context.analysis (context.flow facts)
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
-      (formalType formal) = true := by
+      (formalType formal context.arrayTypes) = true := by
   cases parsed.payload with
-  | integer kind source nonempty included =>
+  | integer scalar kind source nonempty included =>
       have inferred := source.inferred
-      rw [context.reading_ranges compatible] at inferred
+      change _ = some _ at inferred
+      rw [show context.arrayTable.items = context.arrayNames from rfl, context.reading_ranges compatible] at inferred
       simp only [ScalarFunctions.Actual.Readable, ScalarFunctions.Actual.check,
-        formalType, kind, inferred, nonempty, included, Bool.not_false, Bool.and_self, and_self]
-  | boolean kind source =>
+        formalType, scalar, ne_eq, not_true_eq_false, ↓reduceIte, kind, inferred, nonempty, included, Bool.not_false, Bool.and_self, and_self]
+  | boolean scalar kind source =>
       have meaning := condition_valid normal nv base arraysReady compatible bounded source
       exact ⟨⟨meaning.grammatical, meaning.readable⟩,
-        by simpa only [formalType, kind, ScalarFunctions.Actual.check] using meaning.checked⟩
+        by simpa [formalType, scalar, kind, ScalarFunctions.Actual.check] using meaning.checked⟩
+
+  | array reading =>
+      have named := Nat.ne_of_gt reading.nominal
+      have nominal := reading.matches arraysReady
+      have cells := arraysReady.componentRanges (body named) reading.member
+        (fun zero => named (reading.sameType.symm.trans zero)) facts
+      exact ⟨trivial, by simp [formalType, named, ScalarFunctions.Actual.check, nominal, cells]⟩
 
 private theorem checkActuals_entries {context : ParseContext} {facts : ActiveFlow}
     {catalog : FunctionBindings.Metadata} {entries : List (ScalarAssociations.Entry ScalarFunctions.Actual)}
@@ -43,10 +53,10 @@ private theorem checkActuals_entries {context : ParseContext} {facts : ActiveFlo
     (checked : ∀ entry ∈ entries,
       entry.2.check context.names.shape context.analysis (context.flow facts)
         (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
-        (formalType (FunctionBindings.parameter catalog entry.1)) = true) :
+        (formalType (FunctionBindings.parameter catalog entry.1) context.arrayTypes) = true) :
     ScalarFunctions.checkActuals context.names.shape context.analysis (context.flow facts)
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
-      (formalTypes catalog first count) (entries.map Prod.snd) = true := by
+      (formalTypes catalog first count context.arrayTypes) (entries.map Prod.snd) = true := by
   induction count generalizing first entries with
   | zero =>
       have empty : entries = [] := List.map_eq_nil_iff.mp keys
@@ -70,16 +80,17 @@ theorem actuals_meaning {text context facts catalog position first last actuals 
     (arraysReady : context.ArraysReady text)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
     (bounded : facts.path.Bounded)
-    (parsed : ActualsAt text context facts catalog position first last actuals after) :
+    (parsed : ActualsAt text context facts catalog position first last actuals after)
+    (body : context.elaborating = false) :
     (∀ actual ∈ actuals, actual.Readable context.hasArguments context.names.shape
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))) ∧
     ScalarFunctions.checkActuals context.names.shape context.analysis (context.flow facts)
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
-      (formalTypes catalog first (last - first + 1)) actuals = true := by
+      (formalTypes catalog first (last - first + 1) context.arrayTypes) actuals = true := by
   cases parsed with
   | actuals source =>
       have entryMeaning := source.forall_payloads (fun _ _ _ _ payload =>
-        actual_meaning normal nv base arraysReady compatible bounded payload)
+        actual_meaning normal nv base arraysReady compatible bounded payload (fun _ => body))
       have arranged := ScalarAssociations.arrange_all defaultFunctionActual source.fresh.nodup source.complete entryMeaning
       refine ⟨?_, checkActuals_entries (ScalarAssociations.arrange_keys ..) (fun entry member => (arranged entry member).2)⟩
       intro actual present
@@ -95,10 +106,11 @@ theorem call_meaning {text context position facts catalog call result}
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
     (bounded : facts.path.Bounded)
     (valid : FunctionBindings.ValidMetadata text catalog)
-    (parsed : CallAt text context position facts catalog call result) :
+    (parsed : CallAt text context position facts catalog call result)
+    (body : context.elaborating = false) :
     call.Readable context.hasArguments context.names.shape
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
-    call.check (catalogSignatures catalog) context.names.shape context.analysis (context.flow facts)
+    call.check (catalogSignatures catalog context.arrayTypes) context.names.shape context.analysis (context.flow facts)
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) =
       some (resultType (FunctionBindings.signature catalog call.callee)) := by
   have inside : call.callee ≤ catalog.items.length := by
@@ -112,51 +124,69 @@ theorem call_meaning {text context position facts catalog call result}
       (FunctionBindings.signature catalog call.callee).count := by
     have nonempty := signatureValid.2.1
     omega
-  have arguments := actuals_meaning normal nv base arraysReady compatible bounded parsed.actuals
+  have arguments := actuals_meaning normal nv base arraysReady compatible bounded parsed.actuals body
   rw [count] at arguments
   refine ⟨arguments.1, ?_⟩
   simp only [ScalarFunctions.Call.check, catalogSignatures_lookup positive inside,
     Option.bind_some, signatureModel, arguments.2, ↓reduceIte]
 
-/-- A function body or initializer has no String, array, or input namespace.
-Purity alone is insufficient to rule out all non-scalar source operands. -/
-structure ClosedFunctionContext (context : ParseContext) : Prop where
+/-- Closed subprograms see their Integer array formals. Local initializers use the
+empty frame before any formal is bound. -/
+structure ClosedFunctionContext (context : ParseContext)
+    (frame : List (Nat × Integer.ArrayDescriptor) := []) : Prop where
   pure : context.pure = true
   noArguments : context.hasArguments = false
   noNames : context.names = []
-  noArrays : context.arrayNames = []
+  arrayViews : ∀ item ∈ context.arrayNames, item.isBoolean = false ∧ item.viewSlot ≠ 0 ∧
+    (item.typeId, item.viewDescriptor) ∈ frame
 
-theorem scalarExpression_of_readsOnly {expression : Integer.Expr} {allowed : Nat → Prop}
-    (reads : expression.ReadsOnly allowed) : ScalarFunctions.scalarExpression expression = true := by
-  induction expression <;> simp_all [Integer.Expr.ReadsOnly, ScalarFunctions.scalarExpression]
+theorem ClosedFunctionContext.ofEmpty {context : ParseContext} (pure : context.pure = true)
+    (noArguments : context.hasArguments = false) (noNames : context.names = [])
+    (noArrays : context.arrayNames = []) : ClosedFunctionContext context :=
+  ⟨pure, noArguments, noNames, by simp [noArrays]⟩
 
-theorem scalarExpression_source_scalar {text names position expression result maskFirst maskAfter allowSign initials elaborating}
-    (parsed : ScalarExpression.At text names position expression result maskFirst maskAfter allowSign
-      [] initials elaborating) : ScalarFunctions.scalarExpression expression = true :=
-  scalarExpression_of_readsOnly (ScalarExpression.syntax_readsOnly parsed.grammar)
+theorem ClosedFunctionContext.noArrays {context : ParseContext}
+    (closed : ClosedFunctionContext context) : context.arrayNames = [] := by
+  apply List.eq_nil_iff_forall_not_mem.mpr
+  intro item member
+  exact List.not_mem_nil (closed.arrayViews item member).2.2
+
+theorem ClosedFunctionContext.scalarExpression
+    {text names position expression result maskFirst maskAfter allowSign initials elaborating mode frame}
+    {context : ParseContext} (closed : ClosedFunctionContext context frame)
+    (parsed : ScalarExpression.ArrayGrammar.At text names position expression result maskFirst maskAfter
+      allowSign context.arrayTable initials elaborating mode) :
+    ScalarFunctions.frameExpression frame expression = true :=
+  parsed.frameExpression (fun item member _ => (closed.arrayViews item member).2.2)
+
+theorem ClosedFunctionContext.noBooleanRead {text context frame position facts condition after}
+    (closed : ClosedFunctionContext context frame)
+    (parsed : BooleanArrayAt text context position facts condition after) : False := by
+  cases parsed with
+  | read found boolean _ _ _ _ _ _ =>
+      have member := ArrayBindings.binding_mem (Nat.pos_of_ne_zero found)
+        (ArrayBindings.lookup_bound text context.arrayNames _ _)
+      exact Bool.false_ne_true ((closed.arrayViews _ member).1.symm.trans boolean)
 
 mutual
   theorem primary_source_scalar {text context position facts condition result initials}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : PrimaryAt text context position facts condition result initials) :
-      ScalarFunctions.scalarCondition condition = true := by
+      ScalarFunctions.frameCondition frame condition = true := by
     cases parsed with
     | group _ _ _ inner _ =>
         have scalar := condition_source_scalar closed inner
         exact scalar
     | boolean _ _ _ _ _ atom => cases atom <;> rfl
     | valid _ _ _ _ arguments _ => simp [closed.noArguments] at arguments
-    | booleanArray _ _ _ _ atom =>
-        cases atom with
-        | read found _ _ _ _ _ _ _ =>
-            simp [closed.noArrays, ArrayBindings.lookup, ArrayBindings.lookupFrom] at found
+    | booleanArray _ _ _ _ atom => exact (closed.noBooleanRead atom).elim
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals subst_vars; all_goals exact Prod.Lex.left _ _ (by assumption)
 
   theorem booleanFactor_source_scalar {text context position facts condition result initials}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : BooleanFactorAt text context position facts condition result initials) :
-      ScalarFunctions.scalarCondition condition = true := by
+      ScalarFunctions.frameCondition frame condition = true := by
     cases parsed with
     | primary _ inner | negated _ _ inner =>
         have scalar := primary_source_scalar closed inner
@@ -165,9 +195,9 @@ mutual
   decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 
   theorem booleanRelation_source_scalar {text context position facts condition result initials}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : BooleanRelationAt text context position facts condition result initials) :
-      ScalarFunctions.scalarCondition condition = true := by
+      ScalarFunctions.frameCondition frame condition = true := by
     cases parsed with
     | factor inner _ _ => exact booleanFactor_source_scalar closed inner
     | comparison left _ _ _ _ right _ =>
@@ -177,9 +207,9 @@ mutual
   decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 
   theorem relation_source_scalar {text context position facts condition result initials}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : RelationAt text context position facts condition result initials) :
-      ScalarFunctions.scalarCondition condition = true := by
+      ScalarFunctions.frameCondition frame condition = true := by
     cases parsed with
     | booleanNot _ _ inner | pureBoolean _ _ _ _ _ inner =>
         exact booleanRelation_source_scalar closed inner
@@ -188,19 +218,17 @@ mutual
         | binding _ _ found _ _ _ _ _ =>
             simp [closed.noNames, BindingEnvironment.get] at found
     | scalars _ _ _ _ left right _ =>
-        rw [closed.noArrays] at left right
-        exact Bool.and_eq_true_iff.mpr ⟨scalarExpression_source_scalar left,
-          scalarExpression_source_scalar right⟩
+        exact Bool.and_eq_true_iff.mpr ⟨closed.scalarExpression left, closed.scalarExpression right⟩
     | strings _ _ _ _ _ _ _ _ impure | character _ _ _ _ _ _ impure
     | primary _ _ _ _ _ _ _ impure => simp [closed.pure] at impure
   termination_by (remainingAt text position, 4)
   decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 
   theorem chain_source_scalar {text context condition result chained final finalResult facts initials originalStart}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : ChainAt text context condition result chained final finalResult facts initials originalStart)
-      (scalar : ScalarFunctions.scalarCondition condition = true) :
-      ScalarFunctions.scalarCondition final = true := by
+      (scalar : ScalarFunctions.frameCondition frame condition = true) :
+      ScalarFunctions.frameCondition frame final = true := by
     cases parsed with
     | done => exact scalar
     | @next _ _ condition result chained operator right rightResult final finalResult _ _ _ _ _ _ _ rightRead _ _ _ rest =>
@@ -211,9 +239,9 @@ mutual
   decreasing_by all_goals subst_vars; all_goals exact Prod.Lex.left _ _ (by assumption)
 
   theorem condition_source_scalar {text context position facts condition result initials}
-      (closed : ClosedFunctionContext context)
+      (closed : ClosedFunctionContext context frame)
       (parsed : ConditionAt text context position facts condition result initials) :
-      ScalarFunctions.scalarCondition condition = true := by
+      ScalarFunctions.frameCondition frame condition = true := by
     cases parsed with
     | condition _ first _ _ tail =>
         exact chain_source_scalar closed tail (relation_source_scalar closed first)
@@ -222,19 +250,21 @@ mutual
 end
 
 theorem actual_source_scalar {text context position facts formal actual after}
-    (closed : ClosedFunctionContext context)
+    (closed : ClosedFunctionContext context frame)
     (parsed : ActualAt text context position facts formal actual after) :
-    ScalarFunctions.scalarActual actual = true := by
+    ScalarFunctions.frameActual frame actual = true := by
   cases parsed.payload with
-  | integer _ source _ _ =>
-      rw [closed.noArrays] at source
-      exact scalarExpression_source_scalar source
-  | boolean _ source => exact condition_source_scalar closed source
+  | integer _ _ source _ _ => exact closed.scalarExpression source
+  | boolean _ _ source => exact condition_source_scalar closed source
+  | array reading =>
+      have member := (closed.arrayViews _ reading.member).2.2
+      rw [reading.sameType] at member
+      exact List.contains_iff_mem.mpr member
 
 theorem actuals_source_scalar {text context facts catalog position first last actuals after}
-    (closed : ClosedFunctionContext context)
+    (closed : ClosedFunctionContext context frame)
     (parsed : ActualsAt text context facts catalog position first last actuals after) :
-    actuals.all ScalarFunctions.scalarActual = true := by
+    actuals.all (ScalarFunctions.frameActual frame) = true := by
   cases parsed with
   | actuals source =>
       have original := source.forall_payloads (fun _ _ _ _ payload => actual_source_scalar closed payload)

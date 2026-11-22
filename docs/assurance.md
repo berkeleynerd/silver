@@ -159,6 +159,55 @@ declaration and body semantics. The
 unchanged 64 MiB allocation. Focused tests
 exercise these rules; they do not replace complete compiler or source proofs.
 
+## Named constrained Integer-array inputs
+
+The [#410 capability](named-array-parameters.md#delivery-assurance-and-validation)
+extends the existing callable model with read-only named Integer-array inputs
+and static bounds queries. Its 2026-11-21 delivery records complete Linux
+native and Lean/actual-source assurance, final regression coverage and scoped
+independent reviews. A named declaration supplies nominal identity; equal bounds
+or an anonymous object do not establish that
+identity. Input views retain fixed bounds and the complete declared component
+interval without charging symbolic formal components to stored object cells.
+Every callable body, including an unused one, must be checked over all declared
+input combinations. Main's example aggregates supply no narrower proof domain.
+Scalar-only writable actuals keep the existing same-incoming-state, alias and
+copy-back rules. Bounds metadata must preserve Ada staticness, ordered visibility
+and scoped hiding through declarations, expressions, calls and loops.
+
+The value-transport and slot-disjointness results in `NamedArrayParameters` and
+`ScalarFunctionFrame` are audited model-consistency lemmas outside the composed
+endpoint chain. Endpoint safety and discharge use the complete declared
+component ranges, via `capture_of_checked_ranges` and `bindArrayArguments_fits`.
+Likewise, the native array-predicate equivalences are side facts except for
+`PredicatesCorrect.validType`, which the callable-frame equations consume.
+The [focused proof review](reviews/review-pr412-claude-proof-20261122.md)
+distinguishes these scopes; it found no missing premise on the traced endpoint
+paths.
+
+The final assurance chain connects those rules to the actual native source,
+independent source grammar, declaration/body semantics and every required native
+and application obligation. The [source review](reviews/review-named-array-source-20261121.md)
+and [final audit-coverage review](reviews/review-named-array-audit-coverage-20261121.md)
+record the checked correspondence and complete module inventory. The
+[bounded native review](reviews/review-named-array-native-20261121.md)
+audits 27 focused gates (1,093 checks), resolves its stack finding and records
+17 additional direct-caller gates. Those focused results alone do not establish
+the complete checkpoint. The
+[corrected complete native audit](evidence/named-array-parameters-410-20261121/final-native/README.md)
+passed all 19,994 checks; the [complete Lean/source audit](evidence/named-array-parameters-410-20261121/final-lean/README.md)
+checked 1,083 modules and 173,026 declarations, reusing successful compiled
+objects and freshly auditing module coverage and the permitted foundations.
+The [final regression record](evidence/named-array-parameters-410-20261121/final-regression/README.md)
+distinguishes the full suite, affected rechecks and final metadata checks. The feature-local
+[producer account](named-array-parameters-report-capacity.md) retains the existing
+49,279,744-byte report envelope in 64 MiB under the pinned producer premises;
+it is a storage argument, separate from automatic discharge. The two
+[Rosetta driver assessments](../rosetta/assessment-named-array-parameters-20261121.md)
+derive expected results and full-domain arithmetic bounds; sample success does
+not replace universal assurance. Boolean named arrays and queries, writable or
+unconstrained array parameters and array results remain outside this selection.
+
 ## Named scalar argument associations
 
 The [named scalar increment](named-scalar-arguments.md) retains the existing
@@ -1466,9 +1515,10 @@ stable file contents still requires the documented external semantics and absenc
 of concurrent replacement. Comprehensive per-program attestations remain deferred.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j1
 --no-loop-unrolling`. Loop expansion is not an admission or automatic-discharge
-argument.
+argument. Each application proof and build uses one worker to fit even a
+one-CPU managed share; the OS CPU limit also applies to its descendants.
 Null uses `--warnings=error`; all output routes use `--warnings=continue` so
 their precisely permitted advisories can be classified from the complete report. Every selected library report remains strict. Successful process exit
 and accepted report content are separate requirements. `warn_error` is not a

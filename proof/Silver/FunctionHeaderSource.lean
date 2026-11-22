@@ -1,6 +1,7 @@
 module
 
 public import Silver.FunctionBodySource
+public import Silver.CallableTypeHistory
 
 @[expose] public section
 
@@ -27,6 +28,7 @@ def functionHeaderInitial (text : Source) (state : ParserState) : ParserState :=
   {initialState with
     position := fixedAfter text (functionNameAfter text state) "(" false, pure := true,
     subtypeNames := state.subtypeNames, functions := state.functions, procedures := state.procedures,
+    arrayNames := {types := state.arrayNames.types},
     «hiding» := hideName text (hiddenOuter text state) (functionNameFirst text state) (functionNameAfter text state),
     firstParameter := state.functions.parameters.length + 1}
 
@@ -87,11 +89,13 @@ structure FunctionHeaderReady (text : Source) (state : ParserState) (arguments :
   closed : ClosedFunctionState (functionHeaderFrame text state arguments)
   emptyIntegers : (functionHeaderFrame text state arguments).scalarNames = []
   emptyBooleans : (functionHeaderFrame text state arguments).booleanNames = []
+  arrayTypes : (functionHeaderFrame text state arguments).arrayNames.types = state.arrayNames.types
   firstPositive : 0 < (functionHeaderFrame text state arguments).firstParameter
   signature : FunctionBindings.ValidSignature text (functionHeaderFrame text state arguments).functions
     (functionSourceEntry (functionHeaderFrame text state arguments)
       (functionNameFirst text state) (functionNameAfter text state) (functionHeaderResult text state arguments))
-  catalogPrefix : catalogSignatures (functionHeaderFrame text state arguments).functions = catalogSignatures state.functions
+  catalogPrefix : catalogSignatures (functionHeaderFrame text state arguments).functions
+    (functionHeaderFrame text state arguments).arrayNames.types = catalogSignatures state.functions state.arrayNames.types
 
 theorem functionHeader_ready {text state arguments}
     (valid : ValidState text state) (stages : FunctionHeaderStages text state arguments) :
@@ -109,7 +113,7 @@ theorem functionHeader_ready {text state arguments}
   have empty := model_invalid_state_valid text
   have initialValid : ValidState text initial := by
     refine ⟨fixedAfter_result_bound text _ "(" false (by decide), empty.2.1, empty.2.2.1,
-      empty.2.2.2.1, Nat.le_refl _, empty.2.2.2.2.2.1, empty.2.2.2.2.2.2.1,
+      empty.2.2.2.1, Nat.le_refl _, empty.2.2.2.2.2.1, ArrayBindings.ValidNativeEnvironment.emptyItems valid.arrayTypes,
       valid.2.2.2.2.2.2.2.1, empty.booleans, valid.functions, Nat.le_refl _, cap,
       valid.procedures, Nat.zero_le _, Nat.zero_le _⟩
   have headerValid : ValidState text header := parametersModel_state_valid initialValid
@@ -117,7 +121,7 @@ theorem functionHeader_ready {text state arguments}
     (fixedAfter_result_bound text _ "is" true (by decide))
   have fields : ParameterFieldsPreserved initial header := parametersAt_fields stages.parameters
   have headerInfo : ParameterExtension text initial header :=
-    (parametersAt_valid text initial arguments initialValid.functions initialValid.2.2.2.2.2.2.2.1).resolve_left
+    (parametersAt_valid text initial arguments initialValid.functions initialValid.2.2.2.2.2.2.2.1 initialValid.arrayTypes).resolve_left
       stages.parameters
   have closed : ClosedFunctionState frame := by
     change ClosedFunctionState {header with position := frame.position}
@@ -148,16 +152,17 @@ theorem functionHeader_ready {text state arguments}
       (functionSourceEntry frame (functionNameFirst text state) (functionNameAfter text state)
         (functionHeaderResult text state arguments)) :=
     ⟨span, by dsimp [functionSourceEntry]; omega, firstPositive, firstBound, Nat.le_refl _, resultBounds⟩
-  have catalogPrefix : catalogSignatures frame.functions = catalogSignatures state.functions := by
+  have catalogPrefix : catalogSignatures frame.functions frame.arrayNames.types =
+      catalogSignatures state.functions state.arrayNames.types := by
     obtain ⟨more, extended⟩ := headerInfo.parameterPrefix
     have catalog : header.functions = {state.functions with parameters := state.functions.parameters ++ more} := by
       calc
         header.functions = ⟨header.functions.items, header.functions.parameters⟩ := rfl
         _ = _ := by rw [headerInfo.items, extended]; rfl
-    change catalogSignatures header.functions = _
-    rw [catalog]
+    change catalogSignatures header.functions header.arrayNames.types = _
+    rw [catalog, headerInfo.arrayTypes]
     exact catalogSignatures_append_parameters state.functions more valid.functions
-  exact ⟨frameValid, closed, emptyIntegers, emptyBooleans, firstPositive, signature, catalogPrefix⟩
+  exact ⟨frameValid, closed, emptyIntegers, emptyBooleans, headerInfo.arrayTypes, firstPositive, signature, catalogPrefix⟩
 
 theorem functionDeclarationAt_source {text state arguments}
     (textValid : ValidText text) (valid : ValidState text state)
@@ -168,9 +173,36 @@ theorem functionDeclarationAt_source {text state arguments}
   obtain ⟨definition, body⟩ := functionBodyAt_source textValid ready.valid ready.firstPositive stages.body
   exact ⟨definition, .parsed accepted body⟩
 
+theorem functionDeclarationAt_callable_types_known {text state arguments}
+    (valid : ValidState text state) (known : CallableTypesKnown state)
+    (accepted : (functionDeclarationAt text state arguments).position ≠ 0) :
+    CallableTypesKnown (functionDeclarationAt text state arguments) := by
+  have stages := functionDeclarationAt_stages accepted
+  have ready := functionHeader_ready valid stages
+  have initial : CallableTypesKnown (functionHeaderInitial text state) :=
+    ⟨known.functions, known.procedures⟩
+  have header : CallableTypesKnown (functionHeaderParameters text state arguments) :=
+    parametersModel_callable_types_known text (functionHeaderInitial text state) arguments initial
+  have frame : CallableTypesKnown (functionHeaderFrame text state arguments) :=
+    ⟨header.functions, header.procedures⟩
+  have fields := functionDeclarationAt_preserves_outer text state arguments accepted
+  have parameters : (functionDeclarationAt text state arguments).functions.parameters =
+      (functionHeaderFrame text state arguments).functions.parameters := by
+    rw [stages.equation, (functionBodyAt_stages stages.body).2.2.2.2]
+    rfl
+  constructor
+  · intro formal member
+    rw [parameters] at member
+    have bound := frame.functions formal member
+    rw [ready.arrayTypes] at bound
+    simpa only [fields.arrayNames] using bound
+  · intro formal member
+    rw [fields.procedures] at member
+    simpa only [fields.arrayNames] using known.procedures formal member
+
 theorem FunctionDeclarationSource.checked {text state arguments definition}
     (source : FunctionDeclarationSource text state arguments definition) (valid : ValidState text state) :
-    definition.Checked (catalogSignatures state.functions) := by
+    definition.Checked (catalogSignatures state.functions state.arrayNames.types) := by
   cases source with
   | parsed accepted body =>
     have ready := functionHeader_ready valid (functionDeclarationAt_stages accepted)
@@ -181,13 +213,17 @@ theorem FunctionDeclarationSource.checked {text state arguments definition}
 
 theorem FunctionDeclarationSource.catalog {text state arguments definition}
     (source : FunctionDeclarationSource text state arguments definition) (valid : ValidState text state) :
-    catalogSignatures (functionDeclarationAt text state arguments).functions =
-      catalogSignatures state.functions ++ [definition.signature] := by
+    catalogSignatures (functionDeclarationAt text state arguments).functions
+        (functionDeclarationAt text state arguments).arrayNames.types =
+      catalogSignatures state.functions state.arrayNames.types ++ [definition.signature] := by
   cases source with
   | parsed accepted body =>
     have stages := functionDeclarationAt_stages accepted
     have ready := functionHeader_ready valid stages
-    rw [stages.equation, (functionBodyAt_stages stages.body).2.2.2.2,
-      catalogSignatures_append, ready.catalogPrefix, body.signature]
+    have arrays := (functionDeclarationAt_preserves_outer text state arguments accepted).arrayNames
+    rw [arrays, stages.equation, (functionBodyAt_stages stages.body).2.2.2.2, catalogSignatures_append]
+    have catalogPrefix := ready.catalogPrefix
+    rw [ready.arrayTypes] at catalogPrefix
+    rw [catalogPrefix, body.signature, ready.arrayTypes]
 
 end Silver.Compose

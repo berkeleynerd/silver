@@ -33,11 +33,11 @@ def outFormals : List Formal → List Formal
 def integerCount : List ScalarType → Nat
   | [] => 0
   | .integer _ :: rest => integerCount rest + 1
-  | .boolean :: rest => integerCount rest
+  | .boolean :: rest | .array _ :: rest => integerCount rest
 
 def booleanCount : List ScalarType → Nat
   | [] => 0
-  | .integer _ :: rest => booleanCount rest
+  | .integer _ :: rest | .array _ :: rest => booleanCount rest
   | .boolean :: rest => booleanCount rest + 1
 
 def parameterAnalysis : Nat → List Formal → Integer.Analysis → Integer.Analysis
@@ -47,11 +47,13 @@ def parameterAnalysis : Nat → List Formal → Integer.Analysis → Integer.Ana
           Integer.put analysis.mutable (count + 1) (mode != .input),
           Integer.put analysis.static (count + 1) false,
           Integer.put analysis.refinable (count + 1) true⟩
-  | count, ⟨_, .boolean⟩ :: rest, analysis => parameterAnalysis count rest analysis
+  | count, ⟨_, .boolean⟩ :: rest, analysis
+  | count, ⟨_, .array _⟩ :: rest, analysis => parameterAnalysis count rest analysis
   | _, [], analysis => analysis
 
 def parameterBooleans : Nat → List Formal → Boolean.Analysis → Boolean.Analysis
-  | count, ⟨_, .integer _⟩ :: rest, analysis => parameterBooleans count rest analysis
+  | count, ⟨_, .integer _⟩ :: rest, analysis
+  | count, ⟨_, .array _⟩ :: rest, analysis => parameterBooleans count rest analysis
   | count, ⟨mode, .boolean⟩ :: rest, analysis =>
       parameterBooleans (count + 1) rest (analysis.initialize (count + 1) (mode != .input))
   | _, [], analysis => analysis
@@ -79,18 +81,24 @@ def outputTargets : Nat → Nat → Nat → Nat → List Formal → List Target
       .integer (oi + 1) bounds :: outputTargets i b (oi + 1) ob rest
   | i, b, oi, ob, ⟨.output, .boolean⟩ :: rest =>
       .boolean (ob + 1) :: outputTargets i b oi (ob + 1) rest
+  | i, b, oi, ob, ⟨_, .array _⟩ :: rest => outputTargets i b oi ob rest
 
 def targetType : Target → ScalarType
   | .integer _ bounds => .integer bounds
   | .boolean _ => .boolean
 
-theorem outputTargets_types (i b oi ob : Nat) (formals : List Formal) :
+theorem outputTargets_types (i b oi ob : Nat) (formals : List Formal)
+    (modes : ∀ formal ∈ formals, formal.mode = .input ∨ formal.domain.IsScalar) :
     (outputTargets i b oi ob formals).map targetType = outputTypes formals := by
   induction formals generalizing i b oi ob with
   | nil => rfl
   | cons formal rest ih =>
+      have first := modes formal (by simp)
+      have later : ∀ formal ∈ rest, formal.mode = .input ∨ formal.domain.IsScalar :=
+        fun formal present => modes formal (by simp [present])
       rcases formal with ⟨mode, domain⟩
-      cases mode <;> cases domain <;> simp [outputTargets, outputTypes, targetType, ih]
+      cases mode <;> cases domain <;>
+        simp_all [outputTargets, outputTypes, targetType, ScalarType.IsScalar]
 
 /-- Only the selected earlier function prefix is visible. Its evaluator is the
 already constructed function table; later declarations do not enlarge admission. -/

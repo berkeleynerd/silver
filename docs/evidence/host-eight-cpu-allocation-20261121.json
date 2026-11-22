@@ -1,0 +1,130 @@
+{
+  "observed_at": "2026-11-21T17:03:43.378422+00:00",
+  "reason": "host's eight-CPU allocation",
+  "raw_cpu_count": 22,
+  "effective_cpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "cgroup": "/sys/fs/cgroup/docker/6d1963c7853ea996bdfdc9df1c6d944ec500225fce67e0ffaeb5c9ce92fea64b",
+  "cpuset_cpus": "0-7",
+  "cpuset_effective": "0-7",
+  "threads_checked": 279,
+  "mask_counts": {
+    "0,1,2,3,4,5,6,7": 161,
+    "0,1,2,3,4,5": 97,
+    "6": 21
+  },
+  "outside_ceiling": [],
+  "configured_flag_exceptions": [
+    "Existing native audit still configured -j10; effective affinity/reservation6",
+    "Existing frozen regression binary still passes-j0; vendor children choose22; effective affinity/reservation1"
+  ],
+  "interrupted_jobs": [],
+  "post_reboot_cpu_detection": "verified: eight CPUs, affinity and effective cpuset 0-7; see post_reboot_verification",
+  "managed_budget": 8,
+  "active_allocations": [
+    {
+      "run_id": "20261121T135513-089c46fa489d",
+      "launched_workers": 10,
+      "effective_reserved_workers": 6,
+      "guest_cpus": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "run_id": "20261121T151924-a0eaed03062c",
+      "launched_workers": 1,
+      "effective_reserved_workers": 1,
+      "guest_cpus": [
+        6
+      ]
+    }
+  ],
+  "focused_validation": [
+    {
+      "run_id": "20261121T165542-8929650afa13",
+      "tests": 71
+    },
+    {
+      "run_id": "20261121T170148-751d27a99cd3",
+      "tests": 84
+    },
+    {
+      "run_id": "20261121T170437-0119c07b2615",
+      "tests": 155,
+      "skipped": 0,
+      "elapsed_seconds": 54.42,
+      "workers": 1,
+      "guest_cpus": [
+        7
+      ]
+    }
+  ],
+  "source_change_validation": "Driver and five native GPR fixtures changed in isolated worktree; rebuild, affected native regressions, complete final native/Lean checkpoints pending after pause. Active validation inputs unchanged.",
+  "post_reboot_verification": {
+    "utc": "2026-11-21T18:54:07.390981+00:00",
+    "raw_cpu_count": 8,
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpuset_effective": "0-7",
+    "managed_cpu_budget": 8,
+    "reserved_workers_before_resumption": 0,
+    "resource_reason": "host's eight-CPU allocation"
+  },
+  "resumed_validation_affinity_check": {
+    "utc": "2026-11-21T21:38:27.988758+00:00",
+    "reason": "host's eight-CPU allocation",
+    "detected_cpus": 8,
+    "effective_cpuset": "0-7",
+    "jobs": [
+      {
+        "runner_pid": 92231,
+        "assigned_cpus": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "processes_observed": 3,
+        "thread_affinities": {
+          "2,3,4,5,6,7": 130
+        },
+        "outside_allocation": []
+      },
+      {
+        "runner_pid": 77998,
+        "assigned_cpus": [
+          0,
+          1
+        ],
+        "processes_observed": 9,
+        "thread_affinities": {
+          "0,1": 10
+        },
+        "outside_allocation": []
+      }
+    ]
+  }
+}

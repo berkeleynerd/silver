@@ -63,24 +63,28 @@ def modelCalls : Calls where
     | .procedureDeclaration => procedureDeclarationAt
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
-    | .scalarConstraint => fun text position names bounds => scalarConstraintAt text position names bounds
+    | .scalarConstraint => fun text position names bounds arrays => scalarConstraintAt text position names bounds arrays
     | .subtypeLookup => IntegerSubtypes.lookup | .subtypeLookupModel => IntegerSubtypes.lookupFrom
     | .scalarType => scalarTypeAt | .subtypeDeclaration => subtypeDeclarationAt
     | .scalarDeclaration => scalarDeclarationAt
     | .scalarLookup => ScalarExpression.lookup
-    | .scalarRead => fun text position names arrays initials elaborating => ScalarExpression.read text position names 0 0 true arrays initials elaborating
+    | .scalarRead => fun text position names arrays initials elaborating =>
+        ScalarExpression.ArrayGrammar.read text position names arrays 0 0 true initials elaborating
     | .booleanHidesInteger => BooleanBindings.hidesInteger
     | .booleanDeclaration => booleanDeclarationAt
     | .booleanLookup => BooleanBindings.lookup
-    | .arrayLookup => ArrayBindings.lookup
+    | .arrayLookup => fun text table first after => ArrayBindings.lookup text table.items first after
+    | .arrayTypeLookup => ArrayBindings.lookupType
+    | .arrayTypeAt => arrayTypeAt
+    | .arrayTypeDeclaration => arrayTypeDeclarationAt
     | .arrayDeclaration => arrayDeclarationAt
     | .arrayValuesModel | .arrayValues => fun text source result position length parsed bounds =>
         arrayValuesModel text source result position length parsed bounds
     | .booleanInitializer => booleanInitializerAfter
     | .booleanArrayValuesModel | .booleanArrayValues => booleanArrayValuesModel
     | .arrayPut => putArrayValue
-    | .arrayAdd => fun _text state first after bounds offset length mutable following components isBoolean =>
-        addArrayBinding state first after bounds offset length mutable following components isBoolean
+    | .arrayAdd => fun _text state first after bounds offset length mutable following components isBoolean typeId =>
+        addArrayBinding state first after bounds offset length mutable following components isBoolean typeId
     | .scalarAppend => fun names item => names ++ [item]
     | .scalarEmpty => Integer.Interval.isEmpty
     | .scalarLiteral => ScalarLiteral.read

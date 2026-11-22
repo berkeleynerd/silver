@@ -1,0 +1,43 @@
+{
+  "started_at": "2026-11-22T01:09:13.339730+00:00",
+  "pid": 197296,
+  "pgid": 197296,
+  "session_id": "8a829a52-584e-45ed-af91-8499f28cf390",
+  "command": [
+    "/home/agent/.local/bin/claude",
+    "--print",
+    "--model",
+    "claude-fable-5-2",
+    "--effort",
+    "max",
+    "--safe-mode",
+    "--strict-mcp-config",
+    "--permission-mode",
+    "dontAsk",
+    "--permission-prompts",
+    "none",
+    "--tools",
+    "Bash,Read,Glob,Grep,Write",
+    "--allowedTools",
+    "Bash,Read,Glob,Grep,Write",
+    "--add-dir",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac",
+    "--add-dir",
+    "/home/canto/src/github.com/berkeleynerd/silver",
+    "--session-id",
+    "8a829a52-584e-45ed-af91-8499f28cf390",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--name",
+    "Silver PR412 independent feature review"
+  ],
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/worktree",
+  "selected_model": "claude-fable-5-2",
+  "selected_effort": "max",
+  "inherited_cpu_affinity": [
+    0,
+    1
+  ],
+  "effort_environment": {}
+}

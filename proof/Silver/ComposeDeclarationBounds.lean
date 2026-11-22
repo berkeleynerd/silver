@@ -95,7 +95,7 @@ actual Ada initializer bounds, including arbitrary inverted null bounds. -/
 theorem string_initializer_bounds {text names scalarNames integerHidden arrays initials}
     {position expression result slot} {integers : Integer.Store}
     (input : Source) (normal : NamesNormal names)
-    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials true (ScalarExpression.ranges scalarNames)) integers)
     (parsed : ExpressionAt text names position expression result scalarNames integerHidden arrays initials true)
     (checked : fixedDeclarationBounds result slot = true) (fixed : result.dynamicCount = 0) :
     expression.objectBounds names input integers = ⟨result.firstIndex.lower, result.lastIndex.lower⟩ := by
@@ -107,9 +107,10 @@ theorem string_declaration_bounds {text arguments state next declaration input v
     (count : state.names.length ≤ maxBindings) (metadata : NamesBoundsValid state.names)
     (strings : Fits state.names.shape input values)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (parsed : StringDeclarationAt text arguments state declaration next) : NamesBoundsValid next.names := by
   cases parsed with
-  | @declaration parts expression _ _ _ _ bounded _ _ checked source =>
+  | @declaration parts expression _ _ _ _ bounded _ _ checked source _ =>
       apply namesBoundsValid_append metadata
       have checks := checked
       simp only [fixedDeclarationBounds, Bool.and_eq_true] at checks
@@ -117,7 +118,7 @@ theorem string_declaration_bounds {text arguments state next declaration input v
       refine ⟨?_, ?_, slotCheck⟩
       all_goals
         by_cases fixed : parts.value.dynamicCount = 0
-        · have scalars := frozenIntegers_fits (arrays := state.arrayNames.names) (initials := state.arrayNames.values) static
+        · have scalars := frozenIntegers_view_fits (arrays := state.arrayNames.table) (initials := state.arrayNames.values) static stored
           have nonempty := expressionTail_nonempty metadata.normal (by simp) (by rfl) (by rfl) source
           obtain ⟨grouped, ordered⟩ := expression_grouping nonempty
           have actual := expressionAt_grouped_objectBounds textBound inputBound count metadata source bounded
@@ -145,9 +146,10 @@ theorem declaration_bounds {text arguments state next declaration input values}
     (count : state.names.length ≤ maxBindings) (metadata : NamesBoundsValid state.names)
     (strings : Fits state.names.shape input values)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (parsed : DeclarationAt text arguments state declaration next) : NamesBoundsValid next.names := by
   cases parsed with
-  | string _ source => exact string_declaration_bounds textBound inputBound count metadata strings static source
+  | string _ source => exact string_declaration_bounds textBound inputBound count metadata strings static stored source
   | character source => exact character_declaration_bounds metadata source
 
 theorem declaration_count_bound {text arguments state next declaration}
@@ -168,17 +170,18 @@ bytes. Fixed String slots retain precisely that source initializer's bounds. -/
 theorem string_declaration_capture {text arguments state next declaration}
     (input : Source) (values : Values) (normal : NamesNormal state.names)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (parsed : StringDeclarationAt text arguments state declaration next) :
     ∃ expression result info,
       ExpressionAt text state.names (declarationValuePosition text state) expression result
-        state.scalarNames (declarationIntegerHidden text state) state.arrayNames.names state.arrayNames.values true ∧
+        state.scalarNames (declarationIntegerHidden text state) state.arrayNames.table state.arrayNames.values true ∧
       next.names.get declaration.index = some info ∧ info.isCharacter = false ∧
       declaration.initializer.evaluate values input = expression.evaluate values input
         (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) ∧
       (info.dynamic = false → BindingInfo.objectBounds info = expression.objectBounds state.names input
         (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)) := by
   cases parsed with
-  | @declaration parts expression _ _ _ _ bounded nonempty _ checked source =>
+  | @declaration parts expression _ _ _ _ bounded nonempty _ checked source _ =>
       refine ⟨expression, parts.value,
         {first := parts.first, after := parts.after, valueFirst := 0,
           staticLength := parts.value.staticLength, dynamic := decide (parts.value.dynamicCount = 1),
@@ -192,7 +195,7 @@ theorem string_declaration_capture {text arguments state next declaration}
         have notOne : parts.value.dynamicCount ≠ 1 := by
           simpa only [ExpressionResult.value, decide_eq_false_iff_not] using fixed
         have zero : parts.value.dynamicCount = 0 := by omega
-        exact (string_initializer_bounds input normal (frozenIntegers_fits static) source checked zero).symm
+        exact (string_initializer_bounds input normal (frozenIntegers_view_fits (arrays := state.arrayNames.table) (initials := state.arrayNames.values) static stored) source checked zero).symm
 
 /-- Character initialization stores exactly one source-evaluated character and
 retains the distinct Character object kind with singleton representation bounds. -/
@@ -200,7 +203,7 @@ theorem character_declaration_capture {text arguments state next declaration}
     (input : Source) (values : Values)
     (parsed : CharacterDeclarationAt text arguments state declaration next) :
     ∃ position expression result info,
-      CharacterAt text state.names state.scalarNames state.arrayNames.names state.arrayNames.values true
+      CharacterAt text state.names state.scalarNames state.arrayNames.table state.arrayNames.values true
         position expression result ∧
       next.names.get declaration.index = some info ∧ info.isCharacter = true ∧
       BindingInfo.objectBounds info = Bounds.canonical 1 ∧
@@ -228,44 +231,48 @@ theorem declarations_bounds {text arguments state final declarations input value
     (printable : Printable input) (count : state.names.length ≤ maxBindings)
     (metadata : NamesBoundsValid state.names) (strings : Fits state.names.shape input values)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (parsed : DeclarationsAt text arguments state declarations final) :
     NamesBoundsValid final.names ∧ final.names.length ≤ maxBindings ∧
       Fits final.names.shape input (executeDeclarations input declarations values) := by
   induction parsed generalizing values with
   | done => exact ⟨metadata, count, strings⟩
-  | next _ _ _ _ _ _ _ first _ ih =>
-      have nextBounds := declaration_bounds textBound inputBound count metadata strings static first
-      obtain ⟨bound, valid, same⟩ := declaration_shape metadata.normal static first
+  | next _ _ _ _ _ _ _ first _ _ ih =>
+      have nextBounds := declaration_bounds textBound inputBound count metadata strings static stored first
+      obtain ⟨bound, valid, same⟩ := declaration_shape metadata.normal static stored first
       have nextStrings := Bindings.declaration_preserves strings printable valid
       rw [← same] at nextStrings
       exact ih (declaration_count_bound count first) nextBounds nextStrings
-        ((declaration_scalarNames first).symm ▸ static)
-  | scalar _ _ _ _ first _ ih =>
+        ((declaration_scalarNames first).symm ▸ static) (declaration_stored stored first)
+  | scalar _ _ _ _ first _ _ ih =>
       have nextStatic := scalar_declaration_static static first
+      have nextStored := scalar_declaration_stored stored first
       cases first
-      exact ih count metadata strings nextStatic
-  | array _ _ _ _ _ first _ ih =>
+      exact ih count metadata strings nextStatic nextStored
+  | array _ _ _ _ _ first _ _ ih =>
       rw [(array_declaration_preserves first).1, (array_declaration_preserves first).2] at ih
-      exact ih count metadata strings static
-  | booleanArray _ _ _ _ _ first _ ih =>
+      exact ih count metadata strings static (array_declaration_stored stored first)
+  | booleanArray _ _ _ _ _ first _ _ ih =>
       rw [(boolean_array_declaration_preserves first).1, (boolean_array_declaration_preserves first).2.1] at ih
-      exact ih count metadata strings static
-  | subtype _ _ _ first _ ih => cases first; exact ih count metadata strings static
-  | boolean _ _ _ _ _ _ first _ ih => cases first; exact ih count metadata strings static
+      exact ih count metadata strings static (boolean_array_declaration_stored stored first)
+  | arrayType _ _ _ first _ ih => cases first; exact ih count metadata strings static stored
+  | subtype _ _ _ first _ _ ih => cases first; exact ih count metadata strings static stored
+  | boolean _ _ _ _ _ _ first _ _ ih => cases first; exact ih count metadata strings static stored
 
   | callable _ _ accepted _ ih =>
       have kept := callableDeclarationAt_preserves_outer _ _ _ accepted
       rw [kept.names, kept.scalarNames] at ih
-      exact ih count metadata strings static
+      exact ih count metadata strings static (by simpa only [ParserState.StoredArrays, kept.arrayNames] using stored)
 
 theorem declarations_bounds_from_empty {text arguments state final declarations input}
     (textBound : text.length ≤ maxSourceLength) (inputBound : input.length ≤ maxSourceLength)
     (printable : Printable input) (empty : state.names = [])
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
     (parsed : DeclarationsAt text arguments state declarations final) :
     NamesBoundsValid final.names ∧ final.names.length ≤ maxBindings ∧
       Fits final.names.shape input (executeDeclarations input declarations emptyValues) := by
-  apply declarations_bounds textBound inputBound printable _ _ _ static parsed
+  apply declarations_bounds textBound inputBound printable _ _ _ static stored parsed
   · simp [empty]
   · rw [empty]; exact namesBoundsValid_empty
   · rw [empty, empty_names_shape]; exact empty_fits input
@@ -284,6 +291,7 @@ theorem argument_bounds {text state next fallback} (parsed : ArgumentAt text sta
 theorem declarations_bounds_after_argument {text state middle final fallback declarations input}
     (textBound : text.length ≤ maxSourceLength) (inputBound : input.length ≤ maxSourceLength)
     (printable : Printable input) (static : ScalarExpression.StaticEnvironment middle.scalarNames)
+    (stored : middle.StoredArrays)
     (argument : ArgumentAt text state fallback middle)
     (parsed : DeclarationsAt text true middle declarations final) :
     NamesBoundsValid final.names ∧ final.names.length ≤ maxBindings ∧
@@ -294,6 +302,6 @@ theorem declarations_bounds_after_argument {text state middle final fallback dec
   have strings := Bindings.declaration_preserves (empty_fits input) printable shape.2.2
   change Fits argumentShape input (argumentDeclaration.execute emptyValues input) at strings
   rw [← shape.2.1] at strings
-  exact declarations_bounds textBound inputBound printable metadata.2 metadata.1 strings static parsed
+  exact declarations_bounds textBound inputBound printable metadata.2 metadata.1 strings static stored parsed
 
 end Silver.Compose

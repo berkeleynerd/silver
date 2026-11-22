@@ -72,7 +72,7 @@ private theorem array_functionAssignments_preserved {text arguments state declar
     (source : ArrayDeclarationAt text arguments state declaration final) :
     final.assignedInFunctions = state.assignedInFunctions := by
   cases source with
-  | declaration _ _ _ _ _ _ values _ _ =>
+  | declaration _ _ _ _ values _ _ =>
       have fields := congrArg ParserState.assignedInFunctions (arrayValues_fields values)
       exact fields
 
@@ -92,53 +92,61 @@ private theorem declarationAt_functionAssignments_of_no_callable {text state arg
   split at accepted
   · rename_i positive
     rw [ite_eq_left positive]
-    have source := subtype_declaration_sound text state arguments positive
-    generalize nextEq : subtypeDeclarationAt text state arguments = next at source ⊢
-    cases source
-    rfl
-  · rename_i noSubtype
-    rw [ite_eq_right noSubtype]
+    have source := array_type_declaration_sound text state arguments positive
+    have fields := congrArg ParserState.assignedInFunctions (array_type_declaration_fields source)
+    exact fields
+  · rename_i noArrayType
+    rw [ite_eq_right noArrayType]
     split at accepted
     · rename_i positive
       rw [ite_eq_left positive]
-      obtain ⟨declaration, source⟩ := scalar_declaration_sound text state arguments positive
-      generalize nextEq : scalarDeclarationAt text state arguments = next at source ⊢
+      have source := subtype_declaration_sound text state arguments positive
+      generalize nextEq : subtypeDeclarationAt text state arguments = next at source ⊢
       cases source
       rfl
-    · rename_i noScalar
-      rw [ite_eq_right noScalar]
+    · rename_i noSubtype
+      rw [ite_eq_right noSubtype]
       split at accepted
       · rename_i positive
         rw [ite_eq_left positive]
-        by_cases kind : (arrayDeclarationParts text state).isBoolean = true
-        · exact booleanArray_functionAssignments_preserved (boolean_array_declaration_sound text state arguments kind positive)
-        · obtain ⟨declaration, source⟩ := array_declaration_sound text state arguments
-            (Bool.eq_false_iff.mpr kind) positive
-          exact array_functionAssignments_preserved source
-      · rename_i noArray
-        rw [ite_eq_right noArray]
+        obtain ⟨declaration, source⟩ := scalar_declaration_sound text state arguments positive
+        generalize nextEq : scalarDeclarationAt text state arguments = next at source ⊢
+        cases source
+        rfl
+      · rename_i noScalar
+        rw [ite_eq_right noScalar]
         split at accepted
         · rename_i positive
           rw [ite_eq_left positive]
-          have source := boolean_declaration_sound text state arguments positive
-          generalize nextEq : booleanDeclarationAt text state arguments = next at source ⊢
-          cases source
-          rfl
-        · rename_i noBoolean
-          rw [ite_eq_right noBoolean]
+          by_cases kind : (arrayDeclarationParts text state).isBoolean = true
+          · exact booleanArray_functionAssignments_preserved (boolean_array_declaration_sound text state arguments kind positive)
+          · obtain ⟨declaration, source⟩ := array_declaration_sound text state arguments
+              (Bool.eq_false_iff.mpr kind) positive
+            exact array_functionAssignments_preserved source
+        · rename_i noArray
+          rw [ite_eq_right noArray]
           split at accepted
           · rename_i positive
             rw [ite_eq_left positive]
-            obtain ⟨declaration, source⟩ := character_declaration_sound text state arguments positive
-            generalize nextEq : characterDeclarationAt text state arguments = next at source ⊢
+            have source := boolean_declaration_sound text state arguments positive
+            generalize nextEq : booleanDeclarationAt text state arguments = next at source ⊢
             cases source
             rfl
-          · rename_i noCharacter
-            rw [ite_eq_right noCharacter]
-            obtain ⟨declaration, source⟩ := string_declaration_sound text state arguments accepted
-            generalize nextEq : stringDeclarationAt text state arguments = next at source ⊢
-            cases source
-            rfl
+          · rename_i noBoolean
+            rw [ite_eq_right noBoolean]
+            split at accepted
+            · rename_i positive
+              rw [ite_eq_left positive]
+              obtain ⟨declaration, source⟩ := character_declaration_sound text state arguments positive
+              generalize nextEq : characterDeclarationAt text state arguments = next at source ⊢
+              cases source
+              rfl
+            · rename_i noCharacter
+              rw [ite_eq_right noCharacter]
+              obtain ⟨declaration, source⟩ := string_declaration_sound text state arguments accepted
+              generalize nextEq : stringDeclarationAt text state arguments = next at source ⊢
+              cases source
+              rfl
 
 
 private theorem functionBodyAt_assignment {text outer frame first after resultType arguments}

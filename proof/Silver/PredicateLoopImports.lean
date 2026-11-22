@@ -44,6 +44,10 @@ def ScalarDomain (text : Source) (context : Native.Context) (position : Nat) (fa
     (first after : Nat) : Prop :=
   FlowDomain text context facts ∧ position ≤ text.length + 1 ∧ ScalarExpression.ValidMask text first after
 
+def RangeDomain (text : Source) (context : Native.Context) (position first after : Nat) : Prop :=
+  Expressions.ValidText text ∧ Native.ValidContext text context ∧
+    position ≤ text.length + 1 ∧ ScalarExpression.ValidMask text first after
+
 def WidenDomain (context : Native.Context) (facts : ActiveFlow) : Prop :=
   facts.count = context.scalarNames.length ∧ context.scalarNames.length ≤ ScalarExpression.maxBindings
 
@@ -68,6 +72,9 @@ structure ImportsMeaning (imports : Imports) : Prop where
   readScalar : ∀ text context position facts first after, ScalarDomain text context position facts first after →
     imports.readScalar text context position facts first after =
       readCountedBound text context.model position facts first after
+  readRange : ∀ text context position first after, RangeDomain text context position first after →
+    imports.readRange text context position first after =
+      ScalarExpression.ArrayAttributes.read text position context.scalarNames context.arrayTable first after true
   widen : ∀ context facts, WidenDomain context facts →
     imports.widen context facts = ActiveFlow.widen context.scalarNames facts
   isEmpty : ∀ value, value.Bounded → imports.isEmpty value = value.isEmpty
@@ -96,6 +103,9 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
     readScalar := fun text context position facts first after =>
       if ScalarDomain text context position facts first after then imports.readScalar text context position facts first after
       else modelImports.readScalar text context position facts first after
+    readRange := fun text context position first after =>
+      if RangeDomain text context position first after then imports.readRange text context position first after
+      else modelImports.readRange text context position first after
     widen := fun context facts => if WidenDomain context facts then imports.widen context facts else modelImports.widen context facts
     isEmpty := fun value => if value.Bounded then imports.isEmpty value else modelImports.isEmpty value
     normalize := fun value => if value.Bounded then imports.normalize value else modelImports.normalize value
@@ -143,6 +153,12 @@ theorem totalizeImports_readScalar (imports : Imports) (text : Source) (context 
     (valid : ScalarDomain text context position facts first after) :
     (totalizeImports imports).readScalar text context position facts first after =
       imports.readScalar text context position facts first after := by
+  simp only [totalizeImports, valid, ↓reduceIte]
+
+theorem totalizeImports_readRange (imports : Imports) (text : Source) (context : Native.Context)
+    (position first after : Nat) (valid : RangeDomain text context position first after) :
+    (totalizeImports imports).readRange text context position first after =
+      imports.readRange text context position first after := by
   simp only [totalizeImports, valid, ↓reduceIte]
 
 theorem totalizeImports_equalName (imports : Imports) (text : Source) (first after otherFirst otherAfter : Nat)
@@ -223,6 +239,11 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     split
     · exact meaning.readScalar text context position facts first after ‹_›
     · rfl
+  · funext text context position first after
+    dsimp only [totalizeImports]
+    split
+    · exact meaning.readRange text context position first after ‹_›
+    · rfl
   · funext context facts
     dsimp only [totalizeImports]
     split
@@ -258,6 +279,7 @@ theorem model_imports_meaning : ImportsMeaning modelImports where
   equalName _ _ _ _ _ _ := rfl
   arrayTarget _ _ _ _ := rfl
   readScalar _ _ _ _ _ _ _ := rfl
+  readRange _ _ _ _ _ _ := rfl
   widen _ _ _ := rfl
   isEmpty _ _ := rfl
   normalize _ _ := rfl
@@ -270,11 +292,11 @@ def Test.tokenCalls : Test → List ShellToken
 
 def Update.tokenCalls : Update → List ShellToken
   | .inside => [.word "in"] | .iterable => [.word "of"] | .reverse => [.word "reverse"] | .delimiter => [.symbol ".."]
-  | .opening | .arrayOpening => [.word "loop"] | .token tok => [tok] | _ => []
+  | .opening | .arrayOpening | .rangeOpening => [.word "loop"] | .token tok => [tok] | _ => []
 
 def Command.tokenCalls : Command → List ShellToken
   | .update value => value.tokenCalls
-  | .scope body | .arrayScope body => body.tokenCalls
+  | .scope body | .arrayScope body | .rangeScope body => body.tokenCalls
   | .sequence first second => first.tokenCalls ++ second.tokenCalls
   | .choose test yes no => test.tokenCalls ++ yes.tokenCalls ++ no.tokenCalls
   | _ => []

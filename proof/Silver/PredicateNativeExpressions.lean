@@ -12,7 +12,7 @@ arbitrary until their source equations or inherited contracts are applied. -/
 namespace Silver.Predicate.Native
 
 inductive Ty
-  | number | truth | word | value | source | arrayBinding | interval | token | chain | booleanNames | initials | operation | comparison | binding | names | scalarNames | arrays | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
+  | number | truth | word | value | source | arrayReadMode | arrayBinding | interval | token | chain | booleanNames | initials | operation | comparison | binding | names | scalarNames | arrays | arrayTypes | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
@@ -30,7 +30,9 @@ inductive Ty
   | .binding => Bindings.BindingInfo
   | .names => Compose.BindingEnvironment
   | .scalarNames => ScalarExpression.Environment
-  | .arrays => ArrayBindings.Metadata
+  | .arrayReadMode => ScalarExpression.ArrayReadMode
+  | .arrays => ArrayBindings.Table
+  | .arrayTypes => ArrayBindings.TypeEnvironment
   | .arrayBinding => ArrayBindings.Binding
   | .interval => Integer.Interval
   | .scalarResult => ScalarExpression.Result
@@ -61,7 +63,9 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .binding => {}
   | .names => []
   | .scalarNames => []
-  | .arrays => []
+  | .arrayReadMode => .allElements
+  | .arrays => {}
+  | .arrayTypes => []
   | .arrayBinding => ArrayBindings.emptyBinding
   | .interval => Integer.Interval.empty
   | .scalarResult => ScalarExpression.invalid
@@ -78,7 +82,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | readingNames | characterAt | characterCondition | xorFree | callAfter | equalName | nameIs | arrayLookup | arrayContains | scalarIndex | booleanArray | booleanLookup | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
+  | readingNames | characterAt | characterCondition | xorFree | callAfter | equalName | nameIs | arrayLookup | arrayTypeLookup | arrayContains | scalarIndex | booleanArray | booleanLookup | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
   deriving DecidableEq, Repr
 
 def Function.name : Function → List String
@@ -90,6 +94,7 @@ def Function.name : Function → List String
   | .equalName => ["equal_name"]
   | .nameIs => ["name_is"]
   | .arrayLookup => ["array_bindings", ".", "lookup"]
+  | .arrayTypeLookup => ["array_bindings", ".", "lookup_type"]
   | .booleanLookup => ["lookup_boolean"]
   | .booleanArray => ["boolean_array_after"]
   | .arrayContains => ["array_bindings", ".", "contains"]
@@ -137,10 +142,11 @@ def Function.name : Function → List String
   | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
   | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .word .truth)))
   | .arrayLookup => .arrow .source (.arrow .arrays (.arrow .number (.arrow .number .number)))
+  | .arrayTypeLookup => .arrow .source (.arrow .arrayTypes (.arrow .number (.arrow .number .number)))
   | .booleanLookup => .arrow .source (.arrow .booleanNames (.arrow .number (.arrow .number .number)))
   | .booleanArray => .arrow .source (.arrow .context (.arrow .number (.arrow .facts .number)))
   | .arrayContains => .arrow .arrayBinding (.arrow .interval .truth)
-  | .scalarIndex => .arrow .source (.arrow .number (.arrow .scalarNames (.arrow .number (.arrow .number .scalarResult))))
+  | .scalarIndex => .arrow .source (.arrow .number (.arrow .scalarNames (.arrow .number (.arrow .number (.arrow .arrays (.arrow .arrayReadMode .scalarResult))))))
   | .booleanAtom => .arrow .source (.arrow .context (.arrow .number .number))
   | .booleanFactor | .booleanRelation => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
   | .take => .arrow .source (.arrow .number (.arrow .token (.number)))
@@ -176,17 +182,18 @@ def Function.name : Function → List String
 
 structure Calls where
   readingNames : Context → ActiveFlow → ScalarExpression.Environment
-  characterAt : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → ArrayBindings.Metadata → ArrayBindings.Initials → Bool → Compose.ValueResult
+  characterAt : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → ArrayBindings.Table → ArrayBindings.Initials → Bool → Compose.ValueResult
   characterCondition : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
   xorFree : Source → Nat → Nat → Bool
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → BooleanBindings.Environment → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Table → Bool → BooleanBindings.Environment → Nat
   equalName : Source → Nat → Nat → Nat → Nat → Bool
   nameIs : Source → Nat → Nat → String → Bool
-  arrayLookup : Source → ArrayBindings.Metadata → Nat → Nat → Nat
+  arrayLookup : Source → ArrayBindings.Table → Nat → Nat → Nat
+  arrayTypeLookup : Source → ArrayBindings.TypeEnvironment → Nat → Nat → Nat
   booleanLookup : Source → BooleanBindings.Environment → Nat → Nat → Nat
   booleanArray : Source → Context → Nat → ActiveFlow → Nat
   arrayContains : ArrayBindings.Binding → Integer.Interval → Bool
-  scalarIndex : Source → Nat → ScalarExpression.Environment → Nat → Nat → ScalarExpression.Result
+  scalarIndex : Source → Nat → ScalarExpression.Environment → Nat → Nat → ArrayBindings.Table → ScalarExpression.ArrayReadMode → ScalarExpression.Result
   booleanAtom : Source → Context → Nat → Nat
   booleanFactor : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
   booleanRelation : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
@@ -230,6 +237,7 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .equalName => calls.equalName
   | .nameIs => calls.nameIs
   | .arrayLookup => calls.arrayLookup
+  | .arrayTypeLookup => calls.arrayTypeLookup
   | .booleanLookup => calls.booleanLookup
   | .booleanArray => calls.booleanArray
   | .arrayContains => calls.arrayContains
@@ -282,6 +290,7 @@ inductive Field : Ty → Ty → Type
   | contextNames : Field .context .names
   | contextScalarNames : Field .context .scalarNames
   | contextArrays : Field .context .arrays
+  | arrayTypes : Field .arrays .arrayTypes
   | contextDeclarations : Field .context .number
   | flowPath : Field .facts .path
   | flowCount : Field .facts .number
@@ -323,6 +332,7 @@ def Field.name : Field a b → String
   | .contextNames => "names"
   | .contextScalarNames => "scalar_names"
   | .contextArrays => "array_names"
+  | .arrayTypes => "types"
   | .contextDeclarations => "declaration_count"
   | .flowPath => "path"
   | .flowCount | .conditionCount => "count"
@@ -362,7 +372,8 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .contextMaskAfter, value => value.maskAfter
   | .contextNames, value => value.names
   | .contextScalarNames, value => value.scalarNames
-  | .contextArrays, value => value.arrayNames
+  | .contextArrays, value => value.arrayTable
+  | .arrayTypes, value => value.types
   | .contextDeclarations, value => value.declarationCount
   | .flowPath, value => value.path
   | .flowCount, value => value.count
@@ -393,6 +404,7 @@ def Field.get : Field a b → a.meaning → b.meaning
 inductive Expr : Ty → Type
   | operation (value : Names.Operation) : Expr .operation
   | number (value : Nat) : Expr .number
+  | noElements : Expr .arrayReadMode
   | maxScalarOperands : Expr .number
   | truth (value : Bool) : Expr .truth
   | token (value : Token) : Expr .token
@@ -456,6 +468,7 @@ def aggregate (items : List (List String)) : List String :=
 def Expr.render : Expr ty → List String
   | .operation value => (Compose.Expressions.Expr.operation value).render
   | .number value => [toString value]
+  | .noElements => ["scalar_expressions", ".", "no_elements"]
   | .maxScalarOperands => ["scalar_expressions", ".", "max_operands"]
   | .truth value => [if value then "true" else "false"]
   | .token value => [value.name]
@@ -516,6 +529,7 @@ def Expr.render : Expr ty → List String
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .operation value => value
   | .number value => value
+  | .noElements => .noElements
   | .maxScalarOperands => ScalarExpression.maxOperands
   | .truth value => value
   | .token value => value
@@ -538,7 +552,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .field projection value => projection.get (value.eval calls locals)
   | .subtypeHidden context op => (context.eval calls locals).subtypeHiding.get (op.eval calls locals)
   | .bindingAt names index => ((names.eval calls locals).get (index.eval calls locals)).getD {}
-  | .arrayBindingAt names index => ArrayBindings.binding (names.eval calls locals) (index.eval calls locals)
+  | .arrayBindingAt names index => ArrayBindings.binding (names.eval calls locals).items (index.eval calls locals)
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .le left right => decide (left.eval calls locals ≤ right.eval calls locals)
@@ -584,6 +598,9 @@ def callNameIs (text : Expr .source) (first after : Expr .number) (word : Expr .
 def callArrayLookup (text : Expr .source) (names : Expr .arrays) (first after : Expr .number) : Expr .number :=
   .app (.app (.app (.app (.function .arrayLookup) text) names) first) after
 
+def callArrayTypeLookup (text : Expr .source) (names : Expr .arrayTypes) (first after : Expr .number) : Expr .number :=
+  .app (.app (.app (.app (.function .arrayTypeLookup) text) names) first) after
+
 def callBooleanLookup (text : Expr .source) (names : Expr .booleanNames) (first after : Expr .number) : Expr .number :=
   .app (.app (.app (.app (.function .booleanLookup) text) names) first) after
 
@@ -592,8 +609,9 @@ def callBooleanArray (text : Expr .source) (context : Expr .context) (position :
   .app (.app (.app (.app (.function .booleanArray) text) context) position) facts
 
 def callScalarIndex (text : Expr .source) (position : Expr .number) (names : Expr .scalarNames)
-    (maskFirst maskAfter : Expr .number) : Expr .scalarResult :=
-  .app (.app (.app (.app (.app (.function .scalarIndex) text) position) names) maskFirst) maskAfter
+    (maskFirst maskAfter : Expr .number) (arrays : Expr .arrays) : Expr .scalarResult :=
+  .appNamed (.appNamed (.app (.app (.app (.app (.app (.function .scalarIndex) text) position) names) maskFirst) maskAfter)
+    "arrays" arrays) "array_reads" .noElements
 
 def callBooleanAtom (text : Expr .source) (context : Expr .context) (position : Expr .number) : Expr .number :=
   .app (.app (.app (.function .booleanAtom) text) context) position

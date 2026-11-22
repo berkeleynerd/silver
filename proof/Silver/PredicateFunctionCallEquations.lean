@@ -15,6 +15,9 @@ def callScope : Scope := [("text", 5), ("context", 6), ("position", 0), ("facts"
 
 abbrev CheckedTrees : Prop :=
   includedBody.wellFormed = true ∧ includedBody.scoped [("value", 10), ("bounds", 10)] = true ∧
+  arrayActualBody.wellFormed = true ∧
+  arrayActualBody.scoped [("text", 5), ("context", 6), ("position", 0), ("type_id", 0)] = true ∧
+  actualImplementation.checked (("parameter", 3) :: callScope) = true ∧
   actualBody.wellFormed = true ∧ actualBody.scoped (("parameter", 3) :: callScope) = true ∧
   actualsTailBody.wellFormed = true ∧
   actualsTailBody.scoped (("first", 0) :: ("last", 0) :: ("ordinal", 0) :: ("named", 11) :: ("seen", 12) :: callScope) = true ∧
@@ -75,11 +78,17 @@ theorem included_model (left right : Integer.Interval) :
   simp only [Bool.or_eq_true, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq, decide_eq_false_iff_not]
   omega
 
+theorem arrayActual_model (text : Source) (context : Native.Context) (position typeId : Nat) :
+    arrayActualBody.eval modelImports modelCalls {text, context, position, typeId} =
+      arrayActualAfter text context.model position typeId := by
+  dsimp +instances only [arrayActualBody, Expr.eval, modelImports, arrayActualAfter, Native.Context.model]
+  simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
+
 theorem actual_model (text : Source) (context : Native.Context) (position : Nat)
     (facts : ActiveFlow) (parameter : Formal) :
     actualBody.eval modelImports modelCalls {text, context, position, facts, parameter} =
       actualAfter text context.model position facts parameter := by
-  dsimp +instances only [actualBody, Expr.eval, modelImports, actualAfter]
+  dsimp +instances only [actualBody, integerActualResult, Expr.eval, modelImports, modelCalls, actualAfter]
   simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
 theorem actualsTail_model (text : Source) (context : Native.Context) (position : Nat)
@@ -105,7 +114,7 @@ theorem callee_model (text : Source) (context : Native.Context) (position : Nat)
     (catalog : Metadata) :
     calleeBody.eval modelImports modelCalls {text, context, position, catalog} =
       calleeAt text context.model position catalog := by
-  dsimp +instances only [calleeBody, Expr.eval, modelImports, calleeAt, Native.Context.model]
+  dsimp +instances only [calleeBody, Expr.eval, modelImports, calleeAt, Native.Context.model, Native.Context.arrayTable]
   simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
 theorem call_model (text : Source) (context : Native.Context) (position : Nat)

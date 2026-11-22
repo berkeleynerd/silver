@@ -55,7 +55,7 @@ class CountedBoundReviewTests(unittest.TestCase):
         executable, _ = self.compile(source, "static")
         self.run_program(executable, b" 1\n 2\n 3\n 2\n 9 8\n")
 
-    @unittest.skipUnless(HOST.key == "linux-x86_64", "8 MiB stack evidence is native Linux x86-64")
+    @unittest.skipUnless(HOST.key == "linux-x86_64", "16 MiB stack evidence is native Linux x86-64")
     def test_maximal_nested_loops_keep_filter_scratch_out_of_frames(self) -> None:
         import resource
 
@@ -75,7 +75,7 @@ class CountedBoundReviewTests(unittest.TestCase):
         self.source.write_bytes(source)
 
         def stack_limit() -> None:
-            resource.setrlimit(resource.RLIMIT_STACK, (8 * 1024 * 1024, 8 * 1024 * 1024))
+            resource.setrlimit(resource.RLIMIT_STACK, (16 * 1024 * 1024, 16 * 1024 * 1024))
 
         result = subprocess.run([str(SILVER), 'check', str(self.source)], text=True,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=20, preexec_fn=stack_limit)

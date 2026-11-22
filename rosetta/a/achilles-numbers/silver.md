@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by a fixed 99_999 limit and trial divisors up to 316, so loops are for loops or while loops inside procedures with guards before every multiplication, and no annotation is needed; the provers must handle the modest nonlinear totient and power updates.
 
-Position 290 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 292 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

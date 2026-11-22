@@ -67,7 +67,7 @@ def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
     (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
     ScalarExpression.ValidEnvironment text context.scalarNames ∧
-    ArrayBindings.ValidEnvironment text context.arrayNames ∧
+    ArrayBindings.ValidNativeEnvironment text context.arrayNames ∧
     IntegerSubtypes.ValidEnvironment text context.subtypeNames ∧
     BooleanBindings.ValidEnvironment text context.booleanNames ∧
     FunctionBindings.ValidMetadata text context.functions ∧

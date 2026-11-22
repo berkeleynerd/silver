@@ -34,7 +34,7 @@ theorem basicStep_meaning {text context scan item result catalog procedures}
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
     item.lower.check context.names.shape context.analysis (context.flow scan.facts)
       (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
-      (catalogSignatures catalog) (ProcedureBindings.catalogSignatures procedures) = some (context.flow result.facts) := by
+      (catalogSignatures catalog context.arrayTypes) (ProcedureBindings.catalogSignatures procedures context.arrayTypes) = some (context.flow result.facts) := by
   cases source.payload with
   | primitive ordinary payload =>
       have meaning := basic_meaning normal base arraysReady booleansBound compatible nv bounded bodyMode valid

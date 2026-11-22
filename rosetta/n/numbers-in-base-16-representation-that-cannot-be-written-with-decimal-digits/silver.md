@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on small ranged integers with constant bounds (n < 500, at most 3 hex digits), so every check follows from types and guards just before use, and the digit-extraction loop lives in a procedure so it needs no termination proof.
 
-Position 449 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 451 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

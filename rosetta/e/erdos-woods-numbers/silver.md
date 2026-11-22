@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype bounds and guards before mod, and loops sit in procedures so no variants are needed, but only the early terms fit a 64-bit bounded search, so the full 20 terms would need a big-number library.
 
-Position 251 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 253 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

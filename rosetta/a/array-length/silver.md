@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** String array components are outside the present fixed Integer/Boolean array fragments, and array Length separately refused. Integer-array counting admission does not establish the required String-array example or execution. No faithful current-language alternative was measured, and these refused approaches do not prove every possible algorithm impossible. The original surface mapping is retained for separate coverage reconciliation; these observations add no delivered sample or supported task mapping in this batch.
 
-Position 102 in the [progression](../../progression.md#stage-4), in stage 4, which adds string building.
+Position 104 in the [progression](../../progression.md#stage-4), in stage 4, which adds string building.
 
 ## Approach
 

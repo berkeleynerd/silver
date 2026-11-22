@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has no Oracle conflict and needs only floats, arrays and for loops, but float arithmetic in loop-carried accumulators and bisection depends on range subtypes and guards that provers may only discharge with careful shape.
 
-Position 1044 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 967 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

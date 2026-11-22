@@ -6,6 +6,7 @@ outlives its launcher; PIDs are recorded for diagnosis, not used as locks.
 """
 from __future__ import annotations
 
+from collections.abc import Callable
 from contextlib import contextmanager
 from datetime import datetime, timezone
 import fcntl
@@ -19,9 +20,9 @@ import time
 import uuid
 
 if __package__:
-    from .platforms import HostLayout
+    from .platforms import CPU_LIMIT_REASON, HostLayout, cpu_budget, process_cpus
 else:
-    from platforms import HostLayout
+    from platforms import CPU_LIMIT_REASON, HostLayout, cpu_budget, process_cpus
 
 # Failed runs of one obligation, or of one helper and check kind, before the
 # next run needs a diagnostic note. Both recurrence rules compare against it.
@@ -51,10 +52,44 @@ def registry(host: HostLayout) -> Path:
 
 
 def available_cpus() -> int:
+    return cpu_budget()
+
+
+def _restrict_affinity(workers: int, claimed=()) -> tuple[dict[int, set[int]], list[int]]:
+    """Restrict existing launcher threads; future threads/children inherit it."""
+    if not hasattr(os, "sched_getaffinity") or not hasattr(os, "sched_setaffinity"):
+        return {}, []
+    # Prefer unused CPUs without widening an explicitly inherited mask. Forced
+    # narrow masks and older runs with unknown masks can still overlap.
+    selected = sorted(sorted(os.sched_getaffinity(0),
+                             key=lambda cpu: (cpu in claimed, cpu))[:max(1, workers)])
+    saved = {}
     try:
-        return max(1, len(os.sched_getaffinity(0)))
-    except (AttributeError, OSError):
-        return max(1, os.cpu_count() or 1)
+        # Linux affinity is per-thread. Rescan until every current parent has
+        # been constrained, including threads born while the first pass ran.
+        while True:
+            tasks = [int(path.name) for path in Path("/proc/self/task").iterdir()]
+            pending = [tid for tid in tasks if tid not in saved]
+            if not pending:
+                break
+            for tid in pending:
+                try:
+                    saved[tid] = os.sched_getaffinity(tid)
+                    os.sched_setaffinity(tid, selected)
+                except ProcessLookupError:
+                    saved.pop(tid, None)
+    except BaseException:
+        _restore_affinity(saved)
+        raise
+    return saved, selected
+
+
+def _restore_affinity(saved: dict[int, set[int]]) -> None:
+    for tid, affinity in saved.items():
+        try:
+            os.sched_setaffinity(tid, affinity)
+        except ProcessLookupError:
+            pass
 
 
 @contextmanager
@@ -120,11 +155,19 @@ def _runs(root: Path) -> list[dict]:
         if not events:
             continue
         start = dict(events[0])
+        start["effective_reserved_workers"] = start["workers"]
+        start["effective_cpu_affinity"] = start.get("cpu_affinity")
+        start["effective_resource_reason"] = start.get("resource_reason")
         for event in events:
             if event.get("event") == "prepared":
                 start.update({key: event[key] for key in ("inputs", "fingerprint", "scope", "expensive")})
             elif event.get("event") == "command":
                 start.update({key: event[key] for key in ("command", "cwd") if key in event})
+            elif event.get("event") == "resource-adjusted":
+                start["effective_reserved_workers"] = event["effective_reserved_workers"]
+                start["effective_resource_reason"] = event["resource_reason"]
+                if "cpu_affinity" in event:
+                    start["effective_cpu_affinity"] = event["cpu_affinity"]
         terminal = next((event for event in reversed(events)
                          if event.get("event") == "finished"), None)
         active = _leased(directory / "lease")
@@ -366,13 +409,14 @@ class ManagedRun:
     def __init__(self, host: HostLayout, kind: str, command: list[str], inputs: dict,
                  resources, workers: int | None = None, task: str = "", reason: str = "",
                  expensive: bool = False, evidence=(), failure_reports=(), failure_keys=(),
-                 resource_reason: str = "", allocation: dict[str, dict] | None = None):
+                 resource_reason: str = "",
+                 allocation: dict[str, dict] | Callable[[int], dict[str, dict]] | None = None):
         if workers is not None and (type(workers) is not int or workers < 0):
             raise RunHistoryError("workers must be nonnegative or None for available CPUs")
-        # Callers report settings they resolved themselves; the worker grant is
-        # decided below, against the reservations seen when the run starts.
-        self._allocation = {name: dict(entry) for name, entry in (allocation or {}).items()}
-        if "workers" in self._allocation:
+        # A caller may resolve dependent settings only after its grant is known.
+        self._allocation = allocation if callable(allocation) else {
+            name: dict(entry) for name, entry in (allocation or {}).items()}
+        if not callable(self._allocation) and "workers" in self._allocation:
             raise RunHistoryError("allocation must not name workers; the managed run records its grant")
         self._resource_reason = resource_reason
         self.host, self.root = host, registry(host)
@@ -386,6 +430,7 @@ class ManagedRun:
         self._finished = False
         self._start_ns = 0
         self._report_baseline = {}
+        self._affinity = {}
         # Callers include stable configuration in inputs. Generated cold output
         # names are excluded; the actual argv is retained independently below.
         fingerprint = hashlib.sha256(_json(dict(kind=kind, inputs=inputs)).encode()).hexdigest()
@@ -410,8 +455,8 @@ class ManagedRun:
             if conflicts:
                 raise RunHistoryError("resources are held by active run(s): " + ", ".join(conflicts))
             capacity = available_cpus()
-            used = sum(run["workers"] for run in active)
-            available = max(0, capacity - used)
+            used = sum(run["effective_reserved_workers"] for run in active)
+            available = min(process_cpus(), max(0, capacity - used))
             self.workers = available if self.requested_workers is None else self.requested_workers
             if ((self.requested_workers is None and not self.workers)
                     or self.workers > available):
@@ -419,8 +464,12 @@ class ManagedRun:
                                       + ", ".join(run["run_id"] for run in active))
             # A grant reduced by other reservations is automatic. Only an explicit
             # request below this run's automatic value is a deliberate reduction.
-            allocation = dict(self._allocation, workers={
-                "requested": self.requested_workers, "automatic": available, "actual": self.workers})
+            supplied = self._allocation(self.workers) if callable(self._allocation) else self._allocation
+            allocation = {name: dict(entry) for name, entry in supplied.items()}
+            if "workers" in allocation:
+                raise RunHistoryError("allocation must not name workers; the managed run records its grant")
+            allocation["workers"] = {
+                "requested": self.requested_workers, "automatic": available, "actual": self.workers}
             reductions = deliberate_reductions(allocation)
             proof_command = self.record["kind"] in ("prove", "tool-gnatprove", "lean")
             if proof_command and reductions and not self._resource_reason.strip():
@@ -440,9 +489,14 @@ class ManagedRun:
                 self._start_ns = time.monotonic_ns()
                 self._report_baseline = {str(path): _report_identity(path)
                                          for path in _report_files(self.failure_reports)}
-                self.record.update(workers=self.workers, available_cpus=capacity)
+                claimed = {cpu for run in active for cpu in run.get("effective_cpu_affinity") or []}
+                self._affinity, affinity = _restrict_affinity(self.workers, claimed)
+                self.record.update(workers=self.workers, available_cpus=capacity,
+                                   cpu_limit_reason=CPU_LIMIT_REASON, cpu_affinity=affinity)
                 _append(self.directory / "events.jsonl", self.record)
             except BaseException:
+                _restore_affinity(self._affinity)
+                self._affinity = {}
                 if self._lease is not None:
                     self._lease.close()
                     self._lease = None
@@ -542,6 +596,8 @@ class ManagedRun:
             if self._lease is not None:
                 self._lease.close()
                 self._lease = None
+            _restore_affinity(self._affinity)
+            self._affinity = {}
         return False
 
 
@@ -550,7 +606,7 @@ def status(host: HostLayout, task: str = "") -> dict:
     with _metadata(root):
         runs = _runs(root)
         notes = _read(root / "notes.jsonl")
-        reserved_workers = sum(run["workers"] for run in runs if run["active"])
+        reserved_workers = sum(run["effective_reserved_workers"] for run in runs if run["active"])
         if task:
             runs = [run for run in runs if run.get("task") == task]
             notes = [note for note in notes if note.get("task") == task]
@@ -584,6 +640,40 @@ def status(host: HostLayout, task: str = "") -> dict:
         return dict(registry=str(root), host=host.key, machine=socket.gethostname(),
                     runs=runs, notes=notes, available_cpus=available_cpus(),
                     reserved_workers=reserved_workers, diagnostics_required=diagnostics_required)
+
+
+def adjust_resources(host: HostLayout, run_id: str, effective_reserved_workers: int,
+                     reason: str, cpu_affinity=None) -> dict:
+    """Record an operator-applied live limit without rewriting launch history.
+
+    The caller applies and verifies the OS restriction first. This event only
+    updates cooperative accounting; it does not retune an already-running tool.
+    """
+    if (type(effective_reserved_workers) is not int or effective_reserved_workers < 0
+            or not reason.strip()):
+        raise RunHistoryError("resource adjustment requires nonnegative workers and a reason")
+    affinity = None if cpu_affinity is None else sorted(set(cpu_affinity))
+    if affinity is not None and (not affinity or any(type(cpu) is not int or cpu < 0 for cpu in affinity)
+                                 or effective_reserved_workers > len(affinity)):
+        raise RunHistoryError("resource adjustment exceeds its CPU affinity")
+    root = registry(host)
+    with _metadata(root):
+        runs = _runs(root)
+        run = next((run for run in runs if run["run_id"] == run_id), None)
+        if run is None or not run["active"]:
+            raise RunHistoryError(f"resource adjustment requires an active run: {run_id}")
+        used = sum(item["effective_reserved_workers"] for item in runs
+                   if item["active"] and item["run_id"] != run_id)
+        capacity = available_cpus()
+        if effective_reserved_workers + used > capacity:
+            raise RunHistoryError(f"worker budget unavailable ({used}/{capacity} reserved)")
+        note = dict(event="resource-adjusted", run_id=run_id,
+                    previous_effective_reserved_workers=run["effective_reserved_workers"],
+                    effective_reserved_workers=effective_reserved_workers, resource_reason=reason)
+        if affinity is not None:
+            note["cpu_affinity"] = affinity
+        _append(Path(run["directory"]) / "events.jsonl", note)
+        return note
 
 
 def diagnose(host: HostLayout, run_id: str, summary: str, next_step: str) -> dict:

@@ -32,11 +32,11 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
   case' neg =>
     by_cases nullToken : fixedAfter text scan.position "null" true ≠ 0
     case' neg =>
-      by_cases outputCall : !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0) = true
+      by_cases outputCall : !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames ≠ 0) = true
       case' neg =>
-        by_cases putCall : !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) = true
+        by_cases putCall : !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) = true
         case' neg =>
-          by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames ≠ 0
+          by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames ≠ 0
           case' neg =>
             by_cases scalar : scalarTarget text context.model scan.position ≠ 0
             case' neg =>
@@ -57,7 +57,8 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
     by_cases booleanArray : (ArrayBindings.binding context.arrayNames
       (arrayTarget text context.model scan.position)).isBoolean = true
   all_goals
-    dsimp +instances only [Native.Context.model, stringAssignmentTarget] at *
+    dsimp +instances only [Native.Context.model, Native.Context.arrayTable,
+      ParseContext.arrayTable, stringAssignmentTarget] at *
     dsimp +instances only [basicEval, basicCommands, dispatchCommands, outputCommands, putCommands, rejectCommands,
       assignmentCommands, Command.list, List.foldr_cons, List.foldr_nil, guard,
       characterCommands, elementCommands, wholeCommands,
@@ -65,7 +66,8 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
       basicBody, basicRaw, basicKind, stringAssignmentBody, stringAssignmentStart,
       stringAssignmentKind, stringAssignmentTarget, characterAssignmentPosition, elementTargetRead,
       bodyTokens, List.foldl_cons, List.foldl_nil,
-      bodyToken, tokenAfter, ShellToken.word, ShellToken.symbol, Native.Context.model, bindingSummary]
+      bodyToken, tokenAfter, ShellToken.word, ShellToken.symbol, Native.Context.model,
+      Native.Context.arrayTable, ParseContext.arrayTable, bindingSummary]
     simp +instances only [equalLengthIntervals_exact, Bool.or_eq_true, Bool.and_eq_true,
       ↓reduceIte,
       Bool.not_eq_true', decide_eq_true_eq, or_assoc, *]

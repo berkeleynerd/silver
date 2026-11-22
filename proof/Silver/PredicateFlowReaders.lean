@@ -29,8 +29,8 @@ theorem overlay_meaning {reading}
 
 structure Calls where
   reading : FlowSourceBridge.Context → ActiveFlow.Storage → FlowSourceBridge.NameStorage
-  scalar : Source → Nat → ScalarExpression.Environment → Nat → Nat → ArrayBindings.Metadata → ArrayBindings.Initials → Bool → ScalarExpression.Result
-  string : Source → Nat → BindingEnvironment → ScalarExpression.Environment → Bool → ArrayBindings.Metadata → ArrayBindings.Initials → Bool → ExpressionResult
+  scalar : Source → Nat → ScalarExpression.Environment → Nat → Nat → ArrayBindings.Table → ArrayBindings.Initials → Bool → ScalarExpression.Result
+  string : Source → Nat → BindingEnvironment → ScalarExpression.Environment → Bool → ArrayBindings.Table → ArrayBindings.Initials → Bool → ExpressionResult
   booleanHidesInteger : Source → BooleanBindings.Environment → Bool
   nameIs : Source → Nat → Nat → String → Bool
 
@@ -48,7 +48,7 @@ inductive Ty | source | context | position | facts | names | scalarNames | array
 @[reducible] def Ty.meaning : Ty → Type
   | .source => Source | .context => Native.Context | .position => Nat | .facts => ActiveFlow
   | .names => BindingEnvironment | .scalarNames => ScalarExpression.Environment
-  | .arrays => ArrayBindings.Metadata | .initials => ArrayBindings.Initials | .truth => Bool
+  | .arrays => ArrayBindings.Table | .initials => ArrayBindings.Initials | .truth => Bool
   | .scalar => ScalarExpression.Result | .string => ExpressionResult
 
 inductive Expr : Ty → Type
@@ -94,7 +94,7 @@ def Expr.eval (calls : Calls) (inputs : Inputs) : Expr ty → ty.meaning
   | .text => inputs.text | .context => inputs.context | .position => inputs.position | .facts => inputs.facts
   | .maskFirst => inputs.maskFirst | .maskAfter => inputs.maskAfter | .initials => inputs.initials
   | .names contextExpr => (contextExpr.eval calls inputs).names
-  | .arrays contextExpr => (contextExpr.eval calls inputs).arrayNames
+  | .arrays contextExpr => (contextExpr.eval calls inputs).arrayTable
   | .elaborating contextExpr => (contextExpr.eval calls inputs).elaborating
   | .integerHidden textExpr contextExpr =>
       let context := contextExpr.eval calls inputs
@@ -129,13 +129,13 @@ structure Meaning (calls : Calls) : Prop where
     calls.nameIs text first after "integer" = Named.nameIs text first after ("integer".toList.map Char.toNat)
   scalar : ∀ text, ValidText text → ∀ position names first after arrays initials elaborating,
     position ≤ text.length + 1 → ScalarExpression.ValidEnvironment text names →
-    (⟨first, after⟩ : Named.NameState).Valid text → ArrayBindings.ValidMetadata text arrays →
+    (⟨first, after⟩ : Named.NameState).Valid text → ArrayBindings.ValidTable text arrays →
     ArrayBindings.ValidInitials initials →
     calls.scalar text position names first after arrays initials elaborating =
-      ScalarExpression.read text position names first after (arrays := arrays) (initials := initials) (elaborating := elaborating)
+      ScalarExpression.ArrayGrammar.read text position names arrays first after (initials := initials) (elaborating := elaborating)
   string : ∀ text, ValidText text → ∀ position names scalars hidden arrays initials elaborating,
     position ≤ text.length + 1 → Expressions.NativeNames text names → ScalarExpression.ValidEnvironment text scalars →
-    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    ArrayBindings.ValidTable text arrays → ArrayBindings.ValidInitials initials →
     calls.string text position names scalars hidden arrays initials elaborating =
       expressionAt text position names scalars hidden (arrays := arrays) (initials := initials) (elaborating := elaborating)
 
@@ -163,8 +163,8 @@ theorem scalar_meaning {calls wrapper} (meaning : Meaning calls) (verified : Sca
     (inputs : Inputs) (legal : Legal inputs)
     (mask : (⟨inputs.maskFirst, inputs.maskAfter⟩ : Named.NameState).Valid inputs.text) :
     wrapper inputs.text inputs.context inputs.position inputs.facts inputs.maskFirst inputs.maskAfter inputs.initials =
-      ScalarExpression.read inputs.text inputs.position (inputs.context.model.readingNames inputs.facts)
-        inputs.maskFirst inputs.maskAfter (arrays := inputs.context.arrayNames)
+      ScalarExpression.ArrayGrammar.read inputs.text inputs.position (inputs.context.model.readingNames inputs.facts)
+        inputs.context.arrayTable inputs.maskFirst inputs.maskAfter
         (initials := inputs.initials) (elaborating := inputs.context.elaborating) := by
   rw [verified.equation inputs legal mask]
   simp only [scalarRhs, Expr.eval, overlay_meaning meaning.reading legal.context legal.flow]
@@ -176,7 +176,7 @@ theorem string_meaning {calls wrapper} (meaning : Meaning calls) (verified : Str
     (inputs : Inputs) (legal : Legal inputs) :
     wrapper inputs.text inputs.context inputs.position inputs.facts inputs.initials =
       expressionAt inputs.text inputs.position inputs.context.names (inputs.context.model.readingNames inputs.facts)
-        (integerHidden inputs.text inputs.context) (arrays := inputs.context.arrayNames)
+        (integerHidden inputs.text inputs.context) (arrays := inputs.context.arrayTable)
         (initials := inputs.initials) (elaborating := inputs.context.elaborating) := by
   rw [verified.equation inputs legal]
   dsimp +instances only [stringRhs, Expr.eval]
@@ -198,7 +198,7 @@ theorem string_meaning {calls wrapper} (meaning : Meaning calls) (verified : Str
 def modelCalls : Calls where
   reading := FlowSourceBridge.readingStorage
   scalar text position names first after arrays initials elaborating :=
-    ScalarExpression.read text position names first after (arrays := arrays) (initials := initials) (elaborating := elaborating)
+    ScalarExpression.ArrayGrammar.read text position names arrays first after (initials := initials) (elaborating := elaborating)
   string text position names scalars hidden arrays initials elaborating :=
     expressionAt text position names scalars hidden (arrays := arrays) (initials := initials) (elaborating := elaborating)
   booleanHidesInteger := BooleanBindings.hidesInteger

@@ -13,12 +13,43 @@ import platform
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST_KEYS = ("linux-aarch64", "linux-x86_64", "macos-aarch64", "macos-x86_64")
+# The owner's allocation for Silver work on this host. A smaller native CPU
+# count or inherited affinity can further constrain an individual launch.
+CPU_LIMIT = 8
+CPU_LIMIT_REASON = "host's eight-CPU allocation"
 # These inherited settings can select another GPR configuration or project
 # tree before the explicitly selected native project/toolchain is loaded.
 TOOL_ENVIRONMENT_OVERRIDES = (
     "ALR_CONFIG", "GPR_CONFIG", "GPR_PROJECT_PATH", "GPR_PROJECT_PATH_FILE",
     "ADA_PROJECT_PATH",
 )
+
+
+def cpu_budget() -> int:
+    """Shared managed budget; a caller's narrower affinity does not shrink it."""
+    return min(CPU_LIMIT, max(1, os.cpu_count() or 1))
+
+
+def process_cpus(operating_system=None) -> int:
+    """Bound a launch by native CPUs, Python overrides and inherited affinity."""
+    operating_system = os if operating_system is None else operating_system
+    counts = [CPU_LIMIT]
+    for probe in (getattr(operating_system, "process_cpu_count", None),
+                  operating_system.cpu_count):
+        if probe is not None:
+            try:
+                count = probe()
+            except OSError:
+                continue
+            if count is not None and count > 0:
+                counts.append(count)
+    try:
+        affinity = len(operating_system.sched_getaffinity(0))
+        if affinity > 0:
+            counts.append(affinity)
+    except (AttributeError, OSError):
+        pass
+    return min(counts) if len(counts) > 1 else 1
 
 
 def host_key(system: str | None = None, machine: str | None = None) -> str:

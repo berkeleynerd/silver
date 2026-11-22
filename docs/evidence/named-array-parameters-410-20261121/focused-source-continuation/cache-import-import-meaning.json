@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-21T20:53:46.186835+00:00",
+  "source_run": "20261121T201800-abfe1344ac75-and-20261121T203235-079f1f0196b2",
+  "source_manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-callable-initializers-410/tmp/source-import-414/import-meaning-cache-manifest.json",
+  "modules": 342,
+  "copied_artifacts": 84,
+  "skipped_source_mismatch": [
+    "proof/Silver/ArrayBindingsBodyCertificate.lean",
+    "proof/Silver/ArrayBindingsSpecCertificate.lean",
+    "proof/Silver/ScalarExpressionBodyCertificate.lean",
+    "proof/Silver/ScalarExpressionSpecCertificate.lean"
+  ],
+  "note": "Matching source modules; original traces and all companions preserved. Managed Lake rehash/audit still required."
+}

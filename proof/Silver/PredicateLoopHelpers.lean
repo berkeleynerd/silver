@@ -37,6 +37,19 @@ theorem loop_token_calls_fixed :
     ∀ token ∈ .word "for" :: commands.tokenCalls, Adapter.FixedToken token :=
   fun token present => loopToken_fixed token (loop_tokens_complete token present)
 
+def countedGate (scalars : ScalarExpression.Native.Calls) : CountedBoundNative.Gate :=
+  fun text position names first after arrays elaborating =>
+    scalars.readExpression text position names first after true arrays [] elaborating .mutableElements
+
+theorem countedGate_meaning (scalars : ScalarExpression.Native.Calls)
+    (primitives : ScalarExpression.Native.Primitives scalars)
+    (equations : ScalarExpression.Native.Equations scalars) :
+    CountedBoundNative.GateMeaning (countedGate scalars) := by
+  intro text valid position names first after arrays elaborating bound environment mask table
+  exact ScalarExpression.Native.interpreted_readExpression_table scalars primitives equations
+    text valid position names first after true arrays [] elaborating .mutableElements
+    bound environment mask table (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
+
 /-- Callee identity and typed library-body interpretation. The inherited source
 bridges establish helper meanings separately; no loop scanner equality appears
 among these premises. Constants retain the checked native record values. -/
@@ -62,7 +75,10 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
     FlowReaders.ScalarRefinement
       (FlowReaders.inheritedCalls reading inherited scalars booleans) wrapper ∧
     CountedBoundNative.Refinement
-      (FlowReaders.inheritedCalls reading inherited scalars booleans) wrapper imports.readScalar
+      (FlowReaders.inheritedCalls reading inherited scalars booleans) (countedGate scalars) wrapper imports.readScalar
+  readRange : ∀ text context position first after,
+    imports.readRange text context position first after =
+      scalars.readArrayAttribute text position context.scalarNames context.arrayTable first after true
   widen : ∃ operation, FlowSourceBridge.InterpretedWidenInto operation ∧
     ∀ context facts, WidenDomain context facts →
       imports.widen context facts =
@@ -121,10 +137,16 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
   readScalar text context position facts first after valid := by
     obtain ⟨reading, wrapper, booleans, readingSource, wrapperSource, countedSource⟩ := links.readScalar
     exact CountedBoundNative.wrapper_meaning
-      (FlowReaders.inherited_meaning booleans readingSource source scalarPrimitives scalarEquations) wrapperSource countedSource
+      (FlowReaders.inherited_meaning booleans readingSource source scalarPrimitives scalarEquations)
+      (countedGate_meaning scalars scalarPrimitives scalarEquations) wrapperSource countedSource
       ⟨text, context, position, facts, first, after, []⟩
       ⟨valid.1.1, valid.1.2.1, valid.1.2.2, valid.2.1,
         by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements]⟩ valid.2.2
+  readRange text context position first after valid := by
+    rw [links.readRange]
+    exact ScalarExpression.Native.interpreted_arrayAttribute scalars scalarPrimitives scalarEquations
+      text valid.1 position context.scalarNames context.arrayTable first after true
+      valid.2.2.1 valid.2.1.2.2.1 valid.2.2.2 valid.2.1.arrays
   widen context facts valid := by
     obtain ⟨operation, operationSource, observed⟩ := links.widen
     rw [observed context facts valid]
@@ -176,7 +198,10 @@ theorem model_links {domain : Compose.Expressions.StateDomain}
       (FlowReaders.inherited_meaning BooleanBindings.SourceBridge.modelSource
         FlowSourceBridge.model_reading_interpreted source ScalarExpression.Native.model_primitives
         ScalarExpression.Native.model_equations)
+      (countedGate_meaning ScalarExpression.Native.modelCalls ScalarExpression.Native.model_primitives
+        ScalarExpression.Native.model_equations)
       (FlowReaders.model_scalar_refinement calls) inputs legal mask).symm
+  readRange _ _ _ _ _ := rfl
   widen := by
     refine ⟨FlowSourceBridge.widenedStorage, FlowSourceBridge.model_widen_interpreted, ?_⟩
     intro context facts valid

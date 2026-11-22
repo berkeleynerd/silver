@@ -23,18 +23,20 @@ def Mark.get (mark : Mark) (flags : HiddenMarks) : Bool :=
   | .integer => flags.integerHidden | .boolean => flags.booleanHidden
   | .character => flags.characterHidden | .trueLiteral => flags.trueHidden | .falseLiteral => flags.falseHidden
 
-inductive Table | strings | scalars | booleans | arrays | subtypes
+inductive Table | strings | scalars | booleans | arrays | arrayTypes | subtypes
   deriving DecidableEq, Repr
 
 def Table.path : Table → List String
   | .strings => ["names"] | .scalars => ["scalar_names"] | .booleans => ["boolean_names"]
-  | .arrays => ["array_names", ".", "names"] | .subtypes => ["subtype_names"]
+  | .arrays => ["array_names", ".", "names"]
+  | .arrayTypes => ["array_names", ".", "names", ".", "types"] | .subtypes => ["subtype_names"]
 def Table.spans (table : Table) (state : ParserState) : List (Nat × Nat) :=
   match table with
   | .strings => state.names.map fun item => (item.first, item.after)
   | .scalars => state.scalarNames.map fun item => (item.first, item.after)
   | .booleans => state.booleanNames.map fun item => (item.first, item.after)
   | .arrays => state.arrayNames.names.map fun item => (item.first, item.after)
+  | .arrayTypes => state.arrayNames.types.map fun item => (item.first, item.after)
   | .subtypes => state.subtypeNames.items.map fun item => (item.first, item.after)
 
 structure Calls where
@@ -167,10 +169,10 @@ def functionHidesBody : Expr := .catalogNames
 def formalHidesBody : Expr := .andThen (.andThen .firstPositive .afterGreater)
   (.group (.orElse (.group (.andThen .firstParameterNonzero (.group .formalNames)))
     (.group (.andThen .firstProcedureParameterNonzero (.group .procedureFormalNames)))))
-def hiddenWordBody : Expr := .orElse (.orElse (.orElse (.orElse (.orElse
+def hiddenWordBody : Expr := .orElse (.orElse (.orElse (.orElse (.orElse (.orElse
   (.orElse .functionHides (.group .procedureNames))
   (.group (.tableNames .strings))) (.group (.tableNames .scalars))) (.group (.tableNames .booleans)))
-  (.group (.tableNames .arrays))) (.group (.tableNames .subtypes))
+  (.group (.tableNames .arrays))) (.group (.tableNames .arrayTypes))) (.group (.tableNames .subtypes))
 
 def marks : List Mark := [.integer, .boolean, .character, .trueLiteral, .falseLiteral]
 def hiddenOuterField (mark : Mark) : Expr := .or (.outerMark mark) (.hiddenWord mark)

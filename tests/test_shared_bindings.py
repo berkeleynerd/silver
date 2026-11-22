@@ -54,7 +54,7 @@ class SharedBindingsTests(unittest.TestCase):
         self.check(source, expected)
         if expected != 0:
             return
-        # These fixtures use explicit, one-name scalar formals. Read their
+        # These fixtures use explicit, one-name formals with named type marks. Read their
         # source headers, not producer diagnostics, to provide the auditor's
         # exact owner/name/mode inventory. This determines no output expectation.
         identifier = rb'[A-Za-z](?:[A-Za-z0-9]|_[A-Za-z0-9])*'

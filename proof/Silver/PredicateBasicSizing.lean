@@ -16,11 +16,11 @@ def Command.Sized (primitive : Primitives) (frame : Frame) (next : Frame → Pro
   | .expression => next {frame with value := primitive.expression frame.text frame.context frame.result.position frame.result.facts}
   | .character => next {frame with
       characterValue := primitive.character frame.text frame.result.position
-        frame.context.names (primitive.readingNames frame.context frame.result.facts) frame.context.arrayNames}
+        frame.context.names (primitive.readingNames frame.context frame.result.facts) frame.context.arrayTable}
   | .indexed => next {frame with
       characterValue := primitive.indexed frame.text frame.scan.position
         frame.context.names (primitive.readingNames frame.context frame.result.facts)
-        frame.context.arrayNames [] false true}
+        frame.context.arrayTable [] false true}
   | .target => next {frame with target := primitive.target frame.text frame.context frame.result.position}
   | .returnInvalid | .returnResult => True
   | .sequence first second => first.Sized primitive frame (fun updated => second.Sized primitive updated next)
@@ -53,10 +53,12 @@ private theorem model_update_count (frame : Frame) (value : Update) :
   · exact scalarAssignment_count ..
   · dsimp only [Update.eval, modelPrimitives, booleanAssignmentBody]
     split <;> rfl
-  · dsimp only [Update.eval, modelPrimitives, arrayAssignmentBody]
-    split <;> rfl
-  · dsimp only [Update.eval, modelPrimitives, booleanArrayAssignmentBody]
-    split <;> rfl
+  · change (arrayAssignmentBody frame.text frame.context.model frame.result).count = frame.result.count
+    simp only [arrayAssignmentBody, apply_ite, BodyScan.count, invalidBody,
+      ActiveFlow.invalid_count, ite_self]
+  · change (booleanArrayAssignmentBody frame.text frame.context.model frame.result).count = frame.result.count
+    simp only [booleanArrayAssignmentBody, apply_ite, BodyScan.count, invalidBody,
+      ActiveFlow.invalid_count, ite_self]
 
 private theorem model_command_sized (command : Command) (frame : Frame)
     (same : frame.result.count = frame.scan.count) (next : Frame → Prop)

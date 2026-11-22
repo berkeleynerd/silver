@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateConditionAdmission
+public import Silver.PredicateFunctionCallArrayActual
 public import Silver.FunctionBindings
 public import Silver.PredicateAssociationAdmission
 
@@ -21,7 +22,8 @@ def invalidCall : CallResult := {}
 
 def actualAfter (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (parameter : FunctionBindings.Formal) : Nat :=
-  if parameter.kind = .boolean then (readCondition text context position facts).after
+  if parameter.typeId ≠ 0 then arrayActualAfter text context position parameter.typeId
+  else if parameter.kind = .boolean then (readCondition text context position facts).after
   else
     let value := readScalarInFlow text context position facts
     if value.after = 0 ∨ value.bounds.isEmpty ∨ !value.bounds.included parameter.bounds
@@ -33,13 +35,12 @@ theorem actualAfter_zero (text : Source) (context : ParseContext)
     actualAfter text context 0 facts parameter = 0 := by
   unfold actualAfter
   split
+  · exact arrayActualAfter_zero ..
+  split
   · rw [readCondition, readRelation]
     rfl
-  · have scalar : readScalarInFlow text context 0 facts = ScalarExpression.invalid := by
-      unfold readScalarInFlow ScalarExpression.read
-      split
-      · simp [ScalarExpression.parseFuel, ScalarExpression.skip, ScalarExpression.summarize]
-      · simp [ScalarExpression.parseArraysFuel, ScalarExpression.skip, ScalarExpression.summarizeArrays]
+  · have scalar : readScalarInFlow text context 0 facts = ScalarExpression.invalid :=
+      ScalarExpression.ArrayGrammar.read_zero ..
     simp [scalar, ScalarExpression.invalid]
 
 def functionActualsTailModel (text : Source) (context : ParseContext) (position : Nat)
@@ -82,7 +83,8 @@ def calleeAt (text : Source) (context : ParseContext) (position : Nat)
   if first = 0 ∨ after ≤ first ∨ lookupName text context.names first after ≠ 0 ∨
       ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
       BooleanBindings.lookup text context.booleanNames first after ≠ 0 ∨
-      ArrayBindings.lookup text context.arrayNames first after ≠ 0
+      ArrayBindings.lookup text context.arrayNames first after ≠ 0 ∨
+      ArrayBindings.lookupType text context.arrayTypes first after ≠ 0
   then 0 else FunctionBindings.lookup text catalog first after
 
 def readCall (text : Source) (context : ParseContext) (position : Nat)

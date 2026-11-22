@@ -18,6 +18,8 @@ def Actual.check (shape : Bindings.Shape) (analysis : Integer.Analysis)
       | some bounds => !bounds.isEmpty && bounds.included target
       | none => false
   | .boolean, .boolean condition => condition.checkBounds shape analysis flow booleans
+  | .array domain, .array typeId source =>
+      decide (domain.Matches typeId source) && source.componentRanges flow.scalars
   | _, _ => false
 
 /-- Every actual uses precisely the same flow, including after a Boolean
@@ -96,7 +98,7 @@ def Target.after (result : ScalarType) (flow : Predicate.Flow) : Target → Pred
   | .integer identity _ =>
       match result with
       | .integer bounds => {flow with scalars := Integer.put flow.scalars identity (some bounds)}
-      | .boolean => flow
+      | .boolean | .array _ => flow
   | .boolean _ => flow
 
 @[simp] theorem Target.after_path (target : Target) (result : ScalarType) (flow : Predicate.Flow) :
@@ -161,7 +163,7 @@ theorem Assignment.after_ranges {signatures : Signatures} {shape : Bindings.Shap
   | integer identity target =>
       rw [targetEq] at targetChecked
       cases result with
-      | boolean => simp [Target.check] at targetChecked
+      | boolean | array _ => simp [Target.check] at targetChecked
       | integer result =>
           obtain ⟨_, present, nonempty, included⟩ := Target.integer_check targetChecked
           have ordered : result.lower ≤ result.upper := by
@@ -196,7 +198,7 @@ theorem Assignment.after_unchanged {signatures : Signatures} {shape : Bindings.S
   | integer index bounds =>
       rw [targetEq] at targetChecked
       cases result with
-      | boolean => rfl
+      | boolean | array _ => rfl
       | integer result =>
           have writable := (Target.integer_check targetChecked).1
           have other : identity ≠ index := by

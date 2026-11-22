@@ -14,7 +14,7 @@ open Compose
 set_option backward.dsimp.instances true
 
 inductive Ty
-  | number | truth | source | token | kind | mode | interval | context | flow | scan | metadata | formal | signature | actual | functionFormal | names | scalars | booleans | arrays
+  | number | truth | source | token | kind | mode | interval | context | flow | scan | metadata | formal | signature | actual | functionFormal | names | scalars | booleans | arrays | arrayTypes
   | association | formalSet
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
@@ -38,7 +38,8 @@ inductive Ty
   | .names => BindingEnvironment
   | .scalars => ScalarExpression.Environment
   | .booleans => BooleanBindings.Environment
-  | .arrays => ArrayBindings.Metadata
+  | .arrays => ArrayBindings.Table
+  | .arrayTypes => ArrayBindings.TypeEnvironment
   | .association => ActualAssociation
   | .formalSet => FormalSet
   | .arrow a b => a.meaning → b.meaning
@@ -62,7 +63,8 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .names => []
   | .scalars => []
   | .booleans => []
-  | .arrays => []
+  | .arrays => {}
+  | .arrayTypes => []
   | .association => invalidAssociation
   | .formalSet => noFormals
   | .arrow _ b => fun _ => b.default
@@ -87,6 +89,7 @@ def Ty.name : Ty → List String
   | .scalars => ["scalar_expressions", ".", "environment"]
   | .booleans => ["boolean_environment"]
   | .arrays => ["array_bindings", ".", "metadata"]
+  | .arrayTypes => ["array_bindings", ".", "type_environment"]
   | .association => ["actual_association"]
   | .formalSet => ["formal_set"]
   | .arrow _ _ => []
@@ -94,7 +97,7 @@ def Ty.name : Ty → List String
 def arrows (args : List Ty) (result : Ty) : Ty := args.foldr Ty.arrow result
 
 inductive Function
-  | skip | nameAfter | namesLookup | scalarLookup | booleanLookup | arrayLookup | procedureLookup | token | isEmpty | included | scalarTarget | booleanTarget | functionActual | nameFree | invalid | invalidModel | bodyToken | target | actual | actualsModel | actuals | update | updatesModel | updates | callee | call
+  | skip | nameAfter | namesLookup | scalarLookup | booleanLookup | arrayLookup | arrayTypeLookup | procedureLookup | token | isEmpty | included | scalarTarget | booleanTarget | functionActual | nameFree | invalid | invalidModel | bodyToken | target | actual | actualsModel | actuals | update | updatesModel | updates | callee | call
   | association | actualsTail | payloadsFreeModel | payloadsFree | updatesTail | markFormal | nameFreeModel
   deriving DecidableEq, Repr
 
@@ -106,6 +109,7 @@ def Function.type : Function → Ty
   | .scalarLookup => arrows [.source, .scalars, .number, .number] .number
   | .booleanLookup => arrows [.source, .booleans, .number, .number] .number
   | .arrayLookup => arrows [.source, .arrays, .number, .number] .number
+  | .arrayTypeLookup => arrows [.source, .arrayTypes, .number, .number] .number
   | .procedureLookup => arrows [.source, .metadata, .number, .number] .number
   | .token => arrows [.source, .number, .token] .number
   | .isEmpty => arrows [.interval] .truth
@@ -140,6 +144,7 @@ def Function.name : Function → List String
   | .scalarLookup => ["scalar_expressions", ".", "lookup"]
   | .booleanLookup => ["lookup_boolean"]
   | .arrayLookup => ["array_bindings", ".", "lookup"]
+  | .arrayTypeLookup => ["array_bindings", ".", "lookup_type"]
   | .procedureLookup => ["procedures", ".", "lookup"]
   | .token => ["take_token"]
   | .isEmpty => ["scalars", ".", "is_empty"]
@@ -174,10 +179,12 @@ inductive Field : Ty → Ty → Type
   | contextScalars : Field .context .scalars
   | contextBooleans : Field .context .booleans
   | contextArrays : Field .context .arrays
+  | arrayTypes : Field .arrays .arrayTypes
   | scanPosition : Field .scan .number
   | scanFacts : Field .scan .flow
   | formalFirst : Field .formal .number
   | formalAfter : Field .formal .number
+  | formalTypeId : Field .formal .number
   | formalKind : Field .formal .kind
   | formalBounds : Field .formal .interval
   | formalMode : Field .formal .mode
@@ -196,10 +203,12 @@ def Field.name : Field a b → List String
   | .contextScalars => ["scalar_names"]
   | .contextBooleans => ["boolean_names"]
   | .contextArrays => ["array_names"]
+  | .arrayTypes => ["types"]
   | .scanPosition => ["position"]
   | .scanFacts => ["facts"]
   | .formalFirst => ["first"]
   | .formalAfter => ["after"]
+  | .formalTypeId => ["type_id"]
   | .formalKind => ["kind"]
   | .formalBounds => ["bounds"]
   | .formalMode => ["mode"]
@@ -217,11 +226,13 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .contextNames, value => value.names
   | .contextScalars, value => value.scalarNames
   | .contextBooleans, value => value.booleanNames
-  | .contextArrays, value => value.arrayNames
+  | .contextArrays, value => value.arrayTable
+  | .arrayTypes, value => value.types
   | .scanPosition, value => value.position
   | .scanFacts, value => value.facts
   | .formalFirst, value => value.first
   | .formalAfter, value => value.after
+  | .formalTypeId, value => value.typeId
   | .formalKind, value => value.kind
   | .formalBounds, value => value.bounds
   | .formalMode, value => value.mode
@@ -281,7 +292,7 @@ inductive Expr : Ty → Type
   | replace : Expr .flow → Expr .number → Expr .interval → Expr .flow
   | update : ScanField ty → Expr .scan → Expr ty → Expr .scan
   | actualResult : Expr .number → Expr .number → Expr .number → Expr .number → Expr .actual
-  | functionFormal : Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .functionFormal
+  | functionFormal : Expr .number → Expr .number → Expr .kind → Expr .interval → Expr .number → Expr .functionFormal
   | add : Expr .number → Expr .number → Expr .number
   | sub : Expr .number → Expr .number → Expr .number
   | eq : Expr .number → Expr .number → Expr .truth
@@ -326,7 +337,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .replace facts index bounds => (facts.eval calls locals).replace (index.eval calls locals) (bounds.eval calls locals)
   | .update projection scan value => projection.set (scan.eval calls locals) (value.eval calls locals)
   | .actualResult first after scalar flag => ⟨first.eval calls locals, after.eval calls locals, scalar.eval calls locals, flag.eval calls locals⟩
-  | .functionFormal first after scalarKind bounds => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
+  | .functionFormal first after scalarKind bounds typeId => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .add left right => left.eval calls locals + right.eval calls locals
   | .sub left right => left.eval calls locals - right.eval calls locals
   | .eq left right | .eqKind left right | .eqMode left right => decide (left.eval calls locals = right.eval calls locals)
@@ -372,7 +383,7 @@ def Expr.render : Expr ty → List String
     | .update _ _ _ => scan.render.dropLast ++ [",", projection.name, "=>"] ++ value.render ++ [")"]
     | _ => ["("] ++ scan.render ++ ["with", "delta", projection.name, "=>"] ++ value.render ++ [")"]
   | .actualResult first after scalar flag => ["("] ++ separated [first.render, after.render, scalar.render, flag.render] ++ [")"]
-  | .functionFormal first after scalarKind bounds => ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render] ++ [")"]
+  | .functionFormal first after scalarKind bounds typeId => ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .add left right => left.render ++ ["+"] ++ right.render
   | .sub left right => left.render ++ ["-"] ++ right.render
   | .eq left right | .eqKind left right | .eqMode left right => left.render ++ ["="] ++ right.render
@@ -458,7 +469,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .replace facts index bounds => facts.scoped scope && index.scoped scope && bounds.scoped scope
   | .update _ scan value => scan.scoped scope && value.scoped scope
   | .actualResult first after scalar flag => first.scoped scope && after.scoped scope && scalar.scoped scope && flag.scoped scope
-  | .functionFormal first after scalarKind bounds => first.scoped scope && after.scoped scope && scalarKind.scoped scope && bounds.scoped scope
+  | .functionFormal first after scalarKind bounds typeId => first.scoped scope && after.scoped scope && scalarKind.scoped scope && bounds.scoped scope && typeId.scoped scope
   | .add left right | .sub left right | .eq left right | .ne left right | .le left right | .lt left right | .gt left right |
     .eqKind left right | .eqMode left right | .andThen left right | .orElse left right => left.scoped scope && right.scoped scope
   | .not value | .group value | .declare value | .beginValue value => value.scoped scope
@@ -479,7 +490,7 @@ def Expr.prefix : Expr ty → Bool
   | _ => false
 
 def Expr.primary : Expr ty → Bool
-  | .markSeen _ _ | .number _ | .truth _ | .replace _ _ _ | .update _ _ _ | .actualResult _ _ _ _ | .functionFormal _ _ _ _ | .group _ => true
+  | .markSeen _ _ | .number _ | .truth _ | .replace _ _ _ | .update _ _ _ | .actualResult _ _ _ _ | .functionFormal _ _ _ _ _ | .group _ => true
   | value => value.prefix
 
 def Expr.simple : Expr ty → Bool
@@ -513,8 +524,8 @@ def Expr.wellFormed : Expr ty → Bool
   | .update _ scan value => scan.primary && value.value && scan.wellFormed && value.wellFormed
   | .actualResult first after scalar flag => first.value && after.value && scalar.value && flag.value &&
       first.wellFormed && after.wellFormed && scalar.wellFormed && flag.wellFormed
-  | .functionFormal first after scalarKind bounds => first.value && after.value && scalarKind.value && bounds.value &&
-      first.wellFormed && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed
+  | .functionFormal first after scalarKind bounds typeId => first.value && after.value && scalarKind.value && bounds.value && typeId.value &&
+      first.wellFormed && after.wellFormed && scalarKind.wellFormed && bounds.wellFormed && typeId.wellFormed
   | .add left right | .sub left right => left.simple && right.primary && left.wellFormed && right.wellFormed
   | .eq left right | .ne left right | .le left right | .lt left right | .gt left right | .eqKind left right | .eqMode left right =>
       left.simple && right.simple && left.wellFormed && right.wellFormed

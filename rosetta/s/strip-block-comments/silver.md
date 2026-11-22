@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or counter bound that follows from the for-loop range, one lookahead guard and one capacity guard, with no loop-carried arithmetic beyond a guarded counter, so the proofs should discharge without annotations. The program needs only a few Character and String indexing constructs beyond today's Silver.
 
-Position 519 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 521 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

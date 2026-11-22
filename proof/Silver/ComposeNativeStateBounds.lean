@@ -10,6 +10,8 @@ public import Silver.ComposeNativeValueBounds
 lemmas use the checked raw metadata fields, without a declaration-history or
 runtime byte-store premise. -/
 namespace Silver.Compose.Expressions
+
+set_option maxHeartbeats 2000000
 open Named Bindings
 
 theorem model_string_declaration_bounds_of_result (text : Source) (state : ParserState)
@@ -63,6 +65,16 @@ theorem model_scalar_declaration_bounds (text : Source) (state : ParserState)
     (arguments : Bool) (metadata : NamesBoundsValid state.names) :
     NamesBoundsValid (scalarDeclarationAt text state arguments).names := by
   unfold scalarDeclarationAt
+  generalize scalarDeclarationParts text state = parts
+  dsimp only
+  split
+  · exact namesBoundsValid_empty
+  · simpa only [addScalarBinding] using metadata
+
+theorem model_array_type_declaration_bounds (text : Source) (state : ParserState)
+    (arguments : Bool) (metadata : NamesBoundsValid state.names) :
+    NamesBoundsValid (arrayTypeDeclarationAt text state arguments).names := by
+  unfold arrayTypeDeclarationAt
   dsimp only
   split
   · exact namesBoundsValid_empty
@@ -92,6 +104,7 @@ theorem model_array_declaration_bounds (text : Source) (state : ParserState)
     (arguments : Bool) (metadata : NamesBoundsValid state.names) :
     NamesBoundsValid (arrayDeclarationAt text state arguments).names := by
   unfold arrayDeclarationAt
+  generalize partsEq : arrayDeclarationParts text state = parts
   dsimp only
   split
   · exact namesBoundsValid_empty
@@ -103,7 +116,7 @@ theorem model_array_declaration_bounds (text : Source) (state : ParserState)
         · exact namesBoundsValid_empty
         · rename_i good start positive advances
           have accepted : (arrayDeclarationAt text state arguments).position ≠ 0 := by
-            simp only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte]
+            simp only [arrayDeclarationAt, partsEq, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte]
             omega
           have preserved : NamesBoundsValid (arrayDeclarationAt text state arguments).names := by
             cases kind : (arrayDeclarationParts text state).isBoolean with
@@ -115,7 +128,7 @@ theorem model_array_declaration_bounds (text : Source) (state : ParserState)
               have reading := boolean_array_declaration_sound text state arguments kind accepted
               rw [(boolean_array_declaration_preserves reading).1]
               exact metadata
-          simpa only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte] using preserved
+          simpa only [arrayDeclarationAt, partsEq, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte] using preserved
 
 theorem model_argument_bounds (text : Source) (state : ParserState)
     (metadata : NamesBoundsValid state.names) : NamesBoundsValid (argumentAt text state).names := by
@@ -136,16 +149,18 @@ theorem model_declaration_bounds (text : Source) (valid : ValidText text)
     rw [(callableDeclarationAt_preserves_outer _ _ _ accepted).names]
     exact metadata
   · split
-    · exact model_subtype_declaration_bounds text state arguments metadata
+    · exact model_array_type_declaration_bounds text state arguments metadata
     · split
-      · exact model_scalar_declaration_bounds text state arguments metadata
+      · exact model_subtype_declaration_bounds text state arguments metadata
       · split
-        · exact model_array_declaration_bounds text state arguments metadata
+        · exact model_scalar_declaration_bounds text state arguments metadata
         · split
-          · exact model_boolean_declaration_bounds text state arguments metadata
+          · exact model_array_declaration_bounds text state arguments metadata
           · split
-            · exact model_character_declaration_bounds text state arguments metadata
-            · exact model_string_declaration_bounds text valid state arguments metadata
+            · exact model_boolean_declaration_bounds text state arguments metadata
+            · split
+              · exact model_character_declaration_bounds text state arguments metadata
+              · exact model_string_declaration_bounds text valid state arguments metadata
 theorem model_declarations_loop_bounds (text : Source) (valid : ValidText text)
     (arguments : Bool) (fuel : Nat) (state : ParserState) (metadata : NamesBoundsValid state.names) :
     NamesBoundsValid (declarationsLoop text arguments fuel state).names := by

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded and loop counts are fixed, so there is no recursion or variant need, but the proof depends on floating-point library contracts for Exp and power, and on range guards for the float series. This makes it plausible rather than likely.
 
-Position 1089 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1012 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

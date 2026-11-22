@@ -2,30 +2,39 @@ module
 
 public import Silver.IntegerMutable
 public import Silver.BooleanModel
+public import Silver.NamedArrayParameters
 
 @[expose] public section
 
-/-! Scalar function interfaces contain only declared domains. A result has no
-relationship to its actual arguments beyond the declared result subtype. -/
+/-! Functions retain scalar results. Input domains also include named
+constrained Integer arrays, identified by their type declarations. -/
 namespace Silver.ScalarFunctions
 
 inductive ScalarType
   | integer (bounds : Integer.Interval)
   | boolean
+  | array (domain : NamedArrayParameters.Domain)
   deriving DecidableEq, Repr
 
 inductive Value
   | integer (value : Int)
   | boolean (value : Bool)
+  | array (argument : NamedArrayParameters.Argument)
   deriving DecidableEq, Repr
 
 def ScalarType.Valid : ScalarType → Prop
   | .integer bounds => bounds.Bounded ∧ bounds.lower ≤ bounds.upper
   | .boolean => True
+  | .array domain => domain.Valid
+
+def ScalarType.IsScalar : ScalarType → Prop
+  | .integer _ | .boolean => True
+  | .array _ => False
 
 def ScalarType.Contains : ScalarType → Value → Prop
   | .integer bounds, .integer value => bounds.Contains value
   | .boolean, .boolean _ => True
+  | .array domain, .array argument => domain.Contains argument
   | _, _ => False
 
 instance (domain : ScalarType) (value : Value) : Decidable (domain.Contains value) := by
@@ -44,7 +53,8 @@ structure Signature where
   deriving DecidableEq, Repr
 
 def Signature.Valid (signature : Signature) : Prop :=
-  signature.formals ≠ [] ∧ (∀ domain ∈ signature.formals, domain.Valid) ∧ signature.result.Valid
+  signature.formals ≠ [] ∧ (∀ domain ∈ signature.formals, domain.Valid) ∧
+    signature.result.Valid ∧ signature.result.IsScalar
 
 def ArgumentsFit : List ScalarType → List Value → Prop
   | [], [] => True

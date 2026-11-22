@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The inclusive divisor scan visits every positive divisor exactly once. Before candidate d <= 100 the sum is at most d*(d-1)/2 <= 4950, so the static guard never discards a contribution. The full required range 1..100 is computed and printed; the primary task specifies no column arrangement. No output buffer or additional procedure is needed. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 58 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 59 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

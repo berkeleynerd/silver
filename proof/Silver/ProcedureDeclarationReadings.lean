@@ -62,6 +62,7 @@ def procedureHeaderInitial (text : Source) (state : ParserState) : ParserState :
   {initialState with
     position := fixedAfter text (procedureNameAfter text state) "(" false, pure := true,
     subtypeNames := state.subtypeNames, functions := state.functions, procedures := state.procedures,
+    arrayNames := {types := state.arrayNames.types},
     «hiding» := hideName text (hiddenOuter text state) (procedureNameFirst text state) (procedureNameAfter text state),
     firstProcedureParameter := state.procedures.parameters.length + 1}
 

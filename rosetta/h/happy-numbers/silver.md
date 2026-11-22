@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Three extractions cover every declared input and the static guard cannot skip a square. The first transformation enters 0..243 and one is absorbing. If 244 images avoid one, two repeat among the 243 non-one states, so no later first visit to one is possible. Thus the test decides happiness on the complete 0..999 domain, rather than using an arbitrary cutoff. The complete positive prefix through 31 contains exactly the required first eight. The [reconciliation](../../../rosetta/assessment-scalar-function-batch-20261108.md) preserves the original assessment attribution and links the separately reviewed Linux application evidence; final combined integration and independent delivery status remain in the batch delivery record.
 
-Position 83 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 84 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

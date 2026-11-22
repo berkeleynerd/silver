@@ -47,7 +47,7 @@ class OutputIntegrityTests(unittest.TestCase):
         prepare_context(cls.host)
         built = subprocess.run(
             alire_command(HOST, "exec", "--", "gprbuild", "-P", cls.sandbox / "silver.gpr",
-                          "-XSILVER_HOST=" + HOST.key, "--subdirs=explore/output-integrity", "-p", "-j2", "silver.adb"),
+                          "-XSILVER_HOST=" + HOST.key, "--subdirs=explore/output-integrity", "-p", "-j1", "silver.adb"),
             cwd=HOST.context, env=tool_environment(HOST), capture_output=True, text=True, timeout=120)
         if built.returncode:
             raise AssertionError(built.stdout + built.stderr)

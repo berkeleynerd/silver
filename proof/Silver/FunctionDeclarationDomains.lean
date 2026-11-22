@@ -43,7 +43,7 @@ structure StateClauses (text : Source) (state : ParserState) : Prop where
   firstProcedureParameter : state.firstProcedureParameter ≤ state.procedures.parameters.length + 1
   names : ValidNames text state.names ∧ NamesBoundsValid state.names
   scalars : ScalarExpression.ValidEnvironment text state.scalarNames
-  arrays : ArrayBindings.ValidEnvironment text state.arrayNames
+  arrays : ArrayBindings.ValidNativeEnvironment text state.arrayNames
   subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames
   booleans : BooleanBindings.ValidEnvironment text state.booleanNames
   mutableBounds : MutableBounds state.scalarNames

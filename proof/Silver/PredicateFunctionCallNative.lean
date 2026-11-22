@@ -18,7 +18,8 @@ open Compose FunctionBindings
   namesLookup : Source → BindingEnvironment → Nat → Nat → Nat
   scalarLookup : Source → ScalarExpression.Environment → Nat → Nat → Nat
   booleanLookup : Source → BooleanBindings.Environment → Nat → Nat → Nat
-  arrayLookup : Source → ArrayBindings.Metadata → Nat → Nat → Nat
+  arrayLookup : Source → ArrayBindings.Table → Nat → Nat → Nat
+  arrayTypeLookup : Source → ArrayBindings.TypeEnvironment → Nat → Nat → Nat
   functionLookup : Source → Metadata → Nat → Nat → Nat
   token : Source → Nat → ShellToken → Nat
   condition : Source → Native.Context → Nat → ActiveFlow → ConditionResult
@@ -28,6 +29,8 @@ open Compose FunctionBindings
   invalid : BodyScan → BodyScan
   association : Source → Nat → Metadata → Nat → Nat → Nat → Bool → ActualAssociation
   markFormal : FormalSet → Nat → FormalSet
+  arrayTarget : Source → Native.Context → Nat → Nat
+  conditionInto : Source → Native.Context → Nat → ActiveFlow → ConditionResult
 
 @[ext] structure Calls where
   actual : Source → Native.Context → Nat → ActiveFlow → Formal → Nat
@@ -39,6 +42,8 @@ open Compose FunctionBindings
   scalarTarget : Source → Native.Context → Nat → Nat
   booleanTarget : Source → Native.Context → Nat → Nat
   assignmentResult : Native.Context → BodyScan → Nat → Nat → CallResult → BodyScan
+  arrayActual : Source → Native.Context → Nat → Nat → Nat
+  actualModel : Source → Native.Context → Nat → ActiveFlow → Formal → Nat
 
 structure Frame where
   text : Source := []
@@ -57,6 +62,8 @@ structure Frame where
   seen : FormalSet := noFormals
   association : ActualAssociation := invalidAssociation
   after : Nat := 0
+  typeId : Nat := 0
+  target : Nat := 0
   callee : Nat := 0
   start : Nat := 0
   scalar : Nat := 0
@@ -68,6 +75,8 @@ structure Frame where
   intervalBounds : Integer.Interval := .empty
 
 inductive Expr : Type → Type 1
+  | typeId : Expr Nat
+  | target : Expr Nat
   | position : Expr Nat
   | loopCursor : Expr Nat
   | loopIndex : Expr Nat
@@ -102,6 +111,8 @@ inductive Expr : Type → Type 1
   | item : Expr Signature
   | number : Nat → Expr Nat
   | kind : ScalarKind → Expr ScalarKind
+  | formalTypeId : Expr Formal → Expr Nat
+  | arrayTypeId : Expr Nat → Expr Nat
   | formalKind : Expr Formal → Expr ScalarKind
   | formalBounds : Expr Formal → Expr Integer.Interval
   | formalFirst : Expr Signature → Expr Nat
@@ -124,10 +135,13 @@ inductive Expr : Type → Type 1
   | scalarLookup : Expr Nat → Expr Nat → Expr Nat
   | booleanLookup : Expr Nat → Expr Nat → Expr Nat
   | arrayLookup : Expr Nat → Expr Nat → Expr Nat
+  | arrayTypeLookup : Expr Nat → Expr Nat → Expr Nat
   | functionLookup : Expr Nat → Expr Nat → Expr Nat
   | token : Expr Nat → ShellToken → Expr Nat
   | readScalar : Expr Nat → Expr ScalarExpression.Result
   | readConditionAfter : Expr Nat → Expr Nat
+  | arrayTarget : Expr Nat → Expr Nat
+  | arrayActual : Expr Nat → Expr Nat → Expr Nat
   | actual : Expr Nat → Expr Formal → Expr Nat
   | actuals : Expr Nat → Expr Nat → Expr Nat → Expr Nat
   | actualsTail : Expr Nat → Expr Nat → Expr Nat → Expr Nat → Expr Bool → Expr FormalSet → Expr Nat
@@ -161,6 +175,7 @@ inductive Expr : Type → Type 1
   | locals : Expr α → Expr α
   | letFirst : Expr Nat → Expr α → Expr α
   | letAfter : Expr Nat → Expr α → Expr α
+  | letTarget : Expr Nat → Expr α → Expr α
   | letCallee : Expr Nat → Expr α → Expr α
   | letStart : Expr Nat → Expr α → Expr α
   | letItem : Expr Signature → Expr α → Expr α
@@ -168,6 +183,7 @@ inductive Expr : Type → Type 1
   | letAssociation : Expr ActualAssociation → Expr α → Expr α
 
 def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → α
+  | .typeId => frame.typeId | .target => frame.target
   | .loopCursor => frame.cursor | .loopIndex => frame.index
   | .position => frame.position | .scanPosition => frame.scan.position
   | .first => frame.first | .last => frame.last | .after => frame.after
@@ -188,6 +204,8 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .leInt left right => decide (left.eval imports calls frame ≤ right.eval imports calls frame)
   | .value => frame.value | .called => frame.called | .parameter => frame.parameter | .item => frame.item
   | .number node => node | .kind node => node
+  | .formalTypeId node => (node.eval imports calls frame).typeId
+  | .arrayTypeId node => (ArrayBindings.binding frame.context.arrayNames (node.eval imports calls frame)).typeId
   | .formalKind node => (node.eval imports calls frame).kind
   | .formalBounds node => (node.eval imports calls frame).bounds
   | .formalFirst node => (node.eval imports calls frame).formalFirst
@@ -209,12 +227,15 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .namesLookup startExpr endExpr => imports.namesLookup frame.text frame.context.names (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .scalarLookup startExpr endExpr => imports.scalarLookup frame.text frame.context.scalarNames (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .booleanLookup startExpr endExpr => imports.booleanLookup frame.text frame.context.booleanNames (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
-  | .arrayLookup startExpr endExpr => imports.arrayLookup frame.text frame.context.arrayNames (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
+  | .arrayLookup startExpr endExpr => imports.arrayLookup frame.text frame.context.arrayTable (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
+  | .arrayTypeLookup startExpr endExpr => imports.arrayTypeLookup frame.text frame.context.arrayTypes (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .functionLookup startExpr endExpr => imports.functionLookup frame.text frame.catalog (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .token cursor tokenValue => imports.token frame.text (cursor.eval imports calls frame) tokenValue
   | .readScalar cursor => imports.scalar frame.text frame.context (cursor.eval imports calls frame) frame.facts
   | .readConditionAfter cursor => (imports.condition frame.text frame.context (cursor.eval imports calls frame) frame.facts).after
-  | .actual cursor formalExpr => calls.actual frame.text frame.context (cursor.eval imports calls frame) frame.facts (formalExpr.eval imports calls frame)
+  | .arrayTarget cursor => imports.arrayTarget frame.text frame.context (cursor.eval imports calls frame)
+  | .arrayActual cursor key => calls.arrayActual frame.text frame.context (cursor.eval imports calls frame) (key.eval imports calls frame)
+  | .actual cursor formalExpr => calls.actualModel frame.text frame.context (cursor.eval imports calls frame) frame.facts (formalExpr.eval imports calls frame)
   | .actuals cursor startExpr endExpr => calls.actuals frame.text frame.context (cursor.eval imports calls frame) frame.facts frame.catalog (startExpr.eval imports calls frame) (endExpr.eval imports calls frame)
   | .actualsTail cursor firstExpr lastExpr ordinalExpr namedExpr seenExpr => calls.actualsTail frame.text frame.context
       (cursor.eval imports calls frame) frame.facts frame.catalog (firstExpr.eval imports calls frame)
@@ -253,6 +274,7 @@ def Expr.eval (imports : Imports) (calls : Calls) (frame : Frame) : Expr α → 
   | .ite condition yes no | .elsif condition yes no => if condition.eval imports calls frame then yes.eval imports calls frame else no.eval imports calls frame
   | .letFirst node body => body.eval imports calls {frame with first := node.eval imports calls frame}
   | .letAfter node body => body.eval imports calls {frame with after := node.eval imports calls frame}
+  | .letTarget node body => body.eval imports calls {frame with target := node.eval imports calls frame}
   | .letCallee node body => body.eval imports calls {frame with callee := node.eval imports calls frame}
   | .letStart node body => body.eval imports calls {frame with start := node.eval imports calls frame}
   | .letItem node body => body.eval imports calls {frame with item := node.eval imports calls frame}
@@ -263,13 +285,14 @@ def call (name : List String) (arguments : List (List String)) : List String :=
   name ++ ["("] ++ (arguments.intersperse [","]).flatten ++ [")"]
 
 def Expr.local : Expr α → Bool
-  | .letFirst _ _ | .letAfter _ _ | .letCallee _ _ | .letStart _ _ | .letItem _ _ | .letValue _ _ | .letAssociation _ _ => true
+  | .letFirst _ _ | .letAfter _ _ | .letTarget _ _ | .letCallee _ _ | .letStart _ _ | .letItem _ _ | .letValue _ _ | .letAssociation _ _ => true
   | _ => false
 
 def localRender (name : String) (typeName node body : List String) (more : Bool) : List String :=
   [name, ":", "constant"] ++ typeName ++ [":="] ++ node ++ [";"] ++ (if more then [] else ["begin"]) ++ body
 
 def Expr.render : Expr α → List String
+  | .typeId => ["type_id"] | .target => ["target"]
   | .loopCursor => ["cursor"] | .loopIndex => ["index"]
   | .position => ["position"] | .scanPosition => ["scan", ".", "position"]
   | .first => ["first"] | .last => ["last"] | .after => ["after"] | .callee => ["callee"]
@@ -291,6 +314,8 @@ def Expr.render : Expr α → List String
   | .value | .called => ["value"] | .parameter => ["parameter"] | .item => ["item"]
   | .number node => [toString node]
   | .kind node => ["functions", ".", if node = .integer then "integer_kind" else "boolean_kind"]
+  | .formalTypeId node => node.render ++ [".", "type_id"]
+  | .arrayTypeId node => ["context", ".", "array_names", ".", "items", "("] ++ node.render ++ [")", ".", "type_id"]
   | .formalKind node | .callKind node => node.render ++ [".", "kind"]
   | .formalBounds node | .valueBounds node | .callBounds node => node.render ++ [".", "bounds"]
   | .formalFirst node => node.render ++ [".", "formal_first"]
@@ -309,10 +334,13 @@ def Expr.render : Expr α → List String
   | .scalarLookup startExpr endExpr => call ["scalar_expressions", ".", "lookup"] [["text"], ["context", ".", "scalar_names"], startExpr.render, endExpr.render]
   | .booleanLookup startExpr endExpr => call ["lookup_boolean"] [["text"], ["context", ".", "boolean_names"], startExpr.render, endExpr.render]
   | .arrayLookup startExpr endExpr => call ["array_bindings", ".", "lookup"] [["text"], ["context", ".", "array_names"], startExpr.render, endExpr.render]
+  | .arrayTypeLookup startExpr endExpr => call ["array_bindings", ".", "lookup_type"] [["text"], ["context", ".", "array_names", ".", "types"], startExpr.render, endExpr.render]
   | .functionLookup startExpr endExpr => call ["functions", ".", "lookup"] [["text"], ["catalog"], startExpr.render, endExpr.render]
   | .token cursor tokenValue => call ["take_token"] [["text"], cursor.render, [Compose.Expressions.tokenName tokenValue]]
   | .readScalar cursor => call ["read_scalar_in_flow"] [["text"], ["context"], cursor.render, ["facts"]]
   | .readConditionAfter cursor => call ["condition_model"] [["text"], ["context"], cursor.render, ["facts"]] ++ [".", "after"]
+  | .arrayTarget cursor => call ["array_target"] [["text"], ["context"], cursor.render]
+  | .arrayActual cursor key => call ["array_actual_after"] [["text"], ["context"], cursor.render, key.render]
   | .actual cursor formalExpr => call ["actual_model"] [["text"], ["context"], cursor.render, ["facts"], formalExpr.render]
   | .actuals cursor startExpr endExpr => call ["actuals_model"] [["text"], ["context"], cursor.render, ["facts"], ["catalog"], startExpr.render, endExpr.render]
   | .actualsTail cursor firstExpr lastExpr ordinalExpr namedExpr seenExpr => call ["function_actuals_tail_model"]
@@ -349,6 +377,7 @@ def Expr.render : Expr α → List String
   | .locals node => ["declare"] ++ node.render
   | .letFirst node body => localRender "first" ["literal_position"] node.render body.render body.local
   | .letAfter node body => localRender "after" ["literal_position"] node.render body.render body.local
+  | .letTarget node body => localRender "target" ["array_bindings", ".", "binding_count"] node.render body.render body.local
   | .letCallee node body => localRender "callee" ["functions", ".", "function_count"] node.render body.render body.local
   | .letStart node body => localRender "start" ["literal_position"] node.render body.render body.local
   | .letItem node body => localRender "item" ["functions", ".", "signature"] node.render body.render body.local
@@ -364,20 +393,20 @@ def Expr.prefix : Expr α → Bool
   | .associationNamed _ | .noFormals | .seenAt _ _ | .actualsTail _ _ _ _ _ _ | .association _ _ _ _ _ => true
   | .markSeen _ _ => true
   | .truth _ | .letAssociation _ _ => false
-  | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
+  | .typeId | .target | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
   | .intervalValue | .intervalBounds | .lower _ | .upper _
   | .value | .called | .parameter | .item | .kind _
-  | .formalKind _ | .formalBounds _ | .formalFirst _ | .formalCount _ | .resultKind _ | .resultBounds _
+  | .formalTypeId _ | .arrayTypeId _ | .formalKind _ | .formalBounds _ | .formalFirst _ | .formalCount _ | .resultKind _ | .resultBounds _
   | .valueAfter _ | .valueBounds _ | .callAfter _ | .callKind _ | .callBounds _
   | .parameterAt _ | .signatureAt _ | .scalarMutable _ | .booleanMutable _ | .declaredBounds _
   | .skip _ | .nameAfter _ | .namesLookup _ _ | .scalarLookup _ _ | .booleanLookup _ _
-  | .arrayLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
-  | .actual _ _ | .actuals _ _ _ | .calleeAt _ | .callModel _ | .readCall _ | .scalarTarget _
+  | .arrayLookup _ _ | .arrayTypeLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
+  | .arrayActual _ _ | .arrayTarget _ | .actual _ _ | .actuals _ _ _ | .calleeAt _ | .callModel _ | .readCall _ | .scalarTarget _
   | .booleanTarget _ | .assignmentResult _ _ _ | .empty _ | .included _ _ | .invalidCall | .invalidBody => true
   | .number _ | .geInt _ _ | .leInt _ _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .le _ _
   | .kindEq _ _ | .kindNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .makeCall _ _ _
   | .assignedInteger | .assignedBoolean | .group _ | .ite _ _ _ | .elsif _ _ _ | .locals _
-  | .letFirst _ _ | .letAfter _ _ | .letCallee _ _ | .letStart _ _ | .letItem _ _ | .letValue _ _ => false
+  | .letFirst _ _ | .letAfter _ _ | .letTarget _ _ | .letCallee _ _ | .letStart _ _ | .letItem _ _ | .letValue _ _ => false
 
 /-- Fail closed when adding a new operator: bare arithmetic, conditions and
 local declarations must never be mistaken for atomic Ada expressions. -/
@@ -386,15 +415,15 @@ def Expr.primary : Expr α → Bool
   | .ordinal | .named | .seen | .associationValue | .associationFormal _ | .associationPayload _
   | .associationNamed _ | .noFormals | .seenAt _ _ | .actualsTail _ _ _ _ _ _ | .association _ _ _ _ _
   | .truth _ | .markSeen _ _ => true
-  | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
+  | .typeId | .target | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
   | .intervalValue | .intervalBounds | .lower _ | .upper _
   | .value | .called | .parameter | .item | .number _ | .kind _
-  | .formalKind _ | .formalBounds _ | .formalFirst _ | .formalCount _ | .resultKind _ | .resultBounds _
+  | .formalTypeId _ | .arrayTypeId _ | .formalKind _ | .formalBounds _ | .formalFirst _ | .formalCount _ | .resultKind _ | .resultBounds _
   | .valueAfter _ | .valueBounds _ | .callAfter _ | .callKind _ | .callBounds _
   | .parameterAt _ | .signatureAt _ | .scalarMutable _ | .booleanMutable _ | .declaredBounds _
   | .skip _ | .nameAfter _ | .namesLookup _ _ | .scalarLookup _ _ | .booleanLookup _ _
-  | .arrayLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
-  | .actual _ _ | .actuals _ _ _ | .calleeAt _ | .callModel _ | .readCall _ | .scalarTarget _
+  | .arrayLookup _ _ | .arrayTypeLookup _ _ | .functionLookup _ _ | .token _ _ | .readScalar _ | .readConditionAfter _
+  | .arrayActual _ _ | .arrayTarget _ | .actual _ _ | .actuals _ _ _ | .calleeAt _ | .callModel _ | .readCall _ | .scalarTarget _
   | .booleanTarget _ | .assignmentResult _ _ _ | .empty _ | .included _ _
   | .invalidCall | .makeCall _ _ _ | .invalidBody | .assignedInteger | .assignedBoolean | .group _ => true
   | _ => false
@@ -424,21 +453,21 @@ def Expr.wellFormed : Expr α → Bool
       cursor.simple && firstExpr.simple && lastExpr.simple && ordinalExpr.simple && namedExpr.simple &&
       cursor.wellFormed && firstExpr.wellFormed && lastExpr.wellFormed && ordinalExpr.wellFormed && namedExpr.wellFormed
   | .letAssociation node body => node.simple && node.wellFormed && (body.local || body.simple) && body.wellFormed
-  | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
+  | .typeId | .target | .position | .scanPosition | .first | .last | .after | .callee | .start | .scalar | .flag
   | .value | .called | .parameter | .item | .number _ | .kind _ | .invalidCall
   | .intervalValue | .intervalBounds | .invalidBody | .assignedInteger | .assignedBoolean => true
   | .lower node | .upper node
-  | .formalKind node | .formalBounds node | .formalFirst node | .formalCount node
+  | .formalTypeId node | .formalKind node | .formalBounds node | .formalFirst node | .formalCount node
   | .resultKind node | .resultBounds node | .valueAfter node | .valueBounds node
   | .callAfter node | .callKind node | .callBounds node => node.prefix && node.wellFormed
   | .not node => node.primary && node.wellFormed
-  | .parameterAt node | .signatureAt node | .scalarMutable node | .booleanMutable node | .declaredBounds node
+  | .arrayTypeId node | .arrayTarget node | .parameterAt node | .signatureAt node | .scalarMutable node | .booleanMutable node | .declaredBounds node
   | .skip node | .nameAfter node | .readScalar node | .readConditionAfter node | .calleeAt node
   | .callModel node | .readCall node | .scalarTarget node | .booleanTarget node | .empty node
   | .token node _ => node.simple && node.wellFormed
   | .geInt left right | .leInt left right
   | .namesLookup left right | .scalarLookup left right | .booleanLookup left right
-  | .arrayLookup left right | .functionLookup left right | .included left right | .actual left right
+  | .arrayActual left right | .arrayLookup left right | .arrayTypeLookup left right | .functionLookup left right | .included left right | .actual left right
   | .eq left right | .ne left right | .le left right | .kindEq left right | .kindNe left right =>
       left.simple && right.simple && left.wellFormed && right.wellFormed
   | .actuals startExpr second third | .assignmentResult startExpr second third | .makeCall startExpr second third =>
@@ -451,7 +480,7 @@ def Expr.wellFormed : Expr α → Bool
       (condition.andHead || condition.orHead) && condition.wellFormed &&
       yes.simple && yes.wellFormed && (no.simple || no.isElsif) && no.wellFormed
   | .locals node => node.local && node.wellFormed
-  | .letFirst node body | .letAfter node body | .letCallee node body | .letStart node body
+  | .letFirst node body | .letAfter node body | .letTarget node body | .letCallee node body | .letStart node body
   | .letItem node body | .letValue node body =>
       node.simple && node.wellFormed && (body.local || body.simple) && body.wellFormed
 
@@ -476,6 +505,7 @@ def Expr.scoped (scope : Scope) : Expr α → Bool
       cursor.scoped scope && firstExpr.scoped scope && lastExpr.scoped scope && ordinalExpr.scoped scope && namedExpr.scoped scope
   | .letAssociation node body => node.scoped scope && body.scoped (scope.bind "association" 13)
   | .intervalValue => ("value", 10) ∈ scope | .intervalBounds => ("bounds", 10) ∈ scope
+  | .typeId => ("type_id", 0) ∈ scope | .target => ("target", 0) ∈ scope
   | .position => ("position", 0) ∈ scope | .scanPosition => ("scan", 9) ∈ scope
   | .first => ("first", 0) ∈ scope | .last => ("last", 0) ∈ scope | .after => ("after", 0) ∈ scope
   | .callee => ("callee", 0) ∈ scope | .start => ("start", 0) ∈ scope | .scalar => ("scalar", 0) ∈ scope
@@ -483,23 +513,24 @@ def Expr.scoped (scope : Scope) : Expr α → Bool
   | .parameter => ("parameter", 3) ∈ scope | .item => ("item", 4) ∈ scope
   | .number _ | .kind _ | .invalidCall => true
   | .parameterAt node | .signatureAt node => decide (("catalog", 8) ∈ scope) && node.scoped scope
-  | .scalarMutable node | .booleanMutable node | .declaredBounds node => decide (("context", 6) ∈ scope) && node.scoped scope
+  | .arrayTypeId node | .scalarMutable node | .booleanMutable node | .declaredBounds node => decide (("context", 6) ∈ scope) && node.scoped scope
   | .skip node | .nameAfter node | .token node _ => decide (("text", 5) ∈ scope) && node.scoped scope
-  | .namesLookup startExpr endExpr | .scalarLookup startExpr endExpr | .booleanLookup startExpr endExpr | .arrayLookup startExpr endExpr =>
+  | .namesLookup startExpr endExpr | .scalarLookup startExpr endExpr | .booleanLookup startExpr endExpr | .arrayLookup startExpr endExpr | .arrayTypeLookup startExpr endExpr =>
       decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope) && startExpr.scoped scope && endExpr.scoped scope
   | .functionLookup startExpr endExpr => decide (("text", 5) ∈ scope ∧ ("catalog", 8) ∈ scope) && startExpr.scoped scope && endExpr.scoped scope
   | .readScalar node | .readConditionAfter node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope) && node.scoped scope
+  | .arrayActual cursor key => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope) && cursor.scoped scope && key.scoped scope
   | .actual cursor formalExpr => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope) && cursor.scoped scope && formalExpr.scoped scope
   | .actuals cursor startExpr endExpr => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope ∧ ("catalog", 8) ∈ scope) && cursor.scoped scope && startExpr.scoped scope && endExpr.scoped scope
   | .calleeAt node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("catalog", 8) ∈ scope) && node.scoped scope
   | .callModel node | .readCall node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("scan", 9) ∈ scope ∧ ("catalog", 8) ∈ scope) && node.scoped scope
-  | .scalarTarget node | .booleanTarget node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope) && node.scoped scope
+  | .arrayTarget node | .scalarTarget node | .booleanTarget node => decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope) && node.scoped scope
   | .assignmentResult scalarExpr flagExpr node => decide (("context", 6) ∈ scope ∧ ("scan", 9) ∈ scope) && scalarExpr.scoped scope && flagExpr.scoped scope && node.scoped scope
   | .invalidBody => ("scan", 9) ∈ scope
   | .assignedInteger => decide (("scan", 9) ∈ scope ∧ ("value", 2) ∈ scope ∧ ("scalar", 0) ∈ scope)
   | .assignedBoolean => decide (("scan", 9) ∈ scope ∧ ("value", 2) ∈ scope)
   | .lower node | .upper node
-  | .formalKind node | .formalBounds node | .formalFirst node | .formalCount node | .resultKind node | .resultBounds node
+  | .formalTypeId node | .formalKind node | .formalBounds node | .formalFirst node | .formalCount node | .resultKind node | .resultBounds node
   | .valueAfter node | .valueBounds node | .callAfter node | .callKind node | .callBounds node
   | .empty node | .not node | .group node | .locals node => node.scoped scope
   | .geInt left right | .leInt left right
@@ -510,6 +541,7 @@ def Expr.scoped (scope : Scope) : Expr α → Bool
       startExpr.scoped scope && second.scoped scope && third.scoped scope
   | .letFirst node body => node.scoped scope && body.scoped (scope.bind "first" 0)
   | .letAfter node body => node.scoped scope && body.scoped (scope.bind "after" 0)
+  | .letTarget node body => node.scoped scope && body.scoped (scope.bind "target" 0)
   | .letCallee node body => node.scoped scope && body.scoped (scope.bind "callee" 0)
   | .letStart node body => node.scoped scope && body.scoped (scope.bind "start" 0)
   | .letItem node body => node.scoped scope && body.scoped (scope.bind "item" 4)
@@ -521,12 +553,58 @@ def includedBody : Expr Bool :=
       (.geInt (.lower .intervalValue) (.lower .intervalBounds)))
       (.leInt (.upper .intervalValue) (.upper .intervalBounds)))
 
+def arrayActualBody : Expr Nat :=
+  .locals <| .letFirst (.skip .position) <| .letAfter (.nameAfter .first) <|
+    .letTarget (.arrayTarget .position) <|
+    .group <| .ite (.orElse (.orElse (.eq .typeId (.number 0)) (.eq .target (.number 0)))
+      (.ne (.arrayTypeId .target) .typeId)) (.number 0) .after
+
+def integerActualResult : Expr Nat :=
+  .ite (.orElse (.orElse (.eq (.valueAfter .value) (.number 0)) (.empty (.valueBounds .value)))
+    (.not (.included (.valueBounds .value) (.formalBounds .parameter)))) (.number 0) (.valueAfter .value)
+
 def actualBody : Expr Nat :=
-  .ite (.kindEq (.formalKind .parameter) (.kind .boolean)) (.readConditionAfter .position)
-    (.group <| .locals <| .letValue (.readScalar .position) <|
-      .group <| .ite (.orElse (.orElse (.eq (.valueAfter .value) (.number 0)) (.empty (.valueBounds .value)))
-        (.not (.included (.valueBounds .value) (.formalBounds .parameter))))
-        (.number 0) (.valueAfter .value))
+  .ite (.ne (.formalTypeId .parameter) (.number 0)) (.arrayActual .position (.formalTypeId .parameter))
+    (.elsif (.kindEq (.formalKind .parameter) (.kind .boolean)) (.readConditionAfter .position)
+      (.group <| .locals <| .letValue (.readScalar .position) (.group integerActualResult)))
+
+/-- Executable Ada dispatch with a discriminated condition-result out parameter,
+a scalar-result local and an early return for bare array inputs. -/
+structure ActualImplementation where
+  arrayGuard : Expr Bool
+  arrayReturn : Expr Nat
+  booleanGuard : Expr Bool
+  conditionPosition : Expr Nat
+  scalarReader : Expr ScalarExpression.Result
+  scalarReturn : Expr Nat
+
+def ActualImplementation.eval (tree : ActualImplementation) (imports : Imports) (calls : Calls) (frame : Frame) : Nat :=
+  if tree.arrayGuard.eval imports calls frame then tree.arrayReturn.eval imports calls frame
+  else if tree.booleanGuard.eval imports calls frame then
+    (imports.conditionInto frame.text frame.context (tree.conditionPosition.eval imports calls frame) frame.facts).after
+  else tree.scalarReturn.eval imports calls {frame with value := tree.scalarReader.eval imports calls frame}
+
+def ActualImplementation.render (tree : ActualImplementation) : List String :=
+  ["begin", "if"] ++ tree.arrayGuard.render ++ ["then", "return"] ++ tree.arrayReturn.render ++ [";", "elsif"] ++
+  tree.booleanGuard.render ++ ["then", "declare", "value", ":", "condition_result", "(", "facts", ".", "count", ")",
+    ";", "begin"] ++ call ["read_condition_into"] [["text"], ["context"], tree.conditionPosition.render, ["facts"], ["value"]] ++
+  [";", "return", "value", ".", "after", ";", "end", ";", "else", "declare", "value", ":", "constant",
+    "scalar_expressions", ".", "expression_result", ":="] ++ tree.scalarReader.render ++
+  [";", "begin", "return", "("] ++ tree.scalarReturn.render ++ [")", ";", "end", ";", "end", "if", ";", "end", "actual_after", ";"]
+
+def ActualImplementation.checked (tree : ActualImplementation) (scope : Scope) : Bool :=
+  tree.arrayGuard.relation && tree.arrayGuard.wellFormed && tree.arrayGuard.scoped scope &&
+    tree.arrayReturn.simple && tree.arrayReturn.wellFormed && tree.arrayReturn.scoped scope &&
+    tree.booleanGuard.relation && tree.booleanGuard.wellFormed && tree.booleanGuard.scoped scope &&
+    tree.conditionPosition.simple && tree.conditionPosition.wellFormed && tree.conditionPosition.scoped scope &&
+    decide (("text", 5) ∈ scope ∧ ("context", 6) ∈ scope ∧ ("facts", 7) ∈ scope) &&
+    tree.scalarReader.simple && tree.scalarReader.wellFormed && tree.scalarReader.scoped scope &&
+    tree.scalarReturn.wellFormed && tree.scalarReturn.scoped (scope.bind "value" 1)
+
+def actualImplementation : ActualImplementation :=
+  ⟨.ne (.formalTypeId .parameter) (.number 0), .arrayActual .position (.formalTypeId .parameter),
+    .kindEq (.formalKind .parameter) (.kind .boolean), .position, .readScalar .position, integerActualResult⟩
+
 
 def actualsTailBody : Expr Nat :=
   .locals <| .letAssociation (.association .position .first .last .ordinal .named) <|
@@ -545,9 +623,10 @@ def actualsBody : Expr Nat :=
 
 def calleeBody : Expr Nat :=
   .locals <| .letFirst (.skip .position) <| .letAfter (.nameAfter .first) <|
-    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.eq .first (.number 0)) (.le .after .first))
+    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.eq .first (.number 0)) (.le .after .first))
       (.ne (.namesLookup .first .after) (.number 0))) (.ne (.scalarLookup .first .after) (.number 0)))
       (.ne (.booleanLookup .first .after) (.number 0))) (.ne (.arrayLookup .first .after) (.number 0)))
+      (.ne (.arrayTypeLookup .first .after) (.number 0)))
       (.number 0) (.functionLookup .first .after)
 
 def callBody : Expr CallResult :=
@@ -581,7 +660,8 @@ def modelImports : Imports where
   namesLookup := lookupName
   scalarLookup := ScalarExpression.lookup
   booleanLookup := BooleanBindings.lookup
-  arrayLookup := ArrayBindings.lookup
+  arrayLookup := fun text names => ArrayBindings.lookup text names.items
+  arrayTypeLookup := ArrayBindings.lookupType
   functionLookup := FunctionBindings.lookup
   token := tokenAfter
   condition := fun text context position facts => readCondition text context.model position facts
@@ -591,8 +671,15 @@ def modelImports : Imports where
   invalid := Predicate.invalidBody
   association := functionAssociation
   markFormal := Predicate.markFormal
+  arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
+  conditionInto := fun text context position facts => readCondition text context.model position facts
+
+theorem actualImplementation_model (calls : Calls) (frame : Frame) :
+    actualImplementation.eval modelImports calls frame = actualBody.eval modelImports calls frame := rfl
 
 def modelCalls : Calls where
+  actualModel := fun text context position facts parameter => actualAfter text context.model position facts parameter
+  arrayActual := fun text context position typeId => arrayActualAfter text context.model position typeId
   actual := fun text context position facts parameter => actualAfter text context.model position facts parameter
   actuals := fun text context position facts catalog first last => actualsAfter text context.model position facts catalog first last
   actualsTail := fun text context position facts catalog first last ordinal named seen =>

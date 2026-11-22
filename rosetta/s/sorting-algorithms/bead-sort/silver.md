@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges with small declared subtypes, so index and overflow checks follow from types and local guards, and no variant or invariant is needed.
 
-Position 110 in the [progression](../../../progression.md#stage-4), in stage 4.
+Position 112 in the [progression](../../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

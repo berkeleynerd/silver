@@ -12,7 +12,7 @@ namespace Silver.Predicate
 open Compose ScalarProcedures Bindings
 
 theorem ActualNameFreeTrace.stringValue {text : Source} {names : Compose.BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating integerHidden : Bool}
     {position target limit targetFirst targetAfter : Nat} {value : Operand} {result : ValueResult}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
@@ -38,7 +38,7 @@ theorem ActualNameFreeTrace.stringValue {text : Source} {names : Compose.Binding
 /-- The String scanner's emitted atom list and punctuation transitions follow
 one lexical trace; completed scanner states retain their exact source cursor. -/
 theorem ActualNameFreeTrace.stringEmission {text : Source} {names : Compose.BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating integerHidden : Bool}
     {scan : ExpressionState} {emitted : Expression} {target limit targetFirst targetAfter : Nat}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter scan.position)
@@ -103,7 +103,7 @@ private theorem stringTail_monotone {text names scalarNames integerHidden arrays
   exact forward.resolve_left (stringTail_positive source)
 
 theorem ActualNameFreeTrace.stringTail {text : Source} {names : Compose.BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating integerHidden : Bool}
     {scan : ExpressionState} {expression : Expression} {result : ExpressionResult}
     {target limit targetFirst targetAfter : Nat}
@@ -126,7 +126,7 @@ theorem ActualNameFreeTrace.stringTail {text : Source} {names : Compose.BindingE
       exact ⟨by simp only [List.any_append, firstFree, restFree, Bool.false_or], afterRest⟩
 
 theorem ActualNameFreeTrace.stringSyntax {text : Source} {names : Compose.BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating integerHidden : Bool}
     {position target limit targetFirst targetAfter : Nat} {expression : Expression} {result : ExpressionResult}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)

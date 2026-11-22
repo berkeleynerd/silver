@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on values bounded by 999 with a digit counter that is at most three, so overflow, range and division checks follow from types and loop bounds. The while loop sits in a procedure, so it gets no termination check, and the counter fits its type because the number has at most three digits.
 
-Position 200 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 202 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
