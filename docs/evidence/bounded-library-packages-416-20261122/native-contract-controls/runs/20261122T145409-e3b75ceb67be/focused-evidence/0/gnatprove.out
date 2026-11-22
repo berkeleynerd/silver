@@ -1,0 +1,58 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+-----------------------------------------------------------------------------------------------------------------------
+SPARK Analysis results        Total        Flow                                          Provers   Justified   Unproved
+-----------------------------------------------------------------------------------------------------------------------
+Data Dependencies                17          17                                                .           .          .
+Flow Dependencies                 .           .                                                .           .          .
+Initialization                    4           4                                                .           .          .
+Non-Aliasing                      .           .                                                .           .          .
+Run-time Checks                 140           .                140 (CVC5 8%, Z3 91%, altergo 1%)           .          .
+Assertions                        4           .                                           4 (Z3)           .          .
+Functional Contracts            114           .    114 (CVC5 4%, Trivial 7%, Z3 89%, altergo 0%)           .          .
+LSP Verification                  .           .                                                .           .          .
+Termination                      33          22                          11 (Z3 91%, altergo 9%)           .          .
+Concurrency                       .           .                                                .           .          .
+-----------------------------------------------------------------------------------------------------------------------
+Total                           312    43 (14%)                                        269 (86%)           .          .
+
+
+max steps used for successful proof: 567
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 1 unit
+in unit silver_scalar_expressions, 23 subprograms and packages out of 23 analyzed
+  Silver_Scalar_Expressions at silver_scalar_expressions.ads:6 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Scalar_Expressions.Append at silver_scalar_expressions.ads:69 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (3 checks)
+  Silver_Scalar_Expressions.Binary_After at silver_scalar_expressions.adb:350 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (15 checks)
+  Silver_Scalar_Expressions.Binary_Result at silver_scalar_expressions.adb:189 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (2 checks)
+  Silver_Scalar_Expressions.Body_Binding at silver_scalar_expressions.ads:76 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Scalar_Expressions.Body_Environment at silver_scalar_expressions.ads:79 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (1 checks)
+  Silver_Scalar_Expressions.Close_Result at silver_scalar_expressions.adb:211 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (4 checks)
+  Silver_Scalar_Expressions.Literal_Result at silver_scalar_expressions.adb:162 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (1 checks)
+  Silver_Scalar_Expressions.Lookup at silver_scalar_expressions.ads:56 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (30 checks)
+  Silver_Scalar_Expressions.Lookup_Model at silver_scalar_expressions.ads:44 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (24 checks)
+  Silver_Scalar_Expressions.Name_After at silver_scalar_expressions.adb:84 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (7 checks)
+  Silver_Scalar_Expressions.Read_Array_Atom at silver_scalar_expressions.adb:222 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (14 checks)
+  Silver_Scalar_Expressions.Read_Array_Attribute at silver_scalar_expressions.ads:113 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (35 checks)
+  Silver_Scalar_Expressions.Read_Atom at silver_scalar_expressions.adb:261 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (36 checks)
+  Silver_Scalar_Expressions.Read_Compound at silver_scalar_expressions.adb:367 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (17 checks)
+  Silver_Scalar_Expressions.Read_Expression at silver_scalar_expressions.ads:131 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (14 checks)
+  Silver_Scalar_Expressions.Read_Group at silver_scalar_expressions.adb:401 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (16 checks)
+  Silver_Scalar_Expressions.Read_Reference at silver_scalar_expressions.ads:96 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (13 checks)
+  Silver_Scalar_Expressions.Read_Unary at silver_scalar_expressions.adb:322 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (16 checks)
+  Silver_Scalar_Expressions.Skip at silver_scalar_expressions.adb:54 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (7 checks)
+  Silver_Scalar_Expressions.Symbol at silver_scalar_expressions.adb:71 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (6 checks)
+  Silver_Scalar_Expressions.Unary_Result at silver_scalar_expressions.adb:177 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (1 checks)
+  Silver_Scalar_Expressions.Valid_Environment at silver_scalar_expressions.ads:34 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (7 checks)

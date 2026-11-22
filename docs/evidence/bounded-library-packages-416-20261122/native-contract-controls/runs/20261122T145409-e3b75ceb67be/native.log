@@ -1,0 +1,940 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: precondition proved
+--> silver_scalar_expressions.adb:19:13
+
+ info: index check proved
+--> silver_scalar_expressions.adb:19:44
+
+ info: range check proved
+--> silver_scalar_expressions.adb:19:50
+
+ info: index check proved
+--> silver_scalar_expressions.adb:19:71
+
+ info: range check proved
+--> silver_scalar_expressions.adb:19:77
+
+ info: range check proved
+--> silver_scalar_expressions.adb:20:25
+
+ info: range check proved
+--> silver_scalar_expressions.adb:20:32
+
+ info: index check proved
+--> silver_scalar_expressions.adb:21:60
+
+ info: index check proved
+--> silver_scalar_expressions.adb:22:29
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:23:22
+
+ info: index check proved
+--> silver_scalar_expressions.adb:23:53
+
+ info: range check proved
+--> silver_scalar_expressions.adb:23:59
+
+ info: index check proved
+--> silver_scalar_expressions.adb:24:28
+
+ info: range check proved
+--> silver_scalar_expressions.adb:24:34
+
+ info: range check proved
+--> silver_scalar_expressions.adb:24:52
+
+ info: range check proved
+--> silver_scalar_expressions.adb:24:69
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:25:23
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:25:23
+
+ info: range check proved
+--> silver_scalar_expressions.adb:26:43
+
+ info: loop invariant initialization proved
+--> silver_scalar_expressions.adb:37:33
+
+ info: loop invariant preservation proved
+--> silver_scalar_expressions.adb:37:33
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:39:12
+
+ info: loop invariant initialization proved
+--> silver_scalar_expressions.adb:39:12
+
+ info: loop invariant preservation proved
+--> silver_scalar_expressions.adb:39:12
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:40:16
+
+ info: loop variant proved
+--> silver_scalar_expressions.adb:41:31
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:42:13
+
+ info: index check proved
+--> silver_scalar_expressions.adb:42:44
+
+ info: range check proved
+--> silver_scalar_expressions.adb:42:50
+
+ info: index check proved
+--> silver_scalar_expressions.adb:42:71
+
+ info: range check proved
+--> silver_scalar_expressions.adb:42:77
+
+ info: range check proved
+--> silver_scalar_expressions.adb:43:25
+
+ info: range check proved
+--> silver_scalar_expressions.adb:43:32
+
+ info: index check proved
+--> silver_scalar_expressions.adb:44:63
+
+ info: index check proved
+--> silver_scalar_expressions.adb:45:32
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:46:25
+
+ info: index check proved
+--> silver_scalar_expressions.adb:46:56
+
+ info: range check proved
+--> silver_scalar_expressions.adb:46:62
+
+ info: index check proved
+--> silver_scalar_expressions.adb:47:31
+
+ info: range check proved
+--> silver_scalar_expressions.adb:47:37
+
+ info: range check proved
+--> silver_scalar_expressions.adb:47:55
+
+ info: range check proved
+--> silver_scalar_expressions.adb:47:72
+
+ info: range check proved
+--> silver_scalar_expressions.adb:49:25
+
+ info: implicit aspect Always_Terminates on "Skip" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:54:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:55:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:57:41
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:58:28
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:59:59
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:61:41
+
+ info: range check proved
+--> silver_scalar_expressions.adb:61:59
+
+ info: initialization of "Next" proved
+--> silver_scalar_expressions.adb:63:07
+
+ info: range check proved
+--> silver_scalar_expressions.adb:66:15
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:67:07
+
+ info: implicit aspect Always_Terminates on "Symbol" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:71:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:73:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:75:41
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:76:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:77:61
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:80:52
+
+ info: index check proved
+--> silver_scalar_expressions.adb:81:67
+
+ info: range check proved
+--> silver_scalar_expressions.adb:82:32
+
+ info: implicit aspect Always_Terminates on "Name_After" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:84:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:85:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:87:41
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:88:28
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:89:65
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:91:41
+
+ info: range check proved
+--> silver_scalar_expressions.adb:91:63
+
+ info: initialization of "Next" proved
+--> silver_scalar_expressions.adb:93:07
+
+ info: initialization of "Matched" proved
+--> silver_scalar_expressions.adb:94:07
+
+ info: range check proved
+--> silver_scalar_expressions.adb:97:15
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:98:07
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:104:52
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:105:52
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:106:56
+
+ info: index check proved
+--> silver_scalar_expressions.adb:109:77
+
+ info: index check proved
+--> silver_scalar_expressions.adb:110:68
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:111:65
+
+ info: range check proved
+--> silver_scalar_expressions.adb:111:87
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:112:65
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:123:44
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:124:44
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:125:54
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:126:16
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:127:54
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:128:71
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:130:69
+
+ info: initialization of "Bounds" proved
+--> silver_scalar_expressions.adb:132:07
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:136:17
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:138:20
+
+ info: range check proved
+--> silver_scalar_expressions.adb:138:38
+
+ info: range check proved
+--> silver_scalar_expressions.adb:138:50
+
+ info: range check proved
+--> silver_scalar_expressions.adb:138:62
+
+ info: range check proved
+--> silver_scalar_expressions.adb:138:69
+
+ info: index check proved
+--> silver_scalar_expressions.adb:141:27
+
+ info: index check proved
+--> silver_scalar_expressions.adb:142:34
+
+ info: index check proved
+--> silver_scalar_expressions.adb:144:40
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:148:17
+
+ info: range check proved
+--> silver_scalar_expressions.adb:148:32
+
+ info: range check proved
+--> silver_scalar_expressions.adb:148:49
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:150:13
+
+ info: range check proved
+--> silver_scalar_expressions.adb:150:28
+
+ info: range check proved
+--> silver_scalar_expressions.adb:150:45
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:152:13
+
+ info: range check proved
+--> silver_scalar_expressions.adb:152:28
+
+ info: range check proved
+--> silver_scalar_expressions.adb:152:45
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:154:13
+
+ info: range check proved
+--> silver_scalar_expressions.adb:154:28
+
+ info: range check proved
+--> silver_scalar_expressions.adb:154:45
+
+ info: range check proved
+--> silver_scalar_expressions.adb:156:73
+
+ info: implicit aspect Always_Terminates on "Literal_Result" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:162:13
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:165:19
+
+ info: implicit aspect Always_Terminates on "Unary_Result" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:177:13
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:179:19
+
+ info: implicit aspect Always_Terminates on "Binary_Result" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:189:13
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:191:19
+
+ info: range check proved
+--> silver_scalar_expressions.adb:208:76
+
+ info: implicit aspect Always_Terminates on "Close_Result" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:211:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:212:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:214:44
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:215:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:216:77
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:219:52
+
+ info: implicit aspect Always_Terminates on "Read_Array_Atom" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:222:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:228:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:230:41
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:230:54
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:231:19
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:232:33
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:234:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:235:77
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:237:55
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:237:60
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:244:57
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:248:63
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:248:63
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:251:64
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:258:32
+
+ info: range check proved
+--> silver_scalar_expressions.adb:259:37
+
+ info: implicit aspect Always_Terminates on "Read_Atom" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:261:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:268:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:270:41
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:270:54
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:271:19
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:272:33
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:273:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:274:71
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:276:55
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:276:60
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:284:52
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:285:54
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:287:49
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:292:34
+
+ info: index check proved
+--> silver_scalar_expressions.adb:295:22
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:297:37
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:297:58
+
+ info: range check proved
+--> silver_scalar_expressions.adb:297:76
+
+ info: index check proved
+--> silver_scalar_expressions.adb:297:89
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:300:37
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:306:20
+
+ info: range check proved
+--> silver_scalar_expressions.adb:306:38
+
+ info: range check proved
+--> silver_scalar_expressions.adb:306:50
+
+ info: range check proved
+--> silver_scalar_expressions.adb:306:71
+
+ info: range check proved
+--> silver_scalar_expressions.adb:306:79
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:307:25
+
+ info: range check proved
+--> silver_scalar_expressions.adb:307:43
+
+ info: range check proved
+--> silver_scalar_expressions.adb:307:55
+
+ info: range check proved
+--> silver_scalar_expressions.adb:308:31
+
+ info: range check proved
+--> silver_scalar_expressions.adb:308:58
+
+ info: index check proved
+--> silver_scalar_expressions.adb:312:58
+
+ info: index check proved
+--> silver_scalar_expressions.adb:312:90
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:314:22
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:315:18
+
+ info: index check proved
+--> silver_scalar_expressions.adb:317:85
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:319:21
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:319:21
+
+ info: range check proved
+--> silver_scalar_expressions.adb:320:63
+
+ info: implicit aspect Always_Terminates on "Read_Unary" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:322:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:327:11
+
+ info: index check proved
+--> silver_scalar_expressions.adb:329:61
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:330:19
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:331:19
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:332:33
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:333:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:334:72
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:336:55
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:336:60
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:342:51
+
+ info: range check proved
+--> silver_scalar_expressions.adb:342:72
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:344:39
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:345:13
+
+ info: index check proved
+--> silver_scalar_expressions.adb:346:66
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:348:13
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:348:13
+
+ info: index check proved
+--> silver_scalar_expressions.adb:348:131
+
+ info: implicit aspect Always_Terminates on "Binary_After" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:350:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:351:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:353:41
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:354:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:355:67
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:357:52
+
+ info: index check proved
+--> silver_scalar_expressions.adb:360:22
+
+ info: range check proved
+--> silver_scalar_expressions.adb:360:65
+
+ info: index check proved
+--> silver_scalar_expressions.adb:361:22
+
+ info: index check proved
+--> silver_scalar_expressions.adb:362:61
+
+ info: range check proved
+--> silver_scalar_expressions.adb:362:93
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:364:13
+
+ info: range check proved
+--> silver_scalar_expressions.adb:364:28
+
+ info: range check proved
+--> silver_scalar_expressions.adb:364:38
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:364:60
+
+ info: range check proved
+--> silver_scalar_expressions.adb:364:75
+
+ info: range check proved
+--> silver_scalar_expressions.adb:364:85
+
+ info: implicit aspect Always_Terminates on "Read_Compound" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:367:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:374:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:376:41
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:376:54
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:377:19
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:378:33
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:380:53
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:381:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:382:75
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:384:55
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:384:60
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:392:51
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:393:52
+
+ info: index check proved
+--> silver_scalar_expressions.adb:396:22
+
+ info: range check proved
+--> silver_scalar_expressions.adb:396:70
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:398:15
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:399:19
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:399:19
+
+ info: index check proved
+--> silver_scalar_expressions.adb:399:149
+
+ info: implicit aspect Always_Terminates on "Read_Group" has been proved, subprogram will terminate
+--> silver_scalar_expressions.adb:401:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.adb:406:11
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:408:55
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:409:19
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:410:33
+
+ info: postcondition proved
+--> silver_scalar_expressions.adb:411:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:412:72
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:414:55
+
+ info: overflow check proved
+--> silver_scalar_expressions.adb:414:60
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:420:52
+
+ info: range check proved
+--> silver_scalar_expressions.adb:420:73
+
+ info: index check proved
+--> silver_scalar_expressions.adb:423:22
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:423:47
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:423:47
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:424:15
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:424:15
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:425:12
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:425:12
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:435:52
+
+ info: index check proved
+--> silver_scalar_expressions.adb:438:22
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:438:55
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:438:55
+
+ info: precondition proved
+--> silver_scalar_expressions.adb:439:15
+
+ info: subprogram variant proved
+--> silver_scalar_expressions.adb:439:15
+
+ info: implicit aspect Always_Terminates on "Valid_Environment" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:34:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.ads:35:11
+
+ info: index check proved
+--> silver_scalar_expressions.ads:39:22
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:40:18
+
+ info: index check proved
+--> silver_scalar_expressions.ads:41:31
+
+ info: index check proved
+--> silver_scalar_expressions.ads:41:58
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:42:18
+
+ info: index check proved
+--> silver_scalar_expressions.ads:43:31
+
+ info: index check proved
+--> silver_scalar_expressions.ads:43:68
+
+ info: implicit aspect Always_Terminates on "Lookup_Model" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:44:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.ads:49:28
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:51:19
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:52:38
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:52:70
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:53:19
+
+ info: postcondition proved
+--> silver_scalar_expressions.ads:54:16
+
+ info: implicit aspect Always_Terminates on "Lookup" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:56:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.ads:61:11
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:63:19
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:64:38
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:64:70
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:65:19
+
+ info: postcondition proved
+--> silver_scalar_expressions.ads:66:28
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:67:36
+
+ info: implicit aspect Always_Terminates on "Append" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:69:13
+
+ info: range check proved
+--> silver_scalar_expressions.ads:70:29
+
+ info: range check proved
+--> silver_scalar_expressions.ads:71:53
+
+ info: index check proved
+--> silver_scalar_expressions.ads:71:53
+
+ info: implicit aspect Always_Terminates on "Body_Binding" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:76:13
+
+ info: implicit aspect Always_Terminates on "Body_Environment" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:79:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.ads:80:11
+
+ info: postcondition proved
+--> silver_scalar_expressions.ads:81:16
+
+ info: implicit aspect Always_Terminates on "Read_Reference" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:96:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.ads:98:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:100:41
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:101:16
+
+ info: postcondition proved
+--> silver_scalar_expressions.ads:101:16
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:103:19
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:109:78
+
+ info: implicit aspect Always_Terminates on "Read_Array_Attribute" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:113:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.ads:118:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:120:41
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:120:54
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:121:19
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:122:40
+
+ info: postcondition proved
+--> silver_scalar_expressions.ads:123:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:124:82
+
+ info: implicit aspect Always_Terminates on "Read_Expression" has been proved, subprogram will terminate
+--> silver_scalar_expressions.ads:131:13
+
+ info: data dependencies proved
+--> silver_scalar_expressions.ads:140:11
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:142:41
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:142:54
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:143:19
+
+ info: precondition proved
+--> silver_scalar_expressions.ads:144:40
+
+ info: postcondition proved
+--> silver_scalar_expressions.ads:145:16
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:146:77
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:148:55
+
+ info: overflow check proved
+--> silver_scalar_expressions.ads:148:60
+Success: all checks proved (312 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove/gnatprove.out
