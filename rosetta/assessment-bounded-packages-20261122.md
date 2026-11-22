@@ -1,10 +1,10 @@
 # Bounded library packages assessment — 2026-11-22
 
-This assessment selects **Include a file** (cached revision 412843) as a newly
-enabled task for [#416](https://github.com/berkeleynerd/silver/issues/416).
+This assessment selects **Include a file** (cached revision 412843) and
+**Queue/Definition** (412985) as newly enabled tasks for [#416](https://github.com/berkeleynerd/silver/issues/416).
 The [capability record](../docs/bounded-library-packages.md) defines the package
 fragment and tracks implementation and assurance. Delivery remains pending;
-this task assessment does not claim that the new language is already supported.
+these task assessments do not claim that the new language is already supported.
 
 ## Include a file
 
@@ -37,6 +37,40 @@ procedure; the selected calculation keeps output in Main while satisfying the
 same file-inclusion requirement. The original record has no later `review`
 object to replace.
 
+## Queue/Definition
+
+The cached task requires FIFO `push`, `pop` and `empty` operations, and a handled
+attempt to pop an empty queue. It does not require unbounded storage, a container
+library, an array representation or multiple queue instances. The previous
+2026-10-15 assessment selected a bounded circular-array/record design; its
+original Sonnet 5.5 medium attribution remains part of the task's provenance.
+The new sample changes the implementation representation, not the FIFO behavior.
+
+The [two-cell queue](../samples/rosetta_queue_definition/main.adb) has a public
+[scalar interface](../samples/rosetta_queue_definition/queue.ads) and private
+[storage](../samples/rosetta_queue_definition/queue.adb): two initialized
+`Element` cells (0 through 99) and a count (0 through 2). Push appends when there
+is room. Pop returns the oldest cell and shifts the second cell when needed.
+A full push reports `Added = False` and leaves the queue unchanged; an empty pop
+reports `Present = False`, initializes the output to zero and leaves the queue
+empty. The Boolean `Empty` function observes the count. No package arrays or
+private types are assumed.
+
+An independent list interpretation of the driver is:
+`[] → [11] → [11,22] → [11,22] → [22] → [22,33] → [33] → [] → []`.
+The third push is visibly full, successful pops return 11, 22 and 33 in insertion
+order, and the final pop is visibly empty. The manifest additionally checks the
+initial and final `Empty` queries. Its seven output lines are `initially empty`,
+`queue full`, ` 11`, ` 22`, ` 33`, `queue empty`, and `finally empty`, each with LF.
+This is a bounded FIFO implementation, rather than a fixed transcript: both
+operations accept the complete declared input/state domains. The package syntax
+and all sample results still await integrated compiler validation.
+
+The native implementation author checked that this design fits the selected
+scalar-package rules; that check is an implementing-team scope review, not
+independent proof evidence. This task adds a second newly runnable mapping when
+the delivery checks pass.
+
 ## Package-state driver and other candidates
 
 The separate [counter sample](../samples/package_counter/main.adb) exercises
@@ -55,7 +89,7 @@ The following cached tasks were checked against their actual requirements:
 | Return multiple values; Primality by trial division | Already have faithful supported callable mappings. Repackaging them would illustrate packages but would not gain a new task. Preserve their current mappings and review provenance. |
 
 Broad `packages` includes private types and remains unsupported. The expected
-gain is one newly runnable mapping, subject to successful delivery validation.
+gain is two newly runnable mappings, subject to successful delivery validation.
 
 ## Delivery checkpoint
 

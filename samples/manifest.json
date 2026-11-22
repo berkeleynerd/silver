@@ -3174,6 +3174,86 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_queue_definition/main.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "bounded_library_packages",
+        "named_integer_variable",
+        "integer_assignment",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "integer_image",
+        "expression_output",
+        "string_choice"
+      ],
+      "specification": "../language.md#bounded-library-packages",
+      "application_package": {
+        "name": "Queue",
+        "specification": "rosetta_queue_definition/queue.ads",
+        "body": "rosetta_queue_definition/queue.adb",
+        "functions": [
+          "Empty"
+        ],
+        "procedures": {
+          "Push": [
+            "Added"
+          ],
+          "Pop": [
+            "Value",
+            "Present"
+          ]
+        },
+        "formals": {
+          "Push": [
+            [
+              "Value",
+              "in"
+            ],
+            [
+              "Added",
+              "out"
+            ]
+          ],
+          "Pop": [
+            [
+              "Value",
+              "out"
+            ],
+            [
+              "Present",
+              "out"
+            ]
+          ],
+          "Empty": []
+        },
+        "states": [
+          "First",
+          "Second",
+          "Count"
+        ],
+        "writes": {
+          "Push": [
+            "First",
+            "Second",
+            "Count"
+          ],
+          "Pop": [
+            "First",
+            "Count"
+          ]
+        },
+        "assigned": true
+      },
+      "expected": {
+        "stdout": "initially empty\nqueue full\n 11\n 22\n 33\nqueue empty\nfinally empty\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

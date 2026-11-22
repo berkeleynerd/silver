@@ -77,13 +77,15 @@ unit/entity report. A Main-only audit cannot establish package assurance.
 ## Drivers and Rosetta delivery
 
 The [task/source assessment](../rosetta/assessment-bounded-packages-20261122.md)
-confirms the newly enabled task **Include a file**. Its original requirement
-is to demonstrate inclusion of source from another file; it does not require
+selects **Include a file** and **Queue/Definition** as newly enabled tasks.
+Include a file requires source inclusion from another file; it does not require
 package I/O or a zero-argument interface. Use a package exporting a bounded
 scalar calculation, then call it and print the result from Main. Retain and check
 all three source files, the complete report set, and expected output.
-A separate small counter exercises hidden state, reset/getter operations and
-repeated calls with different state values.
+The queue demonstrates FIFO push/pop/empty using two private scalar cells,
+with explicit full and empty outcomes. It stays within the scalar-package
+fragment without arrays or private types. A separate small counter exercises
+hidden state, reset/getter operations and repeated calls with different state values.
 
 [Stage issue #425](https://github.com/berkeleynerd/silver/issues/425) tracks the
 precise Rosetta fragment and delivery bookkeeping. It remains In progress, with
@@ -130,7 +132,7 @@ all worker counts and thread/child affinity must respect that allocation.
 | Exact source-bundle helper | Contract design GPT-6 Astra Max; implementation GPT-6.1 Sol Extra High | `c84b73b6ba`; canonical focused run `20261122T125009-00cc034988d0` passed all 81 checks (12 flow, 69 proof), eight workers, 10.422 s. [Packet](evidence/bounded-library-packages-416-20261122/source-bundle/README.md). New parser/driver callers and complete assurance remain outstanding. |
 | Initial package semantics and zero-formal integration | GPT-6 Astra Max | Four new foundation modules passed run `20261122T130212-b9742bea2354` (5,927 declarations); zero-formal semantic generalization and six affected consumers passed `20261122T131112-bc4a3d4bb2bc` (26,028 declarations), automatic eight workers/threads. [Packet](evidence/bounded-library-packages-416-20261122/semantic-foundations/README.md). Native-reader/source/whole-bundle integration remains outstanding. |
 | Package shared-state and capture equivalence | GPT-6 Astra Max | Four further focused checks establish slot reindexing, whole-body locality, constructed earlier-callee locality, and exact capture/shared-state output equality. Final focused run `20261122T134832-ecd089d7673d` audited 21,867 declarations in 15.717 s with cached dependencies. The [same packet](evidence/bounded-library-packages-416-20261122/semantic-foundations/README.md) retains all four results. Native effects/maps, automatic-discharge and source endpoint integration remain outstanding. |
-| Rosetta task/source reconciliation | Lead role: GPT-6 Astra Extra High | Reread Include a file, Modulinos, Executable library and Singleton requirements. Prepared one new mapping and a separate stateful driver; no broader task-support claim. Sample execution and feature delivery checks remain pending. |
+| Rosetta task/source reconciliation | Lead role: GPT-6 Astra Extra High | Reread Include a file, Modulinos, Executable library and Singleton requirements. Prepared two new mappings and a separate stateful driver; no broader task-support claim. Sample execution and feature delivery checks remain pending. |
 
 Runtime-confirmed agent settings and whole-team token/cost measurements are not
 independently exposed. These exploratory results are not final compiler assurance.
