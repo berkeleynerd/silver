@@ -48,13 +48,20 @@ theorem tableReadStep_congr {text : Source} {names : Environment}
               · rfl
               · rename_i supported
                 rw [same _ false (binaryAfter_bounds supported).2]
-    · simp only [tableAtomStep]
-      repeat' first | rfl | split
-      simp only [tableArrayAtomStep]
+    · simp only [tableAtomStep_dispatch]
       split
       · rfl
-      · rename_i opening
-        rw [indexSame _ (symbol_bounds (nameAfter_cursor_bound text _) (not_or.mp opening).1).2]
+      · split
+        · rfl
+        · split
+          · rfl
+          · split
+            · rfl
+            · simp only [tableArrayAtomStep]
+              split
+              · rfl
+              · rename_i opening
+                rw [indexSame _ (symbol_bounds (nameAfter_cursor_bound text _) (not_or.mp opening).1).2]
 
 theorem table_read_step {text : Source} {names : Environment}
     (valid : ValidEnvironment text names) {arrays : ArrayBindings.Table}

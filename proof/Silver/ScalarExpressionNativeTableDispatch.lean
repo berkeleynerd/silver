@@ -52,28 +52,49 @@ theorem tableAtomStep_dispatch (recurse : TableReader) (text : Source) (position
       by_cases number : (ScalarLiteral.read text (skip text position)).after ≠ 0
       · simp [number, literal]
       · simp only [number, ↓reduceIte]
+        have skipped : readReference text (skip text position) = QualifiedNames.read text position :=
+          QualifiedNames.read_skipped text position
         by_cases noName : nameAfter text (skip text position) = 0
-        · simp [noName, lookup_after_zero]
-        · simp only [noName, ↓reduceIte]
-          by_cases masked : maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter
-              (skip text position) (nameAfter text (skip text position)) = true
-          · simp [masked]
-          · simp only [masked, ↓reduceIte, or_false]
-            by_cases noScalar : lookup text names (skip text position) (nameAfter text (skip text position)) = 0
-            · simp only [noScalar, true_or, ↓reduceIte, Option.isSome_none, Bool.false_eq_true,
-                ne_eq, not_true_eq_false, or_false]
-              have a : skip text position ≠ 0 := by omega
-              have b : ¬ text.length < skip text position := by omega
-              have c : Cursor.byteAt text (skip text position) ≠ 43 := by omega
-              have d : Cursor.byteAt text (skip text position) ≠ 45 := by omega
-              simp only [a, b, c, d, noName, number, masked, false_or, ↓reduceIte]
-              split
-              · rfl
-              · by_cases boolean : (ArrayBindings.binding arrays.items (ArrayBindings.lookup text arrays.items
-                    (skip text position) (nameAfter text (skip text position)))).isBoolean = true
-                · simp [boolean, tableArrayAtomStep]
-                · simp [boolean, or_assoc]
-            · simp [noScalar]
+        · have absent := skipped.trans (QualifiedNames.read_absent text position noName)
+          simp [absent, noName, lookup_after_zero, QualifiedNames.masked]
+        · by_cases dotted : QualifiedNames.singleDot text (skip text (nameAfter text (skip text position)))
+          · have openingZero := symbol_after_dot dotted (by decide : (40 : Nat) ≠ 46)
+            have attributeZero := symbol_after_dot dotted (by decide : (39 : Nat) ≠ 46)
+            have referenceCases := QualifiedNames.read_dot_cases text position dotted
+            simp only [show QualifiedNames.skip = skip from rfl,
+              show QualifiedNames.nameAfter = nameAfter from rfl] at referenceCases
+            rw [← skipped] at referenceCases
+            rcases referenceCases with absent | qualified
+            · simp [absent, lookup_after_zero, QualifiedNames.masked, tableArrayAtomStep, openingZero, attributeZero]
+            · have qualifierNonzero : (readReference text (skip text position)).qualifierFirst ≠ 0 := by rw [qualified]; omega
+              by_cases afterZero : (readReference text (skip text position)).after = 0 <;>
+                by_cases masked : QualifiedNames.masked text (readReference text (skip text position)) maskFirst maskAfter = true <;>
+                by_cases noScalar : lookup text names (readReference text (skip text position)).first (readReference text (skip text position)).after (readReference text (skip text position)).qualifierFirst (readReference text (skip text position)).qualifierAfter = 0 <;>
+                simp_all [tableArrayAtomStep, openingZero, attributeZero, lookup_after_zero]
+          · have bare := skipped.trans (QualifiedNames.read_bare_of_no_dot text position noName dotted)
+            simp only [show QualifiedNames.skip = skip from rfl,
+              show QualifiedNames.nameAfter = nameAfter from rfl] at bare
+            simp only [bare, noName, QualifiedNames.masked, Nat.reduceEqDiff, ↓reduceIte,
+              Bool.and_eq_true, decide_eq_true_eq, ne_eq, not_true_eq_false, false_or]
+            by_cases masked : maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter
+                (skip text position) (nameAfter text (skip text position)) = true
+            · simp [masked]
+            · simp only [masked, ↓reduceIte, or_false]
+              by_cases noScalar : lookup text names (skip text position) (nameAfter text (skip text position)) = 0
+              · simp only [noScalar, true_or, ↓reduceIte, Option.isSome_none, Bool.false_eq_true,
+                  ne_eq, not_true_eq_false, or_false]
+                have a : skip text position ≠ 0 := by omega
+                have b : ¬ text.length < skip text position := by omega
+                have c : Cursor.byteAt text (skip text position) ≠ 43 := by omega
+                have d : Cursor.byteAt text (skip text position) ≠ 45 := by omega
+                simp only [a, b, c, d, noName, number, masked, false_or, ↓reduceIte]
+                split
+                · rfl
+                · by_cases boolean : (ArrayBindings.binding arrays.items (ArrayBindings.lookup text arrays.items
+                      (skip text position) (nameAfter text (skip text position)))).isBoolean = true
+                  · simp [boolean, tableArrayAtomStep]
+                  · simp [boolean, or_assoc]
+              · simp [noScalar]
 
 /-- The atom branch factored from `ArrayGrammar.parseFuel`. This definition is
 used only to state correspondence, not as an additional admission predicate. -/

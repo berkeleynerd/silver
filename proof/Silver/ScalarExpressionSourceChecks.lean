@@ -1,6 +1,7 @@
 module
 
 public import Silver.ScalarArrayAttributeSource
+public import Silver.ScalarReferenceSourceChecks
 public import Silver.ScalarExpressionSourceShape
 public import Silver.SourceDeclarations
 public import Silver.ScalarExpressionSpecCertificate
@@ -31,6 +32,7 @@ abbrev ExpressionTranslation : Prop :=
   Source.expressionBody "body_environment" Source.scalarExpressionBodyTokens =
     some (expectedTokens "Count => Names.Count, Items => (for Index in Binding_Index => Body_Binding (Names.Items (Index)))") ∧
   Source.expressionBody "lookup_model" Source.scalarExpressionBodyTokens = some Native.lookupBody.render ∧
+  Source.expressionBody "read_reference" Source.scalarExpressionBodyTokens = some Native.referenceBody.render ∧
   Source.expressionBody "symbol" Source.scalarExpressionBodyTokens = some Native.symbolBody.render ∧
   Source.expressionBody "literal_result" Source.scalarExpressionBodyTokens = some Native.literalBody.render ∧
   Source.expressionBody "unary_result" Source.scalarExpressionBodyTokens = some Native.unaryBody.render ∧
@@ -68,7 +70,7 @@ abbrev Declarations : Prop :=
   subtypeDeclaration "operand_count" Source.scalarExpressionSpecTokens =
     some (expectedTokens "Natural range 0 .. Max_Operands") ∧
   recordDeclaration "binding" Source.scalarExpressionSpecTokens =
-    some (expectedTokens "record First, After : Literal_Position; Bounds : Silver_Scalars.Interval; Static : Boolean; Declared_Bounds : Silver_Scalars.Interval; Mutable : Boolean; end record") ∧
+    some (expectedTokens "record First, After : Literal_Position; Bounds : Silver_Scalars.Interval; Static : Boolean; Declared_Bounds : Silver_Scalars.Interval; Mutable : Boolean; Qualifier_First, Qualifier_After : Literal_Position := 0; end record") ∧
   typeDeclaration "binding_array" Source.scalarExpressionSpecTokens =
     some (expectedTokens "array (Binding_Index) of Binding") ∧
   recordDeclaration "environment" Source.scalarExpressionSpecTokens =
@@ -76,13 +78,13 @@ abbrev Declarations : Prop :=
   recordDeclaration "expression_result" Source.scalarExpressionSpecTokens =
     some (expectedTokens "record After : Literal_Position; Bounds : Silver_Scalars.Interval; Operands : Operand_Count; Static : Boolean; end record") ∧
   Source.declaration "empty_binding" Source.scalarExpressionSpecTokens =
-    some (expectedTokens "constant Binding := (0, 0, Silver_Scalars.Empty, False, Silver_Scalars.Empty, False)") ∧
+    some (expectedTokens "constant Binding := (0, 0, Silver_Scalars.Empty, False, Silver_Scalars.Empty, False, 0, 0)") ∧
   Source.declaration "empty_environment" Source.scalarExpressionSpecTokens =
     some (expectedTokens "constant Environment := (0, (others => Empty_Binding))") ∧
   Source.declaration "invalid" Source.scalarExpressionSpecTokens =
     some (expectedTokens "constant Expression_Result := (0, Silver_Scalars.Empty, 0, False)") ∧
   Source.expressionBody "valid_environment" Source.scalarExpressionSpecTokens =
-    some (expectedTokens "for all Index in 1 .. Names.Count => Names.Items (Index).First > 0 and then Valid_Name_State (Text, Names.Items (Index).First, Names.Items (Index).After)")
+    some (expectedTokens "for all Index in 1 .. Names.Count => Names.Items (Index).First > 0 and then Valid_Name_State (Text, Names.Items (Index).First, Names.Items (Index).After) and then Valid_Name_State (Text, Names.Items (Index).Qualifier_First, Names.Items (Index).Qualifier_After)")
 
 theorem actual_declarations : Declarations := by decide +kernel
 
@@ -98,17 +100,17 @@ abbrev Headers : Prop :=
   functionHeader "valid_environment" "is" Source.scalarExpressionSpecTokens =
     some ["(", "text", ":", "string", ";", "names", ":", "environment", ")", "return", "boolean"] ∧
   functionHeader "lookup_model" ";" Source.scalarExpressionSpecTokens =
-    some ["(", "text", ":", "string", ";", "names", ":", "environment", ";", "first", ",", "after", ":", "literal_position", ";", "index", ":", "binding_count", ")", "return", "binding_count", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_environment", "(", "text", ",", "names", ")", "and", "then", "index", "<=", "names", ".", "count", "and", "then", "first", "<=", "text", "'", "last", "+", "1", "and", "then", "after", "<=", "text", "'", "last", "+", "1", ",", "post", "=>", "lookup_model", "'", "result", "<=", "index", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "index", ")"] ∧
+    some ["(", "text", ":", "string", ";", "names", ":", "environment", ";", "first", ",", "after", ":", "literal_position", ";", "index", ":", "binding_count", ";", "qualifier_first", ":", "literal_position", ":=", "0", ";", "qualifier_after", ":", "literal_position", ":=", "0", ")", "return", "binding_count", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_environment", "(", "text", ",", "names", ")", "and", "then", "index", "<=", "names", ".", "count", "and", "then", "first", "<=", "text", "'", "last", "+", "1", "and", "then", "after", "<=", "text", "'", "last", "+", "1", "and", "then", "valid_name_state", "(", "text", ",", "qualifier_first", ",", "qualifier_after", ")", ",", "post", "=>", "lookup_model", "'", "result", "<=", "index", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "index", ")"] ∧
   functionHeader "lookup" ";" Source.scalarExpressionSpecTokens =
-    some ["(", "text", ":", "string", ";", "names", ":", "environment", ";", "first", ",", "after", ":", "literal_position", ")", "return", "binding_count", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_environment", "(", "text", ",", "names", ")", "and", "then", "first", "<=", "text", "'", "last", "+", "1", "and", "then", "after", "<=", "text", "'", "last", "+", "1", ",", "post", "=>", "(", "runtime", "=>", "lookup", "'", "result", "<=", "names", ".", "count", ",", "static", "=>", "lookup", "'", "result", "=", "lookup_model", "(", "text", ",", "names", ",", "first", ",", "after", ",", "names", ".", "count", ")", ")"] ∧
+    some ["(", "text", ":", "string", ";", "names", ":", "environment", ";", "first", ",", "after", ":", "literal_position", ";", "qualifier_first", ":", "literal_position", ":=", "0", ";", "qualifier_after", ":", "literal_position", ":=", "0", ")", "return", "binding_count", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_environment", "(", "text", ",", "names", ")", "and", "then", "first", "<=", "text", "'", "last", "+", "1", "and", "then", "after", "<=", "text", "'", "last", "+", "1", "and", "then", "valid_name_state", "(", "text", ",", "qualifier_first", ",", "qualifier_after", ")", ",", "post", "=>", "(", "runtime", "=>", "lookup", "'", "result", "<=", "names", ".", "count", ",", "static", "=>", "lookup", "'", "result", "=", "lookup_model", "(", "text", ",", "names", ",", "first", ",", "after", ",", "names", ".", "count", ",", "qualifier_first", ",", "qualifier_after", ")", ")"] ∧
   functionHeader "append" "is" Source.scalarExpressionSpecTokens =
     some ["(", "names", ":", "environment", ";", "item", ":", "binding", ")", "return", "environment"] ∧
   functionHeader "read_expression" ";" Source.scalarExpressionSpecTokens =
     some ["(", "text", ":", "string", ";", "position", ":", "literal_position", ";", "names", ":", "environment", ";", "mask_first", ":", "literal_position", ":=", "0", ";", "mask_after", ":", "literal_position", ":=", "0", ";", "allow_sign", ":", "boolean", ":=", "true", ";", "arrays", ":", "silver_array_bindings", ".", "metadata", ":=", "silver_array_bindings", ".", "empty_metadata", ";", "initials", ":", "silver_array_bindings", ".", "element_array", ":=", "silver_array_bindings", ".", "empty_values", ";", "elaborating", ":", "boolean", ":=", "false", ";", "array_reads", ":", "array_read_mode", ":=", "all_elements", ")", "return", "expression_result", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "position", "<=", "text", "'", "last", "+", "1", "and", "then", "valid_environment", "(", "text", ",", "names", ")", "and", "then", "valid_name_state", "(", "text", ",", "mask_first", ",", "mask_after", ")", "and", "then", "silver_array_bindings", ".", "valid_metadata", "(", "text", ",", "arrays", ")", ",", "post", "=>", "read_expression", "'", "result", ".", "after", "=", "0", "or", "else", "(", "read_expression", "'", "result", ".", "after", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1", "and", "then", "read_expression", "'", "result", ".", "operands", ">", "0", ")", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "(", "text", "'", "last", "+", "1", ")", "-", "position", ",", "decreases", "=>", "3", ")"] ∧
   functionHeader "lookup_model" "is" Source.scalarExpressionBodyTokens =
-    some ["(", "text", ":", "string", ";", "names", ":", "environment", ";", "first", ",", "after", ":", "literal_position", ";", "index", ":", "binding_count", ")", "return", "binding_count"] ∧
+    some ["(", "text", ":", "string", ";", "names", ":", "environment", ";", "first", ",", "after", ":", "literal_position", ";", "index", ":", "binding_count", ";", "qualifier_first", ":", "literal_position", ":=", "0", ";", "qualifier_after", ":", "literal_position", ":=", "0", ")", "return", "binding_count"] ∧
   functionHeader "lookup" "is" Source.scalarExpressionBodyTokens =
-    some ["(", "text", ":", "string", ";", "names", ":", "environment", ";", "first", ",", "after", ":", "literal_position", ")", "return", "binding_count"] ∧
+    some ["(", "text", ":", "string", ";", "names", ":", "environment", ";", "first", ",", "after", ":", "literal_position", ";", "qualifier_first", ":", "literal_position", ":=", "0", ";", "qualifier_after", ":", "literal_position", ":=", "0", ")", "return", "binding_count"] ∧
   functionHeader "skip" ";" Source.scalarExpressionBodyTokens =
     some ["(", "text", ":", "string", ";", "position", ":", "literal_position", ")", "return", "literal_position", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "position", "<=", "text", "'", "last", "+", "1", ",", "post", "=>", "(", "runtime", "=>", "(", "if", "position", "=", "0", "then", "skip", "'", "result", "=", "0", "else", "skip", "'", "result", "in", "position", "..", "text", "'", "last", "+", "1", ")", ",", "static", "=>", "skip", "'", "result", "=", "(", "if", "position", "=", "0", "then", "0", "else", "trivia_end", "(", "text", ",", "position", ")", ")", ")"] ∧
   functionHeader "skip" "is" Source.scalarExpressionBodyTokens =
@@ -175,9 +177,10 @@ structure CheckedSource : Prop where
   declarations : Declarations
   headers : Headers
   environment : EnvironmentSourceBridge.Checked Source.scalarExpressionSpecTokens
+  reference : ReferenceSourceChecks.Checked Source.scalarExpressionSpecTokens Source.scalarExpressionBodyTokens
 
 theorem checked_source : CheckedSource :=
   ⟨actual_reviewed_shape, actual_expressions, actual_declarations, actual_headers,
-    EnvironmentSourceBridge.actual_source_checked⟩
+    EnvironmentSourceBridge.actual_source_checked, ReferenceSourceChecks.actual_reference⟩
 
 end Silver.ScalarExpression.SourceChecks

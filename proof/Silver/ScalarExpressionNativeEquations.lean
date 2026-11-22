@@ -84,14 +84,28 @@ theorem interpreted_atom (calls : Calls) (primitives : Primitives calls) (equati
   rw [equations.atom text valid position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads
       bound environment mask metadata values, atom_denotation]
   have firstBounds := skip_bounds text position bound
-  have afterBound := nameAfter_bounds text (skip text position)
+  have referenceBounds :
+      QualifiedNames.ValidSpan text (readReference text (skip text position)).first
+          (readReference text (skip text position)).after ∧
+        QualifiedNames.ValidSpan text (readReference text (skip text position)).qualifierFirst
+          (readReference text (skip text position)).qualifierAfter ∧
+        ((readReference text (skip text position)).after = 0 ∨
+          skip text position < (readReference text (skip text position)).after ∧
+            (readReference text (skip text position)).after ≤ text.length + 1) :=
+    QualifiedNames.read_bounds text (skip text position) firstBounds.2
+  have referenceFirstBound : (readReference text (skip text position)).first ≤ text.length + 1 := by
+    rcases referenceBounds.1 with absent | good <;> omega
+  have afterBound : (readReference text (skip text position)).after ≤ text.length + 1 :=
+    QualifiedNames.read_after_bound text (skip text position) firstBounds.2
   unfold atomEquation tableAtomStep
   rw [interpreted_skip calls primitives equations text valid position bound]
   dsimp only
-  rw [interpreted_nameAfter calls primitives equations text valid _ firstBounds.2,
-    interpreted_lookup calls primitives equations text valid names environment _ _ firstBounds.2 afterBound,
+  rw [interpreted_readReference calls primitives equations text valid _ firstBounds.2,
+    interpreted_lookup_qualified calls primitives equations text valid names environment _ _
+      referenceFirstBound afterBound _ _ referenceBounds.2.1,
     ArrayBindings.Native.interpreted_lookup calls.arrays primitives.arrayPrimitives primitives.arrayEquations
-      text valid arrays metadata _ _ firstBounds.2 afterBound]
+      text valid arrays metadata _ _ referenceFirstBound afterBound]
+  generalize referenceEq : readReference text (skip text position) = reference at referenceBounds referenceFirstBound afterBound ⊢
   split
   · rfl
   · rename_i firstValid
@@ -108,42 +122,63 @@ theorem interpreted_atom (calls : Calls) (primitives : Primitives calls) (equati
       · split
         · rfl
         · rename_i namedNonzero
-          have firstPositive : skip text position ≠ 0 := by omega
-          have nameBounds := Named.identifierEnd_bounds text (skip text position)
-            (show Named.identifierEnd text (skip text position) ≠ 0 by
-              simpa only [nameAfter, firstPositive, ↓reduceIte] using namedNonzero)
-          have named : Span text (skip text position) (nameAfter text (skip text position)) := by
-            simpa only [Span, nameAfter, firstPositive, ↓reduceIte] using And.intro (by omega : 0 < skip text position) nameBounds
-          have compared : (maskFirst ≠ 0 ∧ calls.equalName text maskFirst maskAfter
-              (skip text position) (nameAfter text (skip text position)) = true) =
-              (maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter
-              (skip text position) (nameAfter text (skip text position)) = true) := by
+          have named : Span text reference.first reference.after := by
+            rcases referenceBounds.1 with absent | good
+            · exact False.elim (namedNonzero absent.2)
+            · exact good
+          have referenceProgress : skip text position < reference.after := by
+            rcases referenceBounds.2.2 with absent | good
+            · exact False.elim (namedNonzero absent)
+            · exact good.1
+          have compared : (maskFirst ≠ 0 ∧
+              (if reference.qualifierFirst = 0 then
+                calls.equalName text maskFirst maskAfter reference.first
+                  reference.after
+               else calls.equalName text maskFirst maskAfter reference.qualifierFirst
+                  reference.qualifierAfter) = true) =
+              (QualifiedNames.masked text reference maskFirst maskAfter = true) := by
+            simp only [QualifiedNames.masked, Bool.and_eq_true, decide_eq_true_eq]
             by_cases noMask : maskFirst = 0
             · simp [noMask]
             · have maskSpan : Span text maskFirst maskAfter := by
                 rcases mask with absent | active
                 · exact False.elim (noMask absent.1)
                 · exact active
-              rw [primitives.equalName text valid maskFirst maskAfter _ _ maskSpan named]
+              by_cases bare : reference.qualifierFirst = 0
+              · simp only [bare, ↓reduceIte]
+                rw [primitives.equalName text valid maskFirst maskAfter _ _ maskSpan named]
+              · have qualifierSpan : Span text reference.qualifierFirst
+                    reference.qualifierAfter := by
+                  rcases referenceBounds.2.1 with absent | active
+                  · exact False.elim (bare absent.1)
+                  · exact active
+                simp only [bare, ↓reduceIte]
+                rw [primitives.equalName text valid maskFirst maskAfter _ _ maskSpan qualifierSpan]
+
           simp only [compared]
           split
           · rfl
           · split
             · rename_i present
-              rw [primitives.normalize _ (binding_bounded environment (by omega) (lookup_bound text names _ _))]
-            · rw [interpreted_symbol calls primitives equations text valid _ 39 afterBound (by decide)]
-              split
-              · exact interpreted_arrayAttribute calls primitives equations text valid position names arrays
-                  maskFirst maskAfter false bound environment mask metadata
-              · split
-                · rfl
-                · rename_i target
-                  exact interpreted_arrayAtom calls primitives equations text valid _ names maskFirst maskAfter _
-                    arrays initials elaborating afterBound environment mask metadata values (by omega)
-                    (ArrayBindings.Native.lookup_bound text arrays.items _ _)
-                    (by
-                      intro next sign advanced nextBound
-                      apply recurse next sign (by have before := named.2.1; omega) nextBound)
+              rw [primitives.normalize _ (binding_bounded environment (by omega) (lookup_bound text names _ _ _ _))]
+            · split
+              · rfl
+              · rename_i unqualified
+                have bare : reference.qualifierFirst = 0 := by omega
+                simp only [bare, ↓reduceIte]
+                rw [interpreted_symbol calls primitives equations text valid _ 39 afterBound (by decide)]
+                split
+                · exact interpreted_arrayAttribute calls primitives equations text valid position names arrays
+                    maskFirst maskAfter false bound environment mask metadata
+                · split
+                  · rfl
+                  · rename_i target
+                    exact interpreted_arrayAtom calls primitives equations text valid _ names maskFirst maskAfter _
+                      arrays initials elaborating afterBound environment mask metadata values (by omega)
+                      (ArrayBindings.Native.lookup_bound text arrays.items _ _)
+                      (by
+                        intro next sign advanced nextBound
+                        apply recurse next sign (by omega) nextBound)
 
 theorem interpreted_readExpression_table (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (names : Environment) (maskFirst maskAfter : Nat)
@@ -312,11 +347,14 @@ theorem model_primitives : Primitives modelCalls where
   normalize _ _ := rfl
 
 theorem model_equations : Equations modelCalls where
-  lookupModel text _ names _ first after index _ _ _ := by
-    rw [lookup_denotation]
-    cases index <;> simp [lookupEquation,modelCalls,lookupFrom]
-    all_goals rfl
-  lookup _ _ _ _ _ _ _ _ := rfl
+  lookupModel text _ names _ first after index qualifierFirst qualifierAfter _ _ _ _ := by
+    rw [lookup_denotation modelCalls text names first after index qualifierFirst qualifierAfter]
+    cases index <;> by_cases bare : qualifierFirst = 0 <;>
+      simp [lookupEquation, modelCalls, lookupFrom, QualifiedNames.qualifierMatches, bare]
+  lookup _ _ _ _ _ _ _ _ _ _ _ := rfl
+  readReference text _ position bound := by
+    change readReference text position = referenceBody.eval modelCalls ({text, position} : Context).locals
+    exact (reference_body_meaning modelCalls text position bound (fun _ _ => rfl) (fun _ _ => rfl)).symm
   skip _ _ _ _ := rfl
   nameAfter _ _ _ _ := rfl
   binaryAfter _ _ _ _ := by rw [binaryAfter_denotation]; rfl
@@ -327,7 +365,12 @@ theorem model_equations : Equations modelCalls where
   close _ _ _ _ _ := by rw [close_denotation]; rfl
   arrayAttribute := by intros; rw [arrayAttribute_denotation]; exact (arrayAttribute_model_equation ..).symm
   arrayAtom := by intros; rw [arrayAtom_denotation]; rfl
-  atom := by intros; rw [atom_denotation]; rfl
+  atom := by
+    intros
+    rw [atom_denotation]
+    simp only [atomEquation, tableAtomStep, modelCalls, QualifiedNames.masked,
+      Bool.and_eq_true, decide_eq_true_eq]
+    rfl
   readUnary := by intros; rw [unary_read_denotation]; rfl
   compound := by intros; rw [compound_denotation]; rfl
   group := by intros; rw [group_denotation]; rfl
