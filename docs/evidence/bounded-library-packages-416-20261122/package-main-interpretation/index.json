@@ -1,0 +1,19 @@
+{
+  "host": "linux-x86_64",
+  "run_id": "20261122T175415-44d4128a9e1d",
+  "implementation_commit": "362a7bc288f41086f4273a7f3adf7d52b94c357b",
+  "targets": [
+    "Silver.ApplicationPackageBodiesModel",
+    "Silver.ApplicationPackageMainSourceShape"
+  ],
+  "declarations": 20629,
+  "inputs_digest_sha256": "736f0de58775b1ede01c32bf80b899f24cf32cc9e72d2956372165b156f9871b",
+  "elapsed_seconds": 54.272,
+  "scope": "Focused exact typed Main interpretation and Basic/Tail control; actual source candidate and complete original-Bundle bridge remain pending.",
+  "selected_agent_settings": "Astra Max per briefing; live model and effort telemetry unavailable",
+  "artifacts_sha256": {
+    "evidence.json": "a1717ca11856d30d9eca6c967843913f9e237395a3567340b0a5278ebe5754d1",
+    "lean-focused.log.gz": "15d9e5fb90f3c7a0672c0fec3c8225eb5d291427a0771de7fd012998ccf54078",
+    "events.jsonl.gz": "72569ec0278cf6e71b50908efdf31565103cc541989f7bcda2e38d53ccc17ba3"
+  }
+}
