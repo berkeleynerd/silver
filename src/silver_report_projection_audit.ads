@@ -15,15 +15,16 @@ is
      (Raw, Emitted : Bytes.Sequence; Current : Silver_Report_Projection.State;
       Buffer : String; Last : Natural; Kind : Reports.Application_Kind;
       Source : String := ""; Functions : Reports.Function_Metadata := Reports.Empty_Functions;
-      Procedures : Reports.Procedure_Metadata := Reports.Empty_Procedures)
+      Procedures : Reports.Procedure_Metadata := Reports.Empty_Procedures;
+      Context : Reports.Application_Context := Reports.Empty_Context)
      with Global => null,
        Pre => Buffer'First = 1 and then Last <= Buffer'Length
          and then Last <= Reports.Max_Report_Length
          and then Silver_Report_Projection.Complete (Current)
          and then Model.Refines (Raw, Emitted, Current)
          and then Model.Matches (Emitted, Buffer, Last),
-       Post => Reports.Unbounded_Application_Report_Policy (Raw, Kind, Source, Functions, Procedures) =
-         Reports.Application_Report_Policy (Buffer (1 .. Last), Kind, Source, Functions, Procedures);
+       Post => Reports.Unbounded_Application_Report_Policy (Raw, Kind, Source, Functions, Procedures, Context) =
+         Reports.Application_Report_Policy (Buffer (1 .. Last), Kind, Source, Functions, Procedures, Context);
 
    procedure Runtime
      (Raw, Emitted : Bytes.Sequence; Current : Silver_Report_Projection.State;
