@@ -5,6 +5,7 @@ public import Silver.ApplicationPackageDeclarationsTypes
 public import Silver.ApplicationAdmissionModel
 public import Silver.ApplicationPackageTypes
 public import Silver.ComposeContracts
+public import Silver.StaticBooleanModel
 
 @[expose] public section
 
@@ -30,6 +31,7 @@ inductive Ty
   | bodyScan | appScan | appCall | callResult | packageActual | procedureActual | stateSet | activeFlow | parseContext
   | contextClauses | scanResult | bodyStop | path
   | reference | routineKind | functionFormal | procedureFormal | packageActuals | packageSeen | objectResult
+  | scalarConstraint | scalarResult | staticBooleanResult
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -62,6 +64,9 @@ inductive Ty
   | .functionFormal => FunctionBindings.Formal | .procedureFormal => ProcedureBindings.Formal
   | .packageActuals => List ApplicationPackages.PackageActual | .packageSeen => List Bool
   | .objectResult => ApplicationPackageDeclarations.ObjectResult
+  | .scalarConstraint => Compose.ScalarConstraintResult
+  | .scalarResult => ScalarExpression.Result
+  | .staticBooleanResult => BooleanElaboration.Native.Result
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -90,9 +95,19 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .packageActuals => List.replicate PackageBindings.maxFormals {}
   | .packageSeen => List.replicate PackageBindings.maxFormals false
   | .objectResult => ApplicationPackageDeclarations.invalidObject
+  | .scalarConstraint => ⟨0, .empty⟩
+  | .scalarResult => ⟨0, .empty, 0, false⟩
+  | .staticBooleanResult => ⟨0, false⟩
   | .arrow _ b => fun _ => b.default
 
 inductive Field : Ty → Ty → Type
+  | constraintAfter : Field .scalarConstraint .number
+  | constraintBounds : Field .scalarConstraint .interval
+  | scalarValueAfter : Field .scalarResult .number
+  | scalarValueBounds : Field .scalarResult .interval
+  | scalarValueStatic : Field .scalarResult .truth
+  | staticAfter : Field .staticBooleanResult .number
+  | staticValue : Field .staticBooleanResult .truth
   | routineBodyAfter : Field .routine .number
   | routineMayRead : Field .routine .stateSet
   | routineMayWrite : Field .routine .stateSet
@@ -277,6 +292,13 @@ inductive Field : Ty → Ty → Type
   | procedureParameterCount : Field .procedures .number
 
 def Field.name : Field a b → String
+  | .constraintAfter => "after"
+  | .constraintBounds => "bounds"
+  | .scalarValueAfter => "after"
+  | .scalarValueBounds => "bounds"
+  | .scalarValueStatic => "static"
+  | .staticAfter => "after"
+  | .staticValue => "value"
   | .routineBodyAfter => "body_after"
   | .routineMayRead => "may_read"
   | .routineMayWrite => "may_write"
@@ -461,6 +483,13 @@ def Field.name : Field a b → String
   | .procedureParameterCount => "parameter_count"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .constraintAfter, value => value.after
+  | .constraintBounds, value => value.bounds
+  | .scalarValueAfter, value => value.after
+  | .scalarValueBounds, value => value.bounds
+  | .scalarValueStatic, value => value.isStatic
+  | .staticAfter, value => value.after
+  | .staticValue, value => value.value
   | .routineBodyAfter, value => value.bodyAfter
   | .routineMayRead, value => value.mayRead
   | .routineMayWrite, value => value.mayWrite
@@ -648,6 +677,13 @@ def Field.get : Field a b → a.meaning → b.meaning
 not exceed the current active count; increasing native storage needs a richer
 representation and is deliberately not justified by this projection. -/
 def Field.set : Field a b → a.meaning → b.meaning → a.meaning
+  | .constraintAfter, value, item => {value with after := item}
+  | .constraintBounds, value, item => {value with bounds := item}
+  | .scalarValueAfter, value, item => {value with after := item}
+  | .scalarValueBounds, value, item => {value with bounds := item}
+  | .scalarValueStatic, value, item => {value with isStatic := item}
+  | .staticAfter, value, item => {value with after := item}
+  | .staticValue, value, item => {value with value := item}
   | .routineBodyAfter, value, item => {value with bodyAfter := item}
   | .routineMayRead, value, item => {value with mayRead := item}
   | .routineMayWrite, value, item => {value with mayWrite := item}
@@ -940,12 +976,20 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | stateDeclarationValue : Expr Fn .nameSpan → Expr Fn .scalarKind → Expr Fn .nameSpan →
       Expr Fn .number → Expr Fn .interval → Expr Fn .interval → Expr Fn .number →
       Expr Fn .number → Expr Fn .truth → Expr Fn .stateDeclaration
+  | scalarConstraintValue : Expr Fn .number → Expr Fn .interval → Expr Fn .scalarConstraint
+  | scalarBindingValue : Expr Fn .number → Expr Fn .number → Expr Fn .interval → Expr Fn .truth →
+      Expr Fn .interval → Expr Fn .truth → Expr Fn .number → Expr Fn .number → Expr Fn .scalarBinding
+  | booleanBindingValue : Expr Fn .number → Expr Fn .number → Expr Fn .truth → Expr Fn .number →
+      Expr Fn .number → Expr Fn .truth → Expr Fn .truth → Expr Fn .booleanBinding
   | functionType : Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .functionType
   | functionFormal : Expr Fn .number → Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .functionFormal
   | procedureFormal : Expr Fn .number → Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .mode → Expr Fn .procedureFormal
   | variable (name : String) : Expr Fn ty
   | function (symbol : Fn ty) : Expr Fn ty
   | app : Expr Fn (.arrow a b) → Expr Fn a → Expr Fn b
+  /-- A single conditional or quantified actual may use the enclosing call's
+  parentheses. This completed call is deliberately not an application spine. -/
+  | soleApp : Fn (.arrow a b) → Expr Fn a → Expr Fn b
   | namedApp (formal : String) : Expr Fn (.arrow a b) → Expr Fn a → Expr Fn b
   | field : Field a b → Expr Fn a → Expr Fn b
   | property : Property a b → Expr Fn a → Expr Fn b
@@ -960,6 +1004,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | ge : Expr Fn .number → Expr Fn .number → Expr Fn .truth
   | intLe : Expr Fn .integer → Expr Fn .integer → Expr Fn .truth
   | intGe : Expr Fn .integer → Expr Fn .integer → Expr Fn .truth
+  | intNe : Expr Fn .integer → Expr Fn .integer → Expr Fn .truth
   | unitMapEq : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
   | unitMapNe : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
   | nameEq : Expr Fn .nameSpan → Expr Fn .nameSpan → Expr Fn .truth
@@ -1053,6 +1098,15 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
       [",", "declared_bounds", "=>"] ++ declaredBounds.render names ++ [",", "initial_bounds", "=>"] ++ initialBounds.render names ++
       [",", "initializer_first", "=>"] ++ first.render names ++ [",", "initializer_after", "=>"] ++ after.render names ++
       [",", "boolean_initial", "=>"] ++ value.render names ++ [")"]
+  | .scalarConstraintValue after bounds => ["("] ++ after.render names ++ [","] ++ bounds.render names ++ [")"]
+  | .scalarBindingValue first after bounds isStatic declaredBounds mutable qFirst qAfter =>
+      ["("] ++ first.render names ++ [","] ++ after.render names ++ [","] ++ bounds.render names ++
+      [","] ++ isStatic.render names ++ [","] ++ declaredBounds.render names ++ [","] ++ mutable.render names ++
+      [","] ++ qFirst.render names ++ [","] ++ qAfter.render names ++ [")"]
+  | .booleanBindingValue first after mutable qFirst qAfter known value =>
+      ["("] ++ first.render names ++ [","] ++ after.render names ++ [","] ++ mutable.render names ++
+      [","] ++ qFirst.render names ++ [","] ++ qAfter.render names ++ [","] ++ known.render names ++
+      [","] ++ value.render names ++ [")"]
   | .functionType after kind bounds typeId => ["("] ++ after.render names ++ [","] ++
       kind.render names ++ [","] ++ bounds.render names ++ [","] ++ typeId.render names ++ [")"]
   | .functionFormal first after kind bounds typeId => ["("] ++ first.render names ++ [","] ++
@@ -1060,6 +1114,7 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .procedureFormal first after kind bounds typeId mode => ["("] ++ first.render names ++ [","] ++
       after.render names ++ [","] ++ kind.render names ++ [","] ++ bounds.render names ++ [","] ++ typeId.render names ++ [","] ++ mode.render names ++ [")"]
   | .variable name => [name] | .function symbol => names symbol
+  | .soleApp symbol argument => names symbol ++ ["("] ++ argument.render names ++ [")"]
   | .app fn argument => match fn with
     | .app _ _ | .namedApp _ _ _ => (fn.render names).dropLast ++ [","] ++ argument.render names ++ [")"]
     | _ => fn.render names ++ ["("] ++ argument.render names ++ [")"]
@@ -1074,7 +1129,7 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .sub left right => left.render names ++ ["-"] ++ right.render names
   | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
       left.render names ++ ["="] ++ right.render names
-  | .ne left right | .modeNe left right | .unitMapNe left right | .stateSetNe left right => left.render names ++ ["/="] ++ right.render names
+  | .ne left right | .modeNe left right | .unitMapNe left right | .stateSetNe left right | .intNe left right => left.render names ++ ["/="] ++ right.render names
   | .lt left right => left.render names ++ ["<"] ++ right.render names
   | .le left right | .intLe left right => left.render names ++ ["<="] ++ right.render names
   | .gt left right => left.render names ++ [">"] ++ right.render names
@@ -1142,6 +1197,13 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
       ⟨name.eval calls locals, kind.eval calls locals, typeName.eval calls locals, identity.eval calls locals,
         declaredBounds.eval calls locals, initialBounds.eval calls locals, first.eval calls locals,
         after.eval calls locals, value.eval calls locals⟩
+  | .scalarConstraintValue after bounds => ⟨after.eval calls locals, bounds.eval calls locals⟩
+  | .scalarBindingValue first after bounds isStatic declaredBounds mutable qFirst qAfter =>
+      ⟨first.eval calls locals, after.eval calls locals, bounds.eval calls locals, isStatic.eval calls locals,
+        declaredBounds.eval calls locals, mutable.eval calls locals, qFirst.eval calls locals, qAfter.eval calls locals⟩
+  | .booleanBindingValue first after mutable qFirst qAfter known value =>
+      ⟨first.eval calls locals, after.eval calls locals, mutable.eval calls locals, qFirst.eval calls locals,
+        qAfter.eval calls locals, known.eval calls locals, value.eval calls locals⟩
   | .functionType after kind bounds typeId =>
       ⟨after.eval calls locals, kind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .functionFormal first after kind bounds typeId =>
@@ -1149,6 +1211,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .procedureFormal first after kind bounds typeId mode =>
       ⟨first.eval calls locals, after.eval calls locals, kind.eval calls locals, bounds.eval calls locals, mode.eval calls locals, typeId.eval calls locals⟩
   | .variable name => locals _ name | .function symbol => calls _ symbol
+  | .soleApp symbol argument => calls _ symbol (argument.eval calls locals)
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
   | .namedApp _ fn argument => fn.eval calls locals (argument.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
@@ -1164,6 +1227,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .ge left right => decide (left.eval calls locals ≥ right.eval calls locals)
   | .intLe left right => decide (left.eval calls locals ≤ right.eval calls locals)
   | .intGe left right => decide (left.eval calls locals ≥ right.eval calls locals)
+  | .intNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .unitMapEq left right => ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals)
   | .unitMapNe left right => !(ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals))
   | .nameEq left right => decide (left.eval calls locals = right.eval calls locals)

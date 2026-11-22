@@ -148,6 +148,9 @@ def Declaration.validType : Ty → List String → Bool
   | .mode, spelling => spelling == ["procedures", ".", "parameter_mode"]
   | .state, spelling => spelling == ["parser_state"]
   | .functionType, spelling => spelling == ["function_type_result"]
+  | .scalarConstraint, spelling => spelling == ["scalar_constraint_result"]
+  | .scalarResult, spelling => spelling == ["scalar_expressions", ".", "expression_result"]
+  | .staticBooleanResult, spelling => spelling == ["static_boolean_result"]
   | .packageType, spelling => spelling == ["package_type_result"]
   | .objectResult, spelling => spelling == ["package_object_result"]
   | .routine, spelling => spelling == ["packages", ".", "routine"]
@@ -176,7 +179,7 @@ def Declaration.implicitSupported : Ty → Bool
   | .number | .truth | .mode | .state | .functionType | .packageType | .objectResult
   | .routine | .formal | .exportItem | .stateDeclaration | .nameSpan | .reference
   | .functionFormal | .procedureFormal | .subtypeBinding | .scalarBinding | .booleanBinding
-  | .appScan | .appCall => true
+  | .appScan | .appCall | .scalarConstraint | .scalarResult | .staticBooleanResult => true
   | _ => false
 
 def Declaration.needsConstraint : Ty → Bool

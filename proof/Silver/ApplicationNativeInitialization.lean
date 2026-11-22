@@ -65,6 +65,7 @@ def value : (ty : Ty) → ty.meaning → ty.meaning
   | .stateDeclaration, _ => ({} : PackageBindings.StateDeclaration)
   | .packageType, _ => ({} : ApplicationPackageNames.PackageTypeResult)
   | .objectResult, _ => ApplicationPackageDeclarations.invalidObject
+  | .staticBooleanResult, _ => ⟨0, false⟩
   | .nameSpan, _ => ({} : PackageBindings.NameSpan)
   | .reference, _ => ({} : QualifiedNames.Reference)
   | .appScan, prior => applicationScan prior
