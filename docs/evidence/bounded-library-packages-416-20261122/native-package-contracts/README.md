@@ -166,3 +166,13 @@ state-extension, metadata-update and postcondition obligations passed.
 
 The dependent Spec check is next, followed by the remaining helpers/callers.
 Complete native and authoritative-source assurance remain outstanding.
+
+## Package specification complete success
+
+`Package_Spec_At` passed complete canonical run `20261122T181702-5e3c1450b9d5`:
+43 checks (9 flow, 34 proof), 233.679 seconds,
+two managed workers. All selected flow/proof obligations and the one complete
+helper passed. Source remains the retained `e181c06fc2ac` input. The earlier
+nine-obligation failure remains recorded; the repaired state/cursor invariants
+and Signature success contract now close the dependent Spec obligations.
+Remaining application helpers/callers and final native/source assurance are pending.

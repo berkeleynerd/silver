@@ -204,9 +204,13 @@
       "current_lines": [
         8549
       ],
-      "coverage": "prior-complete-helper-failed-repair-pending",
-      "run": "20261122T154517-101a5dc5fa74",
-      "unproved": 9
+      "coverage": "complete-helper-success",
+      "run": "20261122T181702-5e3c1450b9d5",
+      "unproved": 0,
+      "checks": 43,
+      "flow": 9,
+      "proof": 34,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
     },
     {
       "name": "Application_Of",
