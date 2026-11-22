@@ -1,0 +1,21 @@
+{
+  "run_id": "20261122T170428-f419e6fbd5fd",
+  "scope": "Complete typed six package-name helper bodies, precedence/scopes, arbitrary-callee denotations and model equations; actual-source/library integration pending.",
+  "files": [
+    {
+      "path": "lean-focused-evidence.json.gz",
+      "sha256": "1708662656a429ad1db8dbe9a17c75a059f1c7eae92a271edd9f5ccc8dc9552c",
+      "uncompressed_sha256": "14c246994ebc555314115242e03a47cdfcb46300cad4916dcc3191cd80646772"
+    },
+    {
+      "path": "lean-focused.log.gz",
+      "sha256": "d3fd1697932cfc6cbf2c79731668e7ac106a6b2644c2b8b23fb4a447d4e3aff9",
+      "uncompressed_sha256": "182eccfe9e956d75e62809acf53f3819d125a399bccbb3ee0bbfeba16982f2cc"
+    },
+    {
+      "path": "events.jsonl.gz",
+      "sha256": "5593b1a4f4b9e2729b414dd1cd9d9388c281404380a95727232d1fbb3cea6061",
+      "uncompressed_sha256": "78b7b4f173ba28ff8f22f0319ac48777aa40e6256d00d826c1d627ca1dbbefda"
+    }
+  ]
+}
