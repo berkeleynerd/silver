@@ -8459,6 +8459,9 @@ is
                   (if Completing then Info.Parameters (I).Body_Name else Info.Parameters (I).Spec_Name)))
             then Header := Invalid_State; return; end if;
             Header := Hide_Outer (Text, Header, Info, (First, Last));
+            pragma Assert
+              (Array_Bindings.Valid_Environment (Text, Header.Array_Names));
+            pragma Assert (Functions.Valid_Metadata (Text, Header.Functions));
             if Header.Position = 0 then return; end if;
             Next := Take_Token (Text, Last, Colon);
             Mode_End := Take_Token (Text, Next, In_Keyword);
@@ -8495,9 +8498,17 @@ is
             Header.Position := Mark.After;
             --  Header resolution sees every formal, including out formals.
             Append_Package_Formal (Header, (First, Last), Mark, Mode);
+            pragma Assert
+              (Array_Bindings.Valid_Environment (Text, Header.Array_Names));
+            pragma Assert (Functions.Valid_Metadata (Text, Header.Functions));
             if Header.Position = 0 then return; end if;
             Next := Take_Token (Text, Header.Position, Right_Parenthesis);
-            if Next /= 0 then Header.Position := Next; exit; end if;
+            if Next /= 0 then
+               Header.Position := Next;
+               pragma Assert (Header.Position > 0);
+               pragma Assert (Valid_State (Text, Header));
+               exit;
+            end if;
             Header.Position := Take_Token (Text, Header.Position, Semicolon);
             if Header.Position <= Before then Header := Invalid_State; return; end if;
          end loop;
