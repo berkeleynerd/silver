@@ -70,8 +70,10 @@ identities.
 The render has 1,576 candidates in 44 stages. Dot product is Stage 1/rank 53 and
 Horner Stage 1/rank 88. Seven later construct stages shift down one; only existing
 stage issue #415 needs a Stage field value change (38 to 1). Other existing stage
-issues retain their values and Closed/Done status. External stage/issue/PR
-bookkeeping remains the lead's action after local review.
+issues retain their values and Closed/Done status. The lead completed the
+stage/issue bookkeeping and marked PR #412 ready on November 22 after the
+[independent delivery confirmation](../../../reviews/review-named-array-delivery-20261122.md).
+The delivery issues remain open/In review until an authorized merge.
 
 The first final-render attempt `20261121T233118-8e63bc6baccb` remains failed. It
 stopped before command execution because the selected proof worktree had no

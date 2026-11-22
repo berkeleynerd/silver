@@ -64,9 +64,10 @@ Horner evaluation gain two faithful callable mappings under
 `named-integer-array-parameters`; broad arrays #12 stays open.
 [Stage issue #415](https://github.com/berkeleynerd/silver/issues/415) tracks
 this precise supported construct in generated Stage 1. The November 21
-assessment/review dates retain their separate attribution. The local delivery
-is prepared for PR #412; the lead retains final PR and stage bookkeeping. No merge is
-authorized by capability completion.
+assessment/review dates retain their separate attribution. The November 22
+closing confirmation accepted the delivery, PR #412 is ready for owner review,
+and the issue/stage bookkeeping is reconciled. No merge is authorized by
+capability completion.
 
 No provisional successor is selected. Deferred #381/#382 and #398 remain outside
 this queue; PR #385 stays held and Worca remains stopped.

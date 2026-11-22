@@ -1,5 +1,21 @@
 # Session memory
 
+## 2026-11-22 — Named constrained Integer-array PR ready for owner review
+
+The lead accepted and published the local closeout `959fe0742a` and
+the [independent delivery confirmation](reviews/review-named-array-delivery-20261122.md)
+with its record corrections as `9c1115ee80`. [PR #412](https://github.com/berkeleynerd/silver/pull/412)
+is ready for review. Complete native/Lean assurance, regression coverage and
+the final Rosetta checks remain those of the November 21 validation checkpoint;
+the closing review introduced no new implementation or proof input.
+
+Issues #410, #413, #414 and #415 remain open and In review until the authorized
+merge. The precise construct's Stage is now 1; all other existing stage fields
+were checked and retain their values and statuses. Broad arrays #12 remains
+Backlog. All validation jobs have finished under the host's eight-CPU allocation.
+No merge, successor feature or Worca action is authorized. PR #385 remains held.
+CLI memory was not updated; these checked-in records retain the handoff.
+
 ## 2026-11-21 — Named constrained Integer-array capability delivered locally
 
 Authorized #410 implementation, complete Linux native/Lean/source assurance,

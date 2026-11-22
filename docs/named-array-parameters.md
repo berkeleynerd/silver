@@ -619,8 +619,8 @@ Delivery date: **2026-11-21**, following the owner's November 21 selection.
 Implementation/proof endpoint: `7f449246ce`; retained evidence and review index:
 `562207798f`. The final delivery commit adds support metadata, documentation,
 generated Rosetta pages and evidence without changing native, proof, catalogue,
-sample or test inputs. The lead reviews the local delivery result before PR
-readiness and external bookkeeping; no merge is authorized.
+sample or test inputs. The November 22 closing confirmation accepted the local
+delivery; PR #412 is ready for owner review. No merge is authorized.
 
 The precise `named-integer-array-parameters` fragment is supported under the
 rules in this record and `language.md`. It adds named constrained nonempty
@@ -690,7 +690,8 @@ measurements were not independently exposed. No CLI memory update is claimed.
 
 The final render places both drivers in supported Stage 1 (Dot product rank 53,
 Horner rank 88) and reduces the progression from 45 stages to 44. Stage issue
-#415 and other affected Stage fields require the lead's external reconciliation,
-with closed/Done state preserved. The accompanying delivery is prepared for PR #412;
-publication/readiness and merge remain distinct actions. Worca stays stopped,
+#415 was reconciled to Stage 1 on November 22, and all ten other existing stage
+fields retained their values and statuses. Issues #410/#413/#414/#415 remain
+open/In review for the eventual authorized merge. The reviewed delivery and
+confirmation are published in ready PR #412. Worca stays stopped,
 PR #385 held and no successor capability is selected.
