@@ -175,6 +175,16 @@ Scalar-only writable actuals keep the existing same-incoming-state, alias and
 copy-back rules. Bounds metadata must preserve Ada staticness, ordered visibility
 and scoped hiding through declarations, expressions, calls and loops.
 
+The value-transport and slot-disjointness results in `NamedArrayParameters` and
+`ScalarFunctionFrame` are audited model-consistency lemmas outside the composed
+endpoint chain. Endpoint safety and discharge use the complete declared
+component ranges, via `capture_of_checked_ranges` and `bindArrayArguments_fits`.
+Likewise, the native array-predicate equivalences are side facts except for
+`PredicatesCorrect.validType`, which the callable-frame equations consume.
+The [focused proof review](reviews/review-pr412-claude-proof-20261122.md)
+distinguishes these scopes; it found no missing premise on the traced endpoint
+paths.
+
 The final assurance chain connects those rules to the actual native source,
 independent source grammar, declaration/body semantics and every required native
 and application obligation. The [source review](reviews/review-named-array-source-20261121.md)

@@ -51,7 +51,28 @@ establishes 783 applicable retained passes plus three fresh passes out of the
 for regression coverage. The manifest tag deletion changes no executable test
 selection, expected output or audit policy; it needs no unrelated aggregate rerun.
 
-The separate focused Claude proof review is running against unchanged
-production/proof source `5a4b0ad8ac`. Its eventual report must be considered before
-closing this response. No cold proof rebuild or independent kernel replay is
-claimed by any record in this packet.
+The [focused Claude proof report](../../../reviews/review-pr412-claude-proof-20261122.md)
+completed against unchanged production/proof source `5a4b0ad8ac`, with no blocker,
+medium or low finding and five info items. Captured subprocess metadata records
+10:46:54.921890–11:48:20.919304 UTC (61m25.9s), exit 0. The report's approximate
+11:49 finish remains unedited. Runtime model was `claude-fable-5-2`, CLI effort
+`max`; server effort is unexposed. All 62 affinity snapshots stayed on CPUs 0–1.
+
+`focused-proof/` retains the final report's supporting metadata, exact original
+request reconstruction, prompt, coverage map, resource observations and original
+managed events/log. [Reconciliation](focused-proof/reconciliation.json) records
+the report hash and scope: 45 full files, 68 complete diffs, 13 partial, 30
+changed-statement-only and 175 changed-definition-header-only files, plus 16
+unopened generated files. The reviewer did no new proof or test computation.
+The [response](../../../reviews/review-pr412-claude-response-20261122.md#focused-proof-dispositions)
+dispositions all five items, including the subsequent pinned-producer inspection
+resolving I4. Its retained sources and hashes are in
+[capacity-producer/](focused-proof/capacity-producer/README.md).
+
+The managed review run `20261122T104651-c6826d4fd799` remains **failed**, despite
+the successful reviewer subprocess: the monitor added runtime fields to declared
+input `request.json` during execution. Original fields reconstruct to the captured
+SHA-256, the prompt/launcher hashes match and the fixed checkout is clean.
+This metadata error is not a failed proof or an unreported source change.
+Runtime observations must be separate outputs on future launches. No repeat
+review, cold proof rebuild or independent kernel replay is claimed.

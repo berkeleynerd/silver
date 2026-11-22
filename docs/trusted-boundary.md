@@ -1445,6 +1445,18 @@ The composed checked-source record also proves `Names.fixedAt = Compose.fixedAt`
 and `Names.take = Compose.fixedAfter`. These checked identities detect divergence
 between duplicated helpers; they do not remove the lexical-callee interpretation
 premise or derive arbitrary Names call records from source.
+
+One unchanged lexical callee is `Silver_Output_Lexical.Valid_Name_State`.
+The array-binding `Primitives.validNameState` law interprets its result as
+`(first = 0 ∧ after = 0) ∨ NameSpan text first after`, for valid source text and
+the complete cursor domain `first, after ≤ 4097`. This agrees with the Ada
+expression function, but its denotation is an interpretation premise rather
+than a separately source-derived typed-tree result. The law supplies side
+equivalences for named-table validity predicates. Separately,
+`PredicatesCorrect.validType` is consumed by the callable-frame equations. The
+[focused review and response](reviews/review-pr412-claude-response-20261122.md#focused-proof-dispositions)
+record this scope without changing the existing frontend boundary.
+
 Named associations select the actual library formal (`Item` or `Default`); no
 author-source rewriting is involved. Resolving these reviewed package
 imports and declarations retains the existing Ada/GNAT interpretation premise;

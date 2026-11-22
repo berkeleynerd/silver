@@ -34,14 +34,53 @@ Fable 5.2 / Max**, with the runtime model confirmed as `claude-fable-5-2` and
 effort confirmed only as the explicit CLI selection. Server-side effort is not
 independently exposed.
 
-Managed run `20261122T104651-c6826d4fd799` started the reviewer at 10:46:54 UTC,
-on fixed source `5a4b0ad8ac`, reserving two CPUs with actual affinity 0–1. Its
-remaining scope is full-domain array views/frames/calls; native preconditions
-and primitive assumptions; actual-source imports on Main and callable-local
-paths; preservation through safety **and automatic discharge**; and feature-local
-report capacity. It must report explicit argument coverage and remaining gaps.
-It is a read-only source/evidence review, with no repeated full proof computation,
-200-probe sweep or broad record audit. The follow-up is still running.
+The [focused report](review-pr412-claude-proof-20261122.md) completed at
+11:48:20 UTC, after 61m25.9s from its 10:46:54 start, on fixed source
+`5a4b0ad8ac`. It found **no blocker, medium or low finding and five info items**.
+It examined full-domain array views/frames/calls; native preconditions and
+primitive assumptions; actual-source imports on Main and callable-local paths;
+preservation through safety **and automatic discharge**; and feature-local
+report capacity. All 62 resource snapshots respected its two-CPU allocation,
+guest CPUs 0–1.
+
+The lead accepts this as substantive independent scrutiny of the selected hard
+arguments. It is not an exhaustive review of all 347 changed Lean files: 45 were
+read in full, 68 as complete diffs, 13 partly, 30 at changed-statement level,
+and 175 at changed-definition-header level only. Changed theorem hypotheses in
+the latter group could have escaped inspection; eight generated shape tables
+and eight certificates were not opened. The
+[coverage map](../evidence/named-array-parameters-410-20261121/review-response/focused-proof/coverage-map.tsv)
+preserves the per-file scope. No new Lean, kernel, GNATprove, build or test
+execution was performed by the reviewer. The complete retained audits keep
+their original scope; this review does not replace them.
+
+### Focused proof dispositions
+
+| Item | Lead disposition |
+| --- | --- |
+| I1 — Value transport and disjointness side lemmas | Clarify their scope in the assurance record. Endpoint safety uses full declared component ranges through `capture_of_checked_ranges` and `bindArrayArguments_fits`; the additional model-consistency lemmas are audited but not endpoint premises. Keep the useful lemmas. |
+| I2 — Predicate equivalences and `validNameState` | Name the unchanged lexical function and its full-domain interpretation law in the trusted boundary. Its three-line Ada expression agrees with the law; all array-predicate equivalences except `validType` remain side facts. No new proof repair is demonstrated. |
+| I3 — Inherited leaf imports and redundant assumptions | Retain the documented lexical interpretation premises. The #414 array imports and Boolean-wrapper meanings are derived on the traced Main and callable paths. Redundant inherited fields do not justify a separate proof refactor. |
+| I4 — Two producer routes unavailable to the reviewer | Resolved by a source-level Astra Max follow-up at pinned SPARK revision `42554fc241fcd1fdf08d3a2feccb3f86912acbc0`. Immutable input pairs and distinct array/scalar roots return `Impossible` before alias-record emission. Ordinary nonlimited array equality and absence of a private view rule out the extra type-theory/status routes. The [capacity account](../named-array-parameters-report-capacity.md) retains the sources/hashes and unchanged envelope. Do not rely on the review's hypothetical 999,424-byte fallback: its per-site multiplicity and record-size assumptions were not established. |
+| I5 — Unreferenced new theorems | Retain the audited lemmas. An unused theorem is not a defect or a reason to rebuild the proof graph. |
+
+No production/proof repair or full proof rerun follows from these five items.
+The original report remains verbatim, including its stated limitations; the
+source-based I4 conclusion above is our subsequent assessment.
+
+### Managed-wrapper outcome
+
+The reviewer subprocess exited successfully, but managed run
+`20261122T104651-c6826d4fd799` **failed** its final input-integrity check.
+The monitor, with lead approval, added observed model/session fields to declared
+input `request.json` while the run was active. This was a monitoring error.
+Reconstructing the original fields reproduces the captured input hash;
+the prompt and launcher hashes match, and the fixed source checkout is clean.
+The [reconciliation](../evidence/named-array-parameters-410-20261121/review-response/focused-proof/reconciliation.json)
+records those checks and the original failed event. The review result stands
+with this qualification; do not relabel the managed run or repeat the review.
+Future runtime observations belong in a separate output file, leaving declared
+inputs unchanged.
 
 ## Validation boundary
 
@@ -64,5 +103,6 @@ results (756 original full-suite, 15 proof-reader and 12 Rosetta), two changed
 existing identities and two new controls. Horner's single tag deletion changes
 none of the manifest test's source, expected-output or audit-policy decisions;
 the other direct manifest reader uses three unrelated sample outputs.
-The two corrected timeout controls passed; the final response still needs the
-maximal-route pass and focused Claude proof verdict.
+The two corrected timeout controls and expanded stack regression passed. The
+focused Claude verdict is assessed above; the maximal-route pass remains the
+only outstanding regression result.

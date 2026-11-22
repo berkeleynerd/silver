@@ -1,0 +1,143 @@
+{
+  "managed_run_id": "20261122T104651-c6826d4fd799",
+  "review_session_id": "00c8c1e9-7bce-4a1d-ab7e-ed51f14666c2",
+  "review_target": "5a4b0ad8ac05ed431d2f0c8baee2c2cc75686267",
+  "selected_model": "claude-fable-5-2",
+  "observed_init_model": "claude-fable-5-2",
+  "observed_assistant_models": [
+    "claude-fable-5-2"
+  ],
+  "selected_cli_effort": "max",
+  "server_effort": "not independently exposed",
+  "assigned_cpus": [
+    0,
+    1
+  ],
+  "finished_at": "2026-11-22T11:48:20.919304+00:00",
+  "elapsed_seconds": 3685.946483487998,
+  "report_sha256": "1d7805f22bf4f9d64f395957f23af5ffb42d4cde6aed1883daea4f0815edf393",
+  "final_verdict": {
+    "blocker": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 5
+  },
+  "resource_checks": 62,
+  "resource_exceptions_all": [],
+  "coverage": {
+    "full_text_files": 45,
+    "complete_diff_files": 68,
+    "partial_files": 13,
+    "changed_statement_only_files": 30,
+    "changed_definition_header_only_files": 175,
+    "unopened_output_body_line_tables": 8,
+    "unopened_generated_certificates": 8,
+    "coverage_map": "coverage-map.tsv",
+    "principal_limit": "Changed theorem statements/hypotheses in 175 headers-only files may have been missed; no full proof-body review or fresh replay."
+  },
+  "bounded_triage": [
+    {
+      "id": "I1",
+      "disposition": "optional record clarification",
+      "evidence": "NamedArrayParameters and ScalarFunctionFrame value-transport/disjointness lemmas are local; ScalarFunctionSemantics.frame_fits uses bindArrayArguments_fits",
+      "assessment": "No concrete endpoint defect demonstrated; full-domain fit suffices for stated safety checks."
+    },
+    {
+      "id": "I2",
+      "disposition": "optional trusted-boundary disclosure",
+      "evidence": "ArrayBindingsNativeEquations:31-39 law matches unchanged silver_output_lexical.ads:268-274; FunctionDeclarationFrameEquations:41-52 consumes validType",
+      "assessment": "No concrete defect; new field is a law for an unchanged lexical function, used only in side predicate equivalences."
+    },
+    {
+      "id": "I3",
+      "disposition": "optional cleanup",
+      "evidence": "ComposeSourceBridge:166-177 and ComposeContracts:394-426; documented lexical interpretation in docs/trusted-boundary.md:1436",
+      "assessment": "Remaining leaf import premises and redundant nested assumptions disclosed; no new unsupplied law demonstrated on traced paths."
+    },
+    {
+      "id": "I4",
+      "disposition": "evidence limit, lead assessment required",
+      "evidence": "Missing flow-analysis-antialiasing.adb and definitions of Use_Predefined_Equality_For_Type/Needs_Default_Checks_At_Decl; retained output used instead",
+      "assessment": "Reviewer gives (819+157)*1024=999424-byte fallback under 17829120-byte headroom. Arithmetic correct, but one-record multiplicity and 1024-byte applicability still need producer justification; sample output alone does not prove universal bound."
+    },
+    {
+      "id": "I5",
+      "disposition": "housekeeping",
+      "evidence": "scratch/work/unused_new_theorems.py short-name scan",
+      "assessment": "Unreferenced theorems do not establish a defect or require removal."
+    }
+  ],
+  "managed_wrapper_outcome": {
+    "state": "not_successful",
+    "message": "development command: declared run inputs changed during execution",
+    "cause": "Monitor updated authorized observed_model/observed_session_id/managed_run_id/verification fields in request.json while that file was a declared managed --input.",
+    "reviewer_outcome": "Independent reviewer subprocess returned 0 with stream success; report and source target remain preserved.",
+    "disposition": "Record evidence limitation; no rerun, source/resource change or metadata rollback.",
+    "changed_file": "request.json",
+    "added_fields": [
+      "observed_model",
+      "observed_session_id",
+      "managed_run_id",
+      "model_verified_at",
+      "model_verification",
+      "server_effort"
+    ],
+    "reconstructed_original_request_sha256": "73f4fbba4c165c3034d08070b0241edd49e65e70e3fc61ee148e155949ad7978",
+    "reconstructed_original_request": {
+      "requested_at": "2026-11-22T10:46:37.432372+00:00",
+      "authorization": "Agree. Please kick that off in the background while we address the current issues.",
+      "base": "5f97477d5be1c9da974e6df95300bb8f2bb8fcfb",
+      "target": "5a4b0ad8ac05ed431d2f0c8baee2c2cc75686267",
+      "selected_model": "claude-fable-5-2",
+      "selected_effort": "max",
+      "cpu_budget": 2,
+      "host_cpu_ceiling": 8,
+      "fixed_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/worktree",
+      "review_scope": "Focused full-domain proof/source/automatic-discharge/capacity arguments; five explicit coverage areas",
+      "prior_review": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/report.md"
+    }
+  },
+  "prompt_and_launcher_match_declared_inputs": {
+    "launch.py": true,
+    "prompt.md": true
+  },
+  "original_request_reconstruction_matches_declared_hash": true,
+  "fixed_review_worktree_clean": true,
+  "managed_finished_event": {
+    "duration_seconds": 3688.146322676,
+    "error": "RuntimeError: declared run inputs changed during execution",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799/native.log"
+      }
+    ],
+    "failure_identities": {},
+    "failure_keys": [],
+    "monotonic_ns": 61346680471910,
+    "outcome": "failure",
+    "retained_reports": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-proof-review-pr412-5a4b0ad8ac/scratch/producer-probe-selected/reports/gnatprove.out",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799/reports/0/scratch/producer-probe-selected/reports/gnatprove.out"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-proof-review-pr412-5a4b0ad8ac/scratch/producer-probe-selected/reports/main~1.spark",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T104651-c6826d4fd799/reports/0/scratch/producer-probe-selected/reports/main~1.spark"
+      }
+    ],
+    "returncode": null,
+    "run_id": "20261122T104651-c6826d4fd799",
+    "utc": "2026-11-22T11:48:20.976366+00:00"
+  },
+  "lead_assessment": {
+    "verdict": "Substantive independent scrutiny of selected proof arguments; no demonstrated production/proof repair. Not exhaustive proof-body review.",
+    "capacity_followup_model": "GPT-6 Astra",
+    "capacity_followup_effort": "max",
+    "capacity_followup": "capacity-producer/README.md",
+    "I4": "Resolved by pinned producer source: immutable-input pairs or distinct roots return Impossible before emission; type-default/equality predicates rule out the extra named-type routes. Existing 49279744-byte envelope and 17829120-byte headroom unchanged. Do not adopt the speculative 999424-byte fallback.",
+    "I1_I2": "Documented side-lemma scope and the unchanged lexical Valid_Name_State interpretation premise.",
+    "I3_I5": "Retain inherited interpretation conventions and useful audited side lemmas; no independent proof refactor selected."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "requested_at": "2026-11-22T10:46:37.432372+00:00",
+  "authorization": "Agree. Please kick that off in the background while we address the current issues.",
+  "base": "5f97477d5be1c9da974e6df95300bb8f2bb8fcfb",
+  "target": "5a4b0ad8ac05ed431d2f0c8baee2c2cc75686267",
+  "selected_model": "claude-fable-5-2",
+  "selected_effort": "max",
+  "cpu_budget": 2,
+  "host_cpu_ceiling": 8,
+  "fixed_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/worktree",
+  "review_scope": "Focused full-domain proof/source/automatic-discharge/capacity arguments; five explicit coverage areas",
+  "prior_review": "/home/canto/src/github.com/berkeleynerd/silver/tmp/external-review-pr412-5a4b0ad8ac/report.md"
+}
