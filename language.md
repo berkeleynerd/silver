@@ -739,8 +739,13 @@ new allowance for each file.
 
 Invoke `silver check`, `compile` or `run` on the Main source. Its context selects
 one simple application package name, ignoring ASCII case. That name excludes
-`Main`, the selected runtime unit names, and `Integer`, `Boolean`, `String` and
-`Character`, preventing unit-file collisions and predefined-type hiding in this
+`Main`, the selected runtime unit names, `Ada`, `Interfaces`, `System`, `GNAT`, and
+`Integer`, `Boolean`, `String` and `Character`. The first group prevents
+unit-file collisions with the runtime; the pinned frontend does not permit
+recompiling the language-defined Ada/Interfaces units and rejects a replacement
+System specification. The pinned SPARK producer treats `GNAT` routines as runtime
+entities and emits assumptions instead of the required application proofs, so
+that package identity is also excluded. The predefined type names prevent type hiding in this
 initial fragment. The driver reads
 `name.ads` and `name.adb`, with the package name in lowercase, from the Main
 source's directory. Each file contains exactly its selected compilation unit.
@@ -1880,7 +1885,9 @@ specified environmental execution failure is an outcome, not source rejection.
 ## Examples and growth
 
 The [Include a file](samples/rosetta_include_a_file/main.adb) application
-exercises a separate package specification/body and a scalar calculation; the
+exercises a separate package specification/body and a scalar calculation. The
+[two-cell FIFO queue](samples/rosetta_queue_definition/main.adb) provides scalar
+push/pop/empty operations with explicit full and empty outcomes. The
 [counter](samples/package_counter/main.adb) exercises private scalar state and
 zero-formal operations. Their delivery checks are tracked in the
 [package capability record](docs/bounded-library-packages.md).

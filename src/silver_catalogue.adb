@@ -54,7 +54,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""shared_source_byte_budget"": 4096,");
       Put_Line ("        ""shared_arithmetic_concatenation_operator_budget"": 63,");
       Put_Line ("        ""lexical_boundaries"": ""each original file has independent comment and string boundaries"",");
-      Put_Line ("        ""package_name"": ""ordinary nonreserved identifier; distinct from Main, runtime units, Ada, Interfaces, System, Integer, Boolean, String and Character ignoring ASCII case"",");
+      Put_Line ("        ""package_name"": ""ordinary nonreserved identifier; distinct from Main, runtime units, Ada, Interfaces, System, GNAT, Integer, Boolean, String and Character ignoring ASCII case"",");
       Put_Line ("        ""exports"": ""ordered initialized Integer/Boolean constants, static nonempty Integer subtypes and scalar routine signatures"",");
       Put_Line ("        ""export_order"": ""constants and subtypes may be interspersed with routine specifications; references use only earlier visible declarations"",");
       Put_Line ("        ""private_state"": ""initialized body-private Integer/Boolean scalar objects, before routine bodies"",");

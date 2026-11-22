@@ -16,7 +16,7 @@
         "shared_source_byte_budget": 4096,
         "shared_arithmetic_concatenation_operator_budget": 63,
         "lexical_boundaries": "each original file has independent comment and string boundaries",
-        "package_name": "ordinary nonreserved identifier; distinct from Main, runtime units, Ada, Interfaces, System, Integer, Boolean, String and Character ignoring ASCII case",
+        "package_name": "ordinary nonreserved identifier; distinct from Main, runtime units, Ada, Interfaces, System, GNAT, Integer, Boolean, String and Character ignoring ASCII case",
         "exports": "ordered initialized Integer/Boolean constants, static nonempty Integer subtypes and scalar routine signatures",
         "export_order": "constants and subtypes may be interspersed with routine specifications; references use only earlier visible declarations",
         "private_state": "initialized body-private Integer/Boolean scalar objects, before routine bodies",

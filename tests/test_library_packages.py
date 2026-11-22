@@ -131,6 +131,18 @@ class LibraryPackageTests(unittest.TestCase):
         self.check(main(), specification=specification.replace(b'end P;', b'procedure Noop;end P;'),
                    body=body.replace(b'end P;', b'procedure Noop is begin null;end Noop;end P;'))
 
+    def test_toolchain_package_identities_are_excluded_before_compilation(self) -> None:
+        for name in (b'Ada', b'Interfaces', b'System', b'GNAT', b'gNaT'):
+            with self.subTest(name=name):
+                self.specification = self.directory / (name.decode().lower() + '.ads')
+                self.body = self.directory / (name.decode().lower() + '.adb')
+                specification = SPEC.replace(b'package P is', b'package ' + name + b' is')
+                specification = specification.replace(b'end P;', b'end ' + name + b';')
+                body = BODY.replace(b'package body P is', b'package body ' + name + b' is')
+                body = body.replace(b'end P;', b'end ' + name + b';')
+                self.check(main().replace(b'with P,', b'with ' + name + b','), 2,
+                           specification=specification, body=body)
+
     def test_public_constants_and_subtypes_are_qualified_in_main(self) -> None:
         specification = SPEC.replace(b'procedure Reset;',
                                      b'N:constant Integer:=3;Good:constant Boolean:=True;procedure Reset;')

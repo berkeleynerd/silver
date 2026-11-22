@@ -27,3 +27,11 @@ audited 15,431 declarations (27.434 s build; 2.922 s audit). It generalizes
 index, value and concatenation bounds to an arbitrary unit-context start, with
 unchanged value domains. The two-worker/two-thread input map and log are the
 `native-value-context-*` files. Remaining caller/source equations are pending.
+
+After the explicit GNAT package-name exclusion, build
+`20261122T150026-4409261c1a87` passed and package regression
+`20261122T150042-fa61acf6b4e2` passed all 26 methods in 48.143 s.
+The new negative control covers Ada, Interfaces, System and case-insensitive
+GNAT identities with actual matching original files. The separate
+[native controls](../native-contract-controls/README.md) retain the producer
+reason and the successful stateful Standard control.
