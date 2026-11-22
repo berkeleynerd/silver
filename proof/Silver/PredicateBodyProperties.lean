@@ -132,7 +132,7 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
         apply model_fixed_valid
         exact (model_expression_valid (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text textValid _ context.names
             (Names.associationAfter_bound text _ false
-              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayTable) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (subtypeHidden := context.subtypeHiding.get .output) text context.names scan.position .output bounded))) namesValid).1
+              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayTable) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (contextFirst := context.contextFirst) (packageFirst := context.packageFirst) (packageAfter := context.packageAfter) (subtypeHidden := context.subtypeHiding.get .output) text context.names scan.position .output bounded))) namesValid).1
   | put =>
       try dsimp only
       split
@@ -141,8 +141,8 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
         apply model_fixed_valid
         exact (model_expression_valid (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text textValid _ context.names
             (Names.associationAfter_bound text _ false
-              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayTable) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (subtypeHidden := context.subtypeHiding.get .partialOutput) text context.names scan.position .partialOutput bounded))) namesValid).1
-  | reject => exact model_callAfter_valid (arrays := context.arrayTable) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (subtypeHidden := context.subtypeHiding.get .reject) text context.names scan.position .reject bounded
+              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayTable) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (contextFirst := context.contextFirst) (packageFirst := context.packageFirst) (packageAfter := context.packageAfter) (subtypeHidden := context.subtypeHiding.get .partialOutput) text context.names scan.position .partialOutput bounded))) namesValid).1
+  | reject => exact model_callAfter_valid (arrays := context.arrayTable) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (contextFirst := context.contextFirst) (packageFirst := context.packageFirst) (packageAfter := context.packageAfter) (subtypeHidden := context.subtypeHiding.get .reject) text context.names scan.position .reject bounded
   | scalarAssignment =>
       try dsimp only
       split

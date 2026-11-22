@@ -162,11 +162,11 @@ mutual
         exact ⟨meaning.parenthesized _, rfl⟩
     | boolean _ _ _ _ _ atom =>
         cases atom with
-        | name _ found =>
+        | @name reference _ found =>
             have initialized : (ArrayBindings.booleanAnalysis context.arrayNames
                 (BooleanBindings.analysis context.booleanNames)).initialized
-                (BooleanBindings.lookup text context.booleanNames (skipAt text position)
-                  (nameAfter text (skipAt text position))) = true := by
+                (BooleanBindings.lookup text context.booleanNames reference.first reference.after
+                  reference.qualifierFirst reference.qualifierAfter) = true := by
               apply Bool.or_eq_true_iff.mpr
               exact Or.inr (BooleanBindings.lookup_initialized found)
             exact ⟨⟨trivial, initialized, initialized, rfl, rfl⟩, rfl⟩

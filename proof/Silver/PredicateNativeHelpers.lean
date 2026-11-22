@@ -50,6 +50,13 @@ structure HelperMeaning (calls : Calls) : Prop where
   booleanLookup : ∀ text, ValidText text → ∀ names first after,
     BooleanBindings.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.booleanLookup text names first after = BooleanBindings.lookup text names first after
+  booleanQualifiedLookup : ∀ text, ValidText text → ∀ names first after qualifierFirst qualifierAfter,
+    BooleanBindings.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    calls.booleanQualifiedLookup text names first after qualifierFirst qualifierAfter =
+      BooleanBindings.lookup text names first after qualifierFirst qualifierAfter
+  readReference : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
+    calls.readReference text position = ScalarExpression.readReference text position
   callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter,
     NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → position ≤ text.length + 1 →
@@ -325,16 +332,24 @@ theorem booleanAtom_meaning (text : Source) (tv : ValidText text)
     calls.booleanAtom text context position = booleanAtomAfter text context.model position := by
   rw [defs.booleanAtom text tv context cv position bounded, booleanAtom_denotation]
   unfold booleanAtomEquation booleanAtomAfter
+  rw [helpers.readReference text tv position bounded]
   dsimp only
-  rw [helpers.skip text tv position bounded]
-  have firstBound := model_skip_valid text position bounded
-  rw [helpers.name text tv _ firstBound]
-  have afterBound := model_name_valid text (skipAt text position)
-  by_cases zero : skipAt text position = 0
-  · simp [zero]
-  · by_cases ordered : nameAfter text (skipAt text position) ≤ skipAt text position
-    · simp [ordered]
-    · have nameValid : Compose.Expressions.ValidName text (skipAt text position) (nameAfter text (skipAt text position)) :=
+  have bounds := QualifiedNames.read_bounds text position bounded
+  have firstBound : (ScalarExpression.readReference text position).first ≤ text.length + 1 := by
+    change (QualifiedNames.read text position).first ≤ text.length + 1
+    rcases bounds.1 with absent | present <;> omega
+  have afterBound := QualifiedNames.read_after_bound text position bounded
+  by_cases invalid : (ScalarExpression.readReference text position).first = 0 ∨
+      (ScalarExpression.readReference text position).after ≤ (ScalarExpression.readReference text position).first
+  · simp only [invalid, ↓reduceIte]
+  · simp only [invalid, ↓reduceIte]
+    by_cases qualified : (ScalarExpression.readReference text position).qualifierFirst ≠ 0
+    · rw [helpers.booleanQualifiedLookup text tv context.booleanNames _ _ _ _ cv.booleans
+        firstBound afterBound bounds.2.1]
+      simp only [qualified, ↓reduceIte, Context.model]
+    · simp only [qualified, ↓reduceIte]
+      have nameValid : Compose.Expressions.ValidName text
+          (ScalarExpression.readReference text position).first (ScalarExpression.readReference text position).after :=
         ⟨by omega, by omega, afterBound⟩
       rw [helpers.lookup text tv context.names _ _ cv.nativeNames firstBound afterBound,
         helpers.scalarLookup text tv context.scalarNames _ _ cv.2.2.1 firstBound afterBound,
@@ -524,6 +539,8 @@ theorem model_helper_meaning : HelperMeaning modelCalls where
   arrayContains := by intros; rfl
   scalarIndex := by intros; rfl
   booleanLookup := by intros; rfl
+  booleanQualifiedLookup := by intros; rfl
+  readReference := by intros; rfl
   callAfter := by intros; rfl
   take := by intros; rfl
   skip := by intros; rfl

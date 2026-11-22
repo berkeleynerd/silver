@@ -78,10 +78,14 @@ def booleanArrayEquation (calls : Calls) (text : Source) (context : Context)
   then 0 else close
 
 def booleanAtomEquation (calls : Calls) (text : Source) (context : Context) (position : Nat) : Nat :=
-  let first := calls.skip text position
-  let after := calls.nameAfter text first
-  if first = 0 ∨ after ≤ first ∨
-      (context.maskFirst ≠ 0 ∧ calls.equalName text context.maskFirst context.maskAfter first after) ∨
+  let reference := calls.readReference text position
+  let first := reference.first
+  let after := reference.after
+  if first = 0 ∨ after ≤ first then 0
+  else if reference.qualifierFirst ≠ 0 then
+    if calls.booleanQualifiedLookup text context.booleanNames first after
+        reference.qualifierFirst reference.qualifierAfter ≠ 0 then after else 0
+  else if (context.maskFirst ≠ 0 ∧ calls.equalName text context.maskFirst context.maskAfter first after) ∨
       calls.scalarLookup text context.scalarNames first after ≠ 0 ∨
       calls.lookup text context.names first after ≠ 0 ∨
       calls.arrayLookup text context.arrayTable first after ≠ 0 ∨
@@ -256,7 +260,9 @@ theorem booleanArray_denotation (calls : Calls) (text : Source) (context : Conte
 
 theorem booleanAtom_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) :
     booleanAtomBody.eval calls ({text, context, position} : Inputs).locals = booleanAtomEquation calls text context position := by
-  dsimp +instances only [booleanAtomBody, Expr.eval, Expr.declared, Expr.declaredCondition, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callEqualName, Expr.callNameIs, Expr.callArrayLookup, Expr.callArrayTypeLookup, Expr.callBooleanLookup, Expr.callBooleanArray, Expr.callBooleanAtom, Expr.callBooleanFactor, Expr.callBooleanRelation, Expr.callCharacterCondition, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callScalarInFlow, Expr.callStringInFlow, Expr.callScalarCondition, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callXorFree, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [booleanAtomBody, Expr.eval, Inputs.locals, Locals.set, Calls.get, Field.get,
+    Expr.callReadReference, Expr.callBooleanQualifiedLookup, Expr.callEqualName, Expr.callNameIs,
+    Expr.callArrayLookup, Expr.callArrayTypeLookup, Expr.callBooleanLookup, Expr.callLookup, Expr.callScalarLookup]
   simp [booleanAtomEquation, Context.arrayTable, or_assoc]
 
 theorem booleanFactor_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) (facts : ActiveFlow) (initials : ArrayBindings.Initials) :

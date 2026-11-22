@@ -81,10 +81,11 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Compose
     (predicateDefinitions : Native.DefinitionEquations predicate) (predicateContracts : Native.Contracts predicate)
     (links : Links primitive inherited predicate) :
     HelperMeaning primitive where
-  callAfter text names position operation scalarNames arrays hidden booleans valid := by
+  callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter valid := by
     rw [links.callAfter]
-    exact Compose.Expressions.interpreted_callAfter inherited source text valid.1 names position operation
-      valid.2.2.1 valid.2.1 valid.2.2.2.1 valid.2.2.2.2.1 hidden booleans valid.2.2.2.2.2
+    exact Compose.Expressions.interpreted_callAfter inherited source text valid.1.1 names position operation
+      valid.1.2.2.1 valid.1.2.1 valid.1.2.2.2.1 valid.1.2.2.2.2.1 hidden booleans valid.1.2.2.2.2.2
+      contextFirst packageFirst packageAfter valid.2
   associationAfter text position formal valid bounded := by
     rw [links.associationAfter]
     exact Names.interpreted_association inherited.names source.names text valid position formal bounded

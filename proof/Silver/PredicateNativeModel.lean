@@ -54,6 +54,9 @@ def modelCalls : Calls where
     ScalarExpression.ArrayGrammar.read text position names arrays first after (arrayReads := mode)
   booleanArray := fun text context position facts => booleanArrayAfter text context.model position facts
   booleanLookup := BooleanBindings.lookup
+  booleanQualifiedLookup := fun text names first after qualifierFirst qualifierAfter =>
+    BooleanBindings.lookup text names first after qualifierFirst qualifierAfter
+  readReference := ScalarExpression.readReference
   booleanAtom := fun text context position => booleanAtomAfter text context.model position
   booleanFactor := fun text context position facts initials => readBooleanFactor text context.model position facts initials
   booleanRelation := fun text context position facts initials => readBooleanRelation text context.model position facts initials

@@ -159,6 +159,8 @@ end Silver.Predicate.ScalarBodyNative
 namespace Silver.Predicate.Native.ScalarHelpers
 
 def Expr.prefix : Expr ty → Bool
+  | .referenceFirst _ | .referenceAfter _ | .qualifierFirst _ | .qualifierAfter _
+  | .readReference _ _ | .qualifiedLookup _ _ _ _ _ _ => true
   | .variable _ | .scalarComparison _ | .names _ | .declarations _ | .bindingAt _ _
   | .mutable _ | .lower _ | .upper _ | .resultBounds _ | .resultAfter _
   | .resultStatic _ | .count _ | .cell _ _ | .skip _ _ | .nameAfter _ _
@@ -171,6 +173,8 @@ def Expr.prefix : Expr ty → Bool
   | .replace _ _ _ | .condition _ _ _ _ => false
 
 def Expr.primary : Expr ty → Bool
+  | .referenceFirst _ | .referenceAfter _ | .qualifierFirst _ | .qualifierAfter _
+  | .readReference _ _ | .qualifiedLookup _ _ _ _ _ _ => true
   | .variable _ | .number _ | .truth _ | .scalarComparison _ | .names _
   | .declarations _ | .bindingAt _ _ | .mutable _ | .lower _ | .upper _
   | .resultBounds _ | .resultAfter _ | .resultStatic _ | .count _ | .cell _ _
@@ -202,6 +206,14 @@ def Expr.isLocals : Expr ty → Bool | .locals _ => true | _ => false
 def Expr.isLocal : Expr ty → Bool | .local _ _ _ _ => true | _ => false
 
 def Expr.wellFormed : Expr ty → Bool
+  | .referenceFirst value | .referenceAfter value | .qualifierFirst value | .qualifierAfter value =>
+      value.prefix && value.wellFormed
+  | .readReference text position =>
+      text.expression && position.expression && text.wellFormed && position.wellFormed
+  | .qualifiedLookup text environment first after qualifierFirst qualifierAfter =>
+      text.expression && environment.expression && first.expression && after.expression &&
+      qualifierFirst.expression && qualifierAfter.expression && text.wellFormed && environment.wellFormed &&
+      first.wellFormed && after.wellFormed && qualifierFirst.wellFormed && qualifierAfter.wellFormed
   | .variable _ | .number _ | .truth _ | .scalarComparison _ => true
   | .names value | .declarations value => value.prefix && value.wellFormed
   | .mutable value => value.prefix && value.wellFormed

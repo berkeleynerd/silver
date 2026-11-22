@@ -33,7 +33,7 @@ theorem flowBounds_eq_ranges {names : Environment} (ready : BodyReady names) :
 /-- The elaboration boundary that motivated the distinct native flow domain:
 an initialized mutable snapshot need not contain every legal later flow value. -/
 theorem flowBounds_elaboration_boundary :
-    let item : Binding := ⟨1, 2, ⟨0, 0⟩, false, ⟨0, 10⟩, true⟩
+    let item : Binding := ⟨1, 2, ⟨0, 0⟩, false, ⟨0, 10⟩, true, 0, 0⟩
     flowBounds [item] 1 = some ⟨0, 10⟩ ∧
       ((flowBounds [item] 1).getD Integer.Interval.empty).Contains 5 ∧
       ¬((ranges [item] 1).getD Integer.Interval.empty).Contains 5 := by

@@ -92,29 +92,35 @@ theorem booleanAtom_sound {text context position}
   split
   · simp_all only [↓reduceIte, ne_eq, not_true_eq_false]
   · rename_i allowed
-    have firstNonzero : skipAt text position ≠ 0 := fun bad => allowed (Or.inl bad)
-    have afterNonzero : nameAfter text (skipAt text position) ≠ 0 := by
+    have afterNonzero : (ScalarExpression.readReference text position).after ≠ 0 := by
       intro bad
-      exact allowed (Or.inr (Or.inl (by rw [bad]; exact Nat.zero_le _)))
-    obtain ⟨spelling, identifier⟩ := Named.identifierEnd_sound text (skipAt text position)
-      (by simpa only [nameAfter, firstNonzero, ↓reduceIte] using afterNonzero)
-    have parsed : Named.IdentifierAt text (skipAt text position) spelling
-        (nameAfter text (skipAt text position)) := by
-      simpa only [nameAfter, firstNonzero, ↓reduceIte] using identifier
+      exact allowed (Or.inr (by rw [bad]; exact Nat.zero_le _))
+    have parsed : QualifiedNames.At text position (ScalarExpression.readReference text position) :=
+      QualifiedNames.read_sound text position afterNonzero
+    have bound := reference_after_bounded parsed
     split
-    · rename_i found
-      exact ⟨⟨_, .name parsed found⟩, model_name_valid text _⟩
-    · rename_i absent
-      have noName := Classical.not_not.mp absent
+    · split
+      · rename_i found
+        exact ⟨⟨_, .name parsed found⟩, bound⟩
+      · simp_all
+    · rename_i unqualified
+      have bare := reference_unqualified parsed (Classical.not_not.mp unqualified)
       split
-      · rename_i literal
-        simp only [Bool.or_eq_true, Bool.and_eq_true] at literal
-        rcases literal with trueName | falseName
-        · exact ⟨⟨.booleanLiteral true, .literal parsed noName trueName.1⟩,
-            model_name_valid text _⟩
-        · exact ⟨⟨.booleanLiteral false, .literal parsed noName falseName.1⟩,
-            model_name_valid text _⟩
-      · simp_all only [Bool.false_eq_true, ↓reduceIte, ne_eq, not_true_eq_false]
+      · simp_all only [↓reduceIte, ne_eq, not_true_eq_false]
+      · split
+        · rename_i found
+          exact ⟨⟨_, .name parsed (by simpa only [bare.1, bare.2] using found)⟩, bound⟩
+        · rename_i absent
+          have noName := Classical.not_not.mp absent
+          split
+          · rename_i literal
+            simp only [Bool.or_eq_true, Bool.and_eq_true] at literal
+            rcases literal with trueName | falseName
+            · exact ⟨⟨.booleanLiteral true, .literal parsed bare
+                (by simpa only [bare.1, bare.2] using noName) trueName.1⟩, bound⟩
+            · exact ⟨⟨.booleanLiteral false, .literal parsed bare
+                (by simpa only [bare.1, bare.2] using noName) falseName.1⟩, bound⟩
+          · simp_all only [Bool.false_eq_true, ↓reduceIte, ne_eq, not_true_eq_false]
 
 mutual
   theorem primary_sound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
@@ -154,12 +160,12 @@ mutual
               | false => simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, invalidCondition] at accepted
               | true => rfl
             have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayTable
-                (context.validityHidden text) context.booleanNames ≠ 0 := by
+                (context.validityHidden text) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0 := by
               intro failed
               simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, failed, invalidCondition] at accepted
             simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, finalPositive]
             exact ⟨⟨.inputValid, .valid zero noOpening noArray noAtom arguments finalPositive⟩,
-              Names.operationAfter_bound text position .validity _ bounded⟩
+              Names.operationAfter_bound text position .validity _ context.contextFirst context.packageFirst context.packageAfter bounded⟩
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 

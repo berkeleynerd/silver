@@ -30,11 +30,11 @@ set_option backward.dsimp.instances true
 abbrev outputStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
   {scan with
     position := Names.associationAfter text
-      (fixedAfter text (callAfter (arrays := context.arrayTable) (subtypeHidden := context.subtypeHiding.get .output) (booleans := context.booleanNames) text context.names scan.position .output context.scalarNames) "(" false) false}
+      (fixedAfter text (callAfter (arrays := context.arrayTable) (subtypeHidden := context.subtypeHiding.get .output) (booleans := context.booleanNames) (contextFirst := context.contextFirst) (packageFirst := context.packageFirst) (packageAfter := context.packageAfter) text context.names scan.position .output context.scalarNames) "(" false) false}
 abbrev putStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
   {scan with
     position := Names.associationAfter text
-      (fixedAfter text (callAfter (arrays := context.arrayTable) (subtypeHidden := context.subtypeHiding.get .partialOutput) (booleans := context.booleanNames) text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
+      (fixedAfter text (callAfter (arrays := context.arrayTable) (subtypeHidden := context.subtypeHiding.get .partialOutput) (booleans := context.booleanNames) (contextFirst := context.contextFirst) (packageFirst := context.packageFirst) (packageAfter := context.packageAfter) text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
 abbrev assignmentTarget (text : Source) (context : ParseContext) (scan : BodyScan) : ParserState :=
   targetAt text (parserState context scan) false
 abbrev assignmentStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
