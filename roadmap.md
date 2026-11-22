@@ -75,13 +75,18 @@ The owner selected the five foundations below and Ravenscar profile support as
 near-term planning priorities, followed immediately by a Jorvik reassessment.
 PR #412's review response, focused proof review and applicable validation
 completed on November 22, with its final implementation and proof inputs
-preserved. It is ready for an owner-authorized merge before successor work.
-The proposed successor is
+preserved. The owner authorized its merge, completed as `e61805d3f6`.
+Following its merge, the owner selected #416 and the upfront #421 runtime/profile
+feasibility check, with relevant Rosetta samples included at each feature delivery.
+The [dated implementation authorization](docs/session-memory.md#2026-11-22--bounded-packages-and-ravenscar-feasibility-authorized)
+starts this increment; later tasking implementation remains planned.
+The active delivery sequence is
 [milestone 28, Ravenscar foundations](https://github.com/berkeleynerd/silver/milestone/28);
 its [bounded plan](docs/ravenscar-tasking-plan.md) records scope, dependencies,
-assurance questions and completion criteria. This instruction authorizes planning
-and priority, not feature implementation or merge. All six implementation issues
-remain Backlog; packages are the first implementation increment once authorized.
+assurance questions and completion criteria. Packages are now the selected
+implementation increment; #421 starts
+with feasibility and remains incomplete until its later integration. The other
+four implementation issues remain Backlog. Feature merge is a separate decision.
 
 | Order | Planned increment | Issue |
 | --- | --- | --- |

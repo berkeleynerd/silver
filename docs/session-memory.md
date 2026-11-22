@@ -1,5 +1,28 @@
 # Session memory
 
+## 2026-11-22 — Bounded packages and Ravenscar feasibility authorized
+
+After PR #412 merged, the owner instructed **“Proceed. As we proceed, be sure
+to add any relevant rosetta samples unlocked by each new language feature.”**
+This selects [#416](https://github.com/berkeleynerd/silver/issues/416), bounded
+library packages and application units, with the upfront pinned-runtime and
+profile feasibility check from [#421](https://github.com/berkeleynerd/silver/issues/421).
+Implementation, complete applicable assurance, independent review, relevant
+Rosetta samples and the accompanying feature PR are authorized. The next feature's
+merge and the remaining tasking increments are not selected by this instruction.
+
+Assess newly enabled Rosetta tasks with each feature, add faithful runnable
+samples within its delivered rules, and update the assessments, precise supported
+identifiers, generated pages and stage bookkeeping at delivery. Do not substitute
+sample expansion for language work or claim a task whose required interface is
+still excluded. Record any remaining blockers in the existing assessments.
+
+The [Ravenscar plan](ravenscar-tasking-plan.md) keeps packages first, configuration
+and runtime feasibility upfront, and Jorvik reassessment after Ravenscar delivery.
+Use the host's shared eight-CPU allocation and existing managed runners. Preserve
+the installed tools/caches and unrelated root edits. Worca remains stopped and
+PR #385 remains held. CLI memory was not updated.
+
 ## 2026-11-22 — PR #412 merge authorized
 
 After the final readiness assessment, the owner instructed **“Please merge.”**
