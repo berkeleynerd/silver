@@ -8028,7 +8028,7 @@ is
          return Result;
       elsif Found /= 0 and then Frame.Boolean_Names.Items (Found).Known then
          return (Reference.After, Frame.Boolean_Names.Items (Found).Value);
-      elsif Reference.Qualifier_First = 0 and then Reference.First /= 0
+      elsif Found = 0 and then Reference.Qualifier_First = 0 and then Reference.First /= 0
         and then Reference.After > Reference.First
         and then Boolean_Atom_After (Text, Context_Of ((Frame, False, False)), Position) /= 0
       then
