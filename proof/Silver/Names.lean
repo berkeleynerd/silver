@@ -1,6 +1,7 @@
 module
 
 public import Silver.Cursor
+public import Silver.NamedIdentifier
 
 @[expose] public section
 
@@ -37,6 +38,50 @@ structure State where
 def invalidContext : Context := {}
 def initialState : State := {context := {after := 1}}
 def invalidState : State := {complete := true}
+
+/-- Exactly the native optional-span predicate; the selected span need not
+itself satisfy an identifier grammar. -/
+def ValidNameState (text : Source) (first after : Nat) : Prop :=
+  (first = 0 ∧ after = 0) ∨ (0 < first ∧ first < after ∧ after ≤ text.length + 1)
+
+def ValidContext (text : Source) (contextFirst packageFirst packageAfter : Nat) : Prop :=
+  1 ≤ contextFirst ∧ contextFirst ≤ text.length + 1 ∧
+    ValidNameState text packageFirst packageAfter
+
+theorem validContext_default (text : Source) : ValidContext text 1 0 0 := by
+  simp [ValidContext, ValidNameState]
+
+/-- Match one complete identifier against the selected source span. This does
+not use the bounded fixed-word spelling helper. -/
+def packageNameAfter (text : Source) (position packageFirst packageAfter : Nat) : Nat :=
+  if position = 0 ∨ packageFirst = 0 then 0
+  else
+    let first := Cursor.triviaPosition text position
+    let after := Named.identifierEnd text first
+    if after = 0 then 0
+    else if Named.equalName text first after packageFirst packageAfter then after else 0
+
+@[simp] theorem packageNameAfter_absent (text : Source) (position packageAfter : Nat) :
+    packageNameAfter text position 0 packageAfter = 0 := by simp [packageNameAfter]
+
+theorem packageNameAfter_progress (text : Source) (position packageFirst packageAfter : Nat)
+    (bound : position ≤ text.length + 1) :
+    packageNameAfter text position packageFirst packageAfter = 0 ∨
+      (position < packageNameAfter text position packageFirst packageAfter ∧
+        packageNameAfter text position packageFirst packageAfter ≤ text.length + 1) := by
+  unfold packageNameAfter
+  split
+  · exact Or.inl rfl
+  · rename_i present
+    have trivia := Cursor.triviaPosition_bounds text position (by omega) bound
+    dsimp only
+    split
+    · exact Or.inl rfl
+    · rename_i matched
+      have identifier := Named.identifierEnd_bounds text _ matched
+      split
+      · exact Or.inr ⟨by omega, identifier.2⟩
+      · exact Or.inl rfl
 
 def fixedAt (text : Source) (position : Nat) (spelling : String) (word : Bool) : Bool :=
   let bytes := spelling.toList.map Char.toNat
@@ -91,7 +136,7 @@ theorem take_after_range (text : Source) (position after : Nat) (spelling : Stri
 
 /-- One token step of the context grammar. A use-clause sees only preceding
 with-clauses; repetitions preserve the same visibility flags. -/
-def contextStep (text : Source) (state : State) : State :=
+def contextStep (text : Source) (state : State) (packageFirst packageAfter : Nat) : State :=
   if state.context.after = 0 then invalidState
   else if state.complete then state
   else if state.mode = .clauseStart then
@@ -103,12 +148,14 @@ def contextStep (text : Source) (state : State) : State :=
   else if state.mode = .withName ∨ state.mode = .useName then
     let i := take text state.context.after "silver_io" true
     let a := take text state.context.after "silver_arguments" true
-    if i = 0 ∧ a = 0 then invalidState
+    let p := if state.mode = .withName then
+      packageNameAfter text state.context.after packageFirst packageAfter else 0
+    if i = 0 ∧ a = 0 ∧ p = 0 then invalidState
     else if state.mode = .useName ∧ ((i ≠ 0 ∧ !state.context.ioWith) ∨
         (a ≠ 0 ∧ !state.context.argumentsWith)) then invalidState
     else
       { context :=
-          { after := (if i ≠ 0 then i else a)
+          { after := (if i ≠ 0 then i else if a ≠ 0 then a else p)
             ioWith := state.context.ioWith || (i != 0 && state.mode == .withName)
             argumentsWith := state.context.argumentsWith || (a != 0 && state.mode == .withName)
             ioUse := state.context.ioUse || (i != 0 && state.mode == .useName)
@@ -122,49 +169,72 @@ def contextStep (text : Source) (state : State) : State :=
     else if c ≠ 0 then {state with context := {state.context with after := c}, mode := (if state.mode = .withSeparator then .withName else .useName)}
     else invalidState
 
-theorem contextStep_progress (text : Source) (state : State)
+theorem contextStep_progress (text : Source) (state : State) (packageFirst packageAfter : Nat)
     (bound : state.context.after ≤ text.length + 1) :
-    (contextStep text state).context.after ≤ text.length + 1 ∧
-    ((contextStep text state).context.after = 0 ∨
-      (state.context.after ≤ (contextStep text state).context.after ∧
-        ((contextStep text state).complete = true ∨
-          state.context.after < (contextStep text state).context.after))) := by
+    (contextStep text state packageFirst packageAfter).context.after ≤ text.length + 1 ∧
+    ((contextStep text state packageFirst packageAfter).context.after = 0 ∨
+      (state.context.after ≤ (contextStep text state packageFirst packageAfter).context.after ∧
+        ((contextStep text state packageFirst packageAfter).complete = true ∨
+          state.context.after < (contextStep text state packageFirst packageAfter).context.after))) := by
   have w := take_progress text state.context.after "with" true bound (by decide)
   have u := take_progress text state.context.after "use" true bound (by decide)
   have i := take_progress text state.context.after "silver_io" true bound (by decide)
   have a := take_progress text state.context.after "silver_arguments" true bound (by decide)
   have s := take_progress text state.context.after ";" false bound (by decide)
   have c := take_progress text state.context.after "," false bound (by decide)
+  have p := packageNameAfter_progress text state.context.after packageFirst packageAfter bound
   unfold contextStep
   repeat' first | split | (dsimp only)
   all_goals simp_all [invalidState] <;> omega
 
+/-- Selecting an application package adds no use-clause alternative. -/
+theorem contextStep_use_package_independent (text : Source) (state : State)
+    (packageFirst packageAfter : Nat) (mode : state.mode = .useName) :
+    contextStep text state packageFirst packageAfter = contextStep text state 0 0 := by
+  simp [contextStep, mode]
+
+/-- A selected application name preserves all runtime visibility flags when
+it is distinct from the two runtime names at this source position. -/
+theorem contextStep_package_with (text : Source) (state : State)
+    (packageFirst packageAfter : Nat) (positive : state.context.after ≠ 0)
+    (active : state.complete = false) (mode : state.mode = .withName)
+    (noIO : take text state.context.after "silver_io" true = 0)
+    (noArguments : take text state.context.after "silver_arguments" true = 0)
+    (matched : packageNameAfter text state.context.after packageFirst packageAfter ≠ 0) :
+    contextStep text state packageFirst packageAfter =
+      ⟨{state.context with after := packageNameAfter text state.context.after packageFirst packageAfter},
+        .withSeparator, false⟩ := by
+  simp [contextStep, positive, active, mode, noIO, noArguments, matched]
+
 /-- The native recursive contract is total on its bounded source domain. -/
-def contextTail (text : Source) (state : State) : Context :=
+def contextTail (text : Source) (state : State) (packageFirst packageAfter : Nat) : Context :=
   if _bound : state.context.after ≤ text.length + 1 then
     if state.context.after = 0 then invalidContext
     else if state.complete then state.context
     else
-      let next := contextStep text state
-      if next.context.after = 0 then invalidContext else contextTail text next
+      let next := contextStep text state packageFirst packageAfter
+      if next.context.after = 0 then invalidContext else contextTail text next packageFirst packageAfter
   else invalidContext
 termination_by 2 * (text.length + 1 - state.context.after) + (if state.complete then 0 else 1)
 decreasing_by
-  change 2 * (text.length + 1 - (contextStep text state).context.after) +
-      (if (contextStep text state).complete then 0 else 1) <
+  change 2 * (text.length + 1 - (contextStep text state packageFirst packageAfter).context.after) +
+      (if (contextStep text state packageFirst packageAfter).complete then 0 else 1) <
     2 * (text.length + 1 - state.context.after) + (if state.complete then 0 else 1)
-  have progress := contextStep_progress text state _bound
+  have progress := contextStep_progress text state packageFirst packageAfter _bound
   rcases progress.2 with zero | ⟨monotone, complete | advancing⟩
-  all_goals cases finished : (contextStep text state).complete <;> simp_all +zetaDelta <;> omega
+  all_goals cases finished : (contextStep text state packageFirst packageAfter).complete <;> simp_all +zetaDelta <;> omega
 
-def readContext (text : Source) : Context := contextTail text initialState
+def readContext (text : Source) (contextFirst : Nat := 1)
+    (packageFirst : Nat := 0) (packageAfter : Nat := 0) : Context :=
+  contextTail text {initialState with context := {after := contextFirst}} packageFirst packageAfter
 
 def contextAfter (text : Source) (arguments : Bool) : Nat :=
   let context := readContext text
   if context.ioWith && (context.argumentsWith == arguments) then context.after else 0
 
-def operationAfter (text : Source) (position : Nat) (operation : Operation) (hidden : Bool) : Nat :=
-  let context := readContext text
+def operationAfter (text : Source) (position : Nat) (operation : Operation) (hidden : Bool)
+    (contextFirst : Nat := 1) (packageFirst : Nat := 0) (packageAfter : Nat := 0) : Nat :=
+  let context := readContext text contextFirst packageFirst packageAfter
   let visible := if operation = .output ∨ operation = .partialOutput then context.ioWith else context.argumentsWith
   let used := if operation = .output ∨ operation = .partialOutput then context.ioUse else context.argumentsUse
   let qualified := take text (take text position
@@ -178,29 +248,35 @@ def associationAfter (text : Source) (position : Nat) (default : Bool) : Nat :=
   let named := take text (take text position (if default then "default" else "item") true) "=>" false
   if named ≠ 0 then named else position
 
-@[simp] theorem operationAfter_zero (text : Source) (operation : Operation) (hidden : Bool) :
-    operationAfter text 0 operation hidden = 0 := by simp [operationAfter]
+@[simp] theorem operationAfter_zero (text : Source) (operation : Operation) (hidden : Bool)
+    (contextFirst packageFirst packageAfter : Nat) :
+    operationAfter text 0 operation hidden contextFirst packageFirst packageAfter = 0 := by simp [operationAfter]
 
 @[simp] theorem associationAfter_zero (text : Source) (default : Bool) :
     associationAfter text 0 default = 0 := by simp [associationAfter]
 
-theorem contextTail_bound (text : Source) (state : State) :
-    (contextTail text state).after ≤ text.length + 1 := by
-  induction state using contextTail.induct text <;> rw [contextTail] <;> dsimp only at *
-  all_goals (repeat' split) <;> simp_all [invalidContext] <;> omega
+theorem contextTail_bound (text : Source) (state : State) (packageFirst packageAfter : Nat) :
+    (contextTail text state packageFirst packageAfter).after ≤ text.length + 1 := by
+  fun_induction contextTail text state packageFirst packageAfter <;>
+    simp_all [invalidContext] <;> omega
+
+theorem readContext_bound (text : Source) (contextFirst packageFirst packageAfter : Nat) :
+    (readContext text contextFirst packageFirst packageAfter).after ≤ text.length + 1 :=
+  contextTail_bound text _ packageFirst packageAfter
 
 theorem contextAfter_bound (text : Source) (arguments : Bool) :
     contextAfter text arguments ≤ text.length + 1 := by
-  have bounded := contextTail_bound text initialState
-  unfold contextAfter readContext
+  have bounded := readContext_bound text 1 0 0
+  unfold contextAfter
   dsimp only
   split <;> simp_all
 
 theorem operationAfter_range (text : Source) (position : Nat) (operation : Operation) (hidden : Bool)
+    (contextFirst packageFirst packageAfter : Nat)
     (bound : position ≤ text.length + 1) :
-    operationAfter text position operation hidden = 0 ∨
-      (position < operationAfter text position operation hidden ∧
-        operationAfter text position operation hidden ≤ text.length + 1) := by
+    operationAfter text position operation hidden contextFirst packageFirst packageAfter = 0 ∨
+      (position < operationAfter text position operation hidden contextFirst packageFirst packageAfter ∧
+        operationAfter text position operation hidden contextFirst packageFirst packageAfter ≤ text.length + 1) := by
   have packageName : 0 < (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments").toList.length := by
     cases operation <;> decide
   have operationName : 0 < operation.name.toList.length := by cases operation <;> decide
@@ -213,16 +289,18 @@ theorem operationAfter_range (text : Source) (position : Nat) (operation : Opera
   all_goals simp_all <;> omega
 
 theorem operationAfter_bound (text : Source) (position : Nat) (operation : Operation) (hidden : Bool)
+    (contextFirst packageFirst packageAfter : Nat)
     (bound : position ≤ text.length + 1) :
-    operationAfter text position operation hidden ≤ text.length + 1 := by
-  rcases operationAfter_range text position operation hidden bound with zero | good
+    operationAfter text position operation hidden contextFirst packageFirst packageAfter ≤ text.length + 1 := by
+  rcases operationAfter_range text position operation hidden contextFirst packageFirst packageAfter bound with zero | good
   · rw [zero]; omega
   · exact good.2
 
 theorem operationAfter_progress (text : Source) (position : Nat) (operation : Operation) (hidden : Bool)
-    (bound : position ≤ text.length + 1) (accepted : operationAfter text position operation hidden ≠ 0) :
-    position < operationAfter text position operation hidden := by
-  exact ((operationAfter_range text position operation hidden bound).resolve_left accepted).1
+    (contextFirst packageFirst packageAfter : Nat)
+    (bound : position ≤ text.length + 1) (accepted : operationAfter text position operation hidden contextFirst packageFirst packageAfter ≠ 0) :
+    position < operationAfter text position operation hidden contextFirst packageFirst packageAfter := by
+  exact ((operationAfter_range text position operation hidden contextFirst packageFirst packageAfter bound).resolve_left accepted).1
 
 theorem associationAfter_range (text : Source) (position : Nat) (default : Bool)
     (bound : position ≤ text.length + 1) :
@@ -245,12 +323,13 @@ theorem associationAfter_progress (text : Source) (position : Nat) (default : Bo
   (associationAfter_range text position default bound).1
 
 theorem contextTail_use_without_with (text : Source) (context : Context)
+    (packageFirst packageAfter : Nat)
     (noIO : context.ioWith = false) (noArguments : context.argumentsWith = false) :
-    contextTail text {context, mode := .useName} = invalidContext := by
-  have stepBad : contextStep text {context, mode := .useName} = invalidState := by
+    contextTail text {context, mode := .useName} packageFirst packageAfter = invalidContext := by
+  have stepBad : contextStep text {context, mode := .useName} packageFirst packageAfter = invalidState := by
     unfold contextStep
     repeat' first | split | (dsimp only)
-    all_goals simp_all [invalidState] <;> omega
+    all_goals simp_all <;> omega
   rw [contextTail]
   dsimp only
   split
@@ -266,12 +345,12 @@ theorem contextAfter_firstWith (text : Source) (arguments : Bool)
     unfold readContext
     rw [contextTail]
     simp +instances only [initialState, Nat.le_add_left, ↓reduceDIte, Nat.one_ne_zero, Bool.false_eq_true, ↓reduceIte]
-    have start : contextStep text initialState =
+    have start : contextStep text initialState 0 0 =
         if take text 1 "use" true ≠ 0 then
           {context := {after := take text 1 "use" true}, mode := .useName}
         else {context := {after := 1}, complete := true} := by
       by_cases used : take text 1 "use" true = 0 <;> simp [contextStep, initialState, absent, used]
-    have start' : contextStep text {context := {after := 1}} =
+    have start' : contextStep text {context := {after := 1}} 0 0 =
         if take text 1 "use" true ≠ 0 then
           {context := {after := take text 1 "use" true}, mode := .useName}
         else {context := {after := 1}, complete := true} := start
@@ -281,7 +360,7 @@ theorem contextAfter_firstWith (text : Source) (arguments : Bool)
       rw [contextTail]
       simp
     · simp +instances only [used, ne_eq, not_false_eq_true, ↓reduceIte]
-      rw [contextTail_use_without_with text _ rfl rfl]
+      rw [contextTail_use_without_with text _ 0 0 rfl rfl]
       rfl
   simp [contextAfter, noIO] at accepted
 
