@@ -1,0 +1,312 @@
+{
+  "source_sha256": "c1a59b4b655fec3a25f6d27eaa56b3a20572441d41fa6532e054a7cfd81efec5",
+  "scope": "Conservative helper inventory; successful prior whole-unit checks are retained evidence and still require final provenance matching. No complete Output_Profile or compiler assurance is claimed.",
+  "completed_canonical_units": {
+    "silver_package_bindings.adb": {
+      "run": "20261122T131900-f578f694ab88",
+      "checks": 149
+    },
+    "silver_names.adb": {
+      "run": "20261122T133120-51dd981388d0",
+      "checks": 135
+    },
+    "silver_scalar_expressions.adb": {
+      "run": "20261122T145409-e3b75ceb67be",
+      "checks": 312,
+      "flow": 43,
+      "proof": 269,
+      "entities": 23,
+      "policy": "final-policy"
+    }
+  },
+  "output_profile_new_helpers": [
+    {
+      "name": "Package_Word",
+      "current_lines": [
+        7891
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Spark_Pragma_After",
+      "current_lines": [
+        7908
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Name_Allowed",
+      "current_lines": [
+        7922
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Name_Fresh",
+      "current_lines": [
+        7939
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Type_At",
+      "current_lines": [
+        7961
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Static_Boolean_At",
+      "current_lines": [
+        7997,
+        8109
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Static_Boolean_Primary",
+      "current_lines": [
+        8007
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Static_Boolean_Factor",
+      "current_lines": [
+        8045
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Static_Boolean_Relation",
+      "current_lines": [
+        8063
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Outer_Declaration",
+      "current_lines": [
+        8138
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Hide_Outer",
+      "current_lines": [
+        8146
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Object_At",
+      "current_lines": [
+        8222
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Append_Package_Formal",
+      "current_lines": [
+        8303
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T165616-d68c94f0ca7f",
+      "checks": 9
+    },
+    {
+      "name": "Package_Signature_At",
+      "current_lines": [
+        8366
+      ],
+      "coverage": "complete-helper-failed",
+      "run": "20261122T165753-f61735da6ae4",
+      "checks": 66,
+      "unproved": 2
+    },
+    {
+      "name": "Package_Spec_At",
+      "current_lines": [
+        8539
+      ],
+      "coverage": "prior-complete-helper-failed-repair-pending",
+      "run": "20261122T154517-101a5dc5fa74",
+      "unproved": 9
+    },
+    {
+      "name": "Application_Of",
+      "current_lines": [
+        8631
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Invalid_Application",
+      "current_lines": [
+        8633
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Visible_State",
+      "current_lines": [
+        8636
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "State_Target",
+      "current_lines": [
+        8661
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "State_Reads",
+      "current_lines": [
+        8676
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Callee",
+      "current_lines": [
+        8700
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Call_At",
+      "current_lines": [
+        8740
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Application_Basic",
+      "current_lines": [
+        8870
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Application_Statement",
+      "current_lines": [
+        8921,
+        8974
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Application_Tail",
+      "current_lines": [
+        8937
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Routine_Frame",
+      "current_lines": [
+        9140
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Completion_At",
+      "current_lines": [
+        9183
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Body_At",
+      "current_lines": [
+        9306
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Imported_Frame",
+      "current_lines": [
+        9358
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Same_Package_Spelling",
+      "current_lines": [
+        9392
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Package_Main_At",
+      "current_lines": [
+        9406
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Charge_Unit",
+      "current_lines": [
+        9449
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Analyze_Application",
+      "current_lines": [
+        9492
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Analyze_Model",
+      "current_lines": [
+        9531
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Analyze",
+      "current_lines": [
+        9533
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Is_Application_Member",
+      "current_lines": [
+        9535
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Accepts_Application",
+      "current_lines": [
+        9537
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Imported_Package",
+      "current_lines": [
+        9540
+      ],
+      "coverage": "pending"
+    }
+  ],
+  "other_changed_output_profile_helpers": "Pending; conservative historical inventory remains in tmp/package-native-helper-map.json. Complete changed-helper/caller coverage is required before integration.",
+  "next_dependencies_before_spec": [
+    "Package_Word",
+    "Spark_Pragma_After",
+    "Package_Name_Allowed",
+    "Package_Name_Fresh",
+    "Package_Type_At",
+    "Hide_Outer",
+    "Static_Boolean_Primary/Factor/Relation/At recursive group",
+    "Package_Object_At",
+    "Package_Signature_At repaired full check",
+    "Package_Spec_At"
+  ]
+}

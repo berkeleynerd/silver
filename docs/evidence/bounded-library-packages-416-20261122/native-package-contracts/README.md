@@ -1,0 +1,73 @@
+# Package helper contract diagnosis — 2026-11-22
+
+Linux x86-64, selected proof/diagnosis role GPT-6 Astra Max. Actual live model
+settings and whole-team token/cost data are not independently exposed.
+
+The original complete Package_Spec_At check `20261122T154517-101a5dc5fa74`
+failed at one postcondition and eight preconditions after 2,235.074 seconds.
+Eight obligations need retained loop state/cursor facts; the Hide_Name call also
+needs a successful Signature result to expose the newly stored name span.
+Failed evidence remains failed. No complete native checkpoint is claimed.
+
+The smallest repair adds the exact-effect Append_Package_Formal postcondition
+over its unchanged entry domain, Signature state/count/span loop invariants and
+successful stored-name span, and Spec state/cursor loop invariants. It changes
+no executable branch, accepted source, input domain or obligation policy.
+The retained Ada snapshot binds the first repaired input bytes.
+
+Complete Append_Package_Formal passed `20261122T163240-25edb73c029b`: one entity,
+9 checks (1 flow, 8 proof), 32.854 seconds, two workers within the shared eight-CPU
+host allocation. Command: `python3 scripts/dev.py prove --subprogram
+silver_output_profile.adb:8302 --task packages-416-append-formal-contract --jobs 2
+--resource-reason "Share the host eight-CPU allocation with concurrent package
+source and semantic proof checks"`. The canonical final-policy focus retains
+all checks, level 2, cvc5/z3/altergo and the unchanged 30-second timeout.
+
+Signature and Spec remain pending at this retained helper checkpoint. Successful
+callee proof does not replace caller, other helper or complete compiler assurance.
+Managed records retain exact inputs/tool identities; compressed native logs and
+selected reports distinguish failure from successful whole-helper coverage.
+
+## Signature diagnosis and explicit preserved components
+
+Run `20261122T163400-329302598e53` checked the complete Signature helper on
+the first repaired input. It failed after 968.467 seconds: 66 obligations total,
+14 flow plus 50 proof discharged, with two unproved checks. The successful
+stored-name postcondition and all cursor/count/span invariants passed. The two
+failures are state-loop preservation (array metadata) and the later result-type
+parser precondition (function metadata), both requiring unchanged frame fields.
+
+The second repair retains the exact-effect postcondition and additionally exposes
+the unchanged components directly. The first attempt
+`20261122T165344-79c744c44108` stopped before obligations because equality for
+Array_Bindings.Environment needed a visible operator. Adding its ordinary
+`use type` clause resolved that compilation error. Full Append verification then
+passed `20261122T165616-d68c94f0ca7f` again with 9 checks (1 flow, 8 proof).
+This input is retained separately in `preserved-components-input.adb.gz`; the
+Signature retry uses the same bytes. No precondition/domain narrowing, executable
+branch change, suppression or alternate solver policy was introduced.
+
+## Repeated Signature boundary and next diagnosis
+
+The second complete Signature check `20261122T165753-f61735da6ae4` failed after
+1,091.957 seconds with the same two unresolved obligations: loop preservation at
+8432 (reported Array_Bindings.Valid_Environment) and the result-type parser
+precondition at 8511 (reported Functions.Valid_Metadata). There were 66 checks:
+14 flow and 50 proof checks passed, two proof checks remain unproved. The source
+SHA256 was `c1a59b4b655fec3a25f6d27eaa56b3a20572441d41fa6532e054a7cfd81efec5`.
+The unchanged `preserved-components-input.adb.gz` binds these bytes. Both calls
+retain all checks, canonical final-policy solvers and timeout, and two workers.
+
+Direct unchanged-field equalities therefore do not resolve this caller's
+quantified validity obligations. No third identical retry was started. The next
+diagnostic inspects the generated checks and whether explicit component validity
+cut points can preserve the complete Valid_State requirement while splitting
+the monolithic quantified proof. No domain restriction or validity conjunct may
+be removed. The failed result is a checkpoint, not successful helper evidence.
+
+`coverage.json` records retained whole-unit successes and current package-helper
+status. Append is the only new Output_Profile helper with complete canonical
+success so far. Signature and Spec remain unresolved, all other new package
+helpers and affected callers need complete coverage, and the later integrated
+native/source checkpoint remains required. The existing runner takes one unit
+or one subprogram selector; no multi-subprogram batching is claimed.

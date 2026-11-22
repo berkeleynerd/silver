@@ -46,6 +46,7 @@ is
    use type Names.Operation_Kind;
    use type Scalar_Expressions.Binding;
    use type Array_Bindings.Binding;
+   use type Array_Bindings.Environment;
    use type Array_Bindings.Array_Type;
    use type Functions.Signature_Array;
    use type Functions.Formal_Array;
@@ -8303,7 +8304,40 @@ is
      (Frame : in out Parser_State; Name : Packages.Name_Span;
       Mark : Package_Type_Result; Mode : Procedures.Parameter_Mode)
      with Global => null,
-       Pre => Name.First > 0 and then Name.After > Name.First
+       Pre => Name.First > 0 and then Name.After > Name.First,
+       Post => Frame.Context_First = Frame'Old.Context_First
+         and then Frame.Package_First = Frame'Old.Package_First
+         and then Frame.Package_After = Frame'Old.Package_After
+         and then Frame.Functions = Frame'Old.Functions
+         and then Frame.Procedures = Frame'Old.Procedures
+         and then Frame.First_Parameter = Frame'Old.First_Parameter
+         and then Frame.First_Procedure_Parameter = Frame'Old.First_Procedure_Parameter
+         and then Frame.Names = Frame'Old.Names
+         and then Frame.Array_Names = Frame'Old.Array_Names
+         and then Frame.Subtype_Names = Frame'Old.Subtype_Names
+         and then Frame.Dynamic_First = Frame'Old.Dynamic_First
+         and then Frame.Dynamic_After = Frame'Old.Dynamic_After
+         and then Frame.Target = Frame'Old.Target
+         and then Frame.Pure = Frame'Old.Pure
+         and then Frame.Assigned_In_Functions = Frame'Old.Assigned_In_Functions
+         and then Frame.Hiding = Frame'Old.Hiding
+         and then Frame.Capacity = Frame'Old.Capacity
+         and then (if Mark.Kind = Functions.Integer_Kind
+           and then Frame'Old.Scalar_Names.Count < Scalar_Expressions.Max_Bindings
+         then Frame = (Frame'Old with delta Scalar_Names =>
+           Scalar_Expressions.Append
+             (Frame'Old.Scalar_Names,
+              (Name.First, Name.After, Mark.Bounds, False,
+               Mark.Bounds, Mode /= Procedures.Input, 0, 0)))
+         elsif Mark.Kind = Functions.Boolean_Kind
+           and then Frame'Old.Boolean_Names.Count < Max_Boolean_Bindings
+         then Frame = (Frame'Old with delta Boolean_Names =>
+           (Count => Frame'Old.Boolean_Names.Count + 1,
+            Items => (Frame'Old.Boolean_Names.Items with delta
+              Frame'Old.Boolean_Names.Count + 1 =>
+                (Name.First, Name.After, Mode /= Procedures.Input,
+                 0, 0, False, False))))
+         else Frame = (Frame'Old with delta Position => 0))
    is
    begin
       if Mark.Kind = Functions.Integer_Kind then
@@ -8337,6 +8371,12 @@ is
          and then Valid_State (Text, Outer),
        Post => Valid_State (Text, Header)
          and then (Header.Position = 0 or else Header.Position > Outer.Position)
+         and then (if Header.Position /= 0 and then not Completing then
+           Info.Routine_Count > 0
+             and then Info.Routines (Info.Routine_Count).Spec_Name.First > 0
+             and then Valid_Name_State (Text,
+               Info.Routines (Info.Routine_Count).Spec_Name.First,
+               Info.Routines (Info.Routine_Count).Spec_Name.After))
    is
       Original : constant Literal_Position := Skip_At (Text, Outer.Position);
       Function_End : constant Literal_Position := Take_Token (Text, Outer.Position, Function_Keyword);
@@ -8389,6 +8429,17 @@ is
       if Open /= 0 then
          Header.Position := Open;
          loop
+            pragma Loop_Invariant (Valid_State (Text, Header));
+            pragma Loop_Invariant (Header.Position > 0);
+            pragma Loop_Invariant (Formal_Count <= Info.Parameter_Count);
+            pragma Loop_Invariant
+              (if Formal_Count > 0 then Formal_Start > 0
+                 and then Formal_Start <= Info.Parameter_Count
+                 and then Formal_Count <= Info.Parameter_Count - Formal_Start + 1);
+            pragma Loop_Invariant
+              (if Completing then Formal_Start = Item.Formal_First
+                 and then Formal_Count <= Item.Count
+                 and then Info.Parameter_Count = Info'Loop_Entry.Parameter_Count);
             pragma Loop_Variant (Increases => Header.Position);
             Before := Header.Position;
             First := Skip_At (Text, Header.Position);
@@ -8508,6 +8559,8 @@ is
         Package_First => First, Package_After => Last);
       if Exports.Position = 0 then return; end if;
       loop
+         pragma Loop_Invariant (Valid_State (Text, Exports));
+         pragma Loop_Invariant (Exports.Position > 0);
          pragma Loop_Variant (Increases => Exports.Position);
          Before := Exports.Position;
          exit when Take_Token (Text, Exports.Position, End_Keyword) /= 0;
