@@ -1,0 +1,10 @@
+{
+  "authorization": "Root message 2026-11-22: copy exact primary silver_platform.ads into idle audit tree before queued projection/platform focus",
+  "source_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410",
+  "source_head": "02608f162241c8ea929278c9dee129c538e58893",
+  "path": "src/silver_platform.ads",
+  "previous_sha256": "bc09421f220120e7b3b0966f9b2f15c27bdab48a1a714e7e5e9562f9c14fa997",
+  "copied_sha256": "6340529cdc1ef0c354c86519b57400600168e6e70cfed2fcb0ebb46ad6a8cc0d",
+  "change": "Max_File_Length 67108864 to 268435456",
+  "evidence_boundary": "Retained library run20261122T144237-3583a335264c and its packet keep their original platform bytes; no retroactive whole-tree applicability claim."
+}

@@ -1,0 +1,44 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+----------------------------------------------------------------------------------------------------------------------
+SPARK Analysis results        Total        Flow                                         Provers   Justified   Unproved
+----------------------------------------------------------------------------------------------------------------------
+Data Dependencies                 5           5                                               .           .          .
+Flow Dependencies                 .           .                                               .           .          .
+Initialization                   30          30                                               .           .          .
+Non-Aliasing                      .           .                                               .           .          .
+Run-time Checks                  89           .                89 (CVC5 9%, Z3 87%, altergo 3%)           .          .
+Assertions                       21           .                         21 (Z3 97%, altergo 3%)           .          .
+Functional Contracts             22           .    22 (CVC5 6%, Trivial 6%, Z3 87%, altergo 2%)           .          .
+LSP Verification                  .           .                                               .           .          .
+Termination                       1           1                                               .           .          .
+Concurrency                       .           .                                               .           .          .
+----------------------------------------------------------------------------------------------------------------------
+Total                           168    36 (21%)                                       132 (79%)           .          .
+
+
+max steps used for successful proof: 35774
+
+============================
+Most difficult proved checks
+============================
+
+silver_platform.ads:50:30: postcondition proved in max 7 seconds
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 1 unit
+in unit silver_platform, 9 subprograms and packages out of 9 analyzed
+  Silver_Platform at silver_platform.ads:6 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Platform.Create_Workspace at silver_platform.ads:74 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (14 checks)
+  Silver_Platform.Observed_Get at silver_platform.adb:17 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (8 checks)
+  Silver_Platform.Observed_Put at silver_platform.adb:36 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (8 checks)
+  Silver_Platform.Read_File at silver_platform.ads:32 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (21 checks)
+  Silver_Platform.Run at silver_platform.ads:54 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (11 checks)
+  Silver_Platform.Run_Application at silver_platform.ads:63 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (55 checks)
+  Silver_Platform.Valid_Path at silver_platform.ads:28 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Platform.Write_File at silver_platform.ads:45 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (15 checks)

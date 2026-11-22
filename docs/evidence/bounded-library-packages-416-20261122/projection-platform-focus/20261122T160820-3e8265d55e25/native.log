@@ -1,0 +1,58 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: precondition proved
+--> silver_report_projection_audit.adb:13:43
+
+ info: precondition proved
+--> silver_report_projection_audit.adb:14:46
+
+ info: precondition proved
+--> silver_report_projection_audit.adb:15:14
+
+ info: range check proved
+--> silver_report_projection_audit.adb:15:59
+
+ info: precondition proved
+--> silver_report_projection_audit.adb:23:43
+
+ info: precondition proved
+--> silver_report_projection_audit.adb:24:46
+
+ info: precondition proved
+--> silver_report_projection_audit.adb:25:14
+
+ info: range check proved
+--> silver_report_projection_audit.adb:25:55
+
+ info: data dependencies proved
+--> silver_report_projection_audit.ads:20:11
+
+ info: range check proved
+--> silver_report_projection_audit.ads:21:55
+
+ info: precondition proved
+--> silver_report_projection_audit.ads:25:24
+
+ info: postcondition proved
+--> silver_report_projection_audit.ads:26:16
+
+ info: range check proved
+--> silver_report_projection_audit.ads:27:45
+
+ info: data dependencies proved
+--> silver_report_projection_audit.ads:32:11
+
+ info: range check proved
+--> silver_report_projection_audit.ads:33:55
+
+ info: precondition proved
+--> silver_report_projection_audit.ads:37:24
+
+ info: postcondition proved
+--> silver_report_projection_audit.ads:38:16
+
+ info: range check proved
+--> silver_report_projection_audit.ads:39:41
+Success: all checks proved (18 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-audit/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove/gnatprove.out

@@ -1,0 +1,2412 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "arg": 4,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 7,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 8,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 4,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 7,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 8,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_AORTE"
+        }
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_POST"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 7,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 8,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 4,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 7,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 8,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 4,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 7,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 8,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_AORTE"
+        }
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 12,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 12,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 13,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 14,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 12,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 13,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 14,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_AORTE"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_POST"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 12,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 13,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 14,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 12,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_POST"
+        },
+        {
+          "arg": 12,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 13,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 14,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 12,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 13,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 14,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 9,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 10,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 11,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_AORTE"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 3,
+        "predicate": "CLAIM_AORTE"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Silver_Report_Projection_Audit.Application",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "silver_report_projection_audit.ads",
+          "line": 14
+        }
+      ]
+    },
+    " 10": {
+      "name": "Silver_Report_Projection_Model.Matches",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_report_projection_model.ads",
+          "line": 307
+        }
+      ]
+    },
+    " 11": {
+      "name": "Silver_Report_Projection_Model.Refines",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_report_projection_model.ads",
+          "line": 286
+        }
+      ]
+    },
+    " 12": {
+      "name": "Silver_Library_Reports.Application_Projection_Correspondence",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "silver_library_reports.ads",
+          "line": 52
+        }
+      ]
+    },
+    " 13": {
+      "name": "Silver_Library_Reports.Application_Report_Policy",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_library_reports.ads",
+          "line": 31
+        }
+      ]
+    },
+    " 14": {
+      "name": "Silver_Library_Reports.Unbounded_Application_Report_Policy",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_library_reports.ads",
+          "line": 42
+        }
+      ]
+    },
+    " 2": {
+      "name": "Silver_Report_Projection_Audit.Runtime",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "silver_report_projection_audit.ads",
+          "line": 29
+        }
+      ]
+    },
+    " 3": {
+      "name": "Silver_Report_Projection_Audit",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "silver_report_projection_audit.ads",
+          "line": 7
+        }
+      ]
+    },
+    " 4": {
+      "name": "Silver_Library_Reports.Runtime_Projection_Correspondence",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "silver_library_reports.ads",
+          "line": 64
+        }
+      ]
+    },
+    " 5": {
+      "name": "Silver_Report_Projection_Composition.Actual_Projection",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "silver_report_projection_composition.ads",
+          "line": 24
+        }
+      ]
+    },
+    " 6": {
+      "name": "Silver_Report_Projection_Representation.From_Buffer",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "silver_report_projection_representation.ads",
+          "line": 13
+        }
+      ]
+    },
+    " 7": {
+      "name": "Silver_Library_Reports.Runtime_Report_Policy",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_library_reports.ads",
+          "line": 29
+        }
+      ]
+    },
+    " 8": {
+      "name": "Silver_Library_Reports.Unbounded_Runtime_Report_Policy",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_library_reports.ads",
+          "line": 39
+        }
+      ]
+    },
+    " 9": {
+      "name": "Silver_Report_Projection.Complete",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_report_projection.ads",
+          "line": 17
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 11,
+      "entity": 1,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "flow",
+      "line": 20,
+      "message": {
+        "text": "data dependencies proved"
+      },
+      "msg_id": 0,
+      "rule": "GLOBAL_WRONG",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 11,
+      "entity": 2,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "flow",
+      "line": 32,
+      "message": {
+        "text": "data dependencies proved"
+      },
+      "msg_id": 1,
+      "rule": "GLOBAL_WRONG",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+    {
+      "check_col": 43,
+      "check_file": "silver_report_projection_audit.adb",
+      "check_line": 13,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 329,
+              "time": 7.21290000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.30050000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 7927,
+              "time": 4.05052000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 43,
+      "entity": 1,
+      "file": "silver_report_projection_audit.adb",
+      "how_proved": "prover",
+      "line": 13,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 2,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 1,
+          "max_time": 2.30049993842840E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 46,
+      "check_file": "silver_report_projection_audit.adb",
+      "check_line": 14,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 452,
+              "time": 7.91250000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.72640000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 425,
+              "time": 5.24480000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 447,
+              "time": 8.35120000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.30750000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 135,
+              "time": 5.59330000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 316,
+              "time": 3.84650000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.85000000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.22220000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 316,
+              "time": 4.29420000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.04850000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.47500000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 46,
+      "entity": 1,
+      "file": "silver_report_projection_audit.adb",
+      "how_proved": "prover",
+      "line": 14,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 3,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 4,
+          "max_steps": 1,
+          "max_time": 3.72640006244183E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 59,
+      "check_file": "silver_report_projection_audit.adb",
+      "check_line": 15,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 371,
+              "time": 7.44000000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 4.29350000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 365,
+              "time": 6.21460000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 369,
+              "time": 4.82640000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.86600000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.81700000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 369,
+              "time": 6.51840000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.32050000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 198,
+              "time": 5.14610000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 345,
+              "time": 4.44540000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 7.39200000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 5.39120000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 59,
+      "entity": 1,
+      "file": "silver_report_projection_audit.adb",
+      "how_proved": "prover",
+      "line": 15,
+      "message": {
+        "text": "range check proved"
+      },
+      "msg_id": 4,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 4,
+          "max_steps": 1,
+          "max_time": 4.29349988698959E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 14,
+      "check_file": "silver_report_projection_audit.adb",
+      "check_line": 15,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 662,
+              "time": 1.05319000000000E-01
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.46530000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 4658,
+              "time": 2.59851000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 503,
+              "time": 8.36030000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.58680000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 2749,
+              "time": 1.64014000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 229,
+              "time": 4.44940000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.17860000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.84730000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 14,
+      "entity": 1,
+      "file": "silver_report_projection_audit.adb",
+      "how_proved": "prover",
+      "line": 15,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 5,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 3,
+          "max_steps": 1,
+          "max_time": 3.58680002391338E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 45,
+      "check_file": "silver_report_projection_audit.ads",
+      "check_line": 27,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 334,
+              "time": 4.37200000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 7.38800000000000E-03
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 1.00000000000000E-06
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 334,
+              "time": 4.16950000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.21380000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.87050000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 334,
+              "time": 4.51150000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.12130000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.63170000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 334,
+              "time": 4.87390000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 7.40800000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 5.36680000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 45,
+      "entity": 1,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "prover",
+      "line": 27,
+      "message": {
+        "text": "range check proved"
+      },
+      "msg_id": 6,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 4,
+          "max_steps": 1,
+          "max_time": 1.21379997581244E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 55,
+      "check_file": "silver_report_projection_audit.ads",
+      "check_line": 21,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.01960000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.84800000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 110,
+              "time": 2.22770000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.15740000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 4.18800000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 39,
+              "time": 1.74740000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 55,
+      "entity": 1,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "prover",
+      "line": 21,
+      "message": {
+        "text": "range check proved"
+      },
+      "msg_id": 7,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 4.18800022453070E-03
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 24,
+      "check_file": "silver_report_projection_audit.ads",
+      "check_line": 25,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 143,
+              "time": 3.40300000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.16510000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 48,
+              "time": 3.02930000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 143,
+              "time": 4.16460000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.28690000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 40,
+              "time": 3.54250000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 24,
+      "entity": 1,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "prover",
+      "line": 25,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 8,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.28690004348755E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 16,
+      "check_file": "silver_report_projection_audit.ads",
+      "check_line": 26,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 335,
+              "time": 3.72160000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.11900000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 5.58650000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 335,
+              "time": 4.50000000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.07800000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 5.92600000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 16,
+      "entity": 1,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "prover",
+      "line": 26,
+      "message": {
+        "text": "postcondition proved"
+      },
+      "msg_id": 9,
+      "rule": "VC_POSTCONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.11899999901652E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 43,
+      "check_file": "silver_report_projection_audit.adb",
+      "check_line": 23,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 312,
+              "time": 6.39230000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.94840000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 7807,
+              "time": 3.96390000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 43,
+      "entity": 2,
+      "file": "silver_report_projection_audit.adb",
+      "how_proved": "prover",
+      "line": 23,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 10,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 1,
+          "max_time": 2.94840000569820E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 46,
+      "check_file": "silver_report_projection_audit.adb",
+      "check_line": 24,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 439,
+              "time": 7.71000000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.29100000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 419,
+              "time": 6.21860000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 434,
+              "time": 6.55360000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.62810000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 134,
+              "time": 4.75540000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 312,
+              "time": 4.66660000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.80260000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.06170000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 312,
+              "time": 4.64130000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.47900000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.75770000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 46,
+      "entity": 2,
+      "file": "silver_report_projection_audit.adb",
+      "how_proved": "prover",
+      "line": 24,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 11,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 4,
+          "max_steps": 1,
+          "max_time": 3.29100005328655E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 55,
+      "check_file": "silver_report_projection_audit.adb",
+      "check_line": 25,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 366,
+              "time": 6.52690000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.03110000000000E-02
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 5.39300000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 363,
+              "time": 6.79110000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.53490000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 5.69320000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 364,
+              "time": 5.11660000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.24290000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 216,
+              "time": 5.37780000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 341,
+              "time": 4.32470000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.09880000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.33650000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 55,
+      "entity": 2,
+      "file": "silver_report_projection_audit.adb",
+      "how_proved": "prover",
+      "line": 25,
+      "message": {
+        "text": "range check proved"
+      },
+      "msg_id": 12,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 4,
+          "max_steps": 1,
+          "max_time": 3.24289985001087E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 14,
+      "check_file": "silver_report_projection_audit.adb",
+      "check_line": 25,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 638,
+              "time": 1.13087000000000E-01
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.47800000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 4558,
+              "time": 2.54170000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 490,
+              "time": 8.19260000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.04180000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 2698,
+              "time": 1.47932000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 229,
+              "time": 4.65740000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.01480000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 5.34330000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 14,
+      "entity": 2,
+      "file": "silver_report_projection_audit.adb",
+      "how_proved": "prover",
+      "line": 25,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 13,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 3,
+          "max_steps": 1,
+          "max_time": 3.04179992526770E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 41,
+      "check_file": "silver_report_projection_audit.ads",
+      "check_line": 39,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 330,
+              "time": 5.67750000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.51280000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.34560000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 330,
+              "time": 4.15030000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.57760000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.77110000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 330,
+              "time": 4.38930000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 7.45700000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 4.48650000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 330,
+              "time": 5.58540000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.74200000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 7.56050000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 41,
+      "entity": 2,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "prover",
+      "line": 39,
+      "message": {
+        "text": "range check proved"
+      },
+      "msg_id": 14,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 4,
+          "max_steps": 1,
+          "max_time": 1.57760009169579E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 55,
+      "check_file": "silver_report_projection_audit.ads",
+      "check_line": 33,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.85900000000000E-03
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.00000000000000E-06
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 90,
+              "time": 1.64080000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.35270000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 4.37600000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 33,
+              "time": 2.67790000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 55,
+      "entity": 2,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "prover",
+      "line": 33,
+      "message": {
+        "text": "range check proved"
+      },
+      "msg_id": 15,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 4.37599979341030E-03
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 24,
+      "check_file": "silver_report_projection_audit.ads",
+      "check_line": 37,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 140,
+              "time": 3.91950000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.14760000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 47,
+              "time": 3.54880000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 140,
+              "time": 3.39920000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 7.27400000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 40,
+              "time": 2.87550000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 24,
+      "entity": 2,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "prover",
+      "line": 37,
+      "message": {
+        "text": "precondition proved"
+      },
+      "msg_id": 16,
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.14759998396039E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 16,
+      "check_file": "silver_report_projection_audit.ads",
+      "check_line": 38,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 330,
+              "time": 4.26800000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.60400000000000E-03
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 5.02620000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 330,
+              "time": 3.48770000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.73210000000000E-02
+            },
+            "altergo": {
+              "result": "Valid",
+              "steps": 55,
+              "time": 3.93950000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 16,
+      "entity": 2,
+      "file": "silver_report_projection_audit.ads",
+      "how_proved": "prover",
+      "line": 38,
+      "message": {
+        "text": "postcondition proved"
+      },
+      "msg_id": 17,
+      "rule": "VC_POSTCONDITION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.73209998756647E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "all",
+    " 3": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 8.81720036268234E-02,
+      "gnatwhy3.init": 7.95799970626831E-01,
+      "gnatwhy3.register_vcs": 6.45940005779266E-02,
+      "gnatwhy3.run_vcs": 7.89990008343011E-05,
+      "gnatwhy3.save_session": 1.84080004692078E-02,
+      "gnatwhy3.schedule_vcs": 2.54639005661011E+00,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 2.85250004380941E-02,
+      "gnatwhy3.transformations.detect_polymorphism": 4.07590009272099E-02,
+      "gnatwhy3.transformations.discriminate_if_poly": 1.19999000162352E-04,
+      "gnatwhy3.transformations.eliminate_algebraic": 3.88689994812012E-01,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 2.08149001002312E-01,
+      "gnatwhy3.transformations.eliminate_builtin": 5.06640002131462E-02,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 8.45749974250793E-02,
+      "gnatwhy3.transformations.eliminate_epsilon": 2.03354999423027E-01,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 1.54082998633385E-01,
+      "gnatwhy3.transformations.eliminate_inductive": 1.90043002367020E-01,
+      "gnatwhy3.transformations.eliminate_literal": 4.00754004716873E-01,
+      "gnatwhy3.transformations.eliminate_projections_sums": 9.89580005407333E-02,
+      "gnatwhy3.transformations.eliminate_recursion": 6.39349967241287E-02,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 5.60000007681083E-05,
+      "gnatwhy3.transformations.inline_trivial": 1.79258203506470E+00,
+      "gnatwhy3.transformations.introduce_premises": 5.28299901634455E-03,
+      "gnatwhy3.transformations.monomorphise_goal": 7.22000026144087E-04,
+      "gnatwhy3.transformations.remove_unused": 1.09153902530670E+00,
+      "gnatwhy3.transformations.simplify_formula": 5.05101978778839E-01,
+      "gnatwhy3.transformations.split_goal_wp_conj": 3.37259992957115E-02,
+      "gnatwhy3.transformations.split_premise_right": 3.88208001852036E-01
+    },
+    " 2": {
+      "gnat2why.vc_generation": 6.02659992873669E-02,
+      "gnatwhy3.init": 7.32010006904602E-01,
+      "gnatwhy3.register_vcs": 6.01189993321896E-02,
+      "gnatwhy3.run_vcs": 8.49990028655156E-05,
+      "gnatwhy3.save_session": 2.44100000709295E-02,
+      "gnatwhy3.schedule_vcs": 2.47081589698792E+00,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 2.34760008752346E-02,
+      "gnatwhy3.transformations.detect_polymorphism": 3.90870012342930E-02,
+      "gnatwhy3.transformations.discriminate_if_poly": 9.10000017029233E-05,
+      "gnatwhy3.transformations.eliminate_algebraic": 3.65779012441635E-01,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 2.11101993918419E-01,
+      "gnatwhy3.transformations.eliminate_builtin": 4.55439984798431E-02,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 7.13350027799606E-02,
+      "gnatwhy3.transformations.eliminate_epsilon": 1.92255005240440E-01,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 1.36754006147385E-01,
+      "gnatwhy3.transformations.eliminate_inductive": 1.78950995206833E-01,
+      "gnatwhy3.transformations.eliminate_literal": 2.96620011329651E-01,
+      "gnatwhy3.transformations.eliminate_projections_sums": 8.54969993233681E-02,
+      "gnatwhy3.transformations.eliminate_recursion": 5.37919998168945E-02,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 5.19989989697933E-05,
+      "gnatwhy3.transformations.inline_trivial": 1.73705494403839E+00,
+      "gnatwhy3.transformations.introduce_premises": 8.89100041240454E-03,
+      "gnatwhy3.transformations.monomorphise_goal": 7.47999001760036E-04,
+      "gnatwhy3.transformations.remove_unused": 1.16148900985718E+00,
+      "gnatwhy3.transformations.simplify_formula": 4.88701999187469E-01,
+      "gnatwhy3.transformations.split_goal_wp_conj": 3.57349999248981E-02,
+      "gnatwhy3.transformations.split_premise_right": 3.53572994470596E-01
+    },
+    "global": {
+      "flow analysis": 7.55500001832843E-03,
+      "globals (advanced)": 4.40599992871284E-02,
+      "globals (basic)": 3.18330004811287E-02,
+      "init_why_sections": 3.19599988870323E-03,
+      "marking": 5.34600019454956E-03,
+      "properties (advanced)": 2.22800001502037E-02,
+      "translation of standard": 9.56000003498048E-04
+    }
+  },
+  "warn_error": [
+    {
+      "check_tree": {
+      },
+      "col": 32,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 36,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_projection_model.ads",
+      "how_proved": "trivial",
+      "line": 263,
+      "message": {
+        "text": "implicit function contract might not be available on recursive calls [contracts-recursive]"
+      },
+      "rule": "contracts-recursive",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_projection_model.ads",
+      "how_proved": "trivial",
+      "line": 263,
+      "message": {
+        "text": "expression function body of subprograms with a numeric variant might not be available on recursive calls [numeric-variant]"
+      },
+      "rule": "numeric-variant",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_projection_model.ads",
+      "how_proved": "trivial",
+      "line": 272,
+      "message": {
+        "text": "expression function body of subprograms with a numeric variant might not be available on recursive calls [numeric-variant]"
+      },
+      "rule": "numeric-variant",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 54,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_observations.ads",
+      "how_proved": "trivial",
+      "line": 28,
+      "message": {
+        "text": "function contract might not be available on recursive calls [contracts-recursive]"
+      },
+      "rule": "contracts-recursive",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_observations.ads",
+      "how_proved": "trivial",
+      "line": 28,
+      "message": {
+        "text": "expression function body of subprograms with a numeric variant might not be available on recursive calls [numeric-variant]"
+      },
+      "rule": "numeric-variant",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_observations.ads",
+      "how_proved": "trivial",
+      "line": 45,
+      "message": {
+        "text": "function contract might not be available on recursive calls [contracts-recursive]"
+      },
+      "rule": "contracts-recursive",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_observations.ads",
+      "how_proved": "trivial",
+      "line": 45,
+      "message": {
+        "text": "expression function body of subprograms with a numeric variant might not be available on recursive calls [numeric-variant]"
+      },
+      "rule": "numeric-variant",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "file": "a-nbnbin.ads",
+      "how_proved": "trivial",
+      "line": 60,
+      "message": {
+        "text": "function Is_Valid is assumed to return True"
+      },
+      "rule": "error",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_projection_observations.ads",
+      "how_proved": "trivial",
+      "line": 43,
+      "message": {
+        "text": "expression function body of subprograms with a numeric variant might not be available on recursive calls [numeric-variant]"
+      },
+      "rule": "numeric-variant",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_projection_observations.ads",
+      "how_proved": "trivial",
+      "line": 75,
+      "message": {
+        "text": "expression function body of subprograms with a numeric variant might not be available on recursive calls [numeric-variant]"
+      },
+      "rule": "numeric-variant",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "silver_report_projection_observations.ads",
+      "how_proved": "trivial",
+      "line": 106,
+      "message": {
+        "text": "expression function body of subprograms with a numeric variant might not be available on recursive calls [numeric-variant]"
+      },
+      "rule": "numeric-variant",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ]
+}
