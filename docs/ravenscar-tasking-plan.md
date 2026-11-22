@@ -2,16 +2,23 @@
 
 ## Selection and scope
 
-The owner selected the near-term roadmap order: the five language foundations
+**Implementation selected, 2026-11-22.** Following PR #412's merge, the owner
+authorized #416 and the upfront #421 feasibility check, with relevant Rosetta
+samples delivered alongside each new feature. The
+[dated authorization](session-memory.md#2026-11-22--bounded-packages-and-ravenscar-feasibility-authorized)
+supersedes the earlier planning-only status for this first increment. The other
+implementation issues retain their planned order and Backlog status. The runtime
+check does not complete #421's later integrated-assurance scope.
+
+The earlier planning selection established the near-term roadmap order: the five language foundations
 below and Ravenscar profile support, followed immediately by a reassessment of
 Jorvik. This replaces waiting for the entire natural language surface or generic
 Rosetta progression before considering concurrency. It authorizes planning and
 priority, not feature implementation, PR #412's merge or an Oracle amendment.
 
-Finish the current named-array delivery's external review response and applicable
-validation first. [Milestone 28](https://github.com/berkeleynerd/silver/milestone/28)
-is the one **provisional successor**, with implementation issues in Backlog.
-Its first implementation increment, once selected, is bounded library packages.
+The named-array review response and validation are complete in merged PR #412.
+[Milestone 28](https://github.com/berkeleynerd/silver/milestone/28) is now the active
+delivery sequence; bounded library packages are its first selected increment.
 The milestone describes one small useful Ravenscar-compatible fragment, not all
 Ada tasking, every profile-permitted construct or a new task scheduler/runtime.
 
@@ -53,6 +60,12 @@ behavior outside this fragment. Existing assessments disagree about the profile
 pragma boundary; resolve those exact entries when making support claims.
 Do not promote `tasking`, clock or delay identifiers merely because this plan
 exists. Add precise supported identifiers and re-render only at validated delivery.
+
+At each increment, assess and deliver the relevant Rosetta samples its new forms
+unlock, as requested by the owner. For packages, assess module/interface and
+package-state tasks before choosing the driver; preserve each task's actual
+requirements. Name the concrete candidates and exclusions in the capability
+record rather than promising that the broad package identifier is supported.
 
 The first fragment needs no general records, enumerations, generics, heap,
 dynamic task creation, task arrays, arbitrary `while` loops, task rendezvous,
