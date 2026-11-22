@@ -67,12 +67,12 @@ def qualifyLoop (table : Field .state tableTy) (count : Field tableTy .number)
 def importedFrameBody : Body Function .state :=
   { name := "imported_frame"
     declarations := [⟨.state, "result", ["parser_state"], false,
-      .update (.variable "exports")
+      some (.update (.variable "exports")
         (.more .statePosition (.variable "position")
           (.more .stateContextFirst (.field .unitFirst (.index .unit info (.unitKind .mainBody)))
             (.more .statePackageFirst (.field .infoNameFirst info)
               (.more .statePackageAfter (.field .infoNameAfter info)
-                (.more .statePure (.truth false) (.one .stateHiding .noHidden))))))⟩]
+                (.more .statePure (.truth false) (.one .stateHiding .noHidden))))))), [], none⟩]
     commands := .list [
       qualifyLoop .stateScalarNames .scalarCount .scalar .scalarQualifierFirst .scalarQualifierAfter,
       qualifyLoop .stateBooleanNames .booleanCount .boolean .booleanQualifierFirst .booleanQualifierAfter,
@@ -100,10 +100,10 @@ def filterLoop (table : Field .state tableTy) (count : Field tableTy .number)
 
 def hideOuterBody : Body Function .state :=
   { name := "hide_outer"
-    declarations := [⟨.state, "result", ["parser_state"], false, frame⟩,
-      ⟨.number, "scalars_kept", ["scalar_expressions", ".", "binding_count"], false, .number 0⟩,
-      ⟨.number, "booleans_kept", ["boolean_count"], false, .number 0⟩,
-      ⟨.number, "subtypes_kept", ["subtype_count"], false, .number 0⟩]
+    declarations := [⟨.state, "result", ["parser_state"], false, some frame, [], none⟩,
+      ⟨.number, "scalars_kept", ["scalar_expressions", ".", "binding_count"], false, some (.number 0), [], none⟩,
+      ⟨.number, "booleans_kept", ["boolean_count"], false, some (.number 0), [], none⟩,
+      ⟨.number, "subtypes_kept", ["subtype_count"], false, some (.number 0), [], none⟩]
     commands := .list [
       .choose (.orElse
         (.app (.app (.app (.function .forbiddenName) text) (.field .nameFirst name)) (.field .nameAfter name))
