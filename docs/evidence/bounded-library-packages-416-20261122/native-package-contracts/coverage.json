@@ -332,7 +332,10 @@
       "current_lines": [
         9161
       ],
-      "coverage": "pending"
+      "coverage": "failed-repair-pending",
+      "failed_run": "20261122T192845-3ee5a4e23fe9",
+      "failed_source_sha256": "c37214cd9bc8772c84b2f4cd775d6582748e4499f829bf282bfe81e1264871af",
+      "unproved": 2
     },
     {
       "name": "Package_Completion_At",

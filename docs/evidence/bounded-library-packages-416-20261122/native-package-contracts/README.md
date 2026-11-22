@@ -243,3 +243,19 @@ The six formerly failed checks now pass. The original failure remains retained
 as failure. The matching raw writable-target guard/effect model passed the
 separate focused run recorded in `../call-target-guard-model/`; complete typed
 actual/source interpretation and the other helper/caller checks remain pending.
+
+## Complete Routine_Frame boundary
+
+`20261122T192845-3ee5a4e23fe9` failed after 355.515 seconds on the same
+`c37214cd9` source. Exactly two obligations remain: Hide_Outer requires the
+parser state's retained validity at line 9188, and Append_Package_Formal requires
+the validated Body_Name at line 9196. Termination and the complete result
+postcondition passed. The failure log, reports and exact input remain retained.
+
+The next repair carries Valid_State at the Boolean-forget loop boundary and
+Valid_State plus every already-validated body-name span at the hide-loop boundary.
+This changes annotations only. The subsequent append loop reads the unchanged
+Info table; no metadata-validity or reachable-state precondition is added. The
+first repaired complete-helper check remains pending. Primary source is frozen
+for its productive authoritative source run; independent same-byte caller checks
+can proceed while the private annotation patch is prepared.
