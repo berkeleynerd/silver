@@ -295,10 +295,15 @@
       "current_lines": [
         8750
       ],
-      "coverage": "failed-repair-pending",
+      "coverage": "complete-helper-success",
       "failed_run": "20261122T183136-3e6f28606690",
       "failed_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02",
-      "unproved": 6
+      "unproved": 0,
+      "run": "20261122T191156-df67d2d4c1c4",
+      "checks": 85,
+      "flow": 13,
+      "proof": 72,
+      "run_source_sha256": "c37214cd9bc8772c84b2f4cd775d6582748e4499f829bf282bfe81e1264871af"
     },
     {
       "name": "Application_Basic",

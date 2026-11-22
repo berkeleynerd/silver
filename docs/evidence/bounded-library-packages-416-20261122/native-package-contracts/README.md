@@ -228,3 +228,18 @@ Routine > Info.Routine_Count before its body observes the Item. Its original
 precondition/declarations remain; inactive storage is unobserved on early return.
 Architecture owns the matching full-domain frame interpretation. Routine_Frame
 and its caller contracts still need canonical complete-helper checks.
+
+## Complete Call success
+
+`20261122T191156-df67d2d4c1c4` passed the complete Package_Call_At contract
+on source `c37214cd9bc8772c84b2f4cd775d6582748e4499f829bf282bfe81e1264871af`:
+**85 checks (13 flow, 72 proof), one selected helper**, canonical final-policy,
+917.314 seconds, two managed workers. Every runtime, flow, precondition,
+postcondition, invariant initialization/preservation and termination check passed.
+The overwritten-initializer warning is resolved by verified assignment before
+read. No obligation was suppressed or skipped; the original entry domain remains.
+
+The six formerly failed checks now pass. The original failure remains retained
+as failure. The matching raw writable-target guard/effect model passed the
+separate focused run recorded in `../call-target-guard-model/`; complete typed
+actual/source interpretation and the other helper/caller checks remain pending.
