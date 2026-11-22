@@ -155,8 +155,9 @@ remain mandatory. The pinned producer emits no procedure termination witness;
 the procedure termination argument therefore belongs to the constructed
 declaration and body semantics. The
 [producer/capacity record](scalar-procedures-report-capacity.md) derives the
-49,279,744-byte report envelope, including the #391 formal advisories, and
-unchanged 64 MiB allocation. Focused tests
+49,279,744-byte report envelope, including the #391 formal advisories, within
+the then-selected 64 MiB allocation. The [package extension](bounded-library-packages-report-capacity.md)
+raises the shared allocation to 256 MiB. Focused tests
 exercise these rules; they do not replace complete compiler or source proofs.
 
 ## Named constrained Integer-array inputs
@@ -201,7 +202,7 @@ objects and freshly auditing module coverage and the permitted foundations.
 The [final regression record](evidence/named-array-parameters-410-20261121/final-regression/README.md)
 distinguishes the full suite, affected rechecks and final metadata checks. The feature-local
 [producer account](named-array-parameters-report-capacity.md) retains the existing
-49,279,744-byte report envelope in 64 MiB under the pinned producer premises;
+49,279,744-byte report envelope within the then-selected 64 MiB allocation under the pinned producer premises;
 it is a storage argument, separate from automatic discharge. The two
 [Rosetta driver assessments](../rosetta/assessment-named-array-parameters-20261121.md)
 derive expected results and full-domain arithmetic bounds; sample success does
@@ -1452,7 +1453,8 @@ These specifications describe byte traversal, quoted strings, nesting, audited
 fields, entities, dependencies and every emitted record, without calling the
 executable acceptance traversal. Shared elementary predicates and immutable
 tables do not replace that refinement. Retained application audit data has a
-67,108,864-byte domain; runtime data retains 262,144 bytes. These are storage
+268,435,456-byte domain under the [package capacity account](bounded-library-packages-report-capacity.md);
+runtime data retains 262,144 bytes. These are storage
 bounds after the streaming projection of unaudited `check_tree` values, not
 limits on original evidence-file length. The original reports remain unchanged,
 and every record and policy-relevant field remains in the audited input.

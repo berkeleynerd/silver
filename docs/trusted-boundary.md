@@ -326,7 +326,9 @@ local dependency policy are described in the
 The [producer/capacity account](scalar-functions-report-capacity.md) originally
 bounded the Main/local-function report at 33,149,440 bytes within its then-selected
 33,554,432-byte allocation. The #391 formal-advisory allowance is now covered
-by the combined procedure account's 49,279,744-byte envelope and 64 MiB allocation.
+by the combined procedure account's 49,279,744-byte envelope. Its then-selected
+64 MiB allocation has been raised to 256 MiB by the
+[package capacity account](bounded-library-packages-report-capacity.md).
 The original source-byte charges and pinned-producer
 serialization premises received a
 [bounded independent review](reviews/review-scalar-function-capacity-20261107.md).
@@ -349,8 +351,9 @@ termination must instead follow from the constructive earlier-call and finite
 body semantics, as specified in the capability record.
 
 The [procedure capacity account](scalar-procedures-report-capacity.md) extends
-the retained Main envelope to 49,279,744 bytes, using a 67,108,864-byte allocation
-and matching shared file-reader bound. Runtime/null report domains remain
+the retained Main envelope to 49,279,744 bytes, originally using a 67,108,864-byte
+allocation and matching shared file-reader bound. The package extension raises
+both allocations to 268,435,456 bytes. Runtime/null report domains remain
 262,144 bytes. This is a local storage adjustment under the existing producer
 premises, without a new general capacity, stack or proof-time claim. The
 [delivery record](scalar-procedures.md#delivery-assurance-and-validation) links
@@ -374,7 +377,7 @@ The [producer inspection](evidence/named-scalar-arguments-392-20261117/producer/
 records the selected call iterator and the existing conversion/flow routes.
 Named selectors do not add payload evaluations or copy-back vertices. The
 [capacity derivation](scalar-procedures-report-capacity.md#named-scalar-associations--392)
-retains the current envelope and 64 MiB allocation under the same producer
+retained that delivery's envelope and 64 MiB allocation under the same producer
 premises. Diagnostic policy is unchanged. Complete #392 native and
 Lean/actual-source checkpoints passed, including the whole-project module/axiom
 audit. The [capability record](named-scalar-arguments.md#delivery-assurance-and-validation)
@@ -1190,7 +1193,7 @@ proof-only computations, preventing recursive stack growth during report
 processing. GNATprove still verifies all obligations of this report unit,
 including its refinement contract. The executable checks and global
 `-gnata`/`-gnato` switches are retained. Retained application audit data has a
-67,108,864-byte capacity after the streaming projection; runtime reports retain
+268,435,456-byte capacity after the streaming projection; runtime reports retain
 their separate 262,144-byte bound. The projection uses the producer's byte-oriented
 JSON token grammar and trusts its encoding of raw non-ASCII string bytes;
 it does not add a UTF-8 validator. A native
