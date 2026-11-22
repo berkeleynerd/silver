@@ -1,0 +1,16 @@
+{
+  "run_id": "20261122T181234-44ef79f5721e",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageProcedureControl"
+  ],
+  "declarations": 20412,
+  "implementation_commit": "c8e2165b75cb49bb986d8990cc4887e6e1f3c642",
+  "inputs_digest_sha256": "a137abfbdc0cde19229b351234cb68d1760dfb241fce7f8b94c3423fc59a461c",
+  "artifacts_sha256": {
+    "evidence.json": "0e900b241a53dadd181fbbff3de492de7e9482cd65406a25fa9c8434825d31ab",
+    "lean-focused.log.gz": "3337ab6e35ce7188bd525f59accc2e138f0678dda322a7b2581a229945f501c1",
+    "events.jsonl.gz": "7aac3fc0dd13e84c78f469e6f42cf05c666d45af289701f163abc627bc4415b5"
+  },
+  "scope": "Typed procedure interpreter and exact native state-table growth projection; not a complete helper/source endpoint"
+}
