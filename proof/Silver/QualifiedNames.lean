@@ -48,6 +48,34 @@ def read (text : Source) (position : Nat) : Reference :=
     else ⟨memberFirst, memberAfter, first, after⟩
   else ⟨first, after, 0, 0⟩
 
+private theorem trivia_terminal {text rest : Source} (parsed : Trivia text rest) :
+    triviaEnd rest = rest := by
+  induction parsed with
+  | eof => simp [triviaEnd]
+  | stop _ _ space comment => simp [triviaEnd, space, comment]
+  | space _ _ _ _ _ ih | comment _ _ _ _ _ ih => exact ih
+
+theorem skip_idempotent (text : Source) (position : Nat) :
+    skip text (skip text position) = skip text position := by
+  by_cases zero : skip text position = 0
+  · rw [zero]; rfl
+  · have positionNonzero : position ≠ 0 := by
+      intro equal
+      simp [skip, equal] at zero
+    have equation : skip text position = Cursor.triviaPosition text position := ite_eq_right positionNonzero
+    calc
+      skip text (skip text position) = Cursor.triviaPosition text (skip text position) := ite_eq_right zero
+      _ = Cursor.triviaPosition text (Cursor.triviaPosition text position) := congrArg _ equation
+      _ = Cursor.triviaPosition text position := by
+        change Cursor.endPosition text (triviaEnd (Cursor.remaining text (Cursor.triviaPosition text position))) = _
+        rw [Cursor.remaining_triviaPosition, trivia_terminal (trivia_complete _)]
+        rfl
+      _ = skip text position := equation.symm
+
+theorem read_skipped (text : Source) (position : Nat) :
+    read text (skip text position) = read text position := by
+  simp only [read, skip_idempotent]
+
 /-- The two source productions use identifier derivations and a single dot;
 neither production assumes the result of the reference reader. -/
 inductive At (text : Source) (position : Nat) : Reference → Prop

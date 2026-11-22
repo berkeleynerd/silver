@@ -45,6 +45,22 @@ theorem symbolAt_iff {text : Source} {position byte finish : Nat} :
     · rename_i valid
       exact ⟨by omega, by omega, by omega, found.1.symm⟩
 
+/-- A delimiter other than dot fixes a preceding identifier as a bare scalar
+reference, including array names followed by an opening parenthesis. -/
+theorem reference_before_symbol {text : Source} {position after byte finish : Nat} {bytes : Source}
+    (nonzero : skip text position ≠ 0)
+    (named : Named.IdentifierAt text (skip text position) bytes after)
+    (separated : SymbolAt text after byte finish) (notDot : byte ≠ 46) :
+    readReference text (skip text position) = ⟨skip text position, after, 0, 0⟩ := by
+  have bare : ¬ QualifiedNames.singleDot text (skip text after) := by
+    intro dotted
+    exact notDot (separated.2.2.1.symm.trans dotted.2.2.1)
+  have parsed : QualifiedNames.At text position ⟨skip text position, after, 0, 0⟩ :=
+    .bare (show 0 < skip text position from Nat.pos_of_ne_zero nonzero) named bare
+  change QualifiedNames.read text (QualifiedNames.skip text position) = _
+  rw [QualifiedNames.read_skipped]
+  exact QualifiedNames.read_complete parsed
+
 inductive AtomAt (text : Source) (names : Environment) (maskFirst maskAfter : Nat)
     (allowSign : Bool) (position : Nat) : Parsed → Prop
   | unsigned {value finish : Nat} :

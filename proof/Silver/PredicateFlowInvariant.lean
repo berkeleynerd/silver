@@ -113,23 +113,38 @@ theorem OverlayCompatible.fixed_cell {names : Environment} {declarations : Nat}
   unfold readingBinding
   split <;> rfl
 
+@[simp] theorem readingBinding_qualifierFirst (declarations index : Nat) (item : Binding)
+    (bounds : Integer.Interval) :
+    (readingBinding declarations index item bounds).qualifierFirst = item.qualifierFirst := by
+  unfold readingBinding
+  split <;> rfl
+
+@[simp] theorem readingBinding_qualifierAfter (declarations index : Nat) (item : Binding)
+    (bounds : Integer.Interval) :
+    (readingBinding declarations index item bounds).qualifierAfter = item.qualifierAfter := by
+  unfold readingBinding
+  split <;> rfl
+
 theorem readingNames_lookupFrom (text : Source) (names : Environment) (declarations : Nat)
-    (flow : ActiveFlow) (first after count : Nat) (bounded : count ≤ names.length) :
-    lookupFrom text (readingNames names declarations flow) first after count =
-      lookupFrom text names first after count := by
+    (flow : ActiveFlow) (first after count : Nat) (bounded : count ≤ names.length)
+    (qualifierFirst qualifierAfter : Nat := 0) :
+    lookupFrom text (readingNames names declarations flow) first after count qualifierFirst qualifierAfter =
+      lookupFrom text names first after count qualifierFirst qualifierAfter := by
   induction count with
   | zero => rfl
   | succ count ih =>
     have active : count + 1 ≤ names.length := bounded
     simp only [lookupFrom, readingNames_binding names declarations flow (count + 1)
       (Nat.succ_pos _) active, readingBinding_first, readingBinding_after,
-      ih (by omega)]
+      readingBinding_qualifierFirst, readingBinding_qualifierAfter, ih (by omega)]
 
 theorem readingNames_lookup (text : Source) (names : Environment) (declarations : Nat)
-    (flow : ActiveFlow) (first after : Nat) :
-    lookup text (readingNames names declarations flow) first after = lookup text names first after := by
+    (flow : ActiveFlow) (first after : Nat) (qualifierFirst qualifierAfter : Nat := 0) :
+    lookup text (readingNames names declarations flow) first after qualifierFirst qualifierAfter =
+      lookup text names first after qualifierFirst qualifierAfter := by
   simp only [lookup, readingNames_length,
-    readingNames_lookupFrom text names declarations flow first after names.length (Nat.le_refl _)]
+    readingNames_lookupFrom text names declarations flow first after names.length (Nat.le_refl _)
+      qualifierFirst qualifierAfter]
 
 theorem readingNames_valid {text : Source} {names : Environment} {declarations : Nat}
     {flow : ActiveFlow} (valid : ValidEnvironment text names)
