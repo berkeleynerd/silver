@@ -1,6 +1,7 @@
 module
 
 public import Silver.ApplicationNativeGuards
+public import Silver.ApplicationNativeInitialization
 
 @[expose] public section
 
@@ -91,14 +92,35 @@ structure Declaration (Fn : Ty → Type) where
   name : String
   typeName : List String
   constant : Bool := false
-  initial : Expr Fn type
+  initial : Option (Expr Fn type)
+  additionalNames : List String := []
+  constraint : Option (Expr Fn .number) := none
+
+def Declaration.names (declaration : Declaration Fn) : List String :=
+  declaration.name :: declaration.additionalNames
 
 def Declaration.render (names : FunctionNames Fn) (declaration : Declaration Fn) : List String :=
-  [declaration.name, ":"] ++ (if declaration.constant then ["constant"] else []) ++
-    declaration.typeName ++ [":="] ++ declaration.initial.render names ++ [";"]
+  [declaration.name] ++ declaration.additionalNames.flatMap (fun name => [",", name]) ++ [":"] ++
+    (if declaration.constant then ["constant"] else []) ++ declaration.typeName ++
+    (match declaration.constraint with
+      | none => []
+      | some count => ["("] ++ count.render names ++ [")"]) ++
+    (match declaration.initial with
+      | none => []
+      | some initial => [":="] ++ initial.render names) ++ [";"]
 
 def Declaration.eval (calls : Calls Fn) (locals : Locals) (declaration : Declaration Fn) : Locals :=
-  locals.set declaration.type declaration.name (declaration.initial.eval calls locals)
+  match declaration.initial with
+  | some initial =>
+      let value := initial.eval calls locals
+      declaration.names.foldl (fun current name => current.set declaration.type name value) locals
+  | none => declaration.names.foldl (fun current name =>
+      current.set declaration.type name (Initialization.value declaration.type (locals declaration.type name))) locals
+
+/-- On leaving a declarative region, restore every hidden binding, including a
+same-named outer object of another type. Other writes remain observable. -/
+def Declarations.restore (declarations : List (Declaration Fn)) (before after : Locals) : Locals :=
+  fun ty name => if name ∈ declarations.flatMap Declaration.names then before ty name else after ty name
 
 structure Body (Fn : Ty → Type) (resultType : Ty) where
   name : String
@@ -119,14 +141,86 @@ def Place.root : Place Fn ty → String
 def Declaration.validType : Ty → List String → Bool
   | .number, spelling => decide (spelling ∈ [["literal_position"], ["subtype_count"],
       ["boolean_count"], ["scalar_expressions", ".", "binding_count"],
-      ["packages", ".", "export_count_type"]])
+      ["packages", ".", "export_count_type"], ["packages", ".", "routine_count_type"],
+      ["packages", ".", "formal_count_type"], ["packages", ".", "state_id"],
+      ["packages", ".", "state_count_type"], ["packages", ".", "type_id"]])
+  | .truth, spelling => spelling == ["boolean"]
+  | .mode, spelling => spelling == ["procedures", ".", "parameter_mode"]
   | .state, spelling => spelling == ["parser_state"]
   | .functionType, spelling => spelling == ["function_type_result"]
+  | .packageType, spelling => spelling == ["package_type_result"]
+  | .objectResult, spelling => spelling == ["package_object_result"]
+  | .routine, spelling => spelling == ["packages", ".", "routine"]
+  | .formal, spelling => spelling == ["packages", ".", "formal"]
+  | .exportItem, spelling => spelling == ["packages", ".", "export_declaration"]
+  | .stateDeclaration, spelling => spelling == ["packages", ".", "state_declaration"]
+  | .nameSpan, spelling => spelling == ["packages", ".", "name_span"]
+  | .stateSet, spelling => spelling == ["packages", ".", "state_set"]
+  | .reference, spelling => spelling == ["scalar_expressions", ".", "name_reference"]
+  | .functionFormal, spelling => spelling == ["functions", ".", "formal"]
+  | .procedureFormal, spelling => spelling == ["procedures", ".", "formal"]
+  | .subtypeBinding, spelling => spelling == ["subtype_binding"]
+  | .scalarBinding, spelling => spelling == ["scalar_expressions", ".", "binding"]
+  | .booleanBinding, spelling => spelling == ["boolean_binding"]
+  | .packageActuals, spelling => spelling == ["package_actual_array"]
+  | .packageSeen, spelling => spelling == ["package_seen_array"]
+  | .appScan, spelling => spelling == ["application_scan"]
+  | .appCall, spelling => spelling == ["application_call"]
+  | .parseContext, spelling => spelling == ["body_context"]
   | _, _ => false
 
+/-- Fixed arrays without component defaults need an explicit initializer here.
+Constrained record allocation is recorded separately by `Declaration.Allocated`;
+elaboration preserves its already allocated scan shape. -/
+def Declaration.implicitSupported : Ty → Bool
+  | .number | .truth | .mode | .state | .functionType | .packageType | .objectResult
+  | .routine | .formal | .exportItem | .stateDeclaration | .nameSpan | .reference
+  | .functionFormal | .procedureFormal | .subtypeBinding | .scalarBinding | .booleanBinding
+  | .appScan | .appCall => true
+  | _ => false
+
+def Declaration.needsConstraint : Ty → Bool
+  | .appScan | .appCall => true
+  | _ => false
+
+/-- The local storage of an implicitly initialized discriminated object has the
+declared discriminant. This is an allocation obligation, not an initialized-value
+assumption. Uninitialized components still range over every value of that shape. -/
+def Declaration.Allocated (calls : Calls Fn) (locals : Locals) (declaration : Declaration Fn) : Prop :=
+  match declaration.initial, declaration.constraint with
+  | none, some count => ∀ name ∈ declaration.names,
+      match declaration.type with
+      | .appScan => (locals .appScan name).count = count.eval calls locals
+      | .appCall => (locals .appCall name).count = count.eval calls locals
+      | _ => True
+  | _, _ => True
+
 def Declaration.wellFormed (names : FunctionNames Fn) (declaration : Declaration Fn) : Bool :=
-  identifier declaration.name && Declaration.validType declaration.type declaration.typeName &&
-    declaration.initial.expression && declaration.initial.wellFormed names
+  declaration.names.all identifier && decide declaration.names.Nodup &&
+    Declaration.validType declaration.type declaration.typeName &&
+    (if Declaration.needsConstraint declaration.type then
+      declaration.constraint.isSome || declaration.initial.isSome
+     else declaration.constraint.isNone) &&
+    (match declaration.constraint with
+      | none => true
+      | some count => count.expression && count.wellFormed names) &&
+    (match declaration.initial with
+      | none => !declaration.constant && Declaration.implicitSupported declaration.type
+      | some initial => initial.expression && initial.wellFormed names)
+
+def Declaration.scan (scope : Scope) (writable : List String) (declaration : Declaration Fn) :
+    Bool × Scope × List String :=
+  let valid := declaration.initial.all (fun initial => initial.scoped scope) &&
+    declaration.constraint.all (fun count => count.scoped scope)
+  let scope := declaration.names.foldl (fun current name => current.bind declaration.type name) scope
+  let writable := writable.filter (fun name => name ∉ declaration.names)
+  (valid, scope, if declaration.constant then writable else declaration.names ++ writable)
+
+def Declarations.scan (scope : Scope) (writable : List String) (declarations : List (Declaration Fn)) :
+    Bool × Scope × List String :=
+  declarations.foldl (fun result declaration =>
+    let next := declaration.scan result.2.1 result.2.2
+    (result.1 && next.1, next.2)) (true, scope, writable)
 
 def Command.wellFormed (names : FunctionNames Fn) : Command Fn resultType → Bool
   | .nothing => true
@@ -150,15 +244,11 @@ def Command.scoped (scope : Scope) (writable : List String) : Command Fn resultT
   | .returned value => value.scoped scope
 
 def Body.wellFormed (names : FunctionNames Fn) (body : Body Fn resultType) : Bool :=
-  identifier body.name && decide (body.declarations.map Declaration.name).Nodup &&
+  identifier body.name && decide (body.declarations.flatMap Declaration.names).Nodup &&
     body.declarations.all (Declaration.wellFormed names) && body.commands.wellFormed names
 
 def Body.scoped (scope : Scope) (body : Body Fn resultType) : Bool :=
-  let scanned := body.declarations.foldl (fun (result : Bool × Scope × List String) declaration =>
-    (result.1 && declaration.initial.scoped result.2.1,
-      result.2.1.bind declaration.type declaration.name,
-      if declaration.constant then result.2.2.filter (· != declaration.name)
-      else declaration.name :: result.2.2.filter (· != declaration.name))) (true, scope, [])
+  let scanned := Declarations.scan scope [] body.declarations
   scanned.1 && body.commands.scoped scanned.2.1 scanned.2.2
 
 end Silver.ApplicationNative

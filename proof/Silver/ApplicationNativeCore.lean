@@ -100,6 +100,9 @@ inductive Field : Ty → Ty → Type
   | contextDeclarationCount : Field .parseContext .number
   | contextMaskFirst : Field .parseContext .number
   | contextMaskAfter : Field .parseContext .number
+  | contextPure : Field .parseContext .truth
+  | contextScalarNames : Field .parseContext .scalars
+  | contextBooleanNames : Field .parseContext .booleans
   | objectFrame : Field .objectResult .state
   | objectName : Field .objectResult .nameSpan
   | objectMark : Field .objectResult .packageType
@@ -281,6 +284,9 @@ def Field.name : Field a b → String
   | .contextDeclarationCount => "declaration_count"
   | .contextMaskFirst => "mask_first"
   | .contextMaskAfter => "mask_after"
+  | .contextPure => "pure"
+  | .contextScalarNames => "scalar_names"
+  | .contextBooleanNames => "boolean_names"
   | .objectFrame => "frame"
   | .objectName => "name"
   | .objectMark => "mark"
@@ -462,6 +468,9 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .contextDeclarationCount, value => value.declarationCount
   | .contextMaskFirst, value => value.maskFirst
   | .contextMaskAfter, value => value.maskAfter
+  | .contextPure, value => value.pure
+  | .contextScalarNames, value => value.scalarNames
+  | .contextBooleanNames, value => value.booleanNames
   | .objectFrame, value => value.frame
   | .objectName, value => value.name
   | .objectMark, value => value.mark
@@ -646,6 +655,9 @@ def Field.set : Field a b → a.meaning → b.meaning → a.meaning
   | .contextDeclarationCount, value, item => {value with declarationCount := item}
   | .contextMaskFirst, value, item => {value with maskFirst := item}
   | .contextMaskAfter, value, item => {value with maskAfter := item}
+  | .contextPure, value, item => {value with pure := item}
+  | .contextScalarNames, value, item => {value with scalarNames := item}
+  | .contextBooleanNames, value, item => {value with booleanNames := item}
   | .objectFrame, value, item => {value with frame := item}
   | .objectName, value, item => {value with name := item}
   | .objectMark, value, item => {value with mark := item}
@@ -848,12 +860,14 @@ inductive Index : Ty → Ty → Ty → Type
   | actual : Index .packageActuals .number .packageActual
   | seen : Index .packageSeen .number .truth
   | stateBit : Index .stateSet .number .truth
+  | flowValue : Index .activeFlow .number .interval
 
 def Index.name : Index a i b → String
   | .scalar | .boolean | .subtype | .binding => "items"
   | .export => "exports" | .state => "states" | .routine => "routines"
   | .formal => "parameters" | .unit | .bundleUnit => "units"
   | .actual | .seen | .stateBit => ""
+  | .flowValue => "values"
 
 /-- Direct native arrays have no record selector before their index. -/
 def Index.path (selection : Index a i b) : List String := match selection with
@@ -874,6 +888,7 @@ def Index.get : Index a i b → a.meaning → i.meaning → b.meaning
   | .actual, value, index => value.getD (index - 1) {}
   | .seen, value, index => value.getD (index - 1) false
   | .stateBit, value, index => value.getD (index - 1) false
+  | .flowValue, value, index => value.values.getD (index - 1) .empty
 
 def Index.set : Index a i b → a.meaning → i.meaning → b.meaning → a.meaning
   | .scalar, value, index, item => value.set (index - 1) item
@@ -889,6 +904,7 @@ def Index.set : Index a i b → a.meaning → i.meaning → b.meaning → a.mean
   | .actual, value, index, item => value.set (index - 1) item
   | .seen, value, index, item => value.set (index - 1) item
   | .stateBit, value, index, item => value.set (index - 1) item
+  | .flowValue, value, index, item => {value with values := value.values.set (index - 1) item}
 
 abbrev Locals := (ty : Ty) → String → ty.meaning
 
@@ -917,6 +933,9 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | emptySeen : Expr Fn .packageSeen
   | emptyStateSet : Expr Fn .stateSet
   | invalidObject : Expr Fn .objectResult
+  | invalidCall : Expr Fn .callResult
+  | callValueAggregate : Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .callResult
+  | applicationCall : Expr Fn .number → Expr Fn .callResult → Expr Fn .appScan → Expr Fn .appCall
   | functionType : Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .functionType
   | functionFormal : Expr Fn .number → Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .functionFormal
   | procedureFormal : Expr Fn .number → Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .mode → Expr Fn .procedureFormal
@@ -972,6 +991,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | integerType : Expr Fn .number
   | forAll (name : String) : Expr Fn .number → Expr Fn .number → Expr Fn .truth → Expr Fn .truth
   | forSome (name : String) : Expr Fn .number → Expr Fn .number → Expr Fn .truth → Expr Fn .truth
+  | forAllStates (name : String) : Expr Fn .truth → Expr Fn .truth
   | update : Expr Fn ty → Updates Fn ty → Expr Fn ty
 inductive Updates (Fn : Ty → Type) : Ty → Type
   | one : Field owner ty → Expr Fn ty → Updates Fn owner
@@ -1014,6 +1034,11 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .emptySeen => ["(", "others", "=>", "false", ")"]
   | .emptyStateSet => ["packages", ".", "empty_state_set"]
   | .invalidObject => ["invalid_package_object"]
+  | .invalidCall => ["invalid_call"]
+  | .callValueAggregate after kind bounds => ["("] ++ after.render names ++ [","] ++
+      kind.render names ++ [","] ++ bounds.render names ++ [")"]
+  | .applicationCall count value scan => ["("] ++ count.render names ++ [","] ++
+      value.render names ++ [","] ++ scan.render names ++ [")"]
   | .functionType after kind bounds typeId => ["("] ++ after.render names ++ [","] ++
       kind.render names ++ [","] ++ bounds.render names ++ [","] ++ typeId.render names ++ [")"]
   | .functionFormal first after kind bounds typeId => ["("] ++ first.render names ++ [","] ++
@@ -1072,6 +1097,7 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
       last.render names ++ ["=>"] ++ body.render names
   | .forSome name first last body => ["for", "some", name, "in"] ++ first.render names ++ [".."] ++
       last.render names ++ ["=>"] ++ body.render names
+  | .forAllStates name body => ["for", "all", name, "in", "packages", ".", "state_index", "=>"] ++ body.render names
   | .update value changes => ["("] ++ value.render names ++ ["with", "delta"] ++ changes.render names ++ [")"]
 def Updates.render (names : FunctionNames Fn) : Updates Fn owner → List String
   | .one field value => [field.name, "=>"] ++ value.render names
@@ -1089,6 +1115,10 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .emptySeen => List.replicate PackageBindings.maxFormals false
   | .emptyStateSet => PackageBindings.emptyStateSet
   | .invalidObject => ApplicationPackageDeclarations.invalidObject
+  | .invalidCall => Predicate.invalidCall
+  | .callValueAggregate after kind bounds =>
+      ⟨after.eval calls locals, kind.eval calls locals, bounds.eval calls locals⟩
+  | .applicationCall _ value scan => ⟨value.eval calls locals, scan.eval calls locals⟩
   | .functionType after kind bounds typeId =>
       ⟨after.eval calls locals, kind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .functionFormal first after kind bounds typeId =>
@@ -1143,6 +1173,8 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .forSome name first last body =>
       (List.range (last.eval calls locals + 1 - first.eval calls locals)).any fun offset =>
         body.eval calls (locals.set .number name (first.eval calls locals + offset))
+  | .forAllStates name body => (List.range PackageBindings.maxStates).all fun offset =>
+      body.eval calls (locals.set .number name (offset + 1))
   | .update value changes => changes.eval calls locals (value.eval calls locals)
 def Updates.eval (calls : Calls Fn) (locals : Locals) : Updates Fn owner → owner.meaning → owner.meaning
   | .one field value, base => field.set base (value.eval calls locals)

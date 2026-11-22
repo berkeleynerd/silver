@@ -62,9 +62,10 @@ def typeEquation (calls : Calls) (text : Source) (frame : ParserState)
 
 theorem word_denotation (calls : Calls) (text : Source) (position : Nat) (word : String) :
     packageWordBody.eval calls.get ({text,position,word} : Inputs).locals = wordEquation calls text position word := by
-  simp [packageWordBody, constant, Body.eval, Declaration.eval, Command.eval, packageWordResult,
+  dsimp only [packageWordBody, constant, Body.eval, Declaration.eval, Declaration.names, Command.eval, packageWordResult,
     conjunction, apply2, apply4, Expr.eval, Calls.get, Inputs.locals, Locals.set,
-    Native.text, Native.position, Native.first, Native.after, wordEquation]
+    Native.text, Native.position, Native.first, Native.after, wordEquation, List.foldl, List.foldr]
+  simp
 
 theorem pragma_denotation (calls : Calls) (text : Source) (position : Nat) :
     sparkPragmaBody.eval calls.get ({text,position} : Inputs).locals = pragmaEquation calls text position := by
@@ -77,22 +78,25 @@ theorem allowed_denotation (calls : Calls) (text : Source) (name : PackageBindin
 theorem fresh_denotation (calls : Calls) (text : Source) (info : PackageBindings.Metadata)
     (name : PackageBindings.NameSpan) :
     nameFreshBody.eval calls.get ({text,info,name} : Inputs).locals = freshEquation calls text info name := by
-  simp [nameFreshBody, conjunction, apply2, apply3, Expr.eval, Calls.get, Inputs.locals, Locals.set,
-    Native.text, Native.info, Native.name, Field.get, Index.get, freshEquation, Nat.add_comm]
+  dsimp only [nameFreshBody, conjunction, apply2, apply3, Expr.eval, Calls.get, Inputs.locals, Locals.set,
+    Native.text, Native.info, Native.name, Field.get, Index.get, freshEquation, List.foldl, List.foldr]
+  simp [Nat.add_comm]
 
 theorem outer_denotation (calls : Calls) (info : PackageBindings.Metadata) (name : PackageBindings.NameSpan) :
     outerDeclarationBody.eval calls.get ({info,name} : Inputs).locals = outerDeclaration info name := by
-  simp [outerDeclarationBody, Expr.eval, Inputs.locals, Locals.set,
-    Native.info, Native.name, Field.get, Index.get, outerDeclaration, Nat.add_comm, Bool.beq_eq_decide_eq]
+  dsimp only [outerDeclarationBody, Expr.eval, Inputs.locals, Locals.set,
+    Native.info, Native.name, Field.get, Index.get, outerDeclaration]
+  simp [Nat.add_comm, Bool.beq_eq_decide_eq]
 
 theorem type_denotation (calls : Calls) (text : Source) (frame : ParserState)
     (info : PackageBindings.Metadata) (position : Nat) :
     packageTypeBody.eval calls.get ({text,frame,info,position} : Inputs).locals = typeEquation calls text frame info position := by
-  simp [packageTypeBody, constant, Body.eval, Declaration.eval, Command.eval,
+  dsimp only [packageTypeBody, constant, Body.eval, Declaration.eval, Declaration.names, Command.eval,
     typeRejected, typeBoolean, typeInteger, typeExport, typeResult,
     apply2, apply3, apply4, Expr.eval, Calls.get, Inputs.locals, Locals.set, Field.get, Index.get,
     Native.text, Native.frame, Native.info, Native.position, Native.first, Native.last,
-    Native.value, Native.exportId, typeEquation]
+    Native.value, Native.exportId, typeEquation, List.foldl, List.foldr]
+  simp
 
 def modelCalls : Calls where
   skip := skipAt

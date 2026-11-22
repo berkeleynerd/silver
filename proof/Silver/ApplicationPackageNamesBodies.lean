@@ -11,7 +11,7 @@ open ApplicationNative
 /-- All ordinary helper locals are initialized constants. The shared scope
 checker visits initializers before introducing each local name. -/
 def constant (ty : Ty) (name : String) (typeName : List String) (initial : E ty) : Declaration Function :=
-  ⟨ty, name, typeName, true, initial⟩
+  ⟨ty, name, typeName, true, some initial, [], none⟩
 
 def packageWordBody : Body Function .number where
   name := "package_word"
