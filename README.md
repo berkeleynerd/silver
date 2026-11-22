@@ -354,9 +354,12 @@ inputs and builds; they do not establish a universal stack bound.
 The compiler does not raise the process limit automatically. Earlier Linux
 8 MiB observations below retain their exact build/platform scope.
 
-Retained application audit data uses a 64 MiB library-level buffer, and the auditor reads that buffer
+Retained application audit data uses a 256 MiB library-level buffer, and the auditor reads that buffer
 without a report-sized stack copy. A streaming reader validates and omits only
-unaudited proof-tree metadata; original reports remain on disk. The earlier
+unaudited proof-tree metadata; original reports remain on disk. The
+[package capacity account](docs/bounded-library-packages-report-capacity.md)
+derives the per-report allocation; package and Main audits reuse that buffer.
+The earlier
 2 MiB stack allocation produced
 `Storage_Error` with a 2 MiB stack even for the null and Hello World samples;
 that historical result predates the [capacity repair](docs/report-capacity.md).

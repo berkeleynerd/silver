@@ -91,11 +91,12 @@ comments and punctuation preserve the ordinary ASCII literal. This restriction
 keeps the pinned frontend premise consistent with the admitted bytes.
 
 The recorded Linux report-capacity checks used an 8 MiB process stack. `compile`
-and `run` use a 64 MiB library-level buffer for retained audit data. Their
+and `run` use a 256 MiB library-level buffer for retained audit data. Their
 one-based report slices take the auditor's direct path without a report-sized stack copy. The
 generic non-one-based path retains a rebasing copy in a separate frame; the
 driver does not use it. See the [capacity repair](report-capacity.md) and
-[fixed-array envelope](fixed-integer-arrays-report-capacity.md). The
+[fixed-array envelope](fixed-integer-arrays-report-capacity.md) and the
+[package envelope](bounded-library-packages-report-capacity.md). The
 recursive statement/predicate recognizer consumes stack even for `check`.
 The review of `4503d17` measured 3,688 KiB for a 4096-byte source with 1,994
 condition parentheses; its deepest compile failed at 5,632 KiB and passed at
@@ -1369,7 +1370,7 @@ capacity evidence and its limits. Proof cost can differ
 by expression position. [Sequencing probes](statement-sequencing.md) produced
 314,746-byte and 469,246-byte Main reports within the source/operator limits,
 exceeding the previous application buffer. Retained application audit data now
-has a 64 MiB domain; retained runtime data stays within 262,144 bytes. The
+has a 256 MiB domain; retained runtime data stays within 262,144 bytes. The
 [capacity repair](report-capacity.md) derives their envelopes from current
 source and producer fields. A streaming reader validates the complete JSON
 and replaces only immediate `check_tree` values in flow/proof records, removing

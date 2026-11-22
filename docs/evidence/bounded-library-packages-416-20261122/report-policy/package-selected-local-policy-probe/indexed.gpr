@@ -1,0 +1,14 @@
+project Indexed is
+   for Source_Dirs use ("src");
+   for Source_Files use ("main.adb", "audit_state.ads", "audit_state.adb");
+   for Object_Dir use "out/obj";
+   for Main use ("main.adb");
+   package Naming is
+      for Spec ("audit_state") use "audit_state.ads" at 1;
+      for Body ("audit_state") use "audit_state.adb" at 1;
+      for Body ("main") use "main.adb" at 1;
+   end Naming;
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnato");
+   end Compiler;
+end Indexed;

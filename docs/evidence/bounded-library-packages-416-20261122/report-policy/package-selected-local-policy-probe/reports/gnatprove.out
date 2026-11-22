@@ -1,0 +1,45 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+--------------------------------------------------------------------------------
+SPARK Analysis results        Total        Flow   Provers   Justified   Unproved
+--------------------------------------------------------------------------------
+Data Dependencies                 .           .         .           .          .
+Flow Dependencies                 .           .         .           .          .
+Initialization                    1           1         .           .          .
+Non-Aliasing                      .           .         .           .          .
+Run-time Checks                   .           .         .           .          .
+Assertions                        .           .         .           .          .
+Functional Contracts              .           .         .           .          .
+LSP Verification                  .           .         .           .          .
+Termination                       2           2         .           .          .
+Concurrency                       .           .         .           .          .
+--------------------------------------------------------------------------------
+Total                             3    3 (100%)         .           .          .
+
+
+max steps used for successful proof: 0
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 2 units
+in unit audit_state~1, 8 subprograms and packages out of 8 analyzed
+  Audit_State at audit_state.ads:1 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Audit_State.Depend at audit_state.ads:6 flow analyzed (0 errors, 0 checks, 1 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Audit_State.Ignore at audit_state.ads:11 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Audit_State.Local_Warnings at audit_state.ads:9 flow analyzed (0 errors, 0 checks, 10 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Audit_State.Produce at audit_state.ads:5 flow analyzed (0 errors, 0 checks, 1 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Audit_State.Read at audit_state.ads:10 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Audit_State.Replace at audit_state.ads:8 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Audit_State.Reset at audit_state.ads:7 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+in unit main~1, 1 subprograms and packages out of 1 analyzed
+  Main at main.adb:2 flow analyzed (0 errors, 0 checks, 8 warnings and 0 pragma Assume statements) and proved (0 checks)

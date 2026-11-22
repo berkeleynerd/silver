@@ -148,6 +148,23 @@ def subprogram_envelope() -> int:
             + formal_advisories * FLOW_RECORD_BYTES + SOURCE_BYTES)
 
 
+
+def package_envelope() -> int:
+    # Disjoint original source charge: five package-name occurrences,
+    # declaration+write occurrence per writable state, and each source call.
+    # See docs/bounded-library-packages-report-capacity.md.
+    hidden = max(states * ((SOURCE_BYTES - 5 * name - 9 * states) // 2) * (768 + 2 * name)
+                 for name in range(1, SOURCE_BYTES // 5 + 1)
+                 for states in range((SOURCE_BYTES - 5 * name) // 9 + 1))
+    names = SOURCE_BYTES ** 2 // 2 + 2 * (SOURCE_BYTES ** 2 // 9)
+    ordinary_prefixes = max(2 * name * (7 * (SOURCE_BYTES - 5 * name) + 189)
+                            for name in range(1, SOURCE_BYTES // 5 + 1))
+    metadata_prefixes = 40 * (SOURCE_BYTES ** 2 // (4 * 5 * 32))
+    extra_edges = (SOURCE_BYTES // 2 - SOURCE_BYTES // 5) * 3 * 256
+    return (subprogram_envelope() + hidden + names + ordinary_prefixes
+            + metadata_prefixes + extra_edges + METADATA_BYTES)
+
+
 def dense_report() -> str:
     """A producer-shaped adversarial witness, not universal proof evidence."""
     result = assignment_call_report()
@@ -196,6 +213,7 @@ class CapacityEnvelopeTests(unittest.TestCase):
         self.assertLessEqual(embedded_record_bytes(index), MAIN_RECORD_BYTES)
         self.assertEqual(main_envelope(), 31_822_336)
         self.assertEqual(subprogram_envelope(), 49_279_744)
+        self.assertEqual(package_envelope(), 254_557_666)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()
@@ -207,10 +225,28 @@ class CapacityEnvelopeTests(unittest.TestCase):
                                       (ROOT / "src/silver_platform.ads").read_text())[1].replace("_", ""))
         self.assertLessEqual(main_envelope(), report_limit)
         self.assertLessEqual(subprogram_envelope(), report_limit)
+        self.assertLessEqual(package_envelope(), report_limit)
+        self.assertEqual(report_limit, 256 * 1024 * 1024)
         self.assertGreaterEqual(platform_limit, report_limit)
         for proof_count, flow_count in ((36, 12), (11, 7), (0, 0)):
             self.assertLessEqual(proof_count * MAIN_RECORD_BYTES + flow_count * FLOW_RECORD_BYTES
                                  + METADATA_BYTES, runtime_limit)
+
+    def test_hidden_state_record_schema_and_source_product(self) -> None:
+        record = maximal_retained_record(flow=True)
+        record.update(file=".adb", tracefile="__flow__2147483647.trace",
+                      message={"text": '\"\" is set by \"\" but not used after the call'})
+        self.assertEqual(embedded_record_bytes(record), 526)
+        # Qualified state dot and indexed trace suffix add three fixed bytes.
+        self.assertLessEqual(embedded_record_bytes(record) + 3, 768)
+        maximum = max((states * calls * (768 + 2 * name), name, states, calls)
+                      for name in range(1, SOURCE_BYTES // 5 + 1)
+                      for states in range((SOURCE_BYTES - 5 * name) // 9 + 1)
+                      for calls in [(SOURCE_BYTES - 5 * name - 9 * states) // 2])
+        self.assertEqual(maximum, (179_203_692, 17, 223, 1002))
+        prefixes = max((2 * name * (7 * (SOURCE_BYTES - 5 * name) + 189), name)
+                       for name in range(1, SOURCE_BYTES // 5 + 1))
+        self.assertEqual(prefixes, (11_899_384, 412))
 
     def test_subprogram_record_allowances_exclude_separately_charged_names(self) -> None:
         initialization = maximal_retained_record(flow=True)
