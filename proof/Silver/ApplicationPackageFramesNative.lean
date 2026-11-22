@@ -51,13 +51,18 @@ def finalState : C := .sequence
     (.returned .invalidState) .nothing)
   (.returned result.expression)
 
-def qualifyLoop (table : Field .state tableTy) (count : Field tableTy .number)
+def qualifyBody (table : Field .state tableTy)
     (item : Index tableTy .number itemTy)
     (first after : Field itemTy .number) : C :=
   let selected : P itemTy := .index item (.field table result) (.variable "i")
-  .forRange "i" (.number 1) (.field count (.field table result.expression)) <|
-    .sequence (.assign (.field first selected) (.field .infoNameFirst info))
-      (.assign (.field after selected) (.field .infoNameAfter info))
+  .sequence (.assign (.field first selected) (.field .infoNameFirst info))
+    (.assign (.field after selected) (.field .infoNameAfter info))
+
+def qualifyLoop (table : Field .state tableTy) (count : Field tableTy .number)
+    (item : Index tableTy .number itemTy)
+    (first after : Field itemTy .number) : C :=
+  .forRange "i" (.number 1) (.field count (.field table result.expression))
+    (qualifyBody table item first after)
 
 def importedFrameBody : Body Function .state :=
   { name := "imported_frame"
