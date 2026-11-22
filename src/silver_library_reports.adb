@@ -5755,6 +5755,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      with Pre => Text'First = 1,
        Post => (Static => Audit_Normalized_Report'Result = Report_Policy (Text, Kind, Source => Source, Functions => Functions, Procedures => Procedures, Context => Context))
    is
+      --  This boundary uses these predicates through identical arguments in
+      --  the executable guard and the declarative object policy. Their full
+      --  quantified metadata definitions are proved in their owning unit.
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Application_Metadata.Valid);
+      pragma Annotate
+        (GNATprove, Hide_Info, "Expression_Function_Body", Application_Metadata.Owned_Views_Match);
    begin
       if not Application_Metadata.Valid (Source, Context)
         or else not Application_Metadata.Owned_Views_Match (Context, Functions, Procedures)
