@@ -13,7 +13,12 @@
     0,
     1
   ],
-  "compared_production_config_files": 147,
+  "compared_production_config_files": 148,
   "mismatches": [],
-  "installation_scope": "primary worktree installation retained; binary identity bound by full-suite captured inputs; closeout does not move or rebuild that installation"
+  "installation_scope": "primary worktree installation retained; binary identity bound by full-suite captured inputs; closeout does not move or rebuild that installation",
+  "compared_configuration_files": [
+    "alire.toml",
+    "silver.gpr",
+    "proof/silver_proof_containers.gpr"
+  ]
 }

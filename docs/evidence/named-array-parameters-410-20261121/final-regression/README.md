@@ -12,12 +12,12 @@ proof-only measurement and failed deadline attempts.
 `full-suite-ids.txt` contains all 785 identities, including separately discovered
 imported/inherited tests. Its SHA-256 is
 `11777474d4a60c05987b2839070f4a4e5539cc84602ebffc5d6ab00c4b22e1ec`.
-Four unittest descriptions wrap before their ellipsis; matching only one-line
-`... ok` headers would incorrectly count 781. The original log contains 785
+Wrapped descriptions and interleaved subprocess output can place a test's
+passing disposition on a later line. The original log contains 785
 test headers and 785 passing dispositions, followed by the 785-test/OK summary.
 
 The retained compiler build `20261121T190603-f8f3c039687c` passed in 4.324 managed
-seconds on the primary installation with two workers and CPUs 0–1. All 147
+seconds on the primary installation with two workers and CPUs 0–1. All 148
 captured production/configuration inputs match this delivery tree. Its original
 generated paths/tool identities retain their primary-installation scope; the
 full suite captures the installed compiler binary. No installation was moved,

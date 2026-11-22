@@ -625,7 +625,7 @@ readiness and external bookkeeping; no merge is authorized.
 The precise `named-integer-array-parameters` fragment is supported under the
 rules in this record and `language.md`. It adds named constrained nonempty
 Integer-array types/objects, read-only nominal array inputs in both existing call
-kinds, and static bounds queries, including existing anonymous Integer objects.
+kinds, and static bounds queries, including existing anonymous Integer-array objects.
 The two faithful Rosetta mappings gained are **Dot product** through a function
 and **Horner's rule** through a procedure. Broad arrays, writable/returned/
 unconstrained arrays and Boolean named arrays/queries remain excluded.
@@ -634,7 +634,7 @@ unconstrained arrays and Boolean named arrays/queries remain excluded.
 | --- | --- |
 | [Corrected complete native audit](evidence/named-array-parameters-410-20261121/final-native/README.md), `20261121T191055-5cced625eb47` | 78 units, 1,265 entities, 19,994 discharged checks; full forced analysis with retained sessions/cache, two workers, CPUs 4–5 and 16 MiB invoking stack. |
 | [Complete Lean/source checkpoint](evidence/named-array-parameters-410-20261121/final-lean/README.md), `20261121T215449-12cec2fc5976` | 1,083 modules and 173,026 declarations, exactly the three permitted foundations; six workers/threads, CPUs 2–7, complete incremental build and fresh coverage/axiom audit. |
-| [Compiler build](evidence/named-array-parameters-410-20261121/final-regression/build-summary.json), `20261121T190603-f8f3c039687c` | Passed on the primary installation; all 147 captured production/config inputs match the delivery tree. The full suite captures that installed binary; no installation is moved or rebuilt. |
+| [Compiler build](evidence/named-array-parameters-410-20261121/final-regression/build-summary.json), `20261121T190603-f8f3c039687c` | Passed on the primary installation; all 148 captured production/config inputs match the delivery tree. The full suite captures that installed binary; no installation is moved or rebuilt. |
 | [Full regression and final applicability](evidence/named-array-parameters-410-20261121/final-regression/README.md), `20261121T211830-07948902a0f6` | All 785 identities passed in 7,832.123 test seconds on frozen `4373508bf6`; two workers, CPUs 0–1 and 16 MiB invoking stack. |
 | Proof-affected rerun `20261121T215753-de0dae34a5b9` | All 15 identified readers passed on `7f449246ce`, 174.128 test seconds, six automatically allocated workers in the separate proof worktree. |
 | Final deterministic Rosetta render `20261121T233151-52b966341665` and `test_rosetta.py` run `20261121T233202-07a8576e778c` | Render and all 12 tests passed; the latter took 4.424 test seconds on final promoted metadata; actual allocation and duration are retained in the regression packet. |
@@ -660,6 +660,12 @@ November 21 review dates, selected settings and checkpoint qualifications are
 preserved; this delivery reconciliation does not claim a new semantic review.
 The earlier [regression-applicability review](evidence/named-array-parameters-410-20261121/regression-applicability/REVIEW.md)
 required the fresh full suite now recorded in the final packet.
+
+The November 22 [independent delivery confirmation](reviews/review-named-array-delivery-20261122.md)
+accepts closeout `959fe0742a` and the documented record corrections for PR
+readiness. It reconciles the original validation records and final inputs,
+relying on the earlier scoped semantic reviews. It does not constitute a new
+external comprehensive review. No material delivery finding remains.
 
 The dated checkpoints above and linked run packets retain failed attempts,
 interruptions, repairs and focused successes. The first complete native attempt
