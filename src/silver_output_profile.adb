@@ -8540,13 +8540,14 @@ is
                end if;
                Next := Object.Frame;
                Export := (Name => Object.Name,
-                 Kind => (if Object.Mark.Kind = Functions.Integer_Kind
-                   then Packages.Integer_Constant else Packages.Boolean_Constant),
-                 Bounds => (if Object.Mark.Kind = Functions.Integer_Kind
-                   then Object.Initial_Bounds else Scalars.Full),
+                 Kind => Packages.Boolean_Constant, Bounds => Scalars.Full,
                  Type_Name => Object.Mark.Name, Type_Identity => Object.Mark.Identity,
                  Initializer_First => Object.Init_First, Initializer_After => Object.Init_After,
                  Boolean_Value => Object.Boolean_Value);
+               if Object.Mark.Kind = Functions.Integer_Kind then
+                  Export.Kind := Packages.Integer_Constant;
+                  Export.Bounds := Object.Initial_Bounds;
+               end if;
             end if;
             Info.Export_Count := Info.Export_Count + 1;
             Info.Exports (Info.Export_Count) := Export;
