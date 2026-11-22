@@ -1,0 +1,9 @@
+Compile
+   [Ada]          package_check.adb
+   [Ada]          silver_output_profile.adb
+   [Ada]          silver_scalar_expressions.adb
+Bind
+   [gprbind]      package_check.bexch
+   [Ada]          package_check.ali
+Link
+   [link]         package_check.adb

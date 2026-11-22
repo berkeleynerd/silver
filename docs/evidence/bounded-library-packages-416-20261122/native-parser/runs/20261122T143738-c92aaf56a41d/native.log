@@ -1,0 +1,38 @@
+test_byte_budget_is_shared_by_the_three_original_files (__main__.Cases.test_byte_budget_is_shared_by_the_three_original_files) ... ok
+test_captures_are_bound_before_local_initializers (__main__.Cases.test_captures_are_bound_before_local_initializers) ... ok
+test_case_and_cr_comments_preserve_the_native_route (__main__.Cases.test_case_and_cr_comments_preserve_the_native_route) ... ok
+test_every_routine_is_checked_over_declared_state_and_formal_domains (__main__.Cases.test_every_routine_is_checked_over_declared_state_and_formal_domains) ... ok
+test_explicit_actuals_cannot_alias_implicit_writable_state (__main__.Cases.test_explicit_actuals_cannot_alias_implicit_writable_state) ... ok
+test_extra_dependencies_private_parts_and_nested_packages_are_excluded (__main__.Cases.test_extra_dependencies_private_parts_and_nested_packages_are_excluded) ... ok
+test_extra_explicit_write_cannot_alias_implicit_read (__main__.Cases.test_extra_explicit_write_cannot_alias_implicit_read) ... ok
+test_extra_guarded_slice_starts_at_main_original_unit (__main__.Cases.test_extra_guarded_slice_starts_at_main_original_unit) ... ok
+test_extra_initializer_full_domains_and_formal_shadowing (__main__.Cases.test_extra_initializer_full_domains_and_formal_shadowing) ... ok
+test_extra_qualified_constant_and_writable_local_have_distinct_names (__main__.Cases.test_extra_qualified_constant_and_writable_local_have_distinct_names) ... ok
+test_extra_queue_definition_original_units (__main__.Cases.test_extra_queue_definition_original_units) ... ok
+test_extra_read_only_calls_preserve_state_facts (__main__.Cases.test_extra_read_only_calls_preserve_state_facts) ... ok
+test_extra_reserved_package_identifiers (__main__.Cases.test_extra_reserved_package_identifiers) ... ok
+test_extra_return_call_is_outside_existing_return_grammar (__main__.Cases.test_extra_return_call_is_outside_existing_return_grammar) ... ok
+test_extra_selected_original_audit_fixtures (__main__.Cases.test_extra_selected_original_audit_fixtures) ... ok
+test_forward_and_recursive_calls_are_rejected_even_in_dead_code (__main__.Cases.test_forward_and_recursive_calls_are_rejected_even_in_dead_code) ... ok
+test_function_cannot_call_even_a_stateless_package_procedure (__main__.Cases.test_function_cannot_call_even_a_stateless_package_procedure) ... ok
+test_function_cannot_write_hidden_state (__main__.Cases.test_function_cannot_write_hidden_state) ... ok
+test_main_local_closed_routines_cannot_capture_the_package (__main__.Cases.test_main_local_closed_routines_cannot_capture_the_package) ... ok
+test_operator_budget_counts_each_original_lexical_unit (__main__.Cases.test_operator_budget_counts_each_original_lexical_unit) ... ok
+test_output_prefix_cannot_read_an_earlier_output_formal (__main__.Cases.test_output_prefix_cannot_read_an_earlier_output_formal) ... ok
+test_package_body_requires_an_exported_routine (__main__.Cases.test_package_body_requires_an_exported_routine) ... ok
+test_package_function_calls_require_a_whole_assignment_rhs (__main__.Cases.test_package_function_calls_require_a_whole_assignment_rhs) ... ok
+test_package_only_context_does_not_require_an_unused_io_import (__main__.Cases.test_package_only_context_does_not_require_an_unused_io_import) ... ok
+test_packages_compose_with_arguments_arrays_and_guarded_output (__main__.Cases.test_packages_compose_with_arguments_arrays_and_guarded_output) ... ok
+test_private_boolean_state_and_earlier_state_initialization (__main__.Cases.test_private_boolean_state_and_earlier_state_initialization) ... ok
+test_private_state_initialization_is_exact_and_in_declared_bounds (__main__.Cases.test_private_state_initialization_is_exact_and_in_declared_bounds) ... ok
+test_public_constants_and_subtypes_are_qualified_in_main (__main__.Cases.test_public_constants_and_subtypes_are_qualified_in_main) ... ok
+test_spec_body_signatures_match_in_order_and_full_identity (__main__.Cases.test_spec_body_signatures_match_in_order_and_full_identity) ... ok
+test_stateful_zero_formal_operations_preserve_original_units (__main__.Cases.test_stateful_zero_formal_operations_preserve_original_units) ... ok
+test_unused_routines_and_package_state_remain_in_complete_audit (__main__.Cases.test_unused_routines_and_package_state_remain_in_complete_audit) ... ok
+test_writing_calls_invalidate_prior_state_guards (__main__.Cases.test_writing_calls_invalidate_prior_state_guards) ... ok
+test_zero_formal_operations_use_ada_syntax (__main__.Cases.test_zero_formal_operations_use_ada_syntax) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.343s
+
+OK
