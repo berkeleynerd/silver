@@ -2,16 +2,123 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import re
 import shutil
+import signal
 import subprocess
+import sys
 import tempfile
+import time
 import unittest
+from unittest import mock
 import xml.etree.ElementTree as ET
 
 from scripts.check_evidence import audit_reports
 from tests.test_silver import HOST, ROOT, SILVER, invoke
+
+
+def _compile_maximum_dynamic_expression(
+        source: Path, *, timeout: float = 3 * 60 * 60) -> subprocess.CompletedProcess[str]:
+    command = [str(SILVER), "compile", str(source)]
+    with subprocess.Popen(command, cwd=ROOT, text=True, stdout=subprocess.PIPE,
+                          stderr=subprocess.STDOUT, start_new_session=True) as process:
+        try:
+            stdout, stderr = process.communicate(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            # Provers inherit this isolated process group. Kill them and reap
+            # the compiler, preserving subprocess.run's POSIX timeout behavior:
+            # the original exception retains its raw partial-output snapshot.
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            process.wait()
+            raise
+    return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
+
+
+class MaximumExpressionProcessTests(unittest.TestCase):
+    def compiler_fixture(self, code: str) -> tuple[Path, Path]:
+        directory = tempfile.TemporaryDirectory(prefix="silver-compile-process-")
+        self.addCleanup(directory.cleanup)
+        root = Path(directory.name)
+        compiler = root / "silver"
+        compiler.write_text(f"#!{sys.executable}\n" + code)
+        compiler.chmod(0o700)
+        return compiler, root / "main.adb"
+
+    def test_success_and_failure_preserve_output_and_return_code(self) -> None:
+        for status in (0, 7):
+            with self.subTest(status=status):
+                compiler, source = self.compiler_fixture(
+                    "import os\n"
+                    "os.write(1, b'compiler \\xe2\\x9c\\x93\\n')\n"
+                    "os.write(2, b'proof diagnostics\\n')\n"
+                    f"raise SystemExit({status})\n")
+                with mock.patch(__name__ + ".SILVER", compiler):
+                    result = _compile_maximum_dynamic_expression(source, timeout=5)
+                self.assertEqual(result.args, [str(compiler), "compile", str(source)])
+                self.assertEqual(result.returncode, status)
+                self.assertEqual(result.stdout, "compiler ✓\nproof diagnostics\n")
+                self.assertIsNone(result.stderr)
+
+    def test_timeout_kills_descendant_and_reaps_compiler(self) -> None:
+        compiler, source = self.compiler_fixture("")
+        group_file = compiler.parent / "group"
+
+        def cleanup_group() -> None:
+            if group_file.exists():
+                try:
+                    os.killpg(int(group_file.read_text()), signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+
+        self.addCleanup(cleanup_group)
+        descendant = ("import os,time\n"
+                      "print(f'prover:{os.getpid()}:{os.getpgrp()}', flush=True)\n"
+                      "os.write(1, b'\\xe2')\n"
+                      "time.sleep(10)\n")
+        compiler.write_text(
+            f"#!{sys.executable}\n"
+            "import os,subprocess,sys,time\n"
+            "from pathlib import Path\n"
+            f"Path({str(group_file)!r}).write_text(str(os.getpid()))\n"
+            "print(f'compiler:{os.getpid()}:{os.getpgrp()}', flush=True)\n"
+            f"subprocess.Popen([sys.executable, '-c', {descendant!r}])\n"
+            "time.sleep(10)\n")
+        started = time.monotonic()
+        with mock.patch(__name__ + ".SILVER", compiler), \
+                self.assertRaises(subprocess.TimeoutExpired) as raised:
+            _compile_maximum_dynamic_expression(source, timeout=1)
+        self.assertLess(time.monotonic() - started, 5, "timeout cleanup did not finish promptly")
+        error = raised.exception
+        self.assertEqual(error.cmd, [str(compiler), "compile", str(source)])
+        self.assertEqual(error.timeout, 1)
+        self.assertIsNone(error.stderr)
+        self.assertIsInstance(error.output, bytes)
+        # A timeout can interrupt a UTF-8 diagnostic. Cleanup must not decode
+        # that partial byte sequence and replace TimeoutExpired with an error.
+        self.assertTrue(error.output.endswith(b"\xe2"), error.output)
+        processes = {name: (int(pid), int(group))
+                     for name, pid, group in (line.split(":")
+                                              for line in error.output[:-1].decode().splitlines())}
+        self.assertEqual(set(processes), {"compiler", "prover"})
+        pid, group = processes["compiler"]
+        self.assertEqual(group, pid)
+        self.assertNotEqual(group, os.getpgrp())
+        self.assertEqual(processes["prover"][1], group)
+        with self.assertRaises(ChildProcessError):
+            os.waitpid(pid, os.WNOHANG)
+        # The killed descendant belongs to its new parent, which reaps it.
+        # A zombie is already terminated even if that parent has not run yet.
+        status = subprocess.run(["ps", "-o", "stat=", "-p", str(processes["prover"][0])],
+                                text=True, capture_output=True, timeout=5)
+        self.assertIn(status.returncode, (0, 1), status.stderr)
+        self.assertEqual(status.stderr, "")
+        state = status.stdout.strip()
+        self.assertTrue(not state or state.startswith("Z"), state)
 
 
 class SupportedSampleTests(unittest.TestCase):
@@ -161,9 +268,7 @@ class SupportedSampleTests(unittest.TestCase):
             # The one-worker application prover took 6,973 seconds on the host's
             # eight-CPU allocation. Allow three hours for this maximal case;
             # ordinary tests and production solver limits remain unchanged.
-            compilation = subprocess.run([str(SILVER), "compile", str(source)], cwd=ROOT,
-                                         text=True, stdout=subprocess.PIPE,
-                                         stderr=subprocess.STDOUT, timeout=3 * 60 * 60)
+            compilation = _compile_maximum_dynamic_expression(source)
             self.assertEqual(compilation.returncode, 0, compilation.stdout)
             match = re.search(r"^Executable: (.+)$", compilation.stdout, re.MULTILINE)
             self.assertIsNotNone(match, compilation.stdout)
