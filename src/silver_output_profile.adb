@@ -26,6 +26,13 @@ is
    package Array_Bindings renames Silver_Array_Bindings;
    package Functions renames Silver_Function_Bindings;
    package Procedures renames Silver_Procedure_Bindings;
+   package Packages renames Silver_Package_Bindings;
+   package Units renames Silver_Application_Units;
+   use type Packages.Name_Span;
+   use type Packages.Export_Kind;
+   use type Packages.Routine_Kind;
+   use type Packages.State_Set;
+   use type Units.Span_Array;
    use type Procedures.Metadata;
    use type Procedures.Signature;
    use type Procedures.Formal;
@@ -199,8 +206,10 @@ is
    type Boolean_Binding is record
       First, After : Literal_Position;
       Mutable : Boolean;
+      Qualifier_First, Qualifier_After : Literal_Position := 0;
+      Known, Value : Boolean := False;
    end record;
-   Empty_Boolean_Binding : constant Boolean_Binding := (0, 0, False);
+   Empty_Boolean_Binding : constant Boolean_Binding := (0, 0, False, 0, 0, False, False);
    type Boolean_Binding_Array is array (Boolean_Index) of Boolean_Binding;
    type Boolean_Environment is record
       Count : Boolean_Count;
@@ -215,7 +224,9 @@ is
      (for all Index in 1 .. Booleans.Count =>
         Booleans.Items (Index).First > 0
         and then Valid_Name_State
-          (Text, Booleans.Items (Index).First, Booleans.Items (Index).After));
+          (Text, Booleans.Items (Index).First, Booleans.Items (Index).After)
+        and then Valid_Name_State
+          (Text, Booleans.Items (Index).Qualifier_First, Booleans.Items (Index).Qualifier_After));
 
    function Valid_Names (Text : String; Names : Binding_Environment) return Boolean
      with Global => null,
@@ -238,8 +249,9 @@ is
    type Subtype_Binding is record
       First, After : Literal_Position;
       Bounds : Scalars.Interval;
+      Qualifier_First, Qualifier_After : Literal_Position := 0;
    end record;
-   Empty_Subtype_Binding : constant Subtype_Binding := (0, 0, Scalars.Empty);
+   Empty_Subtype_Binding : constant Subtype_Binding := (0, 0, Scalars.Empty, 0, 0);
    type Subtype_Binding_Array is array (Subtype_Index) of Subtype_Binding;
    type Subtype_Visibility is array (Names.Operation_Kind) of Boolean;
    type Subtype_Environment is record
@@ -258,6 +270,8 @@ is
         Subtypes.Items (Index).First > 0
         and then Valid_Name_State
           (Text, Subtypes.Items (Index).First, Subtypes.Items (Index).After)
+        and then Valid_Name_State
+          (Text, Subtypes.Items (Index).Qualifier_First, Subtypes.Items (Index).Qualifier_After)
         and then not Scalars.Is_Empty (Subtypes.Items (Index).Bounds));
 
    type Hidden_Marks is record
@@ -267,6 +281,8 @@ is
    No_Hidden_Marks : constant Hidden_Marks := (others => False);
    type Parser_State is record
       Position : Literal_Position;
+      Context_First : Cursor := 1;
+      Package_First, Package_After : Literal_Position := 0;
       Functions : Silver_Function_Bindings.Metadata;
       Procedures : Silver_Procedure_Bindings.Metadata;
       Pure, Assigned_In_Functions : Boolean;
@@ -283,7 +299,7 @@ is
       Capacity : Capacity_Value;
    end record;
    Initial_State : constant Parser_State :=
-     (Position => 1, Functions => Functions.Empty_Metadata, Procedures => Procedures.Empty_Metadata,
+     (Position => 1, Context_First => 1, Package_First => 0, Package_After => 0, Functions => Functions.Empty_Metadata, Procedures => Procedures.Empty_Metadata,
       Pure => False, Assigned_In_Functions => False, Hiding => No_Hidden_Marks,
       First_Parameter => 0, First_Procedure_Parameter => 0, Names => Empty_Environment,
       Scalar_Names => Scalar_Expressions.Empty_Environment,
@@ -291,7 +307,7 @@ is
       Boolean_Names => Empty_Booleans, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => Max_Source_Length);
    Invalid_State : constant Parser_State :=
-     (Position => 0, Functions => Functions.Empty_Metadata, Procedures => Procedures.Empty_Metadata,
+     (Position => 0, Context_First => 1, Package_First => 0, Package_After => 0, Functions => Functions.Empty_Metadata, Procedures => Procedures.Empty_Metadata,
       Pure => False, Assigned_In_Functions => False, Hiding => No_Hidden_Marks,
       First_Parameter => 0, First_Procedure_Parameter => 0, Names => Empty_Environment,
       Scalar_Names => Scalar_Expressions.Empty_Environment,
@@ -315,6 +331,8 @@ is
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
    function Valid_State (Text : String; State : Parser_State) return Boolean is
      (State.Position <= Text'Last + 1
+      and then State.Context_First <= Text'Last + 1
+      and then Valid_Name_State (Text, State.Package_First, State.Package_After)
       and then Functions.Valid_Metadata (Text, State.Functions)
       and then Procedures.Valid_Metadata (Text, State.Procedures)
       and then State.First_Parameter <= State.Functions.Parameter_Count + 1
@@ -508,32 +526,42 @@ is
 
    function Lookup_Subtype_Model
      (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position;
-      Index : Subtype_Count) return Subtype_Count
+      Index : Subtype_Count;
+      Qualifier_First, Qualifier_After : Literal_Position := 0) return Subtype_Count
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Subtypes (Text, Subtypes) and then Index <= Subtypes.Count
-         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1
+         and then Valid_Name_State (Text, Qualifier_First, Qualifier_After),
        Post => Lookup_Subtype_Model'Result <= Index,
        Subprogram_Variant => (Decreases => Index);
    function Lookup_Subtype_Model
      (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position;
-      Index : Subtype_Count) return Subtype_Count is
+      Index : Subtype_Count;
+      Qualifier_First, Qualifier_After : Literal_Position := 0) return Subtype_Count is
      (if First = 0 or else After <= First or else Index = 0 then 0
       elsif Equal_Name (Text, Subtypes.Items (Index).First, Subtypes.Items (Index).After,
                         First, After)
-      then Index else Lookup_Subtype_Model (Text, Subtypes, First, After, Index - 1));
+        and then (if Qualifier_First = 0 then Subtypes.Items (Index).Qualifier_First = 0
+          else Subtypes.Items (Index).Qualifier_First > 0
+            and then Equal_Name (Text, Subtypes.Items (Index).Qualifier_First,
+              Subtypes.Items (Index).Qualifier_After, Qualifier_First, Qualifier_After))
+      then Index else Lookup_Subtype_Model (Text, Subtypes, First, After, Index - 1, Qualifier_First, Qualifier_After));
    function Lookup_Subtype
-     (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position)
+     (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position;
+      Qualifier_First, Qualifier_After : Literal_Position := 0)
       return Subtype_Count
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Subtypes (Text, Subtypes)
-         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1
+         and then Valid_Name_State (Text, Qualifier_First, Qualifier_After),
        Post => (Runtime => Lookup_Subtype'Result <= Subtypes.Count,
          Static => Lookup_Subtype'Result =
-           Lookup_Subtype_Model (Text, Subtypes, First, After, Subtypes.Count));
+           Lookup_Subtype_Model (Text, Subtypes, First, After, Subtypes.Count, Qualifier_First, Qualifier_After));
    function Lookup_Subtype
-     (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position)
+     (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position;
+      Qualifier_First, Qualifier_After : Literal_Position := 0)
       return Subtype_Count is
       Index : Subtype_Count := Subtypes.Count;
    begin
@@ -541,11 +569,15 @@ is
       while Index > 0 loop
          pragma Loop_Invariant (Index <= Subtypes.Count);
          pragma Loop_Invariant (Static =>
-           Lookup_Subtype_Model (Text, Subtypes, First, After, Subtypes.Count)
-             = Lookup_Subtype_Model (Text, Subtypes, First, After, Index));
+           Lookup_Subtype_Model (Text, Subtypes, First, After, Subtypes.Count, Qualifier_First, Qualifier_After)
+             = Lookup_Subtype_Model (Text, Subtypes, First, After, Index, Qualifier_First, Qualifier_After));
          pragma Loop_Variant (Decreases => Index);
          if Equal_Name (Text, Subtypes.Items (Index).First, Subtypes.Items (Index).After,
                         First, After)
+           and then (if Qualifier_First = 0 then Subtypes.Items (Index).Qualifier_First = 0
+          else Subtypes.Items (Index).Qualifier_First > 0
+            and then Equal_Name (Text, Subtypes.Items (Index).Qualifier_First,
+              Subtypes.Items (Index).Qualifier_After, Qualifier_First, Qualifier_After))
          then return Index; end if;
          Index := Index - 1;
       end loop;
@@ -554,32 +586,42 @@ is
 
    function Lookup_Boolean_Model
      (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position;
-      Index : Boolean_Count) return Boolean_Count
+      Index : Boolean_Count;
+      Qualifier_First, Qualifier_After : Literal_Position := 0) return Boolean_Count
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Booleans (Text, Booleans) and then Index <= Booleans.Count
-         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1
+         and then Valid_Name_State (Text, Qualifier_First, Qualifier_After),
        Post => Lookup_Boolean_Model'Result <= Index,
        Subprogram_Variant => (Decreases => Index);
    function Lookup_Boolean_Model
      (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position;
-      Index : Boolean_Count) return Boolean_Count is
+      Index : Boolean_Count;
+      Qualifier_First, Qualifier_After : Literal_Position := 0) return Boolean_Count is
      (if First = 0 or else After <= First or else Index = 0 then 0
       elsif Equal_Name (Text, Booleans.Items (Index).First, Booleans.Items (Index).After,
                         First, After)
-      then Index else Lookup_Boolean_Model (Text, Booleans, First, After, Index - 1));
+        and then (if Qualifier_First = 0 then Booleans.Items (Index).Qualifier_First = 0
+          else Booleans.Items (Index).Qualifier_First > 0
+            and then Equal_Name (Text, Booleans.Items (Index).Qualifier_First,
+              Booleans.Items (Index).Qualifier_After, Qualifier_First, Qualifier_After))
+      then Index else Lookup_Boolean_Model (Text, Booleans, First, After, Index - 1, Qualifier_First, Qualifier_After));
    function Lookup_Boolean
-     (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position)
+     (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position;
+      Qualifier_First, Qualifier_After : Literal_Position := 0)
       return Boolean_Count
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Booleans (Text, Booleans)
-         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1
+         and then Valid_Name_State (Text, Qualifier_First, Qualifier_After),
        Post => (Runtime => Lookup_Boolean'Result <= Booleans.Count,
          Static => Lookup_Boolean'Result =
-           Lookup_Boolean_Model (Text, Booleans, First, After, Booleans.Count));
+           Lookup_Boolean_Model (Text, Booleans, First, After, Booleans.Count, Qualifier_First, Qualifier_After));
    function Lookup_Boolean
-     (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position)
+     (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position;
+      Qualifier_First, Qualifier_After : Literal_Position := 0)
       return Boolean_Count is
       Index : Boolean_Count := Booleans.Count;
    begin
@@ -587,11 +629,15 @@ is
       while Index > 0 loop
          pragma Loop_Invariant (Index <= Booleans.Count);
          pragma Loop_Invariant (Static =>
-           Lookup_Boolean_Model (Text, Booleans, First, After, Booleans.Count)
-             = Lookup_Boolean_Model (Text, Booleans, First, After, Index));
+           Lookup_Boolean_Model (Text, Booleans, First, After, Booleans.Count, Qualifier_First, Qualifier_After)
+             = Lookup_Boolean_Model (Text, Booleans, First, After, Index, Qualifier_First, Qualifier_After));
          pragma Loop_Variant (Decreases => Index);
          if Equal_Name (Text, Booleans.Items (Index).First, Booleans.Items (Index).After,
                         First, After)
+           and then (if Qualifier_First = 0 then Booleans.Items (Index).Qualifier_First = 0
+          else Booleans.Items (Index).Qualifier_First > 0
+            and then Equal_Name (Text, Booleans.Items (Index).Qualifier_First,
+              Booleans.Items (Index).Qualifier_After, Qualifier_First, Qualifier_After))
          then return Index; end if;
          Index := Index - 1;
       end loop;
@@ -604,6 +650,7 @@ is
          and then Valid_Booleans (Text, Booleans);
    function Boolean_Hides_Integer (Text : String; Booleans : Boolean_Environment) return Boolean is
      (for some Index in 1 .. Booleans.Count =>
+        Booleans.Items (Index).Qualifier_First = 0 and then
         Name_Is (Text, Booleans.Items (Index).First, Booleans.Items (Index).After, "integer"));
 
    function Call_After
@@ -612,13 +659,17 @@ is
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Subtype_Hidden : Boolean := False;
-      Booleans : Boolean_Environment := Empty_Booleans) return Literal_Position
+      Booleans : Boolean_Environment := Empty_Booleans;
+      Context_First : Cursor := 1;
+      Package_First, Package_After : Literal_Position := 0) return Literal_Position
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Names (Text, Environment)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
          and then Array_Bindings.Valid_Metadata (Text, Arrays)
-         and then Valid_Booleans (Text, Booleans) and then Position <= Text'Last + 1,
+         and then Valid_Booleans (Text, Booleans) and then Position <= Text'Last + 1
+         and then Context_First <= Text'Last + 1
+         and then Valid_Name_State (Text, Package_First, Package_After),
        Post => Call_After'Result = 0
          or else Call_After'Result in Position + 1 .. Text'Last + 1;
    function Call_After
@@ -627,7 +678,9 @@ is
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Subtype_Hidden : Boolean := False;
-      Booleans : Boolean_Environment := Empty_Booleans) return Literal_Position is
+      Booleans : Boolean_Environment := Empty_Booleans;
+      Context_First : Cursor := 1;
+      Package_First, Package_After : Literal_Position := 0) return Literal_Position is
      (declare First : constant Literal_Position := Skip_At (Text, Position);
               After : constant Literal_Position := Name_After (Text, First);
       begin Names.Operation_After
@@ -636,7 +689,7 @@ is
           or else Array_Bindings.Lookup (Text, Arrays, First, After) /= 0
            or else Array_Bindings.Lookup_Type (Text, Arrays.Types, First, After) /= 0
           or else Lookup_Boolean (Text, Booleans, First, After) /= 0
-          or else Subtype_Hidden));
+          or else Subtype_Hidden, Context_First, Package_First, Package_After));
 
    type Value_Result is record
       After, Value_First : Literal_Position;
@@ -755,9 +808,10 @@ is
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
       Arrays : Array_Bindings.Metadata; Initials : Array_Bindings.Element_Array;
-      Elaborating, Character_Element : Boolean) return Value_Result
+      Elaborating, Character_Element : Boolean; Context_First : Cursor := 1) return Value_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Context_First <= Text'Last + 1
          and then Position <= Text'Last + 1 and then Valid_Names (Text, Names)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
          and then Array_Bindings.Valid_Metadata (Text, Arrays),
@@ -776,7 +830,7 @@ is
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
       Arrays : Array_Bindings.Metadata; Initials : Array_Bindings.Element_Array;
-      Elaborating, Character_Element : Boolean) return Value_Result
+      Elaborating, Character_Element : Boolean; Context_First : Cursor := 1) return Value_Result
    is
       First : constant Literal_Position := Skip_At (Text, Position);
       After : constant Literal_Position := Name_After (Text, First);
@@ -817,7 +871,7 @@ is
         or else Scalars.Wide (Low.Bounds.Upper) - Scalars.Wide (High.Bounds.Lower)
           > Scalars.Maximum
         or else ((not Low.Static or else not High.Static)
-          and then Guarded_At (Text, 1, Position, 0, False, False))
+          and then Guarded_At (Text, Context_First, Position, 0, False, False))
         or else (Low.Bounds.Lower <= High.Bounds.Upper
           and then (Low.Bounds.Lower < Names.Items (Target).First_Index
             or else High.Bounds.Upper > Names.Items (Target).Last_Index))
@@ -887,7 +941,7 @@ is
            First_Index => Scalars.Singleton (1), Last_Index => Scalars.Singleton (1));
       else
          return Indexed_At (Text, Position, Names, Scalar_Names, Arrays, Initials,
-           Elaborating, Character_Element => True);
+           Elaborating, True, 1);
       end if;
    end Character_At;
 
@@ -1074,10 +1128,11 @@ is
       Integer_Hidden : Boolean := False;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False; Context_First : Cursor := 1)
       return Value_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Context_First <= Text'Last + 1
          and then Position <= Text'Last + 1 and then Valid_Names (Text, Names)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
          and then Array_Bindings.Valid_Metadata (Text, Arrays),
@@ -1091,7 +1146,7 @@ is
       Integer_Hidden : Boolean := False;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False; Context_First : Cursor := 1)
       return Value_Result is
      (declare First : constant Literal_Position := Skip_At (Text, Position);
               Quoted : constant Value_Result := Literal_At (Text, First);
@@ -1101,7 +1156,7 @@ is
         (if Quoted.After /= 0 then Quoted
          elsif Index /= 0 and then not Names.Items (Index).Is_Character
            and then Take_Token (Text, After, Left_Parenthesis) /= 0 then
-           Indexed_At (Text, Position, Names, Scalar_Names, Arrays, Initials, Elaborating, False)
+           Indexed_At (Text, Position, Names, Scalar_Names, Arrays, Initials, Elaborating, False, Context_First)
          elsif Index /= 0 and then not Names.Items (Index).Is_Character
            and then Scalar_Expressions.Lookup (Text, Scalar_Names, First, After) = 0 then
            (After => After, Value_First => Names.Items (Index).Value_First,
@@ -1195,10 +1250,11 @@ is
       Integer_Hidden : Boolean := False;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False; Context_First : Cursor := 1)
       return Expression_State
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Context_First <= Text'Last + 1
          and then Valid_Names (Text, Names)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
          and then Array_Bindings.Valid_Metadata (Text, Arrays)
@@ -1213,11 +1269,11 @@ is
       Integer_Hidden : Boolean := False;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False; Context_First : Cursor := 1)
       return Expression_State is
      (declare Open_After : constant Literal_Position :=
                 Take_Token (Text, State.Position, Left_Parenthesis);
-              Atom : constant Value_Result := Value_At (Text, State.Position, Names, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating);
+              Atom : constant Value_Result := Value_At (Text, State.Position, Names, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating, Context_First);
               Join_After : constant Literal_Position :=
                 Take_Token (Text, State.Position, Ampersand);
               Close_After : constant Literal_Position :=
@@ -1260,10 +1316,11 @@ is
       Integer_Hidden : Boolean := False;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False; Context_First : Cursor := 1)
       return Expression_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Context_First <= Text'Last + 1
          and then Valid_Names (Text, Names)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
          and then Array_Bindings.Valid_Metadata (Text, Arrays)
@@ -1277,7 +1334,7 @@ is
       Integer_Hidden : Boolean := False;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False; Context_First : Cursor := 1)
       return Expression_Result is
      (if State.Position = 0 then Invalid_Expression
       elsif State.Complete then
@@ -1285,14 +1342,14 @@ is
          Dynamic_Count => State.Dynamic_Count, Named_Seen => State.Named_Seen, Empty_Value => State.Empty_Value,
          First_Index => State.First_Index, Last_Index => State.Last_Index)
       else
-        (declare Next : constant Expression_State := Expression_Step (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating);
+        (declare Next : constant Expression_State := Expression_Step (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating, Context_First);
          begin
            (if Next.Position = 0 then Invalid_Expression
             elsif Next.Complete then
               (After => Next.Position, Minimum_Length => Next.Minimum_Length, Static_Length => Next.Static_Length,
                Dynamic_Count => Next.Dynamic_Count, Named_Seen => Next.Named_Seen, Empty_Value => Next.Empty_Value,
                First_Index => Next.First_Index, Last_Index => Next.Last_Index)
-            else Expression_Tail (Text, Names, Next, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating))));
+            else Expression_Tail (Text, Names, Next, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating, Context_First))));
 
    function Expression_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
@@ -1300,10 +1357,11 @@ is
       Integer_Hidden : Boolean := False;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False; Context_First : Cursor := 1)
       return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Context_First <= Text'Last + 1
          and then Position <= Text'Last + 1 and then Valid_Names (Text, Names)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
          and then Array_Bindings.Valid_Metadata (Text, Arrays),
@@ -1313,14 +1371,14 @@ is
            (Position => Position, Minimum_Length => 0, Static_Length => 0, Dynamic_Count => 0,
             Operands => 0, Depth => 0, Named_Seen => False,
             Need_Operand => True, Complete => False, Empty_Value => False,
-            First_Index => Scalars.Singleton (1), Last_Index => Scalars.Singleton (0)), Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating)));
+            First_Index => Scalars.Singleton (1), Last_Index => Scalars.Singleton (0)), Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating, Context_First)));
    function Expression_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
       Integer_Hidden : Boolean := False;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
-      Elaborating : Boolean := False)
+      Elaborating : Boolean := False; Context_First : Cursor := 1)
       return Expression_Result is
       State : Expression_State :=
         (Position => Position, Minimum_Length => 0, Static_Length => 0, Dynamic_Count => 0,
@@ -1340,10 +1398,10 @@ is
              (Position => Position, Minimum_Length => 0, Static_Length => 0, Dynamic_Count => 0,
               Operands => 0, Depth => 0, Named_Seen => False,
             Need_Operand => True, Complete => False, Empty_Value => False,
-            First_Index => Scalars.Singleton (1), Last_Index => Scalars.Singleton (0)), Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating)
-             = Expression_Tail (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating));
+            First_Index => Scalars.Singleton (1), Last_Index => Scalars.Singleton (0)), Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating, Context_First)
+             = Expression_Tail (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating, Context_First));
          pragma Loop_Variant (Increases => State.Position);
-         State := Expression_Step (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating);
+         State := Expression_Step (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating, Context_First);
       end loop;
       if State.Position = 0 then return Invalid_Expression; end if;
       return (After => State.Position, Minimum_Length => State.Minimum_Length, Static_Length => State.Static_Length,
@@ -1370,6 +1428,8 @@ is
       Arguments : Boolean) return Boolean is
      (First /= 0 and then After > First
       and then not Forbidden_Name (Text, First, After)
+      and then (State.Package_First = 0 or else not Equal_Name
+        (Text, State.Package_First, State.Package_After, First, After))
       and then (not Arguments or else not Forbidden_Argument_Name (Text, First, After))
       and then Lookup_Name (Text, State.Names, First, After) = 0
       and then Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) = 0
@@ -1459,13 +1519,19 @@ is
    function Scalar_Type_At
      (Text : String; State : Parser_State; Position : Literal_Position)
       return Scalar_Constraint_Result is
-     (declare First : constant Literal_Position := Skip_At (Text, Position);
-              After : constant Literal_Position := Name_After (Text, First);
+     (declare Reference : constant Scalar_Expressions.Name_Reference :=
+                Scalar_Expressions.Read_Reference (Text, Position);
+              First : constant Literal_Position := Reference.First;
+              After : constant Literal_Position := Reference.After;
               Target : constant Subtype_Count :=
-                Lookup_Subtype (Text, State.Subtype_Names, First, After);
+                Lookup_Subtype (Text, State.Subtype_Names, First, After,
+                  Reference.Qualifier_First, Reference.Qualifier_After);
       begin
-        (if First = 0 or else After <= First
-           or else Lookup_Name (Text, State.Names, First, After) /= 0
+        (if First = 0 or else After <= First then (0, Scalars.Empty)
+         elsif Reference.Qualifier_First /= 0 then
+           (if Target /= 0 then (After, State.Subtype_Names.Items (Target).Bounds)
+            else (0, Scalars.Empty))
+         elsif Lookup_Name (Text, State.Names, First, After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0
            or else Array_Bindings.Lookup_Type (Text, State.Array_Names.Names.Types, First, After) /= 0
@@ -1599,7 +1665,7 @@ is
            Subtype_Names =>
              (Count => State.Subtype_Names.Count + 1,
               Items => (State.Subtype_Names.Items with delta State.Subtype_Names.Count + 1 =>
-                (First, After, Constraint.Bounds)),
+                (First, After, Constraint.Bounds, 0, 0)),
               True_Hidden => State.Subtype_Names.True_Hidden or else Name_Is (Text, First, After, "true"),
               False_Hidden => State.Subtype_Names.False_Hidden or else Name_Is (Text, First, After, "false"),
               Hidden_Calls =>
@@ -1661,7 +1727,7 @@ is
         Scalar_Names => Scalar_Expressions.Append
           (State.Scalar_Names,
            (First, After, Value.Bounds, Constant_After /= 0 and then Value.Static,
-            Constraint.Bounds, Constant_After = 0)))));
+            Constraint.Bounds, Constant_After = 0, 0, 0)))));
 
    function Character_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
@@ -1728,7 +1794,7 @@ is
                    and then Take_Token (Text, First, Integer_Name) = After)
                    or else Boolean_Hides_Integer (Text, State.Boolean_Names)
                    or else State.Hiding.Integer_Hidden,
-                 State.Array_Names.Names, State.Array_Names.Values, True);
+                 State.Array_Names.Names, State.Array_Names.Values, True, State.Context_First);
               Following : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
@@ -1867,6 +1933,9 @@ is
        Annotate => (GNATprove, Logical_Equal);
    function Same_Parser_State (Left, Right : Parser_State) return Boolean is
      (Left.Position = Right.Position
+      and then Left.Context_First = Right.Context_First
+      and then Left.Package_First = Right.Package_First
+      and then Left.Package_After = Right.Package_After
       and then Left.Functions.Count = Right.Functions.Count
       and then Same_Parser_Function_Items (Left.Functions.Items, Right.Functions.Items)
       and then Left.Functions.Parameter_Count = Right.Functions.Parameter_Count
@@ -2650,7 +2719,8 @@ is
                 and then Take_Token (Text, First, First_Or_Default_Name) = After;
               Prefix : constant Literal_Position := Names.Association_After (Text,
                 Take_Token (Text, Names.Operation_After
-                  (Text, Start, Names.Argument_Call, Hidden), Left_Parenthesis), True);
+                  (Text, Start, Names.Argument_Call, Hidden, State.Context_First,
+                   State.Package_First, State.Package_After), Left_Parenthesis), True);
               Default_Value : constant Value_Result := Literal_At (Text, Skip_At (Text, Prefix));
               Following : constant Literal_Position := Take_Token (Text,
                 Take_Token (Text, Default_Value.After, Right_Parenthesis), Semicolon);
@@ -2739,7 +2809,7 @@ is
        Post => Valid_State (Text, Assignment_At'Result);
    function Assignment_At (Text : String; State : Parser_State) return Parser_State is
      (declare Value : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names, Arrays => State.Array_Names.Names,
-           Initials => State.Array_Names.Values, Elaborating => True);
+           Initials => State.Array_Names.Values, Elaborating => True, Context_First => State.Context_First);
       begin
         (if not Fits (Value, State.Capacity) or else State.Target = 0
            or else State.Names.Items (State.Target).Is_Character
@@ -2756,7 +2826,7 @@ is
        Post => Valid_State (Text, Output_At'Result);
    function Output_At (Text : String; State : Parser_State) return Parser_State is
      (declare Value : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names, Arrays => State.Array_Names.Names,
-           Initials => State.Array_Names.Values, Elaborating => True);
+           Initials => State.Array_Names.Values, Elaborating => True, Context_First => State.Context_First);
       begin
         (if not Fits (Value, State.Capacity)
          then Invalid_State else (State with delta Position => Value.After)));
@@ -2768,10 +2838,10 @@ is
        Post => Valid_State (Text, Comparison_At'Result);
    function Comparison_At (Text : String; State : Parser_State) return Parser_State is
      (declare Left : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names, Arrays => State.Array_Names.Names,
-           Initials => State.Array_Names.Values, Elaborating => True);
+           Initials => State.Array_Names.Values, Elaborating => True, Context_First => State.Context_First);
               Right : constant Expression_Result := Expression_At
                 (Text, Take_Token (Text, Left.After, Equal), State.Names, State.Scalar_Names, Arrays => State.Array_Names.Names,
-           Initials => State.Array_Names.Values, Elaborating => True);
+           Initials => State.Array_Names.Values, Elaborating => True, Context_First => State.Context_First);
       begin
         (if not Fits (Left, State.Capacity) or else not Fits (Right, State.Capacity)
            or else not (Left.Named_Seen or else Right.Named_Seen)
@@ -2840,6 +2910,8 @@ is
 
    --  Metadata stays immutable; only active scalar intervals travel with paths.
    type Body_Context is record
+      Context_First : Cursor := 1;
+      Package_First, Package_After : Literal_Position := 0;
       Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
       Array_Names : Array_Bindings.Metadata;
@@ -2871,7 +2943,9 @@ is
    type Body_Stop is (End_Only, Else_Only, Arm_Boundary, Return_Only);
 
    function Context_Of (Scan : Scan_Result) return Body_Context is
-     (Names => Scan.State.Names,
+     (Context_First => Scan.State.Context_First,
+      Package_First => Scan.State.Package_First, Package_After => Scan.State.Package_After,
+      Names => Scan.State.Names,
       Scalar_Names => Scalar_Expressions.Body_Environment (Scan.State.Scalar_Names),
       Array_Names => Scan.State.Array_Names.Names,
       Subtype_Hiding => Scan.State.Subtype_Names.Hidden_Calls,
@@ -2964,7 +3038,9 @@ is
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
    function Valid_Context (Text : String; Context : Body_Context) return Boolean is
-     (Valid_Names (Text, Context.Names)
+     (Context.Context_First <= Text'Last + 1
+      and then Valid_Name_State (Text, Context.Package_First, Context.Package_After)
+      and then Valid_Names (Text, Context.Names)
       and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names)
       and then Array_Bindings.Valid_Metadata (Text, Context.Array_Names)
       and then Valid_Booleans (Text, Context.Boolean_Names)
@@ -3213,7 +3289,7 @@ is
             Integer_Hidden => Context.Integer_Hidden or else Boolean_Hides_Integer (Text, Context.Boolean_Names)
               or else (Context.Mask_First /= 0 and then
                 Name_Is (Text, Context.Mask_First, Context.Mask_After, Integer_Type_Word)), Arrays => Context.Array_Names,
-            Initials => Initials, Elaborating => Context.Elaborating));
+            Initials => Initials, Elaborating => Context.Elaborating, Context_First => Context.Context_First));
    pragma No_Inline (Read_String_In_Flow);
    function Read_String_In_Flow
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
@@ -3225,7 +3301,7 @@ is
          Integer_Hidden => Context.Integer_Hidden or else Boolean_Hides_Integer (Text, Context.Boolean_Names)
            or else (Context.Mask_First /= 0 and then
              Name_Is (Text, Context.Mask_First, Context.Mask_After, Integer_Type_Word)), Arrays => Context.Array_Names,
-            Initials => Initials, Elaborating => Context.Elaborating);
+            Initials => Initials, Elaborating => Context.Elaborating, Context_First => Context.Context_First);
    end Read_String_In_Flow;
 
    function Body_Token_Model
@@ -3626,11 +3702,17 @@ is
    function Boolean_Atom_After
      (Text : String; Context : Body_Context; Position : Literal_Position)
       return Literal_Position is
-     (declare First : constant Literal_Position := Skip_At (Text, Position);
-              After : constant Literal_Position := Name_After (Text, First);
+     (declare Reference : constant Scalar_Expressions.Name_Reference :=
+                Scalar_Expressions.Read_Reference (Text, Position);
+              First : constant Literal_Position := Reference.First;
+              After : constant Literal_Position := Reference.After;
       begin
-        (if First = 0 or else After <= First
-           or else (Context.Mask_First /= 0 and then Equal_Name
+        (if First = 0 or else After <= First then 0
+         elsif Reference.Qualifier_First /= 0 then
+           (if Lookup_Boolean (Text, Context.Boolean_Names, First, After,
+                 Reference.Qualifier_First, Reference.Qualifier_After) /= 0
+            then After else 0)
+         elsif (Context.Mask_First /= 0 and then Equal_Name
              (Text, Context.Mask_First, Context.Mask_After, First, After))
            or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
            or else Lookup_Name (Text, Context.Names, First, After) /= 0
@@ -3701,7 +3783,7 @@ is
               (declare After_Call : constant Literal_Position :=
                  Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, (Context.Subtype_Hiding (Names.Validity_Call)
                    or else (Context.Mask_First /= 0 and then Name_Is
-                     (Text, Context.Mask_First, Context.Mask_After, Validity_Call_Word))), Context.Boolean_Names);
+                     (Text, Context.Mask_First, Context.Mask_After, Validity_Call_Word))), Context.Boolean_Names, Context.Context_First, Context.Package_First, Context.Package_After);
                begin (if After_Call = 0 then Invalid_Condition (Facts) else
                  (Count => Facts.Count, After => After_Call,
                   When_True => (Facts with delta Path => Paths.Assume_Valid (Facts.Path)),
@@ -4129,7 +4211,7 @@ is
       else
          Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, (Context.Subtype_Hiding (Names.Validity_Call)
                    or else (Context.Mask_First /= 0 and then Name_Is
-                     (Text, Context.Mask_First, Context.Mask_After, Validity_Call_Word))), Context.Boolean_Names);
+                     (Text, Context.Mask_First, Context.Mask_After, Validity_Call_Word))), Context.Boolean_Names, Context.Context_First, Context.Package_First, Context.Package_After);
          Result.When_True := Facts;
          Result.When_False := Facts;
          if Result.After = 0 then
@@ -4867,7 +4949,7 @@ is
         Boolean_Names =>
           (Count => State.Boolean_Names.Count + 1,
            Items => (State.Boolean_Names.Items with delta State.Boolean_Names.Count + 1 =>
-             (First, After, Constant_After = 0))));
+             (First, After, Constant_After = 0, 0, 0, False, False))));
    end Boolean_Declaration_At;
 
    function Boolean_Target
@@ -5668,6 +5750,13 @@ is
       if Word_After > First and then Word_After <= After then
          return (Word_After, True);
       end if;
+      declare Reference : constant Scalar_Expressions.Name_Reference :=
+        Scalar_Expressions.Read_Reference (Text, First);
+      begin
+         if Reference.Qualifier_First /= 0 and then Reference.After <= After then
+            return (Reference.After, True);
+         end if;
+      end;
       Word_After := Name_After (Text, First);
       if Word_After > First and then Word_After <= After then
          return (Word_After, not Equal_Name (Text, First, Word_After, Target_First, Target_After));
@@ -6197,8 +6286,8 @@ is
       if Result.Position = 0 then return Invalid_Body (Scan); end if;
       if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Null_Keyword);
-      elsif not Context.Pure and then Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names) /= 0 then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names);
+      elsif not Context.Pure and then Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names, Context.Context_First, Context.Package_First, Context.Package_After) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names, Context.Context_First, Context.Package_First, Context.Package_After);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
@@ -6208,8 +6297,8 @@ is
          Result.Position := Value.After;
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
-      elsif not Context.Pure and then Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names) /= 0 then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names);
+      elsif not Context.Pure and then Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names, Context.Context_First, Context.Package_First, Context.Package_After) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names, Context.Context_First, Context.Package_First, Context.Package_After);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
@@ -6220,9 +6309,9 @@ is
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
       elsif Context.Dynamic_First /= 0
-        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call), Context.Boolean_Names) /= 0
+        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call), Context.Boolean_Names, Context.Context_First, Context.Package_First, Context.Package_After) /= 0
       then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call), Context.Boolean_Names);
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call), Context.Boolean_Names, Context.Context_First, Context.Package_First, Context.Package_After);
          Result.Facts.Path := Paths.Rejected (Result.Facts.Path);
       elsif Scalar_Target (Text, Context, Result.Position) /= 0 then
          declare Called : constant Body_Scan := Call_Assignment_Body (Text, Context, Result, Catalog);
@@ -6261,7 +6350,7 @@ is
          elsif Take_Token (Text, Result.Position, Left_Parenthesis) /= 0 then
             Character_Value := Indexed_At
               (Text, Scan.Position, Context.Names, Reading_Names (Context, Result.Facts),
-               Context.Array_Names, Array_Bindings.Empty_Values, False, True);
+               Context.Array_Names, Array_Bindings.Empty_Values, False, True, 1);
             Result.Position := Character_Value.After;
             Result := Body_Token (Text, Context, Result, Assignment);
             Character_Value := Character_At
@@ -6497,6 +6586,8 @@ is
           and then not Name_Is (Text, First, After, "string"))
         or else (Context.Dynamic_First /= 0
           and then Name_Is (Text, First, After, "silver_arguments"))
+        or else (Context.Package_First /= 0 and then Equal_Name
+          (Text, Context.Package_First, Context.Package_After, First, After))
         or else Context.Scalar_Names.Count = Scalar_Expressions.Max_Bindings
       then return Invalid_Body (Scan); end if;
       if Take_Token (Text, After, Of_Keyword) /= 0 then
@@ -6561,7 +6652,7 @@ is
          --  per nested loop, although only this last slot changes.
          Inner.Scalar_Names.Count := Context.Scalar_Names.Count + 1;
          Inner.Scalar_Names.Items (Inner.Scalar_Names.Count) :=
-           (First, After, Index_Bounds, False, Index_Bounds, False);
+           (First, After, Index_Bounds, False, Index_Bounds, False, 0, 0);
          Inner_Scan.Position := Result.Position;
          Inner_Scan.Target := Result.Target;
          Inner_Scan.Capacity := Result.Capacity;
@@ -6688,8 +6779,10 @@ is
       or else (for some I in 1 .. State.Names.Count =>
         Name_Is (Text, State.Names.Items (I).First, State.Names.Items (I).After, Word))
       or else (for some I in 1 .. State.Scalar_Names.Count =>
+        State.Scalar_Names.Items (I).Qualifier_First = 0 and then
         Name_Is (Text, State.Scalar_Names.Items (I).First, State.Scalar_Names.Items (I).After, Word))
       or else (for some I in 1 .. State.Boolean_Names.Count =>
+        State.Boolean_Names.Items (I).Qualifier_First = 0 and then
         Name_Is (Text, State.Boolean_Names.Items (I).First, State.Boolean_Names.Items (I).After, Word))
       or else (for some I in 1 .. State.Array_Names.Names.Count =>
         Name_Is (Text, State.Array_Names.Names.Items (I).First, State.Array_Names.Names.Items (I).After, Word))
@@ -6697,6 +6790,7 @@ is
         Name_Is (Text, State.Array_Names.Names.Types.Items (I).First,
                  State.Array_Names.Names.Types.Items (I).After, Word))
       or else (for some I in 1 .. State.Subtype_Names.Count =>
+        State.Subtype_Names.Items (I).Qualifier_First = 0 and then
         Name_Is (Text, State.Subtype_Names.Items (I).First, State.Subtype_Names.Items (I).After, Word)))
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -6996,12 +7090,12 @@ is
         (if Frame.Scalar_Names.Count = Scalar_Expressions.Max_Bindings then Invalid_State
          else (Frame with delta Scalar_Names => Scalar_Expressions.Append
            (Frame.Scalar_Names, (Parameter.First, Parameter.After, Parameter.Bounds,
-                               False, Parameter.Bounds, False))))
+                               False, Parameter.Bounds, False, 0, 0))))
       else (if Frame.Boolean_Names.Count = Max_Boolean_Bindings then Invalid_State
        else (Frame with delta Boolean_Names =>
          (Count => Frame.Boolean_Names.Count + 1,
           Items => (Frame.Boolean_Names.Items with delta Frame.Boolean_Names.Count + 1 =>
-            (Parameter.First, Parameter.After, False))))))
+            (Parameter.First, Parameter.After, False, 0, 0, False, False))))))
      with Global => null;
    subtype Parameter_Cursor is Positive range 1 .. Functions.Max_Formals + 1;
    function Parameter_Frame_Model
@@ -7160,12 +7254,13 @@ is
          else (Frame with delta Scalar_Names => Scalar_Expressions.Append
            (Frame.Scalar_Names, (First => Parameter.First, After => Parameter.After,
              Bounds => Parameter.Bounds, Static => False, Declared_Bounds => Parameter.Bounds,
-             Mutable => Parameter.Mode /= Procedures.Input))))
+             Mutable => Parameter.Mode /= Procedures.Input,
+             Qualifier_First => 0, Qualifier_After => 0))))
       else (if Frame.Boolean_Names.Count = Max_Boolean_Bindings then Invalid_State
        else (Frame with delta Boolean_Names =>
          (Count => Frame.Boolean_Names.Count + 1,
           Items => (Frame.Boolean_Names.Items with delta Frame.Boolean_Names.Count + 1 =>
-            (Parameter.First, Parameter.After, Parameter.Mode /= Procedures.Input))))))
+            (Parameter.First, Parameter.After, Parameter.Mode /= Procedures.Input, 0, 0, False, False))))))
      with Global => null;
    subtype Procedure_Parameter_Cursor is Positive range 1 .. Procedures.Max_Formals + 1;
    function Procedure_Input_Frame_Model
@@ -7468,6 +7563,8 @@ is
       declare
          Initial : constant Parser_State :=
            (Initial_State with delta Position => Open, Pure => True,
+            Context_First => State.Context_First, Package_First => State.Package_First,
+            Package_After => State.Package_After,
             Array_Names => (Array_Bindings.Empty_Environment with delta Names =>
               (Array_Bindings.Empty_Metadata with delta Types => State.Array_Names.Names.Types)),
             Subtype_Names => State.Subtype_Names, Functions => State.Functions, Procedures => State.Procedures,
@@ -7576,6 +7673,8 @@ is
       declare
          Initial : constant Parser_State :=
            (Initial_State with delta Position => Open, Pure => True,
+            Context_First => State.Context_First, Package_First => State.Package_First,
+            Package_After => State.Package_After,
             Array_Names => (Array_Bindings.Empty_Environment with delta Names =>
               (Array_Bindings.Empty_Metadata with delta Types => State.Array_Names.Names.Types)),
             Subtype_Names => State.Subtype_Names, Functions => State.Functions,
@@ -7783,4 +7882,1676 @@ is
       end loop;
       return False;
    end Uses_Output;
+
+   --  Application parsing keeps byte offsets in the shared pool while every
+   --  reader's Text ends at the original compilation unit's own EOF.
+   function Package_Word
+     (Text : String; Position : Literal_Position; Word : String)
+      return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1
+         and then Word'First = 1 and then Word'Length in 1 .. 16,
+       Post => Package_Word'Result = 0
+         or else Package_Word'Result in Position + 1 .. Text'Last + 1
+   is
+      First : constant Literal_Position := Skip_At (Text, Position);
+      After : constant Literal_Position := Name_After (Text, First);
+   begin
+      return (if First /= 0 and then After > First
+        and then Name_Is (Text, First, After, Word) then After else 0);
+   end Package_Word;
+
+   function Spark_Pragma_After
+     (Text : String; Position : Literal_Position) return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => Spark_Pragma_After'Result = 0
+         or else Spark_Pragma_After'Result in Position + 1 .. Text'Last + 1
+   is
+   begin
+      return Take_Token (Text, Take_Token (Text, Take_Token (Text, Take_Token
+       (Text, Take_Token (Text, Take_Token (Text, Position, Pragma_Keyword),
+         SPARK_Mode_Name), Left_Parenthesis), On_Name), Right_Parenthesis), Semicolon);
+   end Spark_Pragma_After;
+
+   function Package_Name_Allowed
+     (Text : String; Name : Packages.Name_Span) return Boolean is
+     (Packages.Valid_Name (Text, Name)
+      and then not Forbidden_Name (Text, Name.First, Name.After)
+      and then not Name_Is (Text, Name.First, Name.After, "main")
+      and then not Name_Is (Text, Name.First, Name.After, "ada")
+      and then not Name_Is (Text, Name.First, Name.After, "interfaces")
+      and then not Name_Is (Text, Name.First, Name.After, "system")
+      and then not Name_Is (Text, Name.First, Name.After, "silver_arguments")
+      and then not Name_Is (Text, Name.First, Name.After, "silver_output_libc")
+      and then not Name_Is (Text, Name.First, Name.After, "silver_runtime")
+      and then not Name_Is (Text, Name.First, Name.After, "integer")
+      and then not Name_Is (Text, Name.First, Name.After, "boolean")
+      and then not Name_Is (Text, Name.First, Name.After, "character"))
+     with Global => null;
+
+   function Package_Name_Fresh
+     (Text : String; Info : Packages.Metadata; Name : Packages.Name_Span)
+      return Boolean is
+     (Packages.Valid_Name (Text, Name)
+      and then not Forbidden_Name (Text, Name.First, Name.After)
+      and then not Packages.Same_Name
+        (Text, Name, (Info.Name_First, Info.Name_After))
+      and then Packages.Lookup_Export (Text, Info, Name) = 0
+      and then Packages.Lookup_State (Text, Info, Name) = 0
+      and then (for all I in 1 .. Info.Routine_Count =>
+        not Packages.Same_Name (Text, Name, Info.Routines (I).Spec_Name)))
+     with Global => null;
+
+   type Package_Type_Result is record
+      Name : Packages.Name_Span := Packages.No_Name;
+      After : Literal_Position := 0;
+      Kind : Functions.Scalar_Kind := Functions.Integer_Kind;
+      Bounds : Scalars.Interval := Scalars.Empty;
+      Identity : Packages.Type_Id := Packages.Integer_Type;
+   end record;
+   Invalid_Package_Type : constant Package_Type_Result := (others => <>);
+
+   function Package_Type_At
+     (Text : String; Frame : Parser_State; Info : Packages.Metadata;
+      Position : Literal_Position) return Package_Type_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Frame) and then Position <= Text'Last + 1,
+       Post => Package_Type_At'Result.After = 0
+         or else (Package_Type_At'Result.After in Position + 1 .. Text'Last + 1
+           and then Packages.Valid_Name (Text, Package_Type_At'Result.Name)
+           and then not Scalars.Is_Empty (Package_Type_At'Result.Bounds))
+   is
+      First : constant Literal_Position := Skip_At (Text, Position);
+      Last : constant Literal_Position := Name_After (Text, First);
+      Value : constant Function_Type_Result := Function_Type_At (Text, Frame, Position);
+      Export : constant Packages.Export_Count_Type :=
+        Packages.Lookup_Export (Text, Info, (First, Last));
+   begin
+      if not Packages.Valid_Name (Text, (First, Last)) or else Value.After /= Last then
+         return Invalid_Package_Type;
+      elsif Value.Kind = Functions.Boolean_Kind then
+         return ((First, Last), Last, Value.Kind, Scalars.Full, Packages.Boolean_Type);
+      elsif Name_Is (Text, First, Last, "integer") then
+         return ((First, Last), Last, Value.Kind, Value.Bounds, Packages.Integer_Type);
+      elsif Export /= 0 and then Info.Exports (Export).Kind = Packages.Integer_Subtype then
+         return ((First, Last), Last, Value.Kind, Value.Bounds, Export + 1);
+      else
+         return Invalid_Package_Type;
+      end if;
+   end Package_Type_At;
+
+   type Static_Boolean_Result is record
+      After : Literal_Position := 0;
+      Value : Boolean := False;
+   end record;
+   Invalid_Static_Boolean : constant Static_Boolean_Result := (others => <>);
+
+   function Static_Boolean_At
+     (Text : String; Frame : Parser_State; Position : Literal_Position)
+      return Static_Boolean_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Frame) and then Position <= Text'Last + 1,
+       Post => Static_Boolean_At'Result.After = 0
+         or else Static_Boolean_At'Result.After in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 4);
+
+   function Static_Boolean_Primary
+     (Text : String; Frame : Parser_State; Position : Literal_Position)
+      return Static_Boolean_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Frame) and then Position <= Text'Last + 1,
+       Post => Static_Boolean_Primary'Result.After = 0
+         or else Static_Boolean_Primary'Result.After in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 1)
+   is
+      Open : constant Literal_Position := Take_Token (Text, Position, Left_Parenthesis);
+      Reference : constant Scalar_Expressions.Name_Reference :=
+        Scalar_Expressions.Read_Reference (Text, Position);
+      Found : constant Boolean_Count := Lookup_Boolean
+        (Text, Frame.Boolean_Names, Reference.First, Reference.After,
+         Reference.Qualifier_First, Reference.Qualifier_After);
+      Result : Static_Boolean_Result;
+   begin
+      if Position = 0 then return Invalid_Static_Boolean; end if;
+      if Open /= 0 then
+         Result := Static_Boolean_At (Text, Frame, Open);
+         Result.After := Take_Token (Text, Result.After, Right_Parenthesis);
+         return Result;
+      elsif Found /= 0 and then Frame.Boolean_Names.Items (Found).Known then
+         return (Reference.After, Frame.Boolean_Names.Items (Found).Value);
+      elsif Reference.Qualifier_First = 0 and then Reference.First /= 0
+        and then Reference.After > Reference.First
+        and then Boolean_Atom_After (Text, Context_Of ((Frame, False, False)), Position) /= 0
+      then
+         if Name_Is (Text, Reference.First, Reference.After, "true") then
+            return (Reference.After, True);
+         elsif Name_Is (Text, Reference.First, Reference.After, "false") then
+            return (Reference.After, False);
+         end if;
+      end if;
+      return Invalid_Static_Boolean;
+   end Static_Boolean_Primary;
+
+   function Static_Boolean_Factor
+     (Text : String; Frame : Parser_State; Position : Literal_Position)
+      return Static_Boolean_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Frame) and then Position <= Text'Last + 1,
+       Post => Static_Boolean_Factor'Result.After = 0
+         or else Static_Boolean_Factor'Result.After in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2)
+   is
+      Negated : constant Literal_Position := Take_Token (Text, Position, Not_Keyword);
+      Result : Static_Boolean_Result := Static_Boolean_Primary
+        (Text, Frame, (if Negated = 0 then Position else Negated));
+   begin
+      if Negated /= 0 then Result.Value := not Result.Value; end if;
+      return Result;
+   end Static_Boolean_Factor;
+
+   function Static_Boolean_Relation
+     (Text : String; Frame : Parser_State; Position : Literal_Position)
+      return Static_Boolean_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Frame) and then Position <= Text'Last + 1,
+       Post => Static_Boolean_Relation'Result.After = 0
+         or else Static_Boolean_Relation'Result.After in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 3)
+   is
+      Left : constant Scalar_Expressions.Expression_Result :=
+        Scalar_Expressions.Read_Expression (Text, Position, Frame.Scalar_Names, Elaborating => True);
+      Compare : constant Comparison_Result := Scalar_Comparison_At (Text, Left.After);
+      Right : Scalar_Expressions.Expression_Result;
+      Flag_Left, Flag_Right : Static_Boolean_Result;
+      Boolean_Compare : Comparison_Result;
+   begin
+      if Left.After /= 0 and then Compare.After /= 0 then
+         Right := Scalar_Expressions.Read_Expression
+           (Text, Compare.After, Frame.Scalar_Names, Elaborating => True);
+         if Right.After = 0 or else Scalars.Is_Empty (Left.Bounds)
+           or else Scalars.Is_Empty (Right.Bounds)
+           or else Left.Bounds.Lower /= Left.Bounds.Upper
+           or else Right.Bounds.Lower /= Right.Bounds.Upper
+         then return Invalid_Static_Boolean; end if;
+         return (Right.After, (case Compare.Operator is
+           when Paths.Equal => Left.Bounds.Lower = Right.Bounds.Lower,
+           when Paths.Unequal => Left.Bounds.Lower /= Right.Bounds.Lower,
+           when Paths.Less => Left.Bounds.Lower < Right.Bounds.Lower,
+           when Paths.Less_Equal => Left.Bounds.Lower <= Right.Bounds.Lower,
+           when Paths.Greater => Left.Bounds.Lower > Right.Bounds.Lower,
+           when Paths.Greater_Equal => Left.Bounds.Lower >= Right.Bounds.Lower));
+      end if;
+      Flag_Left := Static_Boolean_Factor (Text, Frame, Position);
+      if Flag_Left.After = 0 then return Invalid_Static_Boolean; end if;
+      Boolean_Compare := Scalar_Comparison_At (Text, Flag_Left.After);
+      if Boolean_Compare.After = 0 then return Flag_Left; end if;
+      if Boolean_Compare.Operator not in Paths.Equal | Paths.Unequal then
+         return Invalid_Static_Boolean;
+      end if;
+      Flag_Right := Static_Boolean_Factor (Text, Frame, Boolean_Compare.After);
+      if Flag_Right.After = 0 then return Invalid_Static_Boolean; end if;
+      return (Flag_Right.After,
+        (Flag_Left.Value = Flag_Right.Value) = (Boolean_Compare.Operator = Paths.Equal));
+   end Static_Boolean_Relation;
+
+   function Static_Boolean_At
+     (Text : String; Frame : Parser_State; Position : Literal_Position)
+      return Static_Boolean_Result
+   is
+      Result : Static_Boolean_Result := Static_Boolean_Relation (Text, Frame, Position);
+      Operator, Selected : Chain_Kind;
+      Right : Static_Boolean_Result;
+   begin
+      if Result.After = 0 then return Invalid_Static_Boolean; end if;
+      Selected := Chain_Token (Text, Result.After);
+      while Selected /= No_Chain loop
+         pragma Loop_Invariant (Result.After in Position + 1 .. Text'Last + 1);
+         pragma Loop_Variant (Increases => Result.After);
+         Operator := Chain_Token (Text, Result.After);
+         if Operator = No_Chain then return Result; end if;
+         if Operator /= Selected then return Invalid_Static_Boolean; end if;
+         Right := Static_Boolean_Relation (Text, Frame,
+           Chain_After (Text, Result.After, Operator));
+         if Right.After <= Result.After then return Invalid_Static_Boolean; end if;
+         Result.Value := (case Operator is
+           when Eager_And | Short_And => Result.Value and Right.Value,
+           when Eager_Or | Short_Or => Result.Value or Right.Value,
+           when Eager_Xor => Result.Value xor Right.Value,
+           when No_Chain => Result.Value);
+         Result.After := Right.After;
+      end loop;
+      return Result;
+   end Static_Boolean_At;
+
+   function Outer_Declaration
+     (Info : Packages.Metadata; Name : Packages.Name_Span) return Boolean is
+     ((for some I in 1 .. Info.Export_Count => Info.Exports (I).Name = Name)
+      or else (for some I in 1 .. Info.State_Count => Info.States (I).Name = Name))
+     with Global => null;
+
+   --  Removing hidden entries changes frame indices, never declaration identity.
+   --  Captures are resolved from the defining spans retained by visible entries.
+   function Hide_Outer
+     (Text : String; Frame : Parser_State; Info : Packages.Metadata;
+      Name : Packages.Name_Span) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Frame) and then Packages.Valid_Name (Text, Name),
+       Post => Valid_State (Text, Hide_Outer'Result)
+   is
+      Result : Parser_State := Frame;
+      Scalars_Kept : Scalar_Expressions.Binding_Count := 0;
+      Booleans_Kept : Boolean_Count := 0;
+      Subtypes_Kept : Subtype_Count := 0;
+   begin
+      if Forbidden_Name (Text, Name.First, Name.After)
+        or else Packages.Same_Name (Text, Name, (Info.Name_First, Info.Name_After))
+      then return Invalid_State; end if;
+      for I in 1 .. Frame.Scalar_Names.Count loop
+         pragma Loop_Invariant (Scalars_Kept < I);
+         if Frame.Scalar_Names.Items (I).Qualifier_First = 0 and then Equal_Name
+           (Text, Name.First, Name.After, Frame.Scalar_Names.Items (I).First,
+            Frame.Scalar_Names.Items (I).After)
+         then
+            if not Outer_Declaration (Info,
+              (Frame.Scalar_Names.Items (I).First, Frame.Scalar_Names.Items (I).After))
+            then return Invalid_State; end if;
+         else
+            Scalars_Kept := Scalars_Kept + 1;
+            Result.Scalar_Names.Items (Scalars_Kept) := Frame.Scalar_Names.Items (I);
+         end if;
+      end loop;
+      for I in 1 .. Frame.Boolean_Names.Count loop
+         pragma Loop_Invariant (Booleans_Kept < I);
+         if Frame.Boolean_Names.Items (I).Qualifier_First = 0 and then Equal_Name
+           (Text, Name.First, Name.After, Frame.Boolean_Names.Items (I).First,
+            Frame.Boolean_Names.Items (I).After)
+         then
+            if not Outer_Declaration (Info,
+              (Frame.Boolean_Names.Items (I).First, Frame.Boolean_Names.Items (I).After))
+            then return Invalid_State; end if;
+         else
+            Booleans_Kept := Booleans_Kept + 1;
+            Result.Boolean_Names.Items (Booleans_Kept) := Frame.Boolean_Names.Items (I);
+         end if;
+      end loop;
+      for I in 1 .. Frame.Subtype_Names.Count loop
+         pragma Loop_Invariant (Subtypes_Kept < I);
+         if Frame.Subtype_Names.Items (I).Qualifier_First = 0 and then Equal_Name
+           (Text, Name.First, Name.After, Frame.Subtype_Names.Items (I).First,
+            Frame.Subtype_Names.Items (I).After)
+         then
+            if not Outer_Declaration (Info,
+              (Frame.Subtype_Names.Items (I).First, Frame.Subtype_Names.Items (I).After))
+            then return Invalid_State; end if;
+         else
+            Subtypes_Kept := Subtypes_Kept + 1;
+            Result.Subtype_Names.Items (Subtypes_Kept) := Frame.Subtype_Names.Items (I);
+         end if;
+      end loop;
+      Result.Scalar_Names.Count := Scalars_Kept;
+      Result.Boolean_Names.Count := Booleans_Kept;
+      Result.Subtype_Names.Count := Subtypes_Kept;
+      Result.Hiding := Hide_Name (Text, Result.Hiding, Name.First, Name.After);
+      if not Valid_State (Text, Result) then return Invalid_State; end if;
+      return Result;
+   end Hide_Outer;
+
+   type Package_Object_Result is record
+      Frame : Parser_State := Invalid_State;
+      Name : Packages.Name_Span := Packages.No_Name;
+      Mark : Package_Type_Result := Invalid_Package_Type;
+      Init_First, Init_After : Literal_Position := 0;
+      Initial_Bounds : Scalars.Interval := Scalars.Empty;
+      Constant_Object, Boolean_Value : Boolean := False;
+   end record;
+   Invalid_Package_Object : constant Package_Object_Result := (others => <>);
+
+   function Package_Object_At
+     (Text : String; Frame : Parser_State; Info : Packages.Metadata;
+      Local : Boolean := False) return Package_Object_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Frame),
+       Post => Valid_State (Text, Package_Object_At'Result.Frame)
+         and then (Package_Object_At'Result.Frame.Position = 0
+           or else Package_Object_At'Result.Frame.Position > Frame.Position)
+   is
+      First : constant Literal_Position := Skip_At (Text, Frame.Position);
+      Last : constant Literal_Position := Name_After (Text, First);
+      Colon_End : constant Literal_Position := Take_Token (Text, Last, Colon);
+      Constant_End : constant Literal_Position := Take_Token (Text, Colon_End, Constant_Keyword);
+      Result : Package_Object_Result;
+      Constraint : Scalar_Constraint_Result;
+      Value : Scalar_Expressions.Expression_Result;
+      Flag : Static_Boolean_Result;
+      After : Literal_Position;
+   begin
+      if not Packages.Valid_Name (Text, (First, Last)) or else Colon_End = 0 then
+         return Invalid_Package_Object;
+      end if;
+      Result.Name := (First, Last);
+      if Local then
+         Result.Frame := Hide_Outer (Text, Frame, Info, Result.Name);
+      elsif Package_Name_Fresh (Text, Info, Result.Name)
+        and then New_Name_Allowed (Text, Frame, First, Last, False)
+      then
+         Result.Frame := (Frame with delta Hiding => Hide_Name (Text, Frame.Hiding, First, Last));
+      else
+         return Invalid_Package_Object;
+      end if;
+      if Result.Frame.Position = 0 then return Invalid_Package_Object; end if;
+      Result.Constant_Object := Constant_End /= 0;
+      Result.Mark := Package_Type_At (Text, Result.Frame, Info,
+        (if Constant_End = 0 then Colon_End else Constant_End));
+      if Result.Mark.After = 0 then return Invalid_Package_Object; end if;
+      Constraint := (Result.Mark.After, Result.Mark.Bounds);
+      if Result.Mark.Kind = Functions.Integer_Kind then
+         Constraint := Scalar_Constraint_At
+           (Text, Result.Mark.After, Result.Frame.Scalar_Names, Result.Mark.Bounds);
+      end if;
+      Result.Mark.Bounds := Constraint.Bounds;
+      Result.Init_First := Skip_At (Text, Take_Token (Text, Constraint.After, Assignment));
+      if Result.Init_First = 0 then return Invalid_Package_Object; end if;
+      if Result.Mark.Kind = Functions.Integer_Kind then
+         Value := Scalar_Expressions.Read_Expression
+           (Text, Result.Init_First, Result.Frame.Scalar_Names, First, Last, Elaborating => True);
+         if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
+           or else not Included (Value.Bounds, Constraint.Bounds)
+           or else (not Local and then Value.Bounds.Lower /= Value.Bounds.Upper)
+           or else Result.Frame.Scalar_Names.Count = Scalar_Expressions.Max_Bindings
+         then return Invalid_Package_Object; end if;
+         Result.Init_After := Value.After;
+         Result.Initial_Bounds := Value.Bounds;
+         Result.Frame.Scalar_Names := Scalar_Expressions.Append
+           (Result.Frame.Scalar_Names,
+            (First, Last, Value.Bounds, Constant_End /= 0 and then Value.Static,
+             Constraint.Bounds, Constant_End = 0, 0, 0));
+      else
+         After := Boolean_Initializer_After (Text, Result.Frame, Result.Init_First, First, Last);
+         if After = 0 or else Result.Frame.Boolean_Names.Count = Max_Boolean_Bindings then
+            return Invalid_Package_Object;
+         end if;
+         if not Local then
+            Flag := Static_Boolean_At (Text, Result.Frame, Result.Init_First);
+            if Flag.After /= After then return Invalid_Package_Object; end if;
+            Result.Boolean_Value := Flag.Value;
+         end if;
+         Result.Init_After := After;
+         Result.Initial_Bounds := Scalars.Singleton (if Result.Boolean_Value then 1 else 0);
+         Result.Frame.Boolean_Names.Count := Result.Frame.Boolean_Names.Count + 1;
+         Result.Frame.Boolean_Names.Items (Result.Frame.Boolean_Names.Count) :=
+           (First, Last, Constant_End = 0, 0, 0, not Local, Result.Boolean_Value);
+      end if;
+      Result.Frame.Position := Take_Token (Text, Result.Init_After, Semicolon);
+      if Result.Frame.Position <= Frame.Position then return Invalid_Package_Object; end if;
+      return Result;
+   end Package_Object_At;
+
+   procedure Append_Package_Formal
+     (Frame : in out Parser_State; Name : Packages.Name_Span;
+      Mark : Package_Type_Result; Mode : Procedures.Parameter_Mode)
+     with Global => null,
+       Pre => Name.First > 0 and then Name.After > Name.First
+   is
+   begin
+      if Mark.Kind = Functions.Integer_Kind then
+         if Frame.Scalar_Names.Count = Scalar_Expressions.Max_Bindings then
+            Frame.Position := 0;
+            return;
+         end if;
+         Frame.Scalar_Names := Scalar_Expressions.Append
+           (Frame.Scalar_Names, (Name.First, Name.After, Mark.Bounds, False,
+             Mark.Bounds, Mode /= Procedures.Input, 0, 0));
+      elsif Mark.Kind = Functions.Boolean_Kind then
+         if Frame.Boolean_Names.Count = Max_Boolean_Bindings then
+            Frame.Position := 0;
+            return;
+         end if;
+         Frame.Boolean_Names.Count := Frame.Boolean_Names.Count + 1;
+         Frame.Boolean_Names.Items (Frame.Boolean_Names.Count) :=
+           (Name.First, Name.After, Mode /= Procedures.Input, 0, 0, False, False);
+      else
+         Frame.Position := 0;
+      end if;
+   end Append_Package_Formal;
+
+   --  One unified completion index covers both function and procedure bodies.
+   --  Each body formal retains the original specification formal's identity.
+   procedure Package_Signature_At
+     (Text : String; Outer : Parser_State; Info : in out Packages.Metadata;
+      Completing : Boolean; Header : out Parser_State)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Outer),
+       Post => Valid_State (Text, Header)
+         and then (Header.Position = 0 or else Header.Position > Outer.Position)
+   is
+      Original : constant Literal_Position := Skip_At (Text, Outer.Position);
+      Function_End : constant Literal_Position := Take_Token (Text, Outer.Position, Function_Keyword);
+      Procedure_End : constant Literal_Position := Take_Token (Text, Outer.Position, Procedure_Keyword);
+      Name_First : constant Literal_Position := Skip_At
+        (Text, (if Function_End /= 0 then Function_End else Procedure_End));
+      Name_After : constant Literal_Position := Silver_Output_Profile.Name_After (Text, Name_First);
+      Item : Packages.Routine;
+      Routine_Id : Packages.Routine_Count_Type;
+      Formal_Count : Packages.Formal_Count_Type := 0;
+      Formal_Start : Packages.Formal_Count_Type := 0;
+      Open, First, Last, Next, Mode_End : Literal_Position;
+      Mode : Procedures.Parameter_Mode;
+      Mark : Package_Type_Result;
+      Parameter : Packages.Formal;
+      Slot : Packages.Formal_Count_Type;
+      Before : Literal_Position;
+   begin
+      Header := Invalid_State;
+      if Original = 0 or else (Function_End = 0 and then Procedure_End = 0)
+        or else Name_First = 0 or else Name_After <= Name_First
+      then return; end if;
+      if Completing then
+         if Info.Completed >= Info.Routine_Count then return; end if;
+         Routine_Id := Info.Completed + 1;
+         Item := Info.Routines (Routine_Id);
+         if Item.Count > 0 and then
+           (Item.Formal_First = 0 or else Item.Formal_First > Info.Parameter_Count
+            or else Item.Count > Info.Parameter_Count - Item.Formal_First + 1)
+         then return; end if;
+         if not Packages.Same_Name (Text, Item.Spec_Name, (Name_First, Name_After))
+           or else (Item.Kind = Packages.Function_Routine) /= (Function_End /= 0)
+         then return; end if;
+         Formal_Start := Item.Formal_First;
+         Item.Body_Name := (Name_First, Name_After);
+         Item.Body_First := Original;
+      else
+         if Info.Routine_Count = Packages.Max_Routines
+           or else not Package_Name_Fresh (Text, Info, (Name_First, Name_After))
+         then return; end if;
+         Routine_Id := Info.Routine_Count + 1;
+         Item := (others => <>);
+         Item.Kind := (if Function_End /= 0 then Packages.Function_Routine else Packages.Procedure_Routine);
+         Item.Spec_Name := (Name_First, Name_After);
+         Item.Spec_First := Original;
+      end if;
+      Header := (Outer with delta Position => Name_After, Pure => True,
+        Hiding => Hide_Name (Text, Outer.Hiding, Name_First, Name_After));
+      Open := Take_Token (Text, Header.Position, Left_Parenthesis);
+      if Open /= 0 then
+         Header.Position := Open;
+         loop
+            pragma Loop_Variant (Increases => Header.Position);
+            Before := Header.Position;
+            First := Skip_At (Text, Header.Position);
+            Last := Silver_Output_Profile.Name_After (Text, First);
+            if not Packages.Valid_Name (Text, (First, Last)) then Header := Invalid_State; return; end if;
+            if Completing then
+               if Formal_Count >= Item.Count then Header := Invalid_State; return; end if;
+               Slot := Formal_Start + Formal_Count;
+            else
+               if Info.Parameter_Count = Packages.Max_Formals then Header := Invalid_State; return; end if;
+               Slot := Info.Parameter_Count + 1;
+               if Formal_Count = 0 then Formal_Start := Slot; end if;
+            end if;
+            if Formal_Count > 0 and then
+              (for some I in Formal_Start .. Formal_Start + Formal_Count - 1 =>
+                Packages.Same_Name (Text, (First, Last),
+                  (if Completing then Info.Parameters (I).Body_Name else Info.Parameters (I).Spec_Name)))
+            then Header := Invalid_State; return; end if;
+            Header := Hide_Outer (Text, Header, Info, (First, Last));
+            if Header.Position = 0 then return; end if;
+            Next := Take_Token (Text, Last, Colon);
+            Mode_End := Take_Token (Text, Next, In_Keyword);
+            if Mode_End /= 0 then
+               Next := Take_Token (Text, Mode_End, Out_Keyword);
+               Mode := (if Next /= 0 then Procedures.Input_Output else Procedures.Input);
+               if Next = 0 then Next := Mode_End; end if;
+            else
+               Next := Take_Token (Text, Next, Out_Keyword);
+               Mode := Procedures.Output;
+            end if;
+            if Next = 0 or else (Item.Kind = Packages.Function_Routine and then Mode /= Procedures.Input) then
+               Header := Invalid_State; return;
+            end if;
+            Mark := Package_Type_At (Text, Header, Info, Next);
+            if Mark.After = 0 then Header := Invalid_State; return; end if;
+            if Completing then
+               Parameter := Info.Parameters (Slot);
+               if not Packages.Same_Name (Text, Parameter.Spec_Name, (First, Last))
+                 or else Parameter.Mode /= Mode or else Parameter.Kind /= Mark.Kind
+                 or else Parameter.Type_Identity /= Mark.Identity
+                 or else Parameter.Bounds /= Mark.Bounds
+               then Header := Invalid_State; return; end if;
+               Parameter.Body_Name := (First, Last);
+               Parameter.Body_Type_Name := Mark.Name;
+            else
+               Parameter := (Spec_Name => (First, Last), Spec_Type_Name => Mark.Name,
+                 Kind => Mark.Kind, Bounds => Mark.Bounds, Type_Identity => Mark.Identity,
+                 Mode => Mode, others => <>);
+               Info.Parameter_Count := Slot;
+            end if;
+            Info.Parameters (Slot) := Parameter;
+            Formal_Count := Formal_Count + 1;
+            Header.Position := Mark.After;
+            --  Header resolution sees every formal, including out formals.
+            Append_Package_Formal (Header, (First, Last), Mark, Mode);
+            if Header.Position = 0 then return; end if;
+            Next := Take_Token (Text, Header.Position, Right_Parenthesis);
+            if Next /= 0 then Header.Position := Next; exit; end if;
+            Header.Position := Take_Token (Text, Header.Position, Semicolon);
+            if Header.Position <= Before then Header := Invalid_State; return; end if;
+         end loop;
+      end if;
+      if Completing and then Formal_Count /= Item.Count then Header := Invalid_State; return; end if;
+      if not Completing then
+         Item.Count := Formal_Count;
+         Item.Formal_First := Formal_Start;
+      end if;
+      if Item.Kind = Packages.Function_Routine then
+         Mark := Package_Type_At (Text, Header, Info,
+           Take_Token (Text, Header.Position, Return_Keyword));
+         if Mark.After = 0 then Header := Invalid_State; return; end if;
+         if Completing then
+            if Item.Result_Kind /= Mark.Kind or else Item.Result_Type_Identity /= Mark.Identity
+              or else Item.Result_Bounds /= Mark.Bounds
+            then Header := Invalid_State; return; end if;
+            Item.Body_Result_Name := Mark.Name;
+         else
+            Item.Result_Kind := Mark.Kind;
+            Item.Result_Bounds := Mark.Bounds;
+            Item.Result_Type_Identity := Mark.Identity;
+            Item.Spec_Result_Name := Mark.Name;
+         end if;
+         Header.Position := Mark.After;
+      end if;
+      Header.Position := Take_Token
+        (Text, Header.Position, (if Completing then Is_Keyword else Semicolon));
+      if Header.Position <= Outer.Position or else not Valid_State (Text, Header) then
+         Header := Invalid_State; return;
+      end if;
+      if not Completing then
+         Item.Spec_After := Header.Position;
+         Info.Routine_Count := Routine_Id;
+      end if;
+      Info.Routines (Routine_Id) := Item;
+   end Package_Signature_At;
+
+   procedure Package_Spec_At
+     (Text : String; Info : in out Packages.Metadata; Exports : out Parser_State)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length,
+       Post => Valid_State (Text, Exports)
+   is
+      First : constant Literal_Position := Skip_At (Text, Package_Word (Text, 1, "package"));
+      Last : constant Literal_Position := Name_After (Text, First);
+      Next : Parser_State;
+      Object : Package_Object_Result;
+      Export : Packages.Export_Declaration;
+      End_First, End_Last, Following : Literal_Position;
+      Before : Literal_Position;
+   begin
+      Exports := Invalid_State;
+      if not Package_Name_Allowed (Text, (First, Last)) then return; end if;
+      Info.Name_First := First;
+      Info.Name_After := Last;
+      Exports := (Initial_State with delta
+        Position => Spark_Pragma_After (Text, Take_Token (Text, Last, Is_Keyword)),
+        Package_First => First, Package_After => Last);
+      if Exports.Position = 0 then return; end if;
+      loop
+         pragma Loop_Variant (Increases => Exports.Position);
+         Before := Exports.Position;
+         exit when Take_Token (Text, Exports.Position, End_Keyword) /= 0;
+         if Take_Token (Text, Exports.Position, Function_Keyword) /= 0
+           or else Take_Token (Text, Exports.Position, Procedure_Keyword) /= 0
+         then
+            Package_Signature_At (Text, Exports, Info, False, Next);
+            if Next.Position = 0 or else Info.Routine_Count = 0 then Exports := Invalid_State; return; end if;
+            Exports.Position := Next.Position;
+            Exports.Hiding := Hide_Name (Text, Exports.Hiding,
+              Info.Routines (Info.Routine_Count).Spec_Name.First,
+              Info.Routines (Info.Routine_Count).Spec_Name.After);
+         else
+            if Info.Export_Count = Packages.Max_Exports then Exports := Invalid_State; return; end if;
+            if Take_Token (Text, Exports.Position, Subtype_Keyword) /= 0 then
+               Next := Subtype_Declaration_At (Text, Exports, False);
+               if Next.Position = 0 then Exports := Invalid_State; return; end if;
+               declare Item : constant Subtype_Binding := Next.Subtype_Names.Items (Next.Subtype_Names.Count);
+               begin
+                  if not Package_Name_Fresh (Text, Info, (Item.First, Item.After)) then
+                     Exports := Invalid_State; return;
+                  end if;
+                  Export := (Name => (Item.First, Item.After), Kind => Packages.Integer_Subtype,
+                    Bounds => Item.Bounds, Type_Identity => Info.Export_Count + 2, others => <>);
+               end;
+            else
+               Object := Package_Object_At (Text, Exports, Info);
+               if Object.Frame.Position = 0 or else not Object.Constant_Object then
+                  Exports := Invalid_State; return;
+               end if;
+               Next := Object.Frame;
+               Export := (Name => Object.Name,
+                 Kind => (if Object.Mark.Kind = Functions.Integer_Kind
+                   then Packages.Integer_Constant else Packages.Boolean_Constant),
+                 Bounds => (if Object.Mark.Kind = Functions.Integer_Kind
+                   then Object.Initial_Bounds else Scalars.Full),
+                 Type_Name => Object.Mark.Name, Type_Identity => Object.Mark.Identity,
+                 Initializer_First => Object.Init_First, Initializer_After => Object.Init_After,
+                 Boolean_Value => Object.Boolean_Value);
+            end if;
+            Info.Export_Count := Info.Export_Count + 1;
+            Info.Exports (Info.Export_Count) := Export;
+            Exports := Next;
+         end if;
+         if Exports.Position <= Before or else not Valid_State (Text, Exports) then
+            Exports := Invalid_State; return;
+         end if;
+      end loop;
+      End_First := Skip_At (Text, Take_Token (Text, Exports.Position, End_Keyword));
+      End_Last := Name_After (Text, End_First);
+      Following := Take_Token (Text, End_Last, Semicolon);
+      --  Without Elaborate_Body, a specification containing only these scalar
+      --  constants/subtypes does not permit the mandatory package body.
+      if Info.Routine_Count = 0
+        or else not Packages.Same_Name (Text, (First, Last), (End_First, End_Last))
+        or else Following = 0 or else Skip_At (Text, Following) /= Text'Last + 1
+      then Exports := Invalid_State;
+      else Exports.Position := Following;
+      end if;
+   end Package_Spec_At;
+
+   type Application_Scan (Count : Scalar_Expressions.Binding_Count) is record
+      Scan : Body_Scan (Count);
+      Allow_Procedure_Calls : Boolean := True;
+      Reads, Writes : Packages.State_Set := Packages.Empty_State_Set;
+   end record;
+   function Application_Of (Scan : Body_Scan) return Application_Scan is
+     (Count => Scan.Count, Scan => Scan, others => <>);
+   function Invalid_Application (Value : Application_Scan) return Application_Scan is
+     (Value with delta Scan => Invalid_Body (Value.Scan));
+
+   function Visible_State
+     (Text : String; Context : Body_Context; Info : Packages.Metadata;
+      Index : Packages.State_Index) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context),
+       Post => (if Visible_State'Result then
+         Index <= Info.State_Count and then Packages.Valid_Name (Text, Info.States (Index).Name))
+   is
+      Name : constant Packages.Name_Span := Info.States (Index).Name;
+      Scalar : Scalar_Expressions.Binding_Count;
+      Flag : Boolean_Count;
+   begin
+      if Index > Info.State_Count or else not Packages.Valid_Name (Text, Name) then return False; end if;
+      Scalar := Scalar_Expressions.Lookup (Text, Context.Scalar_Names, Name.First, Name.After);
+      if Info.States (Index).Kind = Functions.Integer_Kind then
+         return Scalar /= 0 and then Context.Scalar_Names.Items (Scalar).First = Name.First
+           and then Context.Scalar_Names.Items (Scalar).After = Name.After;
+      end if;
+      if Scalar /= 0 then return False; end if;
+      Flag := Lookup_Boolean (Text, Context.Boolean_Names, Name.First, Name.After);
+      return Flag /= 0 and then Context.Boolean_Names.Items (Flag).First = Name.First
+        and then Context.Boolean_Names.Items (Flag).After = Name.After;
+   end Visible_State;
+
+   function State_Target
+     (Text : String; Context : Body_Context; Info : Packages.Metadata;
+      Position : Literal_Position) return Packages.State_Id
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Position <= Text'Last + 1,
+       Post => State_Target'Result <= Info.State_Count
+   is
+      First : constant Literal_Position := Skip_At (Text, Position);
+      Last : constant Literal_Position := Name_After (Text, First);
+      Found : constant Packages.State_Id := Packages.Lookup_State (Text, Info, (First, Last));
+   begin
+      return (if Found /= 0 and then Visible_State (Text, Context, Info, Found) then Found else 0);
+   end State_Target;
+
+   function State_Reads
+     (Text : String; Context : Body_Context; Info : Packages.Metadata;
+      First, After : Literal_Position) return Packages.State_Set
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context)
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+       Post => Packages.Within (State_Reads'Result, Info.State_Count)
+   is
+      Result : Packages.State_Set := Packages.Empty_State_Set;
+   begin
+      if First = 0 or else After <= First then return Result; end if;
+      for I in 1 .. Info.State_Count loop
+         pragma Loop_Invariant
+           (for all S in Packages.State_Index =>
+             (if S > Info.State_Count then not Result (S)));
+         if Visible_State (Text, Context, Info, I) then
+            Result (I) := not Actual_Name_Free
+              (Text, First, After, Info.States (I).Name.First, Info.States (I).Name.After);
+         end if;
+      end loop;
+      return Result;
+   end State_Reads;
+
+   function Package_Callee
+     (Text : String; Context : Body_Context; Info : Packages.Metadata;
+      Position : Literal_Position; Kind : Packages.Routine_Kind)
+      return Packages.Routine_Count_Type
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Position <= Text'Last + 1,
+       Post => Package_Callee'Result <= Info.Routine_Count
+   is
+      Reference : constant Scalar_Expressions.Name_Reference :=
+        Scalar_Expressions.Read_Reference (Text, Position);
+      Callee : Packages.Routine_Count_Type;
+   begin
+      if Info.Completed > Info.Routine_Count or else Reference.After = 0 then return 0; end if;
+      if Context.Pure then
+         if Reference.Qualifier_First /= 0
+           or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, Reference.First, Reference.After) /= 0
+           or else Lookup_Boolean (Text, Context.Boolean_Names, Reference.First, Reference.After) /= 0
+         then return 0; end if;
+      elsif not Packages.Same_Name (Text,
+        (Reference.Qualifier_First, Reference.Qualifier_After), (Info.Name_First, Info.Name_After))
+      then return 0;
+      end if;
+      Callee := Packages.Lookup_Routine (Text, Info, (Reference.First, Reference.After));
+      return (if Callee /= 0 and then Info.Routines (Callee).Kind = Kind then Callee else 0);
+   end Package_Callee;
+
+   type Package_Actual is record
+      First, After : Literal_Position := 0;
+      Target : Procedure_Actual_Result := Invalid_Procedure_Actual;
+      Reads : Packages.State_Set := Packages.Empty_State_Set;
+      Written_State : Packages.State_Id := 0;
+   end record;
+   type Package_Actual_Array is array (Packages.Formal_Index) of Package_Actual;
+   type Package_Seen_Array is array (Packages.Formal_Index) of Boolean;
+   type Application_Call (Count : Scalar_Expressions.Binding_Count) is record
+      Value : Call_Result := Invalid_Call;
+      Result : Application_Scan (Count);
+   end record;
+
+   function Package_Call_At
+     (Text : String; Context : Body_Context; Input : Application_Scan;
+      Info : Packages.Metadata; Position : Literal_Position;
+      Kind : Packages.Routine_Kind) return Application_Call
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Input.Scan)
+         and then Position <= Text'Last + 1,
+       Post => Package_Call_At'Result.Count = Input.Count
+         and then Package_Call_At'Result.Result.Allow_Procedure_Calls = Input.Allow_Procedure_Calls
+         and then Valid_Body (Text, Context, Package_Call_At'Result.Result.Scan)
+         and then (Package_Call_At'Result.Value.After = 0
+           or else Package_Call_At'Result.Value.After in Position + 1 .. Text'Last + 1)
+   is
+      Callee : constant Packages.Routine_Count_Type := Package_Callee (Text, Context, Info, Position, Kind);
+      Failure : constant Application_Call (Input.Count) :=
+        (Input.Count, Invalid_Call, Invalid_Application (Input));
+      Reference : constant Scalar_Expressions.Name_Reference :=
+        Scalar_Expressions.Read_Reference (Text, Position);
+      Result : Application_Call (Input.Count) := (Input.Count, Invalid_Call, Input);
+      Actuals : Package_Actual_Array := (others => (others => <>));
+      Call_Writes : Packages.State_Set := Packages.Empty_State_Set;
+      Seen : Package_Seen_Array := (others => False);
+      Item : Packages.Routine;
+      Cursor_At, First, Last, Arrow_End, Following : Literal_Position;
+      Named : Boolean := False;
+      Slot : Packages.Formal_Count_Type;
+      Parameter : Packages.Formal;
+      Legacy_Parameter : Procedures.Formal;
+      Scalar : Scalar_Expressions.Binding_Count;
+   begin
+      if Callee = 0 then return Failure; end if;
+      Item := Info.Routines (Callee);
+      Call_Writes := Item.May_Write;
+      if Item.Count > 0 and then
+        (Item.Formal_First = 0 or else Item.Formal_First > Info.Parameter_Count
+         or else Item.Count > Info.Parameter_Count - Item.Formal_First + 1)
+      then return Failure; end if;
+      Cursor_At := Reference.After;
+      if Item.Count > 0 then
+         Cursor_At := Take_Token (Text, Cursor_At, Left_Parenthesis);
+         if Cursor_At = 0 then return Failure; end if;
+         for Ordinal in 1 .. Item.Count loop
+            First := Skip_At (Text, Cursor_At);
+            Last := Name_After (Text, First);
+            Arrow_End := Take_Token (Text, Last, Arrow);
+            Slot := 0;
+            if Arrow_End /= 0 then
+               Named := True;
+               for I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
+                  if Packages.Same_Name (Text, (First, Last), Info.Parameters (I).Spec_Name) then Slot := I; end if;
+               end loop;
+               Cursor_At := Arrow_End;
+            elsif Named then
+               return Failure;
+            else
+               Slot := Item.Formal_First + Ordinal - 1;
+            end if;
+            if Slot = 0 or else Seen (Slot) then return Failure; end if;
+            Seen (Slot) := True;
+            Parameter := Info.Parameters (Slot);
+            Actuals (Slot).First := Cursor_At;
+            if Parameter.Mode = Procedures.Input then
+               Following := Actual_After (Text, Context, Cursor_At, Input.Scan.Facts,
+                 (Parameter.Spec_Name.First, Parameter.Spec_Name.After, Parameter.Kind, Parameter.Bounds, 0));
+            else
+               Legacy_Parameter := (Parameter.Spec_Name.First, Parameter.Spec_Name.After,
+                 Parameter.Kind, Parameter.Bounds, 0, Parameter.Mode);
+               Actuals (Slot).Target := Procedure_Target_Actual
+                 (Text, Context, Cursor_At, Input.Scan.Facts, Legacy_Parameter);
+               Following := Actuals (Slot).Target.After;
+               Actuals (Slot).Written_State := State_Target (Text, Context, Info, Cursor_At);
+            end if;
+            if Following <= Cursor_At then return Failure; end if;
+            Actuals (Slot).After := Following;
+            if Parameter.Mode /= Procedures.Output then
+               Actuals (Slot).Reads := State_Reads (Text, Context, Info, Cursor_At, Following);
+            end if;
+            Result.Result.Reads := Packages.Union (Result.Result.Reads, Actuals (Slot).Reads);
+            if Actuals (Slot).Written_State /= 0 then
+               Call_Writes (Actuals (Slot).Written_State) := True;
+            end if;
+            Cursor_At := Take_Token (Text, Following,
+              (if Ordinal = Item.Count then Right_Parenthesis else Comma));
+            if Cursor_At = 0 then return Failure; end if;
+         end loop;
+      end if;
+      --  Every explicit writable payload is disjoint from all other explicit
+      --  payloads and from the callee's implicit state reads and writes.
+      if Item.Count > 0 then
+         for I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
+            for S in 1 .. Info.State_Count loop
+               if Item.May_Write (S) and then Actuals (I).Reads (S) then return Failure; end if;
+            end loop;
+            if Info.Parameters (I).Mode /= Procedures.Input then
+               if Actuals (I).Written_State /= 0 and then
+                 (Item.May_Read (Actuals (I).Written_State)
+                  or else Item.May_Write (Actuals (I).Written_State))
+               then return Failure; end if;
+               for J in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
+                  if I /= J and then not Actual_Name_Free (Text, Actuals (J).First,
+                    Actuals (J).After, Actuals (I).Target.First, Actuals (I).Target.After)
+                  then return Failure; end if;
+               end loop;
+               Scalar := Actuals (I).Target.Scalar;
+               if Scalar /= 0 then Result.Result.Scan.Facts.Values (Scalar) := Info.Parameters (I).Bounds; end if;
+               Result.Result.Scan.Assigned := True;
+            end if;
+         end loop;
+      end if;
+      Result.Result.Reads := Packages.Union (Result.Result.Reads, Item.May_Read);
+      Result.Result.Writes := Packages.Union (Result.Result.Writes, Call_Writes);
+      for S in 1 .. Info.State_Count loop
+         if Call_Writes (S) and then Visible_State (Text, Context, Info, S)
+           and then Info.States (S).Kind = Functions.Integer_Kind
+         then
+            Scalar := Scalar_Expressions.Lookup (Text, Context.Scalar_Names,
+              Info.States (S).Name.First, Info.States (S).Name.After);
+            if Scalar /= 0 then
+               Result.Result.Scan.Facts.Values (Scalar) := Context.Scalar_Names.Items (Scalar).Declared_Bounds;
+            end if;
+         end if;
+      end loop;
+      Result.Result.Scan.Position := Cursor_At;
+      if Kind = Packages.Procedure_Routine then Result.Result.Scan.Assigned := True; end if;
+      Result.Value := (Cursor_At, Item.Result_Kind, Item.Result_Bounds);
+      if Cursor_At <= Position or else not Valid_Body (Text, Context, Result.Result.Scan) then return Failure; end if;
+      return Result;
+   end Package_Call_At;
+
+   function Application_Basic
+     (Text : String; Context : Body_Context; Input : Application_Scan;
+      Info : Packages.Metadata; Catalog : Functions.Metadata;
+      Procedure_Catalog : Procedures.Metadata) return Application_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Input.Scan)
+         and then Functions.Valid_Metadata (Text, Catalog)
+         and then Procedures.Valid_Metadata (Text, Procedure_Catalog),
+       Post => Application_Basic'Result.Count = Input.Count
+         and then Application_Basic'Result.Allow_Procedure_Calls = Input.Allow_Procedure_Calls
+         and then Valid_Body (Text, Context, Application_Basic'Result.Scan)
+         and then (Application_Basic'Result.Scan.Position = 0
+           or else Application_Basic'Result.Scan.Position > Input.Scan.Position)
+   is
+      Result : Application_Scan (Input.Count) := Input;
+      First : constant Literal_Position := Skip_At (Text, Input.Scan.Position);
+      Last : constant Literal_Position := Name_After (Text, First);
+      Value_First : constant Literal_Position := Take_Token (Text, Last, Assignment);
+      Scalar : constant Scalar_Expressions.Binding_Count := Scalar_Target (Text, Context, Input.Scan.Position);
+      Flag : constant Boolean_Count := Boolean_Target (Text, Context, Input.Scan.Position);
+      State : constant Packages.State_Id := State_Target (Text, Context, Info, Input.Scan.Position);
+      Called : Application_Call (Input.Count);
+   begin
+      if Input.Scan.Position = 0 then return Invalid_Application (Input); end if;
+      if Value_First /= 0 and then (Scalar /= 0 or else Flag /= 0) then
+         Called := Package_Call_At (Text, Context, Input, Info, Value_First, Packages.Function_Routine);
+         if Called.Value.After /= 0 then
+            Result := Called.Result;
+            Result.Scan := Call_Assignment_Result (Context,
+              (Result.Scan with delta Position => Input.Scan.Position), Scalar, Flag, Called.Value);
+            Result.Scan := Body_Token (Text, Context, Result.Scan, Semicolon);
+         else
+            Result.Scan := Basic_Body (Text, Context, Input.Scan, Catalog, Procedure_Catalog);
+            Result.Reads := Packages.Union (Result.Reads,
+              State_Reads (Text, Context, Info, Value_First, Result.Scan.Position));
+         end if;
+         if State /= 0 then Result.Writes (State) := True; end if;
+      elsif Input.Allow_Procedure_Calls and then
+        Package_Callee (Text, Context, Info, Input.Scan.Position, Packages.Procedure_Routine) /= 0 then
+         Called := Package_Call_At
+           (Text, Context, Input, Info, Input.Scan.Position, Packages.Procedure_Routine);
+         Result := Called.Result;
+         Result.Scan := Body_Token (Text, Context, Result.Scan, Semicolon);
+      else
+         Result.Scan := Basic_Body (Text, Context, Input.Scan, Catalog, Procedure_Catalog);
+      end if;
+      if Result.Scan.Position <= Input.Scan.Position then return Invalid_Application (Input); end if;
+      return Result;
+   end Application_Basic;
+
+   function Application_Statement
+     (Text : String; Context : Body_Context; Input : Application_Scan;
+      Info : Packages.Metadata; Catalog : Functions.Metadata;
+      Procedure_Catalog : Procedures.Metadata) return Application_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Input.Scan)
+         and then Functions.Valid_Metadata (Text, Catalog)
+         and then Procedures.Valid_Metadata (Text, Procedure_Catalog),
+       Post => Application_Statement'Result.Count = Input.Count
+         and then Application_Statement'Result.Allow_Procedure_Calls = Input.Allow_Procedure_Calls
+         and then Valid_Body (Text, Context, Application_Statement'Result.Scan)
+         and then (Application_Statement'Result.Scan.Position = 0
+           or else Application_Statement'Result.Scan.Position > Input.Scan.Position),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Input.Scan.Position, Decreases => 1);
+
+   function Application_Tail
+     (Text : String; Context : Body_Context; Input : Application_Scan;
+      Info : Packages.Metadata; Stop : Body_Stop; Require_One : Boolean;
+      Catalog : Functions.Metadata; Procedure_Catalog : Procedures.Metadata)
+      return Application_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Input.Scan)
+         and then Functions.Valid_Metadata (Text, Catalog)
+         and then Procedures.Valid_Metadata (Text, Procedure_Catalog),
+       Post => Application_Tail'Result.Count = Input.Count
+         and then Application_Tail'Result.Allow_Procedure_Calls = Input.Allow_Procedure_Calls
+         and then Valid_Body (Text, Context, Application_Tail'Result.Scan)
+         and then (Application_Tail'Result.Scan.Position = 0
+           or else Application_Tail'Result.Scan.Position >= Input.Scan.Position),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Input.Scan.Position, Decreases => 2)
+   is
+      Result : Application_Scan (Input.Count) := Input;
+      Before : Literal_Position;
+      Seen : Boolean := False;
+   begin
+      while Result.Scan.Position /= 0 and then not At_Body_Stop (Text, Result.Scan.Position, Stop) loop
+         pragma Loop_Invariant (Valid_Body (Text, Context, Result.Scan));
+         pragma Loop_Invariant (Result.Scan.Position >= Input.Scan.Position);
+         pragma Loop_Invariant (Result.Allow_Procedure_Calls = Input.Allow_Procedure_Calls);
+         pragma Loop_Variant (Increases => Result.Scan.Position);
+         Before := Result.Scan.Position;
+         Result := Application_Statement (Text, Context, Result, Info, Catalog, Procedure_Catalog);
+         if Result.Scan.Position <= Before then return Invalid_Application (Result); end if;
+         Seen := True;
+      end loop;
+      if Result.Scan.Position = 0 or else (Require_One and then not Seen) then
+         return Invalid_Application (Result);
+      end if;
+      return Result;
+   end Application_Tail;
+
+   function Application_Statement
+     (Text : String; Context : Body_Context; Input : Application_Scan;
+      Info : Packages.Metadata; Catalog : Functions.Metadata;
+      Procedure_Catalog : Procedures.Metadata) return Application_Scan
+   is
+      Result : Application_Scan (Input.Count) := Input;
+      Condition : Condition_Result (Input.Count);
+      Yes : Scalar_Flow (Input.Count) := Input.Scan.Facts;
+      Have_Yes : Boolean := False;
+      First, Last, Start : Literal_Position;
+      Low, High : Scalar_Expressions.Expression_Result;
+      Bounds : Scalars.Interval;
+      Definite : Boolean;
+   begin
+      if Input.Scan.Position = 0 then return Invalid_Application (Input); end if;
+      if Take_Token (Text, Input.Scan.Position, If_Keyword) /= 0 then
+         Result.Scan.Position := Take_Token (Text, Result.Scan.Position, If_Keyword);
+         loop
+            pragma Loop_Invariant (Valid_Body (Text, Context, Result.Scan));
+            pragma Loop_Invariant (Valid_Flow (Context, Yes));
+            pragma Loop_Invariant (Result.Allow_Procedure_Calls = Input.Allow_Procedure_Calls);
+            pragma Loop_Invariant (Result.Scan.Position > Input.Scan.Position);
+            pragma Loop_Variant (Increases => Result.Scan.Position);
+            Start := Result.Scan.Position;
+            Read_Condition_Into (Text, Context, Start, Result.Scan.Facts, Condition);
+            if Condition.After = 0 then return Invalid_Application (Input); end if;
+            Result.Reads := Packages.Union (Result.Reads,
+              State_Reads (Text, Context, Info, Start, Condition.After));
+            Result.Scan.Position := Take_Token (Text, Condition.After, Then_Keyword);
+            Result.Scan.Facts := Condition.When_True;
+            if Result.Scan.Position <= Start then return Invalid_Application (Input); end if;
+            Result := Application_Tail
+              (Text, Context, Result, Info, Arm_Boundary, True, Catalog, Procedure_Catalog);
+            if Result.Scan.Position = 0 then return Invalid_Application (Input); end if;
+            if Have_Yes then
+               Lemma_Joined_Flow (Context, Yes, Result.Scan.Facts);
+               Join_Into (Yes, Result.Scan.Facts);
+            else
+               Yes := Result.Scan.Facts;
+               Have_Yes := True;
+            end if;
+            Result.Scan.Facts := Condition.When_False;
+            exit when Take_Token (Text, Result.Scan.Position, Elsif_Keyword) = 0;
+            Result.Scan.Position := Take_Token (Text, Result.Scan.Position, Elsif_Keyword);
+            if Result.Scan.Position <= Start then return Invalid_Application (Input); end if;
+         end loop;
+         if Take_Token (Text, Result.Scan.Position, Else_Keyword) /= 0 then
+            Result.Scan.Position := Take_Token (Text, Result.Scan.Position, Else_Keyword);
+            Result := Application_Tail
+              (Text, Context, Result, Info, End_Only, True, Catalog, Procedure_Catalog);
+         end if;
+         if Result.Scan.Position = 0 then return Invalid_Application (Input); end if;
+         Lemma_Joined_Flow (Context, Result.Scan.Facts, Yes);
+         Join_Into (Result.Scan.Facts, Yes);
+         Result.Scan := Body_Token (Text, Context, Result.Scan, End_Keyword);
+         Result.Scan := Body_Token (Text, Context, Result.Scan, If_Keyword);
+         Result.Scan := Body_Token (Text, Context, Result.Scan, Semicolon);
+      elsif Take_Token (Text, Input.Scan.Position, For_Keyword) /= 0 then
+         Result.Scan.Position := Take_Token (Text, Input.Scan.Position, For_Keyword);
+         First := Skip_At (Text, Result.Scan.Position);
+         Last := Name_After (Text, First);
+         if First = 0 or else Last <= First
+           or else (Forbidden_Name (Text, First, Last) and then not Name_Is (Text, First, Last, "string"))
+           or else (Context.Dynamic_First /= 0 and then Name_Is (Text, First, Last, "silver_arguments"))
+           or else Packages.Same_Name (Text, (First, Last), (Info.Name_First, Info.Name_After))
+           or else Context.Scalar_Names.Count = Scalar_Expressions.Max_Bindings
+         then return Invalid_Application (Input); end if;
+         if Take_Token (Text, Last, Of_Keyword) /= 0 then
+            if Context.Pure then return Invalid_Application (Input); end if;
+            Result.Scan.Position := Take_Token (Text, Last, Of_Keyword);
+            if Take_Token (Text, Result.Scan.Position, Reverse_Keyword) /= 0 then
+               Result.Scan.Position := Take_Token (Text, Result.Scan.Position, Reverse_Keyword);
+            end if;
+            declare
+               Array_First : constant Literal_Position := Skip_At (Text, Result.Scan.Position);
+               Array_Last : constant Literal_Position := Name_After (Text, Array_First);
+               Target : constant Array_Bindings.Binding_Count := Array_Target (Text, Context, Result.Scan.Position);
+            begin
+               if Array_First = 0 or else Array_Last <= Array_First
+                 or else Equal_Name (Text, First, Last, Array_First, Array_Last)
+                 or else Target = 0 or else Context.Array_Names.Items (Target).Mutable
+                 or else Context.Array_Names.Items (Target).Boolean_Elements
+               then return Invalid_Application (Input); end if;
+               Result.Scan.Position := Take_Token (Text, Array_Last, Loop_Keyword);
+               Bounds := Context.Array_Names.Items (Target).Component_Bounds;
+               Definite := True;
+            end;
+         else
+            Start := Take_Token (Text, Last, In_Keyword);
+            if Take_Token (Text, Start, Reverse_Keyword) /= 0 then Start := Take_Token (Text, Start, Reverse_Keyword); end if;
+            declare Shape : constant Scalar_Expressions.Expression_Result :=
+              Scalar_Expressions.Read_Array_Attribute
+                (Text, Start, Context.Scalar_Names, Context.Array_Names, First, Last, Range_Query => True);
+            begin
+               if Shape.After /= 0 then
+                  Result.Scan.Position := Take_Token (Text, Shape.After, Loop_Keyword);
+                  Bounds := Shape.Bounds;
+                  Definite := True;
+               else
+                  Low := Read_Counted_Bound (Text, Context, Start, Input.Scan.Facts, First, Last);
+                  High := Read_Counted_Bound (Text, Context,
+                    Take_Token (Text, Low.After, Range_Delimiter), Input.Scan.Facts, First, Last);
+                  Result.Scan.Position := Take_Token (Text, High.After, Loop_Keyword);
+                  Bounds := (if Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
+                    then Scalars.Empty else Scalars.Normalize ((Low.Bounds.Lower, High.Bounds.Upper)));
+                  Definite := not Scalars.Is_Empty (Low.Bounds) and then not Scalars.Is_Empty (High.Bounds)
+                    and then Low.Bounds.Upper <= High.Bounds.Lower;
+               end if;
+            end;
+            Result.Reads := Packages.Union (Result.Reads,
+              State_Reads (Text, (Context with delta Mask_First => First, Mask_After => Last),
+                Info, Start, Result.Scan.Position));
+         end if;
+         if Result.Scan.Position <= Input.Scan.Position then return Invalid_Application (Input); end if;
+         Widen_Into (Context, Result.Scan.Facts);
+         declare
+            Inner : Body_Context := Context;
+            Inside : Application_Scan (Input.Count + 1);
+         begin
+            Inner.Scalar_Names.Count := Inner.Scalar_Names.Count + 1;
+            Inner.Scalar_Names.Items (Inner.Scalar_Names.Count) :=
+              (First, Last, Bounds, False, Bounds, False, 0, 0);
+            Inside.Scan.Position := Result.Scan.Position;
+            Inside.Scan.Target := Result.Scan.Target;
+            Inside.Scan.Capacity := Result.Scan.Capacity;
+            Inside.Scan.Assigned := Result.Scan.Assigned;
+            Inside.Scan.Output := Result.Scan.Output;
+            Inside.Allow_Procedure_Calls := Result.Allow_Procedure_Calls;
+            Inside.Reads := Result.Reads;
+            Inside.Writes := Result.Writes;
+            Inside.Scan.Facts.Path := (if Scalars.Is_Empty (Bounds) then Paths.Empty_Context else Result.Scan.Facts.Path);
+            Inside.Scan.Facts.Values := (others => Scalars.Empty);
+            for I in Result.Scan.Facts.Values'Range loop
+               pragma Loop_Invariant
+                 (for all Done in Result.Scan.Facts.Values'First .. I - 1 =>
+                   Inside.Scan.Facts.Values (Done) = Result.Scan.Facts.Values (Done));
+               Inside.Scan.Facts.Values (I) := Result.Scan.Facts.Values (I);
+            end loop;
+            Inside.Scan.Facts.Values (Inside.Count) := Bounds;
+            Inside := Application_Tail (Text, Inner, Inside, Info, End_Only, True, Catalog, Procedure_Catalog);
+            if Inside.Scan.Position = 0 then return Invalid_Application (Input); end if;
+            Result.Scan.Position := Inside.Scan.Position;
+            Result.Scan.Target := Inside.Scan.Target;
+            Result.Scan.Capacity := Inside.Scan.Capacity;
+            Result.Scan.Assigned := Inside.Scan.Assigned;
+            Result.Scan.Output := Inside.Scan.Output;
+            --  Syntactic effects survive even a statically empty loop.
+            Result.Reads := Inside.Reads;
+            Result.Writes := Inside.Writes;
+            if Scalars.Is_Empty (Bounds) then Result.Scan.Facts := Input.Scan.Facts;
+            elsif Definite then Result.Scan.Facts.Path := Inside.Scan.Facts.Path;
+            else Result.Scan.Facts.Path := Paths.Join (Input.Scan.Facts.Path, Inside.Scan.Facts.Path);
+            end if;
+         end;
+         Result.Scan := Body_Token (Text, Context, Result.Scan, End_Keyword);
+         Result.Scan := Body_Token (Text, Context, Result.Scan, Loop_Keyword);
+         Result.Scan := Body_Token (Text, Context, Result.Scan, Semicolon);
+      else
+         return Application_Basic (Text, Context, Input, Info, Catalog, Procedure_Catalog);
+      end if;
+      if Result.Scan.Position <= Input.Scan.Position or else not Valid_Body (Text, Context, Result.Scan) then
+         return Invalid_Application (Input);
+      end if;
+      return Result;
+   end Application_Statement;
+
+   function Routine_Frame
+     (Text : String; Globals : Parser_State; Info : Packages.Metadata;
+      Routine : Packages.Routine_Index; Position : Literal_Position)
+      return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Globals) and then Position <= Text'Last + 1,
+       Post => Valid_State (Text, Routine_Frame'Result)
+   is
+      Result : Parser_State := (Globals with delta Position => Position, Pure => True,
+        Scalar_Names => Scalar_Expressions.Body_Environment (Globals.Scalar_Names));
+      Item : constant Packages.Routine := Info.Routines (Routine);
+      Parameter : Packages.Formal;
+      Mark : Package_Type_Result;
+   begin
+      for I in 1 .. Result.Boolean_Names.Count loop
+         if Result.Boolean_Names.Items (I).Mutable then Result.Boolean_Names.Items (I).Known := False; end if;
+      end loop;
+      if Item.Count > 0 then
+         if Item.Formal_First = 0 or else Item.Formal_First > Info.Parameter_Count
+           or else Item.Count > Info.Parameter_Count - Item.Formal_First + 1
+         then return Invalid_State; end if;
+         --  Even an uninitialized out formal hides a same-spelled global.
+         for I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
+            Parameter := Info.Parameters (I);
+            if not Packages.Valid_Name (Text, Parameter.Body_Name) then return Invalid_State; end if;
+            Result := Hide_Outer (Text, Result, Info, Parameter.Body_Name);
+            if Result.Position = 0 then return Invalid_State; end if;
+         end loop;
+         for I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
+            Parameter := Info.Parameters (I);
+            if Parameter.Mode /= Procedures.Output then
+               Mark := (Name => Parameter.Body_Type_Name, After => Parameter.Body_Type_Name.After,
+                 Kind => Parameter.Kind, Bounds => Parameter.Bounds, Identity => Parameter.Type_Identity);
+               Append_Package_Formal (Result, Parameter.Body_Name, Mark, Parameter.Mode);
+               if Result.Position = 0 then return Invalid_State; end if;
+            end if;
+         end loop;
+      end if;
+      if not Valid_State (Text, Result) then return Invalid_State; end if;
+      return Result;
+   end Routine_Frame;
+
+   procedure Package_Completion_At
+     (Text : String; Globals : in out Parser_State; Info : in out Packages.Metadata)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Globals),
+       Post => Valid_State (Text, Globals)
+   is
+      Original : constant Literal_Position := Globals.Position;
+      Header, Frame : Parser_State;
+      Item : Packages.Routine;
+      Object : Package_Object_Result;
+      Reads : Packages.State_Set := Packages.Empty_State_Set;
+      Formal : Packages.Formal;
+      Mark : Package_Type_Result;
+      Index : Packages.Routine_Count_Type;
+      First, Last, Value_First, Value_After, Following, Before : Literal_Position;
+      Initialized : Boolean := False;
+   begin
+      if Info.Completed >= Info.Routine_Count then Globals := Invalid_State; return; end if;
+      Index := Info.Completed + 1;
+      Package_Signature_At (Text, Globals, Info, True, Header);
+      if Header.Position = 0 then Globals := Invalid_State; return; end if;
+      Item := Info.Routines (Index);
+      if Item.Count > 0 and then
+        (Item.Formal_First = 0 or else Item.Formal_First > Info.Parameter_Count
+         or else Item.Count > Info.Parameter_Count - Item.Formal_First + 1)
+      then Globals := Invalid_State; return; end if;
+      Frame := Routine_Frame (Text, Globals, Info, Index, Header.Position);
+      if Frame.Position = 0 then Globals := Invalid_State; return; end if;
+      while Take_Token (Text, Frame.Position, Begin_Keyword) = 0 loop
+         pragma Loop_Variant (Increases => Frame.Position);
+         Before := Frame.Position;
+         First := Skip_At (Text, Frame.Position);
+         Last := Name_After (Text, First);
+         if Item.Count > 0 and then
+           (for some I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 =>
+             Packages.Same_Name (Text, (First, Last), Info.Parameters (I).Body_Name))
+         then Globals := Invalid_State; return; end if;
+         Object := Package_Object_At (Text, Frame, Info, Local => True);
+         if Object.Frame.Position <= Before then Globals := Invalid_State; return; end if;
+         Reads := Packages.Union (Reads, State_Reads
+           (Text, Context_Of ((Object.Frame, False, False)), Info, Object.Init_First, Object.Init_After));
+         Frame := Object.Frame;
+      end loop;
+      Frame.Position := Take_Token (Text, Frame.Position, Begin_Keyword);
+      if Item.Count > 0 then
+         for I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
+            Formal := Info.Parameters (I);
+            if Formal.Mode = Procedures.Output then
+               if not Packages.Valid_Name (Text, Formal.Body_Name) then Globals := Invalid_State; return; end if;
+               First := Skip_At (Text, Frame.Position);
+               Last := Name_After (Text, First);
+               if not Packages.Same_Name (Text, (First, Last), Formal.Body_Name) then
+                  Globals := Invalid_State; return;
+               end if;
+               Value_First := Take_Token (Text, Last, Assignment);
+               declare Context : constant Body_Context :=
+                 (Context_Of ((Frame, False, False)) with delta Declaration_Count => 0);
+               begin
+                  Value_After := Actual_After (Text, Context, Value_First, Initial_Flow (Context),
+                    (Formal.Body_Name.First, Formal.Body_Name.After, Formal.Kind, Formal.Bounds, 0));
+                  Reads := Packages.Union (Reads, State_Reads (Text, Context, Info, Value_First, Value_After));
+               end;
+               Following := Take_Token (Text, Value_After, Semicolon);
+               if Following <= Frame.Position then Globals := Invalid_State; return; end if;
+               Frame.Position := Following;
+               Initialized := True;
+            end if;
+         end loop;
+         --  All prefix RHSs use the same frame without any output formal.
+         --  Only the completed prefix introduces the writable outputs.
+         for I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
+            Formal := Info.Parameters (I);
+            if Formal.Mode = Procedures.Output then
+               if not Packages.Valid_Name (Text, Formal.Body_Name) then Globals := Invalid_State; return; end if;
+               Mark := (Formal.Body_Type_Name, Formal.Body_Type_Name.After,
+                 Formal.Kind, Formal.Bounds, Formal.Type_Identity);
+               Append_Package_Formal (Frame, Formal.Body_Name, Mark, Formal.Mode);
+               if Frame.Position = 0 then Globals := Invalid_State; return; end if;
+            end if;
+         end loop;
+      end if;
+      declare
+         Context : constant Body_Context :=
+           (Context_Of ((Frame, Initialized, False)) with delta Declaration_Count => 0);
+         Input : Application_Scan := Application_Of (Body_Of ((Frame, Initialized, False)));
+         Result : Application_Scan (Input.Count);
+      begin
+         Input.Allow_Procedure_Calls := Item.Kind = Packages.Procedure_Routine;
+         Input.Reads := Reads;
+         Result := Application_Tail (Text, Context, Input, Info,
+           (if Item.Kind = Packages.Function_Routine then Return_Only else End_Only),
+           Item.Kind = Packages.Procedure_Routine and then not Initialized,
+           Functions.Empty_Metadata, Procedures.Empty_Metadata);
+         if Result.Scan.Position = 0 then Globals := Invalid_State; return; end if;
+         if Item.Kind = Packages.Function_Routine then
+            Value_First := Take_Token (Text, Result.Scan.Position, Return_Keyword);
+            Value_After := Function_Return_After (Text, Context, Result.Scan,
+              (0, Item.Result_Kind, Item.Result_Bounds, 0));
+            Result.Reads := Packages.Union (Result.Reads,
+              State_Reads (Text, Context, Info, Value_First, Value_After));
+            Result.Scan.Position := Take_Token (Text, Value_After, Semicolon);
+            if Result.Scan.Position = 0 or else Result.Writes /= Packages.Empty_State_Set then
+               Globals := Invalid_State; return;
+            end if;
+         end if;
+         First := Skip_At (Text, Take_Token (Text, Result.Scan.Position, End_Keyword));
+         Last := Name_After (Text, First);
+         Following := Take_Token (Text, Last, Semicolon);
+         if Following <= Original or else not Packages.Same_Name (Text, (First, Last), Item.Body_Name) then
+            Globals := Invalid_State; return;
+         end if;
+         Item.Body_After := Following;
+         Item.May_Read := Result.Reads;
+         Item.May_Write := Result.Writes;
+         Item.Assigned := Result.Scan.Assigned;
+         Info.Routines (Index) := Item;
+         Info.Completed := Index;
+         Info.Assigned := Info.Assigned or Item.Assigned;
+         Globals.Position := Following;
+      end;
+   end Package_Completion_At;
+
+   procedure Package_Body_At
+     (Text : String; Exports : Parser_State; Info : in out Packages.Metadata;
+      Accepted : out Boolean)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Exports)
+         and then Info.Units (Units.Package_Body).First <= Text'Last + 1
+   is
+      First : constant Literal_Position := Skip_At (Text,
+        Package_Word (Text, Package_Word (Text, Info.Units (Units.Package_Body).First, "package"), "body"));
+      Last : constant Literal_Position := Name_After (Text, First);
+      Globals : Parser_State := Exports;
+      Object : Package_Object_Result;
+      End_First, End_Last, Following, Before : Literal_Position;
+   begin
+      Accepted := False;
+      if not Packages.Same_Name (Text, (First, Last), (Info.Name_First, Info.Name_After)) then return; end if;
+      Info.Body_Name_First := First;
+      Info.Body_Name_After := Last;
+      Globals.Position := Spark_Pragma_After (Text, Take_Token (Text, Last, Is_Keyword));
+      if Globals.Position = 0 then return; end if;
+      while Take_Token (Text, Globals.Position, Function_Keyword) = 0
+        and then Take_Token (Text, Globals.Position, Procedure_Keyword) = 0
+        and then Take_Token (Text, Globals.Position, End_Keyword) = 0
+      loop
+         pragma Loop_Variant (Increases => Globals.Position);
+         if Info.State_Count = Packages.Max_States then return; end if;
+         Before := Globals.Position;
+         Object := Package_Object_At (Text, Globals, Info);
+         if Object.Frame.Position <= Before or else Object.Constant_Object then return; end if;
+         Info.State_Count := Info.State_Count + 1;
+         Info.States (Info.State_Count) :=
+           (Name => Object.Name, Kind => Object.Mark.Kind,
+            Type_Name => Object.Mark.Name, Type_Identity => Object.Mark.Identity,
+            Declared_Bounds => Object.Mark.Bounds, Initial_Bounds => Object.Initial_Bounds,
+            Initializer_First => Object.Init_First, Initializer_After => Object.Init_After,
+            Boolean_Initial => Object.Boolean_Value);
+         Globals := Object.Frame;
+      end loop;
+      while Info.Completed < Info.Routine_Count loop
+         pragma Loop_Variant (Increases => Info.Completed);
+         Before := Globals.Position;
+         Package_Completion_At (Text, Globals, Info);
+         if Globals.Position <= Before then return; end if;
+      end loop;
+      End_First := Skip_At (Text, Take_Token (Text, Globals.Position, End_Keyword));
+      End_Last := Name_After (Text, End_First);
+      Following := Take_Token (Text, End_Last, Semicolon);
+      Accepted := Packages.Same_Name (Text, (End_First, End_Last), (Info.Name_First, Info.Name_After))
+        and then Following /= 0 and then Skip_At (Text, Following) = Text'Last + 1;
+   end Package_Body_At;
+
+   function Imported_Frame
+     (Text : String; Exports : Parser_State; Info : Packages.Metadata;
+      Position : Literal_Position) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Exports) and then Position <= Text'Last + 1
+         and then Valid_Name_State (Text, Info.Name_First, Info.Name_After)
+         and then Info.Units (Units.Main_Body).First <= Text'Last + 1,
+       Post => Valid_State (Text, Imported_Frame'Result)
+   is
+      Result : Parser_State := (Exports with delta Position => Position,
+        Context_First => Info.Units (Units.Main_Body).First,
+        Package_First => Info.Name_First, Package_After => Info.Name_After,
+        Pure => False, Hiding => No_Hidden_Marks);
+   begin
+      for I in 1 .. Result.Scalar_Names.Count loop
+         Result.Scalar_Names.Items (I).Qualifier_First := Info.Name_First;
+         Result.Scalar_Names.Items (I).Qualifier_After := Info.Name_After;
+      end loop;
+      for I in 1 .. Result.Boolean_Names.Count loop
+         Result.Boolean_Names.Items (I).Qualifier_First := Info.Name_First;
+         Result.Boolean_Names.Items (I).Qualifier_After := Info.Name_After;
+      end loop;
+      for I in 1 .. Result.Subtype_Names.Count loop
+         Result.Subtype_Names.Items (I).Qualifier_First := Info.Name_First;
+         Result.Subtype_Names.Items (I).Qualifier_After := Info.Name_After;
+      end loop;
+      Result.Subtype_Names.Hidden_Calls := (others => False);
+      Result.Subtype_Names.True_Hidden := False;
+      Result.Subtype_Names.False_Hidden := False;
+      if not Valid_State (Text, Result) then return Invalid_State; end if;
+      return Result;
+   end Imported_Frame;
+
+   function Same_Package_Spelling
+     (Text : String; Info : Packages.Metadata; Word : String) return Boolean
+     with Global => null
+   is
+   begin
+      if not Packages.Valid_Name (Text, (Info.Name_First, Info.Name_After))
+        or else Word'Length /= Info.Name_After - Info.Name_First
+      then return False; end if;
+      for I in Word'Range loop
+         if Lowercase (Word (I)) /= Lowercase (Text (Info.Name_First + (I - Word'First))) then return False; end if;
+      end loop;
+      return True;
+   end Same_Package_Spelling;
+
+   function Package_Main_At
+     (Sources : Units.Bundle; Exports : Parser_State; Info : Packages.Metadata)
+      return Analysis_Result
+     with Global => null,
+       Pre => Units.Valid (Sources)
+         and then Valid_State (Sources.Pool (1 .. Sources.Used), Exports)
+         and then Packages.Complete_Metadata (Sources.Pool (1 .. Sources.Used), Info)
+   is
+      Text : constant String := Sources.Pool (1 .. Sources.Used);
+      Imported : constant String := Imported_Package (Units.Unit_Source (Sources, Units.Main_Body));
+      Context_Clauses : constant Names.Context_Result := Names.Read_Context
+        (Text, Sources.Units (Units.Main_Body).First, Info.Name_First, Info.Name_After);
+      Frame : Parser_State;
+      Start, Following : Literal_Position;
+   begin
+      if not Same_Package_Spelling (Text, Info, Imported) or else Context_Clauses.After = 0 then return Invalid_Analysis; end if;
+      Start := Spark_Pragma_After (Text, Take_Token (Text, Take_Token (Text,
+        Take_Token (Text, Context_Clauses.After, Procedure_Keyword), Main_Name), Is_Keyword));
+      if Start = 0 then return Invalid_Analysis; end if;
+      Frame := Imported_Frame (Text, Exports, Info, Start);
+      if Context_Clauses.Arguments_With then Frame := Argument_At (Text, Frame); end if;
+      if Frame.Position = 0 then return Invalid_Analysis; end if;
+      Frame := Read_Declarations (Text, Frame, Context_Clauses.Arguments_With);
+      Frame.Position := Take_Token (Text, Frame.Position, Begin_Keyword);
+      if Frame.Position = 0 then return Invalid_Analysis; end if;
+      declare
+         Context : constant Body_Context := Context_Of ((Frame, Frame.Assigned_In_Functions, False));
+         Result : constant Application_Scan := Application_Tail
+           (Text, Context, Application_Of (Body_Of ((Frame, Frame.Assigned_In_Functions, False))),
+            Info, End_Only, True, Frame.Functions, Frame.Procedures);
+      begin
+         Following := Take_Token (Text, Take_Token
+           (Text, Take_Token (Text, Result.Scan.Position, End_Keyword), Main_Name), Semicolon);
+         if Following = 0 or else Skip_At (Text, Following) /= Text'Last + 1
+           or else not Paths.Completed (Result.Scan.Facts.Path)
+         then return Invalid_Analysis; end if;
+         return (Accepted => True, Package_Info => Info,
+           Main_Functions => Frame.Functions, Main_Procedures => Frame.Procedures,
+           Uses_Arguments => Context_Clauses.Arguments_With,
+           Uses_Assignment => Result.Scan.Assigned, Uses_Output => Result.Scan.Output);
+      end;
+   end Package_Main_At;
+
+   procedure Charge_Unit
+     (Text : String; Remaining : in out Concatenation_Count; Accepted : out Boolean)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+   is
+      Position : Cursor := 1;
+      First, After_Name, After_Character : Literal_Position;
+      Number : Silver_Scalar_Literals.Literal_Result;
+      Quoted : Value_Result;
+      Charge : Boolean;
+   begin
+      Accepted := False;
+      loop
+         pragma Loop_Invariant (Position <= Text'Last + 1);
+         pragma Loop_Variant (Increases => Position);
+         First := Skip_At (Text, Position);
+         if First = 0 then return; end if;
+         if First > Text'Last then Accepted := True; return; end if;
+         After_Character := Character_Literal_After (Text, First);
+         After_Name := Name_After (Text, First);
+         Number := Silver_Scalar_Literals.Read_Integer (Text, First);
+         Charge := False;
+         if After_Character /= 0 then Position := After_Character;
+         elsif Text (First) = Character'Val (34) then
+            Quoted := Literal_At (Text, First);
+            if Quoted.After = 0 then return; end if;
+            Position := Quoted.After;
+         elsif After_Name /= 0 then
+            Charge := Name_Is (Text, First, After_Name, "mod") or else Name_Is (Text, First, After_Name, "rem");
+            Position := After_Name;
+         elsif Number.After /= 0 then Position := Number.After;
+         elsif Text (First) = '/' and then First < Text'Last and then Text (First + 1) = '=' then Position := First + 2;
+         else
+            Charge := Text (First) in '&' | '+' | '-' | '*' | '/';
+            Position := First + 1;
+         end if;
+         if Charge then
+            if Remaining = 0 then return; end if;
+            Remaining := Remaining - 1;
+         end if;
+      end loop;
+   end Charge_Unit;
+
+   function Analyze_Application (Sources : Units.Bundle) return Analysis_Result
+     with Global => null,
+       Post => (if Analyze_Application'Result.Accepted then
+         Units.Valid (Sources)
+         and then Analyze_Application'Result.Package_Info.Units = Sources.Units
+         and then Packages.Complete_Metadata
+           (Sources.Pool (1 .. Sources.Used), Analyze_Application'Result.Package_Info)
+         and then Functions.Valid_Metadata
+           (Sources.Pool (1 .. Sources.Used), Analyze_Application'Result.Main_Functions)
+         and then Procedures.Valid_Metadata
+           (Sources.Pool (1 .. Sources.Used), Analyze_Application'Result.Main_Procedures))
+   is
+      Info : Packages.Metadata := Packages.Empty_Metadata;
+      Exports : Parser_State;
+      Remaining : Concatenation_Count := Max_Concatenations;
+      Accepted : Boolean;
+      Result : Analysis_Result;
+   begin
+      if not Units.Valid (Sources) or else not Allowed_Source (Sources.Pool (1 .. Sources.Used)) then return Invalid_Analysis; end if;
+      for Unit in Units.Unit_Kind loop
+         Charge_Unit (Normalized (Units.Unit_Source (Sources, Unit)), Remaining, Accepted);
+         if not Accepted then return Invalid_Analysis; end if;
+      end loop;
+      Info.Units := Sources.Units;
+      Package_Spec_At (Units.Prefix (Sources, Units.Package_Specification), Info, Exports);
+      if Exports.Position = 0 or else not Valid_State (Units.Prefix (Sources, Units.Package_Body), Exports) then return Invalid_Analysis; end if;
+      Package_Body_At (Units.Prefix (Sources, Units.Package_Body), Exports, Info, Accepted);
+      if not Accepted or else not Packages.Complete_Metadata (Sources.Pool (1 .. Sources.Used), Info)
+        or else not Valid_State (Sources.Pool (1 .. Sources.Used), Exports)
+      then return Invalid_Analysis; end if;
+      Result := Package_Main_At (Sources, Exports, Info);
+      if not Result.Accepted or else Result.Package_Info.Units /= Sources.Units
+        or else not Packages.Complete_Metadata (Sources.Pool (1 .. Sources.Used), Result.Package_Info)
+        or else not Functions.Valid_Metadata (Sources.Pool (1 .. Sources.Used), Result.Main_Functions)
+        or else not Procedures.Valid_Metadata (Sources.Pool (1 .. Sources.Used), Result.Main_Procedures)
+      then return Invalid_Analysis; end if;
+      return Result;
+   end Analyze_Application;
+
+   function Analyze_Model (Sources : Units.Bundle) return Analysis_Result is
+     (Analyze_Application (Sources));
+   function Analyze (Sources : Units.Bundle) return Analysis_Result is
+     (Analyze_Application (Sources));
+   function Is_Application_Member (Sources : Units.Bundle) return Boolean is
+     (Analyze_Model (Sources).Accepted);
+   function Accepts_Application (Sources : Units.Bundle) return Boolean is
+     (Analyze (Sources).Accepted);
+
+   function Imported_Package (Main_Source : String) return String is
+   begin
+      if Main_Source'Length = 0 or else Main_Source'Length > Max_Source_Length
+      then return ""; end if;
+      declare
+         Text : constant String := Normalized (Main_Source);
+         Position : Literal_Position := 1;
+         Candidate : Silver_Package_Bindings.Name_Span :=
+           Silver_Package_Bindings.No_Name;
+      begin
+         loop
+            pragma Loop_Invariant (Position in 1 .. Text'Last + 1);
+            pragma Loop_Invariant (Candidate.First = 0
+              or else Silver_Package_Bindings.Valid_Name (Text, Candidate));
+            pragma Loop_Variant (Increases => Position);
+            declare
+               First : constant Literal_Position := Skip_At (Text, Position);
+               After : constant Literal_Position := Name_After (Text, First);
+               With_Clause : constant Boolean :=
+                 First > 0 and then After > First
+                 and then Name_Is (Text, First, After, "with");
+               Use_Clause : constant Boolean :=
+                 First > 0 and then After > First
+                 and then Name_Is (Text, First, After, "use");
+            begin
+               exit when not With_Clause and then not Use_Clause;
+               Position := After;
+               loop
+                  pragma Loop_Invariant (Position in After .. Text'Last + 1);
+                  pragma Loop_Invariant (Candidate.First = 0
+                    or else Silver_Package_Bindings.Valid_Name (Text, Candidate));
+                  pragma Loop_Variant (Increases => Position);
+                  declare
+                     Name_First : constant Literal_Position := Skip_At (Text, Position);
+                     Name_After : constant Literal_Position :=
+                       Silver_Output_Profile.Name_After (Text, Name_First);
+                     Name : constant Silver_Package_Bindings.Name_Span :=
+                       (Name_First, Name_After);
+                     Comma_After : constant Literal_Position :=
+                       Take_Token (Text, Name_After, Comma);
+                     Semicolon_After : constant Literal_Position :=
+                       Take_Token (Text, Name_After, Semicolon);
+                  begin
+                     if not Silver_Package_Bindings.Valid_Name (Text, Name)
+                       or else (Comma_After = 0 and then Semicolon_After = 0)
+                     then return ""; end if;
+                     if With_Clause
+                       and then not Name_Is (Text, Name_First, Name_After, "silver_io")
+                       and then not Name_Is (Text, Name_First, Name_After, "silver_arguments")
+                     then
+                        if Candidate.First /= 0
+                          and then not Silver_Package_Bindings.Same_Name
+                            (Text, Candidate, Name)
+                        then return ""; end if;
+                        Candidate := Name;
+                     end if;
+                     if Semicolon_After /= 0 then
+                        Position := Semicolon_After;
+                        exit;
+                     end if;
+                     Position := Comma_After;
+                  end;
+               end loop;
+            end;
+         end loop;
+         if Candidate.First = 0 then return ""; end if;
+         declare
+            Result : constant String (1 .. Candidate.After - Candidate.First) :=
+              Text (Candidate.First .. Candidate.After - 1);
+         begin
+            return Result;
+         end;
+      end;
+   end Imported_Package;
 end Silver_Output_Profile;

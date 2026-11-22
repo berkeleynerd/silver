@@ -12,14 +12,23 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
 
    function Lookup_Model
      (Text : String; Names : Environment; First, After : Literal_Position;
-      Index : Binding_Count) return Binding_Count is
+      Index : Binding_Count;
+      Qualifier_First : Literal_Position := 0;
+      Qualifier_After : Literal_Position := 0) return Binding_Count is
      (if First = 0 or else After <= First or else Index = 0 then 0
       elsif Equal_Name (Text, Names.Items (Index).First, Names.Items (Index).After,
                         First, After)
-      then Index else Lookup_Model (Text, Names, First, After, Index - 1));
+        and then (if Qualifier_First = 0 then Names.Items (Index).Qualifier_First = 0
+          else Names.Items (Index).Qualifier_First > 0
+            and then Equal_Name (Text, Names.Items (Index).Qualifier_First,
+              Names.Items (Index).Qualifier_After, Qualifier_First, Qualifier_After))
+      then Index else Lookup_Model
+        (Text, Names, First, After, Index - 1, Qualifier_First, Qualifier_After));
 
    function Lookup
-     (Text : String; Names : Environment; First, After : Literal_Position)
+     (Text : String; Names : Environment; First, After : Literal_Position;
+      Qualifier_First : Literal_Position := 0;
+      Qualifier_After : Literal_Position := 0)
       return Binding_Count is
       Index : Binding_Count := Names.Count;
    begin
@@ -27,11 +36,15 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
       while Index > 0 loop
          pragma Loop_Invariant (Index <= Names.Count);
          pragma Loop_Invariant (Static =>
-           Lookup_Model (Text, Names, First, After, Names.Count)
-             = Lookup_Model (Text, Names, First, After, Index));
+           Lookup_Model (Text, Names, First, After, Names.Count, Qualifier_First, Qualifier_After)
+             = Lookup_Model (Text, Names, First, After, Index, Qualifier_First, Qualifier_After));
          pragma Loop_Variant (Decreases => Index);
          if Equal_Name (Text, Names.Items (Index).First, Names.Items (Index).After,
                         First, After)
+           and then (if Qualifier_First = 0 then Names.Items (Index).Qualifier_First = 0
+             else Names.Items (Index).Qualifier_First > 0
+               and then Equal_Name (Text, Names.Items (Index).Qualifier_First,
+                 Names.Items (Index).Qualifier_After, Qualifier_First, Qualifier_After))
          then return Index; end if;
          Index := Index - 1;
       end loop;
@@ -85,6 +98,22 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
       Match_Identifier (Text, Next, Matched);
       return (if Matched then Next else 0);
    end Name_After;
+
+   function Read_Reference (Text : String; Position : Literal_Position)
+      return Name_Reference is
+     (declare First : constant Literal_Position := Skip (Text, Position);
+              After : constant Literal_Position := Name_After (Text, First);
+              Dot_First : constant Literal_Position := Skip (Text, After);
+      begin
+        (if First = 0 or else After <= First then Invalid_Reference
+         elsif Dot_First > 0 and then Dot_First <= Text'Last and then Text (Dot_First) = '.'
+           and then (Dot_First = Text'Last or else Text (Dot_First + 1) /= '.') then
+           (declare Member_First : constant Literal_Position := Skip (Text, Dot_First + 1);
+                    Member_After : constant Literal_Position := Name_After (Text, Member_First);
+            begin
+              (if Member_First = 0 or else Member_After <= Member_First
+               then Invalid_Reference else (Member_First, Member_After, First, After)))
+         else (First, After, 0, 0)));
 
    function Read_Array_Attribute
      (Text : String; Position : Literal_Position; Names : Environment;
@@ -253,10 +282,14 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
       Array_Reads : Array_Read_Mode)
       return Expression_Result is
      (declare First : constant Literal_Position := Skip (Text, Position);
-              After : constant Literal_Position := Name_After (Text, First);
-              Index : constant Binding_Count := Lookup (Text, Names, First, After);
+              Reference : constant Name_Reference := Read_Reference (Text, First);
+              After : constant Literal_Position := Reference.After;
+              Index : constant Binding_Count := Lookup
+                (Text, Names, Reference.First, After,
+                 Reference.Qualifier_First, Reference.Qualifier_After);
               Target : constant Array_Bindings.Binding_Count :=
-                Array_Bindings.Lookup (Text, Arrays, First, After);
+                (if Reference.Qualifier_First = 0 then
+                   Array_Bindings.Lookup (Text, Arrays, Reference.First, After) else 0);
       begin
         (if First = 0 or else First > Text'Last then Invalid
          elsif Text (First) in '+' | '-' then
@@ -269,11 +302,15 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
               (if Number.After /= 0 then Literal_Result (Number, False)
                elsif After = 0 then Invalid
                elsif Mask_First /= 0
-                 and then Equal_Name (Text, Mask_First, Mask_After, First, After)
+                 and then (if Reference.Qualifier_First = 0 then
+                   Equal_Name (Text, Mask_First, Mask_After, Reference.First, After)
+                   else Equal_Name (Text, Mask_First, Mask_After,
+                     Reference.Qualifier_First, Reference.Qualifier_After))
                then Invalid
                --  A scoped scalar index hides an outer array of the same spelling.
                elsif Index /= 0 then
                  (After, Scalars.Normalize (Names.Items (Index).Bounds), 1, Names.Items (Index).Static)
+               elsif Reference.Qualifier_First /= 0 then Invalid
                elsif Symbol (Text, After, Character'Val (39)) /= 0 then
                  Read_Array_Attribute (Text, Position, Names, Arrays, Mask_First, Mask_After)
                elsif Target = 0 or else Array_Reads = No_Elements
