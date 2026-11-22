@@ -1,0 +1,81 @@
+{
+  "run_id": "20261122T152221-0f22d1814997",
+  "task": "packages-416-qualified-native-helpers",
+  "kind": "lean",
+  "scope": [
+    "Silver.BooleanBindingsSourceBridge",
+    "Silver.BooleanBindingsSourceChecks"
+  ],
+  "state": "success",
+  "active": false,
+  "workers": 2,
+  "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T152221-0f22d1814997",
+  "fingerprint": "1d2b1bfb455aeda4f549d3f76114138c55ca337d41bfeb603362c3cf8524aded",
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/scripts/check_lean.py",
+    "--task",
+    "packages-416-qualified-native-helpers",
+    "--target",
+    "Silver.BooleanBindingsSourceBridge",
+    "--target",
+    "Silver.BooleanBindingsSourceChecks",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--resource-reason",
+    "Shared eight-CPU allocation with root and audit focused checks"
+  ],
+  "reason": "",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native",
+  "resources": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.silver/linux-x86_64/proof",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.silver/linux-x86_64/lean-focused.log",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.silver/linux-x86_64/lean-focused-evidence.json"
+  ],
+  "started_at": "2026-11-22T15:22:22.650778+00:00",
+  "finished_at": "2026-11-22T15:22:37.897382+00:00",
+  "duration_seconds": 15.24652923,
+  "returncode": null,
+  "error": null,
+  "failure_keys": [],
+  "evidence": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.silver/linux-x86_64/lean-focused.log",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.silver/linux-x86_64/lean-focused-evidence.json",
+    "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T152221-0f22d1814997/previous-evidence/lean-focused.log",
+    "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T152221-0f22d1814997/lean-focused.log",
+    "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T152221-0f22d1814997/lean-focused-evidence.json"
+  ],
+  "retained_report_count": 0,
+  "allocation": {
+    "memory_mb": {
+      "actual": null,
+      "automatic": null,
+      "requested": null
+    },
+    "threads": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": 2
+    },
+    "workers": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": 2
+    }
+  },
+  "resource_reductions": [],
+  "resource_reason": "Shared eight-CPU allocation with root and audit focused checks",
+  "effective_reserved_workers": 2,
+  "cpu_affinity": [
+    6,
+    7
+  ],
+  "effective_cpu_affinity": [
+    6,
+    7
+  ],
+  "cpu_limit_reason": "host's eight-CPU allocation",
+  "effective_resource_reason": "Shared eight-CPU allocation with root and audit focused checks"
+}

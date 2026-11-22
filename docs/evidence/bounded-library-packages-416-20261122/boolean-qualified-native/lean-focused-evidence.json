@@ -1,0 +1,61 @@
+{
+  "host": "linux-x86_64",
+  "lean_version": "4.34.1",
+  "run_id": "20261122T152221-0f22d1814997",
+  "scope": "focused",
+  "targets": [
+    "Silver.BooleanBindingsSourceBridge",
+    "Silver.BooleanBindingsSourceChecks"
+  ],
+  "mode": "focused",
+  "clean_build": false,
+  "axiom_audit": "passed",
+  "kernel_recheck": null,
+  "threads_per_process": 2,
+  "lake_workers": 2,
+  "available_cpus": 8,
+  "memory_mb_per_process": null,
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-11-22T15:22:28.851923+00:00",
+      "finished_at": "2026-11-22T15:22:32.846345+00:00",
+      "elapsed_seconds": 3.994,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-11-22T15:22:33.653502+00:00",
+      "finished_at": "2026-11-22T15:22:36.338604+00:00",
+      "elapsed_seconds": 2.685,
+      "exit_code": 0
+    }
+  ],
+  "tools_sha256": {
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  },
+  "modules": [
+    "Silver.Admission",
+    "Silver.AxiomAudit",
+    "Silver.BooleanBindings",
+    "Silver.BooleanBindingsNative",
+    "Silver.BooleanBindingsSourceBridge",
+    "Silver.BooleanBindingsSourceChecks",
+    "Silver.BooleanModel",
+    "Silver.Cursor",
+    "Silver.IntegerIntervals",
+    "Silver.Lexical",
+    "Silver.NamedIdentifier",
+    "Silver.OutputAdmission",
+    "Silver.OutputLiteral",
+    "Silver.QualifiedNames",
+    "Silver.SourceDeclarations",
+    "Silver.SourceLexer"
+  ],
+  "elapsed_seconds": 16.529,
+  "inputs_digest_sha256": "b2f81c0f664f6bb9b60f79d19af654963a98805d54c6b33d7b061b7f159f1f62",
+  "workspace": ".silver/linux-x86_64/proof",
+  "authoritative_source": "src",
+  "log": ".silver/linux-x86_64/lean-focused.log"
+}

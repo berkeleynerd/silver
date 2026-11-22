@@ -174,6 +174,28 @@ theorem read_after_bound (text : Source) (position : Nat) (bound : position ≤ 
   · omega
   · exact good.2
 
+theorem read_absent (text : Source) (position : Nat)
+    (absent : nameAfter text (skip text position) = 0) : read text position = {} := by
+  simp [read, absent]
+
+theorem read_bare_of_no_dot (text : Source) (position : Nat)
+    (named : nameAfter text (skip text position) ≠ 0)
+    (bare : ¬ singleDot text (skip text (nameAfter text (skip text position)))) :
+    read text position = ⟨skip text position, nameAfter text (skip text position), 0, 0⟩ := by
+  rcases nameAfter_valid text (skip text position) with absent | valid
+  · exact False.elim (named absent)
+  · simp [read, Nat.ne_of_gt valid.1, Nat.not_le.mpr valid.2.1, bare]
+
+theorem read_dot_cases (text : Source) (position : Nat)
+    (dotted : singleDot text (skip text (nameAfter text (skip text position)))) :
+    read text position = {} ∨ (read text position).qualifierFirst = skip text position := by
+  simp only [read, dotted, ↓reduceIte]
+  split
+  · exact Or.inl rfl
+  · split
+    · exact Or.inl rfl
+    · exact Or.inr rfl
+
 theorem read_sound (text : Source) (position : Nat)
     (success : (read text position).after ≠ 0) : At text position (read text position) := by
   unfold read at success ⊢
