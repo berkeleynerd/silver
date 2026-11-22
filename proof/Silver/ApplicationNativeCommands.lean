@@ -172,14 +172,16 @@ def Declaration.validType : Ty → List String → Bool
   | .parseContext, spelling => spelling == ["body_context"]
   | _, _ => false
 
-/-- Fixed arrays without component defaults need an explicit initializer here.
-Constrained record allocation is recorded separately by `Declaration.Allocated`;
-elaboration preserves its already allocated scan shape. -/
+/-- State_Set has no native component defaults; its incoming fixed-array cells
+remain arbitrary until the source explicitly assigns them. Other fixed arrays
+without component defaults need an explicit initializer here. Constrained record
+allocation is recorded separately by `Declaration.Allocated`; elaboration
+preserves its already allocated scan shape. -/
 def Declaration.implicitSupported : Ty → Bool
   | .number | .truth | .mode | .state | .functionType | .packageType | .objectResult
   | .routine | .formal | .exportItem | .stateDeclaration | .nameSpan | .reference
   | .functionFormal | .procedureFormal | .subtypeBinding | .scalarBinding | .booleanBinding
-  | .appScan | .appCall | .scalarConstraint | .scalarResult | .staticBooleanResult => true
+  | .appScan | .appCall | .scalarConstraint | .scalarResult | .staticBooleanResult | .stateSet => true
   | _ => false
 
 def Declaration.needsConstraint : Ty → Bool

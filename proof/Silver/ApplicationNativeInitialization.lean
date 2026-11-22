@@ -72,6 +72,9 @@ def value : (ty : Ty) → ty.meaning → ty.meaning
   | .appCall, prior => {value := Predicate.invalidCall, result := applicationScan prior.result}
   | _, prior => prior
 
+@[simp] theorem stateSet_arbitrary (prior : Ty.meaning .stateSet) :
+    value .stateSet prior = prior := rfl
+
 @[simp] theorem number_arbitrary (prior : Nat) : value .number prior = prior := rfl
 @[simp] theorem truth_arbitrary (prior : Bool) : value .truth prior = prior := rfl
 @[simp] theorem procedureFormal_partial (prior : ProcedureBindings.Formal) :
