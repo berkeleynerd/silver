@@ -166,8 +166,8 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
     (arrayStateNames state)) (.variable "type_first")) (.variable "type_after")
   let hiddenBoolean := Expr.app (.app (.app (.app (.function .booleanLookup) text)
     (.field .stateBooleanNames state)) (.variable "type_first")) (.variable "type_after")
-  let hiddenSubtype := Expr.app (.app (.app (.app (.function .subtypeLookup) text)
-    (.field .stateSubtypeNames state)) (.variable "type_first")) (.variable "type_after")
+  let hiddenSubtype := Expr.defaultQualifier (.app (.app (.app (.app (.function .subtypeLookup) text)
+    (.field .stateSubtypeNames state)) (.variable "type_first")) (.variable "type_after"))
   let conditions : List (Expr .truth) :=
     [.not (.app (.app (.app (.app (.app (.function .newName) text) state) first) after) arguments),
      .group <| .ite isBoolean

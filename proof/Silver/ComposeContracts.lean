@@ -144,6 +144,8 @@ structure Context where
   contextFirst : Nat := 1
   packageFirst : Nat := 0
   packageAfter : Nat := 0
+  qualifierFirst : Nat := 0
+  qualifierAfter : Nat := 0
   position : Nat := 0
   first : Nat := 0
   after : Nat := 0
@@ -189,6 +191,7 @@ def Context.locals (ctx : Context) : Locals
   | .source, _ => ctx.text
   | .number, name => match name with
     | "context_first" => ctx.contextFirst | "package_first" => ctx.packageFirst | "package_after" => ctx.packageAfter
+    | "qualifier_first" => ctx.qualifierFirst | "qualifier_after" => ctx.qualifierAfter
     | "position" => ctx.position | "first" => ctx.first | "after" => ctx.after
     | "index" => ctx.index | "length" => ctx.length | "remaining" => ctx.remaining
     | "slot" => ctx.slot | "following" => ctx.following | "next_token" => ctx.nextToken | "capacity" => ctx.capacity
@@ -507,15 +510,18 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
     ArrayBindings.ValidTable text arrays →
     calls.function .scalarConstraint text position scalarNames baseBounds arrays =
       scalarConstraintBody.eval evaluator (Context.locals {text,position,scalarNames,baseBounds,arrays})
-  subtypeLookupModel : ∀ text, ValidText text → ∀ subtypeNames first after index,
+  readReference : ∀ text, ValidText text → ∀ position, ValidCursor text position →
+    calls.function .readReference text position = QualifiedNames.read text position
+  subtypeLookupModel : ∀ text, ValidText text → ∀ subtypeNames first after index qualifierFirst qualifierAfter,
     IntegerSubtypes.ValidEnvironment text subtypeNames → ValidCursor text first → ValidCursor text after →
-    index ≤ subtypeNames.items.length →
-    calls.function .subtypeLookupModel text subtypeNames first after index =
-      subtypeLookupModelBody.eval evaluator (Context.locals {text,subtypeNames,first,after,index})
-  subtypeLookup : ∀ text, ValidText text → ∀ subtypeNames first after,
+    index ≤ subtypeNames.items.length → QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    calls.function .subtypeLookupModel text subtypeNames first after index qualifierFirst qualifierAfter =
+      subtypeLookupModelBody.eval evaluator (Context.locals {text,subtypeNames,first,after,index,qualifierFirst,qualifierAfter})
+  subtypeLookup : ∀ text, ValidText text → ∀ subtypeNames first after qualifierFirst qualifierAfter,
     IntegerSubtypes.ValidEnvironment text subtypeNames → ValidCursor text first → ValidCursor text after →
-    calls.function .subtypeLookup text subtypeNames first after =
-      calls.function .subtypeLookupModel text subtypeNames first after subtypeNames.items.length
+    QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    calls.function .subtypeLookup text subtypeNames first after qualifierFirst qualifierAfter =
+      calls.function .subtypeLookupModel text subtypeNames first after subtypeNames.items.length qualifierFirst qualifierAfter
   scalarType : ∀ text, ValidText text → ∀ state position,
     NativeState domain text state → ValidCursor text position →
     calls.function .scalarType text state position =
