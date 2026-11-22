@@ -1,6 +1,7 @@
 module
 
 public import Silver.ApplicationPackageNames
+public import Silver.ApplicationPackageDeclarationsTypes
 public import Silver.ApplicationAdmissionModel
 public import Silver.ApplicationPackageTypes
 public import Silver.ComposeContracts
@@ -28,6 +29,7 @@ inductive Ty
   | token | bundle | unitMap | analysis | charge | specification | bodyResult
   | bodyScan | appScan | appCall | callResult | packageActual | procedureActual | stateSet | activeFlow | parseContext
   | contextClauses | scanResult | bodyStop | path
+  | reference | routineKind | functionFormal | procedureFormal | packageActuals | packageSeen | objectResult
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -56,6 +58,10 @@ inductive Ty
   | .stateSet => PackageBindings.StateSet | .activeFlow => Predicate.ActiveFlow | .parseContext => Predicate.ParseContext
   | .contextClauses => Names.Context | .scanResult => Predicate.ScanResult
   | .bodyStop => Predicate.BodyStop | .path => PathFacts.Context
+  | .reference => QualifiedNames.Reference | .routineKind => PackageBindings.RoutineKind
+  | .functionFormal => FunctionBindings.Formal | .procedureFormal => ProcedureBindings.Formal
+  | .packageActuals => List ApplicationPackages.PackageActual | .packageSeen => List Bool
+  | .objectResult => ApplicationPackageDeclarations.ObjectResult
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -79,9 +85,45 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .parseContext => {names := [], hasArguments := false}
   | .contextClauses => {} | .scanResult => Predicate.invalidScan
   | .bodyStop => .endOnly | .path => PathFacts.Context.empty
+  | .reference => {} | .routineKind => .procedure
+  | .functionFormal => FunctionBindings.emptyFormal | .procedureFormal => ProcedureBindings.emptyFormal
+  | .packageActuals => List.replicate PackageBindings.maxFormals {}
+  | .packageSeen => List.replicate PackageBindings.maxFormals false
+  | .objectResult => ApplicationPackageDeclarations.invalidObject
   | .arrow _ b => fun _ => b.default
 
 inductive Field : Ty → Ty → Type
+  | routineBodyAfter : Field .routine .number
+  | routineMayRead : Field .routine .stateSet
+  | routineMayWrite : Field .routine .stateSet
+  | routineAssigned : Field .routine .truth
+  | contextDeclarationCount : Field .parseContext .number
+  | contextMaskFirst : Field .parseContext .number
+  | contextMaskAfter : Field .parseContext .number
+  | objectFrame : Field .objectResult .state
+  | objectName : Field .objectResult .nameSpan
+  | objectMark : Field .objectResult .packageType
+  | objectInitFirst : Field .objectResult .number
+  | objectInitAfter : Field .objectResult .number
+  | objectInitialBounds : Field .objectResult .interval
+  | objectConstantObject : Field .objectResult .truth
+  | objectBooleanValue : Field .objectResult .truth
+  | referenceFirst : Field .reference .number
+  | referenceAfter : Field .reference .number
+  | referenceQualifierFirst : Field .reference .number
+  | referenceQualifierAfter : Field .reference .number
+  | routineKind : Field .routine .routineKind
+  | functionFormalFirst : Field .functionFormal .number
+  | functionFormalAfter : Field .functionFormal .number
+  | functionFormalKind : Field .functionFormal .scalarKind
+  | functionFormalBounds : Field .functionFormal .interval
+  | functionFormalTypeId : Field .functionFormal .number
+  | procedureFormalFirst : Field .procedureFormal .number
+  | procedureFormalAfter : Field .procedureFormal .number
+  | procedureFormalKind : Field .procedureFormal .scalarKind
+  | procedureFormalBounds : Field .procedureFormal .interval
+  | procedureFormalTypeId : Field .procedureFormal .number
+  | procedureFormalMode : Field .procedureFormal .mode
   | contextAfter : Field .contextClauses .number
   | contextArgumentsWith : Field .contextClauses .truth
   | scanResultState : Field .scanResult .state
@@ -232,6 +274,37 @@ inductive Field : Ty → Ty → Type
   | procedureParameterCount : Field .procedures .number
 
 def Field.name : Field a b → String
+  | .routineBodyAfter => "body_after"
+  | .routineMayRead => "may_read"
+  | .routineMayWrite => "may_write"
+  | .routineAssigned => "assigned"
+  | .contextDeclarationCount => "declaration_count"
+  | .contextMaskFirst => "mask_first"
+  | .contextMaskAfter => "mask_after"
+  | .objectFrame => "frame"
+  | .objectName => "name"
+  | .objectMark => "mark"
+  | .objectInitFirst => "init_first"
+  | .objectInitAfter => "init_after"
+  | .objectInitialBounds => "initial_bounds"
+  | .objectConstantObject => "constant_object"
+  | .objectBooleanValue => "boolean_value"
+  | .referenceFirst => "first"
+  | .referenceAfter => "after"
+  | .referenceQualifierFirst => "qualifier_first"
+  | .referenceQualifierAfter => "qualifier_after"
+  | .routineKind => "kind"
+  | .functionFormalFirst => "first"
+  | .functionFormalAfter => "after"
+  | .functionFormalKind => "kind"
+  | .functionFormalBounds => "bounds"
+  | .functionFormalTypeId => "type_id"
+  | .procedureFormalFirst => "first"
+  | .procedureFormalAfter => "after"
+  | .procedureFormalKind => "kind"
+  | .procedureFormalBounds => "bounds"
+  | .procedureFormalTypeId => "type_id"
+  | .procedureFormalMode => "mode"
   | .contextAfter => "after"
   | .contextArgumentsWith => "arguments_with"
   | .scanResultState => "state"
@@ -382,6 +455,37 @@ def Field.name : Field a b → String
   | .procedureParameterCount => "parameter_count"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .routineBodyAfter, value => value.bodyAfter
+  | .routineMayRead, value => value.mayRead
+  | .routineMayWrite, value => value.mayWrite
+  | .routineAssigned, value => value.assigned
+  | .contextDeclarationCount, value => value.declarationCount
+  | .contextMaskFirst, value => value.maskFirst
+  | .contextMaskAfter, value => value.maskAfter
+  | .objectFrame, value => value.frame
+  | .objectName, value => value.name
+  | .objectMark, value => value.mark
+  | .objectInitFirst, value => value.initFirst
+  | .objectInitAfter, value => value.initAfter
+  | .objectInitialBounds, value => value.initialBounds
+  | .objectConstantObject, value => value.constantObject
+  | .objectBooleanValue, value => value.booleanValue
+  | .referenceFirst, value => value.first
+  | .referenceAfter, value => value.after
+  | .referenceQualifierFirst, value => value.qualifierFirst
+  | .referenceQualifierAfter, value => value.qualifierAfter
+  | .routineKind, value => value.kind
+  | .functionFormalFirst, value => value.first
+  | .functionFormalAfter, value => value.after
+  | .functionFormalKind, value => value.kind
+  | .functionFormalBounds, value => value.bounds
+  | .functionFormalTypeId, value => value.typeId
+  | .procedureFormalFirst, value => value.first
+  | .procedureFormalAfter, value => value.after
+  | .procedureFormalKind, value => value.kind
+  | .procedureFormalBounds, value => value.bounds
+  | .procedureFormalTypeId, value => value.typeId
+  | .procedureFormalMode, value => value.mode
   | .contextAfter, value => value.after
   | .contextArgumentsWith, value => value.argumentsWith
   | .scanResultState, value => value.state
@@ -535,6 +639,37 @@ def Field.get : Field a b → a.meaning → b.meaning
 not exceed the current active count; increasing native storage needs a richer
 representation and is deliberately not justified by this projection. -/
 def Field.set : Field a b → a.meaning → b.meaning → a.meaning
+  | .routineBodyAfter, value, item => {value with bodyAfter := item}
+  | .routineMayRead, value, item => {value with mayRead := item}
+  | .routineMayWrite, value, item => {value with mayWrite := item}
+  | .routineAssigned, value, item => {value with assigned := item}
+  | .contextDeclarationCount, value, item => {value with declarationCount := item}
+  | .contextMaskFirst, value, item => {value with maskFirst := item}
+  | .contextMaskAfter, value, item => {value with maskAfter := item}
+  | .objectFrame, value, item => {value with frame := item}
+  | .objectName, value, item => {value with name := item}
+  | .objectMark, value, item => {value with mark := item}
+  | .objectInitFirst, value, item => {value with initFirst := item}
+  | .objectInitAfter, value, item => {value with initAfter := item}
+  | .objectInitialBounds, value, item => {value with initialBounds := item}
+  | .objectConstantObject, value, item => {value with constantObject := item}
+  | .objectBooleanValue, value, item => {value with booleanValue := item}
+  | .referenceFirst, value, item => {value with first := item}
+  | .referenceAfter, value, item => {value with after := item}
+  | .referenceQualifierFirst, value, item => {value with qualifierFirst := item}
+  | .referenceQualifierAfter, value, item => {value with qualifierAfter := item}
+  | .routineKind, value, item => {value with kind := item}
+  | .functionFormalFirst, value, item => {value with first := item}
+  | .functionFormalAfter, value, item => {value with after := item}
+  | .functionFormalKind, value, item => {value with kind := item}
+  | .functionFormalBounds, value, item => {value with bounds := item}
+  | .functionFormalTypeId, value, item => {value with typeId := item}
+  | .procedureFormalFirst, value, item => {value with first := item}
+  | .procedureFormalAfter, value, item => {value with after := item}
+  | .procedureFormalKind, value, item => {value with kind := item}
+  | .procedureFormalBounds, value, item => {value with bounds := item}
+  | .procedureFormalTypeId, value, item => {value with typeId := item}
+  | .procedureFormalMode, value, item => {value with mode := item}
   | .contextAfter, value, item => {value with after := item}
   | .contextArgumentsWith, value, item => {value with argumentsWith := item}
   | .scanResultState, value, item => {value with state := item}
@@ -710,11 +845,20 @@ inductive Index : Ty → Ty → Ty → Type
   | formal : Index .metadata .number .formal
   | unit : Index .metadata .unitKind .unitSpan
   | bundleUnit : Index .bundle .unitKind .unitSpan
+  | actual : Index .packageActuals .number .packageActual
+  | seen : Index .packageSeen .number .truth
+  | stateBit : Index .stateSet .number .truth
 
 def Index.name : Index a i b → String
   | .scalar | .boolean | .subtype | .binding => "items"
   | .export => "exports" | .state => "states" | .routine => "routines"
   | .formal => "parameters" | .unit | .bundleUnit => "units"
+  | .actual | .seen | .stateBit => ""
+
+/-- Direct native arrays have no record selector before their index. -/
+def Index.path (selection : Index a i b) : List String := match selection with
+  | .actual | .seen | .stateBit => []
+  | _ => [".", selection.name]
 
 def Index.get : Index a i b → a.meaning → i.meaning → b.meaning
   | .scalar, value, index => ScalarExpression.binding value index
@@ -727,6 +871,9 @@ def Index.get : Index a i b → a.meaning → i.meaning → b.meaning
   | .formal, value, index => value.parameterAt index
   | .unit, value, kind => value.units kind
   | .bundleUnit, value, kind => value.units kind
+  | .actual, value, index => value.getD (index - 1) {}
+  | .seen, value, index => value.getD (index - 1) false
+  | .stateBit, value, index => value.getD (index - 1) false
 
 def Index.set : Index a i b → a.meaning → i.meaning → b.meaning → a.meaning
   | .scalar, value, index, item => value.set (index - 1) item
@@ -739,6 +886,9 @@ def Index.set : Index a i b → a.meaning → i.meaning → b.meaning → a.mean
   | .formal, value, index, item => {value with parameters := value.parameters.set (index - 1) item}
   | .unit, value, kind, item => {value with units := fun other => if other = kind then item else value.units other}
   | .bundleUnit, value, kind, item => {value with units := fun other => if other = kind then item else value.units other}
+  | .actual, value, index, item => value.set (index - 1) item
+  | .seen, value, index, item => value.set (index - 1) item
+  | .stateBit, value, index, item => value.set (index - 1) item
 
 abbrev Locals := (ty : Ty) → String → ty.meaning
 
@@ -762,6 +912,14 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | mode (value : ProcedureBindings.Mode) : Expr Fn .mode
   | unitKind (value : ApplicationUnits.UnitKind) : Expr Fn .unitKind
   | bodyStop (value : Predicate.BodyStop) : Expr Fn .bodyStop
+  | routineKind (value : PackageBindings.RoutineKind) : Expr Fn .routineKind
+  | emptyActuals : Expr Fn .packageActuals
+  | emptySeen : Expr Fn .packageSeen
+  | emptyStateSet : Expr Fn .stateSet
+  | invalidObject : Expr Fn .objectResult
+  | functionType : Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .functionType
+  | functionFormal : Expr Fn .number → Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .functionFormal
+  | procedureFormal : Expr Fn .number → Expr Fn .number → Expr Fn .scalarKind → Expr Fn .interval → Expr Fn .number → Expr Fn .mode → Expr Fn .procedureFormal
   | variable (name : String) : Expr Fn ty
   | function (symbol : Fn ty) : Expr Fn ty
   | app : Expr Fn (.arrow a b) → Expr Fn a → Expr Fn b
@@ -782,6 +940,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | unitMapNe : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
   | nameEq : Expr Fn .nameSpan → Expr Fn .nameSpan → Expr Fn .truth
   | kindEq : Expr Fn .scalarKind → Expr Fn .scalarKind → Expr Fn .truth
+  | routineEq : Expr Fn .routineKind → Expr Fn .routineKind → Expr Fn .truth
   | exportEq : Expr Fn .exportKind → Expr Fn .exportKind → Expr Fn .truth
   | modeNe : Expr Fn .mode → Expr Fn .mode → Expr Fn .truth
   | not : Expr Fn .truth → Expr Fn .truth
@@ -834,6 +993,10 @@ def unitKindName : ApplicationUnits.UnitKind → List String
   | .packageSpecification => ["units", ".", "package_specification"]
   | .packageBody => ["units", ".", "package_body"] | .mainBody => ["units", ".", "main_body"]
 
+def routineKindName : PackageBindings.RoutineKind → List String
+  | .function => ["packages", ".", "function_routine"]
+  | .procedure => ["packages", ".", "procedure_routine"]
+
 def bodyStopName : Predicate.BodyStop → String
   | .endOnly => "end_only" | .returnOnly => "return_only"
   | .arm => "arm_boundary" | .elseOnly => "else_only"
@@ -846,16 +1009,27 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .scalarKind value => scalarKindName value | .exportKind value => exportKindName value
   | .mode value => modeName value | .unitKind value => unitKindName value
   | .bodyStop value => [bodyStopName value]
+  | .routineKind value => routineKindName value
+  | .emptyActuals => ["(", "others", "=>", "(", "others", "=>", "<", ">", ")", ")"]
+  | .emptySeen => ["(", "others", "=>", "false", ")"]
+  | .emptyStateSet => ["packages", ".", "empty_state_set"]
+  | .invalidObject => ["invalid_package_object"]
+  | .functionType after kind bounds typeId => ["("] ++ after.render names ++ [","] ++
+      kind.render names ++ [","] ++ bounds.render names ++ [","] ++ typeId.render names ++ [")"]
+  | .functionFormal first after kind bounds typeId => ["("] ++ first.render names ++ [","] ++
+      after.render names ++ [","] ++ kind.render names ++ [","] ++ bounds.render names ++ [","] ++ typeId.render names ++ [")"]
+  | .procedureFormal first after kind bounds typeId mode => ["("] ++ first.render names ++ [","] ++
+      after.render names ++ [","] ++ kind.render names ++ [","] ++ bounds.render names ++ [","] ++ typeId.render names ++ [","] ++ mode.render names ++ [")"]
   | .variable name => [name] | .function symbol => names symbol
   | .app fn argument => match fn with
     | .app _ _ => (fn.render names).dropLast ++ [","] ++ argument.render names ++ [")"]
     | _ => fn.render names ++ ["("] ++ argument.render names ++ [")"]
   | .field projection value => value.render names ++ [".", projection.name]
   | .property projection value => value.render names ++ [".", projection.name]
-  | .index selection value index => value.render names ++ [".", selection.name, "("] ++ index.render names ++ [")"]
+  | .index selection value index => value.render names ++ selection.path ++ ["("] ++ index.render names ++ [")"]
   | .add left right => left.render names ++ ["+"] ++ right.render names
   | .sub left right => left.render names ++ ["-"] ++ right.render names
-  | .eq left right | .nameEq left right | .kindEq left right | .exportEq left right | .unitMapEq left right =>
+  | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right =>
       left.render names ++ ["="] ++ right.render names
   | .ne left right | .modeNe left right | .unitMapNe left right => left.render names ++ ["/="] ++ right.render names
   | .lt left right => left.render names ++ ["<"] ++ right.render names
@@ -910,6 +1084,17 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .number value => value | .integer value => value | .truth value => value | .word value => value
   | .scalarKind value => value | .exportKind value => value | .mode value => value | .unitKind value => value
   | .bodyStop value => value
+  | .routineKind value => value
+  | .emptyActuals => List.replicate PackageBindings.maxFormals {}
+  | .emptySeen => List.replicate PackageBindings.maxFormals false
+  | .emptyStateSet => PackageBindings.emptyStateSet
+  | .invalidObject => ApplicationPackageDeclarations.invalidObject
+  | .functionType after kind bounds typeId =>
+      ⟨after.eval calls locals, kind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
+  | .functionFormal first after kind bounds typeId =>
+      ⟨first.eval calls locals, after.eval calls locals, kind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
+  | .procedureFormal first after kind bounds typeId mode =>
+      ⟨first.eval calls locals, after.eval calls locals, kind.eval calls locals, bounds.eval calls locals, mode.eval calls locals, typeId.eval calls locals⟩
   | .variable name => locals _ name | .function symbol => calls _ symbol
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
@@ -929,6 +1114,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .unitMapNe left right => !(ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals))
   | .nameEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .kindEq left right => decide (left.eval calls locals = right.eval calls locals)
+  | .routineEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .exportEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .modeNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .not value => !(value.eval calls locals)
