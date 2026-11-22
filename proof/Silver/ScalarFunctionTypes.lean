@@ -52,8 +52,10 @@ structure Signature where
   result : ScalarType
   deriving DecidableEq, Repr
 
+/-- Semantic functions may have no explicit inputs, as package functions do.
+Any stricter local-declaration grammar is checked at its source boundary. -/
 def Signature.Valid (signature : Signature) : Prop :=
-  signature.formals ≠ [] ∧ (∀ domain ∈ signature.formals, domain.Valid) ∧
+  (∀ domain ∈ signature.formals, domain.Valid) ∧
     signature.result.Valid ∧ signature.result.IsScalar
 
 def ArgumentsFit : List ScalarType → List Value → Prop

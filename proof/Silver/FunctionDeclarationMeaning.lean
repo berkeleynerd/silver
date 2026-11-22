@@ -250,14 +250,7 @@ theorem signatureModel_valid {text : Source} {catalog : FunctionBindings.Metadat
     (known : ∀ index, entry.formalFirst ≤ index → index < entry.formalFirst + entry.count →
       (FunctionBindings.parameter catalog index).typeId ≤ types.length) :
     (signatureModel catalog entry types).Valid := by
-  refine ⟨?_, ?_, ?_, ?_⟩
-  · intro empty
-    have length := formalTypes_length catalog entry.formalFirst entry.count types
-    change formalTypes catalog entry.formalFirst entry.count types = [] at empty
-    rw [empty] at length
-    have nonzero := typed.2.1
-    simp only [List.length_nil] at length
-    omega
+  refine ⟨?_, ?_, ?_⟩
   · apply formalTypes_valid catalog entry.formalFirst entry.count metadata typed.2.2.1 _ typesValid known
     have first := typed.2.2.2.1
     have count := typed.2.2.2.2.1

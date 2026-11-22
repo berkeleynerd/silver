@@ -38,11 +38,11 @@ def outTypes : List Formal → List ScalarType
   | ⟨.output, domain⟩ :: rest => domain :: outTypes rest
   | _ :: rest => outTypes rest
 
+/-- Package procedures may have no explicit inputs or outputs. Captured state
+is supplied separately; local source grammar can impose stricter arities. -/
 def Signature.Valid (signature : Signature) : Prop :=
-  signature.formals ≠ [] ∧
-    (∀ formal ∈ signature.formals, formal.domain.Valid ∧
-      (formal.mode = .input ∨ formal.domain.IsScalar)) ∧
-    outputTypes signature.formals ≠ []
+  ∀ formal ∈ signature.formals, formal.domain.Valid ∧
+    (formal.mode = .input ∨ formal.domain.IsScalar)
 
 abbrev Signatures := List Signature
 
