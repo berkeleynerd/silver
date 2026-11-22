@@ -63,8 +63,8 @@ order, and the final pop is visibly empty. The manifest additionally checks the
 initial and final `Empty` queries. Its seven output lines are `initially empty`,
 `queue full`, ` 11`, ` 22`, ` 33`, `queue empty`, and `finally empty`, each with LF.
 This is a bounded FIFO implementation, rather than a fixed transcript: both
-operations accept the complete declared input/state domains. The package syntax
-and all sample results still await integrated compiler validation.
+operations accept the complete declared input/state domains. All three original units passed the focused compile, proof audit and execution
+control recorded below. Complete feature assurance remains pending.
 
 The native implementation author checked that this design fits the selected
 scalar-package rules; that check is an implementing-team scope review, not
@@ -93,8 +93,14 @@ gain is two newly runnable mappings, subject to successful delivery validation.
 
 ## Delivery checkpoint
 
-Still required: final sample admission, proof/report audit, compilation and
-execution; complete feature assurance and review; the precise construct in the
+Focused sample admission, original-unit proof/report audit, compilation and
+execution passed in managed run `20261122T145120-239737bbbf95`. The
+[retained packet](../docs/evidence/bounded-library-packages-416-20261122/initial-samples/README.md)
+records the exact three-file snapshots and expected outputs for both Rosetta
+drivers and the counter. This exercises the implementation; it does not replace
+complete language assurance.
+
+Still required: final sample-test coverage, complete feature assurance and review; the precise construct in the
 catalogue and Rosetta supported list; updated current-language description and
 task review metadata; deterministic rendering and stage reconciliation. Replace
 this pending account with actual evidence at delivery.
