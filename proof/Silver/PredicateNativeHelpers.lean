@@ -338,16 +338,21 @@ theorem booleanAtom_meaning (text : Source) (tv : ValidText text)
   have firstBound : (ScalarExpression.readReference text position).first ≤ text.length + 1 := by
     change (QualifiedNames.read text position).first ≤ text.length + 1
     rcases bounds.1 with absent | present <;> omega
-  have afterBound := QualifiedNames.read_after_bound text position bounded
+  have afterBound : (ScalarExpression.readReference text position).after ≤ text.length + 1 :=
+    QualifiedNames.read_after_bound text position bounded
+  have qualifierBound : QualifiedNames.ValidSpan text
+      (ScalarExpression.readReference text position).qualifierFirst
+      (ScalarExpression.readReference text position).qualifierAfter := bounds.2.1
   by_cases invalid : (ScalarExpression.readReference text position).first = 0 ∨
       (ScalarExpression.readReference text position).after ≤ (ScalarExpression.readReference text position).first
   · simp only [invalid, ↓reduceIte]
   · simp only [invalid, ↓reduceIte]
     by_cases qualified : (ScalarExpression.readReference text position).qualifierFirst ≠ 0
-    · rw [helpers.booleanQualifiedLookup text tv context.booleanNames _ _ _ _ cv.booleans
-        firstBound afterBound bounds.2.1]
-      simp only [qualified, ↓reduceIte, Context.model]
-    · simp only [qualified, ↓reduceIte]
+    · simp only [ite_eq_left qualified]
+      rw [helpers.booleanQualifiedLookup text tv context.booleanNames _ _ _ _ cv.booleans
+        firstBound afterBound qualifierBound]
+      rfl
+    · simp only [ite_eq_right qualified]
       have nameValid : Compose.Expressions.ValidName text
           (ScalarExpression.readReference text position).first (ScalarExpression.readReference text position).after :=
         ⟨by omega, by omega, afterBound⟩

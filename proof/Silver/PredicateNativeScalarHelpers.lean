@@ -138,9 +138,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .qualifierFirst value => (value.eval calls locals).qualifierFirst
   | .qualifierAfter value => (value.eval calls locals).qualifierAfter
   | .readReference text position => calls.readReference (text.eval calls locals) (position.eval calls locals)
-  | .qualifiedLookup text environment first after qualifierFirst qualifierAfter =>
+  | .qualifiedLookup text environment first after qFirst qAfter =>
       calls.qualifiedLookup (text.eval calls locals) (environment.eval calls locals)
-        (first.eval calls locals) (after.eval calls locals) (qualifierFirst.eval calls locals) (qualifierAfter.eval calls locals)
+        (first.eval calls locals) (after.eval calls locals) (qFirst.eval calls locals) (qAfter.eval calls locals)
   | .names context => (context.eval calls locals).scalarNames
   | .declarations context => (context.eval calls locals).declarationCount
   | .bindingAt environment index => ScalarExpression.binding (environment.eval calls locals) (index.eval calls locals)
@@ -212,9 +212,9 @@ def Expr.render : Expr ty → List String
   | .qualifierFirst value => value.render ++ [".", "qualifier_first"]
   | .qualifierAfter value => value.render ++ [".", "qualifier_after"]
   | .readReference text position => callTokens ["scalar_expressions", ".", "read_reference"] [text.render, position.render]
-  | .qualifiedLookup text environment first after qualifierFirst qualifierAfter =>
+  | .qualifiedLookup text environment first after qFirst qAfter =>
       callTokens ["scalar_expressions", ".", "lookup"]
-        [text.render, environment.render, first.render, after.render, qualifierFirst.render, qualifierAfter.render]
+        [text.render, environment.render, first.render, after.render, qFirst.render, qAfter.render]
   | .names context => context.render ++ [".", "scalar_names"]
   | .declarations context => context.render ++ [".", "declaration_count"]
   | .bindingAt environment index => environment.render ++ [".", "items", "("] ++ index.render ++ [")"]
@@ -507,8 +507,12 @@ theorem bareTarget_meaning {calls : Calls} (primitives : PrimitiveMeaning calls)
   have firstBound : (ScalarExpression.readReference text position).first ≤ text.length + 1 := by
     change (QualifiedNames.read text position).first ≤ text.length + 1
     rcases bounds.1 with absent | present <;> omega
-  have lastBound := QualifiedNames.read_after_bound text position positionBound
-  have lookupEquation := primitives.qualifiedLookup text tv _ _ _ _ _ cv.2.2.1 firstBound lastBound bounds.2.1
+  have lastBound : (ScalarExpression.readReference text position).after ≤ text.length + 1 :=
+    QualifiedNames.read_after_bound text position positionBound
+  have qualifierBound : QualifiedNames.ValidSpan text
+      (ScalarExpression.readReference text position).qualifierFirst
+      (ScalarExpression.readReference text position).qualifierAfter := bounds.2.1
+  have lookupEquation := primitives.qualifiedLookup text tv _ _ _ _ _ cv.2.2.1 firstBound lastBound qualifierBound
   simp [bareTargetEquation, Predicate.bareTarget, Native.Context.model, referenceEquation, lookupEquation]
 
 theorem bareTarget_bound (text : Source) (context : ParseContext) (position after : Nat) :
@@ -516,7 +520,9 @@ theorem bareTarget_bound (text : Source) (context : ParseContext) (position afte
   unfold Predicate.bareTarget
   dsimp only
   split
-  · exact ScalarExpression.lookup_bound ..
+  · exact ScalarExpression.lookup_bound text context.scalarNames
+      (ScalarExpression.readReference text position).first (ScalarExpression.readReference text position).after
+      (ScalarExpression.readReference text position).qualifierFirst (ScalarExpression.readReference text position).qualifierAfter
   · omega
 
 theorem refine_eq_replace (facts : ActiveFlow) (index : Nat) (bounded : index ≤ facts.count)
