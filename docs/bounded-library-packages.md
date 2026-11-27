@@ -749,3 +749,45 @@ actual 0–1 affinity rather than the originally discussed 4–5 share. Subseque
 shares use explicit coordinated taskset masks. Proof subthreads are selected
 Astra Max; runtime settings are not independently exposed. No merge, successor
 implementation or completed feature support is authorized or claimed.
+
+
+### Authoritative source checkpoint and remaining composition, 22:08 UTC
+
+The [authoritative-source packet](evidence/bounded-library-packages-416-20261127/authoritative-source/README.md)
+now passes run `20261127T215103-4a33f22a63ac`: 137,382 audited declarations,
+463 imported project modules and 1,605 matching captured inputs. All twelve
+requested package/admission/name source targets passed. Independent re-lexing
+identified two stale inherited Output_Profile literals; the specification is
+1,048 tokens and the body 101,032. Thirteen ordered body chunks retain the
+original local budgets and the kernel-checked equality. The other eight stored
+source shapes matched. Failed attempts remain failed; the successful run reused
+completed certificates. This is focused source assurance, not the complete
+semantic endpoint or final project audit. The source worktree's cache is retained
+for later documented reuse; no transfer has yet occurred.
+
+The [Main declaration composition](evidence/bounded-library-packages-416-20261127/main-declaration-composition/README.md)
+and [body-domain packet](evidence/bounded-library-packages-416-20261127/main-body-domains/README.md)
+derive the recursive reader's actual preconditions from Main's imports and
+declarations, without assuming later acceptance. The latter passed 75,101
+declarations. [Routine_Frame](evidence/bounded-library-packages-416-20261122/routine-frame/README.md),
+[completing Signature metadata](evidence/bounded-library-packages-416-20261122/completion-metadata-types/README.md)
+and [Object initializer cursors](evidence/bounded-library-packages-416-20261122/object-initializer-bounds/README.md)
+now have focused complete-domain results. The recursive outcome packet was
+rechecked against current inputs: 34,780 declarations and 1,613 matching hashes.
+The earlier evidence is retained as historical, with its synchronization recorded.
+
+Main body/footer composition, Completion/Unit composition, original recursive
+primitive imports, semantic extraction, initializer inventories and the final
+original-source/tool endpoint remain in progress. Main's declaration inventory
+must retain its imported package constants; standalone empty-initial-frame facts
+are not assumed to cover that case. Native unit run
+`20261127T195636-5b2a2f886237` is still active, with three interim
+Array_Declaration_Model timeouts awaiting final classification. No complete
+checkpoint is started while required focused helper coverage remains unresolved.
+
+The existing three proof subthreads continue at selected Astra Max, with runtime
+settings not independently exposed. Coordinated two-worker/two-thread shares
+remain within the host's eight-CPU allocation; all 27 proof/tool threads in the
+latest inspection were within guest CPUs 0–7. PR #424 remains draft, #426/#427
+remain open, and final native/Lean assurance, regressions, Rosetta delivery and
+independent closing review are outstanding. No feature merge is authorized.
