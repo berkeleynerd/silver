@@ -34,7 +34,7 @@ def OriginalLookup (text : Source) (context : ParseContext) : Cell → Prop
         (BooleanBindings.binding context.booleanNames slot).first
         (BooleanBindings.binding context.booleanNames slot).after = slot
 
-private theorem scalar_original_in_flow {text : Source} {context : ParseContext}
+theorem scalar_original_in_flow {text : Source} {context : ParseContext}
     {facts : ActiveFlow} {arrays : ArrayBindings.Table} {mode : ScalarExpression.ArrayReadMode}
     {maskFirst maskAfter position slot : Nat} {allowSign : Bool} {value : ScalarExpression.Parsed}
     (source : ScalarExpression.ArrayGrammar.SourceAt text (context.readingNames facts) arrays
