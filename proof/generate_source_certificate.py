@@ -205,6 +205,14 @@ def generate_parts(source: str, profile: str, prefix: str, *,
         f"def {prefix}_certificates : List LineCertificate :=",
         f"  {tree}.lines",
         "",
+    ])
+    # Elaborating the flattened token literal also traverses the entire list.
+    # Scale only this declaration's recursion budget as the source grows;
+    # its complete lexer equality is still checked below by the kernel.
+    if len(all_tokens) > _RFL_TOKEN_LIMIT:
+        depth = 100_000 * ((len(all_tokens) + _RFL_TOKEN_LIMIT - 1) // _RFL_TOKEN_LIMIT)
+        output.append(f"set_option maxRecDepth {depth} in")
+    output.extend([
         f"def {prefix} : Tokens :=",
         "  " + tokens_literal(all_tokens),
         "",

@@ -179,3 +179,25 @@ and [Boolean loop packet](evidence/bounded-library-packages-416-20261122/static-
 All of these are development checkpoints. The remaining native helper/caller
 contracts, whole-reader source correspondence, complete validation, final Rosetta
 promotion and independent delivery review still block a support/completion claim.
+
+## Resumed integration — 2026-11-27
+
+After the host returned, all managed runs were reconciled with their retained
+outcomes before launching further checks. The host detects eight CPUs, with
+allowed guest CPU IDs 0–7. Three source/native proof subthreads selected
+GPT-6 Astra Max; each uses at most one two-worker allocation while the lead
+uses the remaining two workers. Observed worker-thread affinities stayed within
+those reserved CPU sets. Runtime-confirmed model/effort are not independently
+exposed. The elapsed calendar gap is not proof execution time.
+
+| Round | Result and remaining scope |
+| --- | --- |
+| Whole Object and routine-frame interpretation | The retained [Object execution](evidence/bounded-library-packages-416-20261122/package-source-core/object-equations/README.md) passed 20,957 declarations. The new [whole Routine_Frame interpretation](evidence/bounded-library-packages-416-20261122/package-routine-frame-meaning/README.md) passed 20,980, including the guarded inactive metadata case and current invariant syntax. Full declaration/statement/bundle integration remains open. |
+| State validity and effects | [Focused support closure](evidence/bounded-library-packages-416-20261122/support-domain-closure/README.md) passed 29,517 declarations. Six exact proposed table expressions, full imported metadata domains and guarded effect lookup domains are proved. The packet discloses the copied cache seed; authoritative profile binding and effect-callee wiring remain required. |
+| Native helper contracts | The [native packet](evidence/bounded-library-packages-416-20261122/native-package-contracts/README.md) now retains Application_Basic's 47-check success and new complete Routine_Frame and Application_Tail successes of 22 and 25 checks. The changed existing-helper inventory also identifies affected callers. Remaining helpers/callers must pass before the integrated native checkpoint. |
+| Completion loops | The [local/output simulations](evidence/bounded-library-packages-416-20261122/package-completion-loop-simulation/README.md) passed a fresh 20,906-declaration audit, including arbitrary stores and fuel exhaustion. Whole entry/footer and semantic integration continue. |
+| Certificate build diagnosis | The [flat-token diagnostic](evidence/bounded-library-packages-416-20261122/certificate-token-depth/README.md) reproduces the prior recursion-depth failure and passes with a declaration-local size-based budget. Only OutputBody's generated declaration setting changes. This is not a complete certificate or feature audit. |
+
+No new support or final completion claim is made by these focused checkpoints.
+The original three samples and their planned Rosetta mappings remain part of
+the delivery, with final validation, rendering and support promotion pending.
