@@ -1,0 +1,15 @@
+{
+  "run_id": "20261127T140147-c083f3e7231e",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageUnitObjectHistory",
+    "Silver.ApplicationPackageCompletionLocalHistory"
+  ],
+  "declarations": 13738,
+  "source_sha256": "61fe2d51d20b890b6930d436f75bc582ef3ef9e40392de687d74a1925de03125",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "efc0d109c1e403be88de84d37d7eaf99051505c19c530098c9d3ed0fc6c3eea3",
+    "evidence.json": "59d2f6cdb8f4299c75dc48b11e64fe9ef4b46d18a3dc536a3589f1a9e0d6e04f",
+    "lean-focused.log.gz": "4470e8f43d456892cbd93e3e088306496581adceb88f661df50badb17880329b"
+  }
+}
