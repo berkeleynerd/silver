@@ -423,3 +423,23 @@ successful public-declaration run supplies its canonical coverage.
 [Charge](20261127T154143-4d9cb86d3cf6/outcome.json) ·
 [Body selection](20261127T154230-00c61243e127/outcome.json) ·
 [Import declaration](20261127T154445-5b43629d3f46/outcome.json)
+
+## Analyze_Application and the package body prefix
+
+Linux x86-64 run `20261127T154528-fe175463ebe5` selected the complete
+`Analyze_Application` at `silver_output_profile.adb:9546` on source
+`95c0f3b3`. It took 272.777 seconds on one worker. All five flow checks
+and 24 of 25 proof checks passed. The report records empty skip lists and
+`STOP_REASON_NONE`. [Outcome](20261127T154528-fe175463ebe5/outcome.json) ·
+[SPARK report](20261127T154528-fe175463ebe5/silver_output_profile.spark.gz)
+
+At line 9572 the call to `Package_Body_At` requires
+`Info.Units (Units.Package_Body).First <= Text'Last + 1` on the body prefix.
+The caller sets `Info.Units := Sources.Units` and then calls `Package_Spec_At`.
+That procedure's postcondition covers the export frame. The next focused
+check is whether the specification reader and its signature reader preserve
+the unit spans through every return, so the caller can use the bound from
+`Units.Valid` and `Units.Prefix`. CVC5 returned unknown on the unresolved
+goal and Z3 and Alt-Ergo reached their time limits.
+[Native diagnostic](20261127T154528-fe175463ebe5/native.log.gz) ·
+[Why3 session](20261127T154528-fe175463ebe5/why3session.xml.gz)
