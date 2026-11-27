@@ -131,7 +131,8 @@ def aliasLocals (calls : ApplicationPackageCalls.Calls) (locals : Locals) : Opti
     let parameter := (locals .metadata "info").parameterAt index
     let item := locals .routine "item"
     if parameter.mode ≠ .input then
-      if actual.writtenState ≠ 0 ∧
+      if actual.target.after = 0 then none
+      else if actual.writtenState ≠ 0 ∧
           (PackageBindings.StateSet.get item.mayRead actual.writtenState = true ∨
            PackageBindings.StateSet.get item.mayWrite actual.writtenState = true) then none
       else if (namedRange item).any (payloadAliasTest calls (payloadAliasParameters locals)) then none
@@ -177,10 +178,12 @@ theorem alias_body_denotation (calls : ApplicationPackageCalls.Calls) (locals : 
       · rfl
       · split
         · rfl
-        · simp only [Locals.set, ↓reduceDIte, ↓reduceIte]
-          split
-          · simp_all [replaceScalar, Predicate.ActiveFlow.replace]
-          · simp_all [replaceScalar, Predicate.ActiveFlow.replace]
+        · split
+          · rfl
+          · simp only [Locals.set, ↓reduceDIte, ↓reduceIte]
+            split
+            · simp_all [replaceScalar, Predicate.ActiveFlow.replace]
+            · simp_all [replaceScalar, Predicate.ActiveFlow.replace]
     · rfl
 
 theorem aliasLocals_result (calls : ApplicationPackageCalls.Calls) (locals : Locals)
@@ -200,8 +203,10 @@ theorem aliasLocals_result (calls : ApplicationPackageCalls.Calls) (locals : Loc
       split
       · rfl
       · split
-        · simp_all [payloadAliasTest]
-        · simp_all [payloadAliasTest, Locals.set]
+        · rfl
+        · split
+          · simp_all [payloadAliasTest]
+          · simp_all [payloadAliasTest, Locals.set]
 
 
 /-- Inputs needed after the alias pass. Its scalar scratch object and range
@@ -239,8 +244,10 @@ theorem aliasLocals_inputs {calls : ApplicationPackageCalls.Calls} {locals updat
       · contradiction
       · split at accepted
         · contradiction
-        · cases accepted
-          simp [aliasInputs, Locals.set]
+        · split at accepted
+          · contradiction
+          · cases accepted
+            simp [aliasInputs, Locals.set]
     · cases accepted
       rfl
 

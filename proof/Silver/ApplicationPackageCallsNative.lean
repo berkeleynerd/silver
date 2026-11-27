@@ -29,6 +29,7 @@ inductive Function : Ty → Type
   | visibleState : Function (.arrow .source (.arrow .parseContext (.arrow .metadata (.arrow .number .truth))))
   | scalarLookup : Function (.arrow .source (.arrow .scalars (.arrow .number (.arrow .number .number))))
   | validBody : Function (.arrow .source (.arrow .parseContext (.arrow .bodyScan .truth)))
+  | validNameState : Function (.arrow .source (.arrow .number (.arrow .number .truth)))
 
 def functionNames : FunctionNames Function
   | _, .callee => ["package_callee"]
@@ -47,6 +48,7 @@ def functionNames : FunctionNames Function
   | _, .visibleState => ["visible_state"]
   | _, .scalarLookup => ["scalar_expressions", ".", "lookup"]
   | _, .validBody => ["valid_body"]
+  | _, .validNameState => ["valid_name_state"]
 
 def imported (calls : ApplicationPackageCalls.Calls) : ApplicationNative.Calls Function
   | _, .callee => packageCallee calls
@@ -65,6 +67,8 @@ def imported (calls : ApplicationPackageCalls.Calls) : ApplicationNative.Calls F
   | _, .visibleState => calls.visibleState
   | _, .scalarLookup => calls.scalarLookup
   | _, .validBody => calls.validBody
+  | _, .validNameState => fun text first after => decide
+      ((first = 0 ∧ after = 0) ∨ (0 < first ∧ first < after ∧ after ≤ text.length + 1))
 
 abbrev E := Expr Function
 abbrev P := Place Function
@@ -133,7 +137,7 @@ def namedScan : C := .forRange "i" formalFirst formalLast
   (.choose (call3 .sameName text (.nameSpan first last) (.field .formalSpecName (.index .formal info i)))
     (.assign (.variable "slot") i) .nothing)
 
-def actualCommands : C := .list [
+def associationCommands : C := .list [
   .assign (.variable "first") (call2 .skip text cursor),
   .assign (.variable "last") (call2 .nameAfter text first),
   .assign (.variable "arrow_end") (call3 .take text last (.token (.symbol "=>"))),
@@ -142,7 +146,9 @@ def actualCommands : C := .list [
     (.list [.assign (.variable "named") (.truth true), namedScan,
       .assign (.variable "cursor_at") arrow])
     (.choose named returnFailure
-      (.assign (.variable "slot") (.sub (.add formalFirst ordinal) (.number 1)))),
+      (.assign (.variable "slot") (.sub (.add formalFirst ordinal) (.number 1))))]
+
+def payloadCommands : C := .list [
   .choose (.orElse (.eq slot (.number 0)) (.index .seen seen.expression slot)) returnFailure .nothing,
   .assign (.index .seen seen slot) (.truth true),
   .assign (.variable "parameter") (.index .formal info slot),
@@ -156,7 +162,9 @@ def actualCommands : C := .list [
         (.field .scanFacts (.field .applicationScan input)) legacy),
       .assign (.variable "following") (.field .targetAfter (.field .actualTarget (actual slot).expression)),
       .assign (.field .actualWrittenState (actual slot)) (call4 .stateTarget text context info cursor)]),
-  .choose (.le following cursor) returnFailure .nothing,
+  .choose (.le following cursor) returnFailure .nothing]
+
+def finishActualCommands : C := .list [
   .assign (.field .actualAfter (actual slot)) following,
   .choose (.modeNe (.field .formalMode parameter) (.mode .output))
     (.assign (.field .actualReads (actual slot)) (call5 .stateReads text context info cursor following)) .nothing,
@@ -167,6 +175,25 @@ def actualCommands : C := .list [
   .assign (.variable "cursor_at") (call3 .take text following
     (.group (.ite (.eq ordinal count) (.token (.symbol ")")) (.token (.symbol ","))))),
   .choose (.eq cursor (.number 0)) returnFailure .nothing]
+
+def actualBoundsInvariant : E .truth :=
+  let a : E .number := .variable "a"
+  let value := (actual a).expression
+  let target := Expr.field .actualTarget value
+  let last := Expr.add (.sourceLast text) (.number 1)
+  .forAllActuals "a" actuals.expression
+    (.andThen
+      (.andThen
+        (.andThen (.le (.field .actualFirst value) last) (.le (.field .actualAfter value) last))
+        (.le (.field .targetScalar target) (.field .scalarCount (.field .contextScalarNames context))))
+      (.group (.orElse (.eq (.field .targetAfter target) (.number 0))
+        (.group (.andThen (.gt (.field .targetFirst target) (.number 0))
+          (call3 .validNameState text (.field .targetFirst target) (.field .targetAfter target)))))))
+
+def actualCommands : C := .list [
+  .invariant (.inRange cursor (.number 1) (.add (.sourceLast text) (.number 1))),
+  .invariant actualBoundsInvariant,
+  associationCommands, payloadCommands, finishActualCommands]
 
 def stateAliasScan : C :=
   .forRange "s" (.number 1) (.field .stateCount info)
@@ -184,6 +211,8 @@ def aliasCommands : C := .list [
   stateAliasScan,
   .choose (.modeNe (.field .formalMode (.index .formal info i)) (.mode .input))
     (.list [
+      .choose (.eq (.field .targetAfter (.field .actualTarget (actual i).expression)) (.number 0))
+        returnFailure .nothing,
       .choose (.andThen (.ne (.field .actualWrittenState (actual i).expression) (.number 0))
         (.group (.orElse
           (.index .stateBit (.field .routineMayRead item) (.field .actualWrittenState (actual i).expression))
@@ -246,7 +275,7 @@ def callBody : Body Function .appCall where
       constraint := some (.property .appScanCount input),
       initial := some (.applicationCall (.property .appScanCount input) .invalidCall input)},
     {type := .packageActuals, name := "actuals", typeName := ["package_actual_array"], initial := some .emptyActuals},
-    {type := .stateSet, name := "call_writes", typeName := ["packages", ".", "state_set"], initial := some .emptyStateSet},
+    {type := .stateSet, name := "call_writes", typeName := ["packages", ".", "state_set"], initial := none},
     {type := .packageSeen, name := "seen", typeName := ["package_seen_array"], initial := some .emptySeen},
     {type := .routine, name := "item", typeName := ["packages", ".", "routine"], initial := none},
     {type := .number, name := "cursor_at", typeName := ["literal_position"],
