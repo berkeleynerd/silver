@@ -27,7 +27,10 @@ Focused target `Silver.ApplicationPackageCompletionLibraries` passed with
 82,106 declarations in the fresh axiom audit. See the retained manifest for the
 run identifier and exact captured inputs. Linux x86-64 / Lean 4.34.1, explicit
 affinity 4–5, two workers, two threads/process and 8192 MiB/process. Prerequisites
-were cached; all captured local hashes match. The inherited caller/source
+were cached; all captured local hashes match. The only shared-primary mismatch
+is the sibling's newer `ComposeInitializerTrace`, which is outside this target's
+reachable/audited modules; this focused result does not claim that sibling fix.
+The inherited caller/source
 repairs have their own evidence. Two preliminary focused checks needed a
 record-projection simplification and the exact native token-reader spelling
 form; neither changed native domains or increased proof budgets. This is
