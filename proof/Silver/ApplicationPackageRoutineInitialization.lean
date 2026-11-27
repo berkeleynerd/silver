@@ -1349,4 +1349,195 @@ theorem output_objects_initializers {calls : CompletionCalls} {text : Source} {i
       · exact readables observed later
     · simp only [checkInitializers, checked, Option.bind_some, checking]
 
+def formalRange (ranges : SharedRanges) (formal : PackageBindings.Formal) : SharedRanges :=
+  match formal.kind with
+  | .integer => {ranges with locals := Integer.put ranges.locals formal.bodyName.first (some formal.bounds)}
+  | .boolean => ranges
+
+def formalRanges (ranges : SharedRanges) (formals : List PackageBindings.Formal) : SharedRanges :=
+  formals.foldl formalRange ranges
+
+theorem OutputValuesAt.domains {bound calls info text rows items}
+    (sources : OutputValuesAt bound calls info text rows items) (ranges : SharedRanges) :
+    initializerDomains ranges items = formalRanges ranges (rows.map (fun row => info.parameterAt row.index)) := by
+  induction sources generalizing ranges with
+  | nil => rfl
+  | @cons row rows items value source rest ih =>
+    cases kind : (info.parameterAt row.index).kind <;>
+      simpa only [initializerDomains, OutputObject.initializer, LocalInitializer.declare,
+        OutputObject.target, OutputObject.domain, kind, extendRanges, List.map_cons,
+        formalRanges, List.foldl_cons, formalRange] using ih (formalRange ranges (info.parameterAt row.index))
+
+theorem OutputValuesAt.targets {bound calls info text rows items}
+    (sources : OutputValuesAt bound calls info text rows items) :
+    items.map LocalInitializer.target = rows.map (OutputObject.target info) := by
+  induction sources with
+  | nil => rfl
+  | cons source rest ih => exact congrArg (List.cons _) ih
+
+private theorem formal_range_rows {info : PackageBindings.Metadata} {ranges : SharedRanges}
+    {names : ScalarExpression.Environment} {formals : List PackageBindings.Formal}
+    (rows : ScalarRangeRows info ranges names)
+    (ordered : formals.Pairwise (fun left right => left.bodyName.first < right.bodyName.first))
+    (apart : ∀ binding ∈ names, ∀ formal ∈ formals, binding.first ≠ formal.bodyName.first)
+    (localAddress : ∀ formal ∈ formals,
+      rowAddress info .integer ⟨formal.bodyName.first, formal.bodyName.after, 0, 0⟩ = .local formal.bodyName.first) :
+    ScalarRangeRows info (formalRanges ranges formals) (names ++ formals.filterMap scalar) := by
+  induction formals generalizing ranges names with
+  | nil => simpa only [formalRanges, List.foldl_nil, List.filterMap_nil, List.append_nil] using rows
+  | cons formal formals ih =>
+    have order := List.pairwise_cons.mp ordered
+    have remaining := fun observed member => localAddress observed (List.mem_cons_of_mem _ member)
+    cases kind : formal.kind with
+    | integer =>
+      let binding : ScalarExpression.Binding := ⟨formal.bodyName.first, formal.bodyName.after,
+        formal.bounds, false, formal.bounds, decide (formal.mode ≠ .input), 0, 0⟩
+      have selected : scalar formal = some binding := by simp only [scalar, kind, ite_true, binding]
+      have added := rows.append_local (row := binding)
+        (fun original member => apart original member formal List.mem_cons_self)
+        (localAddress formal List.mem_cons_self)
+      have nextApart : ∀ original ∈ names ++ [binding], ∀ later ∈ formals,
+          original.first ≠ later.bodyName.first := by
+        intro original member later present
+        rcases List.mem_append.mp member with prior | installed
+        · exact apart original prior later (List.mem_cons_of_mem _ present)
+        · cases List.mem_singleton.mp installed
+          exact Nat.ne_of_lt (order.1 later present)
+      have following := ih added order.2 nextApart remaining
+      simpa only [formalRanges, List.foldl_cons, formalRange, kind,
+        List.filterMap_cons_some selected, List.append_assoc, List.singleton_append] using following
+    | boolean =>
+      have selected : scalar formal = none := by simp only [scalar, kind, reduceCtorEq, ite_false]
+      have following := ih rows order.2
+        (fun binding member later present => apart binding member later (List.mem_cons_of_mem _ present)) remaining
+      simpa only [formalRanges, List.foldl_cons, formalRange, kind, List.filterMap_cons_none selected] using following
+
+private theorem formal_scalars_body (formals : List PackageBindings.Formal) :
+    ScalarExpression.bodyEnvironment (formals.filterMap scalar) = formals.filterMap scalar := by
+  induction formals with
+  | nil => rfl
+  | cons formal formals ih =>
+    cases kind : formal.kind with
+    | integer =>
+      let binding : ScalarExpression.Binding := ⟨formal.bodyName.first, formal.bodyName.after,
+        formal.bounds, false, formal.bounds, decide (formal.mode ≠ .input), 0, 0⟩
+      have selected : scalar formal = some binding := by simp only [scalar, kind, ite_true, binding]
+      rw [List.filterMap_cons_some selected]
+      change ScalarExpression.bodyBinding binding :: ScalarExpression.bodyEnvironment (formals.filterMap scalar) = _
+      have kept : ScalarExpression.bodyBinding binding = binding := by
+        simp only [binding, ScalarExpression.bodyBinding, ite_self]
+      rw [kept, ih]
+    | boolean =>
+      have selected : scalar formal = none := by simp only [scalar, kind, reduceCtorEq, ite_false]
+      rw [List.filterMap_cons_none selected]
+      exact ih
+
+private theorem formal_ranges_bound {bound : Nat} {ranges : SharedRanges} {formals : List PackageBindings.Formal}
+    (bounded : LocalRangesBound bound ranges) (inside : ∀ formal ∈ formals, formal.bodyName.first ≤ bound) :
+    LocalRangesBound bound (formalRanges ranges formals) := by
+  induction formals generalizing ranges with
+  | nil => exact bounded
+  | cons formal formals ih =>
+    have next : LocalRangesBound bound (formalRange ranges formal) := by
+      cases kind : formal.kind with
+      | integer => simpa only [formalRange, kind] using bounded.put_local formal.bounds (inside formal List.mem_cons_self)
+      | boolean => simpa only [formalRange, kind] using bounded
+    exact ih next (fun observed member => inside observed (List.mem_cons_of_mem _ member))
+
+/-- Native appendOutputs installs exactly the formal rows whose initializer
+domains were folded above. The final body view is the same declared range map. -/
+theorem output_declared_rows {calls : CompletionCalls} {text : Source} {info : PackageBindings.Metadata}
+    {indices : List Nat} {before after : InitializationFrame} {rows : List OutputObject}
+    {items : List LocalInitializer} {completed : ParserState} {ranges : SharedRanges}
+    (history : OutputObjects calls text info indices before rows after)
+    (sources : OutputValuesAt text.length calls info text rows items)
+    (scope : LocalFrame info.states (chosen true info indices) before.frame)
+    (installed : Stored after.frame completed (chosen true info indices))
+    (current : ScalarRangeRows info ranges (ScalarExpression.bodyEnvironment before.frame.scalarNames))
+    (bounded : LocalRangesBound text.length ranges) (cursor : before.frame.position ≤ text.length + 1) :
+    ScalarRangeRows info (initializerDomains ranges items) (ScalarExpression.bodyEnvironment completed.scalarNames) ∧
+      LocalRangesBound text.length (initializerDomains ranges items) := by
+  have domains := sources.domains ranges
+  rw [history.formals] at domains
+  rw [domains]
+  have order : (chosen true info indices).Pairwise
+      (fun left right => left.bodyName.first < right.bodyName.first) := by
+    simpa only [OrderedRows, references, List.pairwise_map, reference] using scope.outputOrder
+  have apart : ∀ binding ∈ ScalarExpression.bodyEnvironment before.frame.scalarNames,
+      ∀ formal ∈ chosen true info indices, binding.first ≠ formal.bodyName.first := by
+    intro binding member formal present
+    obtain ⟨original, selected, rfl⟩ := List.mem_map.mp member
+    exact scope.scalarApart _ (List.mem_map_of_mem selected) _ present
+  have localAddress : ∀ formal ∈ chosen true info indices,
+      rowAddress info .integer ⟨formal.bodyName.first, formal.bodyName.after, 0, 0⟩ = .local formal.bodyName.first := by
+    intro formal member
+    cases selected : stateIndex info .integer ⟨formal.bodyName.first, formal.bodyName.after, 0, 0⟩ with
+    | none => simp only [rowAddress, selected]
+    | some identity =>
+      have active := stateIndex_some selected
+      exact False.elim (scope.distinctStates formal member _
+        (info.stateAt_mem identity active.1 active.2.1) active.2.2.2.2.1.symm)
+  have allRows := formal_range_rows current order apart localAddress
+  obtain ⟨position, same⟩ := history.preappend.1
+  constructor
+  · rw [installed.integers, same]
+    have body : ScalarExpression.bodyEnvironment
+        (before.frame.scalarNames ++ (chosen true info indices).filterMap scalar) =
+        ScalarExpression.bodyEnvironment before.frame.scalarNames ++ (chosen true info indices).filterMap scalar := by
+      rw [ScalarExpression.bodyEnvironment, List.map_append]
+      exact congrArg (List.append _) (formal_scalars_body _)
+    rw [body]
+    exact allRows
+  · apply formal_ranges_bound bounded
+    intro formal member
+    have before := scope.outputBefore formal member
+    omega
+
+theorem body_declared_view {info : PackageBindings.Metadata} {ranges : SharedRanges} {frame : ParserState}
+    (rows : ScalarRangeRows info ranges (ScalarExpression.bodyEnvironment frame.scalarNames))
+    (bounded : LocalRangesBound bound ranges) (noArrays : frame.arrayNames.names = []) :
+    let context := {Predicate.contextOf ⟨frame, false, false⟩ with declarationCount := 0}
+    context.analysis.declared = ranges.view (layout bound info context) := by
+  dsimp only
+  rw [ScalarRangeRows.view_eq rows bounded]
+  simp only [ParseContext.analysis, Predicate.contextOf, noArrays, ArrayViews.analysis, ArrayBindings.viewNames,
+    List.map_nil, ArrayFlow.analysis, ArrayFlow.ranges, ArrayBindings.integerRanges, ArrayBindings.integerNames,
+    List.filter_nil, ArrayBindings.ranges_nil, ScalarMetadata.analysis]
+
+theorem check_initializers_append (ranges : SharedRanges) (first rest : List LocalInitializer) :
+    checkInitializers ranges (first ++ rest) =
+      (checkInitializers ranges first).bind (fun middle => checkInitializers middle rest) := by
+  induction first generalizing ranges with
+  | nil => rfl
+  | cons item first ih =>
+    simp only [List.cons_append, checkInitializers, Option.bind_assoc]
+    congr 1
+    funext middle
+    exact ih middle
+
+/-- Immutable imported loads, original local declarations and output RHSs form
+one executable initializer list. Only the two exact native analysis phases
+separate their existing checks. -/
+theorem source_phases_check {entry seeded final : SharedRanges}
+    {seeds locals outputs : List LocalInitializer} {sourceLocals : List LocalObject}
+    (seedChecked : checkInitializers entry seeds = some seeded)
+    (seedDomains : initializerDomains entry seeds = seeded)
+    (localChecked : checkInitializers seeded locals = some (localRanges seeded sourceLocals))
+    (localDomains : initializerDomains seeded locals = localDeclaredRanges seeded sourceLocals)
+    (outputChecked : checkInitializers (localDeclaredRanges seeded sourceLocals) outputs = some final) :
+    let phases : InitializerPhases := ⟨seeds ++ locals, outputs, mutableLocalCells sourceLocals⟩
+    phases.check entry = some ⟨final, initializerDomains (localDeclaredRanges seeded sourceLocals) outputs⟩ := by
+  have checked : checkInitializers entry (seeds ++ locals) = some (localRanges seeded sourceLocals) := by
+    rw [check_initializers_append, seedChecked, Option.bind_some, localChecked]
+  have domains : initializerDomains entry (seeds ++ locals) = localDeclaredRanges seeded sourceLocals := by
+    rw [initializerDomains_append, seedDomains, localDomains]
+  change (checkInitializers entry (seeds ++ locals)).bind (fun current =>
+      (checkInitializers (current.widenLocals (initializerDomains entry (seeds ++ locals))
+        (mutableLocalCells sourceLocals)) outputs).map (fun initialized =>
+          InitializedRanges.mk initialized (initialized.widenLocals
+            (initializerDomains (initializerDomains entry (seeds ++ locals)) outputs)
+            (mutableLocalCells sourceLocals ++ outputs.map LocalInitializer.target)))) = _
+  rw [checked, Option.bind_some, domains, local_ranges_widen, outputChecked]
+  simp only [Option.map_some, output_ranges_widen outputChecked]
+
 end Silver.ApplicationPackageInitializers
