@@ -22,7 +22,7 @@ inductive DeclarationChecksAt (text : Source) (arguments : Bool) (state : Parser
   | string {raw result} :
       (characterDeclarationAt text state arguments).position = 0 →
       ExpressionAt text state.names (declarationValuePosition text state) raw result state.scalarNames
-        (declarationIntegerHidden text state) state.arrayNames.table state.arrayNames.values true →
+        (declarationIntegerHidden text state) state.arrayNames.table state.arrayNames.values true state.contextFirst →
       declaration.initializer = raw.freezeImages
         (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) →
       DeclarationChecksAt text arguments state declaration

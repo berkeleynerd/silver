@@ -592,4 +592,123 @@ theorem object_inventory (reader : BooleanElaboration.Native.Reader) (text : Sou
       exact ⟨rfl, valueSource⟩
     · exact valueChecks
 
+private def SingletonSuccess (out : ObjectResult) : Prop :=
+  out.frame.position ≠ 0 → out.initialBounds.lower = out.initialBounds.upper
+
+private theorem singleton_rejected : SingletonSuccess invalidObject := fun present => (present rfl).elim
+
+private theorem singleton_finish (calls : ObjectCalls) (text : Source) (original : ParserState)
+    (out : ObjectResult) (same : out.initialBounds.lower = out.initialBounds.upper) :
+    SingletonSuccess (finishObject calls text original out) := by
+  dsimp only [finishObject]
+  split
+  · exact singleton_rejected
+  · exact fun _ => same
+
+private theorem singleton_boolean_finish (reader : BooleanElaboration.Native.Reader)
+    (text : Source) (original : ParserState) (first last constant after : Nat) (out : ObjectResult) :
+    SingletonSuccess (objectBooleanFinish (modelObjectCalls reader) text original first last constant after false out) := by
+  dsimp only [objectBooleanFinish]
+  apply singleton_finish
+  rfl
+
+private theorem singleton_boolean (reader : BooleanElaboration.Native.Reader)
+    (text : Source) (original : ParserState) (first last constant : Nat) (out : ObjectResult) :
+    SingletonSuccess (objectBoolean (modelObjectCalls reader) text original first last constant false out) := by
+  dsimp only [objectBoolean]
+  split
+  · exact singleton_rejected
+  · simp only [Bool.not_false, ↓reduceIte]
+    split
+    · exact singleton_rejected
+    · exact singleton_boolean_finish reader text original first last constant _ _
+
+private theorem singleton_scalar (reader : BooleanElaboration.Native.Reader)
+    (text : Source) (original : ParserState) (first last constant : Nat) (out : ObjectResult)
+    (range : ScalarConstraintResult) :
+    SingletonSuccess (objectScalar (modelObjectCalls reader) text original first last constant false out range) := by
+  dsimp only [objectScalar, modelObjectCalls]
+  split
+  · exact singleton_rejected
+  · rename_i accepted
+    apply singleton_finish
+    by_cases same : (ScalarExpression.read text out.initFirst out.frame.scalarNames first last
+        (elaborating := true)).bounds.lower =
+      (ScalarExpression.read text out.initFirst out.frame.scalarNames first last (elaborating := true)).bounds.upper
+    · exact same
+    · have different : decide ((ScalarExpression.read text out.initFirst out.frame.scalarNames first last
+          (elaborating := true)).bounds.lower ≠
+        (ScalarExpression.read text out.initFirst out.frame.scalarNames first last (elaborating := true)).bounds.upper) = true :=
+        decide_eq_true same
+      exact (accepted (by
+        rw [different]
+        simp only [Bool.not_false, Bool.and_self, Bool.or_true, Bool.true_or])).elim
+
+private theorem singleton_initialized (reader : BooleanElaboration.Native.Reader)
+    (text : Source) (original : ParserState) (first last constant : Nat) (out : ObjectResult)
+    (range : ScalarConstraintResult) :
+    SingletonSuccess (objectInitialized (modelObjectCalls reader) text original first last constant false out range) := by
+  dsimp only [objectInitialized]
+  split
+  · exact singleton_rejected
+  · split
+    · exact singleton_scalar reader text original first last constant _ range
+    · exact singleton_boolean reader text original first last constant _
+
+private theorem singleton_typed (reader : BooleanElaboration.Native.Reader)
+    (text : Source) (original : ParserState) (info : PackageBindings.Metadata)
+    (first last colon constant : Nat) (out : ObjectResult) :
+    SingletonSuccess (objectTyped (modelObjectCalls reader) text original info first last colon constant false out) := by
+  unfold objectTyped
+  by_cases zero : out.frame.position = 0
+  · simp only [zero, decide_true, ↓reduceIte]
+    exact singleton_rejected
+  · let position := if decide (constant = 0) then colon else constant
+    let mark := packageTypeAt text out.frame info position
+    simp only [zero, decide_false, Bool.false_eq_true, ↓reduceIte]
+    change SingletonSuccess (if decide (mark.after = 0) then invalidObject else _)
+    by_cases absent : mark.after = 0
+    · simp only [absent, decide_true, ↓reduceIte]
+      exact singleton_rejected
+    · simp only [absent, decide_false, Bool.false_eq_true, ↓reduceIte]
+      let seed := {out with constantObject := decide (constant ≠ 0), mark := mark}
+      change SingletonSuccess (if decide (mark.kind = .integer) then
+        objectInitialized (modelObjectCalls reader) text original first last constant false seed
+          (scalarConstraintAt text mark.after out.frame.scalarNames mark.bounds)
+        else objectInitialized (modelObjectCalls reader) text original first last constant false seed
+          ⟨mark.after, mark.bounds⟩)
+      split <;> exact singleton_initialized reader text original first last constant seed _
+
+/-- The original nonlocal Object guard requires exact elaboration. This fact
+comes from that guard, rather than treating an arbitrary inferred interval's
+lower endpoint as the initializer value. -/
+theorem object_global_singleton (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (frame : ParserState) (info : PackageBindings.Metadata) {out : ObjectResult}
+    (parsed : objectStep (modelObjectCalls reader) text frame info false = out)
+    (present : out.frame.position ≠ 0) : out.initialBounds.lower = out.initialBounds.upper := by
+  have exactValue : SingletonSuccess (objectStep (modelObjectCalls reader) text frame info false) := by
+    dsimp only [objectStep, objectNameStep, modelObjectCalls]
+    split
+    · exact singleton_rejected
+    · simp only [Bool.false_eq_true, ↓reduceIte]
+      split
+      · exact singleton_typed reader text frame info _ _ _ _ _
+      · exact singleton_rejected
+  exact parsed ▸ exactValue (parsed ▸ present)
+
+/-- The seed value of a public/private scalar initializer is its original raw
+expression's value for every store fitting the original elaboration frame. -/
+theorem ValueCalls.scalar_exact {text : Source} {base : ParserState} {first last : Nat}
+    {out : ObjectResult} (calls : ValueCalls text base first last out)
+    (kind : out.mark.kind = .integer) (singleton : out.initialBounds.lower = out.initialBounds.upper) :
+    ∃ expression,
+      ScalarExpression.sourceSyntaxAt text base.scalarNames [] first last true out.initFirst
+        ⟨out.initAfter, expression⟩ ∧
+      (∀ values, Integer.Fits (ScalarExpression.ranges base.scalarNames) values →
+        expression.evaluate values = out.initialBounds.lower) := by
+  obtain ⟨expression, reading, inferred, _, _, _⟩ := calls.scalar_inventory kind
+  refine ⟨expression, ?_, fun values fit => ?_⟩
+  · simpa only [(calls.scalar kind).1] using reading.grammar
+  · exact BooleanElaboration.singleton_infer_value inferred fit singleton
+
 end Silver.ApplicationPackageInitializers

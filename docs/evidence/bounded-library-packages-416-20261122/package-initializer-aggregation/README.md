@@ -52,3 +52,21 @@ axiom audit of 72,780 declarations. All 1,616 captured input hashes matched.
 Allocation was two workers, two threads, CPUs 6–7, and 8,192 MiB per Lean
 process. Its two failed drafts and the successful source snapshot are retained.
 It reused the prior cache; no independent replay was performed.
+
+## Exact elaboration and original String context
+
+`object_global_singleton` derives exact nonlocal initializer bounds from the
+original Object rejection guard. `ValueCalls.scalar_exact` combines this with
+the original raw expression reading and inference: for every fitting original
+elaboration store, that expression evaluates to the proved seed value.
+`ComposeInitializerTrace.DeclarationChecksAt.string` now retains the original
+`state.contextFirst` instead of using the default context start.
+
+Run `20261127T223341-4c12f4133f11` passed the complete Inventory, Routine caller,
+and ComposeInitializerTrace targets, with a fresh audit of 72,860 declarations.
+All 1,617 captured input hashes matched; allocation remained two workers/two
+threads, CPUs 6–7, 8,192 MiB, Linux x86_64, incremental build without replay.
+The snapshot includes draft Main/String modules as captured context; this run
+does not validate those drafts. The prior failed normalization runs and the
+Main prerequisite failure are retained separately. A managed diagnostic on
+`20261127T223222-138cb39ee64c` records the exact guard rewrite correction.
