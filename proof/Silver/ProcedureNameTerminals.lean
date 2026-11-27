@@ -1,6 +1,7 @@
 module
 
-public import Silver.ProcedureNameScalarReadings
+public import Silver.ProcedureNameTraceTraversal
+public import Silver.ScalarExpressionGrammar
 public import Silver.ComposeCharacterReading
 public import Silver.NamedDisjoint
 
@@ -145,7 +146,12 @@ theorem ActualNameFreeTrace.fixedSymbol {text : Source}
     (positionBound : position ≤ text.length + 1) (ordinary : OrdinarySymbol byte.toNat)
     (accepted : fixedAfter text position (String.singleton byte) false ≠ 0)
     (finishBound : fixedAfter text position (String.singleton byte) false ≤ limit) :
-    ActualNameFreeTrace text limit targetFirst targetAfter (fixedAfter text position (String.singleton byte) false) :=
-  trace.scalarSymbol (fixedSymbol_source positionBound ordinary accepted) ordinary positionBound finishBound
+    ActualNameFreeTrace text limit targetFirst targetAfter (fixedAfter text position (String.singleton byte) false) := by
+  obtain ⟨positive, within, found, finish⟩ := fixedSymbol_source positionBound ordinary accepted
+  have skipped := ScalarExpression.skip_bounds text position positionBound
+  rw [finish]
+  apply trace.symbol (by change position ≤ skipAt text position ∧ _ at skipped; change _ = skipAt text position + 1 at finish; omega) rfl
+    (by change _ = skipAt text position + 1 at finish; omega)
+  simpa only [show skipAt text position = ScalarExpression.skip text position from rfl, found] using ordinary
 
 end Silver.Predicate
