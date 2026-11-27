@@ -1,0 +1,31 @@
+{
+  "primary_head": "66187a4aa002389df9440a653e13c89ef24c4397",
+  "captured_inputs": 1658,
+  "local_hashes_verified": true,
+  "changed_in_primary": [
+    "proof/Silver/ApplicationPackageInitializerInventory.lean",
+    "proof/Silver/ApplicationPackageRoutineInitialization.lean",
+    "proof/Silver/ComposeInitializerTrace.lean",
+    "proof/Silver/FunctionDeclarationInitialDomain.lean",
+    "proof/Silver/FunctionDeclarationNative.lean",
+    "proof/Silver/FunctionFrameValidity.lean",
+    "proof/Silver/FunctionHeaderSource.lean",
+    "proof/Silver/ProcedureDeclarationSyntax.lean",
+    "proof/Silver/ProcedureFrameMeaning.lean"
+  ],
+  "missing_in_primary": [
+    "proof/Silver/ApplicationPackageBasicHidden.lean",
+    "proof/Silver/ApplicationPackageHiddenProcedure.lean",
+    "proof/Silver/ApplicationPackageHiddenTargets.lean",
+    "proof/Silver/ApplicationPackageInheritedHidden.lean",
+    "proof/Silver/ApplicationPackageVisibleReset.lean"
+  ],
+  "changed_imported": [],
+  "missing_imported": [
+    "proof/Silver/ApplicationPackageBasicHidden.lean",
+    "proof/Silver/ApplicationPackageHiddenProcedure.lean",
+    "proof/Silver/ApplicationPackageHiddenTargets.lean",
+    "proof/Silver/ApplicationPackageInheritedHidden.lean",
+    "proof/Silver/ApplicationPackageVisibleReset.lean"
+  ]
+}
