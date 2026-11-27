@@ -169,7 +169,7 @@
       "current_lines": [
         8221
       ],
-      "coverage": "strengthened-contract-pending",
+      "coverage": "complete-helper-success",
       "previous_contract_success": {
         "run": "20261122T180815-378d8355adc0",
         "checks": 28,
@@ -177,7 +177,13 @@
         "flow": 7,
         "proof": 21,
         "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
-      }
+      },
+      "run": "20261127T125548-44ef65f45db0",
+      "checks": 30,
+      "unproved": 0,
+      "flow": 7,
+      "proof": 23,
+      "run_source_sha256": "d3103d20a1a57388d68f4ffdf8d0a091face76de7ad586a29631f1250a91d6b2"
     },
     {
       "name": "Append_Package_Formal",

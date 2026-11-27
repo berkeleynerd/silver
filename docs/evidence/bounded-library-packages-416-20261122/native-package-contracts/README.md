@@ -326,3 +326,11 @@ its bounds. The final assertion checks `Valid_Flow (Inner, Inside.Scan.Facts)`
 before the recursive call. The repaired source is
 `91933dc67619610c7ad5fc026c03663cb84269608e2c37e1710f524ac4392bfa`.
 The next complete `Application_Statement` check selects line 8944.
+
+## Strengthened Package_Object_At contract
+
+Linux x86-64 run [20261127T125548-44ef65f45db0](20261127T125548-44ef65f45db0/outcome.json)
+proved all 30 checks at line 8221, including both initializer endpoint bounds
+in the strengthened postcondition. The whole-helper report covers seven flow
+checks and 23 proof checks on source `d3103d20`, with empty skip lists.
+It took 398.983 seconds on two workers.
