@@ -338,10 +338,15 @@
       "current_lines": [
         9161
       ],
-      "coverage": "failed-repair-pending",
+      "coverage": "complete-helper-success",
       "failed_run": "20261122T192845-3ee5a4e23fe9",
       "failed_source_sha256": "c37214cd9bc8772c84b2f4cd775d6582748e4499f829bf282bfe81e1264871af",
-      "unproved": 2
+      "unproved": 0,
+      "run": "20261127T120823-f71ab3de8038",
+      "checks": 22,
+      "flow": 4,
+      "proof": 18,
+      "run_source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004"
     },
     {
       "name": "Package_Completion_At",

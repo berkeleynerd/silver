@@ -268,3 +268,14 @@ The retained final-policy report covers one subprogram, three flow checks and
 44 proof checks. Both skip lists are empty. The runner used two workers for
 323.551 seconds. The subsequent Routine_Frame annotation repair begins after
 this helper, and the prepared event preserves the proof input hash.
+
+## Repaired Routine_Frame contract
+
+Linux x86-64 run `20261127T120823-f71ab3de8038` passed the complete
+`Routine_Frame` selector at line 9161 on
+`2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004`.
+The final-policy report covers one subprogram, four flow checks and 18 proof
+checks in 117.869 seconds with two workers. Both skip lists are empty. The
+Hide_Outer and Append_Package_Formal preconditions, the state and name loop
+invariants, and the result postcondition all discharged. The earlier failure
+on `c37214cd9` remains in its original evidence packet.
