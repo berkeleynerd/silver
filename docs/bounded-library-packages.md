@@ -399,3 +399,38 @@ All source/proof streams remain active under the shared eight-CPU ceiling;
 no Ada source was changed during either native run. Complete assurance,
 regression/Rosetta closeout and independent review remain required. PR #424
 remains draft and is not ready to merge.
+
+### Complete call and completion/body helper checks, 15:07 UTC
+
+The whole typed `Package_Call_At` body now implements its staged call model for
+arbitrary scratch storage and the native parameter-table capacity. The
+[call-denotation evidence](evidence/bounded-library-packages-416-20261122/call-actual-stages-validity/README.md)
+records `20261127T145532-5bc438212097` and its fresh 21,239-declaration audit;
+integration commit `8b16e6f121` retains the complete source-header/body implication.
+This does not yet close all imported callee meanings or the whole application.
+
+Canonical focused native checks on the same `95c0f3b3` source passed
+`Package_Completion_At` (59 checks, 1,093.308 seconds) and `Package_Body_At`
+(36 checks, 184.576 seconds). The
+[native packet](evidence/bounded-library-packages-416-20261122/native-package-contracts/README.md)
+retains their full reports and current coverage inventory. No obligation was
+skipped, and the source remained unchanged during both runs. Imported_Frame,
+the remaining application helpers and affected inherited callers still require
+their focused checks before a complete compiler checkpoint.
+
+The ordered formal-body spans now derive from the actual successful completing
+Signature (`bf77ae5cdf`), including zero-formal progress and state-table retention.
+The final mixed-order frame (`24aef54266`) and accepted Completion-body layout
+(`ff3a99823e`) derive the original storage used by local declarations and delayed
+output-formal initialization. The complete import-scanner execution/model
+equality also passed in `11714bf8df`; its
+[loop packet](evidence/bounded-library-packages-416-20261122/imported-package/loops/README.md)
+separates that result from the real-callee, termination and authoritative-source
+connections still being integrated.
+
+The three proof subthreads retain their selected GPT-6 Astra Max settings;
+runtime model/effort is not independently exposed. Managed allocations and
+inspected proof/solver thread affinities stay within the host's eight-CPU
+allocation, guest CPUs 0–7. These are focused development results. Final
+original-bundle closure, complete validation, Rosetta promotion and independent
+review remain outstanding; PR #424 stays draft.
