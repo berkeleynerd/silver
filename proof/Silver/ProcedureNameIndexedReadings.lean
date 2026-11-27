@@ -16,9 +16,9 @@ theorem ActualNameFreeTrace.indexedSlice {text : Source}
     {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {position target limit targetFirst targetAfter : Nat} {info : BindingInfo}
-    {lower upper : Integer.Expr}
+    {lower upper : Integer.Expr} {contextFirst : Nat}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
-    (source : IndexedReading text names scalarNames arrays initials elaborating false position info lower upper)
+    (source : IndexedReading (contextFirst := contextFirst) text names scalarNames arrays initials elaborating false position info lower upper)
     (positionBound : position ≤ text.length + 1)
     (finishBound : (indexedParts text position names scalarNames arrays initials elaborating false).following ≤ limit)
     (targetFound : ScalarExpression.lookup text scalarNames targetFirst targetAfter = target)

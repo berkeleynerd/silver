@@ -103,4 +103,38 @@ theorem scalarLookup_qualified_ne_bare {text : Source} {names : ScalarExpression
   simp only [QualifiedNames.qualifierMatches, ite_true, beq_iff_eq] at right
   omega
 
+theorem booleanLookupFrom_qualifier {text : Source} {names : BooleanBindings.Environment}
+    {first after count index qualifierFirst qualifierAfter : Nat}
+    (found : BooleanBindings.lookupFrom text names first after count qualifierFirst qualifierAfter = index)
+    (positive : index ≠ 0) :
+    QualifiedNames.qualifierMatches text (BooleanBindings.binding names index).qualifierFirst
+      (BooleanBindings.binding names index).qualifierAfter qualifierFirst qualifierAfter = true := by
+  induction count with
+  | zero => exact False.elim (positive found.symm)
+  | succ count ih =>
+      rw [BooleanBindings.lookupFrom] at found
+      split at found
+      · exact False.elim (positive found.symm)
+      · split at found
+        · rename_i matching
+          cases found
+          simp only [Bool.and_eq_true] at matching
+          exact matching.2
+        · exact ih found
+
+theorem booleanLookup_qualified_ne_bare {text : Source} {names : BooleanBindings.Environment}
+    {first after qualifierFirst qualifierAfter targetFirst targetAfter index target : Nat}
+    (qualified : qualifierFirst ≠ 0)
+    (found : BooleanBindings.lookup text names first after qualifierFirst qualifierAfter = index)
+    (targetFound : BooleanBindings.lookup text names targetFirst targetAfter = target)
+    (targetPositive : target ≠ 0) : index ≠ target := by
+  intro same
+  rw [same] at found
+  have left := booleanLookupFrom_qualifier found targetPositive
+  have right := booleanLookupFrom_qualifier targetFound targetPositive
+  simp only [QualifiedNames.qualifierMatches, qualified, ite_false, Bool.and_eq_true,
+    decide_eq_true_eq] at left
+  simp only [QualifiedNames.qualifierMatches, ite_true, beq_iff_eq] at right
+  omega
+
 end Silver.Predicate

@@ -8,6 +8,27 @@ public import Silver.ProcedureNameStringCursors
 namespace Silver.Predicate
 open Compose
 
+/-- Both reference forms consume their complete original spelling. -/
+theorem reference_source_advance {text : Source} {position : Nat} {reference : QualifiedNames.Reference}
+    (source : QualifiedNames.At text position reference)
+    (positionBound : position ≤ text.length + 1) : position < reference.after := by
+  have start := QualifiedNames.skip_bounds text position positionBound
+  cases source with
+  | bare _ identifier _ =>
+      have bounds := Named.identifier_bounds identifier
+      dsimp only
+      omega
+  | @qualified packageBytes memberBytes packageAfter memberAfter _ packageName dotted _ memberName =>
+      have packageBounds := Named.identifier_bounds packageName
+      have dotStart := QualifiedNames.skip_bounds text _ packageBounds.2.2.2
+      have memberBounds := Named.identifier_bounds memberName
+      have memberStart := QualifiedNames.skip_bounds text
+        (QualifiedNames.skip text packageAfter + 1) (by
+          have bound := dotted.2.1
+          omega)
+      dsimp only
+      omega
+
 /-- Source productions bound their own cursors without requiring unrelated
 metadata value-summary invariants. -/
 theorem length_source_bound {text context position literal operand result}
@@ -30,8 +51,8 @@ theorem primary_source_bound {text context position facts condition result initi
       exact fixedAfter_result_bound text _ ")" false (by decide)
   | boolean _ _ _ _ _ atom =>
       cases atom with
-      | name identifier _ | literal identifier _ _ => exact (Named.identifier_bounds identifier).2.2.2
-  | valid => exact Compose.Expressions.model_callAfter_valid text _ _ _ positionBound _ _
+      | name reference _ | literal reference _ _ _ => exact reference_after_bounded reference
+  | valid => exact Compose.Expressions.model_callAfter_valid text _ _ _ positionBound _ _ _ _ _
 
 theorem booleanFactor_source_bound {text context position facts condition result initials}
     (source : BooleanFactorAt text context position facts condition result initials)
@@ -117,10 +138,9 @@ theorem primary_source_advance {text context position facts condition result ini
       have skipped := ScalarExpression.skip_bounds text position positionBound
       change position ≤ skipAt text position ∧ skipAt text position ≤ text.length + 1 at skipped
       cases atom with
-      | name identifier _ | literal identifier _ _ =>
-          have advance := (Named.identifier_bounds identifier).2.2.1
-          dsimp only
-          omega
+      | name reference _ | literal reference _ _ _ =>
+          have advance := reference_source_advance reference positionBound
+          exact advance
   | valid _ _ _ _ _ accepted => exact Compose.Expressions.model_callAfter_advances text _ _ _ positionBound accepted
 
 theorem booleanFactor_source_advance {text context position facts condition result initials}

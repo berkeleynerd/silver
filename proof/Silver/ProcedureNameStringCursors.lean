@@ -8,10 +8,12 @@ public import Silver.ComposeBounds
 namespace Silver.Predicate
 open Compose
 
+variable {contextFirst : Nat}
+
 /-- Cursor bounds follow the retained source productions even when metadata
 fields unrelated to source spans are outside native value-summary domains. -/
 theorem stringValue_source_bound {text names scalarNames integerHidden arrays initials elaborating position value result}
-    (source : ValueAt text names position value result scalarNames integerHidden arrays initials elaborating) :
+    (source : ValueAt (contextFirst := contextFirst) text names position value result scalarNames integerHidden arrays initials elaborating) :
     result.after ≤ text.length + 1 := by
   cases source with
   | literal _ _ _ literal => exact (Output.literalAt_bounds literal).2.1
@@ -20,11 +22,11 @@ theorem stringValue_source_bound {text names scalarNames integerHidden arrays in
   | image => exact fixedAfter_result_bound text _ ")" false (by decide)
 
 theorem stringEmission_source_bound {text names scalarNames integerHidden arrays initials elaborating scan emitted}
-    (source : EmissionAt text names scan emitted scalarNames integerHidden arrays initials elaborating)
+    (source : EmissionAt (contextFirst := contextFirst) text names scan emitted scalarNames integerHidden arrays initials elaborating)
     (positionBound : scan.position ≤ text.length + 1) :
-    (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position ≤ text.length + 1 := by
+    (expressionStep (contextFirst := contextFirst) text names scan scalarNames integerHidden arrays initials elaborating).position ≤ text.length + 1 := by
   have atomBound : scan.needOperand = true ∧ fixedAfter text scan.position "(" false = 0 →
-      (valueAt text scan.position names scalarNames integerHidden arrays initials elaborating).after ≤ text.length + 1 := by
+      (valueAt (contextFirst := contextFirst) text scan.position names scalarNames integerHidden arrays initials elaborating).after ≤ text.length + 1 := by
     intro reading
     have parsed := source
     rw [EmissionAt, ite_eq_left reading] at parsed
@@ -56,7 +58,7 @@ theorem stringEmission_source_bound {text names scalarNames integerHidden arrays
             · exact Nat.zero_le _
 
 theorem stringTail_source_bound {text names scalarNames integerHidden arrays initials elaborating scan expression result}
-    (source : ExpressionTailAt text names scan expression result scalarNames integerHidden arrays initials elaborating)
+    (source : ExpressionTailAt (contextFirst := contextFirst) text names scan expression result scalarNames integerHidden arrays initials elaborating)
     (positionBound : scan.position ≤ text.length + 1) : result.after ≤ text.length + 1 := by
   induction source with
   | done => exact positionBound

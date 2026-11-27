@@ -2,6 +2,7 @@ module
 
 public import Silver.ApplicationPackageEffectBits
 public import Silver.ProcedureNameIdentity
+public import Silver.ProcedureNameArrayReadings
 
 @[expose] public section
 
@@ -91,5 +92,45 @@ theorem scalarIdentifier_read_cell {text bytes : Source} {context : ParseContext
     identityPositive active capacity).mpr
   refine ⟨by omega, visible, ?_⟩
   exact actualNameFree_identifier_alias before skipped firstPositive identifier finishBound spelling
+
+/-- Every scalar dependency in a complete inherited expression contributes the
+original package cell. The inherited grammar carries all signs, operators,
+parentheses, indexed reads and masks; visibility is derived from actual lookup
+and original declaration spans, rather than assumed as an effect obligation. -/
+theorem scalar_read_cell {text : Source} {context : ParseContext}
+    {info : PackageBindings.Metadata} {position limit identity slot maskFirst maskAfter : Nat}
+    {expression : Integer.Expr} {result : ScalarExpression.Result}
+    {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials}
+    {elaborating allowSign : Bool} {mode : ScalarExpression.ArrayReadMode}
+    (source : ScalarExpression.ArrayGrammar.At text context.scalarNames position expression result
+      maskFirst maskAfter allowSign arrays initials elaborating mode)
+    (finishBound : result.after ≤ limit)
+    (identityPositive : 0 < identity) (active : identity ≤ info.states.length)
+    (capacity : identity ≤ PackageBindings.maxStates)
+    (nameValid : PackageBindings.validName (ApplicationPackageNames.metadataText text)
+      (info.stateAt identity).name = true)
+    (kind : (info.stateAt identity).kind = .integer)
+    (found : ScalarExpression.lookup text context.scalarNames
+      (info.stateAt identity).name.first (info.stateAt identity).name.after = slot)
+    (slotPositive : slot ≠ 0) (slotBound : slot ≤ ArrayBindings.scalarLimit)
+    (firstSpan : (ScalarExpression.binding context.scalarNames slot).first =
+      (info.stateAt identity).name.first)
+    (afterSpan : (ScalarExpression.binding context.scalarNames slot).after =
+      (info.stateAt identity).name.after)
+    (mentioned : ScalarProcedures.integerMentions slot expression = true) :
+    (info.stateAt identity).cell identity ∈
+      info.effectCells (stateReads modelCalls text context info position limit) := by
+  have bounds := source.cursorBounds
+  have visible : visibleState modelCalls text context info identity = true := by
+    simp [visibleState, modelCalls, Nat.not_lt.mpr active, nameValid, kind,
+      found, slotPositive, firstSpan, afterSpan]
+  apply (stateReads_cell modelCalls text context info position limit identity
+    identityPositive active capacity).mpr
+  refine ⟨by omega, visible, ?_⟩
+  apply Bool.eq_false_iff.mpr
+  intro free
+  have excluded := ((actualNameFree_sound free).scalar source finishBound found slotBound).1
+  rw [mentioned] at excluded
+  contradiction
 
 end Silver.ApplicationPackageEffects
