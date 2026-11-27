@@ -42,7 +42,8 @@ package Silver_Names with SPARK_Mode => On is
        Post => Context_After'Result <= Text'Last + 1;
 
    --  Hidden records a declaration of the operation name in the local scope.
-   --  Such a declaration hides a use-visible operation, never a qualified call.
+   --  Such a declaration and the selected application package identity hide a
+   --  use-visible operation, never a qualified call.
    function Operation_After
      (Text : String; Position : Literal_Position; Operation : Operation_Kind;
       Hidden : Boolean; Context_First : Cursor := 1;

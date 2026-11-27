@@ -7919,6 +7919,9 @@ is
          SPARK_Mode_Name), Left_Parenthesis), On_Name), Right_Parenthesis), Semicolon);
    end Spark_Pragma_After;
 
+   --  Ada RM A.1 forbids library-unit homographs of Standard declarations.
+   --  Include the pinned GNAT implementation-defined numeric types and the
+   --  obsolescent ASCII package, as well as language-defined declarations.
    function Package_Name_Allowed
      (Text : String; Name : Packages.Name_Span) return Boolean is
      (Packages.Valid_Name (Text, Name)
@@ -7931,9 +7934,34 @@ is
       and then not Name_Is (Text, Name.First, Name.After, "silver_arguments")
       and then not Name_Is (Text, Name.First, Name.After, "silver_output_libc")
       and then not Name_Is (Text, Name.First, Name.After, "silver_runtime")
-      and then not Name_Is (Text, Name.First, Name.After, "integer")
       and then not Name_Is (Text, Name.First, Name.After, "boolean")
-      and then not Name_Is (Text, Name.First, Name.After, "character"))
+      and then not Name_Is (Text, Name.First, Name.After, "false")
+      and then not Name_Is (Text, Name.First, Name.After, "true")
+      and then not Name_Is (Text, Name.First, Name.After, "integer")
+      and then not Name_Is (Text, Name.First, Name.After, "natural")
+      and then not Name_Is (Text, Name.First, Name.After, "positive")
+      and then not Name_Is (Text, Name.First, Name.After, "short_short_integer")
+      and then not Name_Is (Text, Name.First, Name.After, "short_integer")
+      and then not Name_Is (Text, Name.First, Name.After, "long_integer")
+      and then not Name_Is (Text, Name.First, Name.After, "long_long_integer")
+      and then not Name_Is (Text, Name.First, Name.After, "long_long_long_integer")
+      and then not Name_Is (Text, Name.First, Name.After, "short_float")
+      and then not Name_Is (Text, Name.First, Name.After, "float")
+      and then not Name_Is (Text, Name.First, Name.After, "long_float")
+      and then not Name_Is (Text, Name.First, Name.After, "long_long_float")
+      and then not Name_Is (Text, Name.First, Name.After, "character")
+      and then not Name_Is (Text, Name.First, Name.After, "wide_character")
+      and then not Name_Is (Text, Name.First, Name.After, "wide_wide_character")
+      and then not Name_Is (Text, Name.First, Name.After, "string")
+      and then not Name_Is (Text, Name.First, Name.After, "wide_string")
+      and then not Name_Is (Text, Name.First, Name.After, "wide_wide_string")
+      and then not Name_Is (Text, Name.First, Name.After, "duration")
+      and then not Name_Is (Text, Name.First, Name.After, "constraint_error")
+      and then not Name_Is (Text, Name.First, Name.After, "program_error")
+      and then not Name_Is (Text, Name.First, Name.After, "storage_error")
+      and then not Name_Is (Text, Name.First, Name.After, "tasking_error")
+      and then not Name_Is (Text, Name.First, Name.After, "numeric_error")
+      and then not Name_Is (Text, Name.First, Name.After, "ascii"))
      with Global => null;
 
    function Package_Name_Fresh
