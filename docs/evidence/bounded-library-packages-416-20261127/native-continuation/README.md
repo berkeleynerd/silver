@@ -24,6 +24,7 @@ postconditions remain; no obligation or executable branch is removed.
 | `Package_Main_At`, body declaration 9492 | `20261127T190610-5f1996739339` | Failed: 5 flow and 45/47 proof rows passed, selected entity `all`; 1,471.699 seconds. |
 | Complete Package_Bindings unit, strengthened `Valid_Metadata` | `20261127T193818-29ae74a7539e` | 151/151 (28 flow, 123 proof), all 15 selected entities `all`; 42.949 seconds. |
 | `Package_Main_At`, body declaration 9492, verified metadata projections | `20261127T193939-4dba03f7ee42` | 52/52 (5 flow, 47 proof), selected entity `all`; 810.944 seconds. |
+| `Analyze_Application`, body declaration 9590, preserved unit spans | `20261127T195352-f016f03f782d` | 30/30 (5 flow, 25 proof), selected entity `all`; 124.790 seconds. |
 
 The source for this checkpoint is Output_Profile SHA-256
 `f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da`.
@@ -33,7 +34,7 @@ bytes were compared to each recorded managed input hash before retention.
 The separate [namespace packet](../namespace-regressions/README.md) retains the
 #426/#427 implementation fixes, actual frontend controls and direct caller checks.
 
-Analyze and the four public wrappers remain pending at this
+The containing-unit existing-helper gate and four public wrappers remain pending at this
 checkpoint. Complete native, Lean, original-source correspondence and final
 regression/sample checkpoints remain required; these focused results do not
 establish feature completion.
@@ -81,6 +82,13 @@ coverage, the final-policy solver set and unchanged 30-second timeout.
 Output_Profile still has SHA-256 `f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da`;
 no Main body, precondition, input domain or obligation was changed for this
 successful retry.
+
+The complete Analyze_Application selection also passed all 30 checks in
+`20261127T195352-f016f03f782d`, including its previously unresolved
+Package_Body_At precondition (now at 9616). The verified Signature/Spec
+preservation contracts retain the original unit spans across declaration
+reading; Analyze's full declared domain and body are unchanged. Its own
+selected report has `all` coverage under the same final-policy settings.
 
 ## Existing helper reconciliation
 
