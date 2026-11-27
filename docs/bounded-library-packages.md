@@ -791,3 +791,49 @@ remain within the host's eight-CPU allocation; all 27 proof/tool threads in the
 latest inspection were within guest CPUs 0–7. PR #424 remains draft, #426/#427
 remain open, and final native/Lean assurance, regressions, Rosetta delivery and
 independent closing review are outstanding. No feature merge is authorized.
+
+
+### Main composition, initializer histories and inherited callers, 22:26 UTC
+
+The [Main body/footer packet](evidence/bounded-library-packages-416-20261127/main-body-composition/README.md)
+passed 75,566 declarations, and [accepted source history](evidence/bounded-library-packages-416-20261127/main-source-reading/README.md)
+passed 75,569. Original Main imports, declarations, recursive input, footer and
+EOF now compose over the complete native precondition and every rejection path.
+Acceptance constructs the original recursive TailTree without assuming a semantic
+checker result. The original recursive equations remain explicit until their
+primitive imports are completely joined.
+
+The [callee-import packet](evidence/bounded-library-packages-416-20261127/callee-imports/README.md)
+passed 46,618 declarations, binding original reference/scalar/Boolean/name/routine
+lookups with the actual completion-prefix guard. The [inherited body packet](evidence/bounded-library-packages-416-20261127/inherited-body-imports/README.md)
+passed 76,549 declarations, deriving basic/target/token/condition/join meanings
+from existing raw helper definitions, retaining the exact native context. It
+built previously uncached inherited dependencies; no cache transfer occurred.
+
+The [initializer aggregation packet](evidence/bounded-library-packages-416-20261122/package-initializer-aggregation/README.md)
+now contains successful per-object syntax/discharge and state/local source-history
+folds. Its output history proves that every leading output RHS uses the original
+pre-output frame. This is partial aggregation: imported constants need explicit
+semantic bindings derived from original elaboration, and the generic Main String
+region argument must retain original bounds without assuming an empty entry frame.
+
+Current-primary inherited caller failures surfaced through newly exercised
+dependencies: ProcedureDeclarationSyntax still constructs the old scalar record;
+FunctionFrameValidity lacks qualifier validity; FunctionDeclarationInitialDomain
+lacks the added context requirement; ComposeInitializerTrace omits contextFirst
+on a raw String expression. Related FunctionDeclarationNative and procedure
+renderer clauses also retain old scalar/Boolean aggregate shapes despite the
+eight/seven-field native source. These are required #416 integration repairs,
+assigned with focused source checks against the unchanged authoritative source.
+They are not waived by removing an unnecessary import and must be resolved before
+the complete Lean checkpoint. No native source or accepted-language change is
+made to address these proof representation errors.
+
+Native unit run `20261127T195636-5b2a2f886237` continues on frozen inputs, now in
+Declaration_At. Boolean and Character declaration sessions have proved interim
+roots; the same three Array_Declaration_Model/At goals still show timeouts.
+Final audit classification remains pending. Shared reservations and affinity
+remain within CPUs0–7. The three ongoing proof roles retain selected Astra Max
+settings, with runtime settings not independently exposed. Final source/semantic
+composition, complete assurance, regression/Rosetta delivery and independent
+closing review remain outstanding; PR #424 stays draft and no merge is authorized.
