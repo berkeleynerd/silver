@@ -22,6 +22,7 @@ postconditions remain; no obligation or executable branch is removed.
 | `Package_Signature_At`, body declaration 8395 | `20261127T184159-a0acf00fba2f` | 79/79 (14 flow, 65 proof), selected entity `all`; 1,020.794 seconds. |
 | `Package_Spec_At`, body declaration 8581 | `20261127T185933-2055189d72e9` | 45/45 (9 flow, 36 proof), selected entity `all`; 362.113 seconds. |
 | `Package_Main_At`, body declaration 9492 | `20261127T190610-5f1996739339` | Failed: 5 flow and 45/47 proof rows passed, selected entity `all`; 1,471.699 seconds. |
+| Complete Package_Bindings unit, strengthened `Valid_Metadata` | `20261127T193818-29ae74a7539e` | 151/151 (28 flow, 123 proof), all 15 selected entities `all`; 42.949 seconds. |
 
 The source for this checkpoint is Output_Profile SHA-256
 `f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da`.
@@ -61,6 +62,16 @@ establishes a one-based, nonempty, bounded text before the addition
 Package_Bindings unit after lead integration and source-witness alignment,
 then the complete Main helper. No native retry was started at this failure
 checkpoint.
+
+The next whole-unit check, `20261127T193818-29ae74a7539e`, passed all 151
+checks against Package_Bindings specification SHA-256
+`dbcb91fe15d79508705cd56f93917d37ce5c9898a0205cfea5c158d2512e9d26`.
+Both the new postcondition at specification line 166 and the guarded
+addition's overflow check at line 169 passed. `Valid_Metadata` retains its
+full unconstrained `Text`/`Metadata` domain, and all 15 selected unit entities
+have independent `all` coverage. The body and Output_Profile hashes remain
+unchanged. This verifies the strengthened callee and its package-local callers;
+the consuming Main check remains a separate required gate.
 
 ## Existing helper reconciliation
 
