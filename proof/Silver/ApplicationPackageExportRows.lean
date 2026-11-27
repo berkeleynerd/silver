@@ -22,7 +22,7 @@ private def StepRows (original : Metadata) : SpecificationStep → Prop
   | .returned result => result.exports.position = 0
   | .ready state | .next state => ExportRows original state.info state.exports
 
-private theorem reframe {before after : ParserState} (order : FrameOrder before)
+theorem reframe {before after : ParserState} (order : FrameOrder before)
     (integers : after.scalarNames = before.scalarNames) (booleans : after.booleanNames = before.booleanNames)
     (progress : before.position ≤ after.position) : FrameOrder after := by
   have keptInts : integerRows after = integerRows before := congrArg (List.map _) integers
