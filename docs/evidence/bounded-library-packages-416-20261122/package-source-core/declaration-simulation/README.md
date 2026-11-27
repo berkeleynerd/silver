@@ -219,3 +219,23 @@ audited 70,097 declarations in 3.779 seconds. It used two workers, two
 threads and 8192 MiB per process. The `object-value-imports-` files record
 both targets. Full declaration execution and authoritative source binding
 are separate checkpoints.
+
+## Complete Object declaration reader
+
+`ObjectLibraries.object_meaning` relates the complete typed execution of
+`Package_Object_At` to its declaration model on every valid incoming
+frame and pooled source, with arbitrary metadata, prior locals and either
+value of `Local`. The name prefix supplies the accepted name span and
+the valid frame for the type read. A successful type mark supplies the
+cursor and bounded range for the optional constraint and initializer.
+The scalar guard supplies spare capacity before `Append`. The Boolean
+branch reads the executable initializer, checks its endpoint against the
+shared static-value reader for a global object, and writes the Boolean
+binding. Both branches consume the semicolon and check strict progress
+against the original frame. The static Boolean reader is an explicit
+shared argument for the enclosing source interpretation.
+
+Linux x86-64 run `20261127T153930-d62c7d17e506` built the complete Object
+meaning target in 8.327 seconds and freshly audited 70,106 declarations
+in 3.893 seconds with two workers, two threads and 8192 MiB per process.
+The `object-complete-callees-` log and input record identify that check.
