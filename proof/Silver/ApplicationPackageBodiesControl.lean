@@ -128,7 +128,7 @@ def Command.wellFormed (names : FunctionNames Fn) (inLoop : Bool) : Command Fn â
   | .loopBody body => body.wellFormed names true
   | .forFlowValues name facts body => identifier name && facts.prefix && facts.wellFormed names && body.wellFormed names true
   | .exitWhen test => inLoop && test.logical && test.wellFormed names
-  | .invariant test => inLoop && test.logical && test.wellFormed names
+  | .invariant test => inLoop && (ApplicationNative.Command.invariant (resultType := .appScan) test).wellFormed names
   | .increases value => inLoop && value.simple && value.wellFormed names
   | .returned value => (ApplicationNative.Command.returned value).wellFormed names
 
