@@ -1,10 +1,11 @@
 # Bounded library packages and application units
 
-Current status, 2026-11-27 19:17 UTC: PR #424 remains draft. Both namespace
+Current status, 2026-11-27 19:50 UTC: PR #424 remains draft. Both namespace
 repairs pass their focused behavior and name-source checks; their complete
-source/assurance integration is still required. Main's staged Lean interpretation
-and exact typed source candidate now pass. The native Main contract, changed
-helper coverage and original-bundle semantic endpoint are still in progress.
+source/assurance integration is still required. The metadata projection contract
+and its exact-source proof pass, and the complete Signature formal loop now has
+checked imported-call closure. The native Main contract, changed helper coverage
+and original-bundle semantic endpoint are still in progress.
 
 ## Selection — 2026-11-22
 
@@ -539,3 +540,41 @@ inspection found every active managed worker thread within guest CPUs 0–7.
 Complete source and semantic closure, native/Lean audits, final applicable tests,
 Rosetta delivery and independent review remain outstanding. No support promotion
 or merge readiness is claimed.
+
+### Metadata projections and complete Signature loop, 19:50 UTC
+
+The complete native Main attempt `20261127T190610-5f1996739339` retained two
+unproved projections from `Valid_Metadata`; its other context, flow and caller
+assertions passed. The repair exports the package-name validity and Main start
+bound already established by that predicate's unchanged body, without narrowing
+its input domain. The whole Package_Bindings unit then passed all 151 checks
+(28 flow, 123 proof) in `20261127T193818-29ae74a7539e`. The
+[source packet](evidence/bounded-library-packages-416-20261127/metadata-projection-source/README.md)
+records the matching specification/header witness and semantic projection check,
+including a fresh 22,065-declaration audit and the comparison of all 1,552
+captured inputs. Main retry `20261127T193939-4dba03f7ee42` remains active; Analyze
+and the focused Output_Profile unit gate follow it.
+
+The [Signature loop packet](evidence/bounded-library-packages-416-20261127/signature-loop-imports/README.md)
+closes the imported lexical, name, visibility, type and validity calls through
+the complete formal loop and exact terminating result. It includes malformed
+metadata, completion mismatch, capacity failure and partial-storage rejection.
+The successful domain and whole-loop checks audited 46,743 and 46,755 declarations;
+the preceding proof-draft failure remains failed. Native Append_Package_Formal
+projection and authoritative source binding remain their distinct obligations.
+Specification branch imports and final source composition are still in progress.
+
+The [visible-state packet](evidence/bounded-library-packages-416-20261122/visible-state-layout/README.md)
+and [original procedure target packet](evidence/bounded-library-packages-416-20261122/package-procedure-target-cells/README.md)
+connect original defining spans, state identity and exact write/reset membership.
+The no-later-shadow invariant now follows through the state, formal and local
+declaration histories; its final routine-body context assembly remains pending.
+These focused results do not yet establish the complete application endpoint.
+
+The three continuing proof/native subthreads remain selected GPT-6 Astra Max.
+Live lead model/effort and whole-session cost are not independently exposed.
+Managed checks retain two-worker shares, two threads per Lean process and the
+host's eight-CPU allocation. Every inspected proof/solver thread was confined to
+guest CPUs 0–7, with no affinity exception. Complete native and Lean assurance,
+final regression applicability, Rosetta promotion and independent closing review
+remain required before this feature is supported.
