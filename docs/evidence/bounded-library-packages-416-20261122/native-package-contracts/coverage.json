@@ -403,14 +403,26 @@
       "current_lines": [
         9412
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261127T150627-336b243e0551",
+      "checks": 9,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 7,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
     },
     {
       "name": "Same_Package_Spelling",
       "current_lines": [
         9446
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261127T150951-fcf99a0aab8e",
+      "checks": 6,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 4,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
     },
     {
       "name": "Package_Main_At",

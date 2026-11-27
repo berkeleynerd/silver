@@ -399,3 +399,9 @@ at selector 9358. The final-policy run proved seven flow checks and 29 proof
 checks in 184.576 seconds on the same source and two Linux x86-64 workers.
 The [SPARK report](20261127T150147-298ed1b9d8ea/silver_output_profile.spark.gz)
 has empty skip lists and `STOP_REASON_NONE`.
+
+The same Ada inputs passed the canonical complete checks of `Imported_Frame`
+(two flow and seven proof checks) and `Same_Package_Spelling` (two flow and four
+proof checks). Both SPARK reports have empty skip lists and `STOP_REASON_NONE`.
+[Imported frame](20261127T150627-336b243e0551/outcome.json) ·
+[Package spelling](20261127T150951-fcf99a0aab8e/outcome.json)
