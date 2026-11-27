@@ -255,19 +255,32 @@ def copyValues : C := .forFlowValues "i" facts.expression (.list [
       (.index .flowValue facts.expression (.variable "done")))),
   .assign (.index .flowValue insideFacts (.variable "i")) (.index .flowValue facts.expression (.variable "i"))])
 
-def prepareInner : C := .list [
+def extendInner : C :=
   .procedure (.appendScalar (.field .contextScalarNames inner)
-    (.scalarBindingValue first last bounds (.truth false) bounds (.truth false) (.number 0) (.number 0))),
-  .assign (.field .scanPosition insideScan) position.expression,
-  .assign (.field .scanTarget insideScan) (.field .scanTarget scan.expression),
-  .assign (.field .scanCapacity insideScan) (.field .scanCapacity scan.expression),
-  .assign (.field .scanAssigned insideScan) (.field .scanAssigned scan.expression),
-  .assign (.field .scanOutput insideScan) (.field .scanOutput scan.expression),
+    (.scalarBindingValue first last bounds (.truth false) bounds (.truth false) (.number 0) (.number 0)))
+
+def moveCursor (dest src : P .bodyScan) : C := .list [
+  .assign (.field .scanPosition dest) (.field .scanPosition src.expression),
+  .assign (.field .scanTarget dest) (.field .scanTarget src.expression),
+  .assign (.field .scanCapacity dest) (.field .scanCapacity src.expression)]
+
+def moveFlags (dest src : P .bodyScan) : C := .list [
+  .assign (.field .scanAssigned dest) (.field .scanAssigned src.expression),
+  .assign (.field .scanOutput dest) (.field .scanOutput src.expression)]
+
+def copyCursor : C := moveCursor insideScan scan
+def copyFlags : C := moveFlags insideScan scan
+
+def copyEffects : C := .list [
   .assign (.field .applicationAllowProcedureCalls inside) (.field .applicationAllowProcedureCalls result.expression),
   .assign (.field .applicationReads inside) reads.expression,
-  .assign (.field .applicationWrites inside) (.field .applicationWrites result.expression),
+  .assign (.field .applicationWrites inside) (.field .applicationWrites result.expression)]
+
+def prepareValues : C := .list [
   .assign (.field .activeFlowPath insideFacts) (.group (.ite (isEmpty bounds) (.function .emptyPath) (.field .activeFlowPath facts.expression))),
   .procedure (.clearValues insideFacts)]
+
+def prepareInner : C := .list [extendInner, copyCursor, copyFlags, copyEffects, prepareValues]
 
 abbrev insideCount : E .number := .property .appScanCount inside.expression
 abbrev outerNames : E .scalars := .field .contextScalarNames context
@@ -292,20 +305,21 @@ def setIterator : C := .list [
 
 def innerEntry : C := .list [prepareInner, copyValues, setIterator]
 
-def innerReturn : C := .list [
-  .assign inside (callTail inner.expression inside.expression .endOnly),
-  .choose (zero (.field .scanPosition insideScan.expression)) invalid .nothing,
-  .assign position (.field .scanPosition insideScan.expression),
-  .assign (.field .scanTarget scan) (.field .scanTarget insideScan.expression),
-  .assign (.field .scanCapacity scan) (.field .scanCapacity insideScan.expression),
-  .assign (.field .scanAssigned scan) (.field .scanAssigned insideScan.expression),
-  .assign (.field .scanOutput scan) (.field .scanOutput insideScan.expression),
+def returnEffects : C := .list [
   .assign reads (.field .applicationReads inside.expression),
-  .assign (.field .applicationWrites result) (.field .applicationWrites inside.expression),
+  .assign (.field .applicationWrites result) (.field .applicationWrites inside.expression)]
+
+def returnPath : C :=
   .choose (isEmpty bounds) (.assign facts inputFacts)
     (.choose (.variable "definite") (.assign (.field .activeFlowPath facts) (.field .activeFlowPath insideFacts.expression))
       (.assign (.field .activeFlowPath facts) (.app (.app (.function .pathJoin)
-        (.field .activeFlowPath inputFacts)) (.field .activeFlowPath insideFacts.expression))))]
+        (.field .activeFlowPath inputFacts)) (.field .activeFlowPath insideFacts.expression))))
+
+def returnScan : C := .list [moveCursor scan insideScan, moveFlags scan insideScan, returnEffects, returnPath]
+
+def innerReturn : C := .list [
+  .assign inside (callTail inner.expression inside.expression .endOnly),
+  .choose (zero (.field .scanPosition insideScan.expression)) invalid .nothing, returnScan]
 
 def forBinder : C := .list [
   .assign position (keyword inputPos "for"),

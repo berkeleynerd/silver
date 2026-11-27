@@ -217,7 +217,8 @@ theorem candidate_checked : Checked candidateTokens where
     simp only [Native.body, Statements.Body.render, Native.commands, Native.ifCommands,
       Native.armCommands, Native.armRead, Native.armExit, Native.ifEnding,
       Native.forCommands, Native.forBinder, Native.forSelect, Native.forBounds, Native.arrayCommands, Native.countedCommands, Native.innerEntry,
-      Native.prepareInner, Native.copyValues, Native.setIterator, Native.innerReturn, Native.close, Native.closeToken, Native.invalid,
+      Native.prepareInner, Native.extendInner, Native.copyCursor, Native.copyFlags, Native.moveCursor, Native.moveFlags, Native.copyEffects,
+      Native.prepareValues, Native.copyValues, Native.setIterator, Native.innerReturn, Native.returnScan, Native.returnEffects, Native.returnPath, Native.close, Native.closeToken, Native.invalid,
       Statements.Command.list, List.foldr, Statements.Command.render, Statements.Command.renderElse,
       ApplicationNative.Command.render, ApplicationPackageProcedure.Command.render]
     decide +kernel
