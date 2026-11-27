@@ -159,3 +159,23 @@ the function check and identify the native return cursor, kind and bounds.
 the opening delimiter and actual loop, and the alias, effect, reset and
 return commands. The whole-body equation and its authoritative source
 instance are still pending at this checkpoint.
+
+## Whole call denotation
+
+`ApplicationPackageCalls.Native.Call.call_denotation` proves equality of the
+complete typed body and `packageCallAt` for arbitrary input and scratch
+locals. Its only metadata premise bounds the physical parameter-table count
+by `maxFormals`. The actual source guard supplies the first and last indices
+used by the loops. The proof accounts for the original declaration order,
+each early return, actual and alias iteration, and the final return guard.
+
+Linux x86-64 focus `20261127T145532-5bc438212097` passed the whole denotation
+and a fresh axiom audit of 21,239 declarations in 18.187 seconds. It used
+two workers, two threads and 8,192 MiB per process. Its managed input digest
+for the module is `da17a87b0455b01bc54265655e4e25c477b4873147834b7f86d34c02d48f685e`.
+[Focused evidence and predecessor diagnostics](whole-call-denotation/)
+
+`SourceChecks.Checked.meaning` pairs the token-extracted complete header
+and body with that execution equation. The instance for the original
+Output Profile token stream and the imported native callees remain separate
+obligations for source correspondence.
