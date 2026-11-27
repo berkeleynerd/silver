@@ -36,56 +36,93 @@ structure ObjectCalls where
 def finishObject (calls : ObjectCalls) (text : Source) (original : ParserState)
     (result : ObjectResult) : ObjectResult :=
   let frame := {result.frame with position := calls.take text result.initAfter (.symbol ";")}
-  if frame.position ≤ original.position then invalidObject else {result with frame}
+  if decide (frame.position ≤ original.position) then invalidObject else {result with frame}
 
-def objectStep (calls : ObjectCalls) (text : Source) (frame : ParserState)
-    (info : PackageBindings.Metadata) (localObject : Bool := false) : ObjectResult :=
+/-- The common final statements retain the original frame for the strict
+progress test, including every failure after a successful initializer. -/
+def objectBooleanFinish (calls : ObjectCalls) (text : Source) (original : ParserState)
+    (first last constantEnd after : Nat) (localObject : Bool) (result : ObjectResult) : ObjectResult :=
+  let result := {result with initAfter := after}
+  let result := {result with initialBounds := calls.singleton (if result.booleanValue then 1 else 0)}
+  let binding : BooleanBindings.Binding :=
+    ⟨first,last,decide (constantEnd = 0),0,0,!localObject,result.booleanValue⟩
+  let result := {result with frame := {result.frame with booleanNames := result.frame.booleanNames ++ [binding]}}
+  finishObject calls text original result
+
+def objectBoolean (calls : ObjectCalls) (text : Source) (original : ParserState)
+    (first last constantEnd : Nat) (localObject : Bool) (result : ObjectResult) : ObjectResult :=
+  let after := calls.booleanInitializer text result.frame result.initFirst first last
+  if decide (after = 0) || decide (result.frame.booleanNames.length = BooleanBindings.maxBindings) then invalidObject else
+  if !localObject then
+    let flag := calls.staticBoolean text result.frame result.initFirst
+    if decide (flag.after ≠ after) then invalidObject else
+    objectBooleanFinish calls text original first last constantEnd after localObject {result with booleanValue := flag.value}
+  else objectBooleanFinish calls text original first last constantEnd after localObject result
+
+def objectScalar (calls : ObjectCalls) (text : Source) (original : ParserState)
+    (first last constantEnd : Nat) (localObject : Bool) (result : ObjectResult)
+    (constraint : ScalarConstraintResult) : ObjectResult :=
+  let value := calls.scalar text result.initFirst result.frame.scalarNames first last
+  if (((decide (value.after = 0) || calls.empty value.bounds) || !calls.included value.bounds constraint.bounds) ||
+      (!localObject && decide (value.bounds.lower ≠ value.bounds.upper))) ||
+      decide (result.frame.scalarNames.length = ScalarExpression.maxBindings) then invalidObject else
+  let result := {result with initAfter := value.after}
+  let result := {result with initialBounds := value.bounds}
+  let binding : ScalarExpression.Binding := ⟨first,last,value.bounds,
+    decide (constantEnd ≠ 0) && value.isStatic,constraint.bounds,decide (constantEnd = 0),0,0⟩
+  let result := {result with frame := {result.frame with scalarNames := calls.appendScalar result.frame.scalarNames binding}}
+  finishObject calls text original result
+
+def objectInitialized (calls : ObjectCalls) (text : Source) (original : ParserState)
+    (first last constantEnd : Nat) (localObject : Bool) (result : ObjectResult)
+    (constraint : ScalarConstraintResult) : ObjectResult :=
+  let result := {result with mark := {result.mark with bounds := constraint.bounds}}
+  let result := {result with initFirst := calls.skip text (calls.take text constraint.after (.symbol ":="))}
+  if decide (result.initFirst = 0) then invalidObject else
+  if decide (result.mark.kind = .integer) then
+    objectScalar calls text original first last constantEnd localObject result constraint
+  else objectBoolean calls text original first last constantEnd localObject result
+
+def objectTyped (calls : ObjectCalls) (text : Source) (original : ParserState)
+    (info : PackageBindings.Metadata) (first last colonEnd constantEnd : Nat)
+    (localObject : Bool) (result : ObjectResult) : ObjectResult :=
+  if decide (result.frame.position = 0) then invalidObject else
+  let result := {result with constantObject := decide (constantEnd ≠ 0)}
+  let result := {result with mark := (calls.typeAt text result.frame info
+    (if decide (constantEnd = 0) then colonEnd else constantEnd))}
+  if decide (result.mark.after = 0) then invalidObject else
+  let constraint : ScalarConstraintResult := ⟨result.mark.after,result.mark.bounds⟩
+  if decide (result.mark.kind = .integer) then
+    objectInitialized calls text original first last constantEnd localObject result
+      (calls.constraint text result.mark.after result.frame.scalarNames result.mark.bounds)
+  else objectInitialized calls text original first last constantEnd localObject result constraint
+
+/-- Complete raw Object execution in native statement order. Small continuations
+keep source evaluation and callback values shared without adding a precondition. -/
+abbrev ObjectContinuation := Source → ParserState → PackageBindings.Metadata →
+  Nat → Nat → Nat → Nat → Bool → ObjectResult → ObjectResult
+
+def objectNameStep (calls : ObjectCalls) (text : Source) (frame : ParserState)
+    (info : PackageBindings.Metadata) (localObject : Bool) (next : ObjectContinuation) : ObjectResult :=
   let first := calls.skip text frame.position
   let last := calls.nameAfter text first
   let colonEnd := calls.take text last (.symbol ":")
   let constantEnd := calls.take text colonEnd (.word "constant")
   if !calls.validName text ⟨first,last⟩ || decide (colonEnd = 0) then invalidObject else
-  let hidden := if localObject then calls.hideOuter text frame info ⟨first,last⟩
-    else if calls.fresh text info ⟨first,last⟩ && calls.newName text frame first last false then
-      {frame with «hiding» := calls.hide text frame.hiding first last}
-    else invalidState
-  if hidden.position = 0 then invalidObject else
-  let mark := calls.typeAt text hidden info (if constantEnd = 0 then colonEnd else constantEnd)
-  if mark.after = 0 then invalidObject else
-  let constraint := if mark.kind = .integer then calls.constraint text mark.after hidden.scalarNames mark.bounds
-    else ⟨mark.after,mark.bounds⟩
-  let mark := {mark with bounds := constraint.bounds}
-  let start := calls.skip text (calls.take text constraint.after (.symbol ":="))
-  if start = 0 then invalidObject else
-  let result : ObjectResult := {
-    frame := hidden
-    name := ⟨first,last⟩
-    mark := mark
-    initFirst := start
-    constantObject := decide (constantEnd ≠ 0)
-  }
-  if mark.kind = .integer then
-    let value := calls.scalar text start hidden.scalarNames first last
-    if decide (value.after = 0) || calls.empty value.bounds || !calls.included value.bounds constraint.bounds ||
-        (!localObject && decide (value.bounds.lower ≠ value.bounds.upper)) ||
-        decide (hidden.scalarNames.length = ScalarExpression.maxBindings) then invalidObject else
-    let item : ScalarExpression.Binding := ⟨first,last,value.bounds,
-      decide (constantEnd ≠ 0) && value.isStatic,constraint.bounds,decide (constantEnd = 0),0,0⟩
-    let updated := {hidden with scalarNames := calls.appendScalar hidden.scalarNames item}
-    finishObject calls text frame {result with frame := updated, initAfter := value.after, initialBounds := value.bounds}
-  else
-    let after := calls.booleanInitializer text hidden start first last
-    if after = 0 ∨ hidden.booleanNames.length = BooleanBindings.maxBindings then invalidObject else
-    let flag := if localObject then (⟨after,false⟩ : BooleanElaboration.Native.Result)
-      else calls.staticBoolean text hidden start
-    if !localObject && decide (flag.after ≠ after) then invalidObject else
-    let item : BooleanBindings.Binding := ⟨first,last,decide (constantEnd = 0),0,0,!localObject,flag.value⟩
-    let updated := {hidden with booleanNames := hidden.booleanNames ++ [item]}
-    finishObject calls text frame {result with
-      frame := updated
-      initAfter := after
-      booleanValue := flag.value
-      initialBounds := calls.singleton (if flag.value then 1 else 0)}
+  let result := {invalidObject with name := ⟨first,last⟩}
+  if localObject then
+    next text frame info first last colonEnd constantEnd localObject
+      {result with frame := calls.hideOuter text frame info result.name}
+  else if calls.fresh text info result.name && calls.newName text frame first last false then
+    next text frame info first last colonEnd constantEnd localObject
+      {result with frame := {frame with «hiding» := calls.hide text frame.hiding first last}}
+  else invalidObject
+
+/-- The source prefix and typed suffix compose without unfolding the suffix at
+all of the prefix's callback and local-state substitutions. -/
+def objectStep (calls : ObjectCalls) (text : Source) (frame : ParserState)
+    (info : PackageBindings.Metadata) (localObject : Bool := false) : ObjectResult :=
+  objectNameStep calls text frame info localObject (objectTyped calls)
 
 def modelObjectCalls (staticBoolean : BooleanElaboration.Native.Reader) : ObjectCalls where
   skip := skipAt
