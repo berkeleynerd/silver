@@ -360,3 +360,19 @@ Their primary-source positions are 9316:42 and 9656:60. The probe's four
 added lines precede both diagnostics. The earlier focused successes remain
 scoped to their selected helpers. Both affected helpers and their direct
 package Body/Main callers are pending in the coverage inventory.
+
+## Statement recursive call after the constraint repairs
+
+On Linux x86-64, the [isolated region check](20261127T135353-ae9ac5772cde/)
+proved all ten obligations selected at lines 9149 through 9153 on source
+`95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09`.
+The revised Completion scan count and Imported_Package result length use
+constants in their subtype constraints. SPARK completed the unit flow phase
+with 697 informational rows, `STOP_REASON_NONE` and empty skip lists.
+
+Four Static assertions expose the inner context validity, position bound,
+target bound and complete body validity, in that order. The selected proof
+rows cover all four assertions, their checks and the recursive call's
+precondition, variant and discriminant. The managed experiment took 830.888
+seconds on two workers. The canonical complete `Application_Statement` gate
+on this source selects its declaration at line 8944.

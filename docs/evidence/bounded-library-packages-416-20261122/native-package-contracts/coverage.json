@@ -1,5 +1,5 @@
 {
-  "source_sha256": "61fe2d51d20b890b6930d436f75bc582ef3ef9e40392de687d74a1925de03125",
+  "source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09",
   "scope": "Conservative helper inventory; successful prior whole-unit checks are retained evidence and still require final provenance matching. No complete Output_Profile or compiler assurance is claimed.",
   "completed_canonical_units": {
     "silver_package_bindings.adb": {
@@ -355,7 +355,7 @@
     {
       "name": "Routine_Frame",
       "current_lines": [
-        9176
+        9180
       ],
       "coverage": "complete-helper-success",
       "failed_run": "20261122T192845-3ee5a4e23fe9",
@@ -370,84 +370,84 @@
     {
       "name": "Package_Completion_At",
       "current_lines": [
-        9225
+        9229
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Body_At",
       "current_lines": [
-        9354
+        9358
       ],
       "coverage": "pending"
     },
     {
       "name": "Imported_Frame",
       "current_lines": [
-        9408
+        9412
       ],
       "coverage": "pending"
     },
     {
       "name": "Same_Package_Spelling",
       "current_lines": [
-        9442
+        9446
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Main_At",
       "current_lines": [
-        9456
+        9460
       ],
       "coverage": "pending"
     },
     {
       "name": "Charge_Unit",
       "current_lines": [
-        9499
+        9503
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze_Application",
       "current_lines": [
-        9542
+        9546
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze_Model",
       "current_lines": [
-        9581
+        9585
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze",
       "current_lines": [
-        9583
+        9587
       ],
       "coverage": "pending"
     },
     {
       "name": "Is_Application_Member",
       "current_lines": [
-        9585
+        9589
       ],
       "coverage": "pending"
     },
     {
       "name": "Accepts_Application",
       "current_lines": [
-        9587
+        9591
       ],
       "coverage": "pending"
     },
     {
       "name": "Imported_Package",
       "current_lines": [
-        9590
+        9594
       ],
       "coverage": "pending"
     }

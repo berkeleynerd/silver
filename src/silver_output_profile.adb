@@ -9146,6 +9146,10 @@ is
             pragma Assert (Static =>
               Included (Inside.Scan.Facts.Values (Inside.Count), Inner.Scalar_Names.Items (Inside.Count).Bounds));
             pragma Assert (Static => Valid_Flow (Inner, Inside.Scan.Facts));
+            pragma Assert (Static => Valid_Context (Text, Inner));
+            pragma Assert (Static => Inside.Scan.Position <= Text'Last + 1);
+            pragma Assert (Static => Inside.Scan.Target <= Inner.Names.Count);
+            pragma Assert (Static => Valid_Body (Text, Inner, Inside.Scan));
             Inside := Application_Tail (Text, Inner, Inside, Info, End_Only, True, Catalog, Procedure_Catalog);
             if Inside.Scan.Position = 0 then return Invalid_Application (Input); end if;
             Result.Scan.Position := Inside.Scan.Position;
