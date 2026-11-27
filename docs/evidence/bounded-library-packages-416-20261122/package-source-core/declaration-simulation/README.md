@@ -150,3 +150,23 @@ evidence retain the targets and input digest. The earlier table and loop
 checks were `20261127T144941-41ed9c4ca023` and
 `20261127T145208-64b2849150b2`. The managed diagnosis for
 `20261127T145827-e0ee80b1808d` records the final return normalization.
+
+## Original Object name prefix and Signature unit spans
+
+`objectNameStep_imports` interprets the Object name prefix through its
+underlying token, package metadata, freshness, name visibility and
+shadowing readers. For each path that enters the type reader it supplies
+the accepted original name, both bounded token cursors, and the native
+frame domain whenever the returned frame's position is nonzero. A local
+declaration can fail inside `Hide_Outer`; the Object suffix checks that
+cursor before reading the type.
+
+`SignatureExec.retains_fields` derives equality of every metadata field
+outside routine and formal storage on all returns. In particular,
+`readSignature_units` gives exact equality of the original unit spans
+for both specification and completion calls.
+
+Linux x86-64 run `20261127T151026-9bed546c01af` built both targets in
+5.159 seconds and freshly audited 46,723 declarations in 3.433 seconds.
+It used two workers, two threads and 8192 MiB per process. The
+`object-names-and-units-` records identify the checked inputs.
