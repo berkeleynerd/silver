@@ -1,0 +1,7 @@
+# Signature declaration metadata component types
+
+Authorized #416 source-correspondence follow-up, 2026-11-27. Parent selected Astra Max; live model/effort and token/cost measurements are not exposed.
+
+`ApplicationPackageSignatureSpecificationTypes` proves native metadata type preservation for `readSignature` with `completing = false`, the branch called by Package_Spec_At. The preconditions are valid original text, the existing ReaderFrame and incoming Metadata.Typed. No Valid_Metadata, successful parse or completed checker premise is used. The induction retains the original table-capacity guard, derives formal count and first-index bounds from declaration order, and preserves partially appended formals on failure. Original type-result names, intervals and identities supply every new Formal/Routine component. The imported package type identity result is the lead's checked UnitObjectTypes theorem; its files are unchanged here.
+
+Focused run 20261127T235059-b5b2711e4438 passed on Linux x86-64 with a fresh 73,575-declaration axiom audit. Every captured input hash matches at retention. CPUs 4–5 gave automatic two workers/two threads, 8192 MiB/process. The first draft failed on Lean record indentation, selecting a nested source guard and transporting an indexed invariant across header updates; that failure is retained. No original domain, Ada source or proof budget changed. This is focused partial validation, not a clean build, independent replay or complete feature assurance.
