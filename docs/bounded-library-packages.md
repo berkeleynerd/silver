@@ -201,3 +201,42 @@ exposed. The elapsed calendar gap is not proof execution time.
 No new support or final completion claim is made by these focused checkpoints.
 The original three samples and their planned Rosetta mappings remain part of
 the delivery, with final validation, rendering and support promotion pending.
+
+### Imported helpers and statement integration, 12:57 UTC
+
+The [primitive source check](evidence/bounded-library-packages-416-20261122/state-primitive-source/README.md)
+now connects the state-validity aggregate to its actual name-state and six table
+implementations. The [frame import check](evidence/bounded-library-packages-416-20261122/frame-primitive-imports/README.md)
+connects the complete Imported_Frame tree to those callees and establishes that
+qualification preserves their native metadata representation domains. The
+[complete shadow-frame interpretation](evidence/bounded-library-packages-416-20261122/hide-complete-imports/README.md)
+then checks all three compaction loops against concrete lexical/package-name,
+visibility and validity helpers. Its fresh audit covers 44,395 declarations;
+original-profile source binding and the complete application endpoint remain
+separate unfinished requirements. An inherited local scalar-binding constructor
+also needed the two zero qualification defaults introduced by the package fields;
+its focused check now passes.
+
+The [complete call proposal and flow domains](evidence/bounded-library-packages-416-20261122/call-actual-stages-validity/README.md),
+[application-tail interpretation](evidence/bounded-library-packages-416-20261122/package-tail-meaning/README.md)
+and [statement conditional arms](evidence/bounded-library-packages-416-20261122/package-statement-arms/index.json)
+have passed focused checks. Both Statement headers and its full 2,139-token
+fragment also passed their [source proposal check](evidence/bounded-library-packages-416-20261122/package-statement-source/index.json).
+These do not establish the remaining complete Statement and original-bundle
+semantic connection.
+
+Native Statement run `20261127T121829-562685cbce5e` finished with one unproved
+Application_Tail precondition after constructing a counted-loop inner flow,
+at line 9134 of source `2e055cec`. It ran for 2,082.160 seconds; the failed
+outcome remains failed and is under focused diagnosis. At that source boundary,
+the prepared Object initializer-bound postconditions, Completion progress
+postcondition, preserved validity invariants and explicit final frame-validity
+guard were integrated as `8e766b6712`, source `d3103d20`. Their affected native
+helper/caller checks and exact source-tree updates precede complete validation.
+
+A separate Signature source comparison was interrupted after observed RSS
+reached about 40.6 GiB. Its already-checked dependencies remain reusable; the
+next attempt splits the header and rendered body equalities into smaller kernel
+checks. The host's eight-CPU allocation is unchanged, with managed worker and
+thread affinity confined to guest CPUs 0–7. No complete native/Lean checkpoint,
+final Rosetta promotion, independent delivery review or merge is claimed.
