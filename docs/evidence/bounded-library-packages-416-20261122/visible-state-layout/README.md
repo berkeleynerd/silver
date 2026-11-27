@@ -14,3 +14,19 @@ validation. No full OutputBody or final admission theorem was checked.
 Remaining work: source-derived no-later-shadow preservation, reverse visibility,
 exact reset membership/ranges, and State_Target correspondence for parsed targets.
 No whole-text metadata validity assumption was added to source prefixes.
+
+## Actual target identity and shadow primitives
+
+StateDeclarations now also derives distinct state spellings from each original
+Object freshness guard. `stateTarget_integer_iff` and `stateTarget_boolean_iff`
+connect the original target span and its native lookup to the exact global
+layout identity. The Boolean case retains the scalar-precedence check.
+
+The new GlobalShadowHistory module supplies preservation under removal and
+append, successful Hide_Outer exclusion, and the lookup-zero exclusion lemma.
+The complete state/formal/local/output history and reset bridge remain next.
+
+Run `20261127T194059-6b59a5718f41` passed both focused targets and a fresh
+32,449-declaration axiom audit. The State_Target target was compiled in preceding
+run `20261127T194001-ce0271c23360`; the successful run reused that matching
+object and compiled GlobalShadowHistory after fixing its qualifier reduction.
