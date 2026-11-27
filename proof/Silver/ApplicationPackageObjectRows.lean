@@ -34,6 +34,8 @@ structure Appended (base : ParserState) (name : PackageBindings.NameSpan) (out :
   booleanStorage : out.mark.kind = .boolean → ∃ known : Bool,
     out.frame.booleanNames = base.booleanNames ++ [⟨name.first, name.after, !out.constantObject,
       0, 0, known, out.booleanValue⟩] ∧ out.frame.scalarNames = base.scalarNames
+  scalarCapacity : base.scalarNames.length ≤ ScalarExpression.maxBindings →
+    out.frame.scalarNames.length ≤ ScalarExpression.maxBindings
 
 theorem Appended.integers {base : ParserState} {name : PackageBindings.NameSpan} {out : ObjectResult}
     (added : Appended base name out) : integerRows out.frame = integerRows base ++
@@ -69,7 +71,7 @@ private theorem finish_rows {base original : ParserState} {name : PackageBinding
   dsimp only [finishObject]
   split
   · exact rejected _ _
-  · exact fun _ => ⟨rows.nameEq, rows.integerStorage, rows.booleanStorage⟩
+  · exact fun _ => ⟨rows.nameEq, rows.integerStorage, rows.booleanStorage, rows.scalarCapacity⟩
 
 private theorem scalar_rows (reader : BooleanElaboration.Native.Reader) (text : Source) (original : ParserState)
     (first last constantEnd : Nat) (localObject : Bool) (seed : ObjectResult) (constraint : ScalarConstraintResult)
@@ -80,12 +82,19 @@ private theorem scalar_rows (reader : BooleanElaboration.Native.Reader) (text : 
   dsimp only [objectScalar]
   split
   · exact rejected _ _
-  · apply finish_rows
-    refine ⟨name, ?_, fun flag => False.elim (by simp [kind] at flag)⟩
-    intro _
-    let value := (modelObjectCalls reader).scalar text seed.initFirst seed.frame.scalarNames first last
-    refine ⟨decide (constantEnd ≠ 0) && value.isStatic, ?_, rfl⟩
-    by_cases zero : constantEnd = 0 <;> simp [value, modelObjectCalls, declared, constant, zero]
+  · rename_i checked
+    apply finish_rows
+    have capacity : seed.frame.scalarNames.length ≠ ScalarExpression.maxBindings :=
+      fun full => checked (by simp [full])
+    refine ⟨name, ?_, fun flag => False.elim (by simp [kind] at flag), ?_⟩
+    · intro _
+      let value := (modelObjectCalls reader).scalar text seed.initFirst seed.frame.scalarNames first last
+      refine ⟨decide (constantEnd ≠ 0) && value.isStatic, ?_, rfl⟩
+      by_cases zero : constantEnd = 0 <;> simp [value, modelObjectCalls, declared, constant, zero]
+    · intro bounded
+      change (seed.frame.scalarNames ++ [_]).length ≤ ScalarExpression.maxBindings
+      simp only [List.length_append, List.length_singleton]
+      omega
 
 private theorem finish_flags (calls : ObjectCalls) (text : Source) (original : ParserState)
     (first last constantEnd after : Nat) (localObject : Bool) (seed : ObjectResult)
@@ -95,7 +104,7 @@ private theorem finish_flags (calls : ObjectCalls) (text : Source) (original : P
       (objectBooleanFinish calls text original first last constantEnd after localObject seed) := by
   unfold objectBooleanFinish
   apply finish_rows
-  refine ⟨name, fun integer => False.elim (by simp [kind] at integer), ?_⟩
+  refine ⟨name, fun integer => False.elim (by simp [kind] at integer), ?_, id⟩
   intro _
   refine ⟨!localObject, ?_, rfl⟩
   by_cases zero : constantEnd = 0 <;> simp [constant, zero]

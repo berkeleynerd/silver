@@ -30,13 +30,15 @@ structure Stored (before after : ParserState) (formals : List Formal) : Prop whe
   position : after.position = before.position
   integers : after.scalarNames = before.scalarNames ++ formals.filterMap scalar
   flags : after.booleanNames = before.booleanNames ++ formals.filterMap flag
+  scalarCapacity : before.scalarNames.length ≤ ScalarExpression.maxBindings →
+    after.scalarNames.length ≤ ScalarExpression.maxBindings
 
-theorem Stored.nil (frame : ParserState) : Stored frame frame [] := ⟨rfl, by simp, by simp⟩
+theorem Stored.nil (frame : ParserState) : Stored frame frame [] := ⟨rfl, by simp, by simp, id⟩
 
 theorem Stored.join {before middle after : ParserState} {first rest : List Formal}
     (start : Stored before middle first) (finish : Stored middle after rest) :
     Stored before after (first ++ rest) := by
-  refine ⟨finish.position.trans start.position, ?_, ?_⟩
+  refine ⟨finish.position.trans start.position, ?_, ?_, fun size => finish.scalarCapacity (start.scalarCapacity size)⟩
   · simp only [finish.integers, start.integers, List.filterMap_append, List.append_assoc]
   · simp only [finish.flags, start.flags, List.filterMap_append, List.append_assoc]
 
@@ -48,14 +50,18 @@ theorem append_stored (frame : ParserState) (formal : Formal)
   · rename_i accepted
     rw [ite_eq_left accepted]
     have kind : formal.kind = .integer := accepted.1
-    exact ⟨rfl, by simp [scalar, kind, mark], by simp [flag, kind]⟩
+    refine ⟨rfl, by simp [scalar, kind, mark], by simp [flag, kind], ?_⟩
+    intro _
+    change (frame.scalarNames ++ [_]).length ≤ ScalarExpression.maxBindings
+    simp only [List.length_append, List.length_singleton]
+    exact Nat.succ_le_of_lt accepted.2
   · rename_i missed
     rw [ite_eq_right missed]
     split at present
     · rename_i accepted
       rw [ite_eq_left accepted]
       have kind : formal.kind = .boolean := accepted.1
-      exact ⟨rfl, by simp [scalar, kind], by simp [flag, kind]⟩
+      exact ⟨rfl, by simp [scalar, kind], by simp [flag, kind], id⟩
     · exact False.elim (present rfl)
 
 theorem appendParameter_stored {calls : ApplicationPackageRoutineFrame.Calls}

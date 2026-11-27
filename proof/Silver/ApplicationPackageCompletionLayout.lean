@@ -45,7 +45,7 @@ theorem LocalObjects.at_begin {calls : CompletionCalls} {text : Source} {info : 
   | finished atBegin => exact atBegin
   | added _ _ _ _ _ ih => exact ih
 
-private theorem completionBody_cursor {calls : CompletionCalls}
+theorem completionBody_cursor {calls : CompletionCalls}
     (validState : calls.validState = ApplicationPackageFrames.stateValid) {text : Source} {globals : ParserState}
     {info : PackageBindings.Metadata} {index : Nat} {item : PackageBindings.Routine} {state : InitializationFrame}
     (accepted : (completionBody calls text globals info index item state).globals.position ≠ 0) :
