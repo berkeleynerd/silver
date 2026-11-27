@@ -32,7 +32,7 @@ theorem candidate_checked : Checked candidateTokens where
     · decide +kernel
     · apply congrArg some
       simp only [render, body, Control.Command.list, List.foldr, Control.Command.render,
-        Control.Command.renderElse, rejectIf, entry, outerBody, innerBody, outerDeclarations,
+        Control.Command.renderElse, rejectIf, entry, outerBody, innerBody, innerCommands, outerDeclarations,
         innerDeclarations, resultDeclarations]
       decide +kernel
 

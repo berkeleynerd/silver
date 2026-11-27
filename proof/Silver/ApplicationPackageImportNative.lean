@@ -107,11 +107,7 @@ def innerDeclarations : List (Declaration Function) := [
   constant .number "comma_after" ["literal_position"] (call3 .take text nameAfter (.token (.symbol ","))),
   constant .number "semicolon_after" ["literal_position"] (call3 .take text nameAfter (.token (.symbol ";")))]
 
-def innerBody : C := .list [
-  .invariant (.inRange position after (.add (.sourceLast text) (.number 1))),
-  .invariant (.orElse (empty candidateFirst) nameValid),
-  .increases position,
-  .block innerDeclarations (.list [
+def innerCommands : C := .list [
     rejectIf (.orElse (.not (call2 .validName text name))
       (.group (.andThen (empty commaAfter) (empty semicolonAfter)))),
     .choose (.andThen (.andThen withClause
@@ -121,7 +117,13 @@ def innerBody : C := .list [
         .assign (.variable "candidate") name]) .nothing,
     .choose (present semicolonAfter)
       (.sequence (.assign (.variable "position") semicolonAfter) .exited) .nothing,
-    .assign (.variable "position") commaAfter])]
+    .assign (.variable "position") commaAfter]
+
+def innerBody : C := .list [
+  .invariant (.inRange position after (.add (.sourceLast text) (.number 1))),
+  .invariant (.orElse (empty candidateFirst) nameValid),
+  .increases position,
+  .block innerDeclarations innerCommands]
 
 def outerBody : C := .list [
   .invariant (.inRange position (.number 1) (.add (.sourceLast text) (.number 1))),
