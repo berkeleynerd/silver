@@ -1,0 +1,15 @@
+{
+  "run_id": "20261127T121453-c78cdbeb8a7f",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageCompletionLocalSimulation",
+    "Silver.ApplicationPackageCompletionRanges"
+  ],
+  "declarations": 20906,
+  "source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "612fc872f3d8ccc200b7a6007edeeded36fba97ef886b52526a71c1b115ddb2d",
+    "evidence.json": "a06cddd47deb9a16ceaedf44c03deaa0544fba0e4ddad87d92e4144d2f5259b9",
+    "lean-focused.log.gz": "b6afce41e17ea6176fe4c9a426753eab38f7a599f0e50ce2c89a869a84ec2563"
+  }
+}
