@@ -1,0 +1,14 @@
+{
+  "run_id": "20261127T222621-4da75140ec94",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageMainRecursiveMeaning"
+  ],
+  "declarations": 37632,
+  "source_sha256": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "7c4cef431db5c0fb0bd9e970732506a1bd3a5221815371d3fccf9d3805f349a4",
+    "evidence.json": "5ffa3b7ac003f9b47e0eaf699a4fee0cbe9b1917d0f8dd8fae04ad1669968363",
+    "lean-focused.log.gz": "0250186460b75f141d23db9dcf08d187437eb429b92226547445805d0dd03589"
+  }
+}
