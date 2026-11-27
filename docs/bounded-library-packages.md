@@ -927,3 +927,37 @@ frozen inputs, with the earlier array-declaration timeouts awaiting final audit.
 Complete native/Lean validation, regression applicability, Rosetta delivery and
 independent closing review remain outstanding. PR #424 stays draft; #426/#427
 remain open. No merge or successor implementation is authorized.
+
+### Entry scope, ordered initializer checks and Basic composition, 23:33 UTC
+
+The [whole Basic import composition](evidence/bounded-library-packages-416-20261127/basic-composition/README.md)
+passed 84,382 audited declarations. Every original Basic branch now uses its
+source-defined inherited and package-call libraries, including failed-call
+fallback and assignment-result handling. State-effect callbacks remain explicit
+for the separate effect join. The
+[native recursive-domain repair](evidence/bounded-library-packages-416-20261127/recursive-native-types/README.md)
+retains the metadata component subtypes already required by the native records;
+it adds no successful-parser or semantic-check premise.
+
+The [routine entry-scope checkpoint](evidence/bounded-library-packages-416-20261122/package-routine-entry-scope/README.md)
+passed 38,983 declarations. Original Completion histories derive the closed
+reader frame, visible state fields, body entry ranges and hidden-state invariant.
+The recursive scope uses exactly the nonempty state bounds derived from final
+metadata, rather than an unused whole-metadata assumption. The
+[initializer packet](evidence/bounded-library-packages-416-20261122/package-initializer-aggregation/README.md)
+now also retains the source-ordered local initializer fold and exact full-map
+local-to-output widening, including hidden cells. Immutable constant seeds and
+the output-to-body phase still need to join these results. The phased
+[application consumer](evidence/bounded-library-packages-416-20261122/package-phased-application/README.md)
+is checked, but its original-source aggregation is not complete.
+
+Canonical native unit run `20261127T195636-5b2a2f886237` advanced to
+Read_Condition_Into at 23:30 UTC. Six attempted-unproved array-declaration roots
+remain visible, three each in Array_Declaration_Model and Array_Declaration_At;
+all observed direct attempts timed out. Its final audit remains pending.
+No complete native run starts with unresolved focused obligations. Complete
+Unit/recursive source composition, source-derived initializer/effect aggregation,
+full assurance, applicable regressions, Rosetta delivery and final independent
+review remain outstanding. The selected proof roles remain Astra Max, with live
+runtime settings not independently exposed. PR #424 remains draft, and no merge
+or successor implementation is authorized.
