@@ -181,7 +181,7 @@ theorem dispatch_width (library : Library) (reader : BooleanElaboration.Native.R
   have inputWidth : (completionInput (library.model reader) item state).MaskWidth :=
     ⟨width, by simp only [completionInput, emptyStateSet, List.length_replicate]⟩
   exact (library.recursive.mask_widths
-    (body_source_domain reader (LeafLibraries.model (library.calls reader)) valid info item state framed)
+    (body_source_domain reader (LeafLibraries.model (library.calls reader)) valid info typed item state framed)
     typed inputWidth).2 _ _
 
 theorem footer_typed (library : Library) (reader : BooleanElaboration.Native.Reader)

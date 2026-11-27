@@ -32,6 +32,9 @@ structure NativeDomain (source : Statement.Input) : Prop where
   scan : ScanDomain source.text source.context source.input.scan
   functions : FunctionBindings.ValidMetadata source.text source.catalog
   procedures : ProcedureBindings.ValidMetadata source.text source.procedures
+  /-- The original package record's component subtypes and fixed table bounds;
+  these are native representation facts, not Valid_Metadata or parse success. -/
+  typed : source.info.Typed
 
 theorem NativeDomain.base {source : Statement.Input} (legal : NativeDomain source) :
     ScalarMetadata.ContextReady source.context.scalarNames source.context.declarationCount
@@ -52,7 +55,7 @@ theorem NativeDomain.scalarNames {source : Statement.Input} (legal : NativeDomai
 theorem NativeDomain.replaceInput {source : Statement.Input} (legal : NativeDomain source)
     {value : ApplicationScan} (scan : ScanDomain source.text source.context value.scan) :
     NativeDomain (atInput source value) :=
-  ⟨legal.text, legal.context, scan, legal.functions, legal.procedures⟩
+  ⟨legal.text, legal.context, scan, legal.functions, legal.procedures, legal.typed⟩
 
 theorem ScanDomain.atPosition {text : Source} {context : ParseContext} {value : ApplicationScan}
     (valid : ScanDomain text context value.scan) {position : Nat} (bound : position ≤ text.length + 1) :
@@ -87,7 +90,7 @@ theorem NativeDomain.thenInput {calls : Statement.Calls} {source : Statement.Inp
     NativeDomain (atInput source
       (Statement.thenInput calls source prior (Statement.conditionFor calls source prior))) := by
   have facts := legal.condition prior.value.scan.position
-  refine ⟨legal.text, legal.context, ?_, legal.functions, legal.procedures⟩
+  refine ⟨legal.text, legal.context, ?_, legal.functions, legal.procedures, legal.typed⟩
   refine ⟨?_, legal.scan.controls, ?_, ?_⟩
   · change calls.takeToken source.text (Statement.conditionFor calls source prior).after (.word "then") ≤ _
     rw [token]
@@ -159,7 +162,7 @@ theorem NativeDomain.loopInput {calls : Statement.Calls} {source : Statement.Inp
             (loopHeader source.text source.context source.input.scan)
             (loopNameAllowed_space legal.base.size allowed)),
         valid.arrays, valid.booleans, valid.mask, valid.bounds, valid.unit⟩
-  refine ⟨legal.text, innerContext, ?_, legal.functions, legal.procedures⟩
+  refine ⟨legal.text, innerContext, ?_, legal.functions, legal.procedures, legal.typed⟩
   change ScanDomain source.text (Statement.innerContext source iteration)
     (Statement.innerInput source iteration
       (Statement.widened (Statement.loopHeaderReaders calls) source iteration)).scan

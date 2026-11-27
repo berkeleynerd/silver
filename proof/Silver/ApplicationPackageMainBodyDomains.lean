@@ -14,14 +14,14 @@ namespace FlowLibraries
 Main caller therefore supplies the exact common recursive reader precondition. -/
 theorem recursive_domain (library : FlowLibraries) {text : Source} (validText : Expressions.ValidText text)
     (scan : ScanResult) (framed : FunctionDeclarationNative.NativeValidState text scan.state)
-    (info : PackageBindings.Metadata) :
+    (info : PackageBindings.Metadata) (typed : info.Typed) :
     ApplicationPackageBodies.Recursive.NativeDomain
       ⟨text, (library.context scan).model, applicationOf (library.wrappers.bodyOf scan),
         info, scan.state.functions, scan.state.procedures⟩ := by
   have domain := library.body_domains scan framed
   exact ⟨validText, ⟨library.context scan, rfl, domain.1⟩,
     ⟨domain.2.1.1, domain.2.1.2.1, domain.2.1.2.2.1, domain.2.1.2.2.2⟩,
-    domain.2.2.1, domain.2.2.2⟩
+    domain.2.2.1, domain.2.2.2, typed⟩
 
 end FlowLibraries
 
@@ -45,7 +45,7 @@ theorem body_input_domain (library : DeclarationLibraries) (other : Calls) (flow
     (complete : PackageBindings.completeMetadata (ApplicationPackageNames.metadataText (textOf sources)) info = true) :
     ApplicationPackageBodies.Recursive.NativeDomain (bodyInput other flow sources exports info) := by
   exact flow.recursive_domain (textOf_valid valid) _
-    (library.body_frame other valid exports framed info typed complete).2 info
+    (library.body_frame other valid exports framed info typed complete).2 info typed
 
 end DeclarationLibraries
 end Silver.ApplicationPackageMain
