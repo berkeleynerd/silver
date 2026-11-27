@@ -42,9 +42,80 @@ def packageNameAllowed (text : Source) (name : PackageBindings.NameSpan) : Bool 
     !Named.nameIs text name.first name.after ("silver_arguments".toList.map Char.toNat) &&
     !Named.nameIs text name.first name.after ("silver_output_libc".toList.map Char.toNat) &&
     !Named.nameIs text name.first name.after ("silver_runtime".toList.map Char.toNat) &&
-    !Named.nameIs text name.first name.after ("integer".toList.map Char.toNat) &&
     !Named.nameIs text name.first name.after ("boolean".toList.map Char.toNat) &&
-    !Named.nameIs text name.first name.after ("character".toList.map Char.toNat)
+    !Named.nameIs text name.first name.after ("false".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("true".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("integer".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("natural".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("positive".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("short_short_integer".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("short_integer".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("long_integer".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("long_long_integer".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("long_long_long_integer".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("short_float".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("float".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("long_float".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("long_long_float".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("character".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("wide_character".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("wide_wide_character".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("string".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("wide_string".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("wide_wide_string".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("duration".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("constraint_error".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("program_error".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("storage_error".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("tasking_error".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("numeric_error".toList.map Char.toNat) &&
+    !Named.nameIs text name.first name.after ("ascii".toList.map Char.toNat)
+
+/-- Identifier declarations directly in the pinned Standard environment, plus
+its obsolescent ASCII package. The inherited character literal names are not
+identifier declarations. This finite list states the library-unit homograph
+restriction separately from runtime-operation visibility. -/
+def standardPackageNames : List String :=
+  ["boolean", "false", "true", "integer",
+   "natural", "positive", "short_short_integer", "short_integer",
+   "long_integer", "long_long_integer", "long_long_long_integer", "short_float",
+   "float", "long_float", "long_long_float", "character",
+   "wide_character", "wide_wide_character", "string", "wide_string",
+   "wide_wide_string", "duration", "constraint_error", "program_error",
+   "storage_error", "tasking_error", "numeric_error", "ascii"]
+
+/-- Acceptance excludes a Standard homograph on the original selected source
+span, including mixed case. No successful identifier/span hypothesis is added. -/
+theorem packageNameAllowed_no_standard (text : Source) (name : PackageBindings.NameSpan)
+    (word : String) (standard : word ∈ standardPackageNames)
+    (allowed : packageNameAllowed text name = true) :
+    Named.nameIs text name.first name.after (word.toList.map Char.toNat) = false := by
+  simp only [standardPackageNames, List.mem_cons, List.not_mem_nil, or_false] at standard
+  rcases standard with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  all_goals simp_all only [packageNameAllowed, Bool.and_eq_true, Bool.not_eq_true']
+
+theorem packageNameAllowed_standard (text : Source) (name : PackageBindings.NameSpan)
+    (word : String) (standard : word ∈ standardPackageNames)
+    (homograph : Named.nameIs text name.first name.after (word.toList.map Char.toNat) = true) :
+    packageNameAllowed text name = false := by
+  cases allowed : packageNameAllowed text name with
+  | false => rfl
+  | true =>
+      have excluded := packageNameAllowed_no_standard text name word standard allowed
+      simp [homograph] at excluded
+
+/-- Kernel controls exercise the complete forbidden Standard list, while the
+source-span theorem above covers arbitrary source positions and capitalization. -/
+theorem standardPackageNames_rejected :
+    standardPackageNames.all (fun word =>
+      !packageNameAllowed (word.toList.map Char.toNat) ⟨1, word.toList.length + 1⟩) = true := by
+  decide +kernel
+
+theorem legalPackageNames_controls :
+    ["Standard", "Nul", "Universal_Integer", "Root_Integer", "Put_Line", "Put",
+      "First_Or_Default", "Input_Is_Valid", "Reject"].all (fun word =>
+      packageNameAllowed (word.toList.map Char.toNat) ⟨1, word.toList.length + 1⟩) = true := by
+  decide +kernel
 
 def packageNameFresh (text : Source) (info : PackageBindings.Metadata)
     (name : PackageBindings.NameSpan) : Bool :=

@@ -66,8 +66,20 @@ theorem allowed_meaning (calls : Calls) (primitives : PrimitiveMeaning calls)
       words "interfaces" (by decide) (by decide), words "system" (by decide) (by decide),
       words "gnat" (by decide) (by decide), words "silver_arguments" (by decide) (by decide),
       words "silver_output_libc" (by decide) (by decide), words "silver_runtime" (by decide) (by decide),
-      words "integer" (by decide) (by decide), words "boolean" (by decide) (by decide),
-      words "character" (by decide) (by decide)]
+      words "boolean" (by decide) (by decide), words "false" (by decide) (by decide),
+      words "true" (by decide) (by decide), words "integer" (by decide) (by decide),
+      words "natural" (by decide) (by decide), words "positive" (by decide) (by decide),
+      words "short_short_integer" (by decide) (by decide), words "short_integer" (by decide) (by decide),
+      words "long_integer" (by decide) (by decide), words "long_long_integer" (by decide) (by decide),
+      words "long_long_long_integer" (by decide) (by decide), words "short_float" (by decide) (by decide),
+      words "float" (by decide) (by decide), words "long_float" (by decide) (by decide),
+      words "long_long_float" (by decide) (by decide), words "character" (by decide) (by decide),
+      words "wide_character" (by decide) (by decide), words "wide_wide_character" (by decide) (by decide),
+      words "string" (by decide) (by decide), words "wide_string" (by decide) (by decide),
+      words "wide_wide_string" (by decide) (by decide), words "duration" (by decide) (by decide),
+      words "constraint_error" (by decide) (by decide), words "program_error" (by decide) (by decide),
+      words "storage_error" (by decide) (by decide), words "tasking_error" (by decide) (by decide),
+      words "numeric_error" (by decide) (by decide), words "ascii" (by decide) (by decide)]
   · simp only [Bool.eq_false_iff.mpr valid, Bool.false_and]
 
 theorem fresh_meaning (calls : Calls) (primitives : PrimitiveMeaning calls)

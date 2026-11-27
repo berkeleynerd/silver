@@ -78,7 +78,14 @@ def nameAllowedBody : E .truth := conjunction
   ([apply2 .validName text name,
     .not (apply3 .forbidden text (.field .nameFirst name) (.field .nameAfter name))] ++
     ["main", "ada", "interfaces", "system", "gnat", "silver_arguments", "silver_output_libc",
-      "silver_runtime", "integer", "boolean", "character"].map (fun word =>
+      "silver_runtime",
+      "boolean", "false", "true", "integer",
+      "natural", "positive", "short_short_integer", "short_integer",
+      "long_integer", "long_long_integer", "long_long_long_integer", "short_float",
+      "float", "long_float", "long_long_float", "character",
+      "wide_character", "wide_wide_character", "string", "wide_string",
+      "wide_wide_string", "duration", "constraint_error", "program_error",
+      "storage_error", "tasking_error", "numeric_error", "ascii"].map (fun word =>
         .not (apply4 .nameIs text (.field .nameFirst name) (.field .nameAfter name) (.word word))))
 
 def nameFreshBody : E .truth := conjunction

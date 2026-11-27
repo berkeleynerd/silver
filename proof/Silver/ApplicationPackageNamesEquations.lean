@@ -36,9 +36,34 @@ def allowedEquation (calls : Calls) (text : Source) (name : PackageBindings.Name
     !calls.nameIs text name.first name.after "silver_arguments" &&
     !calls.nameIs text name.first name.after "silver_output_libc" &&
     !calls.nameIs text name.first name.after "silver_runtime" &&
-    !calls.nameIs text name.first name.after "integer" &&
     !calls.nameIs text name.first name.after "boolean" &&
-    !calls.nameIs text name.first name.after "character"
+    !calls.nameIs text name.first name.after "false" &&
+    !calls.nameIs text name.first name.after "true" &&
+    !calls.nameIs text name.first name.after "integer" &&
+    !calls.nameIs text name.first name.after "natural" &&
+    !calls.nameIs text name.first name.after "positive" &&
+    !calls.nameIs text name.first name.after "short_short_integer" &&
+    !calls.nameIs text name.first name.after "short_integer" &&
+    !calls.nameIs text name.first name.after "long_integer" &&
+    !calls.nameIs text name.first name.after "long_long_integer" &&
+    !calls.nameIs text name.first name.after "long_long_long_integer" &&
+    !calls.nameIs text name.first name.after "short_float" &&
+    !calls.nameIs text name.first name.after "float" &&
+    !calls.nameIs text name.first name.after "long_float" &&
+    !calls.nameIs text name.first name.after "long_long_float" &&
+    !calls.nameIs text name.first name.after "character" &&
+    !calls.nameIs text name.first name.after "wide_character" &&
+    !calls.nameIs text name.first name.after "wide_wide_character" &&
+    !calls.nameIs text name.first name.after "string" &&
+    !calls.nameIs text name.first name.after "wide_string" &&
+    !calls.nameIs text name.first name.after "wide_wide_string" &&
+    !calls.nameIs text name.first name.after "duration" &&
+    !calls.nameIs text name.first name.after "constraint_error" &&
+    !calls.nameIs text name.first name.after "program_error" &&
+    !calls.nameIs text name.first name.after "storage_error" &&
+    !calls.nameIs text name.first name.after "tasking_error" &&
+    !calls.nameIs text name.first name.after "numeric_error" &&
+    !calls.nameIs text name.first name.after "ascii"
 
 def freshEquation (calls : Calls) (text : Source) (info : PackageBindings.Metadata)
     (name : PackageBindings.NameSpan) : Bool :=
