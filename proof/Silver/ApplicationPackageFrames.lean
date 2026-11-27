@@ -140,6 +140,42 @@ def hideOuter (text : Source) (frame : ParserState) (info : PackageBindings.Meta
     | none => invalidState
     | some value => if stateValid text value then value else invalidState
 
+namespace Native
+
+theorem hideOuter_rows {text : Source} {frame : ParserState} {info : PackageBindings.Metadata}
+    {name : PackageBindings.NameSpan}
+    (accepted : (hideOuter text frame info name).position ≠ 0) :
+    (hideOuter text frame info name).scalarNames.Sublist frame.scalarNames ∧
+    (hideOuter text frame info name).booleanNames.Sublist frame.booleanNames ∧
+    (hideOuter text frame info name).subtypeNames.items.Sublist frame.subtypeNames.items := by
+  unfold hideOuter at accepted ⊢
+  split at accepted
+  · simp only [invalidState] at accepted
+    contradiction
+  · rename_i allowed
+    simp only [allowed]
+    cases scalars : hideEntries (scalarMatches text name)
+      (fun item => ApplicationPackageNames.outerDeclaration info ⟨item.first,item.after⟩) frame.scalarNames with
+    | none => simp [scalars, invalidState] at accepted
+    | some scalarRows =>
+      cases booleans : hideEntries (booleanMatches text name)
+        (fun item => ApplicationPackageNames.outerDeclaration info ⟨item.first,item.after⟩) frame.booleanNames with
+      | none => simp [scalars, booleans, invalidState] at accepted
+      | some booleanRows =>
+        cases subtypes : hideEntries (subtypeMatches text name)
+          (fun item => ApplicationPackageNames.outerDeclaration info ⟨item.first,item.after⟩) frame.subtypeNames.items with
+        | none => simp [scalars, booleans, subtypes, invalidState] at accepted
+        | some subtypeRows =>
+          simp only [scalars, booleans, subtypes, Option.bind_some, pure, bind] at accepted ⊢
+          split at accepted
+          · rename_i checked
+            simp only [ite_eq_left checked]
+            exact ⟨hideEntries_sublist scalars, hideEntries_sublist booleans, hideEntries_sublist subtypes⟩
+          · simp only [invalidState] at accepted
+            contradiction
+
+end Native
+
 def importedFrameRaw (exports : ParserState) (info : PackageBindings.Metadata)
     (position : Nat) : ParserState :=
   {exports with
