@@ -18,8 +18,11 @@ build/audit log, runner evidence and explicit input-hash comparison. The run use
 eight-CPU host allocation. Lean was 4.34.1. Cached dependency builds and the fresh
 audit are distinct evidence; this was a focused incremental check.
 
-The Signature result-name/cursor, Object output, step, branch and loop modules
-remain separate pending checks at this checkpoint.
+The Signature result-name/cursor, complete Object output domains in both local
+modes, and the Specification step caller passed run `20261127T204726-9bcdd16a4769` with
+a fresh audit of 70,658 declarations. All 1,533 captured input hashes matched
+at this checkpoint; `helpers-*` retains the evidence. The imported branch and
+loop composition remains pending its separate check.
 
 ## Prerequisite and draft diagnostics
 
@@ -44,6 +47,12 @@ component reconstruction, a generalized subtype result and named parsed
 positions resolved them at the existing heartbeat budget. The failed logs and
 task-ledger checkpoint retain this diagnosis. No source or input-domain change
 was used to repair these proofs.
+
+Two subsequent helper drafts exposed nested record syntax, source guard selection
+and a finishing-result unification timeout. Using explicit updated Object seeds,
+the original two-stage field update and guard-first Signature case analysis
+resolved them at the same proof budget. The helper draft logs and task checkpoint
+retain the attempted changes and next focused hypothesis.
 
 ## Settings and ownership
 

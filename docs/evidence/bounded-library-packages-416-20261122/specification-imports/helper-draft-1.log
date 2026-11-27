@@ -1,0 +1,360 @@
+Lean phase build started at 2026-11-27T20:40:38.391770+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains +Silver.ApplicationPackageDeclarationsSpecificationObjectDomains +Silver.ApplicationPackageDeclarationsSpecificationStepDomains +Silver.AxiomAudit
+✖ [493/495] Building Silver.ApplicationPackageDeclarationsSpecificationObjectDomains (4.7s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.setup.json --json
+error: Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.lean:106:6: Tactic `apply` failed: could not unify the conclusion of `scalar reader valid original first last constant localObject
+  result range base`
+  SuccessBase (objectScalar (modelObjectCalls reader) text original first last constant localObject result range)
+with the goal
+  SuccessBase
+    (objectScalar
+      { skip := skipAt, nameAfter := nameAfter, take := tokenAfter,
+        validName := fun text name => PackageBindings.validName (metadataText text) name, hideOuter := hideOuter,
+        fresh := packageNameFresh, newName := newNameAllowed, hide := hideName, typeAt := packageTypeAt,
+        constraint := fun text position names bounds => scalarConstraintAt text position names bounds,
+        scalar := fun text position names first last =>
+          ScalarExpression.read text position names first last true [] [] true,
+        empty := Integer.Interval.isEmpty,
+        included := fun value bounds =>
+          value.isEmpty ||
+            !bounds.isEmpty && decide (value.lower ≥ bounds.lower) && decide (value.upper ≤ bounds.upper),
+        appendScalar := fun names value => names ++ [value], booleanInitializer := booleanInitializerAfter,
+        staticBoolean := reader, singleton := Integer.Interval.singleton }
+      text original first last constant localObject
+      { frame := result.frame, name := result.name,
+        mark :=
+          { name := result.mark.name, after := result.mark.after, kind := result.mark.kind, bounds := range.bounds,
+            identity := result.mark.identity },
+        initFirst := skipAt text (tokenAfter text range.after (ShellToken.symbol ":=")), initAfter := result.initAfter,
+        initialBounds := result.initialBounds, constantObject := result.constantObject,
+        booleanValue := result.booleanValue }
+      range)
+
+Note: The full type of `scalar reader valid original first last constant localObject result range base` is
+  ValidCursor text result.initFirst →
+    range.bounds.Bounded →
+      SuccessBase (objectScalar (modelObjectCalls reader) text original first last constant localObject result range)
+
+case isFalse.isTrue
+reader : BooleanElaboration.Native.Reader
+text : Source
+valid : ValidText text
+original : ParserState
+first last constant : Nat
+localObject : Bool
+result : ObjectResult
+range : ScalarConstraintResult
+base : SpecificationFrameBase result.frame
+cursor : ValidCursor text range.after
+bounded : range.bounds.Bounded
+h✝¹ : ¬decide (skipAt text (tokenAfter text range.after (ShellToken.symbol ":=")) = 0) = true
+h✝ : decide (result.mark.kind = FunctionBindings.ScalarKind.integer) = true
+⊢ SuccessBase
+    (objectScalar
+      { skip := skipAt, nameAfter := nameAfter, take := tokenAfter,
+        validName := fun text name => PackageBindings.validName (metadataText text) name, hideOuter := hideOuter,
+        fresh := packageNameFresh, newName := newNameAllowed, hide := hideName, typeAt := packageTypeAt,
+        constraint := fun text position names bounds => scalarConstraintAt text position names bounds,
+        scalar := fun text position names first last =>
+          ScalarExpression.read text position names first last true [] [] true,
+        empty := Integer.Interval.isEmpty,
+        included := fun value bounds =>
+          value.isEmpty ||
+            !bounds.isEmpty && decide (value.lower ≥ bounds.lower) && decide (value.upper ≤ bounds.upper),
+        appendScalar := fun names value => names ++ [value], booleanInitializer := booleanInitializerAfter,
+        staticBoolean := reader, singleton := Integer.Interval.singleton }
+      text original first last constant localObject
+      { frame := result.frame, name := result.name,
+        mark :=
+          { name := result.mark.name, after := result.mark.after, kind := result.mark.kind, bounds := range.bounds,
+            identity := result.mark.identity },
+        initFirst := skipAt text (tokenAfter text range.after (ShellToken.symbol ":=")), initAfter := result.initAfter,
+        initialBounds := result.initialBounds, constantObject := result.constantObject,
+        booleanValue := result.booleanValue }
+      range)
+error: Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.lean:135:8: Type mismatch
+  initialized reader valid original first last constant localObject result
+    (scalarConstraintAt text mark.after result.frame.scalarNames (packageTypeAt text result.frame info position).bounds
+      ?m.111)
+    (ReaderFrame.specification_base framed valid)
+    (scalarConstraintAt_position_valid text mark.after result.frame.scalarNames found.cursor)
+    (scalarConstraintAt_bounded_all text mark.after result.frame.scalarNames found.cursor found.bounded)
+has type
+  SuccessBase
+    (objectInitialized (modelObjectCalls reader) text original first last constant localObject result
+      (scalarConstraintAt text mark.after result.frame.scalarNames
+        (packageTypeAt text result.frame info position).bounds ?m.111))
+but is expected to have type
+  SuccessBase
+    (if
+        decide
+            (((modelObjectCalls reader).typeAt text result.frame info colon).kind =
+              FunctionBindings.ScalarKind.integer) =
+          true then
+      objectInitialized (modelObjectCalls reader) text original first last constant localObject
+        { frame := result.frame, name := result.name,
+          mark := (modelObjectCalls reader).typeAt text result.frame info colon, initFirst := result.initFirst,
+          initAfter := result.initAfter, initialBounds := result.initialBounds, constantObject := decide (constant ≠ 0),
+          booleanValue := result.booleanValue }
+        ((modelObjectCalls reader).constraint text ((modelObjectCalls reader).typeAt text result.frame info colon).after
+          result.frame.scalarNames ((modelObjectCalls reader).typeAt text result.frame info colon).bounds)
+    else
+      objectInitialized (modelObjectCalls reader) text original first last constant localObject
+        { frame := result.frame, name := result.name,
+          mark := (modelObjectCalls reader).typeAt text result.frame info colon, initFirst := result.initFirst,
+          initAfter := result.initAfter, initialBounds := result.initialBounds, constantObject := decide (constant ≠ 0),
+          booleanValue := result.booleanValue }
+        { after := ((modelObjectCalls reader).typeAt text result.frame info colon).after,
+          bounds := ((modelObjectCalls reader).typeAt text result.frame info colon).bounds })
+error: Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.lean:139:23: Application type mismatch: The argument
+  found.bounded
+has type
+  (packageTypeAt text result.frame info position).bounds.Bounded
+but is expected to have type
+  (ScalarConstraintResult.bounds ?m.120).Bounded
+in the application
+  initialized reader valid original first last constant localObject result ?m.120
+    (ReaderFrame.specification_base framed valid) ?m.126 found.bounded
+✖ [495/495] Building Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains (10s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.setup.json --json
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:49:6: Tactic `rfl` failed: The left-hand side
+  text
+is not definitionally equal to the right-hand side
+  if
+      (decide (info.routines.length = PackageBindings.maxRoutines) ||
+          !modelSignatureCalls.fresh text info
+              {
+                first :=
+                  modelSignatureCalls.skip text
+                    (modelSignatureCalls.take text outer.position (ShellToken.word "function")),
+                after :=
+                  modelSignatureCalls.nameAfter text
+                    (modelSignatureCalls.skip text
+                      (modelSignatureCalls.take text outer.position (ShellToken.word "function"))) }) =
+        true then
+    SignatureStart.returned (rejectedSignature info)
+  else
+    startSignatureBody modelSignatureCalls text outer info
+      (modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "function")))
+      (modelSignatureCalls.nameAfter text
+        (modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "function"))))
+      (info.routines.length + 1)
+      { kind := PackageBindings.RoutineKind.function,
+        specName :=
+          {
+            first :=
+              modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "function")),
+            after :=
+              modelSignatureCalls.nameAfter text
+                (modelSignatureCalls.skip text
+                  (modelSignatureCalls.take text outer.position (ShellToken.word "function"))) },
+        specFirst := modelSignatureCalls.skip text outer.position }
+      0
+
+case isFalse.isTrue
+text : Source
+outer : ParserState
+info : PackageBindings.Metadata
+original : Nat := skipAt text outer.position
+functionEnd : Nat := tokenAfter text outer.position (ShellToken.word "function")
+procedureEnd : Nat := tokenAfter text outer.position (ShellToken.word "procedure")
+first : Nat := skipAt text (if functionEnd ≠ 0 then functionEnd else procedureEnd)
+last : Nat := nameAfter text first
+guarded : ¬(original = 0 ∨ functionEnd = 0 ∧ procedureEnd = 0 ∨ first = 0 ∨ last ≤ first)
+h✝ : modelSignatureCalls.take text outer.position (ShellToken.word "function") ≠ 0
+⊢ StartDomain text
+    (if
+        (decide (info.routines.length = PackageBindings.maxRoutines) ||
+            !modelSignatureCalls.fresh text info
+                {
+                  first :=
+                    modelSignatureCalls.skip text
+                      (modelSignatureCalls.take text outer.position (ShellToken.word "function")),
+                  after :=
+                    modelSignatureCalls.nameAfter text
+                      (modelSignatureCalls.skip text
+                        (modelSignatureCalls.take text outer.position (ShellToken.word "function"))) }) =
+          true then
+      SignatureStart.returned (rejectedSignature info)
+    else
+      startSignatureBody modelSignatureCalls text outer info
+        (modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "function")))
+        (modelSignatureCalls.nameAfter text
+          (modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "function"))))
+        (info.routines.length + 1)
+        { kind := PackageBindings.RoutineKind.function,
+          specName :=
+            {
+              first :=
+                modelSignatureCalls.skip text
+                  (modelSignatureCalls.take text outer.position (ShellToken.word "function")),
+              after :=
+                modelSignatureCalls.nameAfter text
+                  (modelSignatureCalls.skip text
+                    (modelSignatureCalls.take text outer.position (ShellToken.word "function"))) },
+          specFirst := modelSignatureCalls.skip text outer.position }
+        0)
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:50:6: Tactic `apply` failed: could not unify the conclusion of `body`
+  StartDomain ?text (startSignatureBody ?calls ?text ?outer ?info ?first ?last ?id ?item ?start)
+with the goal
+  StartDomain text
+    (if
+        (decide (info.routines.length = PackageBindings.maxRoutines) ||
+            !modelSignatureCalls.fresh text info
+                {
+                  first :=
+                    modelSignatureCalls.skip text
+                      (modelSignatureCalls.take text outer.position (ShellToken.word "procedure")),
+                  after :=
+                    modelSignatureCalls.nameAfter text
+                      (modelSignatureCalls.skip text
+                        (modelSignatureCalls.take text outer.position (ShellToken.word "procedure"))) }) =
+          true then
+      SignatureStart.returned (rejectedSignature info)
+    else
+      startSignatureBody modelSignatureCalls text outer info
+        (modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "procedure")))
+        (modelSignatureCalls.nameAfter text
+          (modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "procedure"))))
+        (info.routines.length + 1)
+        {
+          specName :=
+            {
+              first :=
+                modelSignatureCalls.skip text
+                  (modelSignatureCalls.take text outer.position (ShellToken.word "procedure")),
+              after :=
+                modelSignatureCalls.nameAfter text
+                  (modelSignatureCalls.skip text
+                    (modelSignatureCalls.take text outer.position (ShellToken.word "procedure"))) },
+          specFirst := modelSignatureCalls.skip text outer.position }
+        0)
+
+Note: The full type of `body` is
+  ∀ (calls : SignatureCalls) (text : Source) (outer : ParserState) (info : PackageBindings.Metadata)
+    (first last id : Nat) (item : PackageBindings.Routine) (start : Nat),
+    ValidName text item.specName.first item.specName.after →
+      StartDomain text (startSignatureBody calls text outer info first last id item start)
+
+case isFalse.isFalse
+text : Source
+outer : ParserState
+info : PackageBindings.Metadata
+original : Nat := skipAt text outer.position
+functionEnd : Nat := tokenAfter text outer.position (ShellToken.word "function")
+procedureEnd : Nat := tokenAfter text outer.position (ShellToken.word "procedure")
+first : Nat := skipAt text (if functionEnd ≠ 0 then functionEnd else procedureEnd)
+last : Nat := nameAfter text first
+guarded : ¬(original = 0 ∨ functionEnd = 0 ∧ procedureEnd = 0 ∨ first = 0 ∨ last ≤ first)
+h✝ : ¬modelSignatureCalls.take text outer.position (ShellToken.word "function") ≠ 0
+⊢ StartDomain text
+    (if
+        (decide (info.routines.length = PackageBindings.maxRoutines) ||
+            !modelSignatureCalls.fresh text info
+                {
+                  first :=
+                    modelSignatureCalls.skip text
+                      (modelSignatureCalls.take text outer.position (ShellToken.word "procedure")),
+                  after :=
+                    modelSignatureCalls.nameAfter text
+                      (modelSignatureCalls.skip text
+                        (modelSignatureCalls.take text outer.position (ShellToken.word "procedure"))) }) =
+          true then
+      SignatureStart.returned (rejectedSignature info)
+    else
+      startSignatureBody modelSignatureCalls text outer info
+        (modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "procedure")))
+        (modelSignatureCalls.nameAfter text
+          (modelSignatureCalls.skip text (modelSignatureCalls.take text outer.position (ShellToken.word "procedure"))))
+        (info.routines.length + 1)
+        {
+          specName :=
+            {
+              first :=
+                modelSignatureCalls.skip text
+                  (modelSignatureCalls.take text outer.position (ShellToken.word "procedure")),
+              after :=
+                modelSignatureCalls.nameAfter text
+                  (modelSignatureCalls.skip text
+                    (modelSignatureCalls.take text outer.position (ShellToken.word "procedure"))) },
+          specFirst := modelSignatureCalls.skip text outer.position }
+        0)
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:103:72: This simp argument is unused:
+  List.getElem?_append
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [PackageBindings.Metadata.routineAt, List.getD_eq_getElem?_getD]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:109:35: `simp` made no progress
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:105:16: (kernel) declaration has metavariables '_private.Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains.0.Silver.ApplicationPackageDeclarations.SpecificationSignature.finish'
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:108:66: This simp argument is unused:
+  Bool.and_false
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [finishSignature, Bool.false_and, Bool.false_eq_true, ↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:109:46: This simp argument is unused:
+  kind
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [↓reduceIte, Bool.false_and, Bool.false_eq_true, Bool.and_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:109:64: This simp argument is unused:
+  Bool.false_and
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [kind, ↓reduceIte, Bool.false_eq_true, Bool.and_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:109:80: This simp argument is unused:
+  Bool.false_eq_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [kind, ↓reduceIte, Bool.false_and, Bool.and_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:109:100: This simp argument is unused:
+  Bool.and_false
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [kind, ↓reduceIte, Bool.false_and, Bool.false_eq_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:134:47: Application type mismatch: The argument
+  final
+has type
+  SpecificationSignature.ExitDomain text (SignatureExit.returned failed)
+but is expected to have type
+  (match SignatureStart.loop state with
+        | SignatureStart.returned result => result
+        | SignatureStart.ready state => finishSignature modelSignatureCalls text outer false state
+        | SignatureStart.loop state =>
+          match runSignatureLoop text false state with
+          | SignatureExit.returned result => result
+          | SignatureExit.ready finalState =>
+            finishSignature modelSignatureCalls text outer false finalState).header.position =
+    0
+in the application
+  present final
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:137:6: Type mismatch
+  SpecificationSignature.finish text outer result final
+has type
+  SpecificationSignature.ResultDomain text (finishSignature modelSignatureCalls text outer false result)
+but is expected to have type
+  SpecificationSignature.ResultDomain text
+    (match SignatureStart.loop state with
+    | SignatureStart.returned result => result
+    | SignatureStart.ready state => finishSignature modelSignatureCalls text outer false state
+    | SignatureStart.loop state =>
+      match runSignatureLoop text false state with
+      | SignatureExit.returned result => result
+      | SignatureExit.ready finalState => finishSignature modelSignatureCalls text outer false finalState)
+Some required targets logged failures:
+- Silver.ApplicationPackageDeclarationsSpecificationObjectDomains
+- Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains
+error: build failed
+
+Lean phase build finished at 2026-11-27T20:40:53.702244+00:00; elapsed 15.311s; exit 1

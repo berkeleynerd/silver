@@ -1,0 +1,39 @@
+Lean phase build started at 2026-11-27T20:45:16.968329+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains +Silver.ApplicationPackageDeclarationsSpecificationObjectDomains +Silver.ApplicationPackageDeclarationsSpecificationStepDomains +Silver.AxiomAudit
+✖ [493/495] Building Silver.ApplicationPackageDeclarationsSpecificationObjectDomains (5.4s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.setup.json --json
+error: Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.lean:102:77: unexpected identifier; expected '}'
+error: Silver/ApplicationPackageDeclarationsSpecificationObjectDomains.lean:101:124: unsolved goals
+reader : BooleanElaboration.Native.Reader
+text : Source
+valid : ValidText text
+original : ParserState
+first last constant : Nat
+localObject : Bool
+result : ObjectResult
+range : ScalarConstraintResult
+base : SpecificationFrameBase result.frame
+cursor : ValidCursor text range.after
+bounded : range.bounds.Bounded
+seed : ObjectResult :=
+  { frame := result.frame, name := result.name,
+    mark :=
+      let __src := result.mark;
+      { name := __src.name, after := __src.after, kind := __src.kind, bounds := range.bounds,
+        identity := __src.identity },
+    initFirst := result.initFirst, initAfter := result.initAfter, initialBounds := result.initialBounds,
+    constantObject := result.constantObject, booleanValue := result.booleanValue }
+⊢ SuccessBase (objectInitialized (modelObjectCalls reader) text original first last constant localObject result range)
+✖ [495/495] Building Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains (13s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.setup.json --json
+error: Silver/ApplicationPackageDeclarationsSpecificationSignatureDomains.lean:119:9: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Some required targets logged failures:
+- Silver.ApplicationPackageDeclarationsSpecificationObjectDomains
+- Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains
+error: build failed
+
+Lean phase build finished at 2026-11-27T20:45:34.238999+00:00; elapsed 17.271s; exit 1
