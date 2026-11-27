@@ -1,11 +1,13 @@
 # Bounded library packages and application units
 
-Current status, 2026-11-27 19:50 UTC: PR #424 remains draft. Both namespace
-repairs pass their focused behavior and name-source checks; their complete
-source/assurance integration is still required. The metadata projection contract
-and its exact-source proof pass, and the complete Signature formal loop now has
-checked imported-call closure. The native Main contract, changed helper coverage
-and original-bundle semantic endpoint are still in progress.
+Current status, 2026-11-27 21:43 UTC: PR #424 remains draft. Both namespace
+repairs pass their focused behavior checks. Specification, static Boolean,
+Charge_Unit, Object frame preservation and the Unit/Main import increments have
+focused proof evidence; their final original-bundle composition is unfinished.
+The authoritative source batch is reconciling an old whole-file pin with the
+expanded source. Native containing-unit coverage remains running with three
+interim array-helper timeouts awaiting final report classification. Complete
+native/Lean assurance, regression/Rosetta delivery and closing review remain open.
 
 ## Selection — 2026-11-22
 
@@ -702,3 +704,48 @@ is claimed. All 54 inspected proof/tool threads were confined to guest CPUs
 settings are not independently exposed. Complete native/Lean checks, final
 regression/Rosetta delivery and independent closing review remain outstanding.
 PR #424 stays draft; no merge or successor implementation is authorized.
+
+
+### Static readers, Unit/Main imports and source reconciliation, 21:43 UTC
+
+The [static Boolean imported-source packet](evidence/bounded-library-packages-416-20261127/static-boolean-imports/README.md)
+closes all nine imported leaves plus the two actual scalar-empty operands. Run
+`20261127T212948-73c26a2026c3` passed 72,030 audited declarations and all 1,588
+captured input hashes. The recursive reader's equality to its model is derived
+from original body equations and native contracts; it is not an assumed result.
+The [Charge packet](evidence/bounded-library-packages-416-20261122/charge-unit/README.md)
+records full-domain two-output and termination proofs, while the
+[independent Charge review](evidence/bounded-library-packages-416-20261127/charge-unit-review/README.md)
+found no consequential defect within that scope. Authoritative extraction is
+still counted separately from its focused contract proof.
+
+The [Unit/Main import packet](evidence/bounded-library-packages-416-20261127/unit-main-flow-imports/README.md)
+passed run `20261127T213637-16fea80095af`, auditing 74,533 declarations with all
+1,576 inputs matching. It derives the Unit prefix and lexical/Object steps,
+Main's Context_Of/Body_Of and their full native domains, and Completed's path
+meaning. The [Object frame packet](evidence/bounded-library-packages-416-20261122/object-reader-frame/README.md)
+passed 70,648 declarations and 1,545 input hashes; successful Object reads preserve
+ReaderFrame in both modes without an added executable guard. The separate Unit
+totality packet already supplies finite original typed evaluation on its model
+readers. Routine_Frame/Completion, complete Unit/Main joins, recursive semantic
+checking and the full initializer-obligation inventory remain required work.
+
+Source batch `20261127T195949-9affe71500da` finished failed: all nine requested
+package source-check modules built, but NamesSourceBridge depended on a stale
+ReviewedOutputShape literal from #410. OutputBodyCertificate itself passed.
+The independently expected literal grows from 81,277 to 101,032 tokens. The
+follow-up built both Charge and package-spelling authoritative checks, then
+encountered declaration-depth limits on the expanded literal. Ordered named
+chunks preserve every token without raising the existing proof budgets; the
+combined source checkpoint is being rechecked. These failed runs remain failed,
+and no successful aggregate source audit is claimed yet.
+
+The original native run `20261127T195636-5b2a2f886237` remains productive.
+Interim Why3 sessions show three Array_Declaration_Model timeouts without a
+counterexample; final policy/report classification must precede a repair or
+retry. Its captured native inputs remain frozen. Concurrent proof shares remain
+within eight managed workers and guest CPUs 0–7. The Object packet records its
+actual 0–1 affinity rather than the originally discussed 4–5 share. Subsequent
+shares use explicit coordinated taskset masks. Proof subthreads are selected
+Astra Max; runtime settings are not independently exposed. No merge, successor
+implementation or completed feature support is authorized or claimed.
