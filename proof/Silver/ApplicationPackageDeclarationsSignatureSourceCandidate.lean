@@ -77,7 +77,8 @@ private theorem finish_render :
 private theorem iteration_render :
     SignatureNative.iteration.render SignatureNative.functionNames = SignatureTokens.iteration := by
   rw [SignatureNative.iteration, render_list]
-  simp only [List.flatMap_cons, List.flatMap_nil, invariants_render, selectSlot_render, readMode_render,
+  simp only [SignatureNative.selectFormalCommands, SignatureNative.hideFormalCommands, List.cons_append,
+    List.nil_append, List.flatMap_cons, List.flatMap_nil, invariants_render, selectSlot_render, readMode_render,
     storeParameter_render, endParameter_render]
   signature_render
 

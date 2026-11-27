@@ -49,7 +49,7 @@ theorem signatureStep_progress (text : Source) (completing : Bool) (state next :
     (continued : signatureStep modelSignatureCalls text completing state = .next next) :
     state.header.position < next.header.position ∧ next.header.position ≤ text.length + 1 := by
   have result : SignatureProgress text state.header.position (signatureStep modelSignatureCalls text completing state) := by
-    unfold signatureStep
+    unfold signatureStep readFormalName readFormalType storeFormal
     repeat' first | exact True.intro | apply finishFormal_progress | apply signatureProgress_if
   rw [continued] at result
   exact result

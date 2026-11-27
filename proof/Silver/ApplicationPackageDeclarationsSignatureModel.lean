@@ -95,6 +95,49 @@ def finishFormal (calls : SignatureCalls) (text : Source) (before : Nat)
   if following ≤ before then .returned (rejectedSignature updated.info)
   else .next {updated with header := {updated.header with position := following}}
 
+def storeFormal (calls : SignatureCalls) (text : Source) (completing : Bool) (before : Nat)
+    (state : SignatureState) (first last slot : Nat) (mode : ProcedureBindings.Mode)
+    (mark : PackageTypeResult) : SignatureStep :=
+  let parameter := state.info.parameterAt slot
+  if completing && (!calls.sameName text parameter.specName ⟨first,last⟩ ||
+      decide (parameter.mode ≠ mode ∨ parameter.kind ≠ mark.kind ∨
+        parameter.typeIdentity ≠ mark.identity ∨ parameter.bounds ≠ mark.bounds)) then
+    .returned (rejectedSignature state.info)
+  else
+  let parameter : PackageBindings.Formal := if completing then
+      {parameter with bodyName := ⟨first,last⟩, bodyTypeName := mark.name}
+    else {specName := ⟨first,last⟩, specTypeName := mark.name, kind := mark.kind, bounds := mark.bounds, typeIdentity := mark.identity, mode := mode}
+  let info := if completing then {state.info with parameters := state.info.parameters.set (slot - 1) parameter}
+    else {state.info with parameters := state.info.parameters ++ [parameter]}
+  let header := calls.append {state.header with position := mark.after} ⟨first,last⟩ mark mode
+  if header.position = 0 then .returned ⟨info,header⟩ else
+  let updated := {state with info, header, formalCount := state.formalCount + 1}
+  finishFormal calls text before updated
+
+def readFormalType (calls : SignatureCalls) (text : Source) (completing : Bool) (before : Nat)
+    (state : SignatureState) (first last slot : Nat) : SignatureStep :=
+  let colon := calls.take text last (.symbol ":")
+  let inputEnd := calls.take text colon (.word "in")
+  let modeResult : Nat × ProcedureBindings.Mode := if inputEnd ≠ 0 then
+    let outputEnd := calls.take text inputEnd (.word "out")
+    ⟨if outputEnd ≠ 0 then outputEnd else inputEnd, if outputEnd ≠ 0 then .inputOutput else .input⟩
+    else ⟨calls.take text colon (.word "out"), .output⟩
+  if modeResult.1 = 0 ∨ (state.item.kind = .function ∧ modeResult.2 ≠ .input) then
+    .returned (rejectedSignature state.info)
+  else
+  let mark := calls.typeAt text state.header state.info modeResult.1
+  if mark.after = 0 then .returned (rejectedSignature state.info) else
+  storeFormal calls text completing before state first last slot modeResult.2 mark
+
+def readFormalName (calls : SignatureCalls) (text : Source) (completing : Bool) (before : Nat)
+    (state : SignatureState) (first last slot : Nat) : SignatureStep :=
+  if decide (state.formalCount > 0) && duplicateFormal calls text completing state.info ⟨first,last⟩ state.formalStart state.formalCount then
+    .returned (rejectedSignature state.info)
+  else
+  let hidden := calls.hideOuter text state.header state.info ⟨first,last⟩
+  if hidden.position = 0 then .returned ⟨state.info,hidden⟩ else
+  readFormalType calls text completing before {state with header := hidden} first last slot
+
 def signatureStep (calls : SignatureCalls) (text : Source) (completing : Bool)
     (state : SignatureState) : SignatureStep :=
   let before := state.header.position
@@ -107,37 +150,7 @@ def signatureStep (calls : SignatureCalls) (text : Source) (completing : Bool)
   else
   let slot := if completing then state.formalStart + state.formalCount else state.info.parameters.length + 1
   let formalStart := if !completing && decide (state.formalCount = 0) then slot else state.formalStart
-  if decide (state.formalCount > 0) && duplicateFormal calls text completing state.info ⟨first,last⟩ formalStart state.formalCount then
-    .returned (rejectedSignature state.info)
-  else
-  let hidden := calls.hideOuter text state.header state.info ⟨first,last⟩
-  if hidden.position = 0 then .returned ⟨state.info,hidden⟩ else
-  let colon := calls.take text last (.symbol ":")
-  let inputEnd := calls.take text colon (.word "in")
-  let modeResult : Nat × ProcedureBindings.Mode := if inputEnd ≠ 0 then
-    let outputEnd := calls.take text inputEnd (.word "out")
-    ⟨if outputEnd ≠ 0 then outputEnd else inputEnd, if outputEnd ≠ 0 then .inputOutput else .input⟩
-    else ⟨calls.take text colon (.word "out"), .output⟩
-  if modeResult.1 = 0 ∨ (state.item.kind = .function ∧ modeResult.2 ≠ .input) then
-    .returned (rejectedSignature state.info)
-  else
-  let mark := calls.typeAt text hidden state.info modeResult.1
-  if mark.after = 0 then .returned (rejectedSignature state.info) else
-  let parameter := state.info.parameterAt slot
-  if completing && (!calls.sameName text parameter.specName ⟨first,last⟩ ||
-      decide (parameter.mode ≠ modeResult.2 ∨ parameter.kind ≠ mark.kind ∨
-        parameter.typeIdentity ≠ mark.identity ∨ parameter.bounds ≠ mark.bounds)) then
-    .returned (rejectedSignature state.info)
-  else
-  let parameter : PackageBindings.Formal := if completing then
-      {parameter with bodyName := ⟨first,last⟩, bodyTypeName := mark.name}
-    else {specName := ⟨first,last⟩, specTypeName := mark.name, kind := mark.kind, bounds := mark.bounds, typeIdentity := mark.identity, mode := modeResult.2}
-  let info := if completing then {state.info with parameters := state.info.parameters.set (slot - 1) parameter}
-    else {state.info with parameters := state.info.parameters ++ [parameter]}
-  let header := calls.append {hidden with position := mark.after} ⟨first,last⟩ mark modeResult.2
-  if header.position = 0 then .returned ⟨info,header⟩ else
-  let updated := {state with info, header, formalStart, formalCount := state.formalCount + 1}
-  finishFormal calls text before updated
+  readFormalName calls text completing before {state with formalStart} first last slot
 
 def finishSignature (calls : SignatureCalls) (text : Source) (outer : ParserState)
     (completing : Bool) (state : SignatureState) : SignatureResult :=

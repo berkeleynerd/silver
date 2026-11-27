@@ -206,20 +206,21 @@ def endParameter : S := .list [
   .assign position (take position.expression (.symbol ";")),
   rejectIf (.le position.expression before.expression) ]
 
-def iteration : S := .list [
+def selectFormalCommands : List S := [
   invariants,
   .assign before position.expression,
   .assign first (call2 .skip text position.expression),
   .assign last (call2 .nameAfter text first.expression),
   rejectIf (.not (call2 .validName text formalName)),
-  selectSlot,
+  selectSlot ]
+
+def hideFormalCommands : List S := [
   rejectIf duplicate,
   .assign header (call4 .hideOuter text header.expression info.expression formalName),
   environmentAssertions,
-  returnIf (empty position.expression),
-  readMode,
-  storeParameter,
-  endParameter ]
+  returnIf (empty position.expression) ]
+
+def iteration : S := .list (selectFormalCommands ++ hideFormalCommands ++ [readMode, storeParameter, endParameter])
 
 def resultType : S := .list [
   .assign mark (call4 .typeAt text header.expression info.expression (take position.expression (.word "return"))),

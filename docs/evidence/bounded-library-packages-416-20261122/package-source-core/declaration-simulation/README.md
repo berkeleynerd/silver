@@ -29,3 +29,34 @@ The typed and raw conditionals had already reduced together. The revised
 branch proofs split the remaining freshness and type choices directly.
 Complete Signature simulation, authoritative source binding and integration
 with admission are separate obligations.
+
+## Signature execution
+
+`SignatureNative.exec_iff` relates the whole typed Signature to its raw
+procedure relation for arbitrary native callee dictionaries, incoming stores,
+backing arrays and completion flags. The entry distinguishes new routines from
+completions and guarded loops from zero-formal signatures. The proof covers
+the original duplicate-name range, shadowing, all formal modes, typed formal
+and result comparisons, partial updates on return, and the closing token. New
+formals and routines overwrite exactly the cells exposed by count growth.
+The saved routine slot invariant follows from entry and each loop step.
+
+The native command lists and raw formal steps are grouped at the name, type
+and storage boundaries. The first run below compares the former raw step
+definition with the grouped one for all call dictionaries and inputs. The
+comparison source is retained in this packet. The complete original
+1,536-token Signature source proposal still checks after grouping. The
+Specification and Signature read-execution corollaries specialize the typed
+bodies to their canonical callees and total recursive readers. Linking the
+remaining actual callee dictionaries to those canonical meanings on their
+native preconditions belongs to the next source interpretation work.
+
+| Linux x86-64 focused run | Targets and result |
+| --- | --- |
+| `20261127T134956-373c20132b82` | Preserved raw step, complete formal storage, and both terminating readers. Build 5.210 seconds, audit 22,193 declarations in 3.288 seconds. |
+| `20261127T140321-0edf891e635b` | Full typed Signature execution and original Signature/Append source proposal. Build 74.252 seconds, audit 23,241 declarations in 3.235 seconds. |
+| `20261127T140507-377f328e9481` | Both canonical typed readers, full Signature and Specification simulations, and the cached Signature source proposal. Build 9.968 seconds, audit 23,367 declarations in 4.387 seconds. |
+
+All three used Lean 4.34.1, two Lake workers, two threads per process, and an
+8192 MiB per-process limit. Each compressed log and evidence record lists its
+actual targets and run inputs.
