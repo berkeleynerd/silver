@@ -43,7 +43,7 @@ theorem CompletedTables.lengths {original after : Metadata} (tables : CompletedT
 
 namespace SignatureTables
 
-private theorem map_set_same {α β : Type} (project : α → β) (rows : List α) (index : Nat) (item fallback : α)
+theorem map_set_same {α β : Type} (project : α → β) (rows : List α) (index : Nat) (item fallback : α)
     (same : project item = project (rows.getD index fallback)) : (rows.set index item).map project = rows.map project := by
   rw [List.map_set]
   by_cases bound : index < rows.length
