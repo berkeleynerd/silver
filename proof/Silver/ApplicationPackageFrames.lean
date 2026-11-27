@@ -142,9 +142,10 @@ def hideOuter (text : Source) (frame : ParserState) (info : PackageBindings.Meta
 
 namespace Native
 
-theorem hideOuter_rows {text : Source} {frame : ParserState} {info : PackageBindings.Metadata}
+theorem hideOuter_frame {text : Source} {frame : ParserState} {info : PackageBindings.Metadata}
     {name : PackageBindings.NameSpan}
     (accepted : (hideOuter text frame info name).position ≠ 0) :
+    (hideOuter text frame info name).position = frame.position ∧
     (hideOuter text frame info name).scalarNames.Sublist frame.scalarNames ∧
     (hideOuter text frame info name).booleanNames.Sublist frame.booleanNames ∧
     (hideOuter text frame info name).subtypeNames.items.Sublist frame.subtypeNames.items := by
@@ -170,9 +171,17 @@ theorem hideOuter_rows {text : Source} {frame : ParserState} {info : PackageBind
           split at accepted
           · rename_i checked
             simp only [ite_eq_left checked]
-            exact ⟨hideEntries_sublist scalars, hideEntries_sublist booleans, hideEntries_sublist subtypes⟩
+            exact ⟨rfl, hideEntries_sublist scalars, hideEntries_sublist booleans, hideEntries_sublist subtypes⟩
           · simp only [invalidState] at accepted
             contradiction
+
+theorem hideOuter_rows {text : Source} {frame : ParserState} {info : PackageBindings.Metadata}
+    {name : PackageBindings.NameSpan}
+    (accepted : (hideOuter text frame info name).position ≠ 0) :
+    (hideOuter text frame info name).scalarNames.Sublist frame.scalarNames ∧
+    (hideOuter text frame info name).booleanNames.Sublist frame.booleanNames ∧
+    (hideOuter text frame info name).subtypeNames.items.Sublist frame.subtypeNames.items :=
+  (hideOuter_frame accepted).2
 
 end Native
 
