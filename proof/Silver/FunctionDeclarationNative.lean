@@ -577,7 +577,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .signature first after formalFirst count scalarKind bounds => ⟨first.eval calls locals, after.eval calls locals,
       formalFirst.eval calls locals, count.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
   | .scalarBinding first after bounds mutable declared static => ⟨first.eval calls locals, after.eval calls locals,
-      bounds.eval calls locals, mutable.eval calls locals, declared.eval calls locals, static.eval calls locals⟩
+      bounds.eval calls locals, mutable.eval calls locals, declared.eval calls locals, static.eval calls locals, 0, 0⟩
   | .scan state assigned output => ⟨state.eval calls locals, assigned.eval calls locals, output.eval calls locals⟩
   | .add left right => left.eval calls locals + right.eval calls locals
   | .sub left right => left.eval calls locals - right.eval calls locals
