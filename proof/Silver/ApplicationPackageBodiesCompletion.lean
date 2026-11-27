@@ -14,6 +14,7 @@ open Compose Predicate ApplicationPackages
 open ApplicationPackageDeclarations (ObjectResult SignatureResult)
 
 structure CompletionCalls where
+  validState : Source → ParserState → Bool
   takeToken : Source → Nat → ShellToken → Nat
   skipAt : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
@@ -164,7 +165,7 @@ def completionFooter (calls : CompletionCalls) (text : Source) (globals : Parser
         completed := index
         assigned := info.assigned || item.assigned}⟩
 
-def completionBody (calls : CompletionCalls) (text : Source) (globals : ParserState)
+def uncheckedCompletionBody (calls : CompletionCalls) (text : Source) (globals : ParserState)
     (info : PackageBindings.Metadata) (index : Nat) (item : PackageBindings.Routine)
     (state : InitializationFrame) : CompletionResult :=
   let result := completionDispatch calls text info item state
@@ -173,6 +174,12 @@ def completionBody (calls : CompletionCalls) (text : Source) (globals : ParserSt
     match completionReturn calls text (completionContextOf calls state) info item result with
     | none => completionFailed info
     | some returned => completionFooter calls text globals info index item returned
+
+def completionBody (calls : CompletionCalls) (text : Source) (globals : ParserState)
+    (info : PackageBindings.Metadata) (index : Nat) (item : PackageBindings.Routine)
+    (state : InitializationFrame) : CompletionResult :=
+  if calls.validState text state.frame then uncheckedCompletionBody calls text globals info index item state
+  else completionFailed info
 
 def completionOutputs (calls : CompletionCalls) (text : Source) (globals : ParserState)
     (info : PackageBindings.Metadata) (index : Nat) (item : PackageBindings.Routine)

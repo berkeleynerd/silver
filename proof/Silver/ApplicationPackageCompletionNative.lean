@@ -11,6 +11,7 @@ namespace Silver.ApplicationPackageCompletion.Native
 open ApplicationNative ApplicationPackageProcedure
 
 inductive Fn : Ty → Type
+  | validState : Fn (.arrow .source (.arrow .state .truth))
   | takeToken : Fn (.arrow .source (.arrow .number (.arrow .token .number)))
   | skipAt : Fn (.arrow .source (.arrow .number .number))
   | nameAfter : Fn (.arrow .source (.arrow .number .number))
@@ -32,6 +33,7 @@ inductive Fn : Ty → Type
   | emptyProcedures : Fn .procedures
 
 def functionNames : FunctionNames Fn
+  | _, .validState => ["valid_state"]
   | _, .takeToken => ["take_token"]
   | _, .skipAt => ["skip_at"]
   | _, .nameAfter => ["name_after"]
@@ -58,6 +60,7 @@ def functionParameters : FunctionParameters Fn
   | _, _ => []
 
 def modelFunctions (calls : ApplicationPackageBodies.CompletionCalls) : Calls Fn
+  | _, .validState => calls.validState
   | _, .takeToken => calls.takeToken
   | _, .skipAt => calls.skipAt
   | _, .nameAfter => calls.nameAfter
@@ -138,8 +141,12 @@ def declarations : List (Declaration Fn) := [
     initial := none},
   {type := .truth, name := "initialized", typeName := ["boolean"], initial := some (.truth false)}]
 
+abbrev validFrame : Expr Fn .truth := .app (.app (.function .validState) text) frame
+abbrev frameInvariant : ApplicationPackageProcedure.Command Fn :=
+  .invariant (.andThen validFrame (.gt position (.number 0)))
+
 def localLoop : ApplicationPackageProcedure.Command Fn := .list [
-  .increases position,
+  frameInvariant, .increases position,
   .assign (.variable "before") position,
   .assign (.variable "first") (skip position),
   .assign (.variable "last") (after (.variable "first")),
@@ -170,6 +177,7 @@ def outputReadBody : ApplicationPackageProcedure.Command Fn := .list [
 def outputReadBlock : ApplicationPackageProcedure.Command Fn := .block [outputReadContext] outputReadBody
 
 def outputRead : ApplicationPackageProcedure.Command Fn := .list [
+  frameInvariant,
   .assign (.variable "formal") (.index .formal info (.variable "i")),
   .choose output (.list [
     .choose (.not validFormal) fail .nothing,
@@ -269,10 +277,13 @@ def outputsCommands : ApplicationPackageProcedure.Command Fn := .list [
     .forRange "i" formalFirst formalLast outputRead,
     .forRange "i" formalFirst formalLast outputAppend]) .nothing]
 
+def checkedBodyBlock : ApplicationPackageProcedure.Command Fn :=
+  .sequence (.choose (.not validFrame) fail .nothing) (.block bodyDeclarations bodyCommands)
+
 def commands : ApplicationPackageProcedure.Command Fn :=
   .sequence prefixCommands (.sequence
     (.whileLoop (.eq (token position (.word "begin")) (.number 0)) localLoop)
-    (.sequence outputsCommands (.block bodyDeclarations bodyCommands)))
+    (.sequence outputsCommands checkedBodyBlock))
 
 def body : ApplicationPackageProcedure.Body Fn :=
   {name := "package_completion_at", declarations, commands}

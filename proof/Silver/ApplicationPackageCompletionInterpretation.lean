@@ -100,17 +100,31 @@ theorem bodyBlock_meaning (calls : CompletionCalls) (fuel : Nat) :
   rw [bodyCommands_meaning]
   rfl
 
+def checkedBodyBlockStep (calls : CompletionCalls) (locals : Locals) : Option Outcome :=
+  if calls.validState (locals .source "text") (locals .state "frame") then bodyBlockStep calls locals
+  else some (failed locals)
+
+theorem checkedBodyBlock_meaning (calls : CompletionCalls) (fuel : Nat) :
+    checkedBodyBlock.eval (modelFunctions calls) (modelProcedures calls) fuel = checkedBodyBlockStep calls := by
+  have rejected : fail.eval (modelFunctions calls) (modelProcedures calls) fuel = fun current => some (failed current) := rfl
+  funext locals
+  simp only [checkedBodyBlock, eval_sequence, eval_choose, eval_nothing, rejected, bodyBlock_meaning]
+  dsimp only [validFrame, Expr.eval, text, frame, modelFunctions]
+  cases accepted : calls.validState (locals .source "text") (locals .state "frame") <;>
+    simp only [checkedBodyBlockStep, accepted, Bool.not_true, Bool.not_false, Bool.false_eq_true,
+      ↓reduceIte, Option.bind_some, Outcome.bind, failed]
+
 def executeCommands (calls : CompletionCalls) (fuel : Nat) (locals : Locals) : Option Outcome :=
   (prefixStep calls locals).bind fun started =>
     (localWhile calls fuel started).bind fun declared => declared.bind fun completedLocals =>
-      (outputsStep calls completedLocals).bind fun outputs => outputs.bind (bodyBlockStep calls)
+      (outputsStep calls completedLocals).bind fun outputs => outputs.bind (checkedBodyBlockStep calls)
 
 theorem commands_meaning (calls : CompletionCalls) (fuel : Nat) (locals : Locals) :
     commands.eval (modelFunctions calls) (modelProcedures calls) fuel locals = executeCommands calls fuel locals := by
   have prefixEquation := funext (prefixCommands_meaning calls fuel)
   have localEquation := funext (localWhile_meaning calls fuel)
   have outputs := funext (outputsCommands_meaning calls fuel)
-  simp only [commands, eval_sequence, prefixEquation, localEquation, outputs, bodyBlock_meaning,
+  simp only [commands, eval_sequence, prefixEquation, localEquation, outputs, checkedBodyBlock_meaning,
     Option.bind_some, executeCommands]
 
 def initializedLocals (calls : CompletionCalls) (locals : Locals) : Locals :=

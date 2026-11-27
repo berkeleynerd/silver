@@ -12,6 +12,7 @@ open Compose ApplicationPackageDeclarations
 open ApplicationAdmission (BodyResult)
 
 structure UnitCalls where
+  validState : Source → ParserState → Bool
   packageWord : Source → Nat → String → Nat
   skipAt : Source → Nat → Nat
   nameAfter : Source → Nat → Nat

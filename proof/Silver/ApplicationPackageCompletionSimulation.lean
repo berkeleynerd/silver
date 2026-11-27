@@ -38,7 +38,7 @@ theorem bind_observed (result : Outcome) (continuation : Locals → Option Outco
   by_cases stop : result.returned = true <;> simp [Outcome.bind, project, stop, equation]
 
 def outputsAndBody (calls : CompletionCalls) (locals : Locals) : Option Outcome :=
-  (outputsStep calls locals).bind (fun outputs => outputs.bind (bodyBlockStep calls))
+  (outputsStep calls locals).bind (fun outputs => outputs.bind (checkedBodyBlockStep calls))
 
 theorem outputsAndBody_observed (calls : CompletionCalls) (locals : Locals) :
     (outputsAndBody calls locals).map (fun value => observed value.locals) =

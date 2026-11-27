@@ -86,9 +86,12 @@ def initializerAfter (calls : CompletionCalls) (locals : Locals) : Nat :=
 def initializerFollowing (calls : CompletionCalls) (locals : Locals) : Nat :=
   calls.takeToken (locals .source "text") (initializerAfter calls locals) (.symbol ";")
 
+private theorem frameInvariant_eval (calls : CompletionCalls) (fuel : Nat) (locals : Locals) :
+    frameInvariant.eval (modelFunctions calls) (modelProcedures calls) fuel locals = some ⟨locals, false⟩ := rfl
+
 local macro "reduce_completion_read" : tactic => `(tactic|
   (simp only [outputRead, fail, ApplicationPackageProcedure.Command.list, List.foldr,
-     eval_sequence, eval_assign, eval_choose, eval_returned, eval_nothing, outputReadBlock_function]
+     eval_sequence, eval_assign, eval_choose, eval_returned, eval_nothing, outputReadBlock_function, frameInvariant_eval]
    dsimp only [readStep, failed, readContextStep, readValueAfter, readContext,
      initializerFollowing, initializerAfter, initializerFirst,
      Outcome.bind, Place.set, Place.expression, Expr.eval, Field.get, Field.set, Index.get,

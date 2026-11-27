@@ -97,9 +97,10 @@ theorem bodyLocals_dispatched (calls : CompletionCalls) (locals : Locals) :
 def finishBody (calls : CompletionCalls) (scope : CompletionContext) (state : InitializationFrame) : CompletionResult :=
   completionBody calls scope.text (atOriginal scope) scope.info scope.index scope.item state
 
-theorem bodyBlock_observed (calls : CompletionCalls) (locals : Locals) :
+theorem uncheckedBodyBlock_observed (calls : CompletionCalls) (locals : Locals) :
     (bodyBlockStep calls locals).map (fun result => observed result.locals) =
-      some (finishBody calls (completionContext locals) (initialization locals)) := by
+      some (uncheckedCompletionBody calls (locals .source "text") (atOriginal (completionContext locals))
+        (locals .metadata "info") (locals .number "index") (locals .routine "item") (initialization locals)) := by
   have preserved (outcome : Outcome) : observed (outcome.restore (Declarations.restore bodyDeclarations locals)).locals =
       observed outcome.locals := by
     simp [observed, Outcome.restore, Declarations.restore, bodyDeclarations, Declaration.names]
@@ -107,5 +108,14 @@ theorem bodyBlock_observed (calls : CompletionCalls) (locals : Locals) :
   simp only [Option.map_map, Function.comp_def, preserved, bodyStep_observed, bodyLocals_context, bodyLocals_scope,
     bodyLocals_dispatched]
   rfl
+
+theorem bodyBlock_observed (calls : CompletionCalls) (locals : Locals) :
+    (checkedBodyBlockStep calls locals).map (fun result => observed result.locals) =
+      some (finishBody calls (completionContext locals) (initialization locals)) := by
+  by_cases valid : calls.validState (locals .source "text") (locals .state "frame") = true
+  · simp [checkedBodyBlockStep, finishBody, completionBody, completionContext, initialization,
+      valid, uncheckedBodyBlock_observed]
+  · simp [checkedBodyBlockStep, finishBody, completionBody, completionContext, initialization,
+      valid, observed, failed, completionFailed, Locals.set]
 
 end Silver.ApplicationPackageCompletion.Native

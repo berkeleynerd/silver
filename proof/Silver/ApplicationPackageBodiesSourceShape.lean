@@ -32,13 +32,13 @@ def ordinaryProcedure (name : String) (tokens : List String) : Option (List Stri
   | _ => none
 
 def completionHeader : List String := expectedTokens
-  "(Text : String; Globals : in out Parser_State; Info : in out Packages.Metadata) with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, Globals), Post => Valid_State (Text, Globals)"
+  "(Text : String; Globals : in out Parser_State; Info : in out Packages.Metadata) with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, Globals), Post => Valid_State (Text, Globals) and then (Globals.Position = 0 or else (Globals.Position > Globals.Position'Old and then Info.Completed > Info.Completed'Old))"
 
 def unitHeader : List String := expectedTokens
   "(Text : String; Exports : Parser_State; Info : in out Packages.Metadata; Accepted : out Boolean) with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, Exports) and then Info.Units (Units.Package_Body).First <= Text'Last + 1"
 
 def objectHeader : List String := expectedTokens
-  "(Text : String; Frame : Parser_State; Info : Packages.Metadata; Local : Boolean := False) return Package_Object_Result with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, Frame), Post => Valid_State (Text, Package_Object_At'Result.Frame) and then (Package_Object_At'Result.Frame.Position = 0 or else Package_Object_At'Result.Frame.Position > Frame.Position)"
+  "(Text : String; Frame : Parser_State; Info : Packages.Metadata; Local : Boolean := False) return Package_Object_Result with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, Frame), Post => Valid_State (Text, Package_Object_At'Result.Frame) and then Package_Object_At'Result.Init_First <= Text'Last + 1 and then Package_Object_At'Result.Init_After <= Text'Last + 1 and then (Package_Object_At'Result.Frame.Position = 0 or else Package_Object_At'Result.Frame.Position > Frame.Position)"
 
 structure Checked (tokens : List String) : Prop where
   completionTree : ApplicationPackageCompletion.Native.CheckedTree

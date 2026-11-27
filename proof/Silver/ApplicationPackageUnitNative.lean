@@ -12,6 +12,7 @@ open ApplicationNative
 open ApplicationPackageProcedure
 
 inductive Fn : Ty → Type
+  | validState : Fn (.arrow .source (.arrow .state .truth))
   | packageWord : Fn (.arrow .source (.arrow .number (.arrow .spelling .number)))
   | skipAt : Fn (.arrow .source (.arrow .number .number))
   | nameAfter : Fn (.arrow .source (.arrow .number .number))
@@ -22,6 +23,7 @@ inductive Fn : Ty → Type
   | objectAt : Fn (.arrow .source (.arrow .state (.arrow .metadata .objectResult)))
 
 def functionNames : FunctionNames Fn
+  | _, .validState => ["valid_state"]
   | _, .packageWord => ["package_word"]
   | _, .skipAt => ["skip_at"]
   | _, .nameAfter => ["name_after"]
@@ -32,6 +34,7 @@ def functionNames : FunctionNames Fn
   | _, .objectAt => ["package_object_at"]
 
 def modelFunctions (calls : ApplicationPackageBodies.UnitCalls) : Calls Fn
+  | _, .validState => calls.validState
   | _, .packageWord => calls.packageWord
   | _, .skipAt => calls.skipAt
   | _, .nameAfter => calls.nameAfter
@@ -95,6 +98,7 @@ def declarationValue : Expr Fn .stateDeclaration :=
     (.field .objectInitFirst object) (.field .objectInitAfter object) (.field .objectBooleanValue object)
 
 def objectLoopBody : ApplicationPackageProcedure.Command Fn := .list [
+  .invariant (.andThen (.app (.app (.function .validState) text) globals) (.gt position (.number 0))),
   .increases position,
   .choose (.eq (.field .stateCount info) (.function .maxStates)) .returned .nothing,
   .assign (.variable "before") position,
@@ -105,6 +109,7 @@ def objectLoopBody : ApplicationPackageProcedure.Command Fn := .list [
   .assign (.variable "globals") (.field .objectFrame object)]
 
 def routineLoopBody : ApplicationPackageProcedure.Command Fn := .list [
+  .invariant (.andThen (.app (.app (.function .validState) text) globals) (.gt position (.number 0))),
   .increases (.field .infoCompleted info),
   .assign (.variable "before") position,
   .primitive (.completion text (.variable "globals") (.variable "info")),
