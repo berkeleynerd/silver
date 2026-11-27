@@ -2,6 +2,7 @@ module
 
 public import Silver.ApplicationStateValidityTables
 public import Silver.ComposeModelCalls
+public import Silver.ScalarsNativeEquations
 
 @[expose] public section
 
@@ -58,9 +59,18 @@ theorem fixedBounds_meaning (length : Nat) (dynamic isCharacter : Bool)
   cases isCharacter <;> cases dynamic <;>
     simp [fixedBoundsValid, Bool.decide_and, Bool.and_assoc]
 
+/-- The scalar interval predicate has no callees. Reuse its checked native tree
+rather than treating the model predicate as an imported implementation. -/
+def empty (bounds : Integer.Interval) : Bool :=
+  Integer.Native.isEmptyBody.eval Integer.Native.Function.eval
+    ({bounds} : Integer.Native.Context).locals
+
+theorem empty_meaning (bounds : Integer.Interval) :
+    empty bounds = bounds.isEmpty := rfl
+
 def calls : Calls ValidityTables.Function
   | _, .nameState => nameState
-  | _, .empty => Integer.Interval.isEmpty
+  | _, .empty => empty
   | _, .fixedBounds => fixedBounds
 
 theorem calls_meaning : calls = ValidityTables.modelCalls := by
