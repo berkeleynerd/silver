@@ -5,6 +5,7 @@ public import Silver.ApplicationPackageUnitObjectHistory
 public import Silver.ApplicationPackageCompletionLocalHistory
 public import Silver.ApplicationPackageCompletionLayout
 public import Silver.PackageInitializationRanges
+public import Silver.PackageInitializerPhases
 public import Silver.ApplicationPackageDeclarationsSpecificationStepDomains
 public import Silver.ComposeSubtypeChecks
 public import Silver.PredicateFunctionCallMeaning
@@ -923,5 +924,81 @@ theorem local_objects_initializers {reader : BooleanElaboration.Native.Reader}
       · exact readables observed later
     · simpa only [checkInitializers, checked, Option.bind_some, localRanges, List.foldl_cons] using checking
     · simpa only [initializerDomains, source.declare, localDeclaredRanges, List.foldl_cons] using domains
+
+def objectCell (out : ObjectResult) : Cell :=
+  match out.mark.kind with
+  | .integer => .integer out.name.first
+  | .boolean => .boolean out.name.first
+
+def objectMutableCells (out : ObjectResult) : List Cell :=
+  if out.constantObject then [] else [objectCell out]
+
+def mutableLocalCells (rows : List LocalObject) : List Cell :=
+  rows.flatMap (fun row => objectMutableCells row.object)
+
+/-- Inference changes only cells selected for the later native widening.
+Hidden cells remain in the map and satisfy the same exact equality. -/
+def RangesAgreeOutside (current declared : SharedRanges) (mutable : List Cell) : Prop :=
+  current.globals = declared.globals ∧
+    ∀ identity, .integer identity ∉ mutable → current.locals identity = declared.locals identity
+
+theorem RangesAgreeOutside.refl (ranges : SharedRanges) (mutable : List Cell) :
+    RangesAgreeOutside ranges ranges mutable := ⟨rfl, fun _ _ => rfl⟩
+
+theorem RangesAgreeOutside.widen_eq {current declared : SharedRanges} {mutable : List Cell}
+    (same : RangesAgreeOutside current declared mutable) : current.widenLocals declared mutable = declared := by
+  have locals : (current.widenLocals declared mutable).locals = declared.locals := by
+    funext identity
+    by_cases selected : .integer identity ∈ mutable
+    · exact SharedRanges.widenLocals_selected _ _ _ selected
+    · exact (SharedRanges.widenLocals_unselected _ _ _ selected).trans (same.2 identity selected)
+  cases current
+  cases declared
+  cases same.1
+  exact congrArg (SharedRanges.mk _) locals
+
+theorem RangesAgreeOutside.object {current declared : SharedRanges} {mutable : List Cell}
+    (same : RangesAgreeOutside current declared mutable) (out : ObjectResult) :
+    RangesAgreeOutside (objectRanges current out) (objectDeclaredRanges declared out)
+      (mutable ++ objectMutableCells out) := by
+  constructor
+  · cases kind : out.mark.kind <;> simpa only [objectRanges, objectDeclaredRanges, kind] using same.1
+  · intro identity outside
+    have prior : .integer identity ∉ mutable := fun selected => outside (List.mem_append_left _ selected)
+    have added : .integer identity ∉ objectMutableCells out := fun selected => outside (List.mem_append_right _ selected)
+    cases kind : out.mark.kind with
+    | integer =>
+      cases fixed : out.constantObject with
+      | false =>
+        have apart : identity ≠ out.name.first := by
+          intro equal
+          apply added
+          simp only [objectMutableCells, fixed, Bool.false_eq_true, ite_false, objectCell,
+            kind, List.mem_singleton, equal]
+        simpa only [objectRanges, objectDeclaredRanges, kind, Integer.put, apart, ite_false] using same.2 identity prior
+      | true =>
+        by_cases equal : identity = out.name.first
+        · simp only [objectRanges, objectDeclaredRanges, kind, fixed, ite_true, Integer.put, equal]
+        · simpa only [objectRanges, objectDeclaredRanges, kind, Integer.put, equal, ite_false] using same.2 identity prior
+    | boolean => simpa only [objectRanges, objectDeclaredRanges, kind] using same.2 identity prior
+
+theorem RangesAgreeOutside.locals {current declared : SharedRanges} {mutable : List Cell}
+    (same : RangesAgreeOutside current declared mutable) (rows : List LocalObject) :
+    RangesAgreeOutside (localRanges current rows) (localDeclaredRanges declared rows)
+      (mutable ++ mutableLocalCells rows) := by
+  induction rows generalizing current declared mutable with
+  | nil => simpa only [localRanges, localDeclaredRanges, mutableLocalCells, List.foldl_nil,
+      List.flatMap_nil, List.append_nil] using same
+  | cons row rows ih =>
+    simpa only [localRanges, localDeclaredRanges, mutableLocalCells, List.foldl_cons,
+      List.flatMap_cons, List.append_assoc] using ih (same.object row.object)
+
+/-- This is exactly the native local-to-output bodyEnvironment phase. The
+equality covers the full maps, including source cells hidden by shadowing. -/
+theorem local_ranges_widen (ranges : SharedRanges) (rows : List LocalObject) :
+    (localRanges ranges rows).widenLocals (localDeclaredRanges ranges rows) (mutableLocalCells rows) =
+      localDeclaredRanges ranges rows := by
+  have same := (RangesAgreeOutside.refl ranges []).locals rows
+  simpa only [List.nil_append] using same.widen_eq
 
 end Silver.ApplicationPackageInitializers
