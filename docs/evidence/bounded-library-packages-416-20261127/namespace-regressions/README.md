@@ -26,7 +26,7 @@ Standard and Nul as legal identities, all five runtime operation names in two
 case spellings with bare and qualified calls, and six root/universal-type
 metanames that are not directly named Standard declarations. The runtime
 operation fixtures exercise the shared Operation_After boundary, including
-the direct argument initializer path. The 76 cases defined by the three new
+the direct argument initializer path. The 78 cases defined by the three new
 regression methods were collected from those methods; the harness invokes
 actual `Pack`, `Analyze` and `Imported_Package` on their exact source bytes.
 This is an analyzer/frontend check, not execution of the complete Python
