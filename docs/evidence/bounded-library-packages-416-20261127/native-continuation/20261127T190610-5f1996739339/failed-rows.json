@@ -1,0 +1,188 @@
+[
+  {
+    "check_col": 32,
+    "check_file": "silver_output_profile.adb",
+    "check_line": 9503,
+    "check_tree": [
+      {
+        "proof_attempts": {},
+        "transformations": {}
+      },
+      {
+        "proof_attempts": {},
+        "transformations": {}
+      },
+      {
+        "proof_attempts": {},
+        "transformations": {}
+      },
+      {
+        "proof_attempts": {
+          "CVC5": {
+            "result": "Unknown\n(unknown + incomplete)",
+            "steps": 741,
+            "time": 0.142132
+          },
+          "Z3": {
+            "result": "Timeout",
+            "steps": 1,
+            "time": 30
+          },
+          "altergo": {
+            "result": "Timeout",
+            "steps": 1,
+            "time": 30
+          }
+        },
+        "transformations": {
+          "introduce_premises": [
+            {
+              "proof_attempts": {
+                "CVC5_CE": {
+                  "result": "Unknown\n(unknown + incomplete)",
+                  "steps": 3145,
+                  "time": 1.34418
+                }
+              },
+              "transformations": {}
+            }
+          ]
+        }
+      },
+      {
+        "proof_attempts": {
+          "CVC5": {
+            "result": "Valid",
+            "steps": 559,
+            "time": 0.10869
+          },
+          "Z3": {
+            "result": "Valid",
+            "steps": 1,
+            "time": 0.030019
+          },
+          "altergo": {
+            "result": "Valid",
+            "steps": 1560,
+            "time": 0.108689
+          }
+        },
+        "transformations": {}
+      },
+      {
+        "proof_attempts": {
+          "CVC5": {
+            "result": "Valid",
+            "steps": 555,
+            "time": 0.093018
+          },
+          "Z3": {
+            "result": "Valid",
+            "steps": 1,
+            "time": 0.019033
+          },
+          "altergo": {
+            "result": "Valid",
+            "steps": 1554,
+            "time": 0.120374
+          }
+        },
+        "transformations": {}
+      },
+      {
+        "proof_attempts": {
+          "CVC5": {
+            "result": "Valid",
+            "steps": 549,
+            "time": 0.097936
+          },
+          "Z3": {
+            "result": "Valid",
+            "steps": 1,
+            "time": 0.021226
+          },
+          "altergo": {
+            "result": "Valid",
+            "steps": 1563,
+            "time": 0.125288
+          }
+        },
+        "transformations": {}
+      }
+    ],
+    "col": 32,
+    "entity": 1,
+    "file": "silver_output_profile.adb",
+    "how_proved": "prover",
+    "line": 9503,
+    "message": {
+      "text": "assertion might fail, cannot prove Name.First > 0"
+    },
+    "msg_id": 8,
+    "rule": "VC_ASSERT",
+    "severity": "medium",
+    "unproved_status": {
+      "memory": false,
+      "status": "limit",
+      "steps": false,
+      "time": true
+    }
+  },
+  {
+    "check_col": 32,
+    "check_file": "silver_output_profile.adb",
+    "check_line": 9505,
+    "check_tree": [
+      {
+        "proof_attempts": {
+          "CVC5": {
+            "result": "Unknown\n(unknown + incomplete)",
+            "steps": 884,
+            "time": 0.226767
+          },
+          "Z3": {
+            "result": "Timeout",
+            "steps": 1,
+            "time": 30
+          },
+          "altergo": {
+            "result": "Timeout",
+            "steps": 1,
+            "time": 30
+          }
+        },
+        "transformations": {
+          "introduce_premises": [
+            {
+              "proof_attempts": {
+                "CVC5_CE": {
+                  "result": "Unknown\n(unknown + incomplete)",
+                  "steps": 3414,
+                  "time": 1.15278
+                }
+              },
+              "transformations": {}
+            }
+          ]
+        }
+      }
+    ],
+    "col": 32,
+    "entity": 1,
+    "file": "silver_output_profile.adb",
+    "how_proved": "prover",
+    "line": 9505,
+    "message": {
+      "text": "assertion might fail"
+    },
+    "msg_id": 12,
+    "rule": "VC_ASSERT",
+    "severity": "medium",
+    "unproved_status": {
+      "memory": false,
+      "status": "limit",
+      "steps": false,
+      "time": true
+    }
+  }
+]

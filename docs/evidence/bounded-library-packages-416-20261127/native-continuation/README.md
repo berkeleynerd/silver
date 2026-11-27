@@ -21,6 +21,7 @@ postconditions remain; no obligation or executable branch is removed.
 | --- | --- | --- |
 | `Package_Signature_At`, body declaration 8395 | `20261127T184159-a0acf00fba2f` | 79/79 (14 flow, 65 proof), selected entity `all`; 1,020.794 seconds. |
 | `Package_Spec_At`, body declaration 8581 | `20261127T185933-2055189d72e9` | 45/45 (9 flow, 36 proof), selected entity `all`; 362.113 seconds. |
+| `Package_Main_At`, body declaration 9492 | `20261127T190610-5f1996739339` | Failed: 5 flow and 45/47 proof rows passed, selected entity `all`; 1,471.699 seconds. |
 
 The source for this checkpoint is Output_Profile SHA-256
 `f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da`.
@@ -34,6 +35,32 @@ Main, Analyze and their four public wrappers remain pending at this
 checkpoint. Complete native, Lean, original-source correspondence and final
 regression/sample checkpoints remain required; these focused results do not
 establish feature completion.
+
+## Main failure and next focused check
+
+The complete Main selection passed its metadata, context, flow, catalogue,
+body and `Application_Tail` assertions/preconditions. Two Static assertions
+remain unresolved at 9503 and 9505: `Valid_Name` for the package name, and
+`Info.Units (Main_Body).First <= Text'Last + 1`. CVC5 returned unknown and
+Z3/Alt-Ergo timed out; no counterexample was produced. The preceding
+`Valid_Metadata (Text, Info)` assertion passed. The public declaration of
+that predicate exports no postcondition, although its body directly implies
+both failed facts.
+
+The [failed run](20261127T190610-5f1996739339/summary.json) retains every
+selected SPARK row, the failed rows, SARIF, full log, managed ledger, Why3
+session/shapes and matching source snapshots, including the Package_Bindings
+specification and body. Its [managed diagnostic](20261127T190610-5f1996739339/diagnostic.json)
+records the next hypothesis before another attempt.
+
+The lead authorized a minimal `Valid_Metadata` true-result postcondition
+exporting the two existing projections, with its full input domain and body
+unchanged. `Valid_Name` must precede the Main bound with `and then`: it
+establishes a one-based, nonempty, bounded text before the addition
+`Text'Last + 1` is evaluated. The next native gate is the complete
+Package_Bindings unit after lead integration and source-witness alignment,
+then the complete Main helper. No native retry was started at this failure
+checkpoint.
 
 ## Existing helper reconciliation
 
