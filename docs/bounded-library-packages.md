@@ -303,3 +303,41 @@ eight CPUs; observed proof threads remain within their reserved subsets of guest
 CPUs 0–7. Remaining native helpers/callers, original-source and semantic closure,
 complete validation, final Rosetta promotion and independent review are still
 required. PR #424 remains draft; no merge or new language support is claimed.
+
+
+### Original declaration identities and source-derived read effects, 14:20 UTC
+
+The [scalar source identity](evidence/bounded-library-packages-416-20261122/scalar-source-identity/README.md),
+[condition source identity](evidence/bounded-library-packages-416-20261122/condition-source-identity/README.md)
+and [layout-effect bridge](evidence/bounded-library-packages-416-20261122/layout-state-effects/aggregate/README.md)
+passed focused Linux checks and fresh axiom audits. Original-name lookup now
+follows from the parsed expression, including Boolean scalar-shadow exclusion
+and scalar flow overlays. The concrete source-span layout supplies the global
+state identity, kind and original spans; the full condition read set maps into
+the native State_Reads mask. These are parts of the final decoder, not an
+assumed whole-language correspondence. Declaration source histories, original
+Object rows and formal-order argument reads are integrated at `470f594d0b`,
+`27b5959877` and `bbac3feb1b`.
+
+The complete typed Signature and canonical declaration-reader executions passed
+with the 1,536-token source candidate (`b791967b79`). The native flow-legality
+repair freezes the two mutable constraint inputs before object declaration
+(`e2470b6e98`); its Completion interpretation and 2,786-token combined fragment
+check passed at `e8bf096bd0`. No native input domain or source capability changed.
+
+The source-isolated Statement diagnostic
+`20261127T135353-ae9ac5772cde` proved all ten selected checks, including the four
+separated context/body facts and recursive Application_Tail precondition. Its
+four static assertions are integrated at `666ba80937`; the canonical complete
+Statement helper check `20261127T141021-61ebae4a0685` is running. The diagnostic
+is experimental and does not replace that whole-helper gate. The earlier
+complete failure remains failed.
+
+The lead integrated the separable subthread results and continues the original
+Imported_Package source interpretation and authoritative support binding. The
+three proof/contract subthreads retain selected Astra Max settings; the live
+lead's model/effort is not independently exposed. Host detection reports eight
+CPUs, and inspected native threads have their reserved affinity within guest
+CPUs 0–7. Final semantic/source closure, remaining native helper/caller gates,
+complete checkpoints, Rosetta delivery and independent review remain pending.
+PR #424 remains draft and is not ready to merge.
