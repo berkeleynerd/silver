@@ -1,8 +1,10 @@
 # Bounded library packages and application units
 
-Current status, 2026-11-27 18:36 UTC: PR #424 is still draft. The earlier shared
-source run was interrupted, and its source freeze ended. The two new namespace
-findings from independent review are under repair; see the latest round below.
+Current status, 2026-11-27 19:17 UTC: PR #424 remains draft. Both namespace
+repairs pass their focused behavior and name-source checks; their complete
+source/assurance integration is still required. Main's staged Lean interpretation
+and exact typed source candidate now pass. The native Main contract, changed
+helper coverage and original-bundle semantic endpoint are still in progress.
 
 ## Selection — 2026-11-22
 
@@ -500,3 +502,40 @@ runtime settings and token/cost totals are not independently exposed. Each uses
 a two-worker/two-thread share within the eight-CPU host allocation. The original
 statement/initializer decoder and complete source-bound automatic-completion
 endpoint remain unfinished. PR #424 stays draft, and no support is promoted.
+
+
+### Main interpretation and focused coverage reconciliation, 19:17 UTC
+
+The [Main proof packet](evidence/bounded-library-packages-416-20261122/main-static-witness/README.md)
+retains the failed normalization attempts, successful intermediate checks and
+final `20261127T191054-df5ffb22aaf2` result (22,162 declarations). Three equations
+for argument handling, declarations and completion replace whole-command
+expansion. They quantify arbitrary locals, continuations and callees; all twelve
+Static assertions and the named Input local remain in the typed source. Neither
+the input domain nor the theorem budget was weakened. The final authoritative
+Main and Analyze source bindings are prepared but have not yet passed the shared
+OutputBody checkpoint.
+
+The [native continuation packet](evidence/bounded-library-packages-416-20261127/native-continuation/README.md)
+records Signature's 79-check pass (`20261127T184159-a0acf00fba2f`) and
+Specification's 45-check pass (`20261127T185933-2055189d72e9`), including preservation
+of unit spans on failure returns. It also reconciles changed inherited contracts
+and callers against retained evidence. The new-helper queue alone does not cover
+those inherited changes. A canonical focused Output_Profile unit run will cover
+the reconciled set after the pending Main and Analyze gates, before the complete
+compiler audit; standalone helper coverage must still be checked.
+
+Original function assignments and procedure actual/output flow now have focused
+source-to-checker links. The [global reset packet](evidence/bounded-library-packages-416-20261122/package-procedure-global-reset/README.md)
+records `20261127T191316-0a0ffe407833` (30,959 declarations): the exact native reset
+fold and its representation bridge. Its source-derived visibility/layout premises
+are the next proof step, not established facts of this checkpoint. Signature's
+imported callee-domain proof is also in focused development.
+
+The continuing subthreads remain selected GPT-6 Astra Max; live model/effort and
+whole-session cost are not independently exposed. Checks use managed two-worker
+shares under the host's eight-CPU allocation. Linux reports eight CPUs; the latest
+inspection found every active managed worker thread within guest CPUs 0–7.
+Complete source and semantic closure, native/Lean audits, final applicable tests,
+Rosetta delivery and independent review remain outstanding. No support promotion
+or merge readiness is claimed.
