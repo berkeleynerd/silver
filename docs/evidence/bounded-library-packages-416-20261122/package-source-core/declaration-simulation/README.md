@@ -192,3 +192,30 @@ the inherited context adapters. Linux x86-64 focused run
 declarations in 3.782 seconds with two workers, two threads and 8192 MiB
 per process. The `boolean-initializer-context-` log and input record cover
 those four targets.
+
+## Executable Boolean initialization and Object value readers
+
+`Package_Object_At` calls `Boolean_Initializer_After` in its Boolean
+branch. That executable function declares an output with discriminant
+`State.Scalar_Names.Count`, calls `Read_Condition_Into` and returns the
+worker's `Value.After`. `BooleanInitializer.Library.meaning` interprets
+that call on the actual context, mask, cursor, flow and initial array
+values. It derives the output count from `Initial_Flow` and the returned
+cursor from the worker's verified refinement and predicate source
+interpretation. The shared context and flow equations also serve the
+existing Boolean initializer model.
+
+`BooleanInitializer.candidate_checked` covers the complete forward header,
+implementation header and ordinary body. Its 217 tokens come from
+`src/silver_output_profile.adb` at `1501ff7f8a`. The full source endpoint
+must supply `BooleanInitializer.Checked` on the certified output-profile
+tokens. `ObjectLibraries` uses this executable reader, the original
+scalar expression reader with the supplied `Elaborating` flag and native
+defaults, and the typed `Included` expression on bounded intervals.
+
+Linux x86-64 focused run `20261127T153728-6ba9eaac6a2f` reused the
+compiled runtime and candidate, built in 3.900 seconds and freshly
+audited 70,097 declarations in 3.779 seconds. It used two workers, two
+threads and 8192 MiB per process. The `object-value-imports-` files record
+both targets. Full declaration execution and authoritative source binding
+are separate checkpoints.
