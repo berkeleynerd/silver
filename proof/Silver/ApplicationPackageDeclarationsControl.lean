@@ -46,12 +46,13 @@ def TableKind.resize (kind : TableKind) (backing : Backing) (locals : Locals)
   | .routines => {info with routines := Storage.resize info.routines (backing.routine locals) count}
   | .exports => {info with exports := Storage.resize info.exports (backing.exportItem locals) count}
 
-/-- The conditional invariant is the only use of Loop_Entry in either reader.
-Its final comparison reads the metadata from the loop's entry snapshot. -/
+/-- The loop-entry invariants retain original unit spans and formal-table
+bounds. Annotations affect native verification, not executable state. -/
 inductive Annotation (Fn : Ty → Type)
   | invariant : Expr Fn .truth → Annotation Fn
   | assertion : Expr Fn .truth → Annotation Fn
   | increases : Expr Fn .number → Annotation Fn
+  | stableUnits : Expr Fn .metadata → Annotation Fn
   | completingFormals : Expr Fn .truth → Expr Fn .number → Expr Fn .routine →
       Expr Fn .number → Expr Fn .metadata → Annotation Fn
 
@@ -59,6 +60,8 @@ def Annotation.render (names : FunctionNames Fn) : Annotation Fn → List String
   | .invariant value => ["pragma","loop_invariant","("] ++ value.render names ++ [")",";"]
   | .assertion value => ["pragma","assert","("] ++ value.render names ++ [")",";"]
   | .increases value => ["pragma","loop_variant","(","increases","=>"] ++ value.render names ++ [")",";"]
+  | .stableUnits info => ["pragma","loop_invariant","("] ++ info.render names ++
+      [".","units","="] ++ info.render names ++ ["'","loop_entry",".","units",")",";"]
   | .completingFormals completing start item count info =>
       ["pragma","loop_invariant","(","if"] ++ completing.render names ++ ["then"] ++
         start.render names ++ ["="] ++ (Expr.field .routineFormalFirst item).render names ++ ["and","then"] ++
@@ -69,6 +72,7 @@ def Annotation.render (names : FunctionNames Fn) : Annotation Fn → List String
 def Annotation.wellFormed (names : FunctionNames Fn) : Annotation Fn → Bool
   | .invariant test | .assertion test => (test.logical || test.conditional || test.quantified) && test.wellFormed names
   | .increases value => value.simple && value.wellFormed names
+  | .stableUnits info => info.prefix && info.wellFormed names
   | .completingFormals completing start item count info =>
       completing.logical && start.simple && item.prefix && count.simple && info.prefix &&
       completing.wellFormed names && start.wellFormed names && item.wellFormed names &&
@@ -76,6 +80,7 @@ def Annotation.wellFormed (names : FunctionNames Fn) : Annotation Fn → Bool
 
 def Annotation.allExpressions (test : {ty : Ty} → Expr Fn ty → Bool) : Annotation Fn → Bool
   | .invariant value | .assertion value | .increases value => test value
+  | .stableUnits info => test info
   | .completingFormals completing start item count info => test completing && test start &&
       test item && test count && test info
 

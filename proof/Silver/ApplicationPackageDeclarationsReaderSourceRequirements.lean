@@ -17,7 +17,7 @@ def signatureHeader : List String :=
   expectedTokens "with Global => null," ++
   expectedTokens "Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length" ++
   expectedTokens "and then Valid_State (Text, Outer)," ++
-  expectedTokens "Post => Valid_State (Text, Header)" ++
+  expectedTokens "Post => Info.Units = Info.Units'Old and then Valid_State (Text, Header)" ++
   expectedTokens "and then (Header.Position = 0 or else Header.Position > Outer.Position)" ++
   expectedTokens "and then (if Header.Position /= 0 and then not Completing then" ++
   expectedTokens "Info.Routine_Count > 0" ++
@@ -26,7 +26,7 @@ def signatureHeader : List String :=
   expectedTokens "Info.Routines (Info.Routine_Count).Spec_Name.First," ++
   expectedTokens "Info.Routines (Info.Routine_Count).Spec_Name.After))"
 
-def specificationHeader : List String := expectedTokens "(Text : String; Info : in out Packages.Metadata; Exports : out Parser_State) with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length, Post => Valid_State (Text, Exports)"
+def specificationHeader : List String := expectedTokens "(Text : String; Info : in out Packages.Metadata; Exports : out Parser_State) with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length, Post => Info.Units = Info.Units'Old and then Valid_State (Text, Exports)"
 
 def appendHeader : List String :=
   expectedTokens "(Frame : in out Parser_State; Name : Packages.Name_Span;" ++

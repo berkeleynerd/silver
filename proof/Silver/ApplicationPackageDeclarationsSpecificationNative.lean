@@ -131,6 +131,7 @@ def progressCheck : S :=
   rejectIf (.orElse (.le position.expression before.expression) (.not (call2 .validState text exports.expression)))
 
 def iteration : S := .list [
+  .annotate (.stableUnits info.expression),
   .annotate (.invariant (call2 .validState text exports.expression)),
   .annotate (.invariant (.gt position.expression (.number 0))),
   .annotate (.increases position.expression),

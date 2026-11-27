@@ -7,12 +7,14 @@ public import Silver.ApplicationPackageDeclarationsReaderSourceRequirements
 namespace Silver.ApplicationPackageDeclarations.ReaderSourceChecks
 namespace SpecificationTokens
 
-/- Original procedure and appended Object header SHA-256 70b741d1d1adf438e07a1f26bbc3a7fa42c08ee42f178483323d8e752832b6f9 -/
+/- Original procedure updated for the unit-preservation contract in 1013fedd26.
+The appended Object header is unchanged. Actual-source binding is checked separately. -/
 def header : List String := [
   "procedure", "package_spec_at", "(", "text", ":", "string", ";", "info", ":", "in", "out", "packages",
   ".", "metadata", ";", "exports", ":", "out", "parser_state", ")", "with", "global", "=>", "null",
   ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'",
-  "length", "in", "1", "..", "max_source_length", ",", "post", "=>", "valid_state", "(", "text", ",",
+  "length", "in", "1", "..", "max_source_length", ",", "post", "=>",
+  "info", ".", "units", "=", "info", ".", "units", "'", "old", "and", "then", "valid_state", "(", "text", ",",
   "exports", ")", "is"
 ]
 
@@ -43,6 +45,7 @@ def openLoop : List String := [
 ]
 
 def untilRoutine : List String := [
+  "pragma", "loop_invariant", "(", "info", ".", "units", "=", "info", "'", "loop_entry", ".", "units", ")", ";",
   "pragma", "loop_invariant", "(", "valid_state", "(", "text", ",", "exports", ")", ")", ";", "pragma",
   "loop_invariant", "(", "exports", ".", "position", ">", "0", ")", ";", "pragma", "loop_variant", "(",
   "increases", "=>", "exports", ".", "position", ")", ";", "before", ":=", "exports", ".", "position",

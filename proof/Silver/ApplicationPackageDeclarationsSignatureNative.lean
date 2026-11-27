@@ -129,6 +129,7 @@ def entry : S := .list [
   .assign opened (take position.expression (.symbol "(")) ]
 
 def invariants : S := .list [
+  .annotate (.stableUnits info.expression),
   .annotate (.invariant validState),
   .annotate (.invariant (.gt position.expression (.number 0))),
   .annotate (.invariant (.le formalCount.expression parameterCount)),

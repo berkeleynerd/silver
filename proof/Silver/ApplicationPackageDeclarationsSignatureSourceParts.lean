@@ -7,13 +7,15 @@ public import Silver.ApplicationPackageDeclarationsReaderSourceRequirements
 namespace Silver.ApplicationPackageDeclarations.ReaderSourceChecks
 namespace SignatureTokens
 
-/- Original procedure and appended helper header SHA-256 85ba04ded653c240dc883ea8b5abae11247706c2adda1631145fd9fce333ba1b -/
+/- Original procedure updated for the unit-preservation contract in 1013fedd26.
+The appended helper header is unchanged. Actual-source binding is checked separately. -/
 def header : List String := [
   "procedure", "package_signature_at", "(", "text", ":", "string", ";", "outer", ":", "parser_state", ";", "info",
   ":", "in", "out", "packages", ".", "metadata", ";", "completing", ":", "boolean", ";", "header",
   ":", "out", "parser_state", ")", "with", "global", "=>", "null", ",", "pre", "=>", "text",
   "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..",
   "max_source_length", "and", "then", "valid_state", "(", "text", ",", "outer", ")", ",", "post", "=>",
+  "info", ".", "units", "=", "info", ".", "units", "'", "old", "and", "then",
   "valid_state", "(", "text", ",", "header", ")", "and", "then", "(", "header", ".", "position",
   "=", "0", "or", "else", "header", ".", "position", ">", "outer", ".", "position", ")",
   "and", "then", "(", "if", "header", ".", "position", "/=", "0", "and", "then", "not",
@@ -78,6 +80,7 @@ def openLoop : List String := [
 ]
 
 def invariants : List String := [
+  "pragma", "loop_invariant", "(", "info", ".", "units", "=", "info", "'", "loop_entry", ".", "units", ")", ";",
   "pragma", "loop_invariant", "(", "valid_state", "(", "text", ",", "header", ")", ")", ";", "pragma",
   "loop_invariant", "(", "header", ".", "position", ">", "0", ")", ";", "pragma", "loop_invariant", "(",
   "formal_count", "<=", "info", ".", "parameter_count", ")", ";", "pragma", "loop_invariant", "(", "if", "formal_count",
