@@ -2,6 +2,7 @@ module
 
 public import Silver.ApplicationNativeGuards
 public import Silver.ApplicationNativeInitialization
+import all Init.Data.Repr
 
 @[expose] public section
 
@@ -104,7 +105,8 @@ def Declaration.render (names : FunctionNames Fn) (declaration : Declaration Fn)
     (if declaration.constant then ["constant"] else []) ++ declaration.typeName ++
     (match declaration.constraint with
       | none => []
-      | some count => ["("] ++ count.render names ++ [")"]) ++
+      | some count =>
+        (if declaration.type = .source then ["(", "1", ".."] else ["("]) ++ count.render names ++ [")"]) ++
     (match declaration.initial with
       | none => []
       | some initial => [":="] ++ initial.render names) ++ [";"]
@@ -139,12 +141,13 @@ def Place.root : Place Fn ty → String
   | .field _ owner | .index _ owner _ => owner.root
 
 def Declaration.validType : Ty → List String → Bool
-  | .number, spelling => decide (spelling ∈ [["literal_position"], ["subtype_count"],
+  | .number, spelling => decide (spelling ∈ [["natural"], ["literal_position"], ["subtype_count"],
       ["boolean_count"], ["scalar_expressions", ".", "binding_count"], ["array_bindings", ".", "binding_count"],
       ["packages", ".", "export_count_type"], ["packages", ".", "routine_count_type"],
       ["packages", ".", "formal_count_type"], ["packages", ".", "state_id"],
       ["packages", ".", "state_count_type"], ["packages", ".", "type_id"]])
   | .truth, spelling => spelling == ["boolean"]
+  | .source, spelling => spelling == ["string"]
   | .conditionResult, spelling => spelling == ["condition_result"]
   | .activeFlow, spelling => spelling == ["scalar_flow"]
   | .interval, spelling => spelling == ["scalars", ".", "interval"]
@@ -160,7 +163,7 @@ def Declaration.validType : Ty → List String → Bool
   | .formal, spelling => spelling == ["packages", ".", "formal"]
   | .exportItem, spelling => spelling == ["packages", ".", "export_declaration"]
   | .stateDeclaration, spelling => spelling == ["packages", ".", "state_declaration"]
-  | .nameSpan, spelling => spelling == ["packages", ".", "name_span"]
+  | .nameSpan, spelling => decide (spelling ∈ [["packages", ".", "name_span"], ["silver_package_bindings", ".", "name_span"]])
   | .stateSet, spelling => spelling == ["packages", ".", "state_set"]
   | .reference, spelling => spelling == ["scalar_expressions", ".", "name_reference"]
   | .functionFormal, spelling => spelling == ["functions", ".", "formal"]
@@ -188,7 +191,7 @@ def Declaration.implicitSupported : Ty → Bool
   | _ => false
 
 def Declaration.needsConstraint : Ty → Bool
-  | .conditionResult | .activeFlow | .appScan | .appCall => true
+  | .conditionResult | .activeFlow | .appScan | .appCall | .source => true
   | _ => false
 
 /-- The local storage of an implicitly initialized discriminated object has the
@@ -215,7 +218,8 @@ def Declaration.wellFormed (names : FunctionNames Fn) (declaration : Declaration
      else declaration.constraint.isNone) &&
     (match declaration.constraint with
       | none => true
-      | some count => count.expression && count.wellFormed names) &&
+      | some count =>
+        (if declaration.type = .source then count.simple else count.expression) && count.wellFormed names) &&
     (match declaration.initial with
       | none => !declaration.constant && Declaration.implicitSupported declaration.type
       | some initial => initial.expression && initial.wellFormed names)
@@ -278,5 +282,31 @@ def Command.namedCorrect (parameters : FunctionParameters Fn) : Command Fn resul
 
 def Body.namedCorrect (parameters : FunctionParameters Fn) (body : Body Fn resultType) : Bool :=
   body.declarations.all (Declaration.namedCorrect parameters) && body.commands.namedCorrect parameters
+
+namespace StructuralControls
+
+theorem one_based_string_declaration :
+    let result : Declaration NoFunctions :=
+      ⟨.source, "result", ["string"], true, some candidateSlice, [], some (.variable "result_length")⟩
+    result.render noNames = ["result", ":", "constant", "string", "(", "1", "..", "result_length", ")", ":=",
+      "text", "(", "candidate", ".", "first", "..", "candidate", ".", "after", "-", "1", ")", ";"] ∧
+    result.wellFormed noNames = true ∧
+    {result with constraint := none}.wellFormed noNames = true ∧
+    {result with constant := false, initial := none}.wellFormed noNames = false ∧
+    {result with constraint := some (.ite atom (.number 1) (.number 2))}.wellFormed noNames = false ∧
+    (result.scan [(.source, "text"), (.nameSpan, "candidate")] []).1 = false ∧
+    (result.scan [(.source, "text"), (.nameSpan, "candidate"), (.number, "result_length")] []).1 = true ∧
+    Declaration.validType .number ["natural"] = true ∧
+    Declaration.validType .nameSpan ["silver_package_bindings", ".", "name_span"] = true := by
+  decide +kernel
+
+/-- The constrained object is rebased at one. Native range and length checks
+establish that its initializer fits; evaluation copies the selected bytes. -/
+theorem one_based_string_value (calls : Calls Fn) (locals : Locals)
+    (name : String) (count : Expr Fn .number) (initial : Expr Fn .source) :
+    Declaration.eval calls locals ⟨.source, name, ["string"], true, some initial, [], some count⟩ =
+      locals.set .source name (initial.eval calls locals) := rfl
+
+end StructuralControls
 
 end Silver.ApplicationNative

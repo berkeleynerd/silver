@@ -1128,6 +1128,11 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | sourceLast : Expr Fn .source → Expr Fn .number
   | sourceLength : Expr Fn .source → Expr Fn .number
   | sourcePrefix : Expr Fn .source → Expr Fn .number → Expr Fn .source
+  | emptySource : Expr Fn .source
+  /-- Bytes selected from a normalized, one-based source, including both endpoints.
+  A copy into a one-based String uses these bytes. The raw Ada slice keeps its
+  own lower bound, so the guard excludes its use as an attribute or slice prefix. -/
+  | sourceSlice : Expr Fn .source → Expr Fn .number → Expr Fn .number → Expr Fn .source
   | maxConcatenations : Expr Fn .number
   | emptyMetadata : Expr Fn .metadata
   | invalidAnalysis : Expr Fn .analysis
@@ -1265,6 +1270,9 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .sourceLast text => text.render names ++ ["'", "last"]
   | .sourceLength text => text.render names ++ ["'", "length"]
   | .sourcePrefix text last => text.render names ++ ["(", "1", ".."] ++ last.render names ++ [")"]
+  | .emptySource => ["\"\""]
+  | .sourceSlice text first last =>
+      text.render names ++ ["("] ++ first.render names ++ [".."] ++ last.render names ++ [")"]
   | .maxConcatenations => ["max_concatenations"]
   | .emptyMetadata => ["packages", ".", "empty_metadata"]
   | .invalidAnalysis => ["invalid_analysis"]
@@ -1379,6 +1387,10 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .intervalValue lower upper => ⟨lower.eval calls locals, upper.eval calls locals⟩
   | .sourceLast text | .sourceLength text => (text.eval calls locals).length
   | .sourcePrefix text last => (text.eval calls locals).take (last.eval calls locals)
+  | .emptySource => []
+  | .sourceSlice text first last =>
+      let start := first.eval calls locals
+      ((text.eval calls locals).drop (start - 1)).take (last.eval calls locals + 1 - start)
   | .maxConcatenations => Compose.maxConcatenations
   | .emptyMetadata => {} | .invalidAnalysis => ApplicationAdmission.invalidAnalysis
   | .nameSpan first after => ⟨first.eval calls locals, after.eval calls locals⟩

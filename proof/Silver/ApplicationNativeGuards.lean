@@ -39,7 +39,8 @@ def Expr.prefix : Expr Fn ty → Bool
   | .variable _ | .function _ | .app _ _ | .namedApp _ _ _ | .soleApp _ _ | .field _ _ | .property _ _ | .index _ _ _
   | .full | .empty | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden | .booleanType | .integerType
   | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .routineKind _ | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
-  | .number _ | .integer _ | .truth _ | .word _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _
+  | .emptySource | .sourceSlice _ _ _ | .number _ | .integer _ | .truth _ | .word _
+  | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _
   | .inRange _ _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .intNe _ _ | .scalarBindingEq _ _ | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .truthEq _ _ | .truthNe _ _ | .kindNe _ _ | .intervalNe _ _ | .routineEq _ _
   | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .eagerOr _ _ | .group _
   | .contextHasDynamic _ | .flowValuesFirst _ | .intervalValue _ _
@@ -49,7 +50,7 @@ def Expr.prefix : Expr Fn ty → Bool
 def Expr.primary : Expr Fn ty → Bool
   | .variable _ | .function _ | .app _ _ | .namedApp _ _ _ | .soleApp _ _ | .field _ _ | .property _ _ | .index _ _ _ | .number _ | .integer _
   | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .routineKind _ | .group _
-  | .flowValuesFirst _ | .intervalValue _ _
+  | .flowValuesFirst _ | .intervalValue _ _ | .emptySource | .sourceSlice _ _ _
   | .sourceLast _ | .sourceLength _ | .nameSpan _ _ | .scalarConstraintValue _ _ | .scalarBindingValue _ _ _ _ _ _ _ _ | .booleanBindingValue _ _ _ _ _ _ _ | .stateDeclarationValue _ _ _ _ _ _ _ _ _ | .callValueAggregate _ _ _ | .applicationCall _ _ _ | .packageType _ _ _ _ _ | .scanResult _ _ _ | .analysisValue _ _ _ _ _ _ _ | .full | .empty
   | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden | .noCalls | .booleanType | .integerType | .recordDefault _ | .recordValue _ _ _ | .update _ _
   | .emptyActuals | .emptySeen | .functionType _ _ _ _ | .functionFormal _ _ _ _ _ | .procedureFormal _ _ _ _ _ _
@@ -112,7 +113,7 @@ mutual
 def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .number _ | .truth _ | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .routineKind _ | .recordDefault _ | .emptyActuals | .emptySeen | .full | .empty
   | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden | .noCalls | .booleanType | .integerType
-  | .maxConcatenations | .emptyMetadata | .invalidAnalysis => true
+  | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .emptySource => true
   | .token value => decide (value ∈ Compose.Expressions.allTokens)
   | .integer value => decide (0 ≤ value)
   | .word value => literalWord value
@@ -147,6 +148,9 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
       test.wellFormed names && yes.wellFormed names
   | .contextHasDynamic value | .flowValuesFirst value | .sourceLast value | .sourceLength value => value.prefix && value.wellFormed names
   | .sourcePrefix text last => text.prefix && text.wellFormed names && last.simple && last.wellFormed names
+  | .sourceSlice text first last =>
+      text.prefix && text.wellFormed names && first.simple && first.wellFormed names &&
+      last.simple && last.wellFormed names
   | .intervalValue first after | .nameSpan first after => first.expression && after.expression && first.wellFormed names && after.wellFormed names
   | .callValueAggregate after kind bounds => after.expression && kind.expression && bounds.expression &&
       after.wellFormed names && kind.wellFormed names && bounds.wellFormed names
@@ -217,7 +221,7 @@ def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .variable (ty := ty) name => (ty, name) ∈ scope
   | .number _ | .integer _ | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _
   | .unitKind _ | .bodyStop _ | .routineKind _ | .recordDefault _ | .emptyActuals | .emptySeen | .function _ | .full | .empty | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden
-  | .noCalls | .booleanType | .integerType | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis => true
+  | .noCalls | .booleanType | .integerType | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .emptySource => true
   | .soleApp _ argument => argument.scoped scope
   | .app fn argument | .namedApp _ fn argument => fn.scoped scope && argument.scoped scope
   | .field _ value | .property _ value | .not value | .group value | .contextHasDynamic value | .flowValuesFirst value | .sourceLast value | .sourceLength value => value.scoped scope
@@ -228,6 +232,7 @@ def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .orElse left right | .eagerOr left right | .intervalValue left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.scoped scope && right.scoped scope
   | .inRange value first last => value.scoped scope && first.scoped scope && last.scoped scope
+  | .sourceSlice text first last => text.scoped scope && first.scoped scope && last.scoped scope
   | .ite test yes no | .elsif test yes no => test.scoped scope && yes.scoped scope && no.scoped scope
   | .callValueAggregate after kind bounds => after.scoped scope && kind.scoped scope && bounds.scoped scope
   | .applicationCall count value scan => count.scoped scope && value.scoped scope && scan.scoped scope
@@ -272,7 +277,7 @@ def Expr.namedCorrect (parameters : FunctionParameters Fn) : Expr Fn ty → Bool
   | .variable _ => true
   | .number _ | .integer _ | .truth _ | .word _ | .scalarKind _ | .exportKind _ | .mode _
   | .unitKind _ | .bodyStop _ | .routineKind _ | .recordDefault _ | .emptyActuals | .emptySeen | .function _ | .full | .empty | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden
-  | .noCalls | .booleanType | .integerType | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis => true
+  | .noCalls | .booleanType | .integerType | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .emptySource => true
   | .soleApp _ argument => argument.namedCorrect parameters
   | .app fn argument => fn.namedCorrect parameters && argument.namedCorrect parameters
   | .namedApp name fn argument => (fn.formalAt parameters 0 == some name) &&
@@ -285,6 +290,8 @@ def Expr.namedCorrect (parameters : FunctionParameters Fn) : Expr Fn ty → Bool
   | .orElse left right | .eagerOr left right | .intervalValue left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.namedCorrect parameters && right.namedCorrect parameters
   | .inRange value first last => value.namedCorrect parameters && first.namedCorrect parameters && last.namedCorrect parameters
+  | .sourceSlice text first last =>
+      text.namedCorrect parameters && first.namedCorrect parameters && last.namedCorrect parameters
   | .ite test yes no | .elsif test yes no => test.namedCorrect parameters && yes.namedCorrect parameters && no.namedCorrect parameters
   | .callValueAggregate after kind bounds => after.namedCorrect parameters && kind.namedCorrect parameters && bounds.namedCorrect parameters
   | .applicationCall count value scan => count.namedCorrect parameters && value.namedCorrect parameters && scan.namedCorrect parameters
@@ -357,6 +364,37 @@ abbrev NoFunctions := fun (_ : Ty) => Empty
 def noNames : FunctionNames NoFunctions := fun symbol => nomatch symbol
 
 def atom : Expr NoFunctions .truth := .variable "flag"
+
+def candidateSlice : Expr NoFunctions .source :=
+  .sourceSlice (.variable "text") (.field .nameFirst (.variable "candidate"))
+    (.sub (.field .nameAfter (.variable "candidate")) (.number 1))
+
+theorem source_slice_syntax :
+    (Expr.emptySource : Expr NoFunctions .source).render noNames = ["\"\""] ∧
+    candidateSlice.render noNames =
+      ["text", "(", "candidate", ".", "first", "..", "candidate", ".", "after", "-", "1", ")"] ∧
+    (Expr.emptySource : Expr NoFunctions .source).wellFormedRoot noNames = true ∧
+    candidateSlice.wellFormedRoot noNames = true ∧
+    (Expr.sourceLast (.emptySource : Expr NoFunctions .source)).wellFormedRoot noNames = false ∧
+    (Expr.sourceLast candidateSlice).wellFormedRoot noNames = false ∧
+    (Expr.sourceSlice candidateSlice (.number 1) (.number 2)).wellFormedRoot noNames = false ∧
+    (Expr.sourceSlice (.variable "text") (.ite atom (.number 1) (.number 2)) (.number 3)).wellFormedRoot noNames = false ∧
+    (Expr.sourceSlice (.variable "text") (.number 1) (.ite atom (.number 2) (.number 3))).wellFormedRoot noNames = false := by
+  decide +kernel
+
+theorem source_slice_checks_children (scope : Scope) (parameters : FunctionParameters Fn)
+    (text : Expr Fn .source) (first last : Expr Fn .number) :
+    (Expr.sourceSlice text first last).scoped scope =
+      (text.scoped scope && first.scoped scope && last.scoped scope) ∧
+    (Expr.sourceSlice text first last).namedCorrect parameters =
+      (text.namedCorrect parameters && first.namedCorrect parameters && last.namedCorrect parameters) := ⟨rfl, rfl⟩
+
+theorem source_slice_values (calls : Calls Fn) (locals : Locals)
+    (text : Expr Fn .source) (first last : Expr Fn .number) :
+    Expr.emptySource.eval calls locals = [] ∧
+    (Expr.sourceSlice text first last).eval calls locals =
+      ((text.eval calls locals).drop (first.eval calls locals - 1)).take
+        (last.eval calls locals + 1 - first.eval calls locals) := ⟨rfl, rfl⟩
 
 theorem not_collision :
     (Expr.not (.orElse atom atom)).render noNames = (Expr.orElse (.not atom) atom).render noNames ∧
