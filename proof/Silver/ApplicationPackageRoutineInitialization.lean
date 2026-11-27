@@ -319,4 +319,225 @@ theorem specification_loop_inventory (reader : BooleanElaboration.Native.Reader)
     rw [headChecked, checked]
     rfl
 
+/-- Global declaration elaboration retains exact original values. This uses
+the Object singleton guard and the actual appended rows, independently of the
+Ada staticness flag and of the declared target interval. -/
+theorem object_global_elaborated (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (frame : ParserState) (info : PackageBindings.Metadata) {out : ObjectResult}
+    (static : ScalarExpression.ElaboratedEnvironment frame.scalarNames)
+    (parsed : objectStep (modelObjectCalls reader) text frame info false = out)
+    (present : out.frame.position ≠ 0) : ScalarExpression.ElaboratedEnvironment out.frame.scalarNames := by
+  have added := (ApplicationPackageObjectRows.objectStep_rows reader text frame info false
+    (parsed ▸ present)).2
+  rw [parsed] at added
+  have base : ScalarExpression.ElaboratedEnvironment
+      (ApplicationPackageObjectRows.initializerBase text frame info
+        (ApplicationPackageObjectRows.objectName text frame) false).scalarNames := static
+  cases kind : out.mark.kind with
+  | integer =>
+      obtain ⟨_, rows, _⟩ := added.integerStorage kind
+      rw [rows]
+      exact ScalarExpression.elaborated_append base (object_global_singleton reader text frame info parsed present)
+  | boolean =>
+      obtain ⟨_, _, rows⟩ := added.booleanStorage kind
+      rw [rows]
+      exact base
+
+private theorem continue_specification_elaborated {calls : SpecificationCalls} {text : Source}
+    {before : Nat} {state after : SpecificationState}
+    (static : ScalarExpression.ElaboratedEnvironment state.exports.scalarNames)
+    (run : continueSpecification calls text before state = .next after) :
+    ScalarExpression.ElaboratedEnvironment after.exports.scalarNames := by
+  unfold continueSpecification at run
+  split at run
+  · contradiction
+  · cases SpecificationStep.next.inj run
+    exact static
+
+theorem SpecificationSyntax.elaborated {reader : BooleanElaboration.Native.Reader} {text : Source}
+    {before after : SpecificationState} {inventory : SpecificationSyntax}
+    (source : inventory.SourceAt reader text before after)
+    (static : ScalarExpression.ElaboratedEnvironment before.exports.scalarNames) :
+    ScalarExpression.ElaboratedEnvironment after.exports.scalarNames := by
+  cases inventory with
+  | routine =>
+      change specificationRoutine (modelSpecificationCalls reader) text before = .next after at source
+      dsimp only [specificationRoutine] at source
+      split at source
+      · contradiction
+      · apply continue_specification_elaborated (run := source)
+        exact static
+  | subtype inventory =>
+      have run := source.1
+      dsimp only [specificationSubtype, modelSpecificationCalls] at run
+      split at run
+      · contradiction
+      · rename_i present
+        have rows := (subtype_declaration_preserves
+          (subtype_declaration_sound text before.exports false present)).2.1
+        split at run
+        · contradiction
+        · unfold appendExport at run
+          apply continue_specification_elaborated (run := run)
+          simpa only [rows] using static
+  | object out inventory =>
+      have run := source.1
+      dsimp only [specificationObject, modelSpecificationCalls] at run
+      split at run
+      · contradiction
+      · rename_i accepted
+        have present : (objectStep (modelObjectCalls reader) text before.exports before.info false).frame.position ≠ 0 :=
+          fun missing => accepted (by simp only [missing, decide_true, Bool.true_or])
+        unfold appendExport at run
+        exact continue_specification_elaborated
+          (object_global_elaborated reader text before.exports before.info static rfl present) run
+
+def specificationExitElaborated : SpecificationExit → Prop
+  | .returned _ => True
+  | .ready final => ScalarExpression.ElaboratedEnvironment final.exports.scalarNames
+
+/-- The public scalar environment remains exact through every original
+specification item. Its final values can seed imported execution only after
+the separate raw initializer evaluation theorems identify those values. -/
+theorem SpecificationInventories.elaborated {reader : BooleanElaboration.Native.Reader} {text : Source}
+    {before : SpecificationState} {rows : List SpecificationItem} {exit : SpecificationExit}
+    (history : SpecificationInventories reader text before rows exit)
+    (static : ScalarExpression.ElaboratedEnvironment before.exports.scalarNames) :
+    (∀ row ∈ rows, ScalarExpression.ElaboratedEnvironment row.before.exports.scalarNames) ∧
+      specificationExitElaborated exit := by
+  induction history with
+  | returned => exact ⟨by simp, trivial⟩
+  | @ready state final step =>
+      have same : state = final := by
+        dsimp only [specificationStep] at step
+        split at step
+        · exact SpecificationStep.ready.inj step
+        · split at step
+          · dsimp only [specificationRoutine, continueSpecification] at step
+            split at step <;> (try contradiction)
+            split at step <;> contradiction
+          · split at step
+            · contradiction
+            · split at step
+              · dsimp only [specificationSubtype, appendExport, continueSpecification] at step
+                split at step <;> (try contradiction)
+                split at step <;> (try contradiction)
+                split at step <;> contradiction
+              · dsimp only [specificationObject, appendExport, continueSpecification] at step
+                split at step <;> (try contradiction)
+                split at step <;> contradiction
+      exact ⟨by simp, same ▸ static⟩
+  | next step source rest ih =>
+      obtain ⟨following, final⟩ := ih (SpecificationSyntax.elaborated source static)
+      refine ⟨?_, final⟩
+      intro row member
+      rcases List.mem_cons.mp member with rfl | later
+      · exact static
+      · exact following row later
+
+theorem imported_elaborated (exports : ParserState) (info : PackageBindings.Metadata) (position : Nat)
+    (static : ScalarExpression.ElaboratedEnvironment exports.scalarNames) :
+    ScalarExpression.ElaboratedEnvironment
+      (ApplicationPackageFrames.importedFrameRaw exports info position).scalarNames := by
+  intro row member
+  obtain ⟨original, present, rfl⟩ := List.mem_map.mp member
+  exact static original present
+
+open Packages ApplicationPackageFrameLayout
+
+def integerRangeAt (ranges : SharedRanges) : Address → Option Integer.Interval
+  | .global identity => ranges.globals identity
+  | .local identity => ranges.locals identity
+
+/-- Active bindings are related by their original declaration identity, so
+Hide_Outer may compact parser slots without changing their semantic cells. -/
+def ScalarRangeRows (info : PackageBindings.Metadata) (ranges : SharedRanges)
+    (names : ScalarExpression.Environment) : Prop :=
+  ∀ row ∈ names, integerRangeAt ranges
+    (rowAddress info .integer ⟨row.first, row.after, row.qualifierFirst, row.qualifierAfter⟩) = some row.bounds
+
+theorem ScalarRangeRows.retain {info ranges before after}
+    (rows : ScalarRangeRows info ranges before) (kept : after.Sublist before) :
+    ScalarRangeRows info ranges after := fun row member => rows row (kept.subset member)
+
+theorem ScalarRangeRows.view_active {info : PackageBindings.Metadata} {ranges : SharedRanges}
+    {context : ParseContext} (rows : ScalarRangeRows info ranges context.scalarNames)
+    (bound index : Nat) (active : 0 < index ∧ index ≤ context.scalarNames.length) :
+    ranges.view (layout bound info context) index = ScalarExpression.ranges context.scalarNames index := by
+  have within : index - 1 < context.scalarNames.length := by omega
+  have selected := rows context.scalarNames[index - 1] (List.getElem_mem within)
+  change integerRangeAt ranges (slotAddress bound info .integer (scalarRows context) index) = _
+  have live : 0 < index ∧ index ≤ (scalarRows context).length := by
+    simpa only [scalarRows, List.length_map] using active
+  rw [slotAddress, ite_eq_left live, ScalarExpression.ranges, ite_eq_left active]
+  have chosen : (scalarRows context).getD (index - 1) {} =
+      ⟨context.scalarNames[index - 1].first, context.scalarNames[index - 1].after,
+        context.scalarNames[index - 1].qualifierFirst, context.scalarNames[index - 1].qualifierAfter⟩ := by
+    simp only [scalarRows, List.getD_eq_getElem?_getD, List.getElem?_map,
+      List.getElem?_eq_getElem within, Option.map_some, Option.getD_some]
+  rw [chosen]
+  simpa only [ScalarExpression.binding, List.getD_eq_getElem?_getD,
+    List.getElem?_eq_getElem within, Option.getD_some] using selected
+
+private theorem scalarExpression_of_readsOnly {expression : Integer.Expr} {allowed : Nat → Prop}
+    (reads : expression.ReadsOnly allowed) : ScalarFunctions.scalarExpression expression = true := by
+  induction expression with
+  | literal | snapshot | name => rfl
+  | indexed => contradiction
+  | positive _ ih | negative _ ih | parenthesized _ ih => exact ih reads
+  | add _ _ ihl ihr | subtract _ _ ihl ihr | multiply _ _ ihl ihr
+    | divide _ _ ihl ihr | modulo _ _ ihl ihr | remainder _ _ ihl ihr =>
+      exact Bool.and_eq_true_iff.mpr ⟨ihl reads.1, ihr reads.2⟩
+
+def scalarInitializer (bound : Nat) (info : PackageBindings.Metadata)
+    (base : ParserState) (out : ObjectResult) (expression : Integer.Expr) : LocalInitializer where
+  target := .integer out.name.first
+  domain := .integer (if out.constantObject then out.initialBounds else out.mark.bounds)
+  value := .integer expression
+  layout := layout bound info (booleanInitializerContext base out.name.first out.name.after)
+  analysis := (booleanInitializerContext base out.name.first out.name.after).analysis
+  booleans := BooleanBindings.analysis base.booleanNames
+
+/-- The existing LocalInitializer consumer checks the original raw Integer
+expression under its own source layout. Immutable domains retain the inferred
+snapshot interval; original target containment is still derived separately. -/
+theorem ValueCalls.scalar_initializer {text : Source} {base : ParserState} {first last : Nat}
+    {out : ObjectResult} (calls : ValueCalls text base first last out)
+    (kind : out.mark.kind = .integer) (bound : Nat) (info : PackageBindings.Metadata)
+    (ranges : SharedRanges) (rows : ScalarRangeRows info ranges base.scalarNames) :
+    ∃ expression,
+      ScalarExpression.sourceSyntaxAt text base.scalarNames [] first last true out.initFirst
+        ⟨out.initAfter, expression⟩ ∧
+      (scalarInitializer bound info base out expression).Readable ∧
+      (scalarInitializer bound info base out expression).check ranges =
+        some {ranges with locals := Integer.put ranges.locals out.name.first (some out.initialBounds)} ∧
+      out.initialBounds.included out.mark.bounds = true := by
+  obtain ⟨expression, reading, inferred, _, nonempty, included⟩ := calls.scalar_inventory kind
+  have reads := ScalarExpression.syntax_readsOnly reading.grammar
+  have shaped := scalarExpression_of_readsOnly reads
+  have same := Integer.Expr.infer_readsOnly reads
+    (fun index active => ScalarRangeRows.view_active
+      (context := booleanInitializerContext base out.name.first out.name.after) rows bound index active)
+  have model : expression.infer (ranges.view
+      (layout bound info (booleanInitializerContext base out.name.first out.name.after))) = some out.initialBounds :=
+    same.trans inferred
+  have target : out.initialBounds.included
+      (if out.constantObject then out.initialBounds else out.mark.bounds) = true := by
+    cases fixed : out.constantObject
+    · exact included
+    · simp [Integer.Interval.included, nonempty]
+  refine ⟨expression, ?_, trivial, ?_, included⟩
+  · simpa only [(calls.scalar kind).1] using reading.grammar
+  · have admitted : ScalarFunctions.scalarActual
+        (scalarInitializer bound info base out expression).value = true := shaped
+    simp only [LocalInitializer.check, admitted, ite_true]
+    change (expression.infer (ranges.view
+      (layout bound info (booleanInitializerContext base out.name.first out.name.after)))).bind
+        (fun bounds => if !bounds.isEmpty && bounds.included
+          (if out.constantObject then out.initialBounds else out.mark.bounds) then
+            some {ranges with locals := Integer.put ranges.locals out.name.first (some bounds)}
+          else none) = _
+    rw [model]
+    simp only [Option.bind_some, nonempty, Bool.not_false, target, Bool.and_self, ite_true]
+
 end Silver.ApplicationPackageInitializers

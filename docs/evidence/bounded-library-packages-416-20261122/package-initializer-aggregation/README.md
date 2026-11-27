@@ -92,3 +92,35 @@ Required proof/design category for this round was Astra Max; actual runtime
 model/effort and token/cost measurements are unavailable. This bounded round
 completed the public syntax/history fold; the static export and semantic
 initializer bridges remain outstanding.
+
+## Exact export environments and local Integer adapter
+
+`object_global_elaborated`, `SpecificationSyntax.elaborated`, and
+`SpecificationInventories.elaborated` derive exact scalar environments through
+every public declaration, using the original Object singleton guard and actual
+appended rows. `imported_elaborated` preserves those exact intervals when names
+are qualified for Main. Exact seed evaluation remains a separate requirement.
+
+`ScalarRangeRows` identifies active bindings through their original source
+positions and global-state identities. It survives sublist compaction.
+`ValueCalls.scalar_initializer` uses the original scalar syntax's read set to
+transfer inference to that declaration's stable semantic layout, and derives
+the existing `LocalInitializer.check` result. Immutable snapshot domains use
+the inferred interval; mutable local domains use the original declared interval.
+Original target containment remains an explicit derived conclusion.
+
+Run `20261127T225747-9d879d315380` passed the RoutineInitialization target with
+a fresh audit of 72,909 declarations and 1,619 matching captured inputs. Native
+platform and allocation were Linux x86_64 / Lean 4.34.1, two workers/two threads,
+CPUs 6–7, 8,192 MiB per process; incremental build, no independent replay.
+All preceding export/local drafts and inherited Main dependency failures are
+retained with their actual changed-input reports. The draft Main/String bytes
+in the captured input set were not validated by this target.
+
+Remaining work includes derivation of the range-row invariant through the
+complete full-domain invocation history, Boolean adapters and exact constant
+seeds, the output bridge, and Main/String closure. Native `bodyEnvironment`
+widens mutable locals before output RHS checking and again for the body;
+that exact phase must be represented and proved using the declaration-domain
+refinement. It cannot be replaced by an equality with inferred ranges.
+The semantic thread owns that bounded phase API under lead coordination.
