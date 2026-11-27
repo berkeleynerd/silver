@@ -66,8 +66,10 @@ def declarations : List (Declaration Fn) := [
 
 def forgetBody : C :=
   let selected : P .booleanBinding := .index .boolean (.field .stateBooleanNames result) (.variable "i")
-  .choose (.field .booleanMutable selected.expression)
-    (.assign (.field .booleanKnown selected) (.truth false)) .nothing
+  .sequence
+    (.choose (.field .booleanMutable selected.expression)
+      (.assign (.field .booleanKnown selected) (.truth false)) .nothing)
+    (.native (.invariant (.app (.app (.function .validState) text) result.expression)))
 
 def forgetLoop : C := .forRange "i" (.number 1)
   (.field .booleanCount (.field .stateBooleanNames result.expression)) forgetBody
@@ -82,7 +84,10 @@ def hideBody : C := .list [
     (.returned .invalidState) .nothing,
   .assign result (.app (.app (.app (.app (.function .hideOuter) text) result.expression) info)
     (.field .formalBodyName parameter)),
-  .choose (.eq (.field .statePosition result.expression) (.number 0)) (.returned .invalidState) .nothing]
+  .choose (.eq (.field .statePosition result.expression) (.number 0)) (.returned .invalidState) .nothing,
+  .native (.invariant (.app (.app (.function .validState) text) result.expression)),
+  .native (.invariant (.forAll "done" formalFirst (.variable "i")
+    (.app (.app (.function .validName) text) (.field .formalBodyName (.index .formal info (.variable "done"))))))]
 
 def appendBody : C := .list [
   .assign (.variable "parameter") (.index .formal info (.variable "i")),
