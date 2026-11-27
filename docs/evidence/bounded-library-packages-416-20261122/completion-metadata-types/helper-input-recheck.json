@@ -1,0 +1,16 @@
+{
+  "run_id": "20261127T220232-7aa4226e2f08",
+  "captured_sources": 1552,
+  "matched": 1552,
+  "mismatches": [],
+  "primary_shared_mismatches": [
+    "proof/Silver/OutputSourceBridge.lean",
+    "proof/Silver/ReviewedOutputShape.lean"
+  ],
+  "primary_changed_reachable_modules": [],
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "audited_declarations": 46854
+}
