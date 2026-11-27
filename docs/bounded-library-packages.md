@@ -305,7 +305,7 @@ complete validation, final Rosetta promotion and independent review are still
 required. PR #424 remains draft; no merge or new language support is claimed.
 
 
-### Original declaration identities and source-derived read effects, 14:20 UTC
+### Original declaration identities and source-derived read effects, 14:18 UTC
 
 The [scalar source identity](evidence/bounded-library-packages-416-20261122/scalar-source-identity/README.md),
 [condition source identity](evidence/bounded-library-packages-416-20261122/condition-source-identity/README.md)
