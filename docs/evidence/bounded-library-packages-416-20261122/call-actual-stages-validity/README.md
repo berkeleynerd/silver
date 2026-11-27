@@ -27,3 +27,31 @@ follow from the source test, including zero active cells.
 
 The complete actual loop, normalized actual projection, whole call and
 authoritative full-source endpoint remain separate obligations.
+
+## Actual iteration, argument meaning and call return
+
+Linux x86-64 run `20261127T131003-4fa35c12835d` checked five targets and
+freshly audited 30,135 declarations with two Lake workers and two Lean threads
+per process. Its focused evidence reports 25.107 seconds. Four target objects
+were available from the preceding builds. The last build rechecked the payload
+projection, then the audit loaded the complete import closure for all five.
+[Focused evidence and preceding failures](projection-and-finish/)
+
+The actual-command loop agrees with an ordinal fold on arbitrary local
+stores, including early failure and index restoration. Individual association,
+payload and finish commands project to their model stages. The selection bound
+comes from the guarded formal window and physical table capacity. The input
+payload yields the inherited typed and readable actual on the original flow.
+A successful writable payload yields the checked target on a body context.
+The reset commands agree with the state-index fold and preserve the other
+call inputs. The final command sequence covers accumulated effects, state
+resets, result kind and bounds, cursor progress and the final body check.
+
+The first failed build exposed stale inherited Predicate and procedure
+dependencies alongside draft proof errors. Four dependencies were synchronized
+from feature commit `256610216b`. Subsequent diagnostics led to an explicit
+one-based slot bound, a symbolic command-sequence equality and separate mode
+and progress cases for the payload. The managed diagnostic is attached to
+run `20261127T130517-67029573e0ec`. Composing all projected stages with
+`actualStep`, the complete procedure interpretation and the authoritative
+whole-source proof remain open.
