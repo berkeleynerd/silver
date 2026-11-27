@@ -17,7 +17,7 @@ structure PackageScope (source : Statement.Input) : Prop where
   normal : NamesNormal source.context.names
   body : source.context.elaborating = false
   typed : source.info.Typed
-  metadata : PackageBindings.validMetadata (ApplicationPackageNames.metadataText source.text) source.info = true
+  stateBounds : ∀ state ∈ source.info.states, state.declaredBounds.isEmpty = false
   declared : DeclaredFormalModes source.info
   writes : CompletedFunctionWrites source.info
   pure : source.context.pure = true
@@ -48,9 +48,7 @@ theorem PackageScope.global_bounds {bound source slot identity}
   rw [scope.body] at base
   have fields := scalar_global_analysis base.size (base.body rfl) scope.fields.globalRows selected
   have active := stateIndex_some (slotAddress_global selected).2.2
-  have state := PackageBindings.validMetadata_state scope.metadata identity active.1 active.2.1
-  simp only [PackageBindings.stateValid, Bool.and_eq_true] at state
-  exact ⟨_, fields.1, by simpa only [Bool.not_eq_true'] using state.1.1.2⟩
+  exact ⟨_, fields.1, scope.stateBounds _ (source.info.stateAt_mem identity active.1 active.2.1)⟩
 
 theorem HiddenRanges.join {bound source before after}
     (scope : PackageScope source) (legal : NativeDomain source)
@@ -90,7 +88,7 @@ theorem PackageScope.loop {source readers iteration result}
   have fresh : ∀ state ∈ source.info.states, iteration.first ≠ state.name.first := by
     intro state member
     exact Nat.ne_of_gt (Nat.lt_trans (scope.statesBefore state member) binder)
-  exact ⟨scope.normal, scope.body, scope.typed, scope.metadata, scope.declared, scope.writes,
+  exact ⟨scope.normal, scope.body, scope.typed, scope.stateBounds, scope.declared, scope.writes,
     scope.pure, scope.arguments, scope.shape, scope.arrays, scope.functions, scope.procedures,
     scope.declarations, inner_scalar_fields scope.fields fresh,
     fun state member => Nat.lt_trans (scope.statesBefore state member) reading.advances⟩
