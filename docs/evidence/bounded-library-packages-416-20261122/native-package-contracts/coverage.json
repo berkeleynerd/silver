@@ -439,7 +439,7 @@
       "coverage": "pending"
     }
   ],
-  "other_changed_output_profile_helpers": "Pending; conservative historical inventory remains in tmp/package-native-helper-map.json. Complete changed-helper/caller coverage is required before integration.",
+  "other_changed_output_profile_helpers": "changed-output-profile-helpers.json records existing helper changes against 1fac6fa133, with direct body callers of changed declarations. Focused evidence for these existing contracts and affected callers is pending.",
   "next_dependencies_before_spec": [
     "Package_Word",
     "Spark_Pragma_After",

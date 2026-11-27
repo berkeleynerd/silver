@@ -1,0 +1,438 @@
+{
+  "base": "1fac6fa1331fe6e778e6b2ae46b867ab44f362c6",
+  "source": "src/silver_output_profile.adb",
+  "changed_existing": [
+    {
+      "name": "Valid_Booleans",
+      "lines": [
+        221,
+        224
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Valid_Subtypes",
+      "lines": [
+        266,
+        269
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Valid_State",
+      "lines": [
+        330,
+        333
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Lookup_Subtype_Model",
+      "lines": [
+        528,
+        539
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Lookup_Subtype"
+      ]
+    },
+    {
+      "name": "Lookup_Subtype",
+      "lines": [
+        551,
+        563
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "New_Name_Allowed",
+        "Scalar_Type_At",
+        "Character_Declaration_At",
+        "Array_Declaration_Model",
+        "Array_Declaration_At",
+        "Boolean_Declaration_At",
+        "Function_Type_At"
+      ]
+    },
+    {
+      "name": "Lookup_Boolean_Model",
+      "lines": [
+        588,
+        599
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Lookup_Boolean"
+      ]
+    },
+    {
+      "name": "Lookup_Boolean",
+      "lines": [
+        611,
+        623
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Call_After",
+        "New_Name_Allowed",
+        "Scalar_Type_At",
+        "Array_Type_At",
+        "Subtype_Declaration_At",
+        "Character_Declaration_At",
+        "Array_Declaration_Model",
+        "Array_Declaration_At",
+        "Boolean_Declaration_At",
+        "Boolean_Atom_After",
+        "Boolean_Target",
+        "Callee_At",
+        "Procedure_Callee_At",
+        "Function_Type_At",
+        "Static_Boolean_Primary",
+        "Visible_State",
+        "Package_Callee"
+      ]
+    },
+    {
+      "name": "Boolean_Hides_Integer",
+      "lines": [
+        648,
+        652
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Call_After",
+      "lines": [
+        657,
+        676
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Primary_Model",
+        "Read_Primary_Into",
+        "Basic_Body"
+      ]
+    },
+    {
+      "name": "Indexed_At",
+      "lines": [
+        808,
+        830
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Character_At",
+        "Value_At",
+        "Basic_Body"
+      ]
+    },
+    {
+      "name": "Character_At",
+      "lines": [
+        892,
+        913
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Value_At",
+      "lines": [
+        1126,
+        1144
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Expression_Step"
+      ]
+    },
+    {
+      "name": "Expression_Step",
+      "lines": [
+        1248,
+        1267
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Expression_Tail",
+        "Expression_At"
+      ]
+    },
+    {
+      "name": "Expression_Tail",
+      "lines": [
+        1314,
+        1332
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Expression_At"
+      ]
+    },
+    {
+      "name": "Expression_At",
+      "lines": [
+        1355,
+        1376
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "String_Declaration_At",
+        "Assignment_At",
+        "Output_At",
+        "Comparison_At",
+        "Read_String_In_Flow"
+      ]
+    },
+    {
+      "name": "New_Name_Allowed",
+      "lines": [
+        1420,
+        1427
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Scalar_Type_At",
+      "lines": [
+        1511,
+        1520
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Subtype_Declaration_At",
+      "lines": [
+        1627,
+        1635
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Scalar_Declaration_At",
+      "lines": [
+        1683,
+        1696
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "String_Declaration_At",
+      "lines": [
+        1776,
+        1784
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Same_Parser_State",
+      "lines": [
+        1935
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Boolean_Declaration_At",
+      "lines": [
+        2648,
+        4912
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Function_Declaration_At",
+      "lines": [
+        2662,
+        7554
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Procedure_Declaration_At",
+      "lines": [
+        2671,
+        7664
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Argument_At",
+      "lines": [
+        2708,
+        2713
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Assignment_At",
+      "lines": [
+        2806,
+        2811
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Output_At",
+      "lines": [
+        2823,
+        2828
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Comparison_At",
+      "lines": [
+        2835,
+        2840
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Context_Of",
+      "lines": [
+        2946
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Valid_Context",
+      "lines": [
+        3038,
+        3041
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Read_String_In_Flow",
+      "lines": [
+        3278,
+        3295
+      ],
+      "declaration_changed": true,
+      "body_changed": true,
+      "direct_body_callers": [
+        "Relation_Model",
+        "Read_Relation_Into",
+        "Basic_Body"
+      ]
+    },
+    {
+      "name": "Bare_Target",
+      "lines": [
+        3601,
+        3612
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Boolean_Atom_After",
+      "lines": [
+        3697,
+        3705
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Primary_Model",
+      "lines": [
+        3743,
+        3769
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Read_Primary_Into",
+      "lines": [
+        4104,
+        4143
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Actual_Name_Step",
+      "lines": [
+        5707,
+        5716
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Basic_Body",
+      "lines": [
+        6272,
+        6282
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Loop_Body",
+      "lines": [
+        6407,
+        6578
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Hidden_Word",
+      "lines": [
+        6778
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Append_Parameter",
+      "lines": [
+        7089
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    },
+    {
+      "name": "Append_Procedure_Parameter",
+      "lines": [
+        7250
+      ],
+      "declaration_changed": false,
+      "body_changed": true
+    }
+  ],
+  "source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004",
+  "method": "Compare tokenized package-level subprogram declarations and their complete named or expression bodies. Classify header changes through the top-level is or declaration semicolon. For changed headers, list other subprogram bodies containing an unqualified call of the same name. Checks on node identity, policy, complete-helper reports and final input identity remain separate."
+}
