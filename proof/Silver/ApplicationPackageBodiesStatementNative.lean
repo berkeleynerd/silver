@@ -22,6 +22,7 @@ inductive Fn : Ty → Type
   | target : Fn (.arrow .source (.arrow .parseContext (.arrow .number .number)))
   | attribute : Fn (.arrow .source (.arrow .number (.arrow .scalars (.arrow .arrayTable (.arrow .number (.arrow .number (.arrow .truth .scalarResult)))))))
   | bound : Fn (.arrow .source (.arrow .parseContext (.arrow .number (.arrow .activeFlow (.arrow .number (.arrow .number .scalarResult))))))
+  | included : Fn (.arrow .interval (.arrow .interval .truth))
   | isEmpty : Fn (.arrow .interval .truth)
   | normalize : Fn (.arrow .interval .interval)
   | maxBindings : Fn .number
@@ -47,6 +48,7 @@ def names : FunctionNames Fn
   | _, .target => ["array_target"]
   | _, .attribute => ["scalar_expressions", ".", "read_array_attribute"]
   | _, .bound => ["read_counted_bound"]
+  | _, .included => ["included"]
   | _, .isEmpty => ["scalars", ".", "is_empty"]
   | _, .normalize => ["scalars", ".", "normalize"]
   | _, .maxBindings => ["scalar_expressions", ".", "max_bindings"]
@@ -74,6 +76,7 @@ def functions (calls : Statement.Calls) (validFlow : ValidFlow) : ApplicationNat
   | _, .target => calls.arrayTarget
   | _, .attribute => calls.readArrayAttribute
   | _, .bound => calls.readCountedBound
+  | _, .included => Integer.Interval.included
   | _, .isEmpty => Integer.Interval.isEmpty
   | _, .normalize => Integer.Interval.normalize
   | _, .maxBindings => ScalarExpression.maxBindings
@@ -252,7 +255,7 @@ def copyValues : C := .forFlowValues "i" facts.expression (.list [
       (.index .flowValue facts.expression (.variable "done")))),
   .assign (.index .flowValue insideFacts (.variable "i")) (.index .flowValue facts.expression (.variable "i"))])
 
-def innerEntry : C := .list [
+def prepareInner : C := .list [
   .procedure (.appendScalar (.field .contextScalarNames inner)
     (.scalarBindingValue first last bounds (.truth false) bounds (.truth false) (.number 0) (.number 0))),
   .assign (.field .scanPosition insideScan) position.expression,
@@ -264,8 +267,30 @@ def innerEntry : C := .list [
   .assign (.field .applicationReads inside) reads.expression,
   .assign (.field .applicationWrites inside) (.field .applicationWrites result.expression),
   .assign (.field .activeFlowPath insideFacts) (.group (.ite (isEmpty bounds) (.function .emptyPath) (.field .activeFlowPath facts.expression))),
-  .procedure (.clearValues insideFacts), copyValues,
-  .assign (.index .flowValue insideFacts (.property .appScanCount inside.expression)) bounds]
+  .procedure (.clearValues insideFacts)]
+
+abbrev insideCount : E .number := .property .appScanCount inside.expression
+abbrev outerNames : E .scalars := .field .contextScalarNames context
+abbrev innerNames : E .scalars := .field .contextScalarNames inner.expression
+abbrev iteratorBinding : E .scalarBinding := .index .scalar innerNames insideCount
+abbrev validFacts (ctx : E .parseContext) (flow : E .activeFlow) : E .truth :=
+  .app (.app (.function .validFlow) ctx) flow
+
+def setIterator : C := .list [
+  .staticAssert (.group (.forAllFlowValues "i" facts.expression
+    (.intervalEq (.index .flowValue insideFacts.expression (.variable "i"))
+      (.index .flowValue facts.expression (.variable "i"))))),
+  .staticAssert (.group (.forAll "i" (.number 1) (.field .scalarCount outerNames)
+    (.scalarBindingEq (.index .scalar innerNames (.variable "i")) (.index .scalar outerNames (.variable "i"))))),
+  .staticAssert (.eq (.field .contextDeclarationCount inner.expression) (.field .contextDeclarationCount context)),
+  .assign (.index .flowValue insideFacts insideCount) bounds,
+  .staticAssert (.not (.field .scalarMutable iteratorBinding)),
+  .staticAssert (.gt insideCount (.field .contextDeclarationCount inner.expression)),
+  .staticAssert (.app (.app (.function .included) (.index .flowValue insideFacts.expression insideCount))
+    (.field .scalarBounds iteratorBinding)),
+  .staticAssert (validFacts inner.expression insideFacts.expression)]
+
+def innerEntry : C := .list [prepareInner, copyValues, setIterator]
 
 def innerReturn : C := .list [
   .assign inside (callTail inner.expression inside.expression .endOnly),
@@ -282,14 +307,20 @@ def innerReturn : C := .list [
       (.assign (.field .activeFlowPath facts) (.app (.app (.function .pathJoin)
         (.field .activeFlowPath inputFacts)) (.field .activeFlowPath insideFacts.expression))))]
 
-def forCommands : C := .list [
+def forBinder : C := .list [
   .assign position (keyword inputPos "for"),
-  .assign (.variable "first") (skip position.expression), .assign (.variable "last") (after first),
+  .assign (.variable "first") (skip position.expression), .assign (.variable "last") (after first)]
+
+def forSelect : C := .list [
   .choose binderRejected invalid .nothing,
-  .choose (nonzero (keyword last "of")) arrayCommands countedCommands,
+  .choose (nonzero (keyword last "of")) arrayCommands countedCommands]
+
+def forBounds : C := .list [
   .choose (.le position.expression inputPos) invalid .nothing,
-  .procedure (.widenInto context facts),
+  .procedure (.widenInto context facts), .staticAssert (validFacts context facts.expression),
   .block innerDeclarations (.sequence innerEntry innerReturn), close "loop"]
+
+def forCommands : C := .list [forBinder, forSelect, forBounds]
 
 def commands : C := .list [
   .choose (zero inputPos) invalid .nothing,

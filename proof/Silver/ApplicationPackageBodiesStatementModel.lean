@@ -130,43 +130,56 @@ def afterReverse (calls : Calls) (text : Source) (position : Nat) : Nat :=
   let following := calls.takeToken text position (.word "reverse")
   if following = 0 then position else following
 
+def rejectedBinder (calls : Calls) (source : Input) (first last : Nat) : Bool :=
+  decide (first = 0) || decide (last ≤ first) ||
+    (calls.forbiddenName source.text first last && !calls.nameIs source.text first last "string") ||
+    (source.context.hasArguments && calls.nameIs source.text first last "silver_arguments") ||
+    calls.sameName source.text ⟨first, last⟩ ⟨source.info.nameFirst, source.info.nameAfter⟩ ||
+    decide (source.context.scalarNames.length = ScalarExpression.maxBindings)
+
+def rejectedArrayIterator (calls : Calls) (source : Input) (first last position : Nat) : Bool :=
+  let arrayFirst := calls.skipAt source.text position
+  let arrayLast := calls.nameAfter source.text arrayFirst
+  let index := calls.arrayTarget source.text source.context position
+  let row := ArrayBindings.binding source.context.arrayNames index
+  decide (arrayFirst = 0) || decide (arrayLast ≤ arrayFirst) || calls.equalName source.text first last arrayFirst arrayLast ||
+    decide (index = 0) || row.mutable || row.isBoolean
+
+def arrayHeader (calls : Calls) (source : Input) (base : ApplicationScan) (first last : Nat) : Option Iteration :=
+  let afterOf := calls.takeToken source.text last (.word "of")
+  if source.context.pure then none
+  else
+    let position := afterReverse calls source.text afterOf
+    let arrayFirst := calls.skipAt source.text position
+    let arrayLast := calls.nameAfter source.text arrayFirst
+    let index := calls.arrayTarget source.text source.context position
+    let row := ArrayBindings.binding source.context.arrayNames index
+    if rejectedArrayIterator calls source first last position then none
+    else some ⟨atPosition base (calls.takeToken source.text arrayLast (.word "loop")), first, last, row.componentBounds, true⟩
+
+def countedHeader (calls : Calls) (source : Input) (base : ApplicationScan) (first last : Nat) : Iteration :=
+  let start := afterReverse calls source.text (calls.takeToken source.text last (.word "in"))
+  let shape := calls.readArrayAttribute source.text start source.context.scalarNames source.context.arrayTable first last true
+  let (position, bounds, definite) := if shape.after ≠ 0 then
+      (calls.takeToken source.text shape.after (.word "loop"), shape.bounds, true)
+    else
+      let low := calls.readCountedBound source.text source.context start source.input.scan.facts first last
+      let high := calls.readCountedBound source.text source.context (calls.takeToken source.text low.after (.symbol ".."))
+        source.input.scan.facts first last
+      let bounds := if low.bounds.isEmpty || high.bounds.isEmpty then Integer.Interval.empty
+        else Integer.Interval.normalize ⟨low.bounds.lower, high.bounds.upper⟩
+      (calls.takeToken source.text high.after (.word "loop"), bounds,
+        !low.bounds.isEmpty && !high.bounds.isEmpty && decide (low.bounds.upper ≤ high.bounds.lower))
+  let reads := calls.stateReads source.text {source.context with maskFirst := first, maskAfter := last} source.info start position
+  let value := atPosition {base with reads := PackageBindings.stateUnion base.reads reads} position
+  ⟨value, first, last, bounds, definite⟩
+
 def forHeader (calls : Calls) (source : Input) (afterFor : Nat) : Option Iteration :=
   let first := calls.skipAt source.text afterFor
   let last := calls.nameAfter source.text first
-  if first = 0 ∨ last ≤ first ∨
-      (calls.forbiddenName source.text first last && !calls.nameIs source.text first last "string") ∨
-      (source.context.hasArguments && calls.nameIs source.text first last "silver_arguments") ∨
-      calls.sameName source.text ⟨first, last⟩ ⟨source.info.nameFirst, source.info.nameAfter⟩ ∨
-      source.context.scalarNames.length = ScalarExpression.maxBindings then none
-  else
-    let afterOf := calls.takeToken source.text last (.word "of")
-    if afterOf ≠ 0 then
-      if source.context.pure then none
-      else
-        let position := afterReverse calls source.text afterOf
-        let arrayFirst := calls.skipAt source.text position
-        let arrayLast := calls.nameAfter source.text arrayFirst
-        let index := calls.arrayTarget source.text source.context position
-        let row := ArrayBindings.binding source.context.arrayNames index
-        if arrayFirst = 0 ∨ arrayLast ≤ arrayFirst ∨ calls.equalName source.text first last arrayFirst arrayLast ∨
-            index = 0 ∨ row.mutable ∨ row.isBoolean then none
-        else some ⟨atPosition source.input (calls.takeToken source.text arrayLast (.word "loop")), first, last, row.componentBounds, true⟩
-    else
-      let start := afterReverse calls source.text (calls.takeToken source.text last (.word "in"))
-      let shape := calls.readArrayAttribute source.text start source.context.scalarNames source.context.arrayTable first last true
-      let (position, bounds, definite) := if shape.after ≠ 0 then
-          (calls.takeToken source.text shape.after (.word "loop"), shape.bounds, true)
-        else
-          let low := calls.readCountedBound source.text source.context start source.input.scan.facts first last
-          let high := calls.readCountedBound source.text source.context (calls.takeToken source.text low.after (.symbol ".."))
-            source.input.scan.facts first last
-          let bounds := if low.bounds.isEmpty || high.bounds.isEmpty then Integer.Interval.empty
-            else Integer.Interval.normalize ⟨low.bounds.lower, high.bounds.upper⟩
-          (calls.takeToken source.text high.after (.word "loop"), bounds,
-            !low.bounds.isEmpty && !high.bounds.isEmpty && decide (low.bounds.upper ≤ high.bounds.lower))
-      let reads := calls.stateReads source.text {source.context with maskFirst := first, maskAfter := last} source.info start position
-      let value := atPosition {source.input with reads := PackageBindings.stateUnion source.input.reads reads} position
-      some ⟨value, first, last, bounds, definite⟩
+  if rejectedBinder calls source first last then none
+  else if calls.takeToken source.text last (.word "of") ≠ 0 then arrayHeader calls source source.input first last
+  else some (countedHeader calls source source.input first last)
 
 def innerContext (source : Input) (iteration : Iteration) : ParseContext :=
   {source.context with scalarNames := source.context.scalarNames ++

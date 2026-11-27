@@ -18,6 +18,7 @@ inductive Command (Fn : Ty → Type)
   | loopBody : Command Fn → Command Fn
   | forFlowValues (name : String) : Expr Fn .activeFlow → Command Fn → Command Fn
   | exitWhen : Expr Fn .truth → Command Fn
+  | staticAssert : Expr Fn .truth → Command Fn
   | invariant : Expr Fn .truth → Command Fn
   | increases : Expr Fn .number → Command Fn
   | returned : Expr Fn .appScan → Command Fn
@@ -68,7 +69,7 @@ def enter (calls : Calls Fn) (locals : Locals) (declaration : Declaration Fn) : 
 
 def Command.eval (functions : Calls Fn) (procedures : Procedures) (fuel : Nat)
     (locals : Locals) (next leave : Continuation) : Command Fn → Option ApplicationScan
-  | .nothing | .invariant _ | .increases _ => next locals
+  | .nothing | .invariant _ | .staticAssert _ | .increases _ => next locals
   | .assign target value => next (target.set functions locals (value.eval functions locals))
   | .procedure call => next (call.eval functions procedures locals)
   | .sequence first rest => first.eval functions procedures fuel locals
@@ -107,6 +108,7 @@ def Command.render (names : FunctionNames Fn) : Command Fn → List String
   | .forFlowValues name facts body =>
     ["for", name, "in"] ++ facts.render names ++ [".", "values", "'", "range", "loop"] ++ body.render names ++ ["end", "loop", ";"]
   | .exitWhen test => ["exit", "when"] ++ test.render names ++ [";"]
+  | .staticAssert test => ["pragma", "assert", "(", "static", "=>"] ++ test.render names ++ [")", ";"]
   | .invariant test => (ApplicationNative.Command.invariant (resultType := .appScan) test).render names
   | .increases value => (ApplicationPackageProcedure.Command.increases value).render names
   | .returned value => (ApplicationNative.Command.returned value).render names
@@ -128,6 +130,7 @@ def Command.wellFormed (names : FunctionNames Fn) (inLoop : Bool) : Command Fn �
   | .loopBody body => body.wellFormed names true
   | .forFlowValues name facts body => identifier name && facts.prefix && facts.wellFormed names && body.wellFormed names true
   | .exitWhen test => inLoop && test.logical && test.wellFormed names
+  | .staticAssert test => test.logical && test.wellFormed names
   | .invariant test => inLoop && (ApplicationNative.Command.invariant (resultType := .appScan) test).wellFormed names
   | .increases value => inLoop && value.simple && value.wellFormed names
   | .returned value => (ApplicationNative.Command.returned value).wellFormed names
@@ -144,7 +147,7 @@ def Command.scoped (scope : Scope) (writable : List String) : Command Fn → Boo
   | .whileLoop test body => test.scoped scope && body.scoped scope writable
   | .loopBody body => body.scoped scope writable
   | .forFlowValues name facts body => facts.scoped scope && body.scoped (scope.bind .number name) (writable.filter (· != name))
-  | .exitWhen test | .invariant test | .returned test | .increases test => test.scoped scope
+  | .exitWhen test | .staticAssert test | .invariant test | .returned test | .increases test => test.scoped scope
 
 def Command.namedCorrect (parameters : FunctionParameters Fn) : Command Fn → Bool
   | .nothing => true
@@ -155,7 +158,7 @@ def Command.namedCorrect (parameters : FunctionParameters Fn) : Command Fn → B
   | .block declarations body => declarations.all (Declaration.namedCorrect parameters) && body.namedCorrect parameters
   | .whileLoop test body | .forFlowValues _ test body => test.namedCorrect parameters && body.namedCorrect parameters
   | .loopBody body => body.namedCorrect parameters
-  | .exitWhen test | .invariant test | .returned test | .increases test => test.namedCorrect parameters
+  | .exitWhen test | .staticAssert test | .invariant test | .returned test | .increases test => test.namedCorrect parameters
 
 structure Body (Fn : Ty → Type) where
   name : String
