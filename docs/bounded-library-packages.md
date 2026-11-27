@@ -616,3 +616,50 @@ thread outside the host's eight-CPU allocation. The Main origin check is another
 focused development run. Complete original-bundle assurance, final native/Lean
 audits, regression applicability, Rosetta promotion and independent closing
 review remain required. PR #424 stays draft; no support or merge claim changes.
+
+### Original loop composition and Main boundary imports, 20:47 UTC
+
+The [Main origin packet](evidence/bounded-library-packages-416-20261127/main-private-state-origins/README.md)
+records run `20261127T202642-b50241972628` (34,630 declarations): unqualified
+Main scalars originate after private package state, through imports, argument
+initialization, ordinary declarations and local callable declarations. These
+original positions establish that Main calls cannot reset a hidden private state
+slot. The metadata/original unit-table equality needed by the final application
+join is derived from Analyze's accepted route, not added to standalone Main's
+precondition.
+
+The [original header packet](evidence/bounded-library-packages-416-20261122/package-original-condition-and-counted-header/README.md),
+[array-header packet](evidence/bounded-library-packages-416-20261122/package-original-array-loop-header/README.md)
+and [loop-composition packet](evidence/bounded-library-packages-416-20261122/package-original-loop-checker-composition/README.md)
+record successful focused checks of original conditions and counted/Range headers,
+constant-array iteration headers, and the counted/array semantic checker steps.
+Runs `20261127T202753-bfb19611fb04`, `20261127T203307-d25fda8736bf` and
+`20261127T204040-5f04c4eedcb7` audited 32,382, 30,944 and 32,357 declarations,
+respectively. Recursive child decoding remains a separate obligation; these
+composition lemmas expose their child hypotheses rather than assuming the final
+application is checked.
+
+The [Main boundary packet](evidence/bounded-library-packages-416-20261127/main-boundary-imports/README.md)
+records run `20261127T203822-1db710cc486e` (47,754 declarations, all 1,569 captured
+inputs matching). Main context/header/footer calls and imported-frame execution
+now consume their source-interpreted helpers on derived native domains. The
+[Specification domain packet](evidence/bounded-library-packages-416-20261122/specification-imports/README.md)
+records the successful initial-frame, name, continuation and subtype domains
+(70,618 declarations); Signature/Object branch-domain repairs and whole
+Specification call composition continue in focused checks.
+
+The canonical Output_Profile unit run `20261127T195636-5b2a2f886237` and isolated
+authoritative-source batch `20261127T195949-9affe71500da` remain active with frozen
+inputs. No whole-unit or source-batch result is claimed yet. Original recursive
+statement decoding, declaration/initializer obligation inventory, package/Main
+aggregation and the final original-source/tool endpoint still require completion.
+Main's spelling-helper interpretation is being added over arbitrary Ada String
+bounds; it is not silently replaced by a one-based-only equation.
+
+The continuing subthreads retain their selected GPT-6 Astra Max settings; live
+runtime settings are not independently exposed. All managed jobs retain shared
+two-worker allocations within the eight-CPU host limit. The latest inspection
+found no managed process or thread outside guest CPUs 0–7. Complete native and
+Lean/source audits, final regression applicability, Rosetta promotion and
+independent closing review remain outstanding. PR #424 stays draft and no merge
+is authorized.
