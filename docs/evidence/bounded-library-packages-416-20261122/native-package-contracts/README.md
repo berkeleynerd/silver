@@ -405,3 +405,21 @@ The same Ada inputs passed the canonical complete checks of `Imported_Frame`
 proof checks). Both SPARK reports have empty skip lists and `STOP_REASON_NONE`.
 [Imported frame](20261127T150627-336b243e0551/outcome.json) ·
 [Package spelling](20261127T150951-fcf99a0aab8e/outcome.json)
+
+## Package Main entry and independent helpers
+
+Canonical `Package_Main_At` run `20261127T151023-9629746d06d6` finished after
+1,323.784 seconds on `95c0f3b3`. Its five flow and 20 of 23 proof checks passed.
+Three preconditions timed out. `Names.Read_Context` and `Imported_Frame` require
+the validity of the package name span. `Application_Tail` requires the body
+context, entry flow and callable catalogues. The diagnostic isolates these
+facts on a private source copy. [Main report](20261127T151023-9629746d06d6/silver_output_profile.spark.gz)
+
+The full `Charge_Unit` check passed eight flow and 26 proof checks. The full
+`Imported_Package` check at its public declaration (`silver_output_profile.ads`
+line 100) passed two flow and 37 proof checks. An earlier body selector produced
+39 informational rows and failed the managed entity-selection audit. The
+successful public-declaration run supplies its canonical coverage.
+[Charge](20261127T154143-4d9cb86d3cf6/outcome.json) ·
+[Body selection](20261127T154230-00c61243e127/outcome.json) ·
+[Import declaration](20261127T154445-5b43629d3f46/outcome.json)

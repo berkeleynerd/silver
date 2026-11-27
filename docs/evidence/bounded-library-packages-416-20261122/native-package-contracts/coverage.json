@@ -436,7 +436,13 @@
       "current_lines": [
         9503
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261127T154143-4d9cb86d3cf6",
+      "checks": 34,
+      "unproved": 0,
+      "flow": 8,
+      "proof": 26,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
     },
     {
       "name": "Analyze_Application",
@@ -478,7 +484,13 @@
       "current_lines": [
         9594
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261127T154445-5b43629d3f46",
+      "checks": 39,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 37,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
     }
   ],
   "other_changed_output_profile_helpers": "changed-output-profile-helpers.json records existing helper changes against 1fac6fa133, with direct body callers of changed declarations. Focused evidence for these existing contracts and affected callers is pending.",
