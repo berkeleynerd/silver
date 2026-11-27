@@ -1,0 +1,246 @@
+[
+  {
+    "run_id": "20261127T192848-e97de39399a8",
+    "task": "packages-416-signature-store-imports",
+    "final_event": {
+      "duration_seconds": 11.296127263,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192848-e97de39399a8/previous-evidence/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192848-e97de39399a8/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192848-e97de39399a8/previous-evidence/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192848-e97de39399a8/previous-evidence/lean-focused-evidence.json"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStoreImports.lean:33:96:unsolved goals",
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStoreImports.lean:37:81:unexpected identifier; expected '}'"
+      ],
+      "monotonic_ns": 26676297606352,
+      "outcome": "failure",
+      "retained_reports": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192848-e97de39399a8/reports/0/lean-focused.log"
+        }
+      ],
+      "returncode": 1,
+      "run_id": "20261127T192848-e97de39399a8",
+      "utc": "2026-11-27T19:29:02.161275+00:00"
+    }
+  },
+  {
+    "run_id": "20261127T192947-c89a823be477",
+    "task": "packages-416-signature-store-imports",
+    "final_event": {
+      "duration_seconds": 18.671463135,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192947-c89a823be477/previous-evidence/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192947-c89a823be477/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192947-c89a823be477/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192947-c89a823be477/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192947-c89a823be477/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T192947-c89a823be477/lean-focused-evidence.json"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [],
+      "monotonic_ns": 26742226006377,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261127T192947-c89a823be477",
+      "utc": "2026-11-27T19:30:08.089671+00:00"
+    }
+  },
+  {
+    "run_id": "20261127T193052-e983a0fd0a00",
+    "task": "packages-416-signature-type-imports",
+    "final_event": {
+      "duration_seconds": 20.241775081,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193052-e983a0fd0a00/previous-evidence/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193052-e983a0fd0a00/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193052-e983a0fd0a00/previous-evidence/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193052-e983a0fd0a00/previous-evidence/lean-focused-evidence.json"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193052-e983a0fd0a00/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193052-e983a0fd0a00/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193052-e983a0fd0a00/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193052-e983a0fd0a00/lean-focused-evidence.json"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [],
+      "monotonic_ns": 26809328059395,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261127T193052-e983a0fd0a00",
+      "utc": "2026-11-27T19:31:15.191725+00:00"
+    }
+  },
+  {
+    "run_id": "20261127T193217-db4c67dc3124",
+    "task": "packages-416-signature-complete-step-imports",
+    "final_event": {
+      "duration_seconds": 20.477735106,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193217-db4c67dc3124/previous-evidence/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193217-db4c67dc3124/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193217-db4c67dc3124/previous-evidence/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193217-db4c67dc3124/previous-evidence/lean-focused-evidence.json"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStepImports.lean:24:16:Application type mismatch: The argument",
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStepImports.lean:24:45:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.PackageBindings.Metadata.mk` has 11 explicit field, but only 2 were provided",
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStepImports.lean:69:6:Type mismatch"
+      ],
+      "monotonic_ns": 26894266994819,
+      "outcome": "failure",
+      "retained_reports": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193217-db4c67dc3124/reports/0/lean-focused.log"
+        }
+      ],
+      "returncode": 1,
+      "run_id": "20261127T193217-db4c67dc3124",
+      "utc": "2026-11-27T19:32:40.130662+00:00"
+    }
+  },
+  {
+    "run_id": "20261127T193315-e4e94917307a",
+    "task": "packages-416-signature-complete-step-imports",
+    "final_event": {
+      "duration_seconds": 14.889267961,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193315-e4e94917307a/previous-evidence/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193315-e4e94917307a/previous-evidence/lean-focused.log"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStepImports.lean:33:30:Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStepImports.lean:34:31:Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStepImports.lean:68:4:unsolved goals",
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStepImports.lean:71:26:Application type mismatch: The argument",
+        "lean:build:Silver/ApplicationPackageDeclarationsSignatureStepImports.lean:71:32:unexpected token '('; expected 'then'"
+      ],
+      "monotonic_ns": 26946446516926,
+      "outcome": "failure",
+      "retained_reports": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193315-e4e94917307a/reports/0/lean-focused.log"
+        }
+      ],
+      "returncode": 1,
+      "run_id": "20261127T193315-e4e94917307a",
+      "utc": "2026-11-27T19:33:32.310186+00:00"
+    }
+  },
+  {
+    "run_id": "20261127T193523-27789d59de64",
+    "task": "packages-416-signature-complete-step-imports",
+    "final_event": {
+      "duration_seconds": 19.019816826,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused-evidence.json"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193523-27789d59de64/previous-evidence/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193523-27789d59de64/previous-evidence/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193523-27789d59de64/lean-focused.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193523-27789d59de64/lean-focused.log"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193523-27789d59de64/lean-focused-evidence.json",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193523-27789d59de64/lean-focused-evidence.json"
+        }
+      ],
+      "failure_identities": {},
+      "failure_keys": [],
+      "monotonic_ns": 27079034972414,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261127T193523-27789d59de64",
+      "utc": "2026-11-27T19:35:44.898632+00:00"
+    }
+  }
+]
