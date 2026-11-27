@@ -29,59 +29,101 @@ private theorem booleanReader_eq (calls : ApplicationPackageMain.Calls) (sources
   simp only [booleanReader, packageMainAt, Bool.or_eq_true, Bool.not_eq_true',
     decide_eq_true_eq, Bool.eq_false_iff, or_assoc]
 
-local macro "reduce_main" : tactic => `(tactic|
-  simp_all (config := {maxSteps := 200000}) only [
-    Body.eval, mainBody, mainDeclarations, bodyDeclarations, Command.list,
-    List.foldr, List.foldl, Declaration.eval, LocalType.type, Command.eval, Location.set, Location.expression,
-    importedRejected, footerRejected, Expr.eval, modelFunctions, Field.get, Field.set, Index.get,
-    Locals.set, sourceBundle, sourceText, exports, info, frame, contextClausesValue,
-    argumentsWith, result, mainScan, take, booleanReader, textOf, contextClauses, mainStart,
-    argumentFrame, declarationsFrame, bodyFrame, bodyScan, following, acceptedResult,
-    Bool.or_eq_true, Bool.not_eq_true', Bool.eq_false_iff, Bool.false_eq_true, Bool.not_false,
-    Bool.not_true, Bool.true_or, Bool.false_or, Bool.or_true, Bool.or_false,
-    decide_true, decide_false, decide_eq_true_eq, reduceCtorEq, ↓reduceIte, ↓reduceDIte])
 
-set_option linter.unusedSimpArgs false in
-/-- The original function's uninitialized Frame/Start/Following locals are
-universally quantified. Source guards are eliminated in execution order, before
-reducing their typed state substitutions and decision-procedure arguments. -/
+def initialLocals (calls : ApplicationPackageMain.Calls) (locals : Locals) : Locals :=
+  ((locals.set .source "text" (textOf (locals .bundle "sources"))).set .source "imported"
+    (calls.importedPackage ((locals .bundle "sources").unitSource .mainBody))).set
+      .contextClauses "context_clauses" (contextClauses calls (locals .bundle "sources") (locals .metadata "info"))
+
+theorem mainDeclarations_eval (calls : ApplicationPackageMain.Calls) (locals : Locals) :
+    mainDeclarations.foldl (Declaration.eval (modelFunctions calls)) locals = initialLocals calls locals := by
+  rfl
+
+def bodyLocals (calls : ApplicationPackageMain.Calls) (locals : Locals) : Locals :=
+  let frame := locals .state "frame"
+  let scan : Predicate.ScanResult := ⟨frame, frame.assignedInFunctions, false⟩
+  let context := calls.contextOf scan
+  let input := ApplicationPackages.applicationOf (calls.bodyOf scan)
+  let result := calls.applicationTail (locals .source "text") context input
+    (locals .metadata "info") .endOnly true frame.functions frame.procedures
+  ((locals.set .parseContext "context" context).set .appScan "input" input).set .appScan "result" result
+
+theorem bodyDeclarations_eval (calls : ApplicationPackageMain.Calls) (locals : Locals) :
+    bodyDeclarations.foldl (Declaration.eval (modelFunctions calls)) locals = bodyLocals calls locals := by
+  rfl
+
+/-- Completion after the declaration reader, with every source observation
+explicit and no assumptions about the supplied frame or call dictionary. -/
+def finishResult (calls : ApplicationPackageMain.Calls) (text : Source)
+    (info : PackageBindings.Metadata) (frame : Compose.ParserState) (arguments : Bool) :
+    ApplicationAdmission.AnalysisResult :=
+  let scan : Predicate.ScanResult := ⟨frame, frame.assignedInFunctions, false⟩
+  let result := calls.applicationTail text (calls.contextOf scan)
+    (ApplicationPackages.applicationOf (calls.bodyOf scan)) info .endOnly true frame.functions frame.procedures
+  let following := calls.takeToken text (calls.takeToken text
+    (calls.takeToken text result.scan.position (.word "end")) (.word "main")) (.symbol ";")
+  if (decide (following = 0) || decide (calls.skipAt text following ≠ text.length + 1)) ||
+      !calls.completed result.scan.facts.path then ApplicationAdmission.invalidAnalysis
+  else
+    { accepted := true
+      packageInfo := info
+      mainFunctions := frame.functions
+      mainProcedures := frame.procedures
+      usesArguments := arguments
+      usesAssignment := result.scan.assigned
+      usesOutput := result.scan.output }
+
+theorem bodyCommands_eval (calls : ApplicationPackageMain.Calls) (locals : Locals)
+    (next : Locals → ApplicationAdmission.AnalysisResult) :
+    bodyCommands.eval (modelFunctions calls) locals next =
+      finishResult calls (locals .source "text") (locals .metadata "info")
+        (locals .state "frame") (locals .contextClauses "context_clauses").argumentsWith := by
+  simp only [bodyCommands, Command.eval, bodyDeclarations_eval]
+  rfl
+
+def declarationResult (calls : ApplicationPackageMain.Calls) (text : Source)
+    (info : PackageBindings.Metadata) (frame : Compose.ParserState) (arguments : Bool) :
+    ApplicationAdmission.AnalysisResult :=
+  let read := calls.readDeclarations text frame arguments
+  let frame := {read with position := calls.takeToken text read.position (.word "begin")}
+  if decide (frame.position = 0) then ApplicationAdmission.invalidAnalysis
+  else finishResult calls text info frame arguments
+
+theorem declarationCommands_eval (calls : ApplicationPackageMain.Calls) (locals : Locals)
+    (next : Locals → ApplicationAdmission.AnalysisResult) :
+    declarationCommands.eval (modelFunctions calls) locals next =
+      declarationResult calls (locals .source "text") (locals .metadata "info")
+        (locals .state "frame") (locals .contextClauses "context_clauses").argumentsWith := by
+  simp only [declarationCommands, Command.list, List.foldr, Command.eval, bodyCommands_eval]
+  rfl
+
+def argumentResult (calls : ApplicationPackageMain.Calls) (text : Source)
+    (info : PackageBindings.Metadata) (frame : Compose.ParserState) (arguments : Bool) :
+    ApplicationAdmission.AnalysisResult :=
+  let frame := if arguments then calls.argumentAt text frame else frame
+  if decide (frame.position = 0) then ApplicationAdmission.invalidAnalysis
+  else declarationResult calls text info frame arguments
+
+theorem argumentCommands_eval (calls : ApplicationPackageMain.Calls) (locals : Locals)
+    (next : Locals → ApplicationAdmission.AnalysisResult) :
+    argumentCommands.eval (modelFunctions calls) locals next =
+      argumentResult calls (locals .source "text") (locals .metadata "info")
+        (locals .state "frame") (locals .contextClauses "context_clauses").argumentsWith := by
+  simp only [argumentCommands, Command.list, List.foldr, Command.eval, declarationCommands_eval]
+  dsimp only [Location.set, Location.expression, Expr.eval, modelFunctions, Field.get,
+    Locals.set, sourceText, info, frame, contextClausesValue, argumentsWith, argumentResult]
+  cases arguments : (locals .contextClauses "context_clauses").argumentsWith <;>
+    simp_all only [Bool.false_eq_true, reduceCtorEq, ↓reduceIte, ↓reduceDIte]
+
+/-- The original function's uninitialized locals and every callee interpretation
+remain arbitrary. Each command phase is composed through its universal
+continuation equation; no annotation is assumed true during execution. -/
 theorem mainBody_meaning (calls : ApplicationPackageMain.Calls) (locals : Locals) :
     mainBody.eval (modelFunctions calls) locals =
       packageMainAt calls (locals .bundle "sources") (locals .state "exports") (locals .metadata "info") := by
+  simp only [Body.eval, mainBody, Command.list, List.foldr, Command.eval,
+    mainDeclarations_eval, argumentCommands_eval]
   rw [← booleanReader_eq]
-  have textImported : ("text" : String) ≠ "imported" := by decide
-  let sources := locals .bundle "sources"
-  let originalExports := locals .state "exports"
-  let originalInfo := locals .metadata "info"
-  by_cases imported : calls.samePackageSpelling (textOf sources) originalInfo
-      (calls.importedPackage (sources.unitSource .mainBody)) = true
-  · by_cases missingContext : (contextClauses calls sources originalInfo).after = 0
-    · dsimp only [sources, originalExports, originalInfo] at *
-      reduce_main
-    · by_cases missingStart : mainStart calls sources originalInfo = 0
-      · dsimp only [sources, originalExports, originalInfo] at *
-        reduce_main
-      · cases arguments : (contextClauses calls sources originalInfo).argumentsWith
-        all_goals
-          by_cases missingArgument : (argumentFrame calls sources originalExports originalInfo).position = 0
-          · dsimp only [sources, originalExports, originalInfo] at *
-            reduce_main
-          · by_cases missingBody : (bodyFrame calls sources originalExports originalInfo).position = 0
-            · dsimp only [sources, originalExports, originalInfo] at *
-              reduce_main
-            · by_cases missingFooter : following calls sources originalExports originalInfo = 0
-              · dsimp only [sources, originalExports, originalInfo] at *
-                reduce_main
-              · by_cases unfinished : calls.skipAt (textOf sources)
-                    (following calls sources originalExports originalInfo) ≠ (textOf sources).length + 1
-                · dsimp only [sources, originalExports, originalInfo] at *
-                  reduce_main
-                · by_cases incomplete : calls.completed (bodyScan calls sources originalExports originalInfo).scan.facts.path ≠ true
-                  · dsimp only [sources, originalExports, originalInfo] at *
-                    reduce_main
-                  · dsimp only [sources, originalExports, originalInfo] at *
-                    reduce_main
-  · dsimp only [sources, originalExports, originalInfo] at *
-    reduce_main
+  rfl
 
 end Silver.ApplicationPackageMain.Native

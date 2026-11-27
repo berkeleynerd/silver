@@ -2,6 +2,7 @@ module
 
 public import Silver.ApplicationNativeGuards
 public import Silver.ApplicationPackageMainModel
+public import Silver.ApplicationPackageBodiesControl
 
 @[expose] public section
 
@@ -75,23 +76,64 @@ def LocalType.spelling : LocalType → List String
   | .parserState => ["parser_state"] | .position => ["literal_position"]
   | .bodyContext => ["body_context"] | .applicationScan => ["application_scan"]
 
+/-- Symbols used only in declaration-level Static assertions. Their predicates
+are retained and checked as typed source expressions, but do not supply runtime
+facts or enter the executable call dictionary. Native verification discharges
+these assertions separately. -/
+inductive AssertionFunction : Ty → Type
+  | packageMetadata : AssertionFunction (.arrow .source (.arrow .metadata .truth))
+  | packageName : AssertionFunction (.arrow .source (.arrow .nameSpan .truth))
+  | nameState : AssertionFunction (.arrow .source (.arrow .number (.arrow .number .truth)))
+  | stateValid : AssertionFunction (.arrow .source (.arrow .state .truth))
+  | contextValid : AssertionFunction (.arrow .source (.arrow .parseContext .truth))
+  | flowValid : AssertionFunction (.arrow .parseContext (.arrow .activeFlow .truth))
+  | bodyValid : AssertionFunction (.arrow .source (.arrow .parseContext (.arrow .bodyScan .truth)))
+  | functionsValid : AssertionFunction (.arrow .source (.arrow .functions .truth))
+  | proceduresValid : AssertionFunction (.arrow .source (.arrow .procedures .truth))
+
+def assertionNames : FunctionNames AssertionFunction
+  | _, .packageMetadata => ["packages", ".", "valid_metadata"]
+  | _, .packageName => ["packages", ".", "valid_name"]
+  | _, .nameState => ["valid_name_state"]
+  | _, .stateValid => ["valid_state"]
+  | _, .contextValid => ["valid_context"]
+  | _, .flowValid => ["valid_flow"]
+  | _, .bodyValid => ["valid_body"]
+  | _, .functionsValid => ["functions", ".", "valid_metadata"]
+  | _, .proceduresValid => ["procedures", ".", "valid_metadata"]
+
 structure Declaration where
   localType : LocalType
   names : List String
   constant : Bool := false
   initial : Option (Expr Fn localType.type) := none
+  staticAssertions : List (Expr AssertionFunction .truth) := []
 
 def Declaration.render (declaration : Declaration) : List String :=
+  declaration.staticAssertions.flatMap (fun test =>
+    (ApplicationPackageBodies.Statements.Command.staticAssert test).render assertionNames) ++
+  (
   (declaration.names.map fun name => [name]).intersperse [","] |>.flatten |>
     fun names => names ++ [":"] ++ (if declaration.constant then ["constant"] else []) ++
       declaration.localType.spelling ++
-      (match declaration.initial with | none => [] | some value => [":="] ++ value.render functionNames) ++ [";"]
+      (match declaration.initial with | none => [] | some value => [":="] ++ value.render functionNames) ++ [";"])
 
-def Declaration.eval (calls : ApplicationNative.Calls Fn) (locals : Locals) (declaration : Declaration) : Locals :=
-  match declaration.initial with
-  | none => locals
-  | some value => declaration.names.foldl
-      (fun current name => current.set declaration.localType.type name (value.eval calls locals)) locals
+/-- Destructure the declaration before its dependent initializer so executable
+reduction discards the static annotation tree without unfolding its predicates. -/
+def Declaration.eval (calls : ApplicationNative.Calls Fn) (locals : Locals) : Declaration → Locals
+  | ⟨localType, names, _, initial, _⟩ =>
+    match initial with
+    | none => locals
+    | some value => names.foldl
+        (fun current name => current.set localType.type name (value.eval calls locals)) locals
+
+theorem Declaration.eval_staticAssertions (calls : ApplicationNative.Calls Fn)
+    (locals : Locals) (declaration : Declaration) (assertions : List (Expr AssertionFunction .truth)) :
+    Declaration.eval calls locals {declaration with staticAssertions := assertions} =
+      Declaration.eval calls locals declaration := by
+  cases declaration with
+  | mk localType names constant initial _ =>
+      cases initial <;> simp only [Declaration.eval]
 
 def Declaration.bind (scope : Scope) (declaration : Declaration) : Scope :=
   declaration.names.foldl (fun current name => current.bind declaration.localType.type name) scope
@@ -159,7 +201,9 @@ end
 def Command.list (commands : List Command) : Command := commands.foldr .sequence .nothing
 
 def Declaration.wellFormed (declaration : Declaration) : Bool :=
-  !declaration.names.isEmpty && declaration.names.all identifier && decide declaration.names.Nodup &&
+  declaration.staticAssertions.all (fun test =>
+    (ApplicationPackageBodies.Statements.Command.staticAssert test).wellFormed assertionNames false) &&
+    !declaration.names.isEmpty && declaration.names.all identifier && decide declaration.names.Nodup &&
     (!declaration.constant || declaration.initial.isSome) &&
     declaration.initial.all (fun value => value.expression && value.wellFormed functionNames)
 
@@ -176,7 +220,8 @@ def Command.wellFormed : Command → Bool
 def declarationsScope (scope : Scope) (writable : List String) (declarations : List Declaration) :
     Bool × Scope × List String :=
   declarations.foldl (fun (current : Bool × Scope × List String) declaration =>
-    (current.1 && declaration.initial.all (fun value => value.scoped current.2.1),
+    (current.1 && declaration.staticAssertions.all (fun test => test.scoped current.2.1) &&
+      declaration.initial.all (fun value => value.scoped current.2.1),
       declaration.bind current.2.1, declaration.writable current.2.2)) (true, scope, writable)
 
 def Command.scoped (scope : Scope) (writable : List String) : Command → Bool
