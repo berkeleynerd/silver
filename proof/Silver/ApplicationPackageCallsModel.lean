@@ -96,16 +96,19 @@ theorem actualPayload_writable_progress {calls text context input parameter info
   simp only [actualPayload, writable, ↓reduceIte] at progress ⊢
   omega
 
-def actualStep (calls : Calls) (text : Source) (context : ParseContext)
-    (input : ApplicationScan) (info : PackageBindings.Metadata) (item : PackageBindings.Routine)
-    (ordinal : Nat) (frame : ActualFrame) : Option ActualFrame := do
+def actualAssociation (calls : Calls) (text : Source) (info : PackageBindings.Metadata)
+    (item : PackageBindings.Routine) (ordinal : Nat) (frame : ActualFrame) : Option (Nat × Bool × Nat) :=
   let first := calls.skip text frame.cursor
   let after := calls.nameAfter text first
   let arrow := calls.take text after (.symbol "=>")
-  let (slot, named, cursor) ←
-    if arrow ≠ 0 then some (namedSlot calls text info item first after, true, arrow)
-    else if frame.named then none
-    else some (item.formalFirst + ordinal - 1, frame.named, frame.cursor)
+  if arrow ≠ 0 then some (namedSlot calls text info item first after, true, arrow)
+  else if frame.named then none
+  else some (item.formalFirst + ordinal - 1, frame.named, frame.cursor)
+
+def actualStep (calls : Calls) (text : Source) (context : ParseContext)
+    (input : ApplicationScan) (info : PackageBindings.Metadata) (item : PackageBindings.Routine)
+    (ordinal : Nat) (frame : ActualFrame) : Option ActualFrame := do
+  let (slot, named, cursor) ← actualAssociation calls text info item ordinal frame
   if slot = 0 ∨ frame.seen.getD (slot - 1) false = true then none else do
     let parameter := info.parameterAt slot
     let original := {frame.actual slot with first := cursor}

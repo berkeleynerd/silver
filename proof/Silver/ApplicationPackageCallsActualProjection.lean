@@ -57,11 +57,7 @@ def frameOf (locals : Locals) : ActualFrame :=
 def selectedAssociation (calls : ApplicationPackageCalls.Calls) (text : Source)
     (info : PackageBindings.Metadata) (item : PackageBindings.Routine) (ordinal : Nat)
     (frame : ActualFrame) : Option (Nat × Bool × Nat) :=
-  let first := calls.skip text frame.cursor
-  let last := calls.nameAfter text first
-  let arrow := calls.take text last (.symbol "=>")
-  if arrow ≠ 0 then some (namedSlot calls text info item first last, true, arrow)
-  else if frame.named then none else some (item.formalFirst + ordinal - 1, frame.named, frame.cursor)
+  actualAssociation calls text info item ordinal frame
 
 def selectedFields (locals : Locals) : Nat × Bool × Nat :=
   (locals .number "slot", locals .truth "named", locals .number "cursor_at")
@@ -71,7 +67,7 @@ theorem association_projection (calls : ApplicationPackageCalls.Calls) (locals :
     (associationLocals calls locals).map selectedFields =
       selectedAssociation calls (locals .source "text") (locals .metadata "info")
         (locals .routine "item") (locals .number "ordinal") (frameOf locals) := by
-  unfold associationLocals selectedAssociation frameOf
+  unfold associationLocals selectedAssociation actualAssociation frameOf
   simp only [namedRange_of_positive _ positive]
   split
   · simp (disch := decide) [selectedFields, namedSlot, namedStep]
@@ -100,7 +96,7 @@ def payloadModel (calls : ApplicationPackageCalls.Calls) (text : Source) (contex
         seen := frame.seen.set (slot - 1) true}
       some ⟨stored, slot, parameter, following⟩
 
-private theorem offset_inside {slot length : Nat} (positive : slot ≠ 0) (bounded : slot ≤ length) :
+theorem actual_offset_lt_length {slot length : Nat} (positive : slot ≠ 0) (bounded : slot ≤ length) :
     slot - 1 < length := by omega
 
 theorem payload_projection (calls : ApplicationPackageCalls.Calls) (locals : Locals)
@@ -112,7 +108,7 @@ theorem payload_projection (calls : ApplicationPackageCalls.Calls) (locals : Loc
       (locals .packageSeen "seen").getD (locals .number "slot" - 1) false = true
   · simp only [payloadModel, payloadLocals, frameOf, unavailable, ↓reduceIte, Option.map_none]
   · have positive : locals .number "slot" ≠ 0 := fun zero => unavailable (Or.inl zero)
-    have inside := offset_inside positive bounded
+    have inside := actual_offset_lt_length positive bounded
     by_cases input : ((locals .metadata "info").parameterAt (locals .number "slot")).mode = .input <;>
       by_cases stop : (actualPayload calls (locals .source "text") (locals .parseContext "context")
         (locals .appScan "input") ((locals .metadata "info").parameterAt (locals .number "slot"))

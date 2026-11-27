@@ -55,3 +55,26 @@ and progress cases for the payload. The managed diagnostic is attached to
 run `20261127T130517-67029573e0ec`. Composing all projected stages with
 `actualStep`, the complete procedure interpretation and the authoritative
 whole-source proof remain open.
+
+## One package actual from native commands to its model
+
+Linux x86-64 run `20261127T133340-b197deb1c498` checked the association,
+payload and finish as one ordinal of the native actual loop. It passed a fresh
+audit of 21,027 declarations, using two Lake workers and two Lean threads per
+process. The runner reused the checked normalization and field-preservation
+objects, built their combined local-store projection, and reported 17.590
+seconds for the focused check. [Evidence and earlier trials](normalized-actual-step/)
+
+`actualLocals_projection` covers early failure and successful updates for
+positional and named arguments across the guarded physical formal window. The
+named lookup bound follows from the formal table and the positional bound from
+the iteration ordinal. The projection preserves the cursor, seen and stored
+actuals, state effects and result fields read by the next iteration. Both the
+raw step and its projection now use the same association expression.
+
+The recorded diagnosis on `20261127T132327-377c3b25c63c` identified the
+remaining successful-payload equality. Splitting the output mode and last
+ordinal, then rewriting the progress check and stored slot, discharged it.
+The final failed run compiled that normalization and exposed redundant tactics
+in the dependent projection. The enclosing ordinal fold, complete call and
+original-source binding still need their own checks.
