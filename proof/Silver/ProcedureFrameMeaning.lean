@@ -36,7 +36,7 @@ theorem appendProcedureParameter_valid {text frame parameter}
           omega
         have scalars := ScalarExpression.validEnvironment_append valid.2.2.2.2.2.1 space
           (item := {first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := decide (parameter.mode ≠ .input)})
-          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1⟩
+          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1, .inl ⟨rfl, rfl⟩⟩
         exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
           valid.2.2.2.2.1, scalars, valid.2.2.2.2.2.2⟩
     · split
@@ -46,7 +46,8 @@ theorem appendProcedureParameter_valid {text frame parameter}
           have bounded := valid.booleans.1
           omega
         have booleans := BooleanBindings.valid_append valid.booleans space
-          (item := {first := parameter.first, after := parameter.after, mutable := decide (parameter.mode ≠ .input)}) typed.1
+          (item := {first := parameter.first, after := parameter.after, mutable := decide (parameter.mode ≠ .input)})
+          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, .inl ⟨rfl, rfl⟩⟩
         exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
           valid.2.2.2.2.1, valid.2.2.2.2.2.1, valid.2.2.2.2.2.2.1,
           valid.2.2.2.2.2.2.2.1, booleans, valid.2.2.2.2.2.2.2.2.2⟩
