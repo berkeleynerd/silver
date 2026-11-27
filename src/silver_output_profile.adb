@@ -9313,7 +9313,8 @@ is
          Context : constant Body_Context :=
            (Context_Of ((Frame, Initialized, False)) with delta Declaration_Count => 0);
          Input : Application_Scan := Application_Of (Body_Of ((Frame, Initialized, False)));
-         Result : Application_Scan (Input.Count);
+         Input_Count : constant Scalar_Expressions.Binding_Count := Input.Count;
+         Result : Application_Scan (Input_Count);
       begin
          Input.Allow_Procedure_Calls := Item.Kind = Packages.Procedure_Routine;
          Input.Reads := Reads;
@@ -9653,7 +9654,8 @@ is
          end loop;
          if Candidate.First = 0 then return ""; end if;
          declare
-            Result : constant String (1 .. Candidate.After - Candidate.First) :=
+            Result_Length : constant Natural := Candidate.After - Candidate.First;
+            Result : constant String (1 .. Result_Length) :=
               Text (Candidate.First .. Candidate.After - 1);
          begin
             return Result;

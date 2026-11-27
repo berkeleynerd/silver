@@ -1,5 +1,5 @@
 {
-  "source_sha256": "91933dc67619610c7ad5fc026c03663cb84269608e2c37e1710f524ac4392bfa",
+  "source_sha256": "61fe2d51d20b890b6930d436f75bc582ef3ef9e40392de687d74a1925de03125",
   "scope": "Conservative helper inventory; successful prior whole-unit checks are retained evidence and still require final provenance matching. No complete Output_Profile or compiler assurance is claimed.",
   "completed_canonical_units": {
     "silver_package_bindings.adb": {
@@ -377,77 +377,77 @@
     {
       "name": "Package_Body_At",
       "current_lines": [
-        9353
+        9354
       ],
       "coverage": "pending"
     },
     {
       "name": "Imported_Frame",
       "current_lines": [
-        9407
+        9408
       ],
       "coverage": "pending"
     },
     {
       "name": "Same_Package_Spelling",
       "current_lines": [
-        9441
+        9442
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Main_At",
       "current_lines": [
-        9455
+        9456
       ],
       "coverage": "pending"
     },
     {
       "name": "Charge_Unit",
       "current_lines": [
-        9498
+        9499
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze_Application",
       "current_lines": [
-        9541
+        9542
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze_Model",
       "current_lines": [
-        9580
+        9581
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze",
       "current_lines": [
-        9582
+        9583
       ],
       "coverage": "pending"
     },
     {
       "name": "Is_Application_Member",
       "current_lines": [
-        9584
+        9585
       ],
       "coverage": "pending"
     },
     {
       "name": "Accepts_Application",
       "current_lines": [
-        9586
+        9587
       ],
       "coverage": "pending"
     },
     {
       "name": "Imported_Package",
       "current_lines": [
-        9589
+        9590
       ],
       "coverage": "pending"
     }
