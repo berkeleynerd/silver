@@ -45,12 +45,12 @@ cursor scanner. The successful trace supplies only concrete admission guards. -/
 inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan) (catalog : FunctionBindings.Metadata := {}) : SourceStatement → Prop
   | null : basicKind text context scan = .null → BasicPayload (catalog := catalog) text context scan (.simple .null)
   | output {expression} : basicKind text context scan = .output →
-      ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names (outputStart text context scan).position expression
-        (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)) →
+      ExpressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names (outputStart text context scan).position expression
+        (expressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)) →
       BasicPayload (catalog := catalog) text context scan (.simple (.output expression))
   | put {expression} : basicKind text context scan = .put →
-      ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names (putStart text context scan).position expression
-        (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)) →
+      ExpressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names (putStart text context scan).position expression
+        (expressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)) →
       BasicPayload (catalog := catalog) text context scan (.simple (.put expression))
   | reject : basicKind text context scan = .reject → BasicPayload (catalog := catalog) text context scan .reject
   | scalarCallAssignment {update} : basicKind text context scan = .scalarAssignment →
@@ -147,18 +147,18 @@ theorem basic_sound {text context scan}
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
+        have positive : (expressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
           fun zero => good (Or.inl zero)
-        obtain ⟨expression, parsed⟩ := expressionAt_sound (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names _ positive
+        obtain ⟨expression, parsed⟩ := expressionAt_sound (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .output kind parsed⟩⟩
   | put =>
       simp only [basicRaw, kind] at raw
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
+        have positive : (expressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
           fun zero => good (Or.inl zero)
-        obtain ⟨expression, parsed⟩ := expressionAt_sound (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names _ positive
+        obtain ⟨expression, parsed⟩ := expressionAt_sound (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .put kind parsed⟩⟩
   | scalarAssignment =>
       by_cases called : (callAssignmentBody text context scan catalog).position ≠ 0
@@ -410,10 +410,10 @@ theorem basic_meaning {text context scan item result}
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
+        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
           apply true_of_not_neg
           simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (outputStart text context scan).facts.path
-              (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
+              (summaryOf (expressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (outputStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
         simp only [summaryOf] at fits
         have valid : scan.facts.path.invalidReachable = false := by
@@ -435,10 +435,10 @@ theorem basic_meaning {text context scan item result}
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
+        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
           apply true_of_not_neg
           simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (putStart text context scan).facts.path
-              (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
+              (summaryOf (expressionAt (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayTable) text (putStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
         simp only [summaryOf] at fits
         have valid : scan.facts.path.invalidReachable = false := by

@@ -1,0 +1,21 @@
+{
+  "run_id": "20261127T135706-ffa4b0c4aeb9",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageBodiesBasicSemantics",
+    "Silver.ApplicationPackageBodiesArmReading",
+    "Silver.ApplicationPackageBodiesTailReading",
+    "Silver.ApplicationPackageMainIdentities",
+    "Silver.ApplicationPackageBodiesIterationFlow"
+  ],
+  "declarations": 32561,
+  "source_sha256": "91933dc67619610c7ad5fc026c03663cb84269608e2c37e1710f524ac4392bfa",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "68cf11cdfca72ef0825f5f815c05107b7cdd0ae8dc8dd1b9398d028c8a6364a1",
+    "evidence.json": "19bc3f2c42a792dcae8ae13392d5189e73d22eedd4c270877cf2ca656c4ffd57",
+    "lean-focused.log.gz": "175111d5483d82ebb51acc88f895e1c109c139c7838f8ae28d818fd9ef16ae4b",
+    "fourth-build.log.gz": "31d66443e56260ac437185b5f1f47d1cf45bf3d7bc851f46c0124f41929ae904",
+    "fifth-build.log.gz": "a125f47228c3cf32f953a3ba33a020ad99d928d0264507246f6d8cd68f5739b2",
+    "seventh-build.log.gz": "47df5271a7c0f9612b0c1f4cfbd0b75a215bc583a5730821c1ec9e7ac7067562"
+  }
+}

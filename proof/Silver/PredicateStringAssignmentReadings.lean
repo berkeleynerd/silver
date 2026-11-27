@@ -18,7 +18,8 @@ inductive StringAssignmentReading (text : Source) (context : ParseContext) (scan
   | whole {value} :
       TargetReading text (parserState context scan) (stringAssignmentTarget text context scan) false →
       stringAssignmentKind text context scan = .whole →
-      ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating)
+      ExpressionAt (contextFirst := context.contextFirst)
+        (integerHidden := context.integerHidden text) (elaborating := context.elaborating)
         (arrays := context.arrayTable) (scalarNames := context.readingNames scan.facts) text context.names
         (fixedAfter text (stringAssignmentStart text context scan).position ":=" false) value
         (readStringInFlow text context
