@@ -1,0 +1,40 @@
+{
+  "primary_head": "751d2d94a395c994d35ebdfb5461a220a622a693",
+  "captured_inputs": 1669,
+  "local_hashes_verified": true,
+  "changed_in_primary": [
+    "proof/Silver/ApplicationPackageInitializerInventory.lean",
+    "proof/Silver/ApplicationPackageRoutineInitialization.lean",
+    "proof/Silver/ComposeInitializerTrace.lean",
+    "proof/Silver/FunctionDeclarationInitialDomain.lean",
+    "proof/Silver/FunctionDeclarationNative.lean",
+    "proof/Silver/FunctionFrameValidity.lean",
+    "proof/Silver/FunctionHeaderSource.lean",
+    "proof/Silver/PredicateStringActualInitializers.lean",
+    "proof/Silver/PredicateStringBoundsSources.lean",
+    "proof/Silver/ProcedureDeclarationHeaderMeaning.lean",
+    "proof/Silver/ProcedureDeclarationMeaning.lean",
+    "proof/Silver/ProcedureDeclarationSyntax.lean",
+    "proof/Silver/ProcedureFrameMeaning.lean",
+    "proof/Silver/ProcedurePrefixExpressionMeaning.lean"
+  ],
+  "missing_in_primary": [
+    "proof/Silver/ApplicationPackageRecursiveChecking.lean",
+    "proof/Silver/ApplicationPackageRecursiveLoop.lean",
+    "proof/Silver/ApplicationPackageRecursiveScope.lean",
+    "proof/Silver/ApplicationPackageRoutineRecursiveTail.lean",
+    "proof/Silver/ApplicationPackageSemanticConditionalComposition.lean",
+    "proof/Silver/ApplicationPackageSemanticConditionalReading.lean",
+    "proof/Silver/ApplicationPackageSemanticMeaning.lean"
+  ],
+  "changed_imported": [],
+  "missing_imported": [
+    "proof/Silver/ApplicationPackageRecursiveChecking.lean",
+    "proof/Silver/ApplicationPackageRecursiveLoop.lean",
+    "proof/Silver/ApplicationPackageRecursiveScope.lean",
+    "proof/Silver/ApplicationPackageRoutineRecursiveTail.lean",
+    "proof/Silver/ApplicationPackageSemanticConditionalComposition.lean",
+    "proof/Silver/ApplicationPackageSemanticConditionalReading.lean",
+    "proof/Silver/ApplicationPackageSemanticMeaning.lean"
+  ]
+}
