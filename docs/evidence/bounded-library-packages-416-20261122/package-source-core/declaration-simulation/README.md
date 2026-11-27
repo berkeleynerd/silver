@@ -124,3 +124,29 @@ workers, two threads per process and 8192 MiB per process. The
 Earlier runs `20261127T143644-e58598fa9482` and
 `20261127T144235-60c6cbd97b76` retained the rejected proof terms and
 the deprecated rewrite names, respectively.
+
+## Source order of completed body formals
+
+`readSignature_completed_order` follows the canonical completion reader
+from its routine keyword through the closing `is`. It identifies the routine
+written at the incoming completion index plus one. Every body-formal name
+in that routine's physical parameter segment is positive, starts at or
+after the input cursor and ends strictly before the returned cursor. Each
+earlier name ends before the next name starts, including nonadjacent slots.
+The return cursor advances within the source even for a zero-formal routine.
+The proof uses the actual completed table writes, mode and type reads,
+and the loop exit and continuation guards.
+
+`SignatureExec.retains_states` separately follows every raw Signature
+return, including failure after a partial formal write, and proves that
+the state declaration table equals its input. `readSignature_states`
+specializes this to both canonical reader modes.
+
+Linux x86-64 run `20261127T150057-02d7fe0f67a8` checked both the complete
+formal-span result and the state-table theorem. It built in 4.314 seconds
+and freshly audited 27,572 declarations in 3.191 seconds, with two workers,
+two threads and 8192 MiB per process. The `completion-spans-` log and
+evidence retain the targets and input digest. The earlier table and loop
+checks were `20261127T144941-41ed9c4ca023` and
+`20261127T145208-64b2849150b2`. The managed diagnosis for
+`20261127T145827-e0ee80b1808d` records the final return normalization.
