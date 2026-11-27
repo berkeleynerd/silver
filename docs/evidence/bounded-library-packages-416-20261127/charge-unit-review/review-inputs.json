@@ -1,0 +1,29 @@
+{
+  "review_target": "c0c3ab011a0d6c3217cb50b83192d55b3a45fbf0",
+  "reviewed_sources_sha256": {
+    "proof/Silver/ApplicationAdmissionChargeBinding.lean": "5bee740c200beef3ac2171f4dbeb37daff8a531cde4f957a6a7516e9e182e0e6",
+    "proof/Silver/ApplicationAdmissionChargeControl.lean": "4ca97e010c771719e002701708cfeeeb5c8942d12285a0aa70a49dd96b9376e3",
+    "proof/Silver/ApplicationAdmissionChargeEquations.lean": "94fdc01b259591030a77e49764b5a9944123127bc9e00a843a62f3f54e4e016e",
+    "proof/Silver/ApplicationAdmissionChargeImports.lean": "0e5e5e32f4b21cc54bf6581af9511040c6f594dc6792505c1e06a53e90d394d1",
+    "proof/Silver/ApplicationAdmissionChargeLoop.lean": "714999904a7e3f5fb585533cc706ecaf1a79ad4921389db77973452bb6d91f76",
+    "proof/Silver/ApplicationAdmissionChargeNative.lean": "b2c6e9103ab017c10ca0ce5e2593c80f7d71bde8089d3649840595ae57221e51",
+    "proof/Silver/ApplicationAdmissionChargeProgress.lean": "8cfe9ec0693cd4bf7c7ccea4bb0a45edfeb4d9296d2d415dba7abd4ac6407547",
+    "proof/Silver/ApplicationAdmissionChargeSourceCandidate.lean": "4b1eb0bc1d4fdb1d5a638beac389eed619f87e23c122759e9a034caa105e6b32",
+    "proof/Silver/ApplicationAdmissionChargeSourceChecks.lean": "6dd4e1f59cb8d2e5c336d4b1afe0960ff0cd651f12c5ee64bd9817eeae397eed",
+    "proof/Silver/ApplicationAdmissionChargeSourceShape.lean": "49854a1595007fae078062ade9b07ed8cb82e49dc1cd819b10b8b29737f7ebce"
+  },
+  "live_reviewed_source_matches": true,
+  "native_output_profile_sha256": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+  "native_fragment_sha256": "ab3b7cec5ffc69fc4ecd685d9d69d13179812fd242250d8d240c2fb76217da89",
+  "retained_fragment_exact": true,
+  "evidence_run_id": "20261127T212641-fd10ff7168f9",
+  "evidence_targets": [
+    "Silver.ApplicationAdmissionChargeLoop",
+    "Silver.ApplicationAdmissionChargeBinding",
+    "Silver.ApplicationAdmissionChargeSourceCandidate"
+  ],
+  "evidence_modules": 162,
+  "fresh_axiom_audit": "22477 declarations; passed",
+  "actual_source_check_in_focused_audit": false,
+  "independent_proof_run": false
+}
