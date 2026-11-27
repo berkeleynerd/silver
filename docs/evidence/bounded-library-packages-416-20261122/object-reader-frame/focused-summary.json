@@ -1,0 +1,19 @@
+{
+  "run_id": "20261127T213347-c505f6e2988b",
+  "targets": [
+    "Silver.ApplicationPackageDeclarationsObjectFrameDomains"
+  ],
+  "host": "linux-x86_64",
+  "lean_version": "4.34.1",
+  "axiom_audit": "passed",
+  "elapsed_seconds": 23.506,
+  "threads_per_process": 2,
+  "lake_workers": 2,
+  "memory_mb_per_process": 8192,
+  "audited_declarations": 70648,
+  "modules": 480,
+  "cpu_affinity": [
+    0,
+    1
+  ]
+}
