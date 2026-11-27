@@ -117,48 +117,62 @@ def appendOutputs (calls : CompletionCalls) (text : Source) (info : PackageBindi
   | index :: rest, frame => (appendOutput calls text (info.parameterAt index) frame).bind
       (appendOutputs calls text info rest)
 
+def completionContextOf (calls : CompletionCalls) (state : InitializationFrame) : ParseContext :=
+  {calls.contextOf ⟨state.frame, state.initialized, false⟩ with declarationCount := 0}
+
+def completionInput (calls : CompletionCalls) (item : PackageBindings.Routine)
+    (state : InitializationFrame) : ApplicationScan :=
+  {scan := calls.bodyOf ⟨state.frame, state.initialized, false⟩
+   allowProcedureCalls := decide (item.kind = .procedure)
+   reads := state.reads}
+
+def completionDispatch (calls : CompletionCalls) (text : Source) (info : PackageBindings.Metadata)
+    (item : PackageBindings.Routine) (state : InitializationFrame) : ApplicationScan :=
+  calls.applicationTail text (completionContextOf calls state) (completionInput calls item state) info
+    (if item.kind = .function then .returnOnly else .endOnly)
+    (decide (item.kind = .procedure) && !state.initialized) {} {}
+
+def completionReturn (calls : CompletionCalls) (text : Source) (context : ParseContext)
+    (info : PackageBindings.Metadata) (item : PackageBindings.Routine) (result : ApplicationScan) :
+    Option ApplicationScan :=
+  if item.kind = .function then
+    let first := calls.takeToken text result.scan.position (.word "return")
+    let after := calls.functionReturnAfter text context result.scan ⟨0, item.resultKind, item.resultBounds, 0⟩
+    let result := {result with
+      reads := PackageBindings.stateUnion result.reads (calls.stateReads text context info first after)
+      scan := {result.scan with position := calls.takeToken text after (.symbol ";")}}
+    if result.scan.position = 0 ∨ result.writes ≠ PackageBindings.emptyStateSet then none else some result
+  else some result
+
+def completionFooter (calls : CompletionCalls) (text : Source) (globals : ParserState)
+    (info : PackageBindings.Metadata) (index : Nat) (item : PackageBindings.Routine)
+    (result : ApplicationScan) : CompletionResult :=
+  let first := calls.skipAt text (calls.takeToken text result.scan.position (.word "end"))
+  let last := calls.nameAfter text first
+  let following := calls.takeToken text last (.symbol ";")
+  if following ≤ globals.position ∨ calls.sameName text ⟨first, last⟩ item.bodyName ≠ true then
+    completionFailed info
+  else
+    let item := {item with
+      bodyAfter := following
+      mayRead := result.reads
+      mayWrite := result.writes
+      assigned := result.scan.assigned}
+    ⟨{globals with position := following},
+      {info with
+        routines := info.routines.set (index - 1) item
+        completed := index
+        assigned := info.assigned || item.assigned}⟩
+
 def completionBody (calls : CompletionCalls) (text : Source) (globals : ParserState)
     (info : PackageBindings.Metadata) (index : Nat) (item : PackageBindings.Routine)
     (state : InitializationFrame) : CompletionResult :=
-  let scan : ScanResult := ⟨state.frame, state.initialized, false⟩
-  let context := {calls.contextOf scan with declarationCount := 0}
-  let input : ApplicationScan := {
-    scan := calls.bodyOf scan
-    allowProcedureCalls := decide (item.kind = .procedure)
-    reads := state.reads}
-  let result := calls.applicationTail text context input info
-    (if item.kind = .function then .returnOnly else .endOnly)
-    (decide (item.kind = .procedure) && !state.initialized) {} {}
+  let result := completionDispatch calls text info item state
   if result.scan.position = 0 then completionFailed info
   else
-    let result := if item.kind = .function then
-        let valueFirst := calls.takeToken text result.scan.position (.word "return")
-        let valueAfter := calls.functionReturnAfter text context result.scan
-          ⟨0, item.resultKind, item.resultBounds, 0⟩
-        {result with
-          reads := (PackageBindings.stateUnion result.reads
-            (calls.stateReads text context info valueFirst valueAfter))
-          scan := {result.scan with position := calls.takeToken text valueAfter (.symbol ";")}}
-      else result
-    if item.kind = .function ∧ (result.scan.position = 0 ∨ result.writes ≠ PackageBindings.emptyStateSet) then
-      completionFailed info
-    else
-      let first := calls.skipAt text (calls.takeToken text result.scan.position (.word "end"))
-      let last := calls.nameAfter text first
-      let following := calls.takeToken text last (.symbol ";")
-      if following ≤ globals.position ∨ calls.sameName text ⟨first, last⟩ item.bodyName ≠ true then
-        completionFailed info
-      else
-        let item := {item with
-          bodyAfter := following
-          mayRead := result.reads
-          mayWrite := result.writes
-          assigned := result.scan.assigned}
-        ⟨{globals with position := following},
-          {info with
-            routines := info.routines.set (index - 1) item
-            completed := index
-            assigned := info.assigned || item.assigned}⟩
+    match completionReturn calls text (completionContextOf calls state) info item result with
+    | none => completionFailed info
+    | some returned => completionFooter calls text globals info index item returned
 
 def packageCompletionFuel (calls : CompletionCalls) (fuel : Nat) (text : Source)
     (globals : ParserState) (info : PackageBindings.Metadata) : Option CompletionResult :=
