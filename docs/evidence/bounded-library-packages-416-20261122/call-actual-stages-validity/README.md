@@ -115,3 +115,24 @@ row has either a readable, checked input expression on its own author span or
 a writable target with the native target identity. Constructing the semantic
 list in formal order, composing the complete call body and binding that body
 to the authoritative source remain open.
+
+## Formal-order semantic arguments
+
+Linux x86-64 run `20261127T141659-0579acb998c3` built `FormalArguments`
+and passed a fresh audit of 30,729 declarations in 81.321 seconds. It used
+two Lake workers on CPUs 2–3, two threads per process and 8,192 MiB per
+process. The first attempt encountered outdated private dependencies in
+`ProcedureNameIdentity` and `PredicateNativeProgress`. The successful run
+used the qualified-name and context-progress prerequisites from the
+integration branch. [Focused evidence and predecessor](formal-argument-assembly/)
+
+`accepted_formal_arguments` derives the physical table window from the
+accepted raw call and the typed table capacity. It constructs the semantic
+list in formal order from the final physical rows, including the empty list.
+`FormalArgumentsAt.unique` proves that the list is determined by those rows.
+Each input expression uses the common incoming flow. Each writable target
+carries its copy-out check, and an `in out` target also carries its copy-in
+check. The proof yields `ProcedureActualsMeaning` for the complete list with
+copy-out effects in formal order. Semantic alias exclusion, the function
+declaration's input-mode invariant, the full command interpretation and the
+authoritative source endpoint require their own evidence.
