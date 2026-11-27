@@ -143,6 +143,66 @@ class LibraryPackageTests(unittest.TestCase):
                 self.check(main().replace(b'with P,', b'with ' + name + b','), 2,
                            specification=specification, body=body)
 
+    def test_standard_package_identities_are_excluded_before_compilation(self) -> None:
+        # Ada RM A.1 plus the pinned GNAT Standard numeric declarations.
+        names = (b'Boolean', b'False', b'True', b'Integer', b'Natural', b'Positive',
+                 b'Short_Short_Integer', b'Short_Integer', b'Long_Integer',
+                 b'Long_Long_Integer', b'Long_Long_Long_Integer', b'Short_Float',
+                 b'Float', b'Long_Float', b'Long_Long_Float', b'Character',
+                 b'Wide_Character', b'Wide_Wide_Character', b'String', b'Wide_String',
+                 b'Wide_Wide_String', b'Duration', b'Constraint_Error', b'Program_Error',
+                 b'Storage_Error', b'Tasking_Error', b'Numeric_Error', b'ASCII')
+        for name in names:
+            for spelling in (name, name.swapcase()):
+                with self.subTest(name=spelling):
+                    self.specification = self.directory / (name.decode().lower() + '.ads')
+                    self.body = self.directory / (name.decode().lower() + '.adb')
+                    specification = (b'package ' + spelling + b' is pragma SPARK_Mode(On);'
+                                     b'procedure Noop;end ' + spelling + b';')
+                    body = (b'package body ' + spelling + b' is pragma SPARK_Mode(On);'
+                            b'procedure Noop is begin null;end Noop;end ' + spelling + b';')
+                    source = (b'with ' + spelling + b';procedure Main is '
+                              b'pragma SPARK_Mode(On);begin null;end Main;')
+                    self.check(source, 2, specification=specification, body=body)
+
+    def test_standard_itself_and_character_image_names_remain_package_identities(self) -> None:
+        # Standard is not a declaration within itself. Nul names a character
+        # image, not an identifier declaration (Ada RM 3.5.2).
+        for name in (b'Standard', b'Nul'):
+            with self.subTest(name=name):
+                self.specification = self.directory / (name.decode().lower() + '.ads')
+                self.body = self.directory / (name.decode().lower() + '.adb')
+                specification = (b'package ' + name + b' is pragma SPARK_Mode(On);'
+                                 b'procedure Noop;end ' + name + b';')
+                body = (b'package body ' + name + b' is pragma SPARK_Mode(On);'
+                        b'procedure Noop is begin null;end Noop;end ' + name + b';')
+                source = (b'with ' + name + b';procedure Main is '
+                          b'pragma SPARK_Mode(On);begin ' + name + b'.Noop;end Main;')
+                self.check(source, specification=specification, body=body)
+
+    def test_package_identity_hides_each_use_visible_runtime_operation(self) -> None:
+        for operation in (b'Put_Line', b'Put', b'First_Or_Default', b'Input_Is_Valid', b'Reject'):
+            runtime = b'Silver_IO' if operation in (b'Put_Line', b'Put') else b'Silver_Arguments'
+            qualified = runtime + b'.' + operation
+            for name in (operation, operation.swapcase()):
+                with self.subTest(name=name):
+                    self.specification = self.directory / (name.decode().lower() + '.ads')
+                    self.body = self.directory / (name.decode().lower() + '.adb')
+                    specification = (b'package ' + name + b' is pragma SPARK_Mode(On);'
+                                     b'procedure Noop;end ' + name + b';')
+                    body = (b'package body ' + name + b' is pragma SPARK_Mode(On);'
+                            b'procedure Noop is begin null;end Noop;end ' + name + b';')
+                    output = b'Put' if operation == b'Put' else b'Put_Line'
+                    source = (b'with ' + name + b',Silver_IO,Silver_Arguments;'
+                              b'use Silver_IO,Silver_Arguments;'
+                              b'procedure Main is pragma SPARK_Mode(On);'
+                              b'Name:constant String:=Silver_Arguments.First_Or_Default("ok");'
+                              b'begin if Silver_Arguments.Input_Is_Valid then Silver_IO.'
+                              + output + b'(Name);else Silver_Arguments.Reject;end if;end Main;')
+                    self.check(source.replace(qualified, operation.swapcase()), 2,
+                               specification=specification, body=body)
+                    self.check(source, specification=specification, body=body)
+
     def test_public_constants_and_subtypes_are_qualified_in_main(self) -> None:
         specification = SPEC.replace(b'procedure Reset;',
                                      b'N:constant Integer:=3;Good:constant Boolean:=True;procedure Reset;')
