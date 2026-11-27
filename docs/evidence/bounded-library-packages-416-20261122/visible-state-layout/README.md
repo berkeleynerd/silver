@@ -44,3 +44,15 @@ construction through states/formals/locals/outputs remains the next increment.
 Run `20261127T194359-5c19c915ad71` compiled the changed focused target and passed a
 fresh 32,465-declaration axiom audit with the same two-worker/two-thread/8192-MiB
 allocation. Other dependency objects were reused.
+
+## Source-history preservation
+
+The no-later-shadow invariant now follows through StateObjects, routine entry
+with its complete hide pass, readable formal installation, LocalObjects and
+Stored formal append. Retained globals stay apart from every formal name while
+locals are added, so delayed output-only installations preserve the invariant.
+No spelling uniqueness premise is imposed on unrelated local/formal rows.
+
+Run `20261127T194911-820aa97a282c` compiled the changed history target and passed a
+fresh 32,489-declaration axiom audit. The final CompletionFrames assembly is
+being added separately; this run checks all of its new history helpers first.

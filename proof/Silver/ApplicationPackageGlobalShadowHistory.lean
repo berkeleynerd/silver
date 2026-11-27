@@ -9,6 +9,7 @@ history invariant allows arbitrary duplicates among unrelated local rows. -/
 namespace Silver.ApplicationPackageFrameLayout
 open Compose Predicate Packages ApplicationPackageEffects ApplicationPackageObjectRows
 open ApplicationPackageDeclarations ApplicationPackageBodies ApplicationPackageFrames
+open ApplicationPackageFormalStorage ApplicationPackageRoutineFrame
 
 set_option backward.dsimp.instances true
 
@@ -148,6 +149,302 @@ theorem scalarLookupFrom_zero_apart {text : Source} {names : ScalarExpression.En
         simpa only [QualifiedNames.qualifierMatches, ite_true, bare, beq_self_eq_true, Bool.and_true] using
           Bool.eq_false_iff.mpr absent
       · exact ih missing (by omega)
+
+theorem scalarLookup_zero_row {text : Source} {names : ScalarExpression.Environment}
+    {first after : Nat} {row : ScalarExpression.Binding}
+    (missing : ScalarExpression.lookup text names first after = 0)
+    (positive : first ≠ 0) (ordered : first < after) (member : row ∈ names)
+    (bare : row.qualifierFirst = 0) : Named.equalName text row.first row.after first after = false := by
+  obtain ⟨offset, within, atOffset⟩ := List.getElem_of_mem member
+  have installedBinding : ScalarExpression.binding names (offset + 1) = row := by
+    simp only [ScalarExpression.binding, Nat.add_sub_cancel, List.getD_eq_getElem?_getD,
+      List.getElem?_eq_getElem within, Option.getD_some, atOffset]
+  have apart := scalarLookupFrom_zero_apart missing positive ordered
+    (by omega : 0 < offset + 1) (by omega) (installedBinding ▸ bare)
+  simpa only [installedBinding] using apart
+
+theorem GlobalRowsClear.after_state {reader : BooleanElaboration.Native.Reader}
+    {text : Source} {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult}
+    (prior : GlobalRowsClear text info.states (integerRows frame))
+    (source : StateFrame info.states frame)
+    (parsed : objectStep (modelObjectCalls reader) text frame info false = out)
+    (present : out.frame.position ≠ 0) :
+    GlobalRowsClear text (info.states ++ [stateDeclaration out]) (integerRows out.frame) := by
+  have positions := parsed ▸ objectStep_positions reader text frame info false (parsed ▸ present)
+  obtain ⟨storage, _, _⟩ := objectStep_storage parsed present
+  have guards := objectStep_name_guards (parsed ▸ present)
+  have nameEq := parsed ▸ (objectStep_rows reader text frame info false (parsed ▸ present)).2.nameEq
+  rw [← nameEq] at guards
+  have span := newNameAllowed_span text frame out.name.first out.name.after false guards.2
+  have missing : ScalarExpression.lookup text frame.scalarNames out.name.first out.name.after = 0 := by
+    have allowed := guards.2
+    simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
+    exact allowed.1.1.2.2.1
+  have extended : GlobalRowsClear text (info.states ++ [stateDeclaration out]) (integerRows frame) := by
+    apply prior.imp_of_mem
+    intro old new member _ apart global bare bareNew
+    obtain ⟨state, declared, same⟩ := global
+    rcases List.mem_append.mp declared with priorState | newState
+    · exact apart ⟨state, priorState, same⟩ bare bareNew
+    · cases List.mem_singleton.mp newState
+      have earlier := Nat.lt_of_lt_of_le (source.order.1.before old member) positions.1
+      exact False.elim (Nat.ne_of_lt earlier same)
+  rw [storage.integers]
+  change GlobalRowsClear text (info.states ++ [stateDeclaration out])
+    (integerRows frame ++ (if out.mark.kind = .integer then [reference out.name] else []))
+  split
+  · apply List.pairwise_append.mpr
+    refine ⟨extended, by simp, ?_⟩
+    intro old member new installed _ bare _
+    cases List.mem_singleton.mp installed
+    obtain ⟨original, stored, rfl⟩ := List.mem_map.mp member
+    exact scalarLookup_zero_row missing (Nat.ne_of_gt span.1) span.2 stored bare
+  · simpa only [List.append_nil] using extended
+
+theorem stateHistory_clear {reader : BooleanElaboration.Native.Reader} {calls : UnitCalls}
+    {text : Source} {before after : UnitState} {rows : List StateObject}
+    (history : StateObjects calls text before rows after)
+    (original : ∀ row ∈ rows, calls.objectAt text row.before.globals row.before.info false =
+      objectStep (modelObjectCalls reader) text row.before.globals row.before.info false)
+    (source : StateFrame before.info.states before.globals)
+    (clear : GlobalRowsClear text before.info.states (integerRows before.globals)) :
+    GlobalRowsClear text after.info.states (integerRows after.globals) := by
+  induction history with
+  | finished => exact clear
+  | @added row following final phase chosen capacity parsed advances writable rest ih =>
+    have object := ((original row List.mem_cons_self).symm.trans parsed)
+    have present : row.object.frame.position ≠ 0 := by omega
+    exact ih (fun seen member => original seen (List.mem_cons_of_mem _ member))
+      (source.after_state object present writable) (clear.after_state source object present)
+
+private theorem objectTyped_live {calls : ObjectCalls} {text : Source} {original : ParserState}
+    {info : PackageBindings.Metadata} {first last colonEnd constantEnd : Nat} {localObject : Bool}
+    {seed : ObjectResult}
+    (accepted : (objectTyped calls text original info first last colonEnd constantEnd localObject seed).frame.position ≠ 0) :
+    seed.frame.position ≠ 0 := by
+  intro missing
+  apply accepted
+  unfold objectTyped
+  rw [ite_eq_left (by simp only [missing, decide_true])]
+  rfl
+
+theorem objectStep_hidden_live {reader : BooleanElaboration.Native.Reader}
+    {text : Source} {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult}
+    (parsed : objectStep (modelObjectCalls reader) text frame info true = out)
+    (present : out.frame.position ≠ 0) : (hideOuter text frame info out.name).position ≠ 0 := by
+  subst out
+  have named := (objectStep_rows reader text frame info true present).2.nameEq
+  rw [named]
+  dsimp only [objectStep, objectNameStep] at present
+  split at present
+  · exact False.elim (present rfl)
+  · exact objectTyped_live present
+
+theorem object_reference_local {reader : BooleanElaboration.Native.Reader}
+    {text : Source} {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult}
+    (source : StateFrame info.states frame)
+    (parsed : objectStep (modelObjectCalls reader) text frame info true = out)
+    (present : out.frame.position ≠ 0) : ¬GlobalRow info.states (reference out.name) := by
+  obtain positions := parsed ▸ objectStep_positions reader text frame info true (parsed ▸ present)
+  rintro ⟨state, member, same⟩
+  have before := Nat.lt_of_lt_of_le (source.statesBefore state member) positions.1
+  exact Nat.ne_of_gt before same
+
+theorem GlobalRowsClear.after_local {reader : BooleanElaboration.Native.Reader}
+    {text : Source} {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult}
+    (prior : GlobalRowsClear text info.states (integerRows frame))
+    (source : StateFrame info.states frame)
+    (parsed : objectStep (modelObjectCalls reader) text frame info true = out)
+    (present : out.frame.position ≠ 0) : GlobalRowsClear text info.states (integerRows out.frame) := by
+  obtain ⟨storage, kept, _⟩ := objectStep_storage parsed present
+  rw [storage.integers]
+  split
+  · apply (prior.retain (kept.map _)).append
+    · intro row member
+      cases List.mem_singleton.mp member
+      exact object_reference_local source parsed present
+    · intro row member _ bare new installed _
+      cases List.mem_singleton.mp installed
+      exact hideOuter_scalar_apart (objectStep_hidden_live parsed present) member bare
+  · simpa only [List.append_nil, integerRows] using prior.retain (kept.map _)
+
+theorem GlobalRowsApart.after_local {reader : BooleanElaboration.Native.Reader}
+    {text : Source} {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult}
+    {names : List PackageBindings.NameSpan}
+    (prior : GlobalRowsApart text info.states (integerRows frame) names)
+    (source : StateFrame info.states frame)
+    (parsed : objectStep (modelObjectCalls reader) text frame info true = out)
+    (present : out.frame.position ≠ 0) : GlobalRowsApart text info.states (integerRows out.frame) names := by
+  obtain ⟨storage, kept, _⟩ := objectStep_storage parsed present
+  rw [storage.integers]
+  split
+  · apply (prior.retain (kept.map _)).append
+    intro row member
+    cases List.mem_singleton.mp member
+    exact object_reference_local source parsed present
+  · simpa only [List.append_nil, integerRows] using prior.retain (kept.map _)
+
+theorem localHistory_clear {reader : BooleanElaboration.Native.Reader} {calls : CompletionCalls}
+    {text : Source} {info : PackageBindings.Metadata} {item : PackageBindings.Routine}
+    {before after : InitializationFrame} {rows : List LocalObject} {names : List PackageBindings.NameSpan}
+    (history : LocalObjects calls text info item before rows after)
+    (original : ∀ row ∈ rows, calls.objectAt text row.before.frame info true =
+      objectStep (modelObjectCalls reader) text row.before.frame info true)
+    (source : StateFrame info.states before.frame)
+    (clear : GlobalRowsClear text info.states (integerRows before.frame))
+    (apart : GlobalRowsApart text info.states (integerRows before.frame) names) :
+    GlobalRowsClear text info.states (integerRows after.frame) ∧
+      GlobalRowsApart text info.states (integerRows after.frame) names := by
+  induction history with
+  | finished => exact ⟨clear, apart⟩
+  | @added row final following atBegin separate parsed advances rest ih =>
+    have object := ((original row List.mem_cons_self).symm.trans parsed)
+    have present : row.object.frame.position ≠ 0 := by omega
+    exact ih (fun seen member => original seen (List.mem_cons_of_mem _ member))
+      (source.after_object object present) (clear.after_local source object present)
+      (apart.after_local source object present)
+
+theorem GlobalRowsApart.select {text states rows all kept}
+    (prior : GlobalRowsApart text states rows all) (subset : ∀ name ∈ kept, name ∈ all) :
+    GlobalRowsApart text states rows kept :=
+  fun row member global bare name selected => prior row member global bare name (subset name selected)
+
+private theorem formal_rows_local {states : List PackageBindings.StateDeclaration}
+    {formals : List PackageBindings.Formal} {rows : List Row}
+    (references : rows.Sublist (ApplicationPackageFormalStorage.references formals))
+    (distinct : ∀ formal ∈ formals, ∀ state ∈ states, formal.bodyName.first ≠ state.name.first) :
+    ∀ row ∈ rows, ¬GlobalRow states row := by
+  intro row member global
+  obtain ⟨formal, declared, rfl⟩ := List.mem_map.mp (references.subset member)
+  obtain ⟨state, active, same⟩ := global
+  exact distinct formal declared state active same
+
+theorem stored_global_clear {text : Source} {states : List PackageBindings.StateDeclaration}
+    {before after : ParserState} {formals : List PackageBindings.Formal}
+    (stored : Stored before after formals)
+    (prior : GlobalRowsClear text states (integerRows before))
+    (apart : GlobalRowsApart text states (integerRows before) (formals.map (·.bodyName)))
+    (distinct : ∀ formal ∈ formals, ∀ state ∈ states, formal.bodyName.first ≠ state.name.first) :
+    GlobalRowsClear text states (integerRows after) := by
+  obtain ⟨integers, _, refs, _, table, _⟩ := stored.references
+  rw [table]
+  apply prior.append (formal_rows_local refs distinct)
+  intro old member global bare new installed _
+  obtain ⟨formal, declared, rfl⟩ := List.mem_map.mp (refs.subset installed)
+  exact apart old member global bare formal.bodyName (List.mem_map_of_mem declared)
+
+theorem stored_global_apart {text : Source} {states : List PackageBindings.StateDeclaration}
+    {before after : ParserState} {formals : List PackageBindings.Formal} {names : List PackageBindings.NameSpan}
+    (stored : Stored before after formals)
+    (prior : GlobalRowsApart text states (integerRows before) names)
+    (distinct : ∀ formal ∈ formals, ∀ state ∈ states, formal.bodyName.first ≠ state.name.first) :
+    GlobalRowsApart text states (integerRows after) names := by
+  obtain ⟨integers, _, refs, _, table, _⟩ := stored.references
+  rw [table]
+  exact prior.append (formal_rows_local refs distinct)
+
+private theorem hideParameter_scalar {calls : ApplicationPackageRoutineFrame.Calls}
+    (native : calls.hideOuter = ApplicationPackageFrames.hideOuter)
+    {text : Source} {info : PackageBindings.Metadata} {frame after : ParserState} {index : Nat}
+    (run : hideParameter calls text info frame index = some after) :
+    after.scalarNames.Sublist frame.scalarNames ∧
+      ∀ row ∈ integerRows after, row.qualifierFirst = 0 →
+        Named.equalName text row.first row.after
+          (info.parameterAt index).bodyName.first (info.parameterAt index).bodyName.after = false := by
+  dsimp only [hideParameter] at run
+  split at run
+  · contradiction
+  · split at run
+    · contradiction
+    · rename_i present
+      cases run
+      rw [native] at present ⊢
+      exact ⟨(ApplicationPackageFrames.Native.hideOuter_frame present).2.1,
+        fun _ member bare => hideOuter_scalar_apart present member bare⟩
+
+theorem hideParameters_scalar {calls : ApplicationPackageRoutineFrame.Calls}
+    (native : calls.hideOuter = ApplicationPackageFrames.hideOuter)
+    {text : Source} {info : PackageBindings.Metadata} (indices : List Nat) {frame after : ParserState}
+    (run : parameters (hideParameter calls text info) indices frame = some after) :
+    after.scalarNames.Sublist frame.scalarNames ∧
+      ∀ index ∈ indices, ∀ row ∈ integerRows after, row.qualifierFirst = 0 →
+        Named.equalName text row.first row.after
+          (info.parameterAt index).bodyName.first (info.parameterAt index).bodyName.after = false := by
+  induction indices generalizing frame with
+  | nil => cases run; exact ⟨.refl _, by simp⟩
+  | cons index rest ih =>
+    simp only [parameters] at run
+    obtain ⟨middle, step, finish⟩ := Option.bind_eq_some_iff.mp run
+    have first := hideParameter_scalar native step
+    have remaining := ih finish
+    refine ⟨remaining.1.trans first.1, ?_⟩
+    intro current chosen row member bare
+    rcases List.mem_cons.mp chosen with same | later
+    · subst current
+      exact first.2 row ((remaining.1.map _).subset member) bare
+    · exact remaining.2 current later row member bare
+
+theorem routineFrame_hidden {calls : ApplicationPackageRoutineFrame.Calls}
+    (append : calls.appendFormal = ApplicationPackageDeclarations.appendFormal)
+    {text : Source} {globals after : ParserState} {info : PackageBindings.Metadata} {routine position : Nat}
+    (parsed : routineFrame calls text globals info routine position = after) (present : after.position ≠ 0) :
+    ∃ hidden, parameters (hideParameter calls text info) (formalIndices (info.routineAt routine))
+      (entryFrame calls globals position) = some hidden ∧
+      Stored hidden after (chosen false info (formalIndices (info.routineAt routine))) := by
+  unfold routineFrame withItem at parsed
+  split at parsed
+  · cases parsed; exact False.elim (present rfl)
+  · split at parsed
+    · cases parsed; exact False.elim (present rfl)
+    · dsimp only at parsed
+      split at parsed
+      · cases parsed; exact False.elim (present rfl)
+      · rename_i hidden hiddenRun
+        split at parsed
+        · cases parsed; exact False.elim (present rfl)
+        · rename_i result stored
+          split at parsed
+          · cases parsed
+            exact ⟨hidden, hiddenRun, parameters_stored append info _ stored⟩
+          · cases parsed; exact False.elim (present rfl)
+
+theorem routineFrame_clear {calls : ApplicationPackageRoutineFrame.Calls}
+    (body : calls.bodyEnvironment = ScalarExpression.bodyEnvironment)
+    (hide : calls.hideOuter = ApplicationPackageFrames.hideOuter)
+    (append : calls.appendFormal = ApplicationPackageDeclarations.appendFormal)
+    {text : Source} {globals after : ParserState} {info : PackageBindings.Metadata} {routine position : Nat}
+    (source : StateFrame info.states globals)
+    (window : HeaderWindow globals.position position ((formalIndices (info.routineAt routine)).map info.parameterAt))
+    (prior : GlobalRowsClear text info.states (integerRows globals))
+    (parsed : routineFrame calls text globals info routine position = after) (present : after.position ≠ 0) :
+    GlobalRowsClear text info.states (integerRows after) ∧
+      GlobalRowsApart text info.states (integerRows after)
+        ((formalIndices (info.routineAt routine)).map (fun index => (info.parameterAt index).bodyName)) := by
+  obtain ⟨hidden, read, stored⟩ := routineFrame_hidden append parsed present
+  have retained := hideParameters_scalar hide _ read
+  have entry : integerRows (entryFrame calls globals position) = integerRows globals := by
+    simp only [integerRows, entryFrame, body, ScalarExpression.bodyEnvironment, List.map_map,
+      Function.comp_def, ScalarExpression.bodyBinding]
+  have kept : (integerRows hidden).Sublist (integerRows globals) := by
+    rw [← entry]
+    exact retained.1.map _
+  have apart : GlobalRowsApart text info.states (integerRows hidden)
+      ((formalIndices (info.routineAt routine)).map (fun index => (info.parameterAt index).bodyName)) := by
+    intro row member _ bare name declared
+    obtain ⟨index, selected, rfl⟩ := List.mem_map.mp declared
+    exact retained.2 index selected row member bare
+  have distinct : ∀ formal ∈ chosen false info (formalIndices (info.routineAt routine)),
+      ∀ state ∈ info.states, formal.bodyName.first ≠ state.name.first := by
+    intro formal member state declared
+    exact Nat.ne_of_gt (Nat.lt_of_lt_of_le (source.statesBefore state declared)
+      (window.entries formal ((chosen_sublist false info _).subset member)).1)
+  refine ⟨stored_global_clear stored (prior.retain kept) ?_ distinct,
+    stored_global_apart stored apart distinct⟩
+  apply apart.select
+  intro name member
+  obtain ⟨formal, chosen, rfl⟩ := List.mem_map.mp member
+  obtain ⟨index, selected, rfl⟩ := List.mem_map.mp ((chosen_sublist false info _).subset chosen)
+  exact List.mem_map_of_mem selected
 
 theorem scalarLookup_selected {text : Source} {names : ScalarExpression.Environment}
     {first after slot : Nat} (positive : first ≠ 0) (ordered : first < after)
