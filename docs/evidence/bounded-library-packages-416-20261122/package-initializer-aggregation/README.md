@@ -34,3 +34,21 @@ empty-import `Predicate.SourceMeaning` is not assumed.
 Raw source-body correspondence, final complete validation, publication, and
 issue bookkeeping remain with the lead. No native launch is represented by
 this packet.
+
+## State/local folds and output history
+
+`ApplicationPackageRoutineInitialization.state_objects_inventory` and
+`local_objects_inventory` fold every original declaration in source order,
+deriving each successive reader frame and the aggregate raw obligation
+discharge. `OutputObjects` is recovered from the original `outputInitializers`
+pass. Its order theorem retains exactly the output formal subsequence; its
+preappend theorem proves that every RHS uses the same declaration tables as
+the pre-output frame. Each reconstructed output context has declaration count
+zero. This increment does not yet construct the semantic initializer list or
+prove the full-domain range bridge.
+
+Focused run `20261127T222004-da4874be70f2` passed on Linux x86_64 with a fresh
+axiom audit of 72,780 declarations. All 1,616 captured input hashes matched.
+Allocation was two workers, two threads, CPUs 6–7, and 8,192 MiB per Lean
+process. Its two failed drafts and the successful source snapshot are retained.
+It reused the prior cache; no independent replay was performed.
