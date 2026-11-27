@@ -23,6 +23,7 @@ postconditions remain; no obligation or executable branch is removed.
 | `Package_Spec_At`, body declaration 8581 | `20261127T185933-2055189d72e9` | 45/45 (9 flow, 36 proof), selected entity `all`; 362.113 seconds. |
 | `Package_Main_At`, body declaration 9492 | `20261127T190610-5f1996739339` | Failed: 5 flow and 45/47 proof rows passed, selected entity `all`; 1,471.699 seconds. |
 | Complete Package_Bindings unit, strengthened `Valid_Metadata` | `20261127T193818-29ae74a7539e` | 151/151 (28 flow, 123 proof), all 15 selected entities `all`; 42.949 seconds. |
+| `Package_Main_At`, body declaration 9492, verified metadata projections | `20261127T193939-4dba03f7ee42` | 52/52 (5 flow, 47 proof), selected entity `all`; 810.944 seconds. |
 
 The source for this checkpoint is Output_Profile SHA-256
 `f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da`.
@@ -32,7 +33,7 @@ bytes were compared to each recorded managed input hash before retention.
 The separate [namespace packet](../namespace-regressions/README.md) retains the
 #426/#427 implementation fixes, actual frontend controls and direct caller checks.
 
-Main, Analyze and their four public wrappers remain pending at this
+Analyze and the four public wrappers remain pending at this
 checkpoint. Complete native, Lean, original-source correspondence and final
 regression/sample checkpoints remain required; these focused results do not
 establish feature completion.
@@ -71,7 +72,15 @@ addition's overflow check at line 169 passed. `Valid_Metadata` retains its
 full unconstrained `Text`/`Metadata` domain, and all 15 selected unit entities
 have independent `all` coverage. The body and Output_Profile hashes remain
 unchanged. This verifies the strengthened callee and its package-local callers;
-the consuming Main check remains a separate required gate.
+the consuming Main check is a separate required gate.
+
+That complete Main gate passed in `20261127T193939-4dba03f7ee42`: all 52
+checks, including both previously unresolved assertions at 9503 and 9505,
+are proved. The report independently selects `Package_Main_At` with `all`
+coverage, the final-policy solver set and unchanged 30-second timeout.
+Output_Profile still has SHA-256 `f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da`;
+no Main body, precondition, input domain or obligation was changed for this
+successful retry.
 
 ## Existing helper reconciliation
 
