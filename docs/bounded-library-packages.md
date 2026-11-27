@@ -434,3 +434,32 @@ inspected proof/solver thread affinities stay within the host's eight-CPU
 allocation, guest CPUs 0–7. These are focused development results. Final
 original-bundle closure, complete validation, Rosetta promotion and independent
 review remain outstanding; PR #424 stays draft.
+
+### Scanner callee closure and shared source checkpoint, 15:16 UTC
+
+The [scanner callee/termination packet](evidence/bounded-library-packages-416-20261122/imported-package/callee-termination/README.md)
+records `20261127T151131-ab9ff5025a7b`: a fresh 35,602-declaration audit and the
+complete interpreted scanner equation, including finite execution for rejected
+inputs and arbitrary incoming scratch storage. Its callees use the existing
+source-interpretation premises on their actual lexical/package domains. The
+source length supplies sufficient fuel for both loops; this introduces no new
+language restriction. The checked modules are integrated at `a75cb67163`.
+
+The latest source-layout integrations include the original successful
+Specification's export order and preserved unit/state metadata (`fb5853fb3f`),
+the complete Completion's source-derived frame context (`f094f673cb`), and the
+Object reader's original name-prefix/domain interpretation (`87cdcd568f`).
+The [static Boolean execution packet](evidence/bounded-library-packages-416-20261122/static-domain-calls-model/static-boolean-execution/lean-focused-evidence.json.gz)
+records the separately checked operands, chains and complete condition-loop result
+in `da59fc60c3`; its mutually recursive source-domain closure remains in progress.
+
+Run `20261127T151426-5b6f06cce28c` is checking the prepared authoritative support,
+call/static-Boolean and import-scanner bindings at `1501ff7f8a`. These three
+targets share one full OutputBodyCertificate rebuild. This is an active,
+focused source checkpoint, not a passed full Lean audit. It uses two workers,
+two threads per process and a 16,384 MiB per-process threshold, with observed
+affinity on guest CPUs 4–5 under the host's eight-CPU allocation. The primary
+proof/source/script inventory is frozen during the run. Private proof work and
+same-source native helper checks continue within their managed allocations;
+new proof commits wait for a safe integration boundary. Complete feature
+validation, Rosetta promotion and independent review remain outstanding.
