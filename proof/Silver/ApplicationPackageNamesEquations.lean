@@ -101,7 +101,7 @@ theorem type_denotation (calls : Calls) (text : Source) (frame : ParserState)
 def modelCalls : Calls where
   skip := skipAt
   nameAfter := Compose.nameAfter
-  takeToken := tokenAfter
+  takeToken text position token := fixedAfter text position (Expressions.spelling token) (Expressions.isWord token)
   nameIs text first after word := Named.nameIs text first after (word.toList.map Char.toNat)
   forbidden := Named.forbiddenName
   validName text name := PackageBindings.validName (metadataText text) name

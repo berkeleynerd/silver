@@ -19,7 +19,7 @@ structure PrimitiveMeaning (calls : Calls) : Prop where
   nameAfter : ∀ text, ValidText text → ∀ position, ValidCursor text position →
     calls.nameAfter text position = Compose.nameAfter text position
   takeToken : ∀ text, ValidText text → ∀ position token, ValidCursor text position → ValidToken token →
-    calls.takeToken text position token = tokenAfter text position token
+    calls.takeToken text position token = fixedAfter text position (spelling token) (isWord token)
   nameIs : ∀ text, ValidText text → ∀ first after word, ValidName text first after →
     0 < word.toList.length → word.toList.length ≤ maxSourceLength →
     calls.nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
@@ -106,19 +106,23 @@ theorem token_bound (text : Source) (position : Nat) (bounded : ValidCursor text
 theorem pragma_meaning (calls : Calls) (primitives : PrimitiveMeaning calls)
     (text : Source) (valid : ValidText text) (position : Nat) (bounded : ValidCursor text position) :
     pragmaEquation calls text position = sparkPragmaAfter text position := by
+  have pragmaBound := model_fixed_valid text position "pragma" true bounded
+  have modeBound := model_fixed_valid text _ "spark_mode" true pragmaBound
+  have openBound := model_fixed_valid text _ "(" false modeBound
+  have onBound := model_fixed_valid text _ "on" true openBound
+  have closeBound := model_fixed_valid text _ ")" false onBound
+  have fixed (cursor : Nat) (word : String) (flag : Bool) (bound : ValidCursor text cursor)
+      (token : ValidToken (.fixed word flag)) :
+      calls.takeToken text cursor (.fixed word flag) = fixedAfter text cursor word flag :=
+    primitives.takeToken text valid cursor (.fixed word flag) bound token
   unfold pragmaEquation sparkPragmaAfter
-  rw [primitives.takeToken text valid position (.word "pragma") bounded (by unfold ValidToken; decide +kernel)]
-  rw [primitives.takeToken text valid _ (.word "spark_mode") (token_bound text position bounded _) (by unfold ValidToken; decide +kernel)]
-  rw [primitives.takeToken text valid _ (.symbol "(")
-    (token_bound text _ (token_bound text position bounded _) _) (by unfold ValidToken; decide +kernel)]
-  rw [primitives.takeToken text valid _ (.word "on")
-    (token_bound text _ (token_bound text _ (token_bound text position bounded _) _) _) (by unfold ValidToken; decide +kernel)]
-  rw [primitives.takeToken text valid _ (.symbol ")")
-    (token_bound text _ (token_bound text _ (token_bound text _ (token_bound text position bounded _) _) _) _) (by unfold ValidToken; decide +kernel)]
-  rw [primitives.takeToken text valid _ (.symbol ";")
-    (token_bound text _ (token_bound text _ (token_bound text _ (token_bound text _
-      (token_bound text position bounded _) _) _) _) _) (by unfold ValidToken; decide +kernel)]
-  rfl
+  simp only [ShellToken.word, ShellToken.symbol]
+  rw [fixed position "pragma" true bounded (by unfold ValidToken; decide +kernel),
+    fixed _ "spark_mode" true pragmaBound (by unfold ValidToken; decide +kernel),
+    fixed _ "(" false modeBound (by unfold ValidToken; decide +kernel),
+    fixed _ "on" true openBound (by unfold ValidToken; decide +kernel),
+    fixed _ ")" false onBound (by unfold ValidToken; decide +kernel),
+    fixed _ ";" false closeBound (by unfold ValidToken; decide +kernel)]
 
 /-- The Function_Type_At premise identifies one imported call, whose full native
 state domain is established by the caller/source-library bridge. It does not

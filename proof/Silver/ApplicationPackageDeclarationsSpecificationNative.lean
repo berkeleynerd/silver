@@ -117,12 +117,18 @@ def objectBranch : S := .list [
     .assign (.field .exportKind exportItem) (.exportKind .integerConstant),
     .assign (.field .exportBounds exportItem) (.field .objectInitialBounds object.expression)]) .nothing ]
 
-def exportBranch : S := .list [
-  rejectIf (.eq exportCount (.function .maxExports)),
-  .choose (.ne (take position.expression (.word "subtype")) (.number 0)) subtypeBranch objectBranch,
+def storeExport : S := .list [
   .resize .exports info (.add exportCount (.number 1)),
   .assign (.index .export info exportCount) exportItem.expression,
   .assign exports nextFrame.expression ]
+
+def exportBranch : S := .list [
+  rejectIf (.eq exportCount (.function .maxExports)),
+  .choose (.ne (take position.expression (.word "subtype")) (.number 0)) subtypeBranch objectBranch,
+  storeExport ]
+
+def progressCheck : S :=
+  rejectIf (.orElse (.le position.expression before.expression) (.not (call2 .validState text exports.expression)))
 
 def iteration : S := .list [
   .annotate (.invariant (call2 .validState text exports.expression)),
@@ -132,7 +138,7 @@ def iteration : S := .list [
   .exitWhen (.ne (take position.expression (.word "end")) (.number 0)),
   .choose (.orElse (.ne (take position.expression (.word "function")) (.number 0))
     (.ne (take position.expression (.word "procedure")) (.number 0))) signatureBranch exportBranch,
-  rejectIf (.orElse (.le position.expression before.expression) (.not (call2 .validState text exports.expression))) ]
+  progressCheck ]
 
 def finish : S := .list [
   .assign endFirst (call2 .skip text (take position.expression (.word "end"))),

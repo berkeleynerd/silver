@@ -61,44 +61,55 @@ def appendExport (calls : SpecificationCalls) (text : Source) (state : Specifica
   let info := {state.info with exports := state.info.exports ++ [item]}
   continueSpecification calls text state.exports.position {state with info, exports := next}
 
+def specificationRoutine (calls : SpecificationCalls) (text : Source)
+    (state : SpecificationState) : SpecificationStep :=
+  let result := calls.signature text state.exports state.info false
+  if result.header.position = 0 ∨ result.info.routines.length = 0 then
+    .returned (rejectedSpecification result.info)
+  else
+    let name := (result.info.routineAt result.info.routines.length).specName
+    let exports := {state.exports with position := result.header.position, «hiding» := calls.hide text state.exports.hiding name.first name.after}
+    continueSpecification calls text state.exports.position {state with info := result.info, exports}
+
+def specificationSubtype (calls : SpecificationCalls) (text : Source)
+    (state : SpecificationState) : SpecificationStep :=
+  let next := calls.subtype text state.exports false
+  if next.position = 0 then .returned (rejectedSpecification state.info) else
+  let item := next.subtypeNames.items.getD (next.subtypeNames.items.length - 1) {}
+  if !calls.fresh text state.info ⟨item.first,item.after⟩ then .returned (rejectedSpecification state.info) else
+  let exportItem : PackageBindings.ExportDeclaration := {
+    name := ⟨item.first,item.after⟩
+    kind := .integerSubtype
+    bounds := item.bounds
+    typeIdentity := state.info.exports.length + 2}
+  appendExport calls text state next exportItem
+
+def specificationObject (calls : SpecificationCalls) (text : Source)
+    (state : SpecificationState) : SpecificationStep :=
+  let object := calls.object text state.exports state.info false
+  if decide (object.frame.position = 0) || !object.constantObject then .returned (rejectedSpecification state.info) else
+  let exportItem : PackageBindings.ExportDeclaration := {
+    name := object.name
+    kind := if object.mark.kind = .integer then .integerConstant else .booleanConstant
+    bounds := if object.mark.kind = .integer then object.initialBounds else .full
+    typeName := object.mark.name
+    typeIdentity := object.mark.identity
+    initializerFirst := object.initFirst
+    initializerAfter := object.initAfter
+    booleanValue := object.booleanValue}
+  appendExport calls text state object.frame exportItem
+
 def specificationStep (calls : SpecificationCalls) (text : Source)
     (state : SpecificationState) : SpecificationStep :=
   if calls.take text state.exports.position (.word "end") ≠ 0 then .ready state else
   if calls.take text state.exports.position (.word "function") ≠ 0 ∨
       calls.take text state.exports.position (.word "procedure") ≠ 0 then
-    let result := calls.signature text state.exports state.info false
-    if result.header.position = 0 ∨ result.info.routines.length = 0 then
-      .returned (rejectedSpecification result.info)
-    else
-      let name := (result.info.routineAt result.info.routines.length).specName
-      let exports := {state.exports with position := result.header.position, «hiding» := calls.hide text state.exports.hiding name.first name.after}
-      continueSpecification calls text state.exports.position {state with info := result.info, exports}
-  else
-    if state.info.exports.length = PackageBindings.maxExports then .returned (rejectedSpecification state.info) else
-    if calls.take text state.exports.position (.word "subtype") ≠ 0 then
-      let next := calls.subtype text state.exports false
-      if next.position = 0 then .returned (rejectedSpecification state.info) else
-      let item := next.subtypeNames.items.getD (next.subtypeNames.items.length - 1) {}
-      if !calls.fresh text state.info ⟨item.first,item.after⟩ then .returned (rejectedSpecification state.info) else
-      let exportItem : PackageBindings.ExportDeclaration := {
-        name := ⟨item.first,item.after⟩
-        kind := .integerSubtype
-        bounds := item.bounds
-        typeIdentity := state.info.exports.length + 2}
-      appendExport calls text state next exportItem
-    else
-      let object := calls.object text state.exports state.info false
-      if decide (object.frame.position = 0) || !object.constantObject then .returned (rejectedSpecification state.info) else
-      let exportItem : PackageBindings.ExportDeclaration := {
-        name := object.name
-        kind := if object.mark.kind = .integer then .integerConstant else .booleanConstant
-        bounds := if object.mark.kind = .integer then object.initialBounds else .full
-        typeName := object.mark.name
-        typeIdentity := object.mark.identity
-        initializerFirst := object.initFirst
-        initializerAfter := object.initAfter
-        booleanValue := object.booleanValue}
-      appendExport calls text state object.frame exportItem
+    specificationRoutine calls text state
+  else if state.info.exports.length = PackageBindings.maxExports then
+    .returned (rejectedSpecification state.info)
+  else if calls.take text state.exports.position (.word "subtype") ≠ 0 then
+    specificationSubtype calls text state
+  else specificationObject calls text state
 
 def finishSpecification (calls : SpecificationCalls) (text : Source)
     (state : SpecificationState) : SpecificationResult :=

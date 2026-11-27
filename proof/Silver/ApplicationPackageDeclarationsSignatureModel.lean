@@ -85,6 +85,16 @@ def duplicateFormal (calls : SignatureCalls) (text : Source) (completing : Bool)
   (List.range count).any fun offset => calls.sameName text name
     (if completing then (info.parameterAt (first + offset)).bodyName else (info.parameterAt (first + offset)).specName)
 
+/-- The loop back edge follows the actual semicolon read and strict progress
+guard. Closing the parameter list instead exits with the updated header. -/
+def finishFormal (calls : SignatureCalls) (text : Source) (before : Nat)
+    (updated : SignatureState) : SignatureStep :=
+  let closed := calls.take text updated.header.position (.symbol ")")
+  if closed ≠ 0 then .ready {updated with header := {updated.header with position := closed}} else
+  let following := calls.take text updated.header.position (.symbol ";")
+  if following ≤ before then .returned (rejectedSignature updated.info)
+  else .next {updated with header := {updated.header with position := following}}
+
 def signatureStep (calls : SignatureCalls) (text : Source) (completing : Bool)
     (state : SignatureState) : SignatureStep :=
   let before := state.header.position
@@ -127,11 +137,7 @@ def signatureStep (calls : SignatureCalls) (text : Source) (completing : Bool)
   let header := calls.append {hidden with position := mark.after} ⟨first,last⟩ mark modeResult.2
   if header.position = 0 then .returned ⟨info,header⟩ else
   let updated := {state with info, header, formalStart, formalCount := state.formalCount + 1}
-  let closed := calls.take text header.position (.symbol ")")
-  if closed ≠ 0 then .ready {updated with header := {header with position := closed}} else
-  let following := calls.take text header.position (.symbol ";")
-  if following ≤ before then .returned (rejectedSignature info)
-  else .next {updated with header := {header with position := following}}
+  finishFormal calls text before updated
 
 def finishSignature (calls : SignatureCalls) (text : Source) (outer : ParserState)
     (completing : Bool) (state : SignatureState) : SignatureResult :=
