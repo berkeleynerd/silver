@@ -9499,6 +9499,10 @@ is
    is
       Text : constant String := Sources.Pool (1 .. Sources.Used);
       Imported : constant String := Imported_Package (Units.Unit_Source (Sources, Units.Main_Body));
+      pragma Assert (Static => Packages.Valid_Metadata (Text, Info));
+      pragma Assert (Static => Packages.Valid_Name (Text, (Info.Name_First, Info.Name_After)));
+      pragma Assert (Static => Valid_Name_State (Text, Info.Name_First, Info.Name_After));
+      pragma Assert (Static => Info.Units (Units.Main_Body).First <= Text'Last + 1);
       Context_Clauses : constant Names.Context_Result := Names.Read_Context
         (Text, Sources.Units (Units.Main_Body).First, Info.Name_First, Info.Name_After);
       Frame : Parser_State;
@@ -9516,9 +9520,17 @@ is
       if Frame.Position = 0 then return Invalid_Analysis; end if;
       declare
          Context : constant Body_Context := Context_Of ((Frame, Frame.Assigned_In_Functions, False));
+         Input : constant Application_Scan := Application_Of (Body_Of ((Frame, Frame.Assigned_In_Functions, False)));
+         pragma Assert (Static => Valid_State (Text, Frame));
+         pragma Assert (Static => Valid_Context (Text, Context));
+         pragma Assert (Static => Input.Scan.Position <= Text'Last + 1);
+         pragma Assert (Static => Input.Scan.Target <= Context.Names.Count);
+         pragma Assert (Static => Valid_Flow (Context, Input.Scan.Facts));
+         pragma Assert (Static => Valid_Body (Text, Context, Input.Scan));
+         pragma Assert (Static => Functions.Valid_Metadata (Text, Frame.Functions));
+         pragma Assert (Static => Procedures.Valid_Metadata (Text, Frame.Procedures));
          Result : constant Application_Scan := Application_Tail
-           (Text, Context, Application_Of (Body_Of ((Frame, Frame.Assigned_In_Functions, False))),
-            Info, End_Only, True, Frame.Functions, Frame.Procedures);
+           (Text, Context, Input, Info, End_Only, True, Frame.Functions, Frame.Procedures);
       begin
          Following := Take_Token (Text, Take_Token
            (Text, Take_Token (Text, Result.Scan.Position, End_Keyword), Main_Name), Semicolon);
