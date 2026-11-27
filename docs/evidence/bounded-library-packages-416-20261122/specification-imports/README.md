@@ -21,8 +21,18 @@ audit are distinct evidence; this was a focused incremental check.
 The Signature result-name/cursor, complete Object output domains in both local
 modes, and the Specification step caller passed run `20261127T204726-9bcdd16a4769` with
 a fresh audit of 70,658 declarations. All 1,533 captured input hashes matched
-at this checkpoint; `helpers-*` retains the evidence. The imported branch and
-loop composition remains pending its separate check.
+at this checkpoint; `helpers-*` retains the evidence.
+
+The imported branches passed `20261127T205456-6597558b4e78` with a fresh
+72,068-declaration audit. The complete loop and typed Specification bridge then
+passed `20261127T205603-fabb5f3b8fc0` with a fresh 72,081-declaration audit and all
+1,533 captured hashes matched. `branches-*` and `complete-*` retain the separate
+checks. The final theorem is `specification_imported_reader_exec`; it retains
+arbitrary initial metadata and caller/backing storage, all failure paths and
+partial writes. The original Signature procedure is connected by the parent
+`signature_imported_reader_exec` theorem. This composition reuses Object with
+its shared `BooleanElaboration.Native.Reader` parameter; the residual actual
+source/caller inventory is separate.
 
 ## Prerequisite and draft diagnostics
 
@@ -53,6 +63,11 @@ and a finishing-result unification timeout. Using explicit updated Object seeds,
 the original two-stage field update and guard-first Signature case analysis
 resolved them at the same proof budget. The helper draft logs and task checkpoint
 retain the attempted changes and next focused hypothesis.
+
+Two branch drafts left the canonical token-reader projection unreduced in the
+combined step. Directly rewriting the complete branch equations and explicitly
+normalizing that projection closed the step without changing any call domain.
+The complete loop/typed bridge passed on its first check.
 
 ## Settings and ownership
 

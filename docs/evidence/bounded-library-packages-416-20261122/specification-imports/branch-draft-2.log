@@ -1,0 +1,53 @@
+Lean phase build started at 2026-11-27T20:53:22.850610+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageDeclarationsSpecificationBranchImports +Silver.AxiomAudit
+✖ [520/520] Building Silver.ApplicationPackageDeclarationsSpecificationBranchImports (1.7s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.setup.json --json
+error: Silver/ApplicationPackageDeclarationsSpecificationBranchImports.lean:87:71: unsolved goals
+library : NameLibraries
+other : SpecificationCalls
+reader : BooleanElaboration.Native.Reader
+text : Source
+valid : ValidText text
+state : SpecificationState
+framed : ReaderFrame text state.exports
+signature : other.signature text state.exports state.info false = readSignature text state.exports state.info false
+subtype : other.subtype text state.exports false = subtypeDeclarationAt text state.exports false
+object :
+  other.object text state.exports state.info false = objectStep (modelObjectCalls reader) text state.exports state.info
+token :
+  ∀ (word : String),
+    ValidToken (ShellToken.word word) →
+      (library.specification other).take text state.exports.position (ShellToken.word word) =
+        tokenAfter text state.exports.position (ShellToken.word word)
+⊢ (if tokenAfter text state.exports.position (ShellToken.word "end") ≠ 0 then SpecificationStep.ready state
+    else
+      if
+          tokenAfter text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+            tokenAfter text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+        specificationRoutine (modelSpecificationCalls reader) text state
+      else
+        if state.info.exports.length = PackageBindings.maxExports then
+          SpecificationStep.returned (rejectedSpecification state.info)
+        else
+          if tokenAfter text state.exports.position (ShellToken.word "subtype") ≠ 0 then
+            specificationSubtype (modelSpecificationCalls reader) text state
+          else specificationObject (modelSpecificationCalls reader) text state) =
+    if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "end") ≠ 0 then
+      SpecificationStep.ready state
+    else
+      if
+          (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+            (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+        specificationRoutine (modelSpecificationCalls reader) text state
+      else
+        if state.info.exports.length = PackageBindings.maxExports then
+          SpecificationStep.returned (rejectedSpecification state.info)
+        else
+          if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "subtype") ≠ 0 then
+            specificationSubtype (modelSpecificationCalls reader) text state
+          else specificationObject (modelSpecificationCalls reader) text state
+Some required targets logged failures:
+- Silver.ApplicationPackageDeclarationsSpecificationBranchImports
+error: build failed
+
+Lean phase build finished at 2026-11-27T20:53:29.154581+00:00; elapsed 6.304s; exit 1
