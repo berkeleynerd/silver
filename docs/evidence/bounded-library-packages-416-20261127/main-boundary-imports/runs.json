@@ -1,0 +1,14 @@
+[
+  {
+    "run_id": "20261127T203702-b0d38de3f702",
+    "outcome": "failure",
+    "duration_seconds": 36.678552918
+  },
+  {
+    "run_id": "20261127T203822-1db710cc486e",
+    "outcome": "success",
+    "duration_seconds": 26.404954785,
+    "captured_input_count": 1569,
+    "captured_inputs_match": true
+  }
+]
