@@ -98,6 +98,12 @@ private theorem specification_zero (reader : BooleanElaboration.Native.Reader) (
   subst specification
   exact (specification_rows reader _ _ accepted).1.completed
 
+theorem original_routine_start {reader completion calls sources result}
+    (parsed : ParsedPackage reader completion calls sources result) : parsed.history.routinesStart.info.completed = 0 := by
+  have first := start_table_fields parsed.history.entered
+  have states := state_table_fields parsed.history.declarations
+  exact states.completed.trans (first.completed.trans (specification_zero reader sources parsed.specified parsed.specificationAccepted))
+
 /-- Every routine of the original specification is completed once, including
 unused routines. Its final effects come from that routine's original footer. -/
 theorem package_routine_ordinals {reader completion calls sources result}
