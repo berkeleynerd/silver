@@ -376,3 +376,10 @@ rows cover all four assertions, their checks and the recursive call's
 precondition, variant and discriminant. The managed experiment took 830.888
 seconds on two workers. The canonical complete `Application_Statement` gate
 on this source selects its declaration at line 8944.
+
+The [complete helper run](20261127T141021-61ebae4a0685/outcome.json)
+proved all 11 flow checks and 147 proof checks on this same source and
+selector under the final policy. It took 1,813.670 seconds on two workers.
+The [SPARK report](20261127T141021-61ebae4a0685/silver_output_profile.spark.gz)
+records `STOP_REASON_NONE` and empty skip lists. Its scope includes the
+recursive tail precondition that timed out in both earlier whole-helper runs.

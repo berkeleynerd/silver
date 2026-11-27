@@ -333,11 +333,16 @@
         8944,
         8997
       ],
-      "coverage": "complete-helper-failed",
+      "coverage": "complete-helper-success",
       "failed_run": "20261127T121829-562685cbce5e",
       "failed_source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004",
-      "unproved": 1,
-      "latest_failure": "20261127T130601-2687d262ec8e"
+      "unproved": 0,
+      "latest_failure": "20261127T130601-2687d262ec8e",
+      "run": "20261127T141021-61ebae4a0685",
+      "checks": 158,
+      "flow": 11,
+      "proof": 147,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
     },
     {
       "name": "Application_Tail",
