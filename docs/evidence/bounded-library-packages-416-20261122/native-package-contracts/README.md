@@ -279,3 +279,12 @@ checks in 117.869 seconds with two workers. Both skip lists are empty. The
 Hide_Outer and Append_Package_Formal preconditions, the state and name loop
 invariants, and the result postcondition all discharged. The earlier failure
 on `c37214cd9` remains in its original evidence packet.
+
+## Complete Application_Tail contract
+
+Linux x86-64 run `20261127T121117-3d399c0e30f1` passed the complete
+`Application_Tail` selector at line 8958 on the same `2e055cec` source.
+The final-policy report selected one helper, with three flow checks and 22
+proof checks in 75.838 seconds on two workers. Both skip lists are empty.
+The loop invariants, recursive variant, dependent statement call and result
+contract each discharged.

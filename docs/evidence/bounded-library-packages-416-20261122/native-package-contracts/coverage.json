@@ -331,7 +331,13 @@
       "current_lines": [
         8958
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261127T121117-3d399c0e30f1",
+      "checks": 25,
+      "unproved": 0,
+      "flow": 3,
+      "proof": 22,
+      "run_source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004"
     },
     {
       "name": "Routine_Frame",
