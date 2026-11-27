@@ -49,6 +49,26 @@ theorem actual_package_match_correspondence : CheckedSource ∧
           packageNameAfter text position packageFirst packageAfter :=
   ⟨checked_source, interpreted_package⟩
 
+/-- The checked native operation tree rejects package homographs over its full
+declared context/span domain. Its unchanged source guards establish Name_Is's
+callee domain; no package acceptance hypothesis is needed. -/
+theorem actual_package_homograph_rejection (calls : Calls) (source : InterpretedSource calls)
+    (text : Source) (valid : ValidText text) (position : Nat) (operation : Operation)
+    (hidden : Bool) (contextFirst packageFirst packageAfter : Nat)
+    (bound : position ≤ text.length + 1)
+    (contextValid : ValidContext text contextFirst packageFirst packageAfter)
+    (present : packageFirst ≠ 0)
+    (homograph : Named.nameIs text packageFirst packageAfter
+      (operation.name.toList.map Char.toNat) = true)
+    (unqualified : take text (take text position
+      (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments") true)
+      "." false = 0) :
+    calls.operationAfter text position operation hidden contextFirst packageFirst packageAfter = 0 := by
+  rw [interpreted_operation calls source text valid position operation hidden
+    contextFirst packageFirst packageAfter bound contextValid]
+  exact operationAfter_package_homograph text position operation hidden
+    contextFirst packageFirst packageAfter present homograph unqualified
+
 theorem model_interpreted : InterpretedSource modelCalls := Names.model_interpreted
 
 end Silver.Names.SourceBridge

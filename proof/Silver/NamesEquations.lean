@@ -218,7 +218,20 @@ theorem interpreted_operation (calls : Calls) (source : InterpretedSource calls)
   have dotBound := take_bound text _ "." false packageBound (by decide)
   rw [interpreted_take calls source text valid _ operation.name true dotBound nameValid,
     interpreted_take calls source text valid position operation.name true bound nameValid]
-  simp [operationAfter, Bool.and_eq_true]
+  by_cases absent : packageFirst = 0
+  · simp [operationAfter, Bool.and_eq_true, absent]
+  · have selected : 0 < packageFirst ∧ packageFirst < packageAfter ∧
+        packageAfter ≤ text.length + 1 := by
+      rcases contextValid.2.2 with empty | selected
+      · omega
+      · exact selected
+    have operationWord : 0 < (operation.name.toList.map Char.toNat).length ∧
+        (operation.name.toList.map Char.toNat).length ≤ maxSourceLength := by
+      cases operation <;> decide
+    rw [source.identifier.name text valid.1 valid.2 packageFirst packageAfter
+      (operation.name.toList.map Char.toNat) selected.1 selected.2.1 selected.2.2
+      operationWord.1 operationWord.2]
+    simp [operationAfter, Bool.and_eq_true, absent]
 
 theorem interpreted_association (calls : Calls) (source : InterpretedSource calls)
     (text : Source) (valid : ValidText text) (position : Nat) (default : Bool)
@@ -309,7 +322,7 @@ theorem model_interpreted : InterpretedSource modelCalls where
   operation := by
     intro text _ position operation hidden contextFirst packageFirst packageAfter _ _
     simp +instances only [operationBody, Expr.eval, Native.Context.locals, Calls.get, Field.get, Locals.set, modelCalls, reduceCtorEq, ↓reduceDIte, ↓reduceIte, String.reduceEq]
-    simp [operationAfter, Bool.and_eq_true]
+    simp [operationAfter, Named.modelIdentifierCalls, Bool.and_eq_true]
   association := by
     intro text _ position default _
     simp +instances only [associationBody, Expr.eval, Native.Context.locals, Calls.get, Locals.set, modelCalls, ↓reduceDIte, ↓reduceIte, String.reduceEq]

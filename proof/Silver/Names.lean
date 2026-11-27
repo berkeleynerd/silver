@@ -237,12 +237,74 @@ def operationAfter (text : Source) (position : Nat) (operation : Operation) (hid
   let context := readContext text contextFirst packageFirst packageAfter
   let visible := if operation = .output ∨ operation = .partialOutput then context.ioWith else context.argumentsWith
   let used := if operation = .output ∨ operation = .partialOutput then context.ioUse else context.argumentsUse
+  let packageHides := decide (packageFirst ≠ 0) &&
+    Named.nameIs text packageFirst packageAfter (operation.name.toList.map Char.toNat)
   let qualified := take text (take text position
     (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments") true) "." false
   if context.after = 0 ∨ !visible then 0
   else if qualified ≠ 0 then take text qualified operation.name true
-  else if used && !hidden then take text position operation.name true
+  else if used && !hidden && !packageHides then take text position operation.name true
   else 0
+
+/-- A directly visible application package hides every homographic use-visible
+runtime operation. This applies at the shared reader, including its direct
+initializer and validity-query callers. -/
+theorem operationAfter_package_homograph (text : Source) (position : Nat)
+    (operation : Operation) (hidden : Bool) (contextFirst packageFirst packageAfter : Nat)
+    (present : packageFirst ≠ 0)
+    (homograph : Named.nameIs text packageFirst packageAfter
+      (operation.name.toList.map Char.toNat) = true)
+    (unqualified : take text (take text position
+      (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments") true)
+      "." false = 0) :
+    operationAfter text position operation hidden contextFirst packageFirst packageAfter = 0 := by
+  simp [operationAfter, present, homograph, unqualified]
+
+/-- Selecting a runtime operation through its package bypasses hiding by the
+application package, while retaining the original required with-clause. -/
+theorem operationAfter_qualified (text : Source) (position : Nat)
+    (operation : Operation) (hidden : Bool) (contextFirst packageFirst packageAfter : Nat)
+    (context : (readContext text contextFirst packageFirst packageAfter).after ≠ 0)
+    (visible : (if operation = .output ∨ operation = .partialOutput then
+      (readContext text contextFirst packageFirst packageAfter).ioWith else
+      (readContext text contextFirst packageFirst packageAfter).argumentsWith) = true)
+    (qualified : take text (take text position
+      (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments") true)
+      "." false ≠ 0) :
+    operationAfter text position operation hidden contextFirst packageFirst packageAfter =
+      take text (take text (take text position
+        (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments") true)
+        "." false) operation.name true := by
+  simp [operationAfter, context, visible, qualified]
+
+namespace VisibilityControls
+
+def runtimePackage (operation : Operation) : String :=
+  if operation = .output ∨ operation = .partialOutput then "Silver_IO" else "Silver_Arguments"
+
+def contextPrefix (operation : Operation) : String :=
+  "with " ++ operation.name ++ ", " ++ runtimePackage operation ++ "; use " ++
+    runtimePackage operation ++ "; procedure Main is pragma SPARK_Mode (On); begin "
+
+def text (operation : Operation) (qualified : Bool) : Source :=
+  (contextPrefix operation ++ (if qualified then runtimePackage operation ++ "." else "") ++
+    operation.name).toList.map Char.toNat
+
+/-- All five runtime operations reject a directly visible package homograph,
+including First_Or_Default whose initializer calls this reader directly. -/
+theorem bare_rejected (operation : Operation) :
+    operationAfter (text operation false) ((contextPrefix operation).toList.length + 1)
+      operation false 1 6 (6 + operation.name.toList.length) = 0 := by
+  cases operation <;> decide +kernel
+
+/-- The same five selected application packages retain qualified runtime calls. -/
+theorem qualified_accepted (operation : Operation) :
+    operationAfter (text operation true) ((contextPrefix operation).toList.length + 1)
+      operation false 1 6 (6 + operation.name.toList.length) =
+      (text operation true).length + 1 := by
+  cases operation <;> decide +kernel
+
+end VisibilityControls
 
 def associationAfter (text : Source) (position : Nat) (default : Bool) : Nat :=
   let named := take text (take text position (if default then "default" else "item") true) "=>" false

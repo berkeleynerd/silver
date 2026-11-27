@@ -28,7 +28,7 @@ def Ty.default : (ty : Ty) → ty.meaning
 inductive Function
   | fixedAfter | take | token | trivia | contextStep | contextTail | contextModel
   | readContext | contextAfter | operationName | operationAfter | associationAfter
-  | packageNameAfter | equalName
+  | packageNameAfter | equalName | nameIs
   deriving DecidableEq, Repr
 
 def Function.name : Function → String
@@ -36,7 +36,7 @@ def Function.name : Function → String
   | .contextStep => "context_step" | .contextTail => "context_tail" | .contextModel => "context_model"
   | .readContext => "read_context" | .contextAfter => "context_after" | .operationName => "operation_name"
   | .operationAfter => "operation_after" | .associationAfter => "association_after"
-  | .packageNameAfter => "package_name_after" | .equalName => "equal_name"
+  | .packageNameAfter => "package_name_after" | .equalName => "equal_name" | .nameIs => "name_is"
 
 def Function.type : Function → Ty
   | .fixedAfter | .take => .arrow .source (.arrow .number (.arrow .spelling (.arrow .truth .number)))
@@ -52,6 +52,7 @@ def Function.type : Function → Ty
   | .associationAfter => .arrow .source (.arrow .number (.arrow .truth .number))
   | .packageNameAfter => .arrow .source (.arrow .number (.arrow .number (.arrow .number .number)))
   | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
+  | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .spelling .truth)))
 
 structure Calls where
   fixedAfter : Source → Nat → String → Bool → Nat
@@ -77,6 +78,7 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .readContext => calls.readContext | .contextAfter => calls.contextAfter | .operationName => calls.operationName
   | .operationAfter => calls.operationAfter | .associationAfter => calls.associationAfter
   | .packageNameAfter => calls.packageNameAfter | .equalName => calls.identifier.equal
+  | .nameIs => fun text first after word => calls.identifier.name text first after (word.toList.map Char.toNat)
 
 inductive Field : Ty → Ty → Type
   | contextAfter : Field .context .number
@@ -358,11 +360,15 @@ def operationBody : Expr .number :=
       (.variable "package_first")) (.variable "package_after")) <|
     .local "visible" "boolean" (.group (.ite output (.field .ioWith context) (.field .argumentsWith context))) <|
     .local "used" "boolean" (.group (.ite output (.field .ioUse context) (.field .argumentsUse context))) <|
+    .local "package_hides" "boolean" (.andThen (.ne (.variable "package_first") (.number 0))
+      (.app (.app (.app (.app (.function .nameIs) text) (.variable "package_first"))
+        (.variable "package_after")) (.app (.function .operationName) operation))) <|
     .local "qualified" "literal_position"
       (take (take position (.group (.ite output (.spelling "silver_io") (.spelling "silver_arguments"))) true) (.spelling ".") false) <|
     .group <| .ite (.orElse (.eq (.field .contextAfter context) (.number 0)) (.not (.variable "visible"))) (.number 0)
       (.elsif (.ne qualified (.number 0)) (take qualified (.app (.function .operationName) operation) true)
-        (.elsif (.andThen (.variable "used") (.not (.variable "hidden")))
+        (.elsif (.andThen (.andThen (.variable "used") (.not (.variable "hidden")))
+          (.not (.variable "package_hides")))
           (take position (.app (.function .operationName) operation) true) (.number 0)))
 
 def associationBody : Expr .number :=
@@ -397,6 +403,13 @@ def Expr.orHead : Expr ty → Bool | .orElse _ _ => true | value => value.relati
 
 def Expr.condition (value : Expr .truth) : Bool := value.andHead || value.orHead
 
+/-- Boolean constant initializers admit the same condition grammar as guards;
+other initializers use a simple expression. This retains Ada precedence when a
+constant's Boolean initializer is not parenthesized. -/
+def Expr.initializer : {ty : Ty} → Expr ty → Bool
+  | .truth, value => value.condition
+  | _, value => value.simple
+
 def Expr.isElsif : Expr ty → Bool | .elsif _ _ _ => true | _ => false
 
 def Expr.isLocal : Expr ty → Bool | .local _ _ _ _ => true | _ => false
@@ -427,7 +440,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .group value => value.wellFormed && !value.isElsif
   | .ite condition yes no | .elsif condition yes no =>
       condition.wellFormed && condition.condition && yes.wellFormed && yes.simple && no.wellFormed && (no.simple || no.isElsif)
-  | .local (a := localTy) _ typeName value rest => localType localTy typeName && value.wellFormed && value.simple && rest.wellFormed && (rest.isLocal || rest.primary)
+  | .local (a := localTy) _ typeName value rest => localType localTy typeName && value.wellFormed && value.initializer && rest.wellFormed && (rest.isLocal || rest.primary)
   | .locals body => body.wellFormed && body.isLocal
   | .context after iw aw iu au => after.wellFormed && after.simple && iw.wellFormed && iw.condition &&
       aw.wellFormed && aw.condition && iu.wellFormed && iu.condition && au.wellFormed && au.condition
