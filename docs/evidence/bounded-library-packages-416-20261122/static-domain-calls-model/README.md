@@ -21,3 +21,27 @@ raw result. Native typed interpretation, imported-call correspondence, semantic
 checker connection and actual-source certification remain pending.
 
 These are focused helper results, not complete package or compiler assurance.
+
+## Static Boolean operands and condition execution
+
+Linux x86-64 focus `20261127T150852-c01cef55421e` checked
+`StaticBooleanPrimaryMeaning`, `StaticBooleanRelationMeaning`,
+`StaticBooleanTailMeaning` and `StaticBooleanConditionExecution`. The fresh
+axiom audit covered 21,329 declarations. The run used two Lake workers, two
+threads and 8,192 MiB per process and took 18.183 seconds. The four committed
+source files matched the recorded input hashes.
+[Focused run and predecessor logs](static-boolean-execution/)
+
+Accepted primary and factor steps recover original Boolean references,
+unqualified literals, parenthesized conditions and negation. A successful
+relation recovers either the two scalar source expressions with singleton
+inferred bounds, the Boolean factor, or both Boolean operands and their
+equality operator. In each case the static evaluator returns the original
+Boolean value when the recursive operands supply their source readings.
+The chain proof follows each actual operator and advancing right operand.
+
+`runCondition_native_result` identifies the entire output, including a
+failed result, with the executable condition loop under the relation
+reader's cursor bound and the checked static source witness. Its recursion
+decreases the remaining source span. Binding all four recursive readers and
+the imported native leaves on their full domains remains open.
