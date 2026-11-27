@@ -265,3 +265,41 @@ The three proof subthreads continue at selected Astra Max; live runtime settings
 are not independently exposed. Native Statement and remaining helper/caller
 checks, the complete application endpoint, delivery validation and independent
 review remain outstanding.
+
+
+### Complete Statement, Specification and expression-effect integration, 13:46 UTC
+
+The complete Statement interpreter is integrated at `e79efc8b1d`: its typed
+execution matches the raw reader for arbitrary incoming stores and fuel,
+alongside the current source-fragment comparison. The accepted Tail delimiter
+and progress facts and whole ordinal actual-argument step followed at
+`67834cd16e` and `42e43d9fa4`.
+
+The [Specification simulation](evidence/bounded-library-packages-416-20261122/package-source-core/declaration-simulation/README.md)
+now covers its full entry, all declaration branches, loop and finish behavior
+for arbitrary stores, including partial updates on rejection. The same focus
+checks the native Function_Type_At import and five affected inherited
+context/type-domain proofs (45,555 declarations). Full Signature simulation and
+the original-bundle semantic decoding remain separate work.
+
+The [complete expression/condition effect checkpoint](evidence/bounded-library-packages-416-20261122/condition-state-effects/README.md)
+passed 27,943 declarations. It derives package-state read bits from actual frame
+lookups and preserved declaration spans for complete scalar expressions and
+Integer/Boolean conditions. Inherited lexical proofs now retain qualified names
+and arbitrary source-unit contexts. The final source decoder still has to supply
+the native-frame-to-state layout; these results do not assume or establish the
+whole-language endpoint by themselves.
+
+Native Statement retry `20261127T130601-2687d262ec8e` remains failed after
+2,067.697 seconds: 11 flow checks and 139 proof checks passed, with one remaining
+Application_Tail precondition at line 9149. The newly added full Valid_Flow
+assertion immediately before that call passed. The retained task combines the
+body and context preconditions; diagnosis is isolating its remaining component
+before another attempt. No input domain has been narrowed or failure relabelled.
+
+All three source/native subthreads continue under selected Astra Max settings,
+with actual runtime model/effort not independently exposed. The host detects
+eight CPUs; observed proof threads remain within their reserved subsets of guest
+CPUs 0–7. Remaining native helpers/callers, original-source and semantic closure,
+complete validation, final Rosetta promotion and independent review are still
+required. PR #424 remains draft; no merge or new language support is claimed.
