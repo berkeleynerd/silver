@@ -411,7 +411,10 @@ def booleanInitializerContext (state : ParserState) (maskFirst maskAfter : Nat) 
     outerIntegerHidden := state.hiding.integerHidden
     elaborating := true
     maskFirst := maskFirst
-    maskAfter := maskAfter }
+    maskAfter := maskAfter
+    contextFirst := state.contextFirst
+    packageFirst := state.packageFirst
+    packageAfter := state.packageAfter }
 
 def booleanInitializerFacts (state : ParserState) : Predicate.ActiveFlow :=
   Predicate.ActiveFlow.initial state.scalarNames

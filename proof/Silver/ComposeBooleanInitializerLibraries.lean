@@ -35,7 +35,8 @@ theorem context_valid (text : Source) (state : ParserState) (first after : Nat)
     (mask : (⟨first, after⟩ : Named.NameState).Valid text) :
     Native.ValidContext text (nativeContext state first after) := by
   rcases valid.1 with ⟨_, names, dynamic, _, _, scalars, arrays, _, booleans, _, _, _⟩
-  exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, mask, valid.bounds⟩
+  exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, mask,
+    valid.bounds, valid.base.unit⟩
 
 theorem flow_valid (text : Source) (state : ParserState) (first after : Nat)
     (valid : OuterReadiness.ValidState text state) :

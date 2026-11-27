@@ -170,3 +170,25 @@ Linux x86-64 run `20261127T151026-9bed546c01af` built both targets in
 5.159 seconds and freshly audited 46,723 declarations in 3.433 seconds.
 It used two workers, two threads and 8192 MiB per process. The
 `object-names-and-units-` records identify the checked inputs.
+
+## Original package context in Boolean initializers
+
+`Boolean_Initializer_Model` updates `Scalar_Names`, `Elaborating` and the
+two mask positions in the context returned by `Context_Of`. This preserves
+`Context_First`, `Package_First` and `Package_After` from the incoming
+parser state. The pure aggregate initializer previously used the defaults
+`1`, `0`, `0` for those three fields. The declaration and predicate context
+adapters now carry all three in both directions. Their `ValidContext`
+proofs obtain the original source bounds and package name span from
+`Valid_State`. `BooleanInitializerNative.model_context` checks the resulting
+record equality for every frame and mask. The executable Object reader's
+call to `Boolean_Initializer_After` needs its own worker interpretation.
+
+The earlier Object value attempt `20261127T151255-df541bc226f3` stopped in
+the inherited context adapters. Linux x86-64 focused run
+`20261127T151759-9c6cd485a1a6` built `ComposeBooleanInitializerNative`,
+`ComposeBooleanDeclarationDomain`, `ComposeBooleanImportMeaning` and
+`ComposeBooleanArrayTrace` in 695.996 seconds. It freshly audited 51,357
+declarations in 3.782 seconds with two workers, two threads and 8192 MiB
+per process. The `boolean-initializer-context-` log and input record cover
+those four targets.
