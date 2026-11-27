@@ -162,7 +162,11 @@ package Silver_Package_Bindings with SPARK_Mode => On is
      with Global => null;
 
    function Valid_Metadata (Text : String; Info : Metadata) return Boolean
-     with Global => null;
+     with Global => null,
+       Post => (if Valid_Metadata'Result then
+         Valid_Name (Text, (Info.Name_First, Info.Name_After))
+         and then Info.Units (Silver_Application_Units.Main_Body).First
+           <= Text'Last + 1);
    function Complete_Metadata (Text : String; Info : Metadata) return Boolean is
      (Valid_Metadata (Text, Info)
       and then Info.Body_Name_First > 0
