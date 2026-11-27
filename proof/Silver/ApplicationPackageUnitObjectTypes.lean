@@ -34,6 +34,12 @@ private theorem type_identity (text : Source) (frame : ParserState) (info : Meta
           omega
         · change 1 ≤ maxExports + 1; omega
 
+/-- Export identities use the actual bounded native export table. -/
+theorem package_type_identity (text : Source) (frame : ParserState) (info : Metadata)
+    (capacity : info.exports.length ≤ maxExports) (position : Nat) :
+    (packageTypeAt text frame info position).identity ≤ maxExports + 1 :=
+  type_identity text frame info capacity position
+
 private def InitialBound (out : ObjectResult) : Prop :=
   out.frame.position ≠ 0 → out.initialBounds.Bounded
 
