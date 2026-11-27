@@ -1,0 +1,47 @@
+{
+  "run_id": "20261127T191707-db8b6b67fc35",
+  "sources_compared": 1529,
+  "source_mismatches": [],
+  "runs": [
+    {
+      "run_id": "20261127T184819-ed5e69daf726",
+      "last_event": "finished",
+      "last_utc": "2026-11-27T19:03:28.026938+00:00"
+    },
+    {
+      "run_id": "20261127T190720-2a77da0e909a",
+      "last_event": "finished",
+      "last_utc": "2026-11-27T19:07:34.551899+00:00"
+    },
+    {
+      "run_id": "20261127T190914-d86ce2476053",
+      "last_event": "finished",
+      "last_utc": "2026-11-27T19:09:30.664004+00:00"
+    },
+    {
+      "run_id": "20261127T191314-9abe9bea6ec2",
+      "last_event": "finished",
+      "last_utc": "2026-11-27T19:13:40.441633+00:00"
+    },
+    {
+      "run_id": "20261127T191503-4fa0a7af279b",
+      "last_event": "finished",
+      "last_utc": "2026-11-27T19:15:18.579584+00:00"
+    },
+    {
+      "run_id": "20261127T191537-d26d6927a84c",
+      "last_event": "finished",
+      "last_utc": "2026-11-27T19:15:52.718049+00:00"
+    },
+    {
+      "run_id": "20261127T191629-886698af9aef",
+      "last_event": "finished",
+      "last_utc": "2026-11-27T19:16:44.176629+00:00"
+    },
+    {
+      "run_id": "20261127T191707-db8b6b67fc35",
+      "last_event": "finished",
+      "last_utc": "2026-11-27T19:17:28.020463+00:00"
+    }
+  ]
+}
