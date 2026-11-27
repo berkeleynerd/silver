@@ -5,6 +5,8 @@ public import Silver.ApplicationPackageUnitObjectHistory
 public import Silver.ApplicationPackageCompletionLocalHistory
 public import Silver.ApplicationPackageCompletionLayout
 public import Silver.PackageInitializationRanges
+public import Silver.ApplicationPackageDeclarationsSpecificationStepDomains
+public import Silver.ComposeSubtypeChecks
 
 @[expose] public section
 
@@ -186,5 +188,135 @@ theorem OutputObjects.reads {calls text info indices before rows after}
     rcases List.mem_cons.mp member with rfl | later
     · exact ⟨output, read⟩
     · exact ih row later
+
+structure SubtypeSyntax where
+  low : Integer.Expr
+  high : Integer.Expr
+  lower : ScalarExpression.Result
+  upper : ScalarExpression.Result
+
+def SubtypeSyntax.SourceAt (text : Source) (state : ParserState) (inventory : SubtypeSyntax) : Prop :=
+  let first := fixedAfter text (subtypeDeclarationParts text state).typeAfter "range" true
+  let second := fixedAfter text inventory.lower.after ".." false
+  ScalarExpression.ArrayGrammar.read text first state.scalarNames state.arrayNames.table = inventory.lower ∧
+    ScalarExpression.ArrayGrammar.SourceAt text state.scalarNames state.arrayNames.table 0 0 .allElements true
+      first ⟨inventory.lower.after, inventory.low⟩ ∧
+    ScalarExpression.ArrayGrammar.read text second state.scalarNames state.arrayNames.table = inventory.upper ∧
+    ScalarExpression.ArrayGrammar.SourceAt text state.scalarNames state.arrayNames.table 0 0 .allElements true
+      second ⟨inventory.upper.after, inventory.high⟩
+
+def SubtypeSyntax.obligations (state : ParserState) (inventory : SubtypeSyntax) : List Predicate.Obligation :=
+  let ranges := ArrayBindings.viewRanges state.arrayNames.names [] false (ScalarExpression.ranges state.scalarNames)
+  (inventory.low.obligations ranges ++ inventory.high.obligations ranges).map .scalar
+
+theorem subtype_inventory {text : Source} {arguments : Bool} {state next : ParserState}
+    (reading : SubtypeDeclarationAt text arguments state next) :
+    ∃ inventory : SubtypeSyntax, inventory.SourceAt text state ∧
+      Predicate.discharged (inventory.obligations state) = true := by
+  obtain ⟨checks, low, high, lower, upper, lowRead, highRead, rfl⟩ := subtype_declaration_checks_trace reading
+  refine ⟨⟨low, high, lower, upper⟩,
+    ⟨ScalarExpression.ArrayGrammar.read_complete lowRead, lowRead.source,
+      ScalarExpression.ArrayGrammar.read_complete highRead, highRead.source⟩, ?_⟩
+  change Predicate.discharged ((low.obligations _ ++ high.obligations _).map .scalar) = true
+  rw [Predicate.scalar_discharged]
+  exact subtype_declaration_checks_discharge ⟨low, high, lower, upper, lowRead, highRead, rfl⟩
+
+inductive SpecificationSyntax where
+  | routine
+  | subtype (inventory : SubtypeSyntax)
+  | object (out : ObjectResult) (inventory : ObjectSyntax)
+
+def SpecificationSyntax.SourceAt (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (before after : SpecificationState) : SpecificationSyntax → Prop
+  | .routine => specificationRoutine (modelSpecificationCalls reader) text before = .next after
+  | .subtype inventory => specificationSubtype (modelSpecificationCalls reader) text before = .next after ∧
+      inventory.SourceAt text before.exports
+  | .object out inventory => specificationObject (modelSpecificationCalls reader) text before = .next after ∧
+      objectStep (modelObjectCalls reader) text before.exports before.info false = out ∧
+      inventory.SourceAt text before.exports before.info false out
+
+def SpecificationSyntax.obligations (text : Source) (before : SpecificationState) :
+    SpecificationSyntax → List Predicate.Obligation
+  | .routine => []
+  | .subtype inventory => inventory.obligations before.exports
+  | .object out inventory => inventory.obligations text before.exports before.info false out
+
+/-- Every successful specification continuation contributes its original source
+item, including subtype declarations that allocate no runtime value cell. -/
+theorem specification_next_inventory (reader : BooleanElaboration.Native.Reader) {text : Source}
+    (textValid : ValidText text) {before after : SpecificationState}
+    (framed : ReaderFrame text before.exports)
+    (step : specificationStep (modelSpecificationCalls reader) text before = .next after) :
+    ∃ inventory : SpecificationSyntax, inventory.SourceAt reader text before after ∧
+      Predicate.discharged (inventory.obligations text before) = true := by
+  dsimp only [specificationStep] at step
+  split at step
+  · contradiction
+  · split at step
+    · exact ⟨.routine, step, rfl⟩
+    · split at step
+      · contradiction
+      · split at step
+        · have original := step
+          dsimp only [specificationSubtype, modelSpecificationCalls] at step
+          split at step
+          · contradiction
+          · rename_i present
+            obtain ⟨inventory, source, checked⟩ := subtype_inventory
+              (subtype_declaration_sound text before.exports false present)
+            exact ⟨.subtype inventory, ⟨original, source⟩, checked⟩
+        · have original := step
+          dsimp only [specificationObject, modelSpecificationCalls] at step
+          split at step
+          · contradiction
+          · rename_i accepted
+            have present : (objectStep (modelObjectCalls reader) text before.exports before.info false).frame.position ≠ 0 :=
+              fun missing => accepted (by simp only [missing, decide_true, Bool.true_or])
+            obtain ⟨inventory, source, checked⟩ := object_inventory reader text textValid before.exports framed
+              before.info false rfl present
+            exact ⟨.object _ inventory, ⟨original, rfl, source⟩, checked⟩
+
+structure SpecificationItem where
+  before : SpecificationState
+  after : SpecificationState
+  inventory : SpecificationSyntax
+
+/-- Exact specification execution with a syntax-only inventory at every
+successful continuation. Terminal reader histories remain explicit. -/
+inductive SpecificationInventories (reader : BooleanElaboration.Native.Reader) (text : Source) :
+    SpecificationState → List SpecificationItem → SpecificationExit → Prop
+  | returned {state result} (step : specificationStep (modelSpecificationCalls reader) text state = .returned result) :
+      SpecificationInventories reader text state [] (.returned result)
+  | ready {state final} (step : specificationStep (modelSpecificationCalls reader) text state = .ready final) :
+      SpecificationInventories reader text state [] (.ready final)
+  | next {row rows exit}
+      (step : specificationStep (modelSpecificationCalls reader) text row.before = .next row.after)
+      (source : row.inventory.SourceAt reader text row.before row.after)
+      (rest : SpecificationInventories reader text row.after rows exit) :
+      SpecificationInventories reader text row.before (row :: rows) exit
+
+def specificationObligations (text : Source) (rows : List SpecificationItem) : List Predicate.Obligation :=
+  rows.flatMap fun row => row.inventory.obligations text row.before
+
+theorem specification_loop_inventory (reader : BooleanElaboration.Native.Reader) {text : Source}
+    (textValid : ValidText text) {state : SpecificationState} {exit : SpecificationExit}
+    (framed : ReaderFrame text state.exports)
+    (run : SpecificationLoop (modelSpecificationCalls reader) text state exit) :
+    ∃ rows, SpecificationInventories reader text state rows exit ∧
+      Predicate.discharged (specificationObligations text rows) = true := by
+  induction run with
+  | returned step => exact ⟨[], .returned step, rfl⟩
+  | ready step => exact ⟨[], .ready step, rfl⟩
+  | @next before after exit step rest ih =>
+    have next : ReaderFrame text after.exports := by
+      have result := specification_step_framed reader textValid before framed
+      rw [step] at result
+      exact result
+    obtain ⟨rows, history, checked⟩ := ih next
+    obtain ⟨inventory, source, headChecked⟩ := specification_next_inventory reader textValid framed step
+    refine ⟨⟨before, after, inventory⟩ :: rows, .next (row := ⟨before, after, inventory⟩) step source history, ?_⟩
+    simp only [specificationObligations, List.flatMap_cons, Predicate.discharged_append] at checked ⊢
+    rw [headChecked, checked]
+    rfl
 
 end Silver.ApplicationPackageInitializers

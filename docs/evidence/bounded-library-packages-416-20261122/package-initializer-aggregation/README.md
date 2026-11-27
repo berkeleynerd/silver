@@ -70,3 +70,25 @@ The snapshot includes draft Main/String modules as captured context; this run
 does not validate those drafts. The prior failed normalization runs and the
 Main prerequisite failure are retained separately. A managed diagnostic on
 `20261127T223222-138cb39ee64c` records the exact guard rewrite correction.
+
+## Public specification inventory
+
+`specification_loop_inventory` retains each original routine, subtype, and
+object continuation, including subtype declarations with no runtime cell.
+Subtype endpoint syntax and the original reader equations are retained;
+arithmetic discharge and the successive ReaderFrame domains are derived.
+Terminal ready/returned histories remain explicit. The existing source
+representation gains no checker-success or semantic-validity field.
+
+Run `20261127T224428-cf573b5cec83` passed the RoutineInitialization target and
+its imports with a fresh audit of 72,885 declarations. All 1,617 captured inputs
+matched. Allocation remained two workers/two threads, CPUs 6–7, 8,192 MiB,
+Linux x86_64 / Lean 4.34.1, incremental build without independent replay.
+The failed subtype-obligation rewrite and the separate Main inherited-caller
+failure are retained. Main and the String extension remain unvalidated drafts
+even though their bytes appear in the successful run's captured input set.
+
+Required proof/design category for this round was Astra Max; actual runtime
+model/effort and token/cost measurements are unavailable. This bounded round
+completed the public syntax/history fold; the static export and semantic
+initializer bridges remain outstanding.
