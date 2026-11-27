@@ -704,4 +704,101 @@ theorem LocalRangesBound.put_local {bound identity : Nat} {ranges : SharedRanges
   simp only [Integer.put, apart, ite_false]
   exact prior other outside
 
+def objectRanges (ranges : SharedRanges) (out : ObjectResult) : SharedRanges :=
+  match out.mark.kind with
+  | .integer => {ranges with locals := Integer.put ranges.locals out.name.first (some out.initialBounds)}
+  | .boolean => ranges
+
+def objectDeclaredRanges (ranges : SharedRanges) (out : ObjectResult) : SharedRanges :=
+  match out.mark.kind with
+  | .integer => {ranges with locals := Integer.put ranges.locals out.name.first (some
+      (if out.constantObject then out.initialBounds else out.mark.bounds))}
+  | .boolean => ranges
+
+open ApplicationPackageObjectRows
+
+/-- The new source declaration follows every persistent-state name. Its stable
+identity therefore denotes an invocation-local cell, even after Hide_Outer. -/
+theorem object_local_address {reader : BooleanElaboration.Native.Reader} {text : Source}
+    {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult}
+    (prior : StateFrame info.states frame)
+    (parsed : objectStep (modelObjectCalls reader) text frame info true = out)
+    (present : out.frame.position ≠ 0) (kind : FunctionBindings.ScalarKind) :
+    rowAddress info kind ⟨out.name.first, out.name.after, 0, 0⟩ = .local out.name.first := by
+  have positions := parsed ▸ objectStep_positions reader text frame info true (parsed ▸ present)
+  cases selected : stateIndex info kind ⟨out.name.first, out.name.after, 0, 0⟩ with
+  | none => simp only [rowAddress, selected]
+  | some identity =>
+    have active := stateIndex_some selected
+    have earlier := prior.statesBefore _ (info.stateAt_mem identity active.1 active.2.1)
+    have same := active.2.2.2.2.1
+    change (info.stateAt identity).name.first = out.name.first at same
+    rw [same] at earlier
+    have fresh := positions.1
+    exact False.elim (by omega)
+
+/-- Original Object storage advances the inferred and declared semantic maps
+in parallel. Retained rows keep their exact fields; mutable rows are widened
+only in the separate bodyEnvironment view. -/
+theorem object_range_rows {reader : BooleanElaboration.Native.Reader} {text : Source}
+    {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult}
+    {ranges declared : SharedRanges} (prior : StateFrame info.states frame)
+    (parsed : objectStep (modelObjectCalls reader) text frame info true = out)
+    (present : out.frame.position ≠ 0)
+    (rows : ScalarRangeRows info ranges frame.scalarNames)
+    (domains : ScalarRangeRows info declared (ScalarExpression.bodyEnvironment frame.scalarNames)) :
+    ScalarRangeRows info (objectRanges ranges out) out.frame.scalarNames ∧
+      ScalarRangeRows info (objectDeclaredRanges declared out)
+        (ScalarExpression.bodyEnvironment out.frame.scalarNames) := by
+  obtain ⟨storage, kept, _⟩ := objectStep_storage parsed present
+  have positions := parsed ▸ objectStep_positions reader text frame info true (parsed ▸ present)
+  have fresh : ∀ row ∈ (initializerBase text frame info out.name true).scalarNames,
+      row.first ≠ out.name.first := by
+    intro row member
+    exact Nat.ne_of_lt (Nat.lt_of_lt_of_le (prior.order.scalar_before (kept.subset member)) positions.1)
+  have localRow := object_local_address prior parsed present .integer
+  cases kind : out.mark.kind with
+  | integer =>
+    simp only [objectRanges, objectDeclaredRanges, kind]
+    obtain ⟨static, installed, _⟩ := storage.integerStorage kind
+    rw [installed]
+    constructor
+    · exact (rows.retain kept).append_local fresh localRow
+    · have declaredKept := domains.retain (kept.map ScalarExpression.bodyBinding)
+      have freshBody : ∀ row ∈ ScalarExpression.bodyEnvironment
+          (initializerBase text frame info out.name true).scalarNames, row.first ≠ out.name.first := by
+        intro row member
+        obtain ⟨original, included, rfl⟩ := List.mem_map.mp member
+        exact fresh original included
+      have appended := declaredKept.append_local
+        (row := ScalarExpression.bodyBinding
+          ⟨out.name.first, out.name.after, out.initialBounds, static, out.mark.bounds, !out.constantObject, 0, 0⟩)
+        freshBody localRow
+      cases fixed : out.constantObject <;>
+        simpa only [objectDeclaredRanges, kind, ScalarExpression.bodyEnvironment,
+          List.map_append, List.map_cons, List.map_nil, ScalarExpression.bodyBinding,
+          fixed, Bool.not_false, Bool.not_true, ite_true, Bool.false_eq_true, ite_false] using appended
+  | boolean =>
+    simp only [objectRanges, objectDeclaredRanges, kind]
+    obtain ⟨_, _, unchanged⟩ := storage.booleanStorage kind
+    rw [unchanged]
+    exact ⟨rows.retain kept, domains.retain (kept.map ScalarExpression.bodyBinding)⟩
+
+theorem object_range_bounds {reader : BooleanElaboration.Native.Reader} {text : Source}
+    {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult}
+    {ranges declared : SharedRanges}
+    (parsed : objectStep (modelObjectCalls reader) text frame info true = out)
+    (present : out.frame.position ≠ 0)
+    (bounded : LocalRangesBound text.length ranges) (domains : LocalRangesBound text.length declared) :
+    LocalRangesBound text.length (objectRanges ranges out) ∧
+      LocalRangesBound text.length (objectDeclaredRanges declared out) := by
+  have positions := parsed ▸ objectStep_positions reader text frame info true (parsed ▸ present)
+  have inside : out.name.first ≤ text.length := by omega
+  cases kind : out.mark.kind with
+  | integer =>
+    simp only [objectRanges, objectDeclaredRanges, kind]
+    exact ⟨bounded.put_local _ inside, domains.put_local _ inside⟩
+  | boolean =>
+    simpa only [objectRanges, objectDeclaredRanges, kind] using And.intro bounded domains
+
 end Silver.ApplicationPackageInitializers

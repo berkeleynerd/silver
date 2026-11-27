@@ -1,0 +1,13 @@
+{
+  "run_id": "20261127T231958-b4f4e52f3671",
+  "captured_source_count": 1625,
+  "changed": [],
+  "missing": [],
+  "outcome": "success",
+  "returncode": null,
+  "cpu_affinity": [
+    6,
+    7
+  ],
+  "workers": 2
+}
