@@ -259,3 +259,12 @@ Info table; no metadata-validity or reachable-state precondition is added. The
 first repaired complete-helper check remains pending. Primary source is frozen
 for its productive authoritative source run; independent same-byte caller checks
 can proceed while the private annotation patch is prepared.
+
+## Complete Application_Basic contract
+
+Linux x86-64 run `20261122T193745-91cca7ff3c43` passed the complete
+`Application_Basic` selector on `c37214cd9bc8772c84b2f4cd775d6582748e4499f829bf282bfe81e1264871af`.
+The retained final-policy report covers one subprogram, three flow checks and
+44 proof checks. Both skip lists are empty. The runner used two workers for
+323.551 seconds. The subsequent Routine_Frame annotation repair begins after
+this helper, and the prepared event preserves the proof input hash.
