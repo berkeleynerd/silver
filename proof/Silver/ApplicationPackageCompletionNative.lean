@@ -215,10 +215,16 @@ def bodyDeclarations : List (Declaration Fn) := [
     initial := some (.app (.function .applicationOf) (.app (.function .bodyOf)
       (.scanResult frame (.variable "initialized") (.truth false))))},
   {
+    type := .number
+    name := "input_count"
+    typeName := ["scalar_expressions", ".", "binding_count"]
+    constant := true
+    initial := some (.property .appScanCount input)},
+  {
     type := .appScan
     name := "result"
     typeName := ["application_scan"]
-    constraint := some (.property .appScanCount input)
+    constraint := some (.variable "input_count")
     initial := none}]
 
 def dispatchCommands : ApplicationPackageProcedure.Command Fn := .list [

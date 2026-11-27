@@ -87,6 +87,11 @@ theorem bodyLocals_context (calls : CompletionCalls) (locals : Locals) :
     bodyLocals calls locals .parseContext "context" = completionContextOf calls (initialization locals) := by
   reduce_body_locals
 
+theorem bodyLocals_input_count (calls : CompletionCalls) (locals : Locals) :
+    bodyLocals calls locals .number "input_count" = (bodyLocals calls locals .appScan "input").count := by
+  reduce_body_locals
+  rfl
+
 theorem bodyLocals_dispatched (calls : CompletionCalls) (locals : Locals) :
     dispatched calls (bodyLocals calls locals) =
       completionDispatch calls (locals .source "text") (locals .metadata "info") (locals .routine "item")

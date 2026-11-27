@@ -5,7 +5,7 @@ import all Init.Data.Repr
 
 @[expose] public section
 
-/-! Reviewed native token proposal from source SHA d3103d20a1a57388d68f4ffdf8d0a091face76de7ad586a29631f1250a91d6b2.
+/-! Reviewed native token proposal from source SHA 61fe2d51d20b890b6930d436f75bc582ef3ef9e40392de687d74a1925de03125.
 The final bridge separately binds these complete source checks to the actual
 reconstruction. Object is included only to check its full formal/contract header;
 its implementation interpretation belongs to its own source group. -/
@@ -168,7 +168,8 @@ def candidateTokens : List String := [
   "body_context", ":=", "(", "context_of", "(", "(", "frame", ",", "initialized", ",", "false", ")",
   ")", "with", "delta", "declaration_count", "=>", "0", ")", ";", "input", ":", "application_scan", ":=",
   "application_of", "(", "body_of", "(", "(", "frame", ",", "initialized", ",", "false", ")", ")",
-  ")", ";", "result", ":", "application_scan", "(", "input", ".", "count", ")", ";", "begin",
+  ")", ";", "input_count", ":", "constant", "scalar_expressions", ".", "binding_count", ":=", "input", ".", "count", ";",
+  "result", ":", "application_scan", "(", "input_count", ")", ";", "begin",
   "input", ".", "allow_procedure_calls", ":=", "item", ".", "kind", "=", "packages", ".", "procedure_routine", ";",
   "input", ".", "reads", ":=", "reads", ";", "result", ":=", "application_tail", "(", "text", ",",
   "context", ",", "input", ",", "info", ",", "(", "if", "item", ".", "kind", "=",
