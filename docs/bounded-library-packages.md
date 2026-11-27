@@ -578,3 +578,41 @@ host's eight-CPU allocation. Every inspected proof/solver thread was confined to
 guest CPUs 0–7, with no affinity exception. Complete native and Lean assurance,
 final regression applicability, Rosetta promotion and independent closing review
 remain required before this feature is supported.
+
+### Main and Analyze gates, Specification boundaries and conditional composition, 20:17 UTC
+
+The [native continuation packet](evidence/bounded-library-packages-416-20261127/native-continuation/README.md)
+now records successful complete-helper checks for Main (52/52,
+`20261127T193939-4dba03f7ee42`) and Analyze_Application (30/30,
+`20261127T195352-f016f03f782d`). The canonical focused Output_Profile unit run
+`20261127T195636-5b2a2f886237` is active on frozen native inputs. It covers the
+reconciled changed inherited helper/caller set before a complete compiler audit;
+no whole-unit result is claimed yet.
+
+The [Specification boundary packet](evidence/bounded-library-packages-416-20261127/specification-boundary-imports/README.md)
+records the full typed Signature reader and imported lexical/name interpretation
+of the Specification entry and footer. Focused run `20261127T200639-c8a6099a16c9`
+passed a fresh 48,264-declaration audit; all 1,541 captured source hashes match.
+Specification branch/loop imported-call composition remains open. Its private
+dependency refresh identified a stale Package_Bindings specification copy; the
+exact already-approved metadata postcondition must be synchronized before the
+next check. This is a workspace dependency mismatch, not a new native repair.
+
+The [conditional composition packet](evidence/bounded-library-packages-416-20261122/package-conditional-source-checking/README.md)
+records `20261127T200925-8f0e179f3cbe` (29,633 audited declarations). It relates
+every original IF/ELSIF/ELSE arm and native accumulated flow to the nested semantic
+checker; unreachable arms remain included. The recursive caller must still
+derive each condition meaning and child result. Main's source-origin invariant
+and private-state reset consumer are in focused development, including the
+required original-source unit-table equality at the application join.
+
+Authoritative source batch `20261127T195949-9affe71500da` runs in the isolated
+`packages-416-support-proof` worktree. Its inputs remain stable while semantic
+integration proceeds elsewhere. The running proof/native subthreads retain their
+selected GPT-6 Astra Max settings; live model/effort confirmation is unavailable.
+Managed jobs share eight workers in two-worker allocations; the 20:12 UTC
+process/thread inspection found only CPU pairs 0–1, 2–3, 4–5 and 6–7, with no
+thread outside the host's eight-CPU allocation. The Main origin check is another
+focused development run. Complete original-bundle assurance, final native/Lean
+audits, regression applicability, Rosetta promotion and independent closing
+review remain required. PR #424 stays draft; no support or merge claim changes.
