@@ -77,3 +77,26 @@ Linux x86-64 focus `20261127T142147-dc3bf2531e69` built
 an 8192 MiB per-process limit. The `name-readers-` log and evidence record
 identify the imported modules and inputs. Per-call obligations in Signature,
 Specification and Object still require their native cursor and frame domains.
+
+## Function input modes in the declared formal table
+
+`readSpecification_formal_modes` propagates the original Signature guard
+through every Specification iteration. New signatures append a contiguous
+formal segment. A completion writes the new body spans back to existing
+cells while preserving their modes. The proof follows every return,
+including failure after a partial write, and covers zero-formal functions.
+Starting from the empty metadata table gives the property for every source
+routine. Updating a routine's body location and effects preserves it when
+kind, first formal and count agree.
+
+`DeclaredFormalModes.function_inputs` yields input mode for each member
+of a function's semantic formal list, with the underlying one-based slot
+bounded by the physical table. The argument comes from the declarations
+and their ordered writes. Native metadata validation alone permits tables
+outside this source-derived invariant.
+
+`Silver.ApplicationPackageDeclarationsFormalModes` passed Linux x86-64
+focus `20261127T143040-5e2cc019aafb` with two workers and two threads,
+8192 MiB per process. The build took 7.171 seconds and the fresh audit
+checked 24,930 declarations in 3.005 seconds. The `formal-modes-` records
+retain the exact inputs and imported modules.
