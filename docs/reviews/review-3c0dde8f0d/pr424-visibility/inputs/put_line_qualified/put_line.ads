@@ -1,0 +1,1 @@
+package Put_Line is pragma SPARK_Mode(On);procedure Noop;end Put_Line;

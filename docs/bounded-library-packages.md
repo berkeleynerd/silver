@@ -1,5 +1,9 @@
 # Bounded library packages and application units
 
+Current status, 2026-11-27 18:36 UTC: PR #424 is still draft. The earlier shared
+source run was interrupted, and its source freeze ended. The two new namespace
+findings from independent review are under repair; see the latest round below.
+
 ## Selection — 2026-11-22
 
 The owner selected [#416](https://github.com/berkeleynerd/silver/issues/416)
@@ -463,3 +467,36 @@ proof/source/script inventory is frozen during the run. Private proof work and
 same-source native helper checks continue within their managed allocations;
 new proof commits wait for a safe integration boundary. Complete feature
 validation, Rosetta promotion and independent review remain outstanding.
+
+
+### Independent review response and namespace repairs, 18:36 UTC
+
+The [retained independent review](reviews/review-3c0dde8f0d/README.md) found two
+new admission blockers at published head `3c0dde8f0d`: package-name hiding of
+use-visible runtime operations (#426), and library names conflicting with
+Standard (#427). The owner authorized their repair first, within #416.
+The earlier `151426-5b6f06cce28c` shared-source run was interrupted; its two
+completed certificate chunks do not constitute a successful target/audit run.
+Its freeze is over, and the previously queued declaration/Object/static-Boolean
+proofs have been integrated through `b29bf28ea9`.
+
+The native repair now checks the imported package name in shared
+`Operation_After`, including argument initialization. The identity policy derives
+28 excluded Standard identifiers from Ada A.1 and the pinned frontend, while
+preserving legal operation-name packages, qualified calls and Standard/Nul.
+The [84-case analyzer/frontend matrix](evidence/bounded-library-packages-416-20261127/namespace-regressions/README.md)
+passed. The integrated [CLI/catalogue checks](evidence/bounded-library-packages-416-20261127/namespace-cli/README.md)
+then passed all four selected tests. The whole Names unit passed 138 native
+checks (`20261127T183145-df8197ddc96d`); Package_Name_Allowed passed 113 checks
+(`20261127T183236-cbad4c88cef4`). Full affected callers and complete validation
+remain separate requirements.
+
+Focused formal-mode proof `20261127T182715-47e3d0ea2521` derives the original
+specification's input-only function modes and physical formal-table bounds
+through all completions and final Main metadata; see the
+[formal-mode packet](evidence/bounded-library-packages-416-20261122/package-original-formal-modes/README.md).
+All three continuing proof subthreads were selected as GPT-6 Astra Max; live
+runtime settings and token/cost totals are not independently exposed. Each uses
+a two-worker/two-thread share within the eight-CPU host allocation. The original
+statement/initializer decoder and complete source-bound automatic-completion
+endpoint remain unfinished. PR #424 stays draft, and no support is promoted.

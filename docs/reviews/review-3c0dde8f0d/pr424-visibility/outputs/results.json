@@ -1,0 +1,101 @@
+{
+  "probe_stdout": "put_line_unqualified:TRUE\nimport:Put_Line\nput_line_qualified:TRUE\nimport:Put_Line\ntrue_literal:TRUE\nimport:True\nfalse_literal:TRUE\nimport:False\n",
+  "probe_returncode": 0,
+  "affinity": [
+    0
+  ],
+  "frontend": [
+    {
+      "label": "put_line_unqualified",
+      "command": [
+        "gnatmake",
+        "-q",
+        "-c",
+        "-u",
+        "-j1",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatdM",
+        "-D",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/outputs/put_line_unqualified",
+        "-I/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/put_line_unqualified",
+        "-I/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/src",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/put_line_unqualified/main.adb"
+      ],
+      "returncode": 4,
+      "stdout": "",
+      "stderr": "main.adb:1:85: error: procedure or entry name expected\ngnatmake: \"/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/put_line_unqualified/main.adb\" compilation error\n",
+      "expected_frontend_success": false
+    },
+    {
+      "label": "put_line_qualified",
+      "command": [
+        "gnatmake",
+        "-q",
+        "-c",
+        "-u",
+        "-j1",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatdM",
+        "-D",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/outputs/put_line_qualified",
+        "-I/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/put_line_qualified",
+        "-I/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/src",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/put_line_qualified/main.adb"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_frontend_success": true
+    },
+    {
+      "label": "true_literal",
+      "command": [
+        "gnatmake",
+        "-q",
+        "-c",
+        "-u",
+        "-j1",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatdM",
+        "-D",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/outputs/true_literal",
+        "-I/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/true_literal",
+        "-I/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/src",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/true_literal/main.adb"
+      ],
+      "returncode": 4,
+      "stdout": "",
+      "stderr": "true.ads:1:09: error: \"True\" conflicts with declaration in package Standard\ncompilation abandoned\ngnatmake: \"/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/true_literal/main.adb\" compilation error\n",
+      "expected_frontend_success": false
+    },
+    {
+      "label": "false_literal",
+      "command": [
+        "gnatmake",
+        "-q",
+        "-c",
+        "-u",
+        "-j1",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatdM",
+        "-D",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/outputs/false_literal",
+        "-I/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/false_literal",
+        "-I/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/src",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/false_literal/main.adb"
+      ],
+      "returncode": 4,
+      "stdout": "",
+      "stderr": "false.ads:1:09: error: \"False\" conflicts with declaration in package Standard\ncompilation abandoned\ngnatmake: \"/home/canto/src/github.com/berkeleynerd/silver/tmp/open-pr-reviews-20261127/pr424-visibility/inputs/false_literal/main.adb\" compilation error\n",
+      "expected_frontend_success": false
+    }
+  ]
+}

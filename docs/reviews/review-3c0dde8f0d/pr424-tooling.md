@@ -1,0 +1,15 @@
+# PR #424 lead tooling inspection
+
+Target `3c0dde8f0d816493024198bf65488bfa86147c94`, compared with main `1fac6fa1331fe6e778e6b2ae46b867ab44f362c6`, on Linux x86-64, 2026-11-27. This is the lead's supplemental inspection; the independent native, semantic and source reviews are separate reports.
+
+Read the complete changes in `scripts/check_evidence.py`, `scripts/check_lean.py`, `proof/generate_source_certificate.py`, the new source-input declarations in `proof/lakefile.lean`, associated evidence/source tests, package-test inventory construction, and the sample manifest test's original-unit handling. Inspected the retained producer/policy-control account and capacity-result/validation scope. This is not an independent rederivation of the entire producer capacity argument or a complete compiler audit.
+
+No additional concrete tooling defect was established in this scope. The package Python audit takes its expected declaration inventory from its caller rather than the reports. It requires the selected package and Main reports, independently owned routines/coverage, declaration and implementation file identities, function termination witnesses, procedure output-initialization coverage, and the approved safety/provenance classes. Package state-write advisories are constrained by the source-supplied inventory and transitive write sets. Existing runtime and per-unit coverage checks remain. The retained policy packet contains positive and negative native controls; the ordinary package tests additionally obtain metadata through the actual parser. Those retained observations do not replace final current-input coverage.
+
+The four new certificate roots correspond to the four new Ada source bindings and Lake source dependencies. The generator change raises a declaration-local recursion budget for a longer flattened token literal while retaining the kernel equality construction; it introduces no kernel bypass. The interrupted source run does not establish that the resulting complete current-source check passed.
+
+Focused whitespace checking of `src/`, `scripts/` and `tests/` passed. The whole-PR whitespace check reported whitespace in retained tool-generated evidence and an extra final blank line in `ApplicationPackageCallsAliasInterpretation.lean`. No retained producer file should be rewritten merely to satisfy a cosmetic check. The proof-file whitespace can be tidied with its next edit; it is not a material finding.
+
+No proof, build, regression or binary-execution job was launched. Source inspection does not prove actual runtime behavior, producer completeness, or final proof acceptance. Complete native/Lean/source checkpoints and applicable regressions remain required once the implementation and focused helper checks are complete. The published PR accurately remains draft/work in progress.
+
+Lead model/effort and token/cost telemetry are not independently exposed in the available runtime metadata. No tracked file, GitHub state or merge authorization was changed; only local review artifacts were written.

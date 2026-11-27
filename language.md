@@ -740,13 +740,23 @@ new allowance for each file.
 Invoke `silver check`, `compile` or `run` on the Main source. Its context selects
 one simple application package name, ignoring ASCII case. That name excludes
 `Main`, the selected runtime unit names, `Ada`, `Interfaces`, `System`, `GNAT`, and
-`Integer`, `Boolean`, `String` and `Character`. The first group prevents
+the direct identifier declarations in the pinned frontend's `Standard` package:
+`Boolean`, `False`, `True`, `Integer`, `Natural`, `Positive`, `Short_Short_Integer`,
+`Short_Integer`, `Long_Integer`, `Long_Long_Integer`, `Long_Long_Long_Integer`,
+`Short_Float`, `Float`, `Long_Float`, `Long_Long_Float`, `Character`,
+`Wide_Character`, `Wide_Wide_Character`, `String`, `Wide_String`, `Wide_Wide_String`,
+`Duration`, `Constraint_Error`, `Program_Error`, `Storage_Error`, `Tasking_Error`,
+`Numeric_Error` and `ASCII`. These exclusions also ignore ASCII case.
+The first group prevents
 unit-file collisions with the runtime; the pinned frontend does not permit
 recompiling the language-defined Ada/Interfaces units and rejects a replacement
 System specification. The pinned SPARK producer treats `GNAT` routines as runtime
 entities and emits assumptions instead of the required application proofs, so
-that package identity is also excluded. The predefined type names prevent type hiding in this
-initial fragment. The driver reads
+that package identity is also excluded. Ada RM A.1 disallows a library-unit
+homograph of a declaration in `Standard`; the list includes the pinned GNAT
+implementation-defined numeric types and the obsolescent `ASCII` package.
+`Standard` itself and character image labels such as `Nul` are not declarations
+within `Standard` and remain legal package identities. The driver reads
 `name.ads` and `name.adb`, with the package name in lowercase, from the Main
 source's directory. Each file contains exactly its selected compilation unit.
 Missing or unreadable selected files are input errors; unrelated neighboring
@@ -833,6 +843,11 @@ with repeated references to the same package allowed. It can additionally use
 the existing runtime contexts and argument shell. `Silver_IO` is needed when an
 I/O operation is used, not merely to call a package. Exported constants, subtype
 marks and calls use qualified names `P.Name`; `use P` is excluded. The package
+identity hides a same-named use-visible runtime operation: a package named
+`Put_Line` requires the qualified `Silver_IO.Put_Line` spelling. The same rule
+applies to `Put`, `First_Or_Default`, `Input_Is_Valid` and `Reject`, including
+argument initialization. Qualified runtime calls retain their existing rules.
+The package
 identifier cannot be hidden by a Main declaration or loop binder in this initial
 fragment. Existing closed Main-local callables may use qualified exported subtype marks,
 but cannot read package constant values, call package routines or capture state.

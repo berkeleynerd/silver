@@ -54,7 +54,10 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""shared_source_byte_budget"": 4096,");
       Put_Line ("        ""shared_arithmetic_concatenation_operator_budget"": 63,");
       Put_Line ("        ""lexical_boundaries"": ""each original file has independent comment and string boundaries"",");
-      Put_Line ("        ""package_name"": ""ordinary nonreserved identifier; distinct from Main, runtime units, Ada, Interfaces, System, GNAT, Integer, Boolean, String and Character ignoring ASCII case"",");
+      Put_Line ("        ""package_name"": ""ordinary nonreserved identifier; distinct from Main, runtime units, Ada, Interfaces, System, GNAT and standard_package_name_exclusions ignoring ASCII case"",");
+      Put_Line ("        ""standard_package_name_exclusions"": [""Boolean"", ""False"", ""True"", ""Integer"", ""Natural"", ""Positive"", ""Short_Short_Integer"", ""Short_Integer"", ""Long_Integer"", ""Long_Long_Integer"", ""Long_Long_Long_Integer"", ""Short_Float"", ""Float"", ""Long_Float"", ""Long_Long_Float"", ""Character"", ""Wide_Character"", ""Wide_Wide_Character"", ""String"", ""Wide_String"", ""Wide_Wide_String"", ""Duration"", ""Constraint_Error"", ""Program_Error"", ""Storage_Error"", ""Tasking_Error"", ""Numeric_Error"", ""ASCII""],");
+      Put_Line ("        ""package_name_exclusion_purpose"": ""Ada forbids library-unit homographs of Standard declarations, including pinned GNAT numeric types and ASCII; Standard itself and character image labels are not such declarations"",");
+      Put_Line ("        ""runtime_operation_hiding"": ""application package identity hides same-named use-visible Put_Line, Put, First_Or_Default, Input_Is_Valid or Reject; qualified runtime calls remain available"",");
       Put_Line ("        ""exports"": ""ordered initialized Integer/Boolean constants, static nonempty Integer subtypes and scalar routine signatures"",");
       Put_Line ("        ""export_order"": ""constants and subtypes may be interspersed with routine specifications; references use only earlier visible declarations"",");
       Put_Line ("        ""private_state"": ""initialized body-private Integer/Boolean scalar objects, before routine bodies"",");
