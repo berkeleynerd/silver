@@ -28,6 +28,23 @@ theorem actual_source_correspondence : CheckedSource ∧
     interpreted_union calls equations, interpreted_within calls equations,
     interpreted_validMetadata calls primitives equations, interpreted_completeMetadata calls primitives equations⟩
 
+/-- The true-result projections exported by Valid_Metadata follow from its
+source-interpreted body over the same unrestricted text and metadata domain. -/
+theorem validMetadata_name_and_main (calls : Calls) (primitives : Primitives calls)
+    (equations : Equations calls) (text : Text) (info : Metadata)
+    (accepted : calls.validMetadata text info = true) :
+    calls.validName text ⟨info.nameFirst, info.nameAfter⟩ = true ∧
+      (info.units .mainBody).first ≤ text.bytes.length + 1 := by
+  rw [interpreted_validMetadata calls primitives equations] at accepted
+  simp only [validMetadata, Bool.and_eq_true, and_assoc] at accepted
+  have initial := of_decide_eq_true accepted.1
+  constructor
+  · rw [interpreted_validName calls primitives equations]
+    exact accepted.2.1
+  · have layout := initial.2.2.2
+    rcases layout with ⟨_, _, _, _, _, beforeEnd, last⟩
+    omega
+
 theorem executable_lookups (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Text) (info : Metadata) (name : NameSpan) :
     calls.lookupExport text info name = lookupExport text info name ∧
