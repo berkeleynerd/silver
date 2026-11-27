@@ -78,3 +78,21 @@ ordinal, then rewriting the progress check and stored slot, discharged it.
 The final failed run compiled that normalization and exposed redundant tactics
 in the dependent projection. The enclosing ordinal fold, complete call and
 original-source binding still need their own checks.
+
+## Actual scan, call declarations and lexical selection
+
+On Linux x86-64, `20261127T134346-2c6f5b2928da` passed the complete
+nonempty actual loop, the call's declaration initializers and the accepted
+step's lexical and storage fields. The fresh focused audit covered 21,063
+declarations at two workers, two threads and 8,192 MiB per Lean process.
+The runner reported 20.404 seconds and reused the scan and initializer
+objects from the preceding build. [Evidence and preceding failures](actual-scan-and-declarations/)
+
+The ordinal induction retains the same caller inputs, physical formal-window
+bound and table length at every successful iteration. It handles a rejected
+iteration and the loop's restored index. The initialized arrays and failure
+value follow from the declarations on arbitrary incoming stores. Each accepted
+step exposes its selected slot, fresh Seen bit, payload interval, updated row
+and consumed separator. A named slot comes from a matching spelling in the
+called formal window. The formal-order argument list and composition with the
+complete call body remain open.
