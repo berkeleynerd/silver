@@ -1,5 +1,5 @@
 {
-  "source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004",
+  "source_sha256": "d3103d20a1a57388d68f4ffdf8d0a091face76de7ad586a29631f1250a91d6b2",
   "scope": "Conservative helper inventory; successful prior whole-unit checks are retained evidence and still require final provenance matching. No complete Output_Profile or compiler assurance is claimed.",
   "completed_canonical_units": {
     "silver_package_bindings.adb": {
@@ -169,27 +169,30 @@
       "current_lines": [
         8221
       ],
-      "coverage": "complete-helper-success",
-      "run": "20261122T180815-378d8355adc0",
-      "checks": 28,
-      "flow": 7,
-      "proof": 21,
-      "unproved": 0,
-      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+      "coverage": "strengthened-contract-pending",
+      "previous_contract_success": {
+        "run": "20261122T180815-378d8355adc0",
+        "checks": 28,
+        "unproved": 0,
+        "flow": 7,
+        "proof": 21,
+        "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+      }
     },
     {
       "name": "Append_Package_Formal",
       "current_lines": [
-        8302
+        8304
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T165616-d68c94f0ca7f",
-      "checks": 9
+      "checks": 9,
+      "run_source_sha256": "c1a59b4b655fec3a25f6d27eaa56b3a20572441d41fa6532e054a7cfd81efec5"
     },
     {
       "name": "Package_Signature_At",
       "current_lines": [
-        8365
+        8367
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T172039-c364b0adf1b1",
@@ -202,7 +205,7 @@
     {
       "name": "Package_Spec_At",
       "current_lines": [
-        8549
+        8551
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T181702-5e3c1450b9d5",
@@ -215,7 +218,7 @@
     {
       "name": "Application_Of",
       "current_lines": [
-        8641
+        8643
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T182141-e8a459c49fff",
@@ -228,7 +231,7 @@
     {
       "name": "Invalid_Application",
       "current_lines": [
-        8643
+        8645
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T182245-200596709485",
@@ -241,7 +244,7 @@
     {
       "name": "Visible_State",
       "current_lines": [
-        8646
+        8648
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T182543-3f813ace70a3",
@@ -254,7 +257,7 @@
     {
       "name": "State_Target",
       "current_lines": [
-        8671
+        8673
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T182648-adfcc33cbbd5",
@@ -267,7 +270,7 @@
     {
       "name": "State_Reads",
       "current_lines": [
-        8686
+        8688
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T182838-66d41187d493",
@@ -280,7 +283,7 @@
     {
       "name": "Package_Callee",
       "current_lines": [
-        8710
+        8712
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T183016-b28ca489391a",
@@ -293,7 +296,7 @@
     {
       "name": "Package_Call_At",
       "current_lines": [
-        8750
+        8752
       ],
       "coverage": "complete-helper-success",
       "failed_run": "20261122T183136-3e6f28606690",
@@ -308,7 +311,7 @@
     {
       "name": "Application_Basic",
       "current_lines": [
-        8891
+        8893
       ],
       "coverage": "complete-helper-success",
       "run": "20261122T193745-91cca7ff3c43",
@@ -321,15 +324,15 @@
     {
       "name": "Application_Statement",
       "current_lines": [
-        8942,
-        8995
+        8944,
+        8997
       ],
       "coverage": "pending"
     },
     {
       "name": "Application_Tail",
       "current_lines": [
-        8958
+        8960
       ],
       "coverage": "complete-helper-success",
       "run": "20261127T121117-3d399c0e30f1",
@@ -342,7 +345,7 @@
     {
       "name": "Routine_Frame",
       "current_lines": [
-        9161
+        9163
       ],
       "coverage": "complete-helper-success",
       "failed_run": "20261122T192845-3ee5a4e23fe9",
@@ -357,84 +360,84 @@
     {
       "name": "Package_Completion_At",
       "current_lines": [
-        9210
+        9212
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Body_At",
       "current_lines": [
-        9333
+        9340
       ],
       "coverage": "pending"
     },
     {
       "name": "Imported_Frame",
       "current_lines": [
-        9385
+        9394
       ],
       "coverage": "pending"
     },
     {
       "name": "Same_Package_Spelling",
       "current_lines": [
-        9419
+        9428
       ],
       "coverage": "pending"
     },
     {
       "name": "Package_Main_At",
       "current_lines": [
-        9433
+        9442
       ],
       "coverage": "pending"
     },
     {
       "name": "Charge_Unit",
       "current_lines": [
-        9476
+        9485
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze_Application",
       "current_lines": [
-        9519
+        9528
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze_Model",
       "current_lines": [
-        9558
+        9567
       ],
       "coverage": "pending"
     },
     {
       "name": "Analyze",
       "current_lines": [
-        9560
+        9569
       ],
       "coverage": "pending"
     },
     {
       "name": "Is_Application_Member",
       "current_lines": [
-        9562
+        9571
       ],
       "coverage": "pending"
     },
     {
       "name": "Accepts_Application",
       "current_lines": [
-        9564
+        9573
       ],
       "coverage": "pending"
     },
     {
       "name": "Imported_Package",
       "current_lines": [
-        9567
+        9576
       ],
       "coverage": "pending"
     }

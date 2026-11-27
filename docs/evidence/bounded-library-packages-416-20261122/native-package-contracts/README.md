@@ -288,3 +288,23 @@ The final-policy report selected one helper, with three flow checks and 22
 proof checks in 75.838 seconds on two workers. Both skip lists are empty.
 The loop invariants, recursive variant, dependent statement call and result
 contract each discharged.
+
+## Completion and package body caller prerequisites
+
+On November 27 the `Package_Object_At` postcondition was extended to export
+both initializer endpoints' upper bounds, including failure results.
+`Package_Completion_At` now exports successful cursor and completion-count
+progress. Its local declaration and output initializer loops retain a positive
+valid frame. The package body loops retain a positive valid global frame.
+Before forming the tail context, Completion tests `Valid_State (Text, Frame)`
+after appending the output formals. The preceding append operation accepts
+arbitrary formal bounds. The guard checks this concrete state before passing
+it to the tail reader. For matched formals, Signature has compared each bound
+to a successful `Package_Type_At` result with nonempty bounds.
+
+The updated source hash is `d3103d20a1a57388d68f4ffdf8d0a091face76de7ad586a29631f1250a91d6b2`.
+Object's prior complete result refers to its original postcondition. The next
+canonical selector covers the strengthened Object contract, followed by
+Completion's use of its initializer endpoints and Body's use of Completion
+progress. Complete source correspondence for the guard and the earlier
+partial-state behavior belongs to the matching typed body.

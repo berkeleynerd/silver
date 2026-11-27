@@ -8225,6 +8225,8 @@ is
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, Frame),
        Post => Valid_State (Text, Package_Object_At'Result.Frame)
+         and then Package_Object_At'Result.Init_First <= Text'Last + 1
+         and then Package_Object_At'Result.Init_After <= Text'Last + 1
          and then (Package_Object_At'Result.Frame.Position = 0
            or else Package_Object_At'Result.Frame.Position > Frame.Position)
    is
@@ -9213,6 +9215,8 @@ is
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, Globals),
        Post => Valid_State (Text, Globals)
+         and then (Globals.Position = 0 or else
+           (Globals.Position > Globals.Position'Old and then Info.Completed > Info.Completed'Old))
    is
       Original : constant Literal_Position := Globals.Position;
       Header, Frame : Parser_State;
@@ -9237,6 +9241,7 @@ is
       Frame := Routine_Frame (Text, Globals, Info, Index, Header.Position);
       if Frame.Position = 0 then Globals := Invalid_State; return; end if;
       while Take_Token (Text, Frame.Position, Begin_Keyword) = 0 loop
+         pragma Loop_Invariant (Valid_State (Text, Frame) and then Frame.Position > 0);
          pragma Loop_Variant (Increases => Frame.Position);
          Before := Frame.Position;
          First := Skip_At (Text, Frame.Position);
@@ -9254,6 +9259,7 @@ is
       Frame.Position := Take_Token (Text, Frame.Position, Begin_Keyword);
       if Item.Count > 0 then
          for I in Item.Formal_First .. Item.Formal_First + Item.Count - 1 loop
+            pragma Loop_Invariant (Valid_State (Text, Frame) and then Frame.Position > 0);
             Formal := Info.Parameters (I);
             if Formal.Mode = Procedures.Output then
                if not Packages.Valid_Name (Text, Formal.Body_Name) then Globals := Invalid_State; return; end if;
@@ -9289,6 +9295,7 @@ is
             end if;
          end loop;
       end if;
+      if not Valid_State (Text, Frame) then Globals := Invalid_State; return; end if;
       declare
          Context : constant Body_Context :=
            (Context_Of ((Frame, Initialized, False)) with delta Declaration_Count => 0);
@@ -9355,6 +9362,7 @@ is
         and then Take_Token (Text, Globals.Position, Procedure_Keyword) = 0
         and then Take_Token (Text, Globals.Position, End_Keyword) = 0
       loop
+         pragma Loop_Invariant (Valid_State (Text, Globals) and then Globals.Position > 0);
          pragma Loop_Variant (Increases => Globals.Position);
          if Info.State_Count = Packages.Max_States then return; end if;
          Before := Globals.Position;
@@ -9370,6 +9378,7 @@ is
          Globals := Object.Frame;
       end loop;
       while Info.Completed < Info.Routine_Count loop
+         pragma Loop_Invariant (Valid_State (Text, Globals) and then Globals.Position > 0);
          pragma Loop_Variant (Increases => Info.Completed);
          Before := Globals.Position;
          Package_Completion_At (Text, Globals, Info);
