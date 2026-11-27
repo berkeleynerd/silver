@@ -85,6 +85,22 @@ theorem MainInventory.checked {text : Source} {arguments : Bool} {entry final : 
     callables.1, callables.2.1, initializer_checks_discharge normal source.initializerChecks subtypes types,
     boolean.2.2⟩
 
+theorem MainInventory.discharged {text : Source} {arguments : Bool} {entry final : ParserState}
+    {inventory : MainInventory} (source : inventory.SourceAt text arguments entry final)
+    (textValid : ValidText text) (valid : ValidState text entry)
+    (normal : NamesNormal entry.names) (ready : ScalarMetadata.HeaderReady entry.scalarNames)
+    (static : ScalarExpression.StaticEnvironment entry.scalarNames)
+    (capacity : entry.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (stored : entry.StoredArrays) (subtypes : IntegerSubtypes.ValidEnvironment text entry.subtypeNames)
+    (types : ArrayBindings.ValidTypes text entry.arrayNames.types) (known : CallableTypesKnown entry) :
+    Predicate.discharged (inventory.obligations entry final) = true := by
+  obtain ⟨_, scalar, _, _, functions, procedures, rawScalar, rawBoolean⟩ :=
+    MainInventory.checked source textValid valid normal ready static capacity stored subtypes types known
+  simp only [obligations, Predicate.discharged_append, Predicate.scalar_discharged,
+    Integer.discharged_append, rawScalar, Integer.declaration_obligations_discharge scalar,
+    rawBoolean, ScalarFunctions.definitions_obligations_discharge functions,
+    ScalarProcedures.definitions_obligations_discharge procedures, Bool.and_self]
+
 /-- Actual String metadata and execution fit are retained for any permitted
 runtime input and any original imported String store. Full raw/actual bounds
 refinement is supplied by the region composition below, not replaced by fit. -/

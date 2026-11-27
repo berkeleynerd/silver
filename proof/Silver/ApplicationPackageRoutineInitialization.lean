@@ -668,4 +668,40 @@ theorem OutputObject.actual {calls : CompletionCalls} {text : Source}
   obtain ⟨value, reading⟩ := actual_sound textValid names firstBound accepted
   exact ⟨value, by simpa only [OutputObject.valueAfter, actual] using reading⟩
 
+theorem ScalarRangeRows.put_local {info : PackageBindings.Metadata} {ranges : SharedRanges}
+    {names : ScalarExpression.Environment} {identity : Nat} (bounds : Integer.Interval)
+    (rows : ScalarRangeRows info ranges names)
+    (fresh : ∀ row ∈ names, row.first ≠ identity) :
+    ScalarRangeRows info {ranges with locals := Integer.put ranges.locals identity (some bounds)} names := by
+  intro row member
+  have original := rows row member
+  cases selected : stateIndex info .integer
+      ⟨row.first, row.after, row.qualifierFirst, row.qualifierAfter⟩ with
+  | none =>
+      simpa only [integerRangeAt, rowAddress, selected, Integer.put, fresh row member, ite_false] using original
+  | some global =>
+      simpa only [integerRangeAt, rowAddress, selected] using original
+
+theorem ScalarRangeRows.append_local {info : PackageBindings.Metadata} {ranges : SharedRanges}
+    {names : ScalarExpression.Environment} {row : ScalarExpression.Binding}
+    (rows : ScalarRangeRows info ranges names)
+    (fresh : ∀ prior ∈ names, prior.first ≠ row.first)
+    (localRow : rowAddress info .integer
+      ⟨row.first, row.after, row.qualifierFirst, row.qualifierAfter⟩ = .local row.first) :
+    ScalarRangeRows info {ranges with locals := Integer.put ranges.locals row.first (some row.bounds)}
+      (names ++ [row]) := by
+  intro item member
+  rcases List.mem_append.mp member with prior | added
+  · exact rows.put_local row.bounds fresh item prior
+  · cases List.mem_singleton.mp added
+    simp only [localRow, integerRangeAt, Integer.put, ite_true]
+
+theorem LocalRangesBound.put_local {bound identity : Nat} {ranges : SharedRanges}
+    (bounds : Integer.Interval) (prior : LocalRangesBound bound ranges) (inside : identity ≤ bound) :
+    LocalRangesBound bound {ranges with locals := Integer.put ranges.locals identity (some bounds)} := by
+  intro other outside
+  have apart : other ≠ identity := by omega
+  simp only [Integer.put, apart, ite_false]
+  exact prior other outside
+
 end Silver.ApplicationPackageInitializers
