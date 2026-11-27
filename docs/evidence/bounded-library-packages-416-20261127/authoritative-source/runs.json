@@ -1,0 +1,50 @@
+[
+  {
+    "run_id": "20261127T195949-9affe71500da",
+    "returncode": 1,
+    "outcome": "failure",
+    "duration_seconds": 5598.535014615
+  },
+  {
+    "run_id": "20261127T213512-262c983a5cf3",
+    "returncode": 1,
+    "outcome": "failure",
+    "duration_seconds": 191.542865221
+  },
+  {
+    "run_id": "20261127T213911-3a0a26c65233",
+    "returncode": 1,
+    "outcome": "failure",
+    "duration_seconds": 33.854802405
+  },
+  {
+    "run_id": "20261127T214106-e263babfd6d5",
+    "returncode": 1,
+    "outcome": "failure",
+    "duration_seconds": 31.391456956
+  },
+  {
+    "run_id": "20261127T214249-98b93cc4784c",
+    "returncode": 1,
+    "outcome": "failure",
+    "duration_seconds": 28.492493341
+  },
+  {
+    "run_id": "20261127T214440-c83cd43c0f68",
+    "returncode": 1,
+    "outcome": "failure",
+    "duration_seconds": 142.500133908
+  },
+  {
+    "run_id": "20261127T214829-9cf1b99e3ed8",
+    "returncode": 1,
+    "outcome": "failure",
+    "duration_seconds": 90.831259087
+  },
+  {
+    "run_id": "20261127T215103-4a33f22a63ac",
+    "returncode": null,
+    "outcome": "success",
+    "duration_seconds": 263.630188634
+  }
+]

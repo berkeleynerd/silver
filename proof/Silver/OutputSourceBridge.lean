@@ -125,7 +125,9 @@ abbrev CompleteShape : Prop :=
   Source.ioBodyTokens = SourceShape.ioImplementation ∧
   Source.outputLibcTokens = SourceShape.libcSpecification
 
-theorem actual_complete_shape : CompleteShape := ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+theorem actual_complete_shape : CompleteShape := by
+  refine ⟨rfl, ?_, rfl, rfl, rfl, rfl, rfl⟩
+  kernel_exact (Eq.refl Source.outputBodyTokens)
 
 structure CheckedSource : Prop where
   outputSpecification : Source.lex Source.outputProfileSpec = some Source.outputSpecTokens
