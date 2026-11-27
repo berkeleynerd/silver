@@ -1176,4 +1176,177 @@ theorem OutputObject.initializer_checked {calls : CompletionCalls} {text : Sourc
   · cases kind : (info.parameterAt row.index).kind <;>
       simp only [CellDomain, OutputObject.initializer, OutputObject.target, OutputObject.domain, kind]
 
+private theorem local_check_shape {item : LocalInitializer} {before after : SharedRanges}
+    (checked : item.check before = some after) :
+    (∃ identity bounds, item.target = .integer identity ∧
+      after = {before with locals := Integer.put before.locals identity (some bounds)}) ∨ after = before := by
+  simp only [LocalInitializer.check] at checked
+  split at checked
+  · cases target : item.target <;> cases domain : item.domain <;> cases value : item.value <;>
+      simp only [target, domain, value] at checked
+    all_goals try contradiction
+    · rename_i identity bounds expression
+      simp only [Option.bind_eq_some_iff] at checked
+      obtain ⟨inferred, _, update⟩ := checked
+      split at update
+      · exact Or.inl ⟨identity, inferred, rfl, (Option.some.inj update).symm⟩
+      · contradiction
+    · split at checked
+      · exact Or.inr (Option.some.inj checked).symm
+      · contradiction
+  · contradiction
+
+theorem OutputObject.range_preserved {calls : CompletionCalls} {info : PackageBindings.Metadata}
+    {row : OutputObject} {value : ScalarFunctions.Actual} {bound : Nat} {before after : SharedRanges}
+    (checked : (row.initializer bound info calls value).check before = some after)
+    {names : ScalarExpression.Environment} (rows : ScalarRangeRows info before names)
+    (bounded : LocalRangesBound bound before)
+    (apart : ∀ binding ∈ names, binding.first ≠ (info.parameterAt row.index).bodyName.first)
+    (inside : (info.parameterAt row.index).bodyName.first ≤ bound) :
+    ScalarRangeRows info after names ∧ LocalRangesBound bound after := by
+  rcases local_check_shape checked with ⟨identity, interval, target, rfl⟩ | rfl
+  · have same : identity = (info.parameterAt row.index).bodyName.first := by
+      have index := congrArg cellIndex target
+      cases kind : (info.parameterAt row.index).kind <;>
+        simpa only [OutputObject.initializer, OutputObject.target, kind, cellIndex] using index.symm
+    subst identity
+    exact ⟨rows.put_local _ apart, bounded.put_local _ inside⟩
+  · exact ⟨rows, bounded⟩
+
+theorem output_reader_frame {calls : CompletionCalls} {text : Source} {info : PackageBindings.Metadata}
+    {formal : PackageBindings.Formal} {before after : InitializationFrame}
+    (take : calls.takeToken = tokenAfter) (framed : ReaderFrame text before.frame)
+    (run : outputInitializer calls text info formal before = some after) : ReaderFrame text after.frame := by
+  unfold outputInitializer at run
+  split at run
+  · cases Option.some.inj run
+    exact framed
+  · split at run
+    · contradiction
+    · dsimp only at run
+      split at run
+      · contradiction
+      · split at run
+        · contradiction
+        · cases Option.some.inj run
+          apply framed.at_position
+          rw [take]
+          exact fixedAfter_result_bound text _ ";" false (by decide)
+
+theorem OutputObjects.frames {calls : CompletionCalls} {text : Source} {info : PackageBindings.Metadata}
+    {indices : List Nat} {before after : InitializationFrame} {rows : List OutputObject}
+    (take : calls.takeToken = tokenAfter) (framed : ReaderFrame text before.frame)
+    (closed : ApplicationPackageRoutineClosedFrames.Closed before.frame)
+    (history : OutputObjects calls text info indices before rows after) :
+    ReaderFrame text after.frame ∧ ApplicationPackageRoutineClosedFrames.Closed after.frame ∧
+      ∀ row ∈ rows, ReaderFrame text row.before.frame ∧ ApplicationPackageRoutineClosedFrames.Closed row.before.frame := by
+  induction history with
+  | nil => exact ⟨framed, closed, by simp⟩
+  | skipped _ _ ih => exact ih framed closed
+  | @added row indices rows final output read rest ih =>
+    have next := output_reader_frame take framed read
+    obtain ⟨position, same⟩ := outputInitializer_sameDeclarations read
+    have nextClosed : ApplicationPackageRoutineClosedFrames.Closed row.after.frame := by
+      rw [same]
+      exact ⟨⟨closed.dynamicFirst, closed.names, closed.arrayNames⟩, closed.pure⟩
+    obtain ⟨lastFrame, lastClosed, later⟩ := ih next nextClosed
+    refine ⟨lastFrame, lastClosed, ?_⟩
+    intro observed member
+    rcases List.mem_cons.mp member with rfl | following
+    · exact ⟨framed, closed⟩
+    · exact later observed following
+
+open ApplicationPackageFormalStorage
+
+theorem OutputObjects.formals {calls text info indices before rows after}
+    (history : OutputObjects calls text info indices before rows after) :
+    rows.map (fun row => info.parameterAt row.index) = chosen true info indices := by
+  induction history with
+  | nil => rfl
+  | skipped input rest ih =>
+    simpa only [chosen, List.flatMap_cons, ApplicationPackageFormalStorage.selected, input, decide_false, Bool.false_eq_true,
+      ite_false, List.nil_append] using ih
+  | added output read rest ih =>
+    simp only [List.map_cons, chosen, List.flatMap_cons, ApplicationPackageFormalStorage.selected, output, decide_true, ite_true,
+      List.singleton_append] at ih ⊢
+    exact congrArg (List.cons _) ih
+
+theorem OutputObjects.target_domains {calls : CompletionCalls} {text : Source} {info : PackageBindings.Metadata}
+    {indices : List Nat} {before after : InitializationFrame} {rows : List OutputObject}
+    (history : OutputObjects calls text info indices before rows after)
+    (scope : LocalFrame info.states (chosen true info indices) before.frame)
+    (bounded : before.frame.position ≤ text.length + 1) :
+    ∀ row ∈ rows,
+      (∀ binding ∈ ScalarExpression.bodyEnvironment row.before.frame.scalarNames,
+        binding.first ≠ (info.parameterAt row.index).bodyName.first) ∧
+      (info.parameterAt row.index).bodyName.first ≤ text.length := by
+  intro row member
+  have formal : info.parameterAt row.index ∈ chosen true info indices := by
+    rw [← history.formals]
+    exact List.mem_map_of_mem member
+  obtain ⟨position, same⟩ := history.preappend.2 row member
+  constructor
+  · rw [same]
+    intro binding selected
+    obtain ⟨original, present, rfl⟩ := List.mem_map.mp selected
+    exact scope.scalarApart _ (List.mem_map_of_mem present) _ formal
+  · have earlier := scope.outputBefore _ formal
+    omega
+
+inductive OutputValuesAt (bound : Nat) (calls : CompletionCalls) (info : PackageBindings.Metadata) (text : Source) :
+    List OutputObject → List LocalInitializer → Prop
+  | nil : OutputValuesAt bound calls info text [] []
+  | cons {row rows items value}
+      (source : ActualAt text (row.context calls) (row.valueFirst calls text)
+        (calls.initialFlow (row.context calls)) (row.formal info) value (row.valueAfter calls text info))
+      (rest : OutputValuesAt bound calls info text rows items) :
+      OutputValuesAt bound calls info text (row :: rows) (row.initializer bound info calls value :: items)
+
+/-- Output values are checked in source order while every RHS retains the
+preappend declaration tables. Earlier output stores cannot become later names. -/
+theorem output_objects_initializers {calls : CompletionCalls} {text : Source} {info : PackageBindings.Metadata}
+    {indices : List Nat} {before after : InitializationFrame} {rows : List OutputObject} {ranges : SharedRanges}
+    (textValid : ValidText text) (take : calls.takeToken = tokenAfter)
+    (actual : calls.actualAfter = Predicate.actualAfter) (context : calls.contextOf = Predicate.contextOf)
+    (flow : calls.initialFlow = fun context => ActiveFlow.initial context.scalarNames (initialFacts context.hasArguments))
+    (history : OutputObjects calls text info indices before rows after)
+    (frames : ∀ row ∈ rows, ReaderFrame text row.before.frame ∧ ApplicationPackageRoutineClosedFrames.Closed row.before.frame)
+    (targets : ∀ row ∈ rows,
+      (∀ binding ∈ ScalarExpression.bodyEnvironment row.before.frame.scalarNames,
+        binding.first ≠ (info.parameterAt row.index).bodyName.first) ∧
+      (info.parameterAt row.index).bodyName.first ≤ text.length)
+    (currentRows : ScalarRangeRows info ranges (ScalarExpression.bodyEnvironment before.frame.scalarNames))
+    (bounded : LocalRangesBound text.length ranges) :
+    ∃ items final, OutputValuesAt text.length calls info text rows items ∧
+      (∀ item ∈ items, item.Readable) ∧ checkInitializers ranges items = some final ∧
+      ScalarRangeRows info final (ScalarExpression.bodyEnvironment after.frame.scalarNames) ∧
+      LocalRangesBound text.length final := by
+  induction history generalizing ranges with
+  | nil => exact ⟨[], ranges, .nil, by simp, rfl, currentRows, bounded⟩
+  | skipped _ _ ih => exact ih frames targets currentRows bounded
+  | @added row indices rows final output read rest ih =>
+    have framed := (frames row List.mem_cons_self).1
+    have closed := (frames row List.mem_cons_self).2
+    have names : ValidNames text (row.context calls).names := by
+      simpa only [OutputObject.context, context, Predicate.contextOf] using framed.native.base.2.1
+    obtain ⟨value, source⟩ := row.actual textValid take actual names output read
+    obtain ⟨readable, middle, checked⟩ :=
+      row.initializer_checked context flow framed closed source currentRows bounded
+    have preserved := row.range_preserved checked currentRows bounded
+      (targets row List.mem_cons_self).1 (targets row List.mem_cons_self).2
+    obtain ⟨position, same⟩ := outputInitializer_sameDeclarations read
+    have nextRows : ScalarRangeRows info middle (ScalarExpression.bodyEnvironment row.after.frame.scalarNames) := by
+      rw [same]
+      exact preserved.1
+    obtain ⟨items, last, sources, readables, checking, lastRows, lastBound⟩ :=
+      ih (fun observed member => frames observed (List.mem_cons_of_mem _ member))
+        (fun observed member => targets observed (List.mem_cons_of_mem _ member)) nextRows preserved.2
+    refine ⟨row.initializer text.length info calls value :: items, last, .cons source sources,
+      ?_, ?_, lastRows, lastBound⟩
+    · intro observed member
+      rcases List.mem_cons.mp member with rfl | later
+      · exact readable
+      · exact readables observed later
+    · simp only [checkInitializers, checked, Option.bind_some, checking]
+
 end Silver.ApplicationPackageInitializers
