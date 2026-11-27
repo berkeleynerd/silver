@@ -76,6 +76,14 @@ private theorem state_table_fields {calls : UnitCalls} {text : Source} {entry ne
   | finished => exact ⟨rfl, rfl, rfl⟩
   | added _ _ _ _ _ _ _ ih => exact ⟨ih.completed, ih.routines, ih.formals⟩
 
+theorem BodyHistory.routine_start_tables {reader completion sources specification result}
+    (history : BodyHistory reader completion sources specification result) :
+    history.routinesStart.info.routines = specification.info.routines ∧
+      history.routinesStart.info.parameters = specification.info.parameters := by
+  have first := start_table_fields history.entered
+  have states := state_table_fields history.declarations
+  exact ⟨states.routines.trans first.routines, states.formals.trans first.formals⟩
+
 theorem BodyHistory.routine_coverage {reader completion sources specification result}
     (history : BodyHistory reader completion sources specification result) :
     RoutineCoverage specification.info result.info history.rows := by
