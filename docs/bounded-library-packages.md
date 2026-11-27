@@ -888,3 +888,42 @@ thread outside CPUs 0–7. Proof roles remain selected Astra Max; runtime settin
 are not independently exposed. Final source/semantic composition, complete
 assurance, regression/Rosetta delivery and independent closing review remain
 outstanding. PR #424 stays draft and no merge is authorized.
+
+### Complete call imports and recursive package checking, 23:17 UTC
+
+The [complete call-import checkpoint](evidence/bounded-library-packages-416-20261127/call-composition/README.md)
+passed 77,344 audited declarations. It composes the original callee selection,
+argument scan, aliases, state reset and final validity guard, including rejected
+calls and arbitrary scratch locals. Its recorded success was retained after the
+lead resumed, without another run. The
+[inherited projection checkpoint](evidence/bounded-library-packages-416-20261127/inherited-projection/README.md)
+passed 76,968 declarations, preserving the original native contexts and the
+assignment-result helper's component-only domain.
+
+The [Completion contract checkpoint](evidence/bounded-library-packages-416-20261127/completion-native-contract/README.md)
+passed 82,639 declarations. Complete Completion transport, metadata preservation
+and typed native execution now compose. This does not supply the enclosing
+original-program safety endpoint. The
+[initializer checkpoint](evidence/bounded-library-packages-416-20261122/package-initializer-aggregation/README.md)
+passed 78,162 declarations, adding imported Main/String bounds and original
+Boolean initializer consumers. Source-derived seed/range evolution and the
+output/body initialization phases still need to join it.
+
+The [recursive package checkpoint](evidence/bounded-library-packages-416-20261122/package-recursive-meaning/README.md)
+passed 37,909 declarations. Original-cursor induction derives source syntax and
+the complete package-body checker through all arms, sequential tails and counted
+loops, preserving hidden private-state ranges. Its local scope and entry-range
+hypotheses must still be derived from declaration histories, and its recursive
+equations must receive the actual primitive imports. They are not additional
+assumptions in a completed source endpoint. The phased routine/library consumer
+and original Main/Unit/external-tool endpoint remain required.
+
+Proof subthreads retain their selected Astra Max roles; runtime settings and
+whole-team token/cost measurements are not independently exposed. Linux detects
+eight CPUs. Active proof/solver threads were checked within guest CPUs 0–7,
+with no affinity exceptions; temporary two-worker shares are coordinated between
+the existing streams. Native unit run `20261127T195636-5b2a2f886237` remains on
+frozen inputs, with the earlier array-declaration timeouts awaiting final audit.
+Complete native/Lean validation, regression applicability, Rosetta delivery and
+independent closing review remain outstanding. PR #424 stays draft; #426/#427
+remain open. No merge or successor implementation is authorized.
