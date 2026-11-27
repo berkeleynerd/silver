@@ -383,3 +383,13 @@ selector under the final policy. It took 1,813.670 seconds on two workers.
 The [SPARK report](20261127T141021-61ebae4a0685/silver_output_profile.spark.gz)
 records `STOP_REASON_NONE` and empty skip lists. Its scope includes the
 recursive tail precondition that timed out in both earlier whole-helper runs.
+
+## Package completion
+
+The [canonical complete `Package_Completion_At` run](20261127T144204-d3e112615a84/outcome.json)
+proved 15 flow checks and 44 proof checks at selector 9229 on the same
+`95c0f3b3` Ada source. It covered the new progress postcondition and its
+call to `Application_Tail`. All report severities were informational.
+GNATprove recorded `STOP_REASON_NONE` and empty skip lists. The run took
+1,093.308 seconds on two Linux x86-64 workers.
+[SPARK report](20261127T144204-d3e112615a84/silver_output_profile.spark.gz)
