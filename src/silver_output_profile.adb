@@ -9109,6 +9109,7 @@ is
          end if;
          if Result.Scan.Position <= Input.Scan.Position then return Invalid_Application (Input); end if;
          Widen_Into (Context, Result.Scan.Facts);
+         pragma Assert (Static => Valid_Flow (Context, Result.Scan.Facts));
          declare
             Inner : Body_Context := Context;
             Inside : Application_Scan (Input.Count + 1);
@@ -9132,7 +9133,19 @@ is
                    Inside.Scan.Facts.Values (Done) = Result.Scan.Facts.Values (Done));
                Inside.Scan.Facts.Values (I) := Result.Scan.Facts.Values (I);
             end loop;
+            pragma Assert (Static =>
+              (for all I in Result.Scan.Facts.Values'Range =>
+                 Inside.Scan.Facts.Values (I) = Result.Scan.Facts.Values (I)));
+            pragma Assert (Static =>
+              (for all I in 1 .. Context.Scalar_Names.Count =>
+                 Inner.Scalar_Names.Items (I) = Context.Scalar_Names.Items (I)));
+            pragma Assert (Static => Inner.Declaration_Count = Context.Declaration_Count);
             Inside.Scan.Facts.Values (Inside.Count) := Bounds;
+            pragma Assert (Static => not Inner.Scalar_Names.Items (Inside.Count).Mutable);
+            pragma Assert (Static => Inside.Count > Inner.Declaration_Count);
+            pragma Assert (Static =>
+              Included (Inside.Scan.Facts.Values (Inside.Count), Inner.Scalar_Names.Items (Inside.Count).Bounds));
+            pragma Assert (Static => Valid_Flow (Inner, Inside.Scan.Facts));
             Inside := Application_Tail (Text, Inner, Inside, Info, End_Only, True, Catalog, Procedure_Catalog);
             if Inside.Scan.Position = 0 then return Invalid_Application (Input); end if;
             Result.Scan.Position := Inside.Scan.Position;

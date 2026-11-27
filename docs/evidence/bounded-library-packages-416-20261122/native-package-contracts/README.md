@@ -308,3 +308,21 @@ canonical selector covers the strengthened Object contract, followed by
 Completion's use of its initializer endpoints and Body's use of Completion
 progress. Complete source correspondence for the guard and the earlier
 partial-state behavior belongs to the matching typed body.
+
+## Application_Statement inner flow
+
+Linux x86-64 run [20261127T121829-562685cbce5e](20261127T121829-562685cbce5e/outcome.json)
+selected the complete `Application_Statement` on source `2e055cec`. It proved
+all 11 flow checks and 124 of 125 proof checks in 2,082.160 seconds with two
+workers. All three provers timed out on the recursive `Application_Tail`
+precondition at line 9134, column 23. The counterexample prover also timed
+out. The retained Why3 session has one open subgoal, `def'vc.628`. Its shape
+contains `Valid_Flow` on the extended inner scan. Both skip lists are empty.
+
+The prepared repair uses the same Static assertions as the inherited
+`Loop_Body` to expose the widened outer flow, the copied values and binding
+prefix, the declaration count and the fresh immutable index's inclusion in
+its bounds. The final assertion checks `Valid_Flow (Inner, Inside.Scan.Facts)`
+before the recursive call. The repaired source is
+`91933dc67619610c7ad5fc026c03663cb84269608e2c37e1710f524ac4392bfa`.
+The next complete `Application_Statement` check selects line 8944.
