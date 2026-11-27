@@ -1086,6 +1086,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | add : Expr Fn .number → Expr Fn .number → Expr Fn .number
   | sub : Expr Fn .number → Expr Fn .number → Expr Fn .number
   | inRange : Expr Fn .number → Expr Fn .number → Expr Fn .number → Expr Fn .truth
+  | scalarBindingEq : Expr Fn .scalarBinding → Expr Fn .scalarBinding → Expr Fn .truth
   | intervalEq : Expr Fn .interval → Expr Fn .interval → Expr Fn .truth
   | eq : Expr Fn .number → Expr Fn .number → Expr Fn .truth
   | ne : Expr Fn .number → Expr Fn .number → Expr Fn .truth
@@ -1231,7 +1232,7 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .index selection value index => value.render names ++ selection.path ++ ["("] ++ index.render names ++ [")"]
   | .add left right => left.render names ++ ["+"] ++ right.render names
   | .sub left right => left.render names ++ ["-"] ++ right.render names
-  | .truthEq left right | .intervalEq left right | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
+  | .truthEq left right | .scalarBindingEq left right | .intervalEq left right | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
       left.render names ++ ["="] ++ right.render names
   | .truthNe left right | .kindNe left right | .intervalNe left right
   | .ne left right | .modeNe left right | .unitMapNe left right | .stateSetNe left right | .intNe left right => left.render names ++ ["/="] ++ right.render names
@@ -1337,6 +1338,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .sub left right => left.eval calls locals - right.eval calls locals
   | .inRange value first last => decide (first.eval calls locals ≤ value.eval calls locals ∧
       value.eval calls locals ≤ last.eval calls locals)
+  | .scalarBindingEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .intervalEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)

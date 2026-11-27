@@ -26,3 +26,11 @@ Focus `20261127T123251-7d7d7609853c` checked its exact rendering, relation gramm
 scope and negative witnesses in `Silver.ApplicationNativeGuards`. The fresh
 audit covered 20,417 declarations at two workers and two threads per process.
 Its input digest is `6eb3aafab9e47227948bbfecd3672ecc898cc051586d2b63b325beec4d71ecf0`.
+
+The complete scalar binding equality expression used in the native Statement
+assertions passed focused Linux x86-64 run `20261127T130333-55561d97b50d`.
+It compares every binding component. The check covers equality rendering,
+operand precedence, scope and denotation over arbitrary inputs. Its incremental
+build took 7.854 seconds and its fresh 20,426-declaration axiom audit took
+5.707 seconds, using two workers and two threads per process. The retained
+log and evidence use the `binding-equality-` prefix.
