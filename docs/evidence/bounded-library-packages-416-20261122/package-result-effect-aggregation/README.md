@@ -1,0 +1,28 @@
+# Original routine results and native effects — #416
+
+Task scope: derive function terminal results and procedure output reads from the
+original completion history, and establish sound inclusion in native read/write
+summaries. Initializer source files remain at their checked handoff. This packet
+is focused Linux x86_64 Lean 4.34.1 evidence, not complete package assurance.
+
+The first checked increment derives the original function return expression,
+readability, scalar syntax, complete result check and expression obligations from
+CompletionBodyRead and the actual final native domain. Source effect lemmas derive
+scalar and condition read coverage from the original StateDeclarations, rather
+than demanding full metadata validity on a shorter package-body source prefix.
+Effect list equality is deliberately not claimed: native lexical masks may
+conservatively include additional cells.
+
+Focused run `20261127T235754-3c6b67ea0b7d` passed both new modules and a fresh axiom
+audit of 38,991 declarations. Build took 5.356 s; audit 5.320 s. All 1,715 captured
+inputs matched the checked tree. Affinity CPUs 6–7, automatic two workers and two
+threads, 8,192 MiB per-process threshold. No independent kernel replay.
+
+Initial failure `20261127T235504-54692d62a1ed` is retained. Its only proof failure
+was transport of a projected native context equality; explicitly exposing the
+context projection before rewriting repaired it. The later source-effect change
+replaces full metadata validity with the precise original-state declaration
+premise; it does not remove source-name, capacity or lookup requirements.
+
+Procedure result row retention, complete effect folding and final source wrapper
+integration are still in progress. These helper results do not close #416.
