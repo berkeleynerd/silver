@@ -837,3 +837,54 @@ remain within CPUs0–7. The three ongoing proof roles retain selected Astra Max
 settings, with runtime settings not independently exposed. Final source/semantic
 composition, complete assurance, regression/Rosetta delivery and independent
 closing review remain outstanding; PR #424 stays draft and no merge is authorized.
+
+
+### Recursive Main and imported native payloads, 22:40 UTC
+
+The [recursive Main packet](evidence/bounded-library-packages-416-20261122/package-main-recursive-meaning/README.md)
+passed `20261127T222621-4da75140ec94`, auditing 37,632 declarations. Original-cursor
+induction closes Statement/Tail child callbacks across every admitted conditional
+and loop, deriving the combined-table checker and obligations. Binding actual
+source-reader dictionaries and deriving MainScope from original histories remain
+required; this is not yet the final original-source endpoint.
+
+The [Completion native-leaf packet](evidence/bounded-library-packages-416-20261122/completion-native-leaves/README.md)
+passed 81,608 declarations, and the [body-domain packet](evidence/bounded-library-packages-416-20261122/completion-body-domains/README.md)
+passed 82,106. Actual_After/Function_Return_After now have source-derived native
+interpretations and projected-context witness independence. Output-frame and
+body/return preconditions follow from original stages. Full Completion transport
+and recursive effect-mask widths remain in progress.
+
+The [inherited formal repairs](evidence/bounded-library-packages-416-20261122/inherited-formal-callers/README.md)
+passed both exact aggregate-renderer source targets with 18,702 declarations.
+Four inherited callers/renderers now retain the added context/qualifier fields;
+no Ada or pin-only change was made. The recorded cache transfer reused 240
+artifacts for 15 matching modules from the idle authoritative-source worktree,
+including sidecars and traces, revalidated by Lake. Newly exercised callers in
+ProcedureFrameMeaning and FunctionHeaderSource still need matching repairs.
+
+The [payload-import packet](evidence/bounded-library-packages-416-20261127/call-payload-imports/README.md)
+passed 73,325 declarations, composing original input and writable-actual readers
+with state-target lookup on their full native domains. Two failed local drafts
+remain failed; no accepted-call assumption was added. The enclosing argument
+loop, alias/reset passes and complete call composition remain open. The
+[initializer packet](evidence/bounded-library-packages-416-20261122/package-initializer-aggregation/README.md)
+now derives exact exported scalar values from the original nonlocal singleton
+guard and raw expression, and restores contextFirst in String source traces.
+Its latest focused batch passed 72,860 declarations.
+
+The package-body checker needs a flow invariant when a loop binder hides a
+private state name. Native reset skips the hidden row, while the semantic global
+mapping must still denote the actual package state. The focused argument proves
+that omitted rows already hold their declared ranges, making the semantic reset
+unchanged. Recursive preservation remains open. This proof gap is not evidence
+of an admitted-source behavior defect or permission to restrict the language.
+
+Native unit run `20261127T195636-5b2a2f886237` continues on frozen inputs.
+Read_Declarations has a proved interim root; three timed-out Array_Declaration_Model/At
+goals still await final audit classification. No complete native run starts while
+focused requirements remain unresolved. The latest inspection found no proof/tool
+thread outside CPUs 0–7. Proof roles remain selected Astra Max; runtime settings
+are not independently exposed. Final source/semantic composition, complete
+assurance, regression/Rosetta delivery and independent closing review remain
+outstanding. PR #424 stays draft and no merge is authorized.
