@@ -1,0 +1,21 @@
+{
+  "run_id": "20261127T234256-36441a256343",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageSpecificationSeeds",
+    "Silver.ApplicationPackageRoutineSeedRanges",
+    "Silver.ApplicationPackageRoutineEntryScope"
+  ],
+  "declarations": 80029,
+  "source_sha256": {
+    "ApplicationPackageConstantSeeds": "87c8006be8972add33667a99387307ddede9a225f7da230bd19bcdb6ae8729d0",
+    "ApplicationPackageSpecificationSeeds": "1fa64ecb9406825a1b90aa9889a977424b0c48fef739490dee6af2f801dbcca6",
+    "ApplicationPackageRoutineSeedRanges": "cbb9c9e3525496dd5367200f42419cf6c6551c35d1b895002c694b35bc65429d"
+  },
+  "captured_inputs_verified": 1679,
+  "artifacts_sha256": {
+    "events.jsonl.gz": "e77f56ff86aec418f3ad57ecb611639420567676d6e291c05ea51124e9535d62",
+    "evidence.json": "31a56706a2eb4d3376db69e1c8111106d4d910c0412552b25636a258f356279a",
+    "lean-focused.log.gz": "40822e6ae853c7ec90f6f625529f272348ce6760f699954967412b6c56f3e517"
+  }
+}
