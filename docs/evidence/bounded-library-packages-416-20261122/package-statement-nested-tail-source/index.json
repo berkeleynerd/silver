@@ -1,0 +1,23 @@
+{
+  "run_id": "20261127T141754-d97b29838238",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageBodiesStatementMeaning",
+    "Silver.ApplicationPackageBodiesStatementCandidate",
+    "Silver.ApplicationPackageBodiesAccepted",
+    "Silver.ApplicationPackageBodiesArmReading",
+    "Silver.ApplicationPackageBodiesIterationFlow",
+    "Silver.ApplicationPackageBodiesBasicSemantics"
+  ],
+  "declarations": 30889,
+  "source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "f6767fba14c8c548d43c5250828dd91c6652cd7eec93c7798e36b7b58ec7ba54",
+    "evidence.json": "b61fe127813095db00fd532d25fe60eb0e40621029bceb2b7f91fe395032c178",
+    "lean-focused.log.gz": "5cb4b81b6e3a1473331de6eae848d435badbcc4e3ec7c24792bf25c1534a2a2a",
+    "first-candidate-build.log.gz": "ffdf8573f34d7e8b3762fc87f3bc7e1527a61c89333214d75732b2f47438916e",
+    "second-candidate-build.log.gz": "b1bde2856122babe8783322251804fa378314403594270a457d66e4855e0e281"
+  },
+  "declaration_tokens": 186,
+  "implementation_tokens": 2218
+}

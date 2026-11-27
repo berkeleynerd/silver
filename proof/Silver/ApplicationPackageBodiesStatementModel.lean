@@ -26,6 +26,7 @@ structure Calls where
   widenInto : ParseContext → ActiveFlow → ActiveFlow
   pathJoin : PathFacts.Context → PathFacts.Context → PathFacts.Context
   bodyToken : Source → ParseContext → BodyScan → ShellToken → BodyScan
+  validContext : Source → ParseContext → Bool
   validBody : Source → ParseContext → BodyScan → Bool
   applicationBasic : Source → ParseContext → ApplicationScan → PackageBindings.Metadata →
     FunctionBindings.Metadata → ProcedureBindings.Metadata → ApplicationScan

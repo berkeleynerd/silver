@@ -29,6 +29,7 @@ inductive Fn : Ty → Type
   | emptyPath : Fn .path
   | pathJoin : Fn (.arrow .path (.arrow .path .path))
   | bodyToken : Fn (.arrow .source (.arrow .parseContext (.arrow .bodyScan (.arrow .token .bodyScan))))
+  | validContext : Fn (.arrow .source (.arrow .parseContext .truth))
   | validBody : Fn (.arrow .source (.arrow .parseContext (.arrow .bodyScan .truth)))
   | validFlow : Fn (.arrow .parseContext (.arrow .activeFlow .truth))
   | basic : Fn (.arrow .source (.arrow .parseContext (.arrow .appScan (.arrow .metadata (.arrow .functions (.arrow .procedures .appScan))))))
@@ -55,6 +56,7 @@ def names : FunctionNames Fn
   | _, .emptyPath => ["paths", ".", "empty_context"]
   | _, .pathJoin => ["paths", ".", "join"]
   | _, .bodyToken => ["body_token"]
+  | _, .validContext => ["valid_context"]
   | _, .validBody => ["valid_body"]
   | _, .validFlow => ["valid_flow"]
   | _, .basic => ["application_basic"]
@@ -83,6 +85,7 @@ def functions (calls : Statement.Calls) (validFlow : ValidFlow) : ApplicationNat
   | _, .emptyPath => PathFacts.Context.empty
   | _, .pathJoin => calls.pathJoin
   | _, .bodyToken => calls.bodyToken
+  | _, .validContext => calls.validContext
   | _, .validBody => calls.validBody
   | _, .validFlow => validFlow
   | _, .basic => calls.applicationBasic
@@ -301,7 +304,11 @@ def setIterator : C := .list [
   .staticAssert (.gt insideCount (.field .contextDeclarationCount inner.expression)),
   .staticAssert (.app (.app (.function .included) (.index .flowValue insideFacts.expression insideCount))
     (.field .scalarBounds iteratorBinding)),
-  .staticAssert (validFacts inner.expression insideFacts.expression)]
+  .staticAssert (validFacts inner.expression insideFacts.expression),
+  .staticAssert (.app (.app (.function .validContext) text) inner.expression),
+  .staticAssert (.le (.field .scanPosition insideScan.expression) (.add (.sourceLast text) (.number 1))),
+  .staticAssert (.le (.field .scanTarget insideScan.expression) (.field .nameCount (.field .contextNames inner.expression))),
+  .staticAssert (.app (.app (.app (.function .validBody) text) inner.expression) insideScan.expression)]
 
 def innerEntry : C := .list [prepareInner, copyValues, setIterator]
 
