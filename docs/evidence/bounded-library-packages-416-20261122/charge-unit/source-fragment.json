@@ -1,0 +1,9 @@
+{
+  "native_source": "src/silver_output_profile.adb",
+  "native_source_sha256": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+  "fragment_sha256_without_trailing_newline": "ab3b7cec5ffc69fc4ecd685d9d69d13179812fd242250d8d240c2fb76217da89",
+  "fragment_start_line": 9547,
+  "fragment_end_line": 9588,
+  "candidate_tokens": 344,
+  "actual_full_source_check": "Separate root-owned checkpoint; not claimed by candidate generation."
+}

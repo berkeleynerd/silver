@@ -1,0 +1,19 @@
+{
+  "run_id": "20261127T212641-fd10ff7168f9",
+  "targets": [
+    "Silver.ApplicationAdmissionChargeLoop",
+    "Silver.ApplicationAdmissionChargeBinding",
+    "Silver.ApplicationAdmissionChargeSourceCandidate"
+  ],
+  "host": "linux-x86_64",
+  "lean_version": "4.34.1",
+  "axiom_audit": "passed: 22477 declarations",
+  "modules": 162,
+  "workers": 2,
+  "threads": 2,
+  "memory_mb": 8192,
+  "elapsed_seconds": 24.238,
+  "actual_full_source_check": "not run in this private worktree; prepared ApplicationAdmissionChargeSourceChecks for authoritative source join",
+  "earlier_helper_run": "20261127T211842-c1ccdd540d2c",
+  "earlier_helper_audit": "passed: 18348 declarations"
+}
