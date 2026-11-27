@@ -240,3 +240,28 @@ next attempt splits the header and rendered body equalities into smaller kernel
 checks. The host's eight-CPU allocation is unchanged, with managed worker and
 thread affinity confined to guest CPUs 0–7. No complete native/Lean checkpoint,
 final Rosetta promotion, independent delivery review or merge is claimed.
+
+
+### Declaration source checks and effect identity, 13:25 UTC
+
+The [split Signature check](evidence/bounded-library-packages-416-20261122/package-source-core/declaration-source/README.md)
+now passes all 1,536 body tokens, complete headers/defaults and typed rendering
+under an 8,192 MiB Lean threshold. Its sampled high-water mark was about 6.8 GiB;
+the earlier interrupted monolithic attempt remains recorded. The
+[declaration execution checks](evidence/bounded-library-packages-416-20261122/package-source-core/declaration-procedures/README.md)
+also establish termination of both declaration readers on their full domains.
+Typed loop simulations and authoritative whole-profile binding remain separate.
+The [updated Statement source check](evidence/bounded-library-packages-416-20261122/package-statement-assertions-and-headers/index.json)
+covers the current static assertions and counted/array loop headers; its complete
+statement interpretation is still being composed.
+
+The [source-expression effect bridge](evidence/bounded-library-packages-416-20261122/expression-effect-identity/README.md)
+passed a fresh 26,906-declaration focused audit. It connects a bare Integer
+identifier's actual frame slot and original declaration span to the corresponding
+package-state read bit and semantic cell. This does not yet cover every compound
+or qualified expression. The next focused work updates inherited name-reading
+proofs for qualified references and extends that bridge before final integration.
+The three proof subthreads continue at selected Astra Max; live runtime settings
+are not independently exposed. Native Statement and remaining helper/caller
+checks, the complete application endpoint, delivery validation and independent
+review remain outstanding.
