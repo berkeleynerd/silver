@@ -22,7 +22,6 @@ theorem accepted_procedure_checks {text : Source} {context : Predicate.Native.Co
     (textValid : Expressions.ValidText text) (valid : Predicate.Native.ValidContext text context)
     (body : context.elaborating = false) (storage : ValidityNative.FlowStorage input.scan.facts)
     (checked : bodyValidCheck text context.model input.scan = true) (typed : info.Typed)
-    (metadataValid : PackageBindings.validMetadata ⟨1, text⟩ info = true)
     (accepted : (packageCallAt modelCalls text context.model input info position .procedure).value.after ≠ 0) :
     ∃ callee frame entries arguments,
       callee = packageCallee modelCalls text context.model info position .procedure ∧
@@ -37,16 +36,15 @@ theorem accepted_procedure_checks {text : Source} {context : Predicate.Native.Co
         ⟨callee, arguments⟩ = true := by
   obtain ⟨callee, frame, result, entries, arguments, selected, present, source, semantic, aliases, _, meaning⟩ :=
     accepted_formal_arguments textValid valid body storage checked typed accepted
-  obtain ⟨positive, prefixBound, procedure, lookup⟩ := callee_completed selected.symm present rfl
-  have inTable := Nat.le_trans prefixBound (callee_trace selected.symm present).1
-  have routine := PackageBindings.validMetadata_routine metadataValid positive inTable
+  obtain ⟨positive, _, procedure, lookup⟩ := callee_completed selected.symm present rfl
   let item := info.routineAt callee
   have tableBound : info.parameters.length ≤ PackageBindings.maxFormals := by
     rcases typed with ⟨_, _, _, _, _, _, _, size, _⟩; exact size
   have physical (nonempty : 0 < item.count) : item.formalFirst + item.count - 1 ≤ PackageBindings.maxFormals := by
-    have last := (PackageBindings.routine_formal_index routine
-      (show item.count - 1 < item.count by omega)).2
-    change item.formalFirst + (item.count - 1) ≤ info.parameters.length at last
+    obtain ⟨_, _, _, _, found, _, sameItem, window, _⟩ := accepted_call accepted
+    rw [sameItem, found, ← selected] at window
+    have within : ¬(item.formalFirst = 0 ∨ item.formalFirst > info.parameters.length ∨
+        item.count > info.parameters.length - item.formalFirst + 1) := fun bad => window ⟨nonempty, bad⟩
     omega
   have apart := checked_arguments_apart source semantic physical aliases valid.base.size valid.booleans.1
   obtain ⟨after, checkedArgs⟩ := meaning (context.model.flow input.scan.facts)
