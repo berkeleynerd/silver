@@ -136,3 +136,26 @@ check. The proof yields `ProcedureActualsMeaning` for the complete list with
 copy-out effects in formal order. Semantic alias exclusion, the function
 declaration's input-mode invariant, the full command interpretation and the
 authoritative source endpoint require their own evidence.
+
+## Procedure and function checking
+
+On Linux x86-64, `20261127T144014-b3e933d18b90` passed all six
+`ApplicationPackageCalls` targets and a fresh axiom audit of 31,697
+declarations. It used two Lake workers, two threads per process and
+8,192 MiB per process. Earlier attempts compiled the original-name alias
+proof, function checker and read phase. The successful run also compiled
+the repaired procedure checker and entry phase. The six source files match
+the input hashes in the managed record. [Focused evidence and prior attempts](call-checkers-and-phases/)
+
+`accepted_procedure_checks` resolves the callee in the completion prefix
+and proves the semantic procedure checker accepts its formal-order argument
+list. The native name check on each writable actual's original spelling
+establishes that the writable target is absent from every other actual.
+`accepted_function_checks` uses the declaration reader's
+`DeclaredFormalModes` invariant to recover input expressions, establish
+the function check and identify the native return cursor, kind and bounds.
+
+`EntryPhase`, `ReadPhase` and `AfterActuals` interpret the guarded entry,
+the opening delimiter and actual loop, and the alias, effect, reset and
+return commands. The whole-body equation and its authoritative source
+instance are still pending at this checkpoint.
