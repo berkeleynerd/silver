@@ -1,0 +1,17 @@
+{
+  "run_id": "20261127T212948-73c26a2026c3",
+  "captured_source_count": 1588,
+  "missing": [],
+  "changed": [],
+  "owned_sources_sha256": {
+    "proof/Silver/ApplicationStaticBooleanBodyImports.lean": "d371879a069878f287013fd4da41bfbb9eabc9f0d6b1376a3119efe3f18f9fff",
+    "proof/Silver/ApplicationStaticBooleanLeafImports.lean": "57a18f431accb164007e0382a2a512b353c5147522454196726c75cee8614225",
+    "proof/Silver/ApplicationStaticBooleanReaderImports.lean": "1dc10d112e1e39800a577b3b164b56e5117b4dd62a1d3ddc93a92510e5aed965",
+    "proof/Silver/ApplicationStaticBooleanScalarImports.lean": "1b5de0d85c17bce404ed82277c583517a450052639d4a107d7dcf84c3fe10930"
+  },
+  "native_reference_sha256": {
+    "src/silver_output_profile.adb": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+    "src/silver_package_bindings.ads": "dbcb91fe15d79508705cd56f93917d37ce5c9898a0205cfea5c158d2512e9d26",
+    "src/silver_package_bindings.adb": "21f668c90945d60b13939b06a71ca5eb4c634478cf3aa8140a0cf53a282dd9dc"
+  }
+}
