@@ -368,3 +368,34 @@ inspected thread affinities remain within the eight-CPU allocation (guest 0–7)
 The original-bundle endpoint, outstanding native/callee gates, complete assurance,
 regressions, Rosetta promotion and independent review still block delivery.
 PR #424 remains draft, with no new support or merge-readiness claim.
+
+### Complete Statement helper success and call semantics, 14:51 UTC
+
+Canonical whole-helper run `20261127T141021-61ebae4a0685` passed all **158**
+Application_Statement checks (11 flow and 147 proof) in 1,813.670 seconds on
+Ada digest `95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09`.
+The [native contract packet](evidence/bounded-library-packages-416-20261122/native-package-contracts/README.md)
+and coverage inventory retain the reports, unchanged canonical policy, earlier
+failed runs and focused repair diagnosis. This is the complete helper gate,
+not a complete compiler audit. The same frozen source is now undergoing the
+Package_Completion_At helper check `20261127T144204-d3e112615a84`.
+
+The six call modules in `2a7a67e071` passed their fresh 31,697-declaration audit:
+actual-source alias exclusion, function input-mode checking, procedure
+copy-in/copy-out checking, and native entry/read/post-actual phases. Original
+StateFrame rows now supply the complete contextOf layout invariant
+(`5fd88d018f`), and both formal installation passes have exact native storage
+and cursor laws (`5acf011ad1`). Declaration callee/type-domain work is integrated
+at `208ab5de9d`; the remaining call sites and whole-bundle decoder remain open.
+
+The [import inner-iteration packet](evidence/bounded-library-packages-416-20261122/imported-package/inner/README.md)
+records its fresh 21,192-declaration audit and rechecked complete source tree.
+The proof covers arbitrary local stores/callees and every iteration exit,
+restoring temporary names while retaining cursor writes. Source semantics are
+being composed through both loops; this does not yet establish the whole helper
+or its final authoritative binding.
+
+All source/proof streams remain active under the shared eight-CPU ceiling;
+no Ada source was changed during either native run. Complete assurance,
+regression/Rosetta closeout and independent review remain required. PR #424
+remains draft and is not ready to merge.
