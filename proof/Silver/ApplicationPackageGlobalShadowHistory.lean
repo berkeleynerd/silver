@@ -149,4 +149,158 @@ theorem scalarLookupFrom_zero_apart {text : Source} {names : ScalarExpression.En
           Bool.eq_false_iff.mpr absent
       · exact ih missing (by omega)
 
+theorem scalarLookup_selected {text : Source} {names : ScalarExpression.Environment}
+    {first after slot : Nat} (positive : first ≠ 0) (ordered : first < after)
+    (slotPositive : 0 < slot) (active : slot ≤ names.length)
+    (matching : (Named.equalName text (ScalarExpression.binding names slot).first
+      (ScalarExpression.binding names slot).after first after &&
+      QualifiedNames.qualifierMatches text (ScalarExpression.binding names slot).qualifierFirst
+        (ScalarExpression.binding names slot).qualifierAfter 0 0) = true)
+    (later : ∀ index, slot < index → index ≤ names.length →
+      (Named.equalName text (ScalarExpression.binding names index).first
+        (ScalarExpression.binding names index).after first after &&
+        QualifiedNames.qualifierMatches text (ScalarExpression.binding names index).qualifierFirst
+          (ScalarExpression.binding names index).qualifierAfter 0 0) = false) :
+    ScalarExpression.lookup text names first after = slot := by
+  have scan (count : Nat) (inside : slot ≤ count) (bounded : count ≤ names.length) :
+      ScalarExpression.lookupFrom text names first after count = slot := by
+    induction count with
+    | zero => omega
+    | succ count ih =>
+      simp only [ScalarExpression.lookupFrom, positive, Nat.not_le.mpr ordered, or_self, ite_false]
+      by_cases same : slot = count + 1
+      · rw [← same, matching]
+        rfl
+      · rw [later (count + 1) (by omega) bounded]
+        exact ih (by omega) (by omega)
+  exact scan names.length active (Nat.le_refl _)
+
+theorem GlobalRowsClear.integer_lookup {text : Source} {context : ParseContext}
+    {info : PackageBindings.Metadata} {slot identity bound : Nat}
+    (clear : GlobalRowsClear text info.states (scalarRows context))
+    (source : StateDeclarations text info.states)
+    (selected : (layout bound info context).integers slot = .global identity) :
+    ScalarExpression.lookup text context.scalarNames
+      (info.stateAt identity).name.first (info.stateAt identity).name.after = slot := by
+  have live := slotAddress_global selected
+  have state := stateIndex_some live.2.2
+  rw [scalarRows_get] at state
+  dsimp only at state
+  have bounded : slot ≤ context.scalarNames.length := by
+    simpa only [scalarRows, List.length_map] using live.2.1
+  have domain := (ApplicationPackageNames.Native.validName_domain (source.name state.1 state.2.1)).2
+  apply scalarLookup_selected (Nat.ne_of_gt domain.1) domain.2.1 live.1 bounded
+  · simp [state.2.2.1, state.2.2.2.2.1.symm, state.2.2.2.2.2.symm,
+      Named.equalName, QualifiedNames.qualifierMatches]
+  · intro index newer within
+    by_cases bare : (ScalarExpression.binding context.scalarNames index).qualifierFirst = 0
+    · have oldIndex : slot - 1 < context.scalarNames.length := by omega
+      have newIndex : index - 1 < context.scalarNames.length := by omega
+      have pairwise := (List.pairwise_map.mp clear)
+      have apart := pairwise.rel_getElem_of_lt oldIndex newIndex (by omega : slot - 1 < index - 1)
+      have names : Named.equalName text (ScalarExpression.binding context.scalarNames slot).first
+          (ScalarExpression.binding context.scalarNames slot).after
+          (ScalarExpression.binding context.scalarNames index).first
+          (ScalarExpression.binding context.scalarNames index).after = false := by
+        apply (show GlobalRow info.states
+            ⟨(ScalarExpression.binding context.scalarNames slot).first,
+              (ScalarExpression.binding context.scalarNames slot).after,
+              (ScalarExpression.binding context.scalarNames slot).qualifierFirst,
+              (ScalarExpression.binding context.scalarNames slot).qualifierAfter⟩ →
+            (ScalarExpression.binding context.scalarNames slot).qualifierFirst = 0 →
+            (ScalarExpression.binding context.scalarNames index).qualifierFirst = 0 → _ from by
+          simpa only [ScalarExpression.binding, List.getD_eq_getElem?_getD,
+            List.getElem?_eq_getElem oldIndex, List.getElem?_eq_getElem newIndex, Option.getD_some] using apart)
+        · exact ⟨info.stateAt identity, info.stateAt_mem identity state.1 state.2.1,
+            state.2.2.2.2.1.symm⟩
+        · exact state.2.2.1
+        · exact bare
+      rw [← state.2.2.2.2.1, ← state.2.2.2.2.2] at names
+      simp only [equalName_false_symm names, Bool.false_and]
+    · simp only [QualifiedNames.qualifierMatches, ite_true, beq_eq_false_iff_ne.mpr bare,
+        Bool.and_false]
+
+theorem GlobalRowsClear.integer_visible {text : Source} {context : ParseContext}
+    {info : PackageBindings.Metadata} {slot identity bound : Nat}
+    (clear : GlobalRowsClear text info.states (scalarRows context))
+    (source : StateDeclarations text info.states)
+    (selected : (layout bound info context).integers slot = .global identity) :
+    visibleState ApplicationPackageEffects.modelCalls text context info identity = true := by
+  have live := slotAddress_global selected
+  have state := stateIndex_some live.2.2
+  rw [scalarRows_get] at state
+  dsimp only at state
+  have found := clear.integer_lookup source selected
+  simp [visibleState, ApplicationPackageEffects.modelCalls, Nat.not_lt.mpr state.2.1,
+    source.name state.1 state.2.1, state.2.2.2.1, found, Nat.ne_of_gt live.1,
+    state.2.2.2.2.1.symm, state.2.2.2.2.2.symm]
+
+theorem resetSlots_global_iff {text : Source} {context : ParseContext}
+    {info : PackageBindings.Metadata} {writes : PackageBindings.StateSet} {bound slot : Nat}
+    (source : StateDeclarations text info.states)
+    (clear : GlobalRowsClear text info.states (scalarRows context)) :
+    slot ∈ ApplicationPackageCalls.resetSlots ApplicationPackageCalls.modelCalls text context info writes
+      ((List.range info.states.length).map (· + 1)) ↔
+    ∃ identity, (layout bound info context).integers slot = .global identity ∧
+      ScalarProcedures.Cell.integer identity ∈ info.effectCells writes := by
+  unfold ApplicationPackageCalls.resetSlots
+  constructor
+  · intro member
+    obtain ⟨index, present, found⟩ := List.mem_filterMap.mp member
+    obtain ⟨offset, active, rfl⟩ := List.mem_map.mp present
+    have bounded := List.mem_range.mp active
+    dsimp only at found
+    split at found
+    · rename_i chosen
+      cases found
+      have global := visible_integer_global source (by omega : 0 < offset + 1) chosen.2.1 chosen.2.2 (bound := bound)
+      refine ⟨offset + 1, global, ?_⟩
+      have written := (PackageBindings.Metadata.effectCells_index
+        (by omega : 0 < offset + 1) (by omega : offset + 1 ≤ info.states.length)).mpr chosen.1
+      simpa only [PackageBindings.StateDeclaration.cell, chosen.2.2] using written
+    · contradiction
+  · rintro ⟨identity, global, written⟩
+    have state := stateIndex_some (slotAddress_global global).2.2
+    have selected : PackageBindings.StateSet.get writes identity = true :=
+      (PackageBindings.Metadata.effectCells_index state.1 state.2.1).mp
+        (by simpa only [PackageBindings.StateDeclaration.cell, state.2.2.2.1] using written)
+    have visible := clear.integer_visible source global
+    have lookup := clear.integer_lookup source global
+    apply List.mem_filterMap.mpr
+    refine ⟨identity, ?_, ?_⟩
+    · exact List.mem_map.mpr ⟨identity - 1, List.mem_range.mpr (by omega), Nat.sub_add_cancel state.1⟩
+    · simp only [ApplicationPackageCalls.modelCalls, selected, visible, state.2.2.2.1,
+        and_self, ite_true, lookup]
+
+theorem resetSlots_declared {text : Source} {context : ParseContext}
+    {info : PackageBindings.Metadata} {writes : PackageBindings.StateSet} {bound slot : Nat}
+    (source : StateDeclarations text info.states)
+    (clear : GlobalRowsClear text info.states (scalarRows context))
+    (capacity : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (ready : ScalarExpression.BodyReady context.scalarNames)
+    (fields : ScalarStateFields info.states context.scalarNames)
+    (selected : slot ∈ ApplicationPackageCalls.resetSlots ApplicationPackageCalls.modelCalls text context info writes
+      ((List.range info.states.length).map (· + 1))) :
+    context.analysis.declared slot = some (ScalarExpression.binding context.scalarNames slot).declaredBounds := by
+  obtain ⟨identity, global, _⟩ := (resetSlots_global_iff source clear (bound := bound)).mp selected
+  have rows := fields.globalRows (bound := bound)
+  have declared := (scalar_global_analysis capacity ready rows global).1
+  rw [← (rows slot identity global).1] at declared
+  exact declared
+
+theorem resetSlotsFlow_source {text : Source} {context : ParseContext}
+    {info : PackageBindings.Metadata} {writes : PackageBindings.StateSet} (bound : Nat)
+    (source : StateDeclarations text info.states)
+    (clear : GlobalRowsClear text info.states (scalarRows context))
+    (capacity : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (ready : ScalarExpression.BodyReady context.scalarNames)
+    (fields : ScalarStateFields info.states context.scalarNames) (flow : Flow) :
+    ApplicationPackageCalls.resetSlotsFlow context.scalarNames
+      (ApplicationPackageCalls.resetSlots ApplicationPackageCalls.modelCalls text context info writes
+        ((List.range info.states.length).map (· + 1))) flow =
+      resetGlobalFlow context.analysis.declared (layout bound info context) (info.effectCells writes) flow :=
+  ApplicationPackageCalls.resetSlotsFlow_global
+    (fun _ => resetSlots_global_iff source clear)
+    (fun _ selected => resetSlots_declared source clear capacity ready fields selected (bound := bound)) flow
+
 end Silver.ApplicationPackageFrameLayout

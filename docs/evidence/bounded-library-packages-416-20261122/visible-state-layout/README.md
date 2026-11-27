@@ -30,3 +30,17 @@ Run `20261127T194059-6b59a5718f41` passed both focused targets and a fresh
 32,449-declaration axiom audit. The State_Target target was compiled in preceding
 run `20261127T194001-ce0271c23360`; the successful run reused that matching
 object and compiled GlobalShadowHistory after fixing its qualifier reduction.
+
+## Exact reset representation
+
+GlobalRowsClear.integer_lookup derives self lookup of retained original globals
+from the no-later-shadow relation. Reverse integer visibility follows.
+`resetSlots_global_iff` proves exact native reset membership for all positive
+state indices, and `resetSlots_declared` / `resetSlotsFlow_source` connect those
+slots and their original declaration ranges to the semantic global reset.
+These representation theorems take the explicit source history invariant; its
+construction through states/formals/locals/outputs remains the next increment.
+
+Run `20261127T194359-5c19c915ad71` compiled the changed focused target and passed a
+fresh 32,465-declaration axiom audit with the same two-worker/two-thread/8192-MiB
+allocation. Other dependency objects were reused.
