@@ -596,7 +596,7 @@ theorem ProcedureBodySource.ready {text frame first after arguments definition}
       · exact .inl (initialization.initialized_out signatureValid initialized)
       · exact .inr body
     exact (definition.ready_iff _).mpr ⟨localCheck, prefixChecked.2.1,
-      definition.outputCheck_of_layout semanticSignature.2.1, scalar, nonempty, Nat.le_refl _⟩
+      definition.outputCheck_of_layout semanticSignature, scalar, nonempty, Nat.le_refl _⟩
 
 theorem ProcedureDeclarationSource.ready {text state arguments definition}
     (source : ProcedureDeclarationSource text state arguments definition) (valid : ValidState text state) :
@@ -689,7 +689,7 @@ theorem ProcedureBodySource.checked {text frame first after arguments definition
       rfl
     have formed : definition.WellFormed := by
       refine ⟨semanticSignature, frames.initializersChecked.booleanDeclarations, prefixChecked.1,
-        definition.outputReads_readable (fun formal member => (semanticSignature.2.1 formal member).1), ?_⟩
+        definition.outputReads_readable (fun formal member => (semanticSignature formal member).1), ?_⟩
       simpa only [noArguments, shape, booleansAnalysis, definition, sourceProcedureDefinition] using
         lowerStatements_wellFormed meaning.1
     refine ⟨formed, context.flow final.facts, (definition.check_iff _ _ _).mpr ⟨sourceReady, ?_⟩⟩
