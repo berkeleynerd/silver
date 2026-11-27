@@ -18,7 +18,9 @@ structure ParsedPackage (reader : BooleanElaboration.Native.Reader) (completion 
   specification : SpecificationResult
   body : BodyResult
   specified : readSpecification reader (sources.prefix .packageSpecification) {units := sources.units} = specification
+  specificationAccepted : specification.exports.position ≠ 0
   parsed : readBody reader completion (sources.prefix .packageBody) specification.exports specification.info = body
+  bodyAccepted : body.accepted = true
   history : BodyHistory reader completion sources specification body
   complete : PackageBindings.completeMetadata ⟨1, sources.pool.take sources.used⟩ body.info = true
   main : calls.packageMain sources specification.exports body.info = result
@@ -37,7 +39,7 @@ theorem AcceptedTrace.package_history {reader : BooleanElaboration.Native.Reader
     (congrArg some bodyRead)
   obtain ⟨history⟩ := original_body_history reader completion sources ⟨representable, trace.layout⟩
     specificationRead specAccepted evaluated bodyAccepted
-  exact ⟨⟨specification, body, specificationRead, bodyRead, history, complete, main⟩⟩
+  exact ⟨⟨specification, body, specificationRead, specAccepted, bodyRead, bodyAccepted, history, complete, main⟩⟩
 
 theorem analyzed_package_history (reader : BooleanElaboration.Native.Reader) (completion : CompletionCalls)
     (calls : Calls) (sources : Bundle) (representable : sources.Representable)

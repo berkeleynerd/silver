@@ -17,6 +17,7 @@ structure ExportRows (original info : Metadata) (exports : ParserState) : Prop w
   capacity : exports.scalarNames.length ≤ ScalarExpression.maxBindings
   states : info.states = original.states
   units : info.units = original.units
+  completed : info.completed = original.completed
 
 private def StepRows (original : Metadata) : SpecificationStep → Prop
   | .returned result => result.exports.position = 0
@@ -43,6 +44,11 @@ private theorem continue_rows {original : Metadata} (calls : SpecificationCalls)
   · rename_i pass
     exact source (Nat.lt_of_not_ge (fun failed => pass (by simp [failed])))
 
+private theorem signature_completed (text : Source) (frame : ParserState) (info : Metadata) :
+    (readSignature text frame info false).info.completed = info.completed := by
+  have kept := congrArg Metadata.completed (readSignature_exec text frame info false).retains_fields
+  exact kept
+
 private theorem routine_rows (reader : BooleanElaboration.Native.Reader) (text : Source)
     {original : Metadata} (state : SpecificationState) (prior : ExportRows original state.info state.exports) :
     StepRows original (specificationRoutine (modelSpecificationCalls reader) text state) := by
@@ -52,7 +58,8 @@ private theorem routine_rows (reader : BooleanElaboration.Native.Reader) (text :
   · apply continue_rows
     intro advanced
     exact ⟨reframe prior.order rfl rfl (Nat.le_of_lt advanced), prior.capacity,
-      (readSignature_states ..).trans prior.states, (readSignature_units ..).trans prior.units⟩
+      (readSignature_states ..).trans prior.states, (readSignature_units ..).trans prior.units,
+      (signature_completed ..).trans prior.completed⟩
 
 private theorem subtype_fields {text : Source} {before after : ParserState} {arguments : Bool}
     (read : SubtypeDeclarationAt text arguments before after) :
@@ -73,7 +80,8 @@ private theorem subtype_rows (reader : BooleanElaboration.Native.Reader) (text :
       apply continue_rows
       intro advanced
       have kept := subtype_fields (subtype_declaration_sound text state.exports false present)
-      exact ⟨reframe prior.order kept.1 kept.2 (Nat.le_of_lt advanced), kept.1 ▸ prior.capacity, prior.states, prior.units⟩
+      exact ⟨reframe prior.order kept.1 kept.2 (Nat.le_of_lt advanced), kept.1 ▸ prior.capacity,
+        prior.states, prior.units, prior.completed⟩
 
 private theorem object_rows (reader : BooleanElaboration.Native.Reader) (text : Source)
     {original : Metadata} (state : SpecificationState) (prior : ExportRows original state.info state.exports) :
@@ -91,7 +99,7 @@ private theorem object_rows (reader : BooleanElaboration.Native.Reader) (text : 
     apply continue_rows
     intro _
     exact ⟨objectStep_frameOrder rfl present prior.order, objectStep_capacity rfl present prior.capacity,
-      prior.states, prior.units⟩
+      prior.states, prior.units, prior.completed⟩
 
 private theorem step_rows (reader : BooleanElaboration.Native.Reader) (text : Source) (state : SpecificationState)
     {original : Metadata} (prior : ExportRows original state.info state.exports) :
@@ -141,7 +149,7 @@ private theorem start_rows (calls : SpecificationCalls) (text : Source) (info : 
   · split
     · assumption
     · have empty (position : Nat) : BeforeCursor position [] := ⟨.nil, by simp⟩
-      exact ⟨⟨empty _, empty _⟩, Nat.zero_le _, rfl, rfl⟩
+      exact ⟨⟨empty _, empty _⟩, Nat.zero_le _, rfl, rfl, rfl⟩
 
 private theorem footer_position {text : Source} {position : Nat}
     (present : fixedAfter text (nameAfter text (skipAt text (fixedAfter text position "end" true))) ";" false ≠ 0) :
@@ -165,7 +173,8 @@ private theorem finish_rows (reader : BooleanElaboration.Native.Reader) (text : 
   · exact fun present => False.elim (present rfl)
   · intro present
     have done := footer_position present
-    exact ⟨⟨reframe prior.order rfl rfl (Nat.le_of_lt done.1), prior.capacity, prior.states, prior.units⟩, done.2⟩
+    exact ⟨⟨reframe prior.order rfl rfl (Nat.le_of_lt done.1), prior.capacity,
+      prior.states, prior.units, prior.completed⟩, done.2⟩
 
 theorem specification_rows (reader : BooleanElaboration.Native.Reader) (text : Source) (info : Metadata)
     (accepted : (readSpecification reader text info).exports.position ≠ 0) :

@@ -66,6 +66,15 @@ theorem unitExecution_routines {calls : UnitCalls} {text : Source} {state : Unit
 def bodyReaders (reader : BooleanElaboration.Native.Reader) (calls : CompletionCalls) : UnitCalls :=
   unitReaders reader (readCompletion reader calls)
 
+theorem RoutineRead.frames {reader : BooleanElaboration.Native.Reader} {calls : CompletionCalls} {text : Source}
+    {row : RoutineRead}
+    (read : (bodyReaders reader calls).completionAt text row.before.globals row.before.info = row.result)
+    (present : row.result.globals.position ≠ 0) :
+    Nonempty (CompletionFrames (declarationReaders reader calls) text row.before.globals row.before.info row.result) := by
+  have actual : readCompletion reader calls text row.before.globals row.before.info = row.result := read
+  exact packageCompletionFuel_frames ((readCompletion_eq reader calls text row.before.globals row.before.info).trans
+    (congrArg some actual)) present
+
 def RoutineRead.SourceLayout (reader : BooleanElaboration.Native.Reader) (calls : CompletionCalls)
     (text : Source) (row : RoutineRead) : Prop :=
   ∃ frames : CompletionFrames (declarationReaders reader calls) text row.before.globals row.before.info row.result,
@@ -91,10 +100,8 @@ private theorem routine_layout {reader : BooleanElaboration.Native.Reader} {call
     row.SourceLayout reader calls text ∧ row.result.info.states = row.before.info.states ∧
       StateFrame row.after.info.states row.after.globals ∧
       row.after.globals.scalarNames.length ≤ ScalarExpression.maxBindings := by
-  have actual : readCompletion reader calls text row.before.globals row.before.info = row.result := read
-  have evaluated := (readCompletion_eq reader calls text row.before.globals row.before.info).trans (congrArg some actual)
   have present : row.result.globals.position ≠ 0 := Nat.ne_of_gt (Nat.lt_of_le_of_lt (Nat.zero_le _) advanced)
-  obtain ⟨frames⟩ := packageCompletionFuel_frames evaluated present
+  obtain ⟨frames⟩ := RoutineRead.frames read present
   have signed : readSignature text row.before.globals row.before.info true = frames.signature := frames.signed
   have states : frames.signature.info.states = row.before.info.states := signed ▸ readSignature_states ..
   obtain ⟨kept, progress, same⟩ := completionBody_globals frames.executed present
