@@ -140,11 +140,14 @@ def Place.root : Place Fn ty → String
 
 def Declaration.validType : Ty → List String → Bool
   | .number, spelling => decide (spelling ∈ [["literal_position"], ["subtype_count"],
-      ["boolean_count"], ["scalar_expressions", ".", "binding_count"],
+      ["boolean_count"], ["scalar_expressions", ".", "binding_count"], ["array_bindings", ".", "binding_count"],
       ["packages", ".", "export_count_type"], ["packages", ".", "routine_count_type"],
       ["packages", ".", "formal_count_type"], ["packages", ".", "state_id"],
       ["packages", ".", "state_count_type"], ["packages", ".", "type_id"]])
   | .truth, spelling => spelling == ["boolean"]
+  | .conditionResult, spelling => spelling == ["condition_result"]
+  | .activeFlow, spelling => spelling == ["scalar_flow"]
+  | .interval, spelling => spelling == ["scalars", ".", "interval"]
   | .mode, spelling => spelling == ["procedures", ".", "parameter_mode"]
   | .state, spelling => spelling == ["parser_state"]
   | .functionType, spelling => spelling == ["function_type_result"]
@@ -181,11 +184,11 @@ def Declaration.implicitSupported : Ty → Bool
   | .number | .truth | .mode | .state | .functionType | .packageType | .objectResult
   | .routine | .formal | .exportItem | .stateDeclaration | .nameSpan | .reference
   | .functionFormal | .procedureFormal | .subtypeBinding | .scalarBinding | .booleanBinding
-  | .appScan | .appCall | .scalarConstraint | .scalarResult | .staticBooleanResult | .stateSet => true
+  | .conditionResult | .activeFlow | .interval | .appScan | .appCall | .scalarConstraint | .scalarResult | .staticBooleanResult | .stateSet => true
   | _ => false
 
 def Declaration.needsConstraint : Ty → Bool
-  | .appScan | .appCall => true
+  | .conditionResult | .activeFlow | .appScan | .appCall => true
   | _ => false
 
 /-- The local storage of an implicitly initialized discriminated object has the
@@ -195,6 +198,10 @@ def Declaration.Allocated (calls : Calls Fn) (locals : Locals) (declaration : De
   match declaration.initial, declaration.constraint with
   | none, some count => ∀ name ∈ declaration.names,
       match declaration.type with
+      | .conditionResult =>
+        (locals .conditionResult name).whenTrue.count = count.eval calls locals ∧
+        (locals .conditionResult name).whenFalse.count = count.eval calls locals
+      | .activeFlow => (locals .activeFlow name).count = count.eval calls locals
       | .appScan => (locals .appScan name).count = count.eval calls locals
       | .appCall => (locals .appCall name).count = count.eval calls locals
       | _ => True

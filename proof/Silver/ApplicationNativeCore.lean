@@ -32,6 +32,7 @@ inductive Ty
   | contextClauses | scanResult | bodyStop | path
   | reference | routineKind | functionFormal | procedureFormal | packageActuals | packageSeen | objectResult
   | scalarConstraint | scalarResult | staticBooleanResult
+  | conditionResult | arrayTable | arrayBinding
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -65,6 +66,8 @@ inductive Ty
   | .packageActuals => List ApplicationPackages.PackageActual | .packageSeen => List Bool
   | .objectResult => ApplicationPackageDeclarations.ObjectResult
   | .scalarConstraint => Compose.ScalarConstraintResult
+  | .conditionResult => Predicate.ConditionResult
+  | .arrayTable => ArrayBindings.Table | .arrayBinding => ArrayBindings.Binding
   | .scalarResult => ScalarExpression.Result
   | .staticBooleanResult => BooleanElaboration.Native.Result
   | .arrow a b => a.meaning → b.meaning
@@ -96,11 +99,21 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .packageSeen => List.replicate PackageBindings.maxFormals false
   | .objectResult => ApplicationPackageDeclarations.invalidObject
   | .scalarConstraint => ⟨0, .empty⟩
+  | .conditionResult => ⟨0, ⟨PathFacts.Context.empty, []⟩, ⟨PathFacts.Context.empty, []⟩⟩
+  | .arrayTable => {} | .arrayBinding => ArrayBindings.emptyBinding
   | .scalarResult => ⟨0, .empty, 0, false⟩
   | .staticBooleanResult => ⟨0, false⟩
   | .arrow _ b => fun _ => b.default
 
 inductive Field : Ty → Ty → Type
+  | exportInitializerFirst : Field .exportItem .number
+  | exportInitializerAfter : Field .exportItem .number
+  | routineSpecFirst : Field .routine .number
+  | routineSpecAfter : Field .routine .number
+  | routineBodyFirst : Field .routine .number
+  | routineResultTypeIdentity : Field .routine .number
+  | routineSpecResultName : Field .routine .nameSpan
+  | routineBodyResultName : Field .routine .nameSpan
   | constraintAfter : Field .scalarConstraint .number
   | constraintBounds : Field .scalarConstraint .interval
   | scalarValueAfter : Field .scalarResult .number
@@ -293,6 +306,14 @@ inductive Field : Ty → Ty → Type
   | procedureParameterCount : Field .procedures .number
 
 def Field.name : Field a b → String
+  | .exportInitializerFirst => "initializer_first"
+  | .exportInitializerAfter => "initializer_after"
+  | .routineSpecFirst => "spec_first"
+  | .routineSpecAfter => "spec_after"
+  | .routineBodyFirst => "body_first"
+  | .routineResultTypeIdentity => "result_type_identity"
+  | .routineSpecResultName => "spec_result_name"
+  | .routineBodyResultName => "body_result_name"
   | .constraintAfter => "after"
   | .constraintBounds => "bounds"
   | .scalarValueAfter => "after"
@@ -485,6 +506,14 @@ def Field.name : Field a b → String
   | .procedureParameterCount => "parameter_count"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .exportInitializerFirst, value => value.initializerFirst
+  | .exportInitializerAfter, value => value.initializerAfter
+  | .routineSpecFirst, value => value.specFirst
+  | .routineSpecAfter, value => value.specAfter
+  | .routineBodyFirst, value => value.bodyFirst
+  | .routineResultTypeIdentity, value => value.resultTypeIdentity
+  | .routineSpecResultName, value => value.specResultName
+  | .routineBodyResultName, value => value.bodyResultName
   | .constraintAfter, value => value.after
   | .constraintBounds, value => value.bounds
   | .scalarValueAfter, value => value.after
@@ -680,6 +709,14 @@ def Field.get : Field a b → a.meaning → b.meaning
 not exceed the current active count; increasing native storage needs a richer
 representation and is deliberately not justified by this projection. -/
 def Field.set : Field a b → a.meaning → b.meaning → a.meaning
+  | .exportInitializerFirst, value, item => {value with initializerFirst := item}
+  | .exportInitializerAfter, value, item => {value with initializerAfter := item}
+  | .routineSpecFirst, value, item => {value with specFirst := item}
+  | .routineSpecAfter, value, item => {value with specAfter := item}
+  | .routineBodyFirst, value, item => {value with bodyFirst := item}
+  | .routineResultTypeIdentity, value, item => {value with resultTypeIdentity := item}
+  | .routineSpecResultName, value, item => {value with specResultName := item}
+  | .routineBodyResultName, value, item => {value with bodyResultName := item}
   | .constraintAfter, value, item => {value with after := item}
   | .constraintBounds, value, item => {value with bounds := item}
   | .scalarValueAfter, value, item => {value with after := item}
@@ -871,17 +908,38 @@ def Field.set : Field a b → a.meaning → b.meaning → a.meaning
   | .functionParameterCount, value, count => {value with parameters := value.parameters.take count}
   | .procedureParameterCount, value, count => {value with parameters := value.parameters.take count}
 
-/-- Native discriminants are readable properties, never writable record fields. -/
+/-- Read-only native discriminants and selectors in the supported expressions. -/
 inductive Property : Ty → Ty → Type
+  | conditionAfter : Property .conditionResult .number
+  | conditionTrue : Property .conditionResult .activeFlow
+  | conditionFalse : Property .conditionResult .activeFlow
+  | contextArrays : Property .parseContext .arrayTable
+  | arrayMutable : Property .arrayBinding .truth
+  | arrayBoolean : Property .arrayBinding .truth
+  | arrayComponentBounds : Property .arrayBinding .interval
   | flowCount : Property .activeFlow .number
   | scanCount : Property .bodyScan .number
   | appScanCount : Property .appScan .number
   | appCallCount : Property .appCall .number
 
 def Property.name : Property a b → String
+  | .conditionAfter => "after"
+  | .conditionTrue => "when_true"
+  | .conditionFalse => "when_false"
+  | .contextArrays => "array_names"
+  | .arrayMutable => "mutable"
+  | .arrayBoolean => "boolean_elements"
+  | .arrayComponentBounds => "component_bounds"
   | .flowCount | .scanCount | .appScanCount | .appCallCount => "count"
 
 def Property.get : Property a b → a.meaning → b.meaning
+  | .conditionAfter, value => value.after
+  | .conditionTrue, value => value.whenTrue
+  | .conditionFalse, value => value.whenFalse
+  | .contextArrays, value => value.arrayTable
+  | .arrayMutable, value => value.mutable
+  | .arrayBoolean, value => value.isBoolean
+  | .arrayComponentBounds, value => value.componentBounds
   | .flowCount, value => value.count
   | .scanCount, value => value.count
   | .appScanCount, value => value.count
@@ -902,10 +960,11 @@ inductive Index : Ty → Ty → Ty → Type
   | actual : Index .packageActuals .number .packageActual
   | seen : Index .packageSeen .number .truth
   | stateBit : Index .stateSet .number .truth
+  | arrayItem : Index .arrayTable .number .arrayBinding
   | flowValue : Index .activeFlow .number .interval
 
 def Index.name : Index a i b → String
-  | .scalar | .boolean | .subtype | .binding => "items"
+  | .scalar | .boolean | .subtype | .binding | .arrayItem => "items"
   | .export => "exports" | .state => "states" | .routine => "routines"
   | .formal => "parameters" | .unit | .bundleUnit => "units"
   | .actual | .seen | .stateBit => ""
@@ -930,6 +989,7 @@ def Index.get : Index a i b → a.meaning → i.meaning → b.meaning
   | .actual, value, index => value.getD (index - 1) {}
   | .seen, value, index => value.getD (index - 1) false
   | .stateBit, value, index => value.getD (index - 1) false
+  | .arrayItem, value, index => ArrayBindings.binding value.items index
   | .flowValue, value, index => value.values.getD (index - 1) .empty
 
 def Index.set : Index a i b → a.meaning → i.meaning → b.meaning → a.meaning
@@ -946,6 +1006,7 @@ def Index.set : Index a i b → a.meaning → i.meaning → b.meaning → a.mean
   | .actual, value, index, item => value.set (index - 1) item
   | .seen, value, index, item => value.set (index - 1) item
   | .stateBit, value, index, item => value.set (index - 1) item
+  | .arrayItem, value, index, item => {value with items := value.items.set (index - 1) item}
   | .flowValue, value, index, item => {value with values := value.values.set (index - 1) item}
 
 abbrev Locals := (ty : Ty) → String → ty.meaning
@@ -958,6 +1019,28 @@ def Locals.set (locals : Locals) (ty : Ty) (name : String) (value : ty.meaning) 
 abbrev Calls (Fn : Ty → Type) := (ty : Ty) → Fn ty → ty.meaning
 abbrev FunctionNames (Fn : Ty → Type) := {ty : Ty} → Fn ty → List String
 abbrev FunctionParameters (Fn : Ty → Type) := {ty : Ty} → Fn ty → List String
+
+/-- The named package record aggregates in declaration readers have complete
+native component defaults. Field lists also check coverage for aggregates
+without an others association. -/
+inductive PackageRecord : Ty → Type
+  | routine : PackageRecord .routine
+  | formal : PackageRecord .formal
+  | exportItem : PackageRecord .exportItem
+
+def PackageRecord.fields : PackageRecord ty → List String
+  | .routine => ["kind", "spec_name", "body_name", "spec_first", "spec_after", "body_first",
+      "body_after", "formal_first", "count", "result_kind", "result_bounds", "result_type_identity",
+      "spec_result_name", "body_result_name", "may_read", "may_write", "assigned"]
+  | .formal => ["spec_name", "body_name", "spec_type_name", "body_type_name", "kind", "bounds",
+      "type_identity", "mode"]
+  | .exportItem => ["name", "kind", "bounds", "type_name", "type_identity",
+      "initializer_first", "initializer_after", "boolean_value"]
+
+def PackageRecord.defaults : PackageRecord ty → ty.meaning
+  | .routine => ({} : PackageBindings.Routine)
+  | .formal => ({} : PackageBindings.Formal)
+  | .exportItem => ({} : PackageBindings.ExportDeclaration)
 
 mutual
 inductive Expr (Fn : Ty → Type) : Ty → Type
@@ -1017,6 +1100,9 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | unitMapNe : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
   | nameEq : Expr Fn .nameSpan → Expr Fn .nameSpan → Expr Fn .truth
   | kindEq : Expr Fn .scalarKind → Expr Fn .scalarKind → Expr Fn .truth
+  | truthNe : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
+  | kindNe : Expr Fn .scalarKind → Expr Fn .scalarKind → Expr Fn .truth
+  | intervalNe : Expr Fn .interval → Expr Fn .interval → Expr Fn .truth
   | routineEq : Expr Fn .routineKind → Expr Fn .routineKind → Expr Fn .truth
   | exportEq : Expr Fn .exportKind → Expr Fn .exportKind → Expr Fn .truth
   | modeNe : Expr Fn .mode → Expr Fn .mode → Expr Fn .truth
@@ -1033,6 +1119,10 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | analysisValue : Expr Fn .truth → Expr Fn .metadata → Expr Fn .functions → Expr Fn .procedures →
       Expr Fn .truth → Expr Fn .truth → Expr Fn .truth → Expr Fn .analysis
   | elsif : Expr Fn .truth → Expr Fn ty → Expr Fn ty → Expr Fn ty
+  /-- ParseContext retains exactly whether the native Dynamic_First is nonzero. -/
+  | contextHasDynamic : Expr Fn .parseContext → Expr Fn .truth
+  | flowValuesFirst : Expr Fn .activeFlow → Expr Fn .number
+  | intervalValue : Expr Fn .integer → Expr Fn .integer → Expr Fn .interval
   | sourceLast : Expr Fn .source → Expr Fn .number
   | sourceLength : Expr Fn .source → Expr Fn .number
   | sourcePrefix : Expr Fn .source → Expr Fn .number → Expr Fn .source
@@ -1056,6 +1146,8 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | forAllFlowValues (name : String) : Expr Fn .activeFlow → Expr Fn .truth → Expr Fn .truth
   /-- Package_Actual_Array uses its declared fixed range, never an active prefix. -/
   | forAllActuals (name : String) : Expr Fn .packageActuals → Expr Fn .truth → Expr Fn .truth
+  | recordDefault : PackageRecord ty → Expr Fn ty
+  | recordValue : PackageRecord ty → Bool → Updates Fn ty → Expr Fn ty
   | update : Expr Fn ty → Updates Fn ty → Expr Fn ty
 inductive Updates (Fn : Ty → Type) : Ty → Type
   | one : Field owner ty → Expr Fn ty → Updates Fn owner
@@ -1140,6 +1232,7 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .sub left right => left.render names ++ ["-"] ++ right.render names
   | .intervalEq left right | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
       left.render names ++ ["="] ++ right.render names
+  | .truthNe left right | .kindNe left right | .intervalNe left right
   | .ne left right | .modeNe left right | .unitMapNe left right | .stateSetNe left right | .intNe left right => left.render names ++ ["/="] ++ right.render names
   | .inRange value first last => value.render names ++ ["in"] ++ first.render names ++ [".."] ++ last.render names
   | .lt left right => left.render names ++ ["<"] ++ right.render names
@@ -1164,6 +1257,9 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
       [",", "uses_output", "=>"] ++ output.render names ++ [")"]
   | .elsif condition yes no => ["elsif"] ++ condition.render names ++ ["then"] ++ yes.render names ++
       (match no with | .elsif _ _ _ => no.render names | _ => ["else"] ++ no.render names)
+  | .contextHasDynamic context => context.render names ++ [".", "dynamic_first", "/=", "0"]
+  | .flowValuesFirst facts => facts.render names ++ [".", "values", "'", "first"]
+  | .intervalValue lower upper => ["("] ++ lower.render names ++ [","] ++ upper.render names ++ [")"]
   | .sourceLast text => text.render names ++ ["'", "last"]
   | .sourceLength text => text.render names ++ ["'", "length"]
   | .sourcePrefix text last => text.render names ++ ["(", "1", ".."] ++ last.render names ++ [")"]
@@ -1188,6 +1284,9 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
       [".", "values", "'", "range", "=>"] ++ body.render names
   | .forAllActuals name actuals body => ["for", "all", name, "in"] ++ actuals.render names ++
       ["'", "range", "=>"] ++ body.render names
+  | .recordDefault _ => ["(", "others", "=>", "<", ">", ")"]
+  | .recordValue _ others changes => ["("] ++ changes.render names ++
+      (if others then [",", "others", "=>", "<", ">"] else []) ++ [")"]
   | .update value changes => ["("] ++ value.render names ++ ["with", "delta"] ++ changes.render names ++ [")"]
 def Updates.render (names : FunctionNames Fn) : Updates Fn owner → List String
   | .one field value => [field.name, "=>"] ++ value.render names
@@ -1251,6 +1350,9 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .unitMapNe left right => !(ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals))
   | .nameEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .kindEq left right => decide (left.eval calls locals = right.eval calls locals)
+  | .truthNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
+  | .kindNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
+  | .intervalNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .routineEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .exportEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .modeNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
@@ -1268,6 +1370,9 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
       ⟨accepted.eval calls locals, info.eval calls locals, functions.eval calls locals,
         procedures.eval calls locals, arguments.eval calls locals, assigned.eval calls locals,
         output.eval calls locals⟩
+  | .contextHasDynamic context => (context.eval calls locals).hasArguments
+  | .flowValuesFirst _ => 1
+  | .intervalValue lower upper => ⟨lower.eval calls locals, upper.eval calls locals⟩
   | .sourceLast text | .sourceLength text => (text.eval calls locals).length
   | .sourcePrefix text last => (text.eval calls locals).take (last.eval calls locals)
   | .maxConcatenations => Compose.maxConcatenations
@@ -1289,6 +1394,8 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
       body.eval calls (locals.set .number name (offset + 1))
   | .forAllActuals name _ body => (List.range PackageBindings.maxFormals).all fun offset =>
       body.eval calls (locals.set .number name (offset + 1))
+  | .recordDefault record => record.defaults
+  | .recordValue record _ changes => changes.eval calls locals record.defaults
   | .update value changes => changes.eval calls locals (value.eval calls locals)
 def Updates.eval (calls : Calls Fn) (locals : Locals) : Updates Fn owner → owner.meaning → owner.meaning
   | .one field value, base => field.set base (value.eval calls locals)
