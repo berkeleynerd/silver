@@ -60,3 +60,20 @@ native preconditions belongs to the next source interpretation work.
 All three used Lean 4.34.1, two Lake workers, two threads per process, and an
 8192 MiB per-process limit. Each compressed log and evidence record lists its
 actual targets and run inputs.
+
+## Names callees used by the declaration readers
+
+`ApplicationPackageNames.Native.imported_readers` interprets the six typed
+readers for package words, the SPARK pragma, allowed names, fresh names,
+outer declarations and types. It uses the shared primitive imports and the
+linked function header, metadata and visibility libraries. The type reader
+derives the full header input from the parser frame's machine types and
+executable `Valid_State`. The inherited state-record projection now reads
+the scalar, Boolean and context bounds from the expanded native clauses.
+
+Linux x86-64 focus `20261127T142147-dc3bf2531e69` built
+`Silver.ApplicationPackageNameReaders` in 18.458 seconds and freshly audited
+44,552 declarations in 3.379 seconds. It used two workers, two threads and
+an 8192 MiB per-process limit. The `name-readers-` log and evidence record
+identify the imported modules and inputs. Per-call obligations in Signature,
+Specification and Object still require their native cursor and frame domains.
