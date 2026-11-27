@@ -1,0 +1,1715 @@
+{
+  "host": "linux-x86_64",
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb",
+  "runs": [
+    {
+      "run_id": "20261127T184420-03d2cd0a47f2",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184420-03d2cd0a47f2",
+      "fingerprint": "b7b6a807b10d69a54368e8836df9becae1d821089e222e9d0eced1fff580e622",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:44:22.259330+00:00",
+      "finished_at": "2026-11-27T18:44:44.772171+00:00",
+      "duration_seconds": 22.512691743,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainNative.lean:130:51:Type mismatch"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184420-03d2cd0a47f2/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184420-03d2cd0a47f2/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "effective_cpu_affinity": [
+        0,
+        1
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T184518-2d3ba332243b",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184518-2d3ba332243b",
+      "fingerprint": "58e307491535442f3fea6af3fcc53273b92c94554f3301f41146e6fd31ce4ed4",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:45:20.298812+00:00",
+      "finished_at": "2026-11-27T18:45:32.713327+00:00",
+      "duration_seconds": 12.414543191,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainNative.lean:132:2:Tactic `rfl` failed: The left-hand side"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184518-2d3ba332243b/previous-evidence/lean-focused.log"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "effective_cpu_affinity": [
+        0,
+        1
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T184707-fc291b937fb4",
+      "task": "packages-416-main-static-declaration",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainNative"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184707-fc291b937fb4",
+      "fingerprint": "eb963145d618266f289f21a45a741564f2e3d2646bf2ba878674efea9711098d",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-declaration",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker focused declaration proof share alongside native helpers",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainNative"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:47:09.488365+00:00",
+      "finished_at": "2026-11-27T18:47:28.070055+00:00",
+      "duration_seconds": 18.58151248,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184707-fc291b937fb4/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184707-fc291b937fb4/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184707-fc291b937fb4/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker focused declaration proof share alongside native helpers",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "effective_cpu_affinity": [
+        0,
+        1
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker focused declaration proof share alongside native helpers"
+    },
+    {
+      "run_id": "20261127T184755-e74b4da82e20",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184755-e74b4da82e20",
+      "fingerprint": "c6bffd74bf3e786d40a2b2d6c1dc08bc484be786ffaececb05105a010a954507",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:47:57.841774+00:00",
+      "finished_at": "2026-11-27T18:48:09.296824+00:00",
+      "duration_seconds": 11.455051176,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainExpressions.lean:102:41:Tactic `decide` failed for proposition",
+        "lean:build:Silver/ApplicationPackageMainExpressions.lean:48:2:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.ApplicationPackageMain.Native.Declaration.mk` has 5 explicit field, but only 4 were provided",
+        "lean:build:Silver/ApplicationPackageMainExpressions.lean:49:2:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.ApplicationPackageMain.Native.Declaration.mk` has 5 explicit field, but only 4 were provided",
+        "lean:build:Silver/ApplicationPackageMainExpressions.lean:55:2:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.ApplicationPackageMain.Native.Declaration.mk` has 5 explicit field, but only 4 were provided",
+        "lean:build:Silver/ApplicationPackageMainExpressions.lean:56:2:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.ApplicationPackageMain.Native.Declaration.mk` has 5 explicit field, but only 4 were provided",
+        "lean:build:Silver/ApplicationPackageMainExpressions.lean:59:2:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.ApplicationPackageMain.Native.Declaration.mk` has 5 explicit field, but only 4 were provided",
+        "lean:build:Silver/ApplicationPackageMainExpressions.lean:60:2:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.ApplicationPackageMain.Native.Declaration.mk` has 5 explicit field, but only 4 were provided"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184755-e74b4da82e20/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184755-e74b4da82e20/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "effective_cpu_affinity": [
+        0,
+        1
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T184852-b5c2bd7c6e7e",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184852-b5c2bd7c6e7e",
+      "fingerprint": "8969d5f8c6893ce734076e79e5837a9b0a26e01fbeaaf14dd46e6f85a4e01b46",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:48:55.001695+00:00",
+      "finished_at": "2026-11-27T18:49:28.281586+00:00",
+      "duration_seconds": 33.27980766,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:59:4:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:62:6:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:67:10:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:70:12:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:73:14:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:77:16:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:80:18:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:82:18:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:84:2:Tactic `simp` failed with a nested error:"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184852-b5c2bd7c6e7e/previous-evidence/lean-focused.log"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        4,
+        5
+      ],
+      "effective_cpu_affinity": [
+        4,
+        5
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T185045-b88d3b548c69",
+      "task": "packages-416-main-static-declaration",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainNative"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185045-b88d3b548c69",
+      "fingerprint": "2c21ff72b9ded2e239b55b43a1e54f452297a83c80c88e781e979bf31ee5bcf7",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-declaration",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker focused declaration proof share alongside native helpers",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainNative"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:50:47.796420+00:00",
+      "finished_at": "2026-11-27T18:51:06.716262+00:00",
+      "duration_seconds": 18.919128502,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185045-b88d3b548c69/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185045-b88d3b548c69/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185045-b88d3b548c69/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker focused declaration proof share alongside native helpers",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        4,
+        5
+      ],
+      "effective_cpu_affinity": [
+        4,
+        5
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker focused declaration proof share alongside native helpers"
+    },
+    {
+      "run_id": "20261127T185142-38b62deed75b",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185142-38b62deed75b",
+      "fingerprint": "536a170b8bf6ee918b35d88ca21bdc07cb74b9d44d1f62d32487743586d29380",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:51:44.695969+00:00",
+      "finished_at": "2026-11-27T18:52:19.464669+00:00",
+      "duration_seconds": 34.768500128,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:60:4:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:63:6:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:68:10:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:71:12:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:74:14:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:78:16:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:81:18:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:83:18:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:85:2:Tactic `simp` failed with a nested error:"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185142-38b62deed75b/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185142-38b62deed75b/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        4,
+        5
+      ],
+      "effective_cpu_affinity": [
+        4,
+        5
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T185433-5da51d188c94",
+      "task": "packages-416-main-static-erasure",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainNative"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185433-5da51d188c94",
+      "fingerprint": "b75929a3dd4a3e9249bdd279cf379312f9fe4f30dd428339f09497fa857db893",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-erasure",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker focused annotation-erasure share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainNative"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:54:35.909733+00:00",
+      "finished_at": "2026-11-27T18:54:54.818609+00:00",
+      "duration_seconds": 18.908688014,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185433-5da51d188c94/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185433-5da51d188c94/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185433-5da51d188c94/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [],
+      "resource_reason": "Two-worker focused annotation-erasure share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        6,
+        7
+      ],
+      "effective_cpu_affinity": [
+        6,
+        7
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker focused annotation-erasure share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T185636-d6302f405e44",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185636-d6302f405e44",
+      "fingerprint": "221b947775a5c65984ad5c3349773de6fe1cf7396702a996ddcf3e978576abc7",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:56:39.175348+00:00",
+      "finished_at": "2026-11-27T18:57:11.963661+00:00",
+      "duration_seconds": 32.788364,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:63:4:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:66:6:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:71:10:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:74:12:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:77:14:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:81:16:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:84:18:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:86:18:Tactic `simp` failed with a nested error:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:88:2:Tactic `simp` failed with a nested error:"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185636-d6302f405e44/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185636-d6302f405e44/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        4,
+        5
+      ],
+      "effective_cpu_affinity": [
+        4,
+        5
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T185928-e40ee9893b61",
+      "task": "packages-416-main-normalization",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185928-e40ee9893b61",
+      "fingerprint": "3f5ac6063a70d20eaa12c276987cad1658b2ed512ef9fab7b728a3a7bdba5e44",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-normalization",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker isolated Main normalization share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T18:59:30.618939+00:00",
+      "finished_at": "2026-11-27T18:59:55.316454+00:00",
+      "duration_seconds": 24.6976017,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:61:105:Tactic `simp` failed with a nested error:"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185928-e40ee9893b61/previous-evidence/lean-focused.log"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker isolated Main normalization share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        2,
+        3
+      ],
+      "effective_cpu_affinity": [
+        2,
+        3
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker isolated Main normalization share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T190049-7ab124401d35",
+      "task": "packages-416-main-normalization",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190049-7ab124401d35",
+      "fingerprint": "1ec9f3b61ef98a25b5e481e23401325b2977ae38362f2a0ff3f87019e8b839e9",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-normalization",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker isolated Main normalization share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T19:00:51.142036+00:00",
+      "finished_at": "2026-11-27T19:01:09.585513+00:00",
+      "duration_seconds": 18.443421688,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190049-7ab124401d35/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190049-7ab124401d35/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190049-7ab124401d35/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker isolated Main normalization share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        2,
+        3
+      ],
+      "effective_cpu_affinity": [
+        2,
+        3
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker isolated Main normalization share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T190216-4b671d69c19d",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190216-4b671d69c19d",
+      "fingerprint": "70b8579e9fe8211bab1705bae780069417bd5144bc0faf78e23cbe84f8ba0145",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T19:02:18.613010+00:00",
+      "finished_at": "2026-11-27T19:04:19.014434+00:00",
+      "duration_seconds": 120.40118602,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:69:0:(deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:83:2:(deterministic) timeout at `\u00abtactic execution\u00bb`, maximum number of heartbeats (2000000) has been reached",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:85:6:Tactic `simp` failed with a nested error:"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190216-4b671d69c19d/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190216-4b671d69c19d/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        2,
+        3
+      ],
+      "effective_cpu_affinity": [
+        2,
+        3
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T190535-84e30adc5b83",
+      "task": "packages-416-main-normalization",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190535-84e30adc5b83",
+      "fingerprint": "119ea3bd41890402e7ab6f0f693f6bb781cace05055b50b54002db1008ec76e6",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-normalization",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker isolated Main normalization share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T19:05:37.092930+00:00",
+      "finished_at": "2026-11-27T19:06:06.446198+00:00",
+      "duration_seconds": 29.35324387,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190535-84e30adc5b83/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190535-84e30adc5b83/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190535-84e30adc5b83/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker isolated Main normalization share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "effective_cpu_affinity": [
+        0,
+        1
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker isolated Main normalization share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T190739-a6922ffd3064",
+      "task": "packages-416-main-command-stages",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190739-a6922ffd3064",
+      "fingerprint": "19e98ec139d9f038ae1dd44f71b8e82b9ead7e5c084d503e86d43c81b2c59937",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-command-stages",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main command-stage proof share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T19:07:41.710193+00:00",
+      "finished_at": "2026-11-27T19:07:59.384723+00:00",
+      "duration_seconds": 17.674441756,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:106:92:unsolved goals",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:111:15:This simp argument is unused:",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:67:80:unexpected identifier; expected '}'",
+        "lean:build:Silver/ApplicationPackageMainEquations.lean:77:2:Tactic `rfl` failed: The left-hand side"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190739-a6922ffd3064/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190739-a6922ffd3064/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main command-stage proof share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        2,
+        3
+      ],
+      "effective_cpu_affinity": [
+        2,
+        3
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main command-stage proof share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T190827-4014c51250d3",
+      "task": "packages-416-main-command-stages",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190827-4014c51250d3",
+      "fingerprint": "3603d00946044ba737daaaac3f0cc48e48f5b2bba7470fbd4fe929b5857e1070",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-command-stages",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main command-stage proof share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T19:08:30.074345+00:00",
+      "finished_at": "2026-11-27T19:08:48.158728+00:00",
+      "duration_seconds": 18.084303282,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190827-4014c51250d3/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190827-4014c51250d3/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190827-4014c51250d3/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main command-stage proof share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        2,
+        3
+      ],
+      "effective_cpu_affinity": [
+        2,
+        3
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main command-stage proof share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T190925-cb4121011798",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190925-cb4121011798",
+      "fingerprint": "eb4d62362763dfc390f38843edc0d2487c15062a734d82432fe6da29cca1f740",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T19:09:28.168963+00:00",
+      "finished_at": "2026-11-27T19:10:01.076636+00:00",
+      "duration_seconds": 32.907717422,
+      "returncode": 1,
+      "error": null,
+      "failure_keys": [
+        "lean:build:Silver/ApplicationPackageMainSourceCandidate.lean:81:2:Tactic `decide` failed for proposition"
+      ],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190925-cb4121011798/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190925-cb4121011798/previous-evidence/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 1,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        4,
+        5
+      ],
+      "effective_cpu_affinity": [
+        4,
+        5
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    },
+    {
+      "run_id": "20261127T191054-df5ffb22aaf2",
+      "task": "packages-416-main-static-witness",
+      "kind": "lean",
+      "scope": [
+        "Silver.ApplicationPackageMainEquations",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "state": "success",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T191054-df5ffb22aaf2",
+      "fingerprint": "f49d58f4d4c652601577b81e7003c01bb2feac636b0e1ed8accc96c4ee7b9fa0",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+        "--task",
+        "packages-416-main-static-witness",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--resource-reason",
+        "Two-worker Main source-witness share alongside native and declaration proofs",
+        "--memory-mb",
+        "8192",
+        "--target",
+        "Silver.ApplicationPackageMainEquations",
+        "--target",
+        "Silver.ApplicationPackageMainSourceCandidate"
+      ],
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+      ],
+      "started_at": "2026-11-27T19:10:56.870833+00:00",
+      "finished_at": "2026-11-27T19:11:24.652734+00:00",
+      "duration_seconds": 27.781683958,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T191054-df5ffb22aaf2/previous-evidence/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T191054-df5ffb22aaf2/lean-focused.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T191054-df5ffb22aaf2/lean-focused-evidence.json"
+      ],
+      "retained_report_count": 0,
+      "allocation": {
+        "memory_mb": {
+          "actual": 8192,
+          "automatic": null,
+          "requested": 8192
+        },
+        "threads": {
+          "actual": 2,
+          "automatic": 2,
+          "requested": 2
+        },
+        "workers": {
+          "actual": 2,
+          "automatic": 6,
+          "requested": 2
+        }
+      },
+      "resource_reductions": [
+        "workers"
+      ],
+      "resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs",
+      "effective_reserved_workers": 2,
+      "cpu_affinity": [
+        2,
+        3
+      ],
+      "effective_cpu_affinity": [
+        2,
+        3
+      ],
+      "cpu_limit_reason": "host's eight-CPU allocation",
+      "effective_resource_reason": "Two-worker Main source-witness share alongside native and declaration proofs"
+    }
+  ],
+  "retained": [
+    {
+      "run_id": "20261127T184420-03d2cd0a47f2",
+      "file": "20261127T184420-03d2cd0a47f2/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184420-03d2cd0a47f2/events.jsonl",
+      "sha256": "65172f302f197be23cd30487eacb35ff08df1a20498aea89cc0dc774cc5815ed"
+    },
+    {
+      "run_id": "20261127T184420-03d2cd0a47f2",
+      "file": "20261127T184420-03d2cd0a47f2/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184518-2d3ba332243b/previous-evidence/lean-focused.log",
+      "sha256": "c82cb0e9b76643705acd276b89a7d5facb83865a31311ee1515d6f3d9d5735d1"
+    },
+    {
+      "run_id": "20261127T184518-2d3ba332243b",
+      "file": "20261127T184518-2d3ba332243b/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184518-2d3ba332243b/events.jsonl",
+      "sha256": "4d677b7ba093ce9c4319172d3b7599257fe6ea75f70c9101d956cf51b712b5ce"
+    },
+    {
+      "run_id": "20261127T184518-2d3ba332243b",
+      "file": "20261127T184518-2d3ba332243b/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184707-fc291b937fb4/previous-evidence/lean-focused.log",
+      "sha256": "b330814663a6df548ca95a486ae3b5cb310e0ce6294e116066a92ce79b6d253f"
+    },
+    {
+      "run_id": "20261127T184707-fc291b937fb4",
+      "file": "20261127T184707-fc291b937fb4/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184707-fc291b937fb4/events.jsonl",
+      "sha256": "fe68159a7e73c48c2217bae779990e5188c45ad6fc57de898c1880f5ea445eb8"
+    },
+    {
+      "run_id": "20261127T184707-fc291b937fb4",
+      "file": "20261127T184707-fc291b937fb4/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184707-fc291b937fb4/lean-focused.log",
+      "sha256": "5050b1d67f4d9df0a28f6bf7889ccb882add385c0b72d1c2293b867fe3111b4e"
+    },
+    {
+      "run_id": "20261127T184707-fc291b937fb4",
+      "file": "20261127T184707-fc291b937fb4/lean-focused-evidence.json.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184707-fc291b937fb4/lean-focused-evidence.json",
+      "sha256": "259c58da459403a89fa3f1a227f155d961a128ff495a3abb4c08cec35878dad7"
+    },
+    {
+      "run_id": "20261127T184755-e74b4da82e20",
+      "file": "20261127T184755-e74b4da82e20/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184755-e74b4da82e20/events.jsonl",
+      "sha256": "3c1f65e089ad278cafc7675b2cf7056da71c812dabdc1b969f66bc7970dfea97"
+    },
+    {
+      "run_id": "20261127T184755-e74b4da82e20",
+      "file": "20261127T184755-e74b4da82e20/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184852-b5c2bd7c6e7e/previous-evidence/lean-focused.log",
+      "sha256": "f739fbbdcf13517ac1c8f08314e34788a55f6026abe2c586dd30ecc42dc92196"
+    },
+    {
+      "run_id": "20261127T184852-b5c2bd7c6e7e",
+      "file": "20261127T184852-b5c2bd7c6e7e/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184852-b5c2bd7c6e7e/events.jsonl",
+      "sha256": "9964bdd53bfded263e5961064c16c72af0d6206e5d98f893670baeadd1ebf0f3"
+    },
+    {
+      "run_id": "20261127T184852-b5c2bd7c6e7e",
+      "file": "20261127T184852-b5c2bd7c6e7e/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185045-b88d3b548c69/previous-evidence/lean-focused.log",
+      "sha256": "12f1d5f153717b92ea7d0582ead868bdd7e56c46db12bd8489b5c9bd6cc601b2"
+    },
+    {
+      "run_id": "20261127T185045-b88d3b548c69",
+      "file": "20261127T185045-b88d3b548c69/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185045-b88d3b548c69/events.jsonl",
+      "sha256": "e54b4d3ff7a9832e16bb52af7e0fe9742f857f71b127e406c42fb51e49988b11"
+    },
+    {
+      "run_id": "20261127T185045-b88d3b548c69",
+      "file": "20261127T185045-b88d3b548c69/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185045-b88d3b548c69/lean-focused.log",
+      "sha256": "0ab8e57147388abcbac09f0288b4456859b5212f5c6fb281c9958e454dc650df"
+    },
+    {
+      "run_id": "20261127T185045-b88d3b548c69",
+      "file": "20261127T185045-b88d3b548c69/lean-focused-evidence.json.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185045-b88d3b548c69/lean-focused-evidence.json",
+      "sha256": "323c6cbb22594ba93f555945e772680affc3f01ed59e4449385ef5a4be172ff3"
+    },
+    {
+      "run_id": "20261127T185142-38b62deed75b",
+      "file": "20261127T185142-38b62deed75b/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185142-38b62deed75b/events.jsonl",
+      "sha256": "440d345bff01a29904ed459d0fdac14a1d5cd1fde492ac471360370b79444705"
+    },
+    {
+      "run_id": "20261127T185142-38b62deed75b",
+      "file": "20261127T185142-38b62deed75b/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185433-5da51d188c94/previous-evidence/lean-focused.log",
+      "sha256": "b5987bdedccc6d3affb0027c0efe40012c93a6a335cf14ebf25423f8614a15c8"
+    },
+    {
+      "run_id": "20261127T185433-5da51d188c94",
+      "file": "20261127T185433-5da51d188c94/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185433-5da51d188c94/events.jsonl",
+      "sha256": "c19b02f697bf718d75f037f77ad36e3ece8d7cc08f4ebc83689568339f129e49"
+    },
+    {
+      "run_id": "20261127T185433-5da51d188c94",
+      "file": "20261127T185433-5da51d188c94/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185433-5da51d188c94/lean-focused.log",
+      "sha256": "a483ed54af9e48fa0c52a113643ab1ca6acc04e373eb5793c9c55724cddca644"
+    },
+    {
+      "run_id": "20261127T185433-5da51d188c94",
+      "file": "20261127T185433-5da51d188c94/lean-focused-evidence.json.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185433-5da51d188c94/lean-focused-evidence.json",
+      "sha256": "152277a5e51584f58428d33630ee7b2eccff09e659ea8944ef95db543342813a"
+    },
+    {
+      "run_id": "20261127T185636-d6302f405e44",
+      "file": "20261127T185636-d6302f405e44/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185636-d6302f405e44/events.jsonl",
+      "sha256": "acb5290a49b65c40511adc895422a3d732cd66065a8dee0abee344cb5386549c"
+    },
+    {
+      "run_id": "20261127T185636-d6302f405e44",
+      "file": "20261127T185636-d6302f405e44/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185928-e40ee9893b61/previous-evidence/lean-focused.log",
+      "sha256": "4873cce5bdd29175868d869c0d3590b1ecdaebc98408d860b5f7e825288ed5dd"
+    },
+    {
+      "run_id": "20261127T185928-e40ee9893b61",
+      "file": "20261127T185928-e40ee9893b61/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185928-e40ee9893b61/events.jsonl",
+      "sha256": "df88b469e354dab082a28defeadca7c2200b793e90019bfabe525528ba29d14c"
+    },
+    {
+      "run_id": "20261127T185928-e40ee9893b61",
+      "file": "20261127T185928-e40ee9893b61/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190049-7ab124401d35/previous-evidence/lean-focused.log",
+      "sha256": "3dd3e6097e833014f4d1dfff6954fc4920cc46c9028f2603c35471742fe86dee"
+    },
+    {
+      "run_id": "20261127T190049-7ab124401d35",
+      "file": "20261127T190049-7ab124401d35/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190049-7ab124401d35/events.jsonl",
+      "sha256": "16a5b0ef47f4062a5f66175e59b4d4b112daf1c510523a1779fd79be10adba63"
+    },
+    {
+      "run_id": "20261127T190049-7ab124401d35",
+      "file": "20261127T190049-7ab124401d35/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190049-7ab124401d35/lean-focused.log",
+      "sha256": "3c9a829dc73385248416fedfeadb58381dc19f582ea893943b435f073bca5334"
+    },
+    {
+      "run_id": "20261127T190049-7ab124401d35",
+      "file": "20261127T190049-7ab124401d35/lean-focused-evidence.json.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190049-7ab124401d35/lean-focused-evidence.json",
+      "sha256": "4ec8a8786068b263473c6730d42a796bc6cbf4eea1203bbf2bf9c922d91ba7ba"
+    },
+    {
+      "run_id": "20261127T190216-4b671d69c19d",
+      "file": "20261127T190216-4b671d69c19d/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190216-4b671d69c19d/events.jsonl",
+      "sha256": "0087c54e37d93b265f78c359cb80df7aee97a8b6720981d92596f94b456fdbb0"
+    },
+    {
+      "run_id": "20261127T190216-4b671d69c19d",
+      "file": "20261127T190216-4b671d69c19d/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190535-84e30adc5b83/previous-evidence/lean-focused.log",
+      "sha256": "aedc45cc7b52b9d021492409435693e251332115a98c207eeabf97a00d0e51ba"
+    },
+    {
+      "run_id": "20261127T190535-84e30adc5b83",
+      "file": "20261127T190535-84e30adc5b83/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190535-84e30adc5b83/events.jsonl",
+      "sha256": "3e4c4e2e16fb995867d2b1b5ed11638752b8dd4a9aadf257117966bef0855995"
+    },
+    {
+      "run_id": "20261127T190535-84e30adc5b83",
+      "file": "20261127T190535-84e30adc5b83/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190535-84e30adc5b83/lean-focused.log",
+      "sha256": "4e5773c2c5c3ebada4b8065b08bd50521dd60a24a3951d03aa9943e4013cd000"
+    },
+    {
+      "run_id": "20261127T190535-84e30adc5b83",
+      "file": "20261127T190535-84e30adc5b83/lean-focused-evidence.json.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190535-84e30adc5b83/lean-focused-evidence.json",
+      "sha256": "55df5662c13881a0849cf370ad57a573f0278a03e10c1fdc00de90f36b85437b"
+    },
+    {
+      "run_id": "20261127T190739-a6922ffd3064",
+      "file": "20261127T190739-a6922ffd3064/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190739-a6922ffd3064/events.jsonl",
+      "sha256": "07a2f55903d56cf87a61423665cf6d46a88bd2c8e7d6f5d70819f0474ed1332e"
+    },
+    {
+      "run_id": "20261127T190739-a6922ffd3064",
+      "file": "20261127T190739-a6922ffd3064/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190827-4014c51250d3/previous-evidence/lean-focused.log",
+      "sha256": "5abf3fd83360eea1ef2d410bb564af96e22746f9a073ddd3687f5fc65f1b9cd1"
+    },
+    {
+      "run_id": "20261127T190827-4014c51250d3",
+      "file": "20261127T190827-4014c51250d3/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190827-4014c51250d3/events.jsonl",
+      "sha256": "291b34798c81178e7a1ea018a5ae9ab1ead6542b6828894fbb2900c5ce209286"
+    },
+    {
+      "run_id": "20261127T190827-4014c51250d3",
+      "file": "20261127T190827-4014c51250d3/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190827-4014c51250d3/lean-focused.log",
+      "sha256": "05d45bef953e2fa5ef67d7ae42dfd738015e678ce1eba3f4ffe675cb7ddb6083"
+    },
+    {
+      "run_id": "20261127T190827-4014c51250d3",
+      "file": "20261127T190827-4014c51250d3/lean-focused-evidence.json.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190827-4014c51250d3/lean-focused-evidence.json",
+      "sha256": "e7ea799c21f24a6ac8ccdc5b482eb3b6af8129ba2ac835123b17a621e49df553"
+    },
+    {
+      "run_id": "20261127T190925-cb4121011798",
+      "file": "20261127T190925-cb4121011798/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190925-cb4121011798/events.jsonl",
+      "sha256": "5ce1835714156d8b1d6cdbc898b9f1b3a0f277c78568b33867f145ab422a2865"
+    },
+    {
+      "run_id": "20261127T190925-cb4121011798",
+      "file": "20261127T190925-cb4121011798/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T191054-df5ffb22aaf2/previous-evidence/lean-focused.log",
+      "sha256": "a23e09f09b8b7662ab42ef582aee14ee04e1deb8d2b8fd757c56464de1d94c2f"
+    },
+    {
+      "run_id": "20261127T191054-df5ffb22aaf2",
+      "file": "20261127T191054-df5ffb22aaf2/events.jsonl.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T191054-df5ffb22aaf2/events.jsonl",
+      "sha256": "480ed7426dea977a513473a9fe81c106fdcc497a8d1204090d0cabe2faa1a547"
+    },
+    {
+      "run_id": "20261127T191054-df5ffb22aaf2",
+      "file": "20261127T191054-df5ffb22aaf2/lean-focused.log.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T191054-df5ffb22aaf2/lean-focused.log",
+      "sha256": "6d02a3d1d32344dd43bf26edf9ee1b05340e6a42a7e038d5c7ffe325fe4c715c"
+    },
+    {
+      "run_id": "20261127T191054-df5ffb22aaf2",
+      "file": "20261127T191054-df5ffb22aaf2/lean-focused-evidence.json.gz",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T191054-df5ffb22aaf2/lean-focused-evidence.json",
+      "sha256": "267dd499b71d745821f556a9a40789b57988ef462f88b7e55d2962b5fc240310"
+    }
+  ]
+}
