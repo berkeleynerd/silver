@@ -8,6 +8,7 @@ public import Silver.PackageInitializationRanges
 public import Silver.ApplicationPackageDeclarationsSpecificationStepDomains
 public import Silver.ComposeSubtypeChecks
 public import Silver.PredicateFunctionCallMeaning
+public import Silver.ApplicationPackageRoutineClosedFrames
 
 @[expose] public section
 
@@ -800,5 +801,127 @@ theorem object_range_bounds {reader : BooleanElaboration.Native.Reader} {text : 
     exact ⟨bounded.put_local _ inside, domains.put_local _ inside⟩
   | boolean =>
     simpa only [objectRanges, objectDeclaredRanges, kind] using And.intro bounded domains
+
+/-- Only the original value syntax and its own preappend frame are retained.
+Readability and successful semantic checking are derived below. -/
+inductive LocalValueAt (bound : Nat) (info : PackageBindings.Metadata) (text : Source)
+    (frame : ParserState) (out : ObjectResult) : LocalInitializer → Prop
+  | integer {expression : Integer.Expr} (kind : out.mark.kind = .integer)
+      (reading : ScalarExpression.sourceSyntaxAt text
+        (initializerBase text frame info out.name true).scalarNames []
+        out.name.first out.name.after true out.initFirst ⟨out.initAfter, expression⟩) :
+      LocalValueAt bound info text frame out
+        (scalarInitializer bound info (initializerBase text frame info out.name true) out expression)
+  | boolean {condition : Condition} {result : ConditionResult}
+      (kind : out.mark.kind = .boolean)
+      (reading : ConditionAt text
+        (booleanInitializerContext (initializerBase text frame info out.name true) out.name.first out.name.after)
+        out.initFirst (booleanInitializerFacts (initializerBase text frame info out.name true)) condition result
+        (initializerBase text frame info out.name true).arrayNames.values)
+      (after : result.after = out.initAfter) :
+      LocalValueAt bound info text frame out
+        (booleanInitializer bound info (initializerBase text frame info out.name true) out condition)
+
+theorem LocalValueAt.declare {bound info text frame out item}
+    (source : LocalValueAt bound info text frame out item) (ranges : SharedRanges) :
+    item.declare ranges = objectDeclaredRanges ranges out := by
+  cases source with
+  | integer kind reading =>
+    simp only [LocalInitializer.declare, scalarInitializer, extendRanges, objectDeclaredRanges, kind]
+  | boolean kind reading after =>
+    simp only [LocalInitializer.declare, booleanInitializer, extendRanges, objectDeclaredRanges, kind]
+
+theorem object_local_initializer {reader : BooleanElaboration.Native.Reader} {text : Source}
+    {frame : ParserState} {info : PackageBindings.Metadata} {out : ObjectResult} {ranges : SharedRanges}
+    (textValid : ValidText text) (framed : ReaderFrame text frame)
+    (closed : ApplicationPackageRoutineClosedFrames.Closed frame)
+    (parsed : objectStep (modelObjectCalls reader) text frame info true = out)
+    (present : out.frame.position ≠ 0)
+    (rows : ScalarRangeRows info ranges frame.scalarNames) (bounded : LocalRangesBound text.length ranges) :
+    ∃ item, LocalValueAt text.length info text frame out item ∧ item.Readable ∧
+      item.check ranges = some (objectRanges ranges out) := by
+  have live := parsed ▸ present
+  obtain ⟨_, storage⟩ := objectStep_rows reader text frame info true live
+  have name : out.name = objectName text frame := by simpa only [parsed] using storage.nameEq
+  have calls := parsed ▸ object_value_calls reader text frame framed info true live
+  have baseFrame := object_initializer_frame reader text frame framed info true live
+  have baseClosed := ApplicationPackageRoutineClosedFrames.initializerBase_closed closed live
+  have baseRows := rows.retain (initializerBase_retained reader text frame info true live).1
+  rw [← name] at calls baseFrame baseClosed baseRows
+  cases kind : out.mark.kind with
+  | integer =>
+    obtain ⟨expression, reading, readable, checked, _⟩ := calls.scalar_initializer kind text.length info ranges baseRows
+    exact ⟨_, .integer kind reading, readable, by simpa only [objectRanges, kind] using checked⟩
+  | boolean =>
+    obtain ⟨condition, result, reading, after, readable, checked, _⟩ :=
+      calls.boolean_initializer textValid baseFrame kind text.length info ranges baseRows bounded
+        baseClosed.pure baseClosed.dynamicFirst baseClosed.names baseClosed.arrayNames
+    exact ⟨_, .boolean kind reading after, readable, by simpa only [objectRanges, kind] using checked⟩
+
+def localRanges (ranges : SharedRanges) (rows : List LocalObject) : SharedRanges :=
+  rows.foldl (fun current row => objectRanges current row.object) ranges
+
+def localDeclaredRanges (ranges : SharedRanges) (rows : List LocalObject) : SharedRanges :=
+  rows.foldl (fun current row => objectDeclaredRanges current row.object) ranges
+
+inductive LocalValuesAt (bound : Nat) (info : PackageBindings.Metadata) (text : Source) :
+    List LocalObject → List LocalInitializer → Prop
+  | nil : LocalValuesAt bound info text [] []
+  | cons {row item rows items}
+      (source : LocalValueAt bound info text row.before.frame row.object item)
+      (rest : LocalValuesAt bound info text rows items) :
+      LocalValuesAt bound info text (row :: rows) (item :: items)
+
+/-- Source declaration order derives the complete existing initializer pass.
+The current map follows inference; the declared map follows source domains.
+Neither map is supplied as an admission certificate. -/
+theorem local_objects_initializers {reader : BooleanElaboration.Native.Reader}
+    {calls : CompletionCalls} {text : Source} {info : PackageBindings.Metadata}
+    {routine : PackageBindings.Routine} {before after : InitializationFrame} {rows : List LocalObject}
+    {ranges declared : SharedRanges}
+    (textValid : ValidText text) (framed : ReaderFrame text before.frame)
+    (closed : ApplicationPackageRoutineClosedFrames.Closed before.frame)
+    (ordered : StateFrame info.states before.frame)
+    (history : LocalObjects calls text info routine before rows after)
+    (original : ∀ row ∈ rows, calls.objectAt text row.before.frame info true =
+      objectStep (modelObjectCalls reader) text row.before.frame info true)
+    (currentRows : ScalarRangeRows info ranges before.frame.scalarNames)
+    (declaredRows : ScalarRangeRows info declared (ScalarExpression.bodyEnvironment before.frame.scalarNames))
+    (currentBound : LocalRangesBound text.length ranges) (declaredBound : LocalRangesBound text.length declared) :
+    ∃ items : List LocalInitializer,
+      LocalValuesAt text.length info text rows items ∧
+      (∀ item ∈ items, item.Readable) ∧
+      checkInitializers ranges items = some (localRanges ranges rows) ∧
+      initializerDomains declared items = localDeclaredRanges declared rows ∧
+      ScalarRangeRows info (localRanges ranges rows) after.frame.scalarNames ∧
+      ScalarRangeRows info (localDeclaredRanges declared rows) (ScalarExpression.bodyEnvironment after.frame.scalarNames) ∧
+      LocalRangesBound text.length (localRanges ranges rows) ∧
+      LocalRangesBound text.length (localDeclaredRanges declared rows) := by
+  induction history generalizing ranges declared with
+  | finished => exact ⟨[], .nil, by simp, rfl, rfl, currentRows, declaredRows, currentBound, declaredBound⟩
+  | @added row final following atBegin apart parsed advanced rest ih =>
+    have execution := (original row List.mem_cons_self).symm.trans parsed
+    have present : row.object.frame.position ≠ 0 := by omega
+    obtain ⟨item, source, readable, checked⟩ :=
+      object_local_initializer textValid framed closed execution present currentRows currentBound
+    have nextFrame := execution ▸ objectStep_reader_frame reader textValid row.before.frame framed info true
+      (execution ▸ present)
+    have nextClosed : ApplicationPackageRoutineClosedFrames.Closed row.object.frame := by
+      rw [← execution]
+      exact (ApplicationPackageRoutineClosedFrames.objectStep_retains rfl (execution ▸ present)).closed closed
+    have nextOrder := ordered.after_object execution present
+    have nextRows := object_range_rows ordered execution present currentRows declaredRows
+    have nextBounds := object_range_bounds execution present currentBound declaredBound
+    obtain ⟨items, sources, readables, checking, domains, finalRows, finalDomains, finalBound, finalDeclaredBound⟩ :=
+      ih nextFrame nextClosed nextOrder
+        (fun observed member => original observed (List.mem_cons_of_mem _ member))
+        nextRows.1 nextRows.2 nextBounds.1 nextBounds.2
+    refine ⟨item :: items, .cons source sources, ?_, ?_, ?_, finalRows, finalDomains, finalBound, finalDeclaredBound⟩
+    · intro observed member
+      rcases List.mem_cons.mp member with rfl | later
+      · exact readable
+      · exact readables observed later
+    · simpa only [checkInitializers, checked, Option.bind_some, localRanges, List.foldl_cons] using checking
+    · simpa only [initializerDomains, source.declare, localDeclaredRanges, List.foldl_cons] using domains
 
 end Silver.ApplicationPackageInitializers
