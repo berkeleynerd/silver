@@ -663,3 +663,42 @@ found no managed process or thread outside guest CPUs 0–7. Complete native and
 Lean/source audits, final regression applicability, Rosetta promotion and
 independent closing review remain outstanding. PR #424 stays draft and no merge
 is authorized.
+
+
+### Specification closure and Main declarations, 21:10 UTC
+
+The [Specification imported-call packet](evidence/bounded-library-packages-416-20261122/specification-imports/README.md)
+now includes the complete branch and typed-loop composition (`e452675352`).
+The final focused run `20261127T205603-fabb5f3b8fc0` passed a fresh audit of
+72,081 declarations with all 1,533 captured inputs matching. It preserves
+arbitrary initial metadata and storage, rejected paths and partial writes.
+Its shared static Boolean reader remains explicit until the imported-leaf
+interpretation is joined.
+
+The original recursive source-tree representation (`dfd3d9ec6d`) passed
+`20261127T205831-0e37decb6ce6`, auditing 23,860 declarations. It retains every
+conditional arm, loop and tail; it does not embed a semantic checker certificate.
+Extraction and native child-domain preservation remain in progress. The
+[Main declaration packet](evidence/bounded-library-packages-416-20261127/main-declaration-imports/README.md)
+records `20261127T210746-03a0729003ec`: 48,627 declarations and all 1,573 captured
+inputs matching. The argument/declaration readers now have exact inherited
+meanings and returned native domains, including rejected states. The earlier
+record-layout draft failure is retained separately.
+
+The [residual closure inventory](evidence/bounded-library-packages-416-20261122/specification-imports/residual-closure-inventory.md)
+distinguishes checked models from still-open original-callee composition. Work
+continues on static Boolean imported leaves, Charge_Unit's two-output semantics,
+Routine_Frame/Completion imports, package-unit evaluator existence and remaining
+Main/recursive-body joins. These are required delivery work, not deferred
+hardening. The final source/tool endpoint must derive the applicable child
+preconditions and cannot assume an accepted decoder or safety certificate.
+
+Native whole-unit run `20261127T195636-5b2a2f886237` and authoritative source batch
+`20261127T195949-9affe71500da` remain active on frozen inputs. The source batch has
+built all eight OutputBodyLines chunks and OutputBodyCertificate; its full
+requested target/audit result is still pending. No complete feature assurance
+is claimed. All 54 inspected proof/tool threads were confined to guest CPUs
+0–7, with no exception. Proof subthreads remain selected Astra Max; live runtime
+settings are not independently exposed. Complete native/Lean checks, final
+regression/Rosetta delivery and independent closing review remain outstanding.
+PR #424 stays draft; no merge or successor implementation is authorized.
