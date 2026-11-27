@@ -341,3 +341,30 @@ CPUs, and inspected native threads have their reserved affinity within guest
 CPUs 0–7. Final semantic/source closure, remaining native helper/caller gates,
 complete checkpoints, Rosetta delivery and independent review remain pending.
 PR #424 remains draft and is not ready to merge.
+
+### Concrete shared-frame context and declaration storage, 14:36 UTC
+
+The [layout/context and import-source focus](evidence/bounded-library-packages-416-20261122/layout-context-import-source/README.md)
+passed its fresh 28,830-declaration audit and is integrated at `09de0d2309`.
+The concrete layout now supplies every `FrameLayout.Context` field for the
+actual parser analysis, including its array overlay. Its source-history premises
+are explicit: row validity, capacity, body widening and preservation of global
+rows' declared domains and mutability. The final source decoder must still
+establish those premises. Imported_Package's complete typed fragment matches
+its original header and all 475 body tokens, with scope and precedence checks;
+its full execution/domain proof and authoritative aggregate binding remain pending.
+
+Checked declaration work now includes original Object cursor extents
+(`af98766b11`), complete retained/installed storage through Hide_Outer
+(`caeac4162d`), and function input modes derived from the Signature rejection
+arm through Specification and completion (`7b1301a96e`). These are source-derived
+facts, not extra assumptions about accepted metadata. Their evidence remains
+in the corresponding package-object and declaration-simulation packets.
+
+The canonical complete Statement helper gate remains running on the frozen Ada
+inputs. The three proof subthreads retain selected Astra Max settings; routine
+monitoring does not change those live selections. Managed reservations and
+inspected thread affinities remain within the eight-CPU allocation (guest 0–7).
+The original-bundle endpoint, outstanding native/callee gates, complete assurance,
+regressions, Rosetta promotion and independent review still block delivery.
+PR #424 remains draft, with no new support or merge-readiness claim.
