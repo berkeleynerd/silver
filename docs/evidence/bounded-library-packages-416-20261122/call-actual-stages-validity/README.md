@@ -96,3 +96,22 @@ step exposes its selected slot, fresh Seen bit, payload interval, updated row
 and consumed separator. A named slot comes from a matching spelling in the
 called formal window. The formal-order argument list and composition with the
 complete call body remain open.
+
+## Formal slots and argument source meaning
+
+Linux x86-64 run `20261127T140039-517af0a54589` built `ActualTrace`,
+`ActualOrder` and `Arguments` and passed a fresh audit of 29,866 declarations.
+It used two Lake workers, two threads per process and 8,192 MiB per Lean
+process. Elapsed time was 23.742 seconds. The earlier trace check failed on
+the zero-slot case of `sourceSeen_set`. That case now uses its separate
+zero-slot equation. [Run evidence and earlier trace check](argument-order-and-meaning/)
+
+For any accepted actual list within the physical formal window, the trace
+retains every source row and its selected slot. The slots are a permutation
+of the full formal range, and the final array contains each original row at
+its selected slot. The proof includes a call with no formals. With typed
+metadata, the checked call-entry flow and a valid body context, each supplied
+row has either a readable, checked input expression on its own author span or
+a writable target with the native target identity. Constructing the semantic
+list in formal order, composing the complete call body and binding that body
+to the authoritative source remain open.
