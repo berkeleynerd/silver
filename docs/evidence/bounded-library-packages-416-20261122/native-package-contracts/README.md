@@ -393,3 +393,9 @@ call to `Application_Tail`. All report severities were informational.
 GNATprove recorded `STOP_REASON_NONE` and empty skip lists. The run took
 1,093.308 seconds on two Linux x86-64 workers.
 [SPARK report](20261127T144204-d3e112615a84/silver_output_profile.spark.gz)
+
+Its caller, `Package_Body_At`, passed its [complete check](20261127T150147-298ed1b9d8ea/outcome.json)
+at selector 9358. The final-policy run proved seven flow checks and 29 proof
+checks in 184.576 seconds on the same source and two Linux x86-64 workers.
+The [SPARK report](20261127T150147-298ed1b9d8ea/silver_output_profile.spark.gz)
+has empty skip lists and `STOP_REASON_NONE`.

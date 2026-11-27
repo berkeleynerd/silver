@@ -390,7 +390,13 @@
       "current_lines": [
         9358
       ],
-      "coverage": "pending"
+      "coverage": "complete-helper-success",
+      "run": "20261127T150147-298ed1b9d8ea",
+      "checks": 36,
+      "unproved": 0,
+      "flow": 7,
+      "proof": 29,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
     },
     {
       "name": "Imported_Frame",
