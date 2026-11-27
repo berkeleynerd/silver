@@ -1,6 +1,6 @@
 module
 
-public import Silver.ApplicationStateValidityTables
+public import Silver.ApplicationStateValidityPrimitives
 public import Silver.FunctionBindingsSourceBridge
 public import Silver.ProcedureBindingsSourceBridge
 public import Silver.ArrayBindingsSourceBridge
@@ -33,18 +33,18 @@ def importedCalls (imports : Imports) : Calls Function
   | _, .functions => imports.functions.validMetadata
   | _, .procedures => imports.procedures.validMetadata
   | _, .arrays => imports.arrays.validEnvironment
-  | _, .nameState => nameStateValid
-  | _, .names => fun text names => ValidityTables.namesBody.eval ValidityTables.modelCalls
+  | _, .nameState => ValidityTables.Primitives.nameState
+  | _, .names => fun text names => ValidityTables.namesBody.eval ValidityTables.Primitives.calls
       (tableLocals text .names "names" names)
-  | _, .scalars => fun text names => ValidityTables.scalarBody.eval ValidityTables.modelCalls
+  | _, .scalars => fun text names => ValidityTables.scalarBody.eval ValidityTables.Primitives.calls
       (tableLocals text .scalars "names" names)
-  | _, .booleans => fun text names => ValidityTables.booleanBody.eval ValidityTables.modelCalls
+  | _, .booleans => fun text names => ValidityTables.booleanBody.eval ValidityTables.Primitives.calls
       (tableLocals text .booleans "booleans" names)
-  | _, .subtypes => fun text names => ValidityTables.subtypeBody.eval ValidityTables.modelCalls
+  | _, .subtypes => fun text names => ValidityTables.subtypeBody.eval ValidityTables.Primitives.calls
       (tableLocals text .subtypes "subtypes" names)
-  | _, .mutableBounds => fun names => ValidityTables.mutableBody.eval ValidityTables.modelCalls
+  | _, .mutableBounds => fun names => ValidityTables.mutableBody.eval ValidityTables.Primitives.calls
       (tableLocals [] .scalars "scalar_names" names)
-  | _, .declarationValues => fun names count => ValidityTables.valuesBody.eval ValidityTables.modelCalls
+  | _, .declarationValues => fun names count => ValidityTables.valuesBody.eval ValidityTables.Primitives.calls
       ((tableLocals [] .scalars "scalar_names" names).set .number "count" count)
 
 set_option backward.dsimp.instances true
@@ -53,38 +53,38 @@ set_option maxHeartbeats 2000000
 
 theorem importedCalls_names (imports : Imports) (text : Source) (names : BindingEnvironment) :
     importedCalls imports _ .names text names = stringNamesValid text names := by
-  change ValidityTables.namesBody.eval ValidityTables.modelCalls _ = _
-  rw [ValidityTables.names_meaning]
+  change ValidityTables.namesBody.eval ValidityTables.Primitives.calls _ = _
+  rw [ValidityTables.Primitives.calls_meaning, ValidityTables.names_meaning]
   simp [tableLocals, Locals.set]
 
 theorem importedCalls_scalars (imports : Imports) (text : Source) (names : ScalarExpression.Environment) :
     importedCalls imports _ .scalars text names = scalarNamesValid text names := by
-  change ValidityTables.scalarBody.eval ValidityTables.modelCalls _ = _
-  rw [ValidityTables.scalar_meaning]
+  change ValidityTables.scalarBody.eval ValidityTables.Primitives.calls _ = _
+  rw [ValidityTables.Primitives.calls_meaning, ValidityTables.scalar_meaning]
   simp [tableLocals, Locals.set]
 
 theorem importedCalls_booleans (imports : Imports) (text : Source) (names : BooleanBindings.Environment) :
     importedCalls imports _ .booleans text names = booleanNamesValid text names := by
-  change ValidityTables.booleanBody.eval ValidityTables.modelCalls _ = _
-  rw [ValidityTables.boolean_meaning]
+  change ValidityTables.booleanBody.eval ValidityTables.Primitives.calls _ = _
+  rw [ValidityTables.Primitives.calls_meaning, ValidityTables.boolean_meaning]
   simp [tableLocals, Locals.set]
 
 theorem importedCalls_subtypes (imports : Imports) (text : Source) (names : IntegerSubtypes.Environment) :
     importedCalls imports _ .subtypes text names = subtypesValid text names := by
-  change ValidityTables.subtypeBody.eval ValidityTables.modelCalls _ = _
-  rw [ValidityTables.subtype_meaning]
+  change ValidityTables.subtypeBody.eval ValidityTables.Primitives.calls _ = _
+  rw [ValidityTables.Primitives.calls_meaning, ValidityTables.subtype_meaning]
   simp [tableLocals, Locals.set]
 
 theorem importedCalls_mutable (imports : Imports) (names : ScalarExpression.Environment) :
     importedCalls imports _ .mutableBounds names = mutableBoundsValid names := by
-  change ValidityTables.mutableBody.eval ValidityTables.modelCalls _ = _
-  rw [ValidityTables.mutable_meaning]
+  change ValidityTables.mutableBody.eval ValidityTables.Primitives.calls _ = _
+  rw [ValidityTables.Primitives.calls_meaning, ValidityTables.mutable_meaning]
   simp [tableLocals, Locals.set]
 
 theorem importedCalls_values (imports : Imports) (names : ScalarExpression.Environment) (count : Nat) :
     importedCalls imports _ .declarationValues names count = declarationValuesValid names count := by
-  change ValidityTables.valuesBody.eval ValidityTables.modelCalls _ = _
-  rw [ValidityTables.values_meaning]
+  change ValidityTables.valuesBody.eval ValidityTables.Primitives.calls _ = _
+  rw [ValidityTables.Primitives.calls_meaning, ValidityTables.values_meaning]
   simp [tableLocals, Locals.set]
 
 /-- All metadata predicates are instantiated through their existing complete-domain
@@ -99,6 +99,7 @@ theorem imported_validState (imports : Imports) (locals : Locals)
   rw [importedCalls_names, importedCalls_scalars, importedCalls_subtypes,
     importedCalls_booleans, importedCalls_mutable, importedCalls_values]
   dsimp only [importedCalls]
+  simp only [ValidityTables.Primitives.nameState_meaning]
   rw [(FunctionBindings.SourceBridge.interpreted_complete imports.functions imports.functionSource).validMetadata
       _ valid _ typed.functions,
     (ProcedureBindings.SourceBridge.interpreted_complete imports.procedures imports.procedureSource).validMetadata
