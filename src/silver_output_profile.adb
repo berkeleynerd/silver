@@ -8398,7 +8398,8 @@ is
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, Outer),
-       Post => Valid_State (Text, Header)
+       Post => Info.Units = Info.Units'Old
+         and then Valid_State (Text, Header)
          and then (Header.Position = 0 or else Header.Position > Outer.Position)
          and then (if Header.Position /= 0 and then not Completing then
            Info.Routine_Count > 0
@@ -8458,6 +8459,7 @@ is
       if Open /= 0 then
          Header.Position := Open;
          loop
+            pragma Loop_Invariant (Info.Units = Info'Loop_Entry.Units);
             pragma Loop_Invariant (Valid_State (Text, Header));
             pragma Loop_Invariant (Header.Position > 0);
             pragma Loop_Invariant (Formal_Count <= Info.Parameter_Count);
@@ -8580,7 +8582,8 @@ is
      (Text : String; Info : in out Packages.Metadata; Exports : out Parser_State)
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length,
-       Post => Valid_State (Text, Exports)
+       Post => Info.Units = Info.Units'Old
+         and then Valid_State (Text, Exports)
    is
       First : constant Literal_Position := Skip_At (Text, Package_Word (Text, 1, "package"));
       Last : constant Literal_Position := Name_After (Text, First);
@@ -8599,6 +8602,7 @@ is
         Package_First => First, Package_After => Last);
       if Exports.Position = 0 then return; end if;
       loop
+         pragma Loop_Invariant (Info.Units = Info'Loop_Entry.Units);
          pragma Loop_Invariant (Valid_State (Text, Exports));
          pragma Loop_Invariant (Exports.Position > 0);
          pragma Loop_Variant (Increases => Exports.Position);
