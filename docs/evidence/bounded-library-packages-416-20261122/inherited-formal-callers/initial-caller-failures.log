@@ -1,0 +1,87 @@
+Lean concurrency: 2 Lake workers, 2 threads per Lean process (2 available CPUs).
+Resource allocation: memory_mb requested=8192 actual=8192; threads requested=2 actual=2 automatic=2; workers requested=2 actual=2 automatic=2; reason: Two-worker Completion proof share alongside native and source integration
+Lean phase build started at 2026-11-27T22:16:39.460978+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageActualLibraries +Silver.AxiomAudit
+✔ [133/149] Built Silver.PredicateAssociationSyntax (2.4s)
+✔ [135/159] Built Silver.PredicateAssociationNative (2.0s)
+✔ [137/159] Built Silver.PredicateFunctionCallNative (6.1s)
+✔ [140/159] Built Silver.PredicateFunctionCallEquations (15s)
+✔ [234/246] Built Silver.PredicateScalarBodyNative (3.5s)
+✔ [284/307] Built Silver.PredicateScalarBodyHelpers (2.9s)
+✔ [340/353] Built Silver.PredicateBooleanBodyNative (8.2s)
+✔ [341/353] Built Silver.PredicateBooleanBodyHelpers (2.1s)
+✔ [343/353] Built Silver.PredicateArrayBodyNative (4.9s)
+✔ [344/353] Built Silver.PredicateBooleanBodyLibraries (2.3s)
+✔ [347/357] Built Silver.PredicateArrayBodySource (3.2s)
+✔ [348/357] Built Silver.PredicateAssociationEquations (52s)
+✖ [349/357] Building Silver.ProcedureDeclarationSyntax (5.5s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ProcedureDeclarationSyntax.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationSyntax.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ProcedureDeclarationSyntax.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ProcedureDeclarationSyntax.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ProcedureDeclarationSyntax.setup.json --json
+error: Silver/ProcedureDeclarationSyntax.lean:664:65: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Silver.ScalarExpression.Binding.mk` has 8 explicit field, but only 6 were provided
+✔ [364/374] Built Silver.ProcedureFrameValidity (2.4s)
+✔ [366/387] Built Silver.ProcedureFrameRecordTypes (1.9s)
+✔ [383/393] Built Silver.FunctionDeclarationBodyEquations (24s)
+✔ [384/393] Built Silver.FunctionDeclarationOuterEquations (3.5s)
+✔ [385/399] Built Silver.FunctionDeclarationBodyModel (1.6s)
+✔ [386/399] Built Silver.FunctionDeclarationBodyImports (2.7s)
+✖ [387/400] Building Silver.FunctionFrameValidity (14s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/FunctionFrameValidity.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/FunctionFrameValidity.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/FunctionFrameValidity.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/FunctionFrameValidity.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/FunctionFrameValidity.setup.json --json
+error: Silver/FunctionFrameValidity.lean:201:59: Application type mismatch: The argument
+  typed.right.left
+has type
+  parameter.bounds.Bounded
+but is expected to have type
+  { first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false,
+          declaredBounds := parameter.bounds }.declaredBounds.Bounded ∧
+    QualifiedNames.ValidSpan text
+      { first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false,
+          declaredBounds := parameter.bounds }.qualifierFirst
+      { first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false,
+          declaredBounds := parameter.bounds }.qualifierAfter
+in the application
+  ⟨typed.right.left, typed.right.left⟩
+error: Silver/FunctionFrameValidity.lean:211:91: Application type mismatch: The argument
+  typed.left
+has type
+  FunctionBindings.NameSpan text parameter.first parameter.after
+but is expected to have type
+  0 < { first := parameter.first, after := parameter.after }.first ∧
+    { first := parameter.first, after := parameter.after }.first <
+        { first := parameter.first, after := parameter.after }.after ∧
+      { first := parameter.first, after := parameter.after }.after ≤ List.length text + 1 ∧
+        QualifiedNames.ValidSpan text { first := parameter.first, after := parameter.after }.qualifierFirst
+          { first := parameter.first, after := parameter.after }.qualifierAfter
+in the application
+  BooleanBindings.valid_append (ValidState.booleans valid) space typed.left
+✔ [389/400] Built Silver.FunctionDeclarationComposition (2.7s)
+✖ [391/400] Building Silver.FunctionDeclarationInitialDomain (3.6s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/FunctionDeclarationInitialDomain.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationInitialDomain.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/FunctionDeclarationInitialDomain.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/FunctionDeclarationInitialDomain.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/FunctionDeclarationInitialDomain.setup.json --json
+error: Silver/FunctionDeclarationInitialDomain.lean:78:48: Application type mismatch: The argument
+  Nat.zero_le ?m.202
+has type
+  0 ≤ ?m.202
+but is expected to have type
+  (declarationInitial modelCalls text state (declarationParts modelCalls text state)).firstProcedureParameter ≤
+      ProcedureBindings.maxFormals ∧
+    Names.ValidContext text
+      (declarationInitial modelCalls text state (declarationParts modelCalls text state)).contextFirst
+      (declarationInitial modelCalls text state (declarationParts modelCalls text state)).packageFirst
+      (declarationInitial modelCalls text state (declarationParts modelCalls text state)).packageAfter
+in the application
+  ⟨Nat.zero_le
+      ((declarationInitial modelCalls text state
+                (declarationParts modelCalls text state)).procedures.parameters.length +
+        1),
+    Nat.zero_le ?m.202⟩
+✔ [392/409] Built Silver.FunctionDeclarationOrdinaryEquations (2.1s)
+✔ [417/422] Built Silver.PredicateAssociationHelpers (94s)
+✔ [418/422] Built Silver.PredicateAssociationLibraries (1.4s)
+✔ [419/422] Built Silver.PredicateFunctionCallHelpers (15s)
+✔ [421/422] Built Silver.PredicateFunctionCallLibraries (1.0s)
+Some required targets logged failures:
+- Silver.ProcedureDeclarationSyntax
+- Silver.FunctionFrameValidity
+- Silver.FunctionDeclarationInitialDomain
+error: build failed
+
+Lean phase build finished at 2026-11-27T22:19:31.248252+00:00; elapsed 171.787s; exit 1
+check_lean: Lean check failed; see /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/lean-focused.log

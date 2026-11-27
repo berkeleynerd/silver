@@ -662,7 +662,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .signature first after formalFirst count scalarKind bounds => ⟨first.eval calls locals, after.eval calls locals,
       formalFirst.eval calls locals, count.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
   | .scalarBinding first after bounds mutable declared static => ⟨first.eval calls locals, after.eval calls locals,
-      bounds.eval calls locals, mutable.eval calls locals, declared.eval calls locals, static.eval calls locals⟩
+      bounds.eval calls locals, mutable.eval calls locals, declared.eval calls locals, static.eval calls locals, 0, 0⟩
   | .scan state assigned output => ⟨state.eval calls locals, assigned.eval calls locals, output.eval calls locals⟩
   | .add left right => left.eval calls locals + right.eval calls locals
   | .sub left right => left.eval calls locals - right.eval calls locals
@@ -687,7 +687,7 @@ def Expr.render : Expr ty → List String
       [".", "first", ",", "after", "=>"] ++ parameter.render ++ [".", "after", ",", "bounds", "=>"] ++
       parameter.render ++ [".", "bounds", ",", "static", "=>", "false", ",", "declared_bounds", "=>"] ++
       parameter.render ++ [".", "bounds", ",", "mutable", "=>"] ++ parameter.render ++
-      [".", "mode", "/=", "procedures", ".", "input", ")"]
+      [".", "mode", "/=", "procedures", ".", "input", ",", "qualifier_first", "=>", "0", ",", "qualifier_after", "=>", "0", ")"]
   | .mode .input => ["procedures", ".", "input"] | .mode .output => ["procedures", ".", "output"]
   | .mode .inputOutput => ["procedures", ".", "input_output"] | .endStop => ["end_only"]
   | .procedureFormalAt procedures index => procedures.render ++ [".", "parameters", "("] ++ index.render ++ [")"]
@@ -702,7 +702,7 @@ def Expr.render : Expr ty → List String
       frame.render ++ [".", "boolean_names", ".", "items", "with", "delta"] ++ frame.render ++
       [".", "boolean_names", ".", "count", "+", "1", "=>", "("] ++ parameter.render ++ [".", "first", ","] ++
       parameter.render ++ [".", "after", ","] ++ parameter.render ++
-      [".", "mode", "/=", "procedures", ".", "input", ")", ")", ")", ")"]
+      [".", "mode", "/=", "procedures", ".", "input", ",", "0", ",", "0", ",", "false", ",", "false", ")", ")", ")", ")"]
   | .anyWritable procedures first => ["(", "for", "some", "index", "in"] ++ first.render ++ [".."] ++
       procedures.render ++ [".", "parameter_count", "=>"] ++ procedures.render ++
       [".", "parameters", "(", "index", ")", ".", "mode", "/=", "procedures", ".", "input", ")"]
@@ -744,14 +744,15 @@ def Expr.render : Expr ty → List String
       frame.render ++ [".", "boolean_names", ".", "count", "+", "1", ",", "items", "=>", "("] ++
       frame.render ++ [".", "boolean_names", ".", "items", "with", "delta"] ++ frame.render ++
       [".", "boolean_names", ".", "count", "+", "1", "=>", "("] ++ parameter.render ++ [".", "first", ","] ++
-      parameter.render ++ [".", "after", ",", "false", ")", ")", ")", ")"]
+      parameter.render ++ [".", "after", ",", "false", ",", "0", ",", "0", ",", "false", ",", "false", ")", ")", ")", ")"]
   | .typeResult after scalarKind bounds typeId => ["("] ++ separated [after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .stepResult state closed => ["("] ++ separated [state.render, closed.render] ++ [")"]
   | .formal first after scalarKind bounds typeId => ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .signature first after formalFirst count scalarKind bounds => ["("] ++
       separated [first.render, after.render, formalFirst.render, count.render, scalarKind.render, bounds.render] ++ [")"]
   | .scalarBinding first after bounds mutable declared static => ["("] ++
-      separated [first.render, after.render, bounds.render, mutable.render, declared.render, static.render] ++ [")"]
+      separated [first.render, after.render, bounds.render, mutable.render, declared.render, static.render,
+        ["0"], ["0"]] ++ [")"]
   | .scan state assigned output => ["("] ++ separated [state.render, assigned.render, output.render] ++ [")"]
   | .add left right => left.render ++ ["+"] ++ right.render
   | .sub left right => left.render ++ ["-"] ++ right.render
