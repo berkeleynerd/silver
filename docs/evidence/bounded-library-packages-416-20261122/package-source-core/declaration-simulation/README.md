@@ -100,3 +100,27 @@ focus `20261127T143040-5e2cc019aafb` with two workers and two threads,
 8192 MiB per process. The build took 7.171 seconds and the fresh audit
 checked 24,930 declarations in 3.005 seconds. The `formal-modes-` records
 retain the exact inputs and imported modules.
+
+## Native domains for declaration callees
+
+`ReaderFrame` supplies the machine component bounds and the executable
+`Valid_State` for a declaration frame. These yield the imported state
+domain used by the name and header readers. Changing the cursor within
+the source or changing the parser flags preserves the frame domain.
+Successful `Hide_Outer` compaction retains the component bounds through
+all three filtered tables and checks the resulting state.
+
+A successful `Package_Type_At` returns a valid source name, moves the
+cursor forward within the text, and produces an ordered, machine-bounded
+interval. The theorem covers Boolean, predefined Integer and exported
+subtype results as well as the rejected read. Applying these properties
+to every call in each declaration reader is still pending.
+
+Linux x86-64 run `20261127T144321-b6782fe899aa` built
+`Silver.ApplicationPackageDeclarationDomains` in 4.825 seconds and
+freshly audited 46,308 declarations in 3.411 seconds. It used two Lake
+workers, two threads per process and 8192 MiB per process. The
+`reader-domains-` log and evidence retain the inputs and results.
+Earlier runs `20261127T143644-e58598fa9482` and
+`20261127T144235-60c6cbd97b76` retained the rejected proof terms and
+the deprecated rewrite names, respectively.
