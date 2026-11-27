@@ -45,3 +45,16 @@ failed result, with the executable condition loop under the relation
 reader's cursor bound and the checked static source witness. Its recursion
 decreases the remaining source span. Binding all four recursive readers and
 the imported native leaves on their full domains remains open.
+
+## Mutually recursive static Boolean readers
+
+On Linux x86-64, `20261127T154200-6e3a9535e79c` built the five recursive
+reader modules and passed a fresh 22,767-declaration axiom audit. The proof
+uses the native remaining source span and the four original reader ranks.
+Every recursive call satisfies its smaller variant. An accepted result advances
+within the original source, and every typed execution on the native domain has
+the same complete result as `closedReader`. This includes failed parses and all
+initial scratch stores. The body interpretation takes the source witness and
+the interpreted primitive imports. Deriving the latter from their individual
+source libraries and assembling the complete successful expression remain open.
+[Focused evidence](static-boolean-recursion/lean-focused-evidence.json.gz)
