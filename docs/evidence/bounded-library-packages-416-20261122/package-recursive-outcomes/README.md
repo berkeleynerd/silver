@@ -1,5 +1,12 @@
 # Original recursive reader closure
 
+Applicability correction (2026-11-27): this run used earlier private native
+and shared proof inputs. Its 1,461 captured hashes were internally consistent,
+but 124 differed from the later primary checkout, including six audited modules.
+It is retained as historical evidence. The distinct
+[current-input result](../package-recursive-current-inputs/README.md) checks the
+same theorem after synchronization and reports the full primary comparison.
+
 The focused Linux x86-64 check covers complete native package-call and Basic
 return contracts, rejected control statements, native IF/ELSIF/ELSE and FOR
 child domains, and simultaneous Statement/Tail return contracts and original
