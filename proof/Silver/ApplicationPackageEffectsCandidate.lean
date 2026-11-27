@@ -71,6 +71,8 @@ def candidateTokens : List String := [
 ]
 
 theorem candidate_checked : Checked candidateTokens where
+  trees := effects_wellFormed
+  scopes := effects_scoped
   visibleHeader := by decide +kernel
   visibleBody := by
     simp only [Native.visibleBody, Body.render, Command.list, List.foldr,

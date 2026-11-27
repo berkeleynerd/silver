@@ -22,6 +22,11 @@ def readsHeader : List String := expectedTokens
   "(Text : String; Context : Body_Context; Info : Packages.Metadata; First, After : Literal_Position) return Packages.State_Set with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then First <= Text'Last + 1 and then After <= Text'Last + 1, Post => Packages.Within (State_Reads'Result, Info.State_Count)"
 
 structure Checked (tokens : List String) : Prop where
+  trees : Native.visibleBody.wellFormed functionNames = true ∧
+    Native.targetBody.wellFormed functionNames = true ∧ Native.readsBody.wellFormed functionNames = true
+  scopes : Native.visibleBody.scoped ((.number,"index") :: commonScope) = true ∧
+    Native.targetBody.scoped ((.number,"position") :: commonScope) = true ∧
+    Native.readsBody.scoped ((.number,"first") :: (.number,"after") :: commonScope) = true
   visibleHeader : functionHeader "visible_state" "is" tokens = some visibleHeader
   visibleBody : Compose.BooleanDeclarationNative.SourceChecks.ordinaryFunction
     "visible_state" tokens = some (Native.visibleBody.render functionNames)
