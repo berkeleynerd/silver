@@ -212,14 +212,14 @@ package body Silver_Names with SPARK_Mode => On is
                 (if Operation = Output_Call or else Operation = Partial_Output_Call then Context.IO_With else Context.Arguments_With);
               Used : constant Boolean :=
                 (if Operation = Output_Call or else Operation = Partial_Output_Call then Context.IO_Use else Context.Arguments_Use);
+              Package_Hides : constant Boolean := Package_First /= 0 and then
+                Name_Is (Text, Package_First, Package_After, Operation_Name (Operation));
               Qualified : constant Literal_Position := Take (Text,
                 Take (Text, Position,
                   (if Operation = Output_Call or else Operation = Partial_Output_Call then "silver_io" else "silver_arguments"), True), ".", False);
       begin (if Context.After = 0 or else not Visible then 0
         elsif Qualified /= 0 then Take (Text, Qualified, Operation_Name (Operation), True)
-        elsif Used and then not Hidden
-          and then (Package_First = 0 or else not Name_Is
-            (Text, Package_First, Package_After, Operation_Name (Operation)))
+        elsif Used and then not Hidden and then not Package_Hides
         then Take (Text, Position, Operation_Name (Operation), True)
         else 0));
 
