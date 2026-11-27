@@ -20,3 +20,9 @@ condition discriminants and the flow count. The declaration evaluator
 preserves arbitrary incoming values for these uninitialized records.
 The packet covers this shared API and the general storage laws. The individual
 reader bodies and their callee/domain proofs have separate focused targets.
+
+Statement loop invariants also use the native Boolean equality operator.
+Focus `20261127T123251-7d7d7609853c` checked its exact rendering, relation grammar,
+scope and negative witnesses in `Silver.ApplicationNativeGuards`. The fresh
+audit covered 20,417 declarations at two workers and two threads per process.
+Its input digest is `6eb3aafab9e47227948bbfecd3672ecc898cc051586d2b63b325beec4d71ecf0`.

@@ -40,7 +40,7 @@ def Expr.prefix : Expr Fn ty → Bool
   | .full | .empty | .invalidCall | .invalidObject | .emptyStateSet | .invalidType | .invalidState | .noHidden | .booleanType | .integerType
   | .scalarKind _ | .exportKind _ | .mode _ | .unitKind _ | .bodyStop _ | .routineKind _ | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .number _ | .integer _ | .truth _ | .word _ | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _
-  | .inRange _ _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .intNe _ _ | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .truthNe _ _ | .kindNe _ _ | .intervalNe _ _ | .routineEq _ _
+  | .inRange _ _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .intNe _ _ | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .truthEq _ _ | .truthNe _ _ | .kindNe _ _ | .intervalNe _ _ | .routineEq _ _
   | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ | .andThen _ _ | .orElse _ _ | .eagerOr _ _ | .group _
   | .contextHasDynamic _ | .flowValuesFirst _ | .intervalValue _ _
   | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .sourceLast _ | .sourceLength _ | .nameSpan _ _
@@ -55,7 +55,7 @@ def Expr.primary : Expr Fn ty → Bool
   | .emptyActuals | .emptySeen | .functionType _ _ _ _ | .functionFormal _ _ _ _ _ | .procedureFormal _ _ _ _ _ _
   | .token _ | .maxConcatenations | .emptyMetadata | .invalidAnalysis | .sourcePrefix _ _ => true
   | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .inRange _ _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _
-  | .intLe _ _ | .intGe _ _ | .intNe _ _ | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .truthNe _ _ | .kindNe _ _ | .intervalNe _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _
+  | .intLe _ _ | .intGe _ _ | .intNe _ _ | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .truthEq _ _ | .truthNe _ _ | .kindNe _ _ | .intervalNe _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _
   | .contextHasDynamic _ | .andThen _ _ | .orElse _ _ | .eagerOr _ _ | .ite _ _ _ | .conditionalTrue _ _ | .elsif _ _ _ | .forAll _ _ _ _ | .forSome _ _ _ _ | .forAllFlowValues _ _ _ | .forAllActuals _ _ _ | .forAllStates _ _ => false
 
 def Expr.simple (value : Expr Fn ty) : Bool := value.primary || match value with
@@ -65,7 +65,7 @@ def Expr.simple (value : Expr Fn ty) : Bool := value.primary || match value with
 def Expr.relation (value : Expr Fn ty) : Bool := value.simple || match value with
   | .contextHasDynamic _ => true
   | .eq _ _ | .ne _ _ | .inRange _ _ _ | .lt _ _ | .le _ _ | .gt _ _ | .ge _ _ | .intLe _ _ | .intGe _ _ | .intNe _ _
-  | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .truthNe _ _ | .kindNe _ _ | .intervalNe _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ => true
+  | .intervalEq _ _ | .nameEq _ _ | .kindEq _ _ | .truthEq _ _ | .truthNe _ _ | .kindNe _ _ | .intervalNe _ _ | .routineEq _ _ | .exportEq _ _ | .modeNe _ _ | .modeEq _ _ | .stateSetNe _ _ | .unitMapEq _ _ | .unitMapNe _ _ | .not _ => true
   | _ => false
 
 def Expr.andHead (value : Expr Fn ty) : Bool := value.relation || match value with
@@ -131,7 +131,7 @@ def Expr.wellFormed (names : FunctionNames Fn) : Expr Fn ty → Bool
   | .add left right | .sub left right => left.simple && right.primary &&
       left.wellFormed names && right.wellFormed names
   | .eq left right | .ne left right | .lt left right | .le left right | .gt left right | .ge left right
-  | .intLe left right | .intGe left right | .intNe left right | .intervalEq left right | .nameEq left right | .kindEq left right | .truthNe left right | .kindNe left right | .intervalNe left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right
+  | .intLe left right | .intGe left right | .intNe left right | .intervalEq left right | .nameEq left right | .kindEq left right | .truthEq left right | .truthNe left right | .kindNe left right | .intervalNe left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right
   | .unitMapEq left right | .unitMapNe left right =>
       left.simple && right.simple && left.wellFormed names && right.wellFormed names
   | .inRange value first last => value.simple && first.simple && last.simple &&
@@ -224,7 +224,7 @@ def Expr.scoped (scope : Scope) : Expr Fn ty → Bool
   | .index _ value index => value.scoped scope && index.scoped scope
   | .add left right | .sub left right | .eq left right | .ne left right | .lt left right
   | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .intNe left right | .intervalEq left right | .nameEq left right
-  | .kindEq left right | .truthNe left right | .kindNe left right | .intervalNe left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right | .andThen left right
+  | .kindEq left right | .truthEq left right | .truthNe left right | .kindNe left right | .intervalNe left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right | .andThen left right
   | .orElse left right | .eagerOr left right | .intervalValue left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.scoped scope && right.scoped scope
   | .inRange value first last => value.scoped scope && first.scoped scope && last.scoped scope
@@ -281,7 +281,7 @@ def Expr.namedCorrect (parameters : FunctionParameters Fn) : Expr Fn ty → Bool
   | .index _ value index => value.namedCorrect parameters && index.namedCorrect parameters
   | .add left right | .sub left right | .eq left right | .ne left right | .lt left right
   | .le left right | .gt left right | .ge left right | .intLe left right | .intGe left right | .intNe left right | .intervalEq left right | .nameEq left right
-  | .kindEq left right | .truthNe left right | .kindNe left right | .intervalNe left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right | .andThen left right
+  | .kindEq left right | .truthEq left right | .truthNe left right | .kindNe left right | .intervalNe left right | .routineEq left right | .exportEq left right | .modeNe left right | .modeEq left right | .stateSetNe left right | .andThen left right
   | .orElse left right | .eagerOr left right | .intervalValue left right | .nameSpan left right | .sourcePrefix left right | .conditionalTrue left right
   | .unitMapEq left right | .unitMapNe left right => left.namedCorrect parameters && right.namedCorrect parameters
   | .inRange value first last => value.namedCorrect parameters && first.namedCorrect parameters && last.namedCorrect parameters
@@ -536,6 +536,9 @@ theorem declaration_aggregate_controls :
     (Expr.kindNe (.ite (.truth true) (.scalarKind .integer) (.scalarKind .boolean)) (.scalarKind .integer) :
       Expr NoFunctions .truth).wellFormedRoot noNames = false ∧
     (Expr.intervalNe (.variable "bounds") .empty : Expr NoFunctions .truth).scoped [] = false ∧
+    (Expr.truthEq (.group atom) (.group atom) : Expr NoFunctions .truth).wellFormedRoot noNames = true ∧
+    (Expr.truthEq (.ite atom atom atom) atom : Expr NoFunctions .truth).wellFormedRoot noNames = false ∧
+    (Expr.truthEq (.variable "left") (.variable "right") : Expr NoFunctions .truth).scoped [(.truth,"left")] = false ∧
     (Expr.truthNe (.group atom) (.group atom) : Expr NoFunctions .truth).wellFormedRoot noNames = true := by
   decide +kernel
 

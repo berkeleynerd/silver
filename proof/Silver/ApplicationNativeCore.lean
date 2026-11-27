@@ -1100,6 +1100,7 @@ inductive Expr (Fn : Ty → Type) : Ty → Type
   | unitMapNe : Expr Fn .unitMap → Expr Fn .unitMap → Expr Fn .truth
   | nameEq : Expr Fn .nameSpan → Expr Fn .nameSpan → Expr Fn .truth
   | kindEq : Expr Fn .scalarKind → Expr Fn .scalarKind → Expr Fn .truth
+  | truthEq : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
   | truthNe : Expr Fn .truth → Expr Fn .truth → Expr Fn .truth
   | kindNe : Expr Fn .scalarKind → Expr Fn .scalarKind → Expr Fn .truth
   | intervalNe : Expr Fn .interval → Expr Fn .interval → Expr Fn .truth
@@ -1230,7 +1231,7 @@ def Expr.render (names : FunctionNames Fn) : Expr Fn ty → List String
   | .index selection value index => value.render names ++ selection.path ++ ["("] ++ index.render names ++ [")"]
   | .add left right => left.render names ++ ["+"] ++ right.render names
   | .sub left right => left.render names ++ ["-"] ++ right.render names
-  | .intervalEq left right | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
+  | .truthEq left right | .intervalEq left right | .eq left right | .nameEq left right | .kindEq left right | .routineEq left right | .exportEq left right | .unitMapEq left right | .modeEq left right =>
       left.render names ++ ["="] ++ right.render names
   | .truthNe left right | .kindNe left right | .intervalNe left right
   | .ne left right | .modeNe left right | .unitMapNe left right | .stateSetNe left right | .intNe left right => left.render names ++ ["/="] ++ right.render names
@@ -1350,6 +1351,7 @@ def Expr.eval (calls : Calls Fn) (locals : Locals) : Expr Fn ty → ty.meaning
   | .unitMapNe left right => !(ApplicationAdmission.unitsEqual (left.eval calls locals) (right.eval calls locals))
   | .nameEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .kindEq left right => decide (left.eval calls locals = right.eval calls locals)
+  | .truthEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .truthNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .kindNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .intervalNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
