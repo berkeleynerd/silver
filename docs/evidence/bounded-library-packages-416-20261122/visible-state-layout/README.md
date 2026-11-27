@@ -56,3 +56,27 @@ No spelling uniqueness premise is imposed on unrelated local/formal rows.
 Run `20261127T194911-820aa97a282c` compiled the changed history target and passed a
 fresh 32,489-declaration axiom audit. The final CompletionFrames assembly is
 being added separately; this run checks all of its new history helpers first.
+
+## Completed source-context assembly
+
+`ApplicationPackageCompletionVisibleState` now derives VisibleContext from the
+actual CompletionFrames: the original signature, routine entry, complete local
+declaration history, output initializer pass and delayed output-formal append.
+Its fields provide declarations, no-later-shadow, scalar capacity, body widening
+and original declaration ranges. `VisibleContext.reset` composes the exact
+native slot reset with semantic resetGlobalFlow. `globals_visible` preserves the
+package facts across successful completions for the following routine.
+
+Run `20261127T195154-9af213983e16` compiled this final new target and passed a fresh
+33,036-declaration axiom audit. It reused the matching history helpers already
+checked in the preceding focused checkpoints. All 1513 recorded input hashes
+were compared with the current worktree after success and matched. The complete
+input manifest is retained in completion-inputs.json. Actual allocation was
+two workers, two Lean threads per process, 8192 MiB/process, Linux CPU IDs 6–7.
+No private job remains active and no full OutputBody build was run.
+
+The assigned visibility/State_Target/reset history bridge is complete. Parent
+integration and the sibling procedure consumer use these checked APIs; complete
+package-admission assurance remains a separate integration checkpoint. No
+whole-text validMetadata assumption, source-prefix domain narrowing, project
+axiom or unfinished proof was introduced.
