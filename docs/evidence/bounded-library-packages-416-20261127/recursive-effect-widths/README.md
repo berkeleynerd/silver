@@ -1,0 +1,7 @@
+# Recursive native effect-mask widths
+
+Authorized #416 source-domain closure, 2026-11-27. Selected Astra Max; live model/effort and token/cost measurements unavailable.
+
+`ApplicationPackageRecursiveMasks` derives exact reads/writes lengths `maxStates` for the original recursive Basic, Statement and Tail readers on every accepted and rejected path. Package-call finishing unions produce the fixed width even for arbitrary raw metadata; resets preserve it. Basic preserves widths through package calls, inherited statements and assignments. The simultaneous source-cursor induction follows every arm, optional ELSE, loop and sequential statement using the already derived native child domains. Only original native field subtypes and input widths are required; no semantic metadata-validity premise or recursive postcondition is assumed.
+
+The same focus checks two affected inherited callers: qualified Boolean lookup in `ProcedurePrefixExpressionMeaning`, and the default `Names.ValidContext` in `ProcedureDeclarationHeaderMeaning`. It passed on Linux x86-64 with a fresh 35,941-declaration axiom audit; all 1,590 captured local input hashes matched at retention. Exact run/configuration/timings are in the retained manifest/events. Explicit CPUs 4–5, two workers, two threads/process, 8192 MiB/process. One initial draft failure is retained: let reduction, actual branch order, and explicit cursor-bound type normalization; no input-domain or budget changes. This is focused helper evidence, not complete feature assurance or an independent kernel replay.

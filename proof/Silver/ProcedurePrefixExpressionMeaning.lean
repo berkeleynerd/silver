@@ -69,12 +69,12 @@ mutual
         simpa only [conditionMentions] using prefix_condition_read_absent closed cell outside inner
     | boolean _ _ _ _ _ atom =>
         cases atom with
-        | name _ _ =>
+        | @name reference _ _ =>
             cases cell with
             | integer => rfl
             | boolean identity =>
                 have bounded := BooleanBindings.lookup_bound text context.booleanNames
-                  (skipAt text position) (nameAfter text (skipAt text position))
+                  reference.first reference.after reference.qualifierFirst reference.qualifierAfter
                 simp only [ProcedureCellOutside] at outside
                 change (Cell.boolean identity == .boolean _) = false
                 apply beq_eq_false_iff_ne.mpr

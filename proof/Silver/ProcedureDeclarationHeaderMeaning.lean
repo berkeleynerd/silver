@@ -175,7 +175,7 @@ theorem procedureHeader_ready {text state arguments}
     refine ⟨fixedAfter_result_bound text _ "(" false (by decide), empty.2.1, empty.2.2.1,
       empty.2.2.2.1, Nat.le_refl _, empty.2.2.2.2.2.1, ArrayBindings.ValidNativeEnvironment.emptyItems valid.arrayTypes,
       valid.2.2.2.2.2.2.2.1, empty.booleans, valid.functions, Nat.zero_le _, Nat.zero_le _,
-      valid.procedures, Nat.le_refl _, cap⟩
+      valid.procedures, Nat.le_refl _, cap, Names.validContext_default text⟩
   have headerValid : ValidState text header := procedureParametersModel_state_valid initialValid
   have frameValid : ValidState text frame := model_state_position_valid text header headerValid _
     (fixedAfter_result_bound text _ "is" true (by decide))
