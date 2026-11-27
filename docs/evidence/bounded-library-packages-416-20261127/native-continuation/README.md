@@ -20,6 +20,7 @@ postconditions remain; no obligation or executable branch is removed.
 | Complete helper | Canonical run | Outcome |
 | --- | --- | --- |
 | `Package_Signature_At`, body declaration 8395 | `20261127T184159-a0acf00fba2f` | 79/79 (14 flow, 65 proof), selected entity `all`; 1,020.794 seconds. |
+| `Package_Spec_At`, body declaration 8581 | `20261127T185933-2055189d72e9` | 45/45 (9 flow, 36 proof), selected entity `all`; 362.113 seconds. |
 
 The source for this checkpoint is Output_Profile SHA-256
 `f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da`.
@@ -29,7 +30,66 @@ bytes were compared to each recorded managed input hash before retention.
 The separate [namespace packet](../namespace-regressions/README.md) retains the
 #426/#427 implementation fixes, actual frontend controls and direct caller checks.
 
-Spec, Main, Analyze and their four public wrappers remain pending at this
+Main, Analyze and their four public wrappers remain pending at this
 checkpoint. Complete native, Lean, original-source correspondence and final
 regression/sample checkpoints remain required; these focused results do not
 establish feature completion.
+
+## Existing helper reconciliation
+
+The [separate inventory](../../bounded-library-packages-416-20261122/native-package-contracts/changed-output-profile-helpers.json)
+contains 11 changed existing declarations and 30 further changed bodies. Its
+own coverage record explicitly leaves their focused contracts/callers pending.
+The shared managed history was reconciled through the present Spec success;
+no complete Output_Profile or compiler proof after the #416 changes is present.
+The latest prior complete compiler success, `20261121T191055-5cced625eb47`, used
+Output_Profile SHA `5785341f0fb90656f8db5b34cc23687fa30e3d5863a59761450167868fd56624`,
+exactly the `1fac6fa133` baseline. Its readers lack the new qualifier parameters,
+expanded parser records and validity predicates. That success therefore does
+not establish the expanded current helper domains.
+
+Ten changed declarations still have no current-domain whole-helper success:
+`Lookup_Subtype_Model`, `Lookup_Subtype`, `Lookup_Boolean_Model`,
+`Lookup_Boolean`, `Indexed_At`, `Value_At`, `Expression_Step`, `Expression_Tail`,
+`Expression_At`, and `Read_String_In_Flow`. `Call_After` is the eleventh and now
+passes the complete 19-check selection.
+
+The inventory records 34 distinct direct callers of those changed declarations.
+`Call_After` is freshly checked. Retained successes for `Static_Boolean_Primary`
+(24 checks), `Visible_State` (12) and `Package_Callee` (11) remain applicable as
+focused helper evidence: their complete tokenized headers/bodies match, all
+inherited declarations and helpers preceding Package_Word match, every external
+contract file named in the selected report has the same recorded hash, and none
+of the four internally changed helper headers occurs in those reports. Selected
+entities have `all` coverage under the canonical focused policy. No rerun is
+required merely because their enclosing file has unrelated changes. Fresh
+complete final-source assurance/provenance remains mandatory.
+
+The remaining 30 caller selections are `Array_Declaration_At`,
+`Array_Declaration_Model`, `Array_Type_At`, `Assignment_At`, `Basic_Body`,
+`Boolean_Atom_After`, `Boolean_Declaration_At`, `Boolean_Target`, `Callee_At`,
+`Character_At`, `Character_Declaration_At`, `Comparison_At`, `Expression_At`,
+`Expression_Step`, `Expression_Tail`, `Function_Type_At`, `Lookup_Boolean`,
+`Lookup_Subtype`, `New_Name_Allowed`, `Output_At`, `Primary_Model`,
+`Procedure_Callee_At`, `Read_Primary_Into`, `Read_Relation_Into`,
+`Read_String_In_Flow`, `Relation_Model`, `Scalar_Type_At`,
+`String_Declaration_At`, `Subtype_Declaration_At`, and `Value_At`.
+After overlap, **33 unique contract/caller selections remain uncovered**.
+
+Another 17 inventory bodies lie outside that union. `Argument_At` now passes
+its complete 21-check selection. The remaining 16 are listed individually in
+[existing-helper-reconciliation.json](existing-helper-reconciliation.json),
+with current locations and applicability status. They remain part of the
+required final audit; the four changed validity predicates directly contribute
+to the expanded contracts and must be included when selecting their affected
+callee checks. This inventory does not prescribe 16 duplicate standalone runs.
+The old `Bare_Target` attempt failed during global-contract generation at an
+unrelated package expression before its selected obligations, so it supplies
+no complete-helper success.
+
+The JSON retains precise locations, source comparisons, selected coverage,
+external dependency hashes and run identities. This is an uncovered-work
+assessment, not a successful proof or permission to enter the complete native
+checkpoint. Coordinate a canonical focused selection that covers the remaining
+contracts/callers and applicable changed callees, then perform the mandatory
+complete final native audit.

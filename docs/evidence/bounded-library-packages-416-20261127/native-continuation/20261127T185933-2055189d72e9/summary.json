@@ -1,0 +1,188 @@
+{
+  "run": "20261127T185933-2055189d72e9",
+  "outcome": "success",
+  "duration_seconds": 362.112600519,
+  "scope": [
+    "compiler",
+    "--limit-subp=silver_output_profile.adb:8581"
+  ],
+  "focused_options": [
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30"
+  ],
+  "allocation": {
+    "workers": {
+      "actual": 2,
+      "automatic": 4,
+      "requested": 2
+    }
+  },
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "sources": {
+    "src/silver_names.adb": "7660b0a119b1ac53afa9478880e93a4b05e4f7ed3c601316e0cd61637539cdb6",
+    "src/silver_names.ads": "20eb7b268611e056c3fba698ec6d946956ebdcf1bd9b57ae680cc9b85afbdd74",
+    "src/silver_output_profile.adb": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+    "src/silver_output_profile.ads": "196aa3b3a9f4401cf542397e34c1c0a93d9375b462d3e4fb4460fafa8029f2f1"
+  },
+  "reports": [
+    {
+      "file": "silver_output_profile.spark",
+      "flow": 9,
+      "proof": 36,
+      "spark": {
+        " 1": "all"
+      },
+      "entities": {
+        " 1": {
+          "name": "Silver_Output_Profile.Package_Spec_At",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "silver_output_profile.adb",
+              "line": 8581
+            }
+          ]
+        },
+        " 10": {
+          "name": "Silver_Output_Profile.Hide_Name",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 6811
+            }
+          ]
+        },
+        " 11": {
+          "name": "Silver_Output_Profile.Package_Name_Allowed",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 7925
+            }
+          ]
+        },
+        " 12": {
+          "name": "Silver_Output_Profile.Package_Name_Fresh",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 7967
+            }
+          ]
+        },
+        " 13": {
+          "name": "Silver_Output_Profile.Valid_State",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 330
+            }
+          ]
+        },
+        " 14": {
+          "name": "Silver_Package_Bindings.Same_Name",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_package_bindings.ads",
+              "line": 147
+            }
+          ]
+        },
+        " 2": {
+          "name": "Silver_Output_Profile.Name_After",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 393
+            }
+          ]
+        },
+        " 3": {
+          "name": "Silver_Output_Profile.Package_Object_At",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 8249
+            }
+          ]
+        },
+        " 4": {
+          "name": "Silver_Output_Profile.Package_Signature_At",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "silver_output_profile.adb",
+              "line": 8395
+            }
+          ]
+        },
+        " 5": {
+          "name": "Silver_Output_Profile.Package_Word",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 7891
+            }
+          ]
+        },
+        " 6": {
+          "name": "Silver_Output_Profile.Skip_At",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 377
+            }
+          ]
+        },
+        " 7": {
+          "name": "Silver_Output_Profile.Spark_Pragma_After",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 7908
+            }
+          ]
+        },
+        " 8": {
+          "name": "Silver_Output_Profile.Subtype_Declaration_At",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 1627
+            }
+          ]
+        },
+        " 9": {
+          "name": "Silver_Output_Profile.Take_Token",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 457
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
