@@ -27,8 +27,8 @@ theorem package_statement_decoded {readers bound source}
     exact package_conditional_decoded equations scope legal hidden decode present keyword arms closing
   | iteration present noIf keyword loop => exact package_loop_decoded scope legal hidden decode present noIf keyword loop
 
-/-- Accepted original recursive Main readers construct source-only syntax and
-derive the complete combined-table checker on every arm and loop body. Strong
+/-- Accepted original recursive package readers construct source-only syntax and
+derive the complete package routine checker on every arm and loop body. Strong
 induction uses original cursor progress; no successful semantic decoder, child
 checker or safety result remains as an external premise. -/
 theorem package_recursive_meaning {readers bound source}
