@@ -4,6 +4,7 @@ public import Silver.ApplicationPackageDeclarationsObjectFrameDomains
 public import Silver.ApplicationPackageObjectRows
 public import Silver.ComposeBooleanArrayTrace
 public import Silver.IntegerExpressions
+public import Silver.ApplicationStaticBooleanReaderImports
 
 @[expose] public section
 
@@ -710,5 +711,155 @@ theorem ValueCalls.scalar_exact {text : Source} {base : ParserState} {first last
   refine ⟨expression, ?_, fun values fit => ?_⟩
   · simpa only [(calls.scalar kind).1] using reading.grammar
   · exact BooleanElaboration.singleton_infer_value inferred fit singleton
+
+private def BooleanCallSuccess (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (base : ParserState) (out : ObjectResult) : Prop :=
+  out.frame.position ≠ 0 → out.mark.kind = .boolean →
+    reader text base out.initFirst = ⟨out.initAfter, out.booleanValue⟩
+
+private theorem rejected_boolean_call (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (base : ParserState) : BooleanCallSuccess reader text base invalidObject :=
+  fun present => (present rfl).elim
+
+private theorem finish_boolean_call (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (original base : ParserState) (out : ObjectResult)
+    (known : out.mark.kind = .boolean → reader text base out.initFirst = ⟨out.initAfter, out.booleanValue⟩) :
+    BooleanCallSuccess reader text base (finishObject (modelObjectCalls reader) text original out) := by
+  dsimp only [finishObject]
+  split
+  · exact rejected_boolean_call _ _ _
+  · exact fun _ => known
+
+private theorem scalar_boolean_call (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (original : ParserState) (first last constant : Nat) (out : ObjectResult)
+    (range : ScalarConstraintResult) (kind : out.mark.kind = .integer) :
+    BooleanCallSuccess reader text out.frame
+      (objectScalar (modelObjectCalls reader) text original first last constant false out range) := by
+  dsimp only [objectScalar]
+  split
+  · exact rejected_boolean_call _ _ _
+  · apply finish_boolean_call
+    intro impossible
+    simp only [kind] at impossible
+    cases impossible
+
+private theorem value_boolean_call (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (original : ParserState) (first last constant : Nat) (out : ObjectResult) :
+    BooleanCallSuccess reader text out.frame
+      (objectBoolean (modelObjectCalls reader) text original first last constant false out) := by
+  dsimp only [objectBoolean, modelObjectCalls]
+  split
+  · exact rejected_boolean_call _ _ _
+  · simp only [Bool.not_false, ↓reduceIte]
+    split
+    · exact rejected_boolean_call _ _ _
+    · rename_i accepted
+      have after : (reader text out.frame out.initFirst).after =
+          booleanInitializerAfter text out.frame out.initFirst first last := by
+        by_cases same : (reader text out.frame out.initFirst).after =
+            booleanInitializerAfter text out.frame out.initFirst first last
+        · exact same
+        · exact (accepted (by simpa only [decide_eq_true_eq] using same)).elim
+      dsimp only [objectBooleanFinish]
+      apply finish_boolean_call
+      intro _
+      cases value : reader text out.frame out.initFirst with
+      | mk position flag =>
+          simp only [value] at after ⊢
+          cases after
+          rfl
+
+private theorem initialized_boolean_call (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (original : ParserState) (first last constant : Nat) (out : ObjectResult)
+    (range : ScalarConstraintResult) :
+    BooleanCallSuccess reader text out.frame
+      (objectInitialized (modelObjectCalls reader) text original first last constant false out range) := by
+  dsimp only [objectInitialized]
+  split
+  · exact rejected_boolean_call _ _ _
+  · split
+    · exact scalar_boolean_call reader text original first last constant _ range
+        (of_decide_eq_true ‹_›)
+    · exact value_boolean_call reader text original first last constant _
+
+private theorem typed_boolean_call (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (original : ParserState) (info : PackageBindings.Metadata)
+    (first last colon constant : Nat) (out : ObjectResult) :
+    BooleanCallSuccess reader text out.frame
+      (objectTyped (modelObjectCalls reader) text original info first last colon constant false out) := by
+  unfold objectTyped
+  by_cases zero : out.frame.position = 0
+  · simp only [zero, decide_true, ite_true]
+    exact rejected_boolean_call _ _ _
+  · simp only [zero, decide_false, Bool.false_eq_true, ite_false]
+    let mark := (modelObjectCalls reader).typeAt text out.frame info (if decide (constant = 0) then colon else constant)
+    change BooleanCallSuccess reader text out.frame (if decide (mark.after = 0) then invalidObject else _)
+    by_cases absent : mark.after = 0
+    · simp only [absent, decide_true, ite_true]
+      exact rejected_boolean_call _ _ _
+    · simp only [absent, decide_false, Bool.false_eq_true, ite_false]
+      let seed := {out with constantObject := decide (constant ≠ 0), mark := mark}
+      change BooleanCallSuccess reader text out.frame (if decide (mark.kind = .integer) then
+        objectInitialized (modelObjectCalls reader) text original first last constant false seed
+          (scalarConstraintAt text mark.after out.frame.scalarNames mark.bounds)
+        else objectInitialized (modelObjectCalls reader) text original first last constant false seed
+          ⟨mark.after, mark.bounds⟩)
+      split <;> exact initialized_boolean_call reader text original first last constant seed _
+
+/-- A nonlocal Boolean object's stored bit and cursor are exactly the result
+of the original static reader call. Its semantic exactness follows from that
+reader's separate source correspondence, rather than an arbitrary result bit. -/
+theorem object_global_boolean_call (reader : BooleanElaboration.Native.Reader) (text : Source)
+    (frame : ParserState) (info : PackageBindings.Metadata)
+    (present : (objectStep (modelObjectCalls reader) text frame info false).frame.position ≠ 0)
+    (kind : (objectStep (modelObjectCalls reader) text frame info false).mark.kind = .boolean) :
+    let out := objectStep (modelObjectCalls reader) text frame info false
+    let base := initializerBase text frame info (objectName text frame) false
+    reader text base out.initFirst = ⟨out.initAfter, out.booleanValue⟩ := by
+  have calls : BooleanCallSuccess reader text
+      (initializerBase text frame info (objectName text frame) false)
+      (objectStep (modelObjectCalls reader) text frame info false) := by
+    dsimp only [objectStep, objectNameStep, modelObjectCalls]
+    split
+    · exact rejected_boolean_call _ _ _
+    · simp only [Bool.false_eq_true, ite_false]
+      split
+      · exact typed_boolean_call reader text frame info _ _ _ _ _
+      · exact rejected_boolean_call _ _ _
+  exact calls present kind
+
+/-- The immutable Boolean seed is the value of an expression reconstructed
+from the original static-reader bodies and imports. The conclusion ranges over
+every scalar-fitting and known-Boolean-fitting elaboration store. -/
+theorem object_global_boolean_exact {objects : ObjectLibraries}
+    (library : BooleanElaboration.Native.SourceImports.Library objects)
+    {tokens : List String} (checked : BooleanElaboration.Native.SourceChecks.Checked tokens)
+    (text : Source) (textValid : ValidText text) (frame : ParserState)
+    (framed : ReaderFrame text frame) (info : PackageBindings.Metadata)
+    (present : (objectStep (modelObjectCalls library.condition) text frame info false).frame.position ≠ 0)
+    (kind : (objectStep (modelObjectCalls library.condition) text frame info false).mark.kind = .boolean) :
+    let out := objectStep (modelObjectCalls library.condition) text frame info false
+    let base := initializerBase text frame info (objectName text frame) false
+    ∃ expression,
+      BooleanElaboration.Native.ExpressionAt text base .condition out.initFirst expression out.initAfter ∧
+      (∀ integers flags, Integer.Fits (ScalarExpression.ranges base.scalarNames) integers →
+        BooleanBindings.KnownFits base.booleanNames flags → ∀ values input inputValid,
+        expression.evaluate values input inputValid integers flags = out.booleanValue) := by
+  let out := objectStep (modelObjectCalls library.condition) text frame info false
+  let base := initializerBase text frame info (objectName text frame) false
+  have original : library.condition text base out.initFirst = ⟨out.initAfter, out.booleanValue⟩ :=
+    object_global_boolean_call library.condition text frame info present kind
+  have calls := object_value_calls library.condition text frame framed info false present
+  have baseFrame := object_initializer_frame library.condition text frame framed info false present
+  have succeeded : (library.condition text base out.initFirst).after ≠ 0 := by
+    rw [original]
+    exact (calls.boolean kind).2
+  have domain : BooleanElaboration.Native.SourceChecks.Domain text base out.initFirst :=
+    ⟨textValid, baseFrame.typed, baseFrame.valid, calls.cursor⟩
+  obtain ⟨expression, reading, evaluation⟩ := library.condition_source checked text base out.initFirst domain succeeded
+  rw [original] at reading evaluation
+  refine ⟨expression, reading, ?_⟩
+  intro integers flags scalarFits booleanFits values input inputValid
+  exact BooleanElaboration.evaluate_sound scalarFits booleanFits values input inputValid expression out.booleanValue evaluation
 
 end Silver.ApplicationPackageInitializers

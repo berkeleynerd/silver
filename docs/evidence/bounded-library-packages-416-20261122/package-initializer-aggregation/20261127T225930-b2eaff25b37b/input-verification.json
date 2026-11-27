@@ -1,0 +1,18 @@
+{
+  "run_id": "20261127T225930-b2eaff25b37b",
+  "captured_source_count": 1619,
+  "changed": [
+    "proof/Silver/ApplicationPackageInitializerInventory.lean",
+    "proof/Silver/ApplicationPackageMainInitialization.lean",
+    "proof/Silver/ApplicationPackageRoutineInitialization.lean",
+    "proof/Silver/ProcedureDeclarationMeaning.lean"
+  ],
+  "missing": [],
+  "outcome": "failure",
+  "returncode": 1,
+  "cpu_affinity": [
+    6,
+    7
+  ],
+  "workers": 2
+}

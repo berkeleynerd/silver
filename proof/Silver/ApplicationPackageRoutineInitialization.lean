@@ -7,6 +7,7 @@ public import Silver.ApplicationPackageCompletionLayout
 public import Silver.PackageInitializationRanges
 public import Silver.ApplicationPackageDeclarationsSpecificationStepDomains
 public import Silver.ComposeSubtypeChecks
+public import Silver.PredicateFunctionCallMeaning
 
 @[expose] public section
 
@@ -539,5 +540,132 @@ theorem ValueCalls.scalar_initializer {text : Source} {base : ParserState} {firs
           else none) = _
     rw [model]
     simp only [Option.bind_some, nonempty, Bool.not_false, target, Bool.and_self, ite_true]
+
+def LocalRangesBound (bound : Nat) (ranges : SharedRanges) : Prop :=
+  ∀ identity, bound < identity → ranges.locals identity = none
+
+theorem ScalarRangeRows.view_eq {info : PackageBindings.Metadata} {ranges : SharedRanges}
+    {context : ParseContext} {bound : Nat} (rows : ScalarRangeRows info ranges context.scalarNames)
+    (bounded : LocalRangesBound bound ranges) :
+    ranges.view (layout bound info context) = ScalarExpression.ranges context.scalarNames := by
+  funext index
+  by_cases active : 0 < index ∧ index ≤ context.scalarNames.length
+  · exact rows.view_active bound index active
+  · have inactive : ¬ (0 < index ∧ index ≤ (scalarRows context).length) := by
+      simpa only [scalarRows, List.length_map] using active
+    change integerRangeAt ranges (slotAddress bound info .integer (scalarRows context) index) = _
+    rw [slotAddress, ite_eq_right inactive, ScalarExpression.ranges, ite_eq_right active]
+    exact bounded _ (by omega)
+
+def booleanInitializer (bound : Nat) (info : PackageBindings.Metadata)
+    (base : ParserState) (out : ObjectResult) (condition : Condition) : LocalInitializer where
+  target := .boolean out.name.first
+  domain := .boolean
+  value := .boolean condition
+  layout := layout bound info (booleanInitializerContext base out.name.first out.name.after)
+  analysis := (booleanInitializerContext base out.name.first out.name.after).analysis
+  booleans := BooleanBindings.analysis base.booleanNames
+
+/-- The raw Boolean initializer keeps its full original short-circuit reading.
+Its existing semantic consumer checks the same original analysis and flow;
+closed scalar frames and stable range correspondence supply the bridge. -/
+theorem ValueCalls.boolean_initializer {text : Source} {base : ParserState} {out : ObjectResult}
+    (calls : ValueCalls text base out.name.first out.name.after out)
+    (textValid : ValidText text) (framed : ReaderFrame text base)
+    (kind : out.mark.kind = .boolean) (bound : Nat) (info : PackageBindings.Metadata)
+    (ranges : SharedRanges) (rows : ScalarRangeRows info ranges base.scalarNames)
+    (bounded : LocalRangesBound bound ranges)
+    (pure : base.pure = true) (noArguments : base.dynamicFirst = 0)
+    (noStrings : base.names = []) (noArrays : base.arrayNames.names = []) :
+    ∃ condition result,
+      ConditionAt text (booleanInitializerContext base out.name.first out.name.after) out.initFirst
+        (booleanInitializerFacts base) condition result base.arrayNames.values ∧
+      result.after = out.initAfter ∧
+      (booleanInitializer bound info base out condition).Readable ∧
+      (booleanInitializer bound info base out condition).check ranges = some ranges ∧
+      Predicate.discharged (booleanObligations base out.name.first out.name.after condition) = true := by
+  obtain ⟨condition, result, reading, after, meaning, discharged⟩ :=
+    calls.boolean_inventory textValid framed kind
+  let context := booleanInitializerContext base out.name.first out.name.after
+  have closed : ClosedFunctionContext context := by
+    apply ClosedFunctionContext.ofEmpty pure
+    · simp only [context, booleanInitializerContext, noArguments, ne_eq, not_true_eq_false, decide_false]
+    · exact noStrings
+    · exact noArrays
+  have shape := condition_source_scalar closed reading
+  have oldFlow : context.flow (booleanInitializerFacts base) base.arrayNames.values =
+      ⟨ScalarFunctions.entryContext, ScalarExpression.ranges base.scalarNames⟩ := by
+    simp only [context, ParseContext.flow, booleanInitializerContext, booleanInitializerFacts,
+      noArguments, ne_eq, not_true_eq_false, ite_false, ActiveFlow.initial_model,
+      noArrays, ArrayBindings.viewRanges, ArrayBindings.viewNames, List.map_nil,
+      ArrayBindings.viewElaborating, List.any_nil, Bool.not_false, Bool.and_true,
+      ArrayBindings.integerRanges, ArrayBindings.integerNames, List.filter_nil,
+      ArrayBindings.ranges_nil]
+    rfl
+  have same := ScalarRangeRows.view_eq (context := context) rows bounded
+  have readable : (booleanInitializer bound info base out condition).Readable := by
+    refine ⟨meaning.grammatical, ?_⟩
+    simpa only [LocalInitializer.Readable, booleanInitializer, ScalarFunctions.Actual.Readable,
+      booleanInitializerContext, noArguments, ne_eq, not_true_eq_false, decide_false,
+      noStrings, empty_names_shape, noArrays, ArrayBindings.booleanAnalysis,
+      ArrayBindings.booleanNames, List.filter_nil, List.any_nil, Bool.false_or,
+      List.find?_nil] using meaning.readable
+  have checked : condition.checkBounds Bindings.emptyShape context.analysis
+      ⟨ScalarFunctions.entryContext, ranges.view (layout bound info context)⟩
+      (BooleanBindings.analysis base.booleanNames) = true := by
+    have original := meaning.checked
+    change condition.checkBounds context.names.shape context.analysis
+      (context.flow (booleanInitializerFacts base) base.arrayNames.values)
+      (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = true at original
+    rw [oldFlow] at original
+    rw [same]
+    simpa only [context, booleanInitializerContext, noStrings, empty_names_shape,
+      noArrays, ArrayBindings.booleanAnalysis, ArrayBindings.booleanNames,
+      List.filter_nil, List.any_nil, Bool.false_or, List.find?_nil] using original
+  refine ⟨condition, result, reading, after, readable, ?_, discharged⟩
+  have admitted : ScalarFunctions.scalarActual
+      (booleanInitializer bound info base out condition).value = true := shape
+  simp only [LocalInitializer.check, admitted, ite_true]
+  change (if condition.checkBounds Bindings.emptyShape context.analysis
+      ⟨ScalarFunctions.entryContext, ranges.view (layout bound info context)⟩
+      (BooleanBindings.analysis base.booleanNames) then some ranges else none) = some ranges
+  rw [ite_eq_left checked]
+
+/-- Each output RHS is recovered at its original preappend scope and initial
+flow. The nonzero result is derived from the following semicolon's progress
+guard, rather than assumed as an extra initializer certificate. -/
+theorem OutputObject.actual {calls : CompletionCalls} {text : Source}
+    {info : PackageBindings.Metadata} {row : OutputObject}
+    (textValid : ValidText text) (take : calls.takeToken = tokenAfter)
+    (actual : calls.actualAfter = Predicate.actualAfter)
+    (names : ValidNames text (row.context calls).names)
+    (output : (info.parameterAt row.index).mode = .output)
+    (run : outputInitializer calls text info (info.parameterAt row.index) row.before = some row.after) :
+    ∃ value, ActualAt text (row.context calls) (row.valueFirst calls text)
+      (calls.initialFlow (row.context calls)) (row.formal info) value
+      (row.valueAfter calls text info) := by
+  have firstBound : row.valueFirst calls text ≤ text.length + 1 := by
+    rw [OutputObject.valueFirst, take]
+    exact fixedAfter_result_bound text _ ":=" false (by decide)
+  have present : row.valueAfter calls text info ≠ 0 := by
+    dsimp only [outputInitializer] at run
+    simp only [output, ne_eq, not_true_eq_false, ite_false] at run
+    split at run
+    · contradiction
+    · split at run
+      · contradiction
+      · split at run
+        · contradiction
+        · rename_i advanced
+          have semi : calls.takeToken text (row.valueAfter calls text info) (.symbol ";") ≠ 0 := by
+            change ¬ calls.takeToken text (row.valueAfter calls text info) (.symbol ";") ≤ row.before.frame.position at advanced
+            omega
+          rw [take] at semi
+          exact fixedAfter_nonzero semi
+  have accepted : Predicate.actualAfter text (row.context calls) (row.valueFirst calls text)
+      (calls.initialFlow (row.context calls)) (row.formal info) ≠ 0 := by
+    simpa only [OutputObject.valueAfter, actual] using present
+  obtain ⟨value, reading⟩ := actual_sound textValid names firstBound accepted
+  exact ⟨value, by simpa only [OutputObject.valueAfter, actual] using reading⟩
 
 end Silver.ApplicationPackageInitializers

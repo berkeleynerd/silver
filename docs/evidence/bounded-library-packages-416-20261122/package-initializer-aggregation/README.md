@@ -124,3 +124,51 @@ widens mutable locals before output RHS checking and again for the body;
 that exact phase must be represented and proved using the declaration-domain
 refinement. It cannot be replaced by an equality with inferred ranges.
 The semantic thread owns that bounded phase API under lead coordination.
+
+## Imported Main and actual String initialization
+
+`MainInventory` retains the original String, Integer, Boolean, raw initializer,
+and callable declaration histories at the imported entry frame. Its checks
+start with the actual imported constant prefix. `string_fit` and `string_bounds`
+derive the actual String initialization fit, every raw intermediate header
+bound certificate, and the actual bound-store trace from those histories.
+No standalone `Predicate.SourceMeaning` or `Program.Valid` premise is used.
+
+The internal `InitializerBoundsFragments` interface in
+`PredicateStringBoundsSources` requires only declaration-range and raw Boolean
+initializer fragments. `of_initializers` derives both from the source declaration
+checks. Six generalized helpers use that interface; all previous Program.Valid
+APIs remain wrappers. Raw and actual String initializer source witnesses retain
+the original `state.contextFirst`. The existing String bounds assurance and
+actual initialization modules were checked in the same batch.
+
+## Boolean consumers and original seed values
+
+`ValueCalls.boolean_initializer` derives the original ConditionAt reading,
+readability, LocalInitializer check, and raw obligations under the original
+closed scalar frame. `ScalarRangeRows.view_eq` derives the full layout view
+from active-row correspondence and the bounded support of invocation locals.
+`OutputObject.actual` obtains each original preappend ActualAt reading from
+the output reader's following-semicolon progress guard.
+
+`object_global_boolean_call` identifies the original static reader result.
+`object_global_boolean_exact` then uses the actual static-reader library's
+source theorem to recover an expression on that exact source span and proves
+its value equals the stored bit for every fitting scalar and known-Boolean
+store. A returned Boolean bit alone is never treated as source evaluation.
+
+Run `20261127T230850-70206c207adb` passed Inventory, RoutineInitialization,
+MainInitialization, and PredicateStringBoundsAssurance with a fresh audit of
+78,162 declarations. All 1,620 captured input hashes matched the checked bytes.
+The run used Linux x86_64 / Lean 4.34.1, two workers/two threads, CPUs 6–7,
+8,192 MiB per process, incremental build without independent replay.
+The prior failed drafts are retained with complete managed failure logs and
+changed-input reports; historical packet failures now also retain their full
+managed logs without replacing their original verification reports.
+
+This checkpoint does not complete the full routine initialization history:
+visible constant seed construction, full-domain entry/range evolution, the
+source-derived mutable mask, and exact output/body phase range equalities remain.
+The enclosing imported Program/String refinement join and complete assurance
+remain with the lead. Required category remains Astra Max; actual runtime
+model/effort and token/cost measurements are unavailable.
