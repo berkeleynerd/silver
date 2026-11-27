@@ -697,5 +697,24 @@
     "name": "Bare_Target",
     "run": "20261122T153608-c751ca2e451e",
     "outcome": "Global-contract generation failed at unrelated old package object expression before selected Bare_Target obligations; no helper-success coverage. Later source generation works, but target still has no complete check."
+  },
+  "metadata_projection_strengthening_review": {
+    "changed_declaration": "Silver_Package_Bindings.Valid_Metadata",
+    "prior_specification_sha256": "9879b90ab8864c89a2225abf01af1ab8eb9b9a057d28497559a261fad1072585",
+    "strengthened_specification_sha256": "dbcb91fe15d79508705cd56f93917d37ce5c9898a0205cfea5c158d2512e9d26",
+    "entire_specification_outside_changed_declaration_byte_equal": true,
+    "body_sha256_unchanged": "21f668c90945d60b13939b06a71ca5eb4c634478cf3aa8140a0cf53a282dd9dc",
+    "retained_report_package_contracts": {
+      "Visible_State": [
+        "Silver_Package_Bindings.Valid_Name"
+      ],
+      "Package_Callee": [
+        "Silver_Package_Bindings.Lookup_Routine",
+        "Silver_Package_Bindings.Same_Name"
+      ],
+      "Static_Boolean_Primary": []
+    },
+    "new_complete_package_unit_run": "20261127T193818-29ae74a7539e",
+    "conclusion": "The recorded prior whole-specification hashes remain historical. Every Package_Bindings declaration used by the three retained selected reports is byte-identical, and the complete body is unchanged. The new Valid_Metadata postcondition is not among their used contracts. The selected helper successes remain applicable; the final complete-source audit is still required."
   }
 }

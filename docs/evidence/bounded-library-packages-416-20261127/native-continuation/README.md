@@ -103,6 +103,16 @@ entities have `all` coverage under the canonical focused policy. No rerun is
 required merely because their enclosing file has unrelated changes. Fresh
 complete final-source assurance/provenance remains mandatory.
 
+After the metadata projection repair, the whole Package_Bindings specification
+hash differs from that historical comparison. An additional review in the JSON
+confirms every byte outside the `Valid_Metadata` declaration is unchanged.
+The retained Visible_State report uses only `Valid_Name`; Package_Callee uses
+`Lookup_Routine` and `Same_Name`; Static_Boolean_Primary uses no Package_Bindings
+contract. Those declarations and the complete body remain identical, so the
+three helper successes still apply. The new whole Package_Bindings unit check
+also passes; no duplicate helper run is needed for this unrelated strengthened
+predicate.
+
 The remaining 30 caller selections are `Array_Declaration_At`,
 `Array_Declaration_Model`, `Array_Type_At`, `Assignment_At`, `Basic_Body`,
 `Boolean_Atom_After`, `Boolean_Declaration_At`, `Boolean_Target`, `Callee_At`,
