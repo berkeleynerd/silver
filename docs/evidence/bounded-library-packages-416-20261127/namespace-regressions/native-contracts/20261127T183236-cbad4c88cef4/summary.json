@@ -1,0 +1,88 @@
+{
+  "run": "20261127T183236-cbad4c88cef4",
+  "outcome": "success",
+  "duration_seconds": 93.821121858,
+  "scope": [
+    "compiler",
+    "--limit-subp=silver_output_profile.adb:7925"
+  ],
+  "focused_options": [
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30"
+  ],
+  "allocation": {
+    "workers": {
+      "actual": 2,
+      "automatic": 8,
+      "requested": 2
+    }
+  },
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "sources": {
+    "src/silver_names.adb": "7660b0a119b1ac53afa9478880e93a4b05e4f7ed3c601316e0cd61637539cdb6",
+    "src/silver_names.ads": "20eb7b268611e056c3fba698ec6d946956ebdcf1bd9b57ae680cc9b85afbdd74",
+    "src/silver_output_profile.adb": "34425e18be5b9e57dfe6f38d6aba3d6ed53010485b35a76ba55e6978f23e4349",
+    "src/silver_output_profile.ads": "196aa3b3a9f4401cf542397e34c1c0a93d9375b462d3e4fb4460fafa8029f2f1"
+  },
+  "reports": [
+    {
+      "file": "silver_output_profile.spark",
+      "flow": 2,
+      "proof": 111,
+      "spark": {
+        " 1": "all"
+      },
+      "entities": {
+        " 1": {
+          "name": "Silver_Output_Profile.Package_Name_Allowed",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 7925
+            }
+          ]
+        },
+        " 2": {
+          "name": "Silver_Output_Lexical.Forbidden_Name",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_lexical.ads",
+              "line": 248
+            }
+          ]
+        },
+        " 3": {
+          "name": "Silver_Output_Lexical.Name_Is",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_lexical.ads",
+              "line": 134
+            }
+          ]
+        },
+        " 4": {
+          "name": "Silver_Package_Bindings.Valid_Name",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_package_bindings.ads",
+              "line": 134
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
