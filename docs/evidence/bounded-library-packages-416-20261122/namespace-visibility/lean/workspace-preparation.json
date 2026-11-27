@@ -1,0 +1,13 @@
+{
+  "method": "manual cp -a --reflink=auto of complete proof workspace, preserving .olean, .olean.private, .olean.server, traces and Lake metadata",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/proof",
+  "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof",
+  "source_commit": "3c0dde8f0d816493024198bf65488bfa86147c94",
+  "before_seed": "Managed registry showed zero reservations, and process inspection showed no Lake/Lean writer. Source cache was not modified.",
+  "bootstrap": "scripts/bootstrap_lean.py in private worktree, authenticated archive copied from root tools; Lean 4.34.1 commit 5045d0056413266e57c625dcd7c365b10e377c52",
+  "primary_bootstrap_attempt": "An attempted --help invocation in primary began an unnecessary archive download (the script has no help parser). PID 129019 was terminated during download, before extraction/replacement. Primary tracked/proof files were not changed.",
+  "host": "linux-x86_64",
+  "cpu_allocation": 8,
+  "initial_available_memory_mib": 62726,
+  "cache_reuse_claim": "Warm dependency reuse only. Fresh build/audit results and native source hashes are recorded separately."
+}

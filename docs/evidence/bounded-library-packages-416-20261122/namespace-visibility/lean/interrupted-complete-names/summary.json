@@ -1,0 +1,57 @@
+{
+  "run_id": "20261127T183535-039afb896cf0",
+  "task": "packages-416-visibility-names-source",
+  "kind": "lean",
+  "scope": [
+    "Silver.NamesSourceBridge"
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+    "--task",
+    "packages-416-visibility-names-source",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--resource-reason",
+    "Two-worker proof share with native helper checks on the eight-CPU host",
+    "--target",
+    "Silver.NamesSourceBridge"
+  ],
+  "workers": 2,
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "allocation": {
+    "memory_mb": {
+      "actual": null,
+      "automatic": null,
+      "requested": null
+    },
+    "threads": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": 2
+    },
+    "workers": {
+      "actual": 2,
+      "automatic": 8,
+      "requested": 2
+    }
+  },
+  "resource_reason": "Two-worker proof share with native helper checks on the eight-CPU host",
+  "fingerprint": "0a3398c1e1b69e97810dd88672575185ff1d25a4527a35b61df61fad443acace",
+  "worktree": {
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+    "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof"
+  },
+  "outcome": "interrupted",
+  "duration_seconds": 167.806749952,
+  "returncode": null,
+  "failure_keys": [],
+  "started_at": "2026-11-27T18:35:36.855153+00:00",
+  "finished_at": "2026-11-27T18:38:24.711972+00:00",
+  "archive": "interrupted-complete-names"
+}

@@ -1,0 +1,57 @@
+{
+  "run_id": "20261127T184007-5a121071582b",
+  "task": "packages-416-visibility-operation-source",
+  "kind": "lean",
+  "scope": [
+    "Silver.NamesOperationSourceChecks"
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+    "--task",
+    "packages-416-visibility-operation-source",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--resource-reason",
+    "Two-worker proof share; complete OutputBody checkpoint remains deferred",
+    "--target",
+    "Silver.NamesOperationSourceChecks"
+  ],
+  "workers": 2,
+  "cpu_affinity": [
+    2,
+    3
+  ],
+  "allocation": {
+    "memory_mb": {
+      "actual": null,
+      "automatic": null,
+      "requested": null
+    },
+    "threads": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": 2
+    },
+    "workers": {
+      "actual": 2,
+      "automatic": 6,
+      "requested": 2
+    }
+  },
+  "resource_reason": "Two-worker proof share; complete OutputBody checkpoint remains deferred",
+  "fingerprint": "c943c2dacbbc53042cf2274b36730f9af094aba219152efc8870bfbe79a2faab",
+  "worktree": {
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+    "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof"
+  },
+  "outcome": "success",
+  "duration_seconds": 55.693568233,
+  "returncode": null,
+  "failure_keys": [],
+  "started_at": "2026-11-27T18:40:09.618328+00:00",
+  "finished_at": "2026-11-27T18:41:05.312017+00:00",
+  "archive": "operation-source"
+}

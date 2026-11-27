@@ -1,0 +1,60 @@
+{
+  "run_id": "20261127T183938-dc9a88da2da9",
+  "task": "packages-416-visibility-operation-source",
+  "kind": "lean",
+  "scope": [
+    "Silver.NamesOperationSourceChecks"
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+    "--task",
+    "packages-416-visibility-operation-source",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--resource-reason",
+    "Two-worker proof share; complete OutputBody checkpoint remains deferred",
+    "--target",
+    "Silver.NamesOperationSourceChecks"
+  ],
+  "workers": 2,
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "allocation": {
+    "memory_mb": {
+      "actual": null,
+      "automatic": null,
+      "requested": null
+    },
+    "threads": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": 2
+    },
+    "workers": {
+      "actual": 2,
+      "automatic": 4,
+      "requested": 2
+    }
+  },
+  "resource_reason": "Two-worker proof share; complete OutputBody checkpoint remains deferred",
+  "fingerprint": "f03d392175dc1e2c0d568ffb51fd5bc0b3f981dfbceb425bc19f1890396336a2",
+  "worktree": {
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+    "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof"
+  },
+  "outcome": "failure",
+  "duration_seconds": 12.046472132,
+  "returncode": 1,
+  "failure_keys": [
+    "lean:build:Silver/NamesOperationSourceChecks.lean:26:8:unexpected token ':'; expected 'binder_predicate', 'builtin_cbv_simproc', 'builtin_dsimproc', 'builtin_simproc', 'cbv_simproc', 'dsimproc', 'elab', 'elab_rules', 'grind_pattern', 'infix', 'infixl', 'infixr', 'instance', 'macro', 'macro_rules', 'notation', 'postfix', 'prefix', 'simproc', 'syntax' or 'unif_hint'",
+    "lean:build:Silver/NamesOperationSourceChecks.lean:39:8:unexpected token ':='; expected 'binder_predicate', 'builtin_cbv_simproc', 'builtin_dsimproc', 'builtin_simproc', 'cbv_simproc', 'dsimproc', 'elab', 'elab_rules', 'grind_pattern', 'infix', 'infixl', 'infixr', 'instance', 'macro', 'macro_rules', 'notation', 'postfix', 'prefix', 'simproc', 'syntax' or 'unif_hint'"
+  ],
+  "started_at": "2026-11-27T18:39:40.191571+00:00",
+  "finished_at": "2026-11-27T18:39:52.238015+00:00",
+  "archive": "failed-operation-field"
+}
