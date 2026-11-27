@@ -58,3 +58,11 @@ initial scratch stores. The body interpretation takes the source witness and
 the interpreted primitive imports. Deriving the latter from their individual
 source libraries and assembling the complete successful expression remain open.
 [Focused evidence](static-boolean-recursion/lean-focused-evidence.json.gz)
+
+`20261127T154531-5e64cf5029c3` checked `BodyReads.source_expression`, with
+a fresh 22,813-declaration audit. For any successful result, the theorem
+recovers a finite derivation for the expression on its original source span.
+The evaluator on the frame's scalar and Boolean environments returns precisely
+the value read. The source grammar retains grouping, negation, comparison and
+chain precedence. Its proof derives a sufficient derivation height from the
+source cursor and native reader rank. [Expression evidence](static-boolean-original-expression/lean-focused-evidence.json.gz)
