@@ -174,6 +174,27 @@ def completionBody (calls : CompletionCalls) (text : Source) (globals : ParserSt
     | none => completionFailed info
     | some returned => completionFooter calls text globals info index item returned
 
+def completionOutputs (calls : CompletionCalls) (text : Source) (globals : ParserState)
+    (info : PackageBindings.Metadata) (index : Nat) (item : PackageBindings.Routine)
+    (localFrame : InitializationFrame) : CompletionResult :=
+  let state := {localFrame with frame :=
+    {localFrame.frame with position := calls.takeToken text localFrame.frame.position (.word "begin")}}
+  match outputInitializers calls text info (formalIndices item) state with
+  | none => completionFailed info
+  | some initialized =>
+    match appendOutputs calls text info (formalIndices item) initialized.frame with
+    | none => completionFailed info
+    | some completedFrame =>
+      completionBody calls text globals info index item {initialized with frame := completedFrame}
+
+def completionLocals (calls : CompletionCalls) (fuel : Nat) (text : Source) (globals : ParserState)
+    (info : PackageBindings.Metadata) (index : Nat) (item : PackageBindings.Routine)
+    (state : InitializationFrame) : Option CompletionResult :=
+  (localsFuel (localStep calls text info item) fuel state).map fun result =>
+    match result with
+    | none => completionFailed info
+    | some localFrame => completionOutputs calls text globals info index item localFrame
+
 def packageCompletionFuel (calls : CompletionCalls) (fuel : Nat) (text : Source)
     (globals : ParserState) (info : PackageBindings.Metadata) : Option CompletionResult :=
   if info.completed ≥ info.routines.length then some (completionFailed info)
@@ -188,20 +209,7 @@ def packageCompletionFuel (calls : CompletionCalls) (fuel : Nat) (text : Source)
       else
         let frame := calls.routineFrame text globals info index signature.header.position
         if frame.position = 0 then some (completionFailed info)
-        else do
-          let locals ← localsFuel (localStep calls text info item) fuel {frame}
-          match locals with
-          | none => pure (completionFailed info)
-          | some localFrame =>
-              let state := {localFrame with frame :=
-                {localFrame.frame with position := calls.takeToken text localFrame.frame.position (.word "begin")}}
-              match outputInitializers calls text info (formalIndices item) state with
-              | none => pure (completionFailed info)
-              | some initialized =>
-                  match appendOutputs calls text info (formalIndices item) initialized.frame with
-                  | none => pure (completionFailed info)
-                  | some completedFrame => pure (completionBody calls text globals info index item
-                      {initialized with frame := completedFrame})
+        else completionLocals calls fuel text globals info index item {frame}
 
 def SameDeclarations (before after : ParserState) : Prop :=
   ∃ position, after = {before with position}
