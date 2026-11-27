@@ -2,7 +2,7 @@ module
 
 public import Silver.FunctionDeclarationDenotations
 public import Silver.FunctionHeaderValidity
-public import Silver.ComposeBounds
+public import Silver.ComposeSubtypeDeclarations
 
 @[expose] public section
 
@@ -11,22 +11,11 @@ open Silver.Compose.Expressions
 
 attribute [local irreducible] ScalarExpression.ArrayGrammar.read
 
-private theorem scalarTypeAt_position_bound (text : Source) (state : ParserState) (position : Nat) :
-    (scalarTypeAt text state position).after ≤ text.length + 1 := by
-  dsimp only [scalarTypeAt]
-  split
-  · exact Nat.zero_le _
-  · split
-    · exact function_nameAfter_bound text _
-    · split
-      · exact function_nameAfter_bound text _
-      · exact Nat.zero_le _
-
 theorem functionTypeAt_position_bound (text : Source) (state : ParserState) (position : Nat) :
     (functionTypeAt text state position).after ≤ text.length + 1 := by
   dsimp only [functionTypeAt]
   split
-  · exact scalarTypeAt_position_bound text state position
+  · exact scalarTypeAt_position_valid text state position
   · split
     · exact Nat.zero_le _
     · exact fixedAfter_result_bound text _ "boolean" true (by decide)

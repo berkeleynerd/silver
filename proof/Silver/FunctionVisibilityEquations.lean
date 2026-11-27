@@ -114,7 +114,8 @@ private theorem table_spans (text : Source) (state : ParserState) (valid : Valid
   | booleans =>
       dsimp only [Table.spans] at member
       obtain ⟨item, itemMember, rfl⟩ := List.mem_map.mp member
-      exact booleans.2 item itemMember
+      have name := booleans.2 item itemMember
+      exact ⟨name.1, name.2.1, name.2.2.1⟩
   | arrays =>
       dsimp only [Table.spans] at member
       obtain ⟨item, itemMember, rfl⟩ := List.mem_map.mp member
