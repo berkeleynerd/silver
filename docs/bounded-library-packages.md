@@ -961,3 +961,40 @@ full assurance, applicable regressions, Rosetta delivery and final independent
 review remain outstanding. The selected proof roles remain Astra Max, with live
 runtime settings not independently exposed. PR #424 remains draft, and no merge
 or successor implementation is authorized.
+
+### Complete Unit imports and initializer phase join, 23:50 UTC
+
+The [Unit import checkpoint](evidence/bounded-library-packages-416-20261127/unit-native-composition/README.md)
+passed 85,146 declarations, followed by a checked public type-identity export
+(85,147). It derives state-table component types, preserves reader/metadata domains
+through every continuing step, proves termination of the original typed Unit body,
+and identifies its metadata/Accepted result with the total source reader. Rejected
+input and partial metadata writes are included. Failed normalization drafts are
+retained; no domain or proof budget was changed to obtain success.
+
+The [Statement/Tail primitive imports](evidence/bounded-library-packages-416-20261127/statement-imports/README.md)
+and [recursive source-definition composition](evidence/bounded-library-packages-416-20261127/recursive-source-imports/README.md)
+passed 81,379 and 84,648 declarations. They preserve the original recursive,
+effect and validity symbols while deriving the normalized interface from typed
+source-definition equations. The enclosing authoritative-source connection
+remains required. The [source seed checkpoint](evidence/bounded-library-packages-416-20261122/package-source-seeds/README.md)
+passed 80,029 declarations: original specification constants and full input
+formal domains now have the checked invocation seed equations. Raw original
+initializer syntax, arithmetic checks and value correspondence remain distinct
+from constant loads.
+
+The [initializer phase join](evidence/bounded-library-packages-416-20261122/package-initializer-aggregation/README.md)
+passed 78,423 declarations. Original output histories preserve their preappend
+scopes; installed formal rows match the complete declared body range map. The
+source phase theorem composes seed, local and output checks with exactly the two
+native widening phases. Original declaration-range obligations remain in their
+separate inventory for inclusion in the enclosing endpoint.
+
+Remaining proof work is now the Specification/outer reader metadata joins,
+source seed-to-row correspondence, routine result/effect aggregation, and the
+final original-application/source/tool endpoint. Semantic, source and effect
+subthreads retain selected Astra Max roles; runtime settings are not independently
+exposed. The existing native unit run remains active with the six provisional
+array-declaration timeouts awaiting its final audit. Complete assurance,
+regressions, Rosetta delivery and independent final review remain required.
+PR #424 remains draft; no merge or successor feature is authorized.
