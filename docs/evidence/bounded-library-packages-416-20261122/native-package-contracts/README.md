@@ -334,3 +334,29 @@ proved all 30 checks at line 8221, including both initializer endpoint bounds
 in the strengthened postcondition. The whole-helper report covers seven flow
 checks and 23 proof checks on source `d3103d20`, with empty skip lists.
 It took 398.983 seconds on two workers.
+
+## Repaired Statement precondition and whole-unit legality
+
+Complete native run [20261127T130601-2687d262ec8e](20261127T130601-2687d262ec8e/outcome.json)
+on Linux x86-64 used two workers and source `91933dc6`. It passed 11 flow
+and 139 proof checks. A single proof check timed out at 9149:23 in
+`Application_Tail`'s precondition after 2,067.697 seconds total. The
+counted-loop assertions, including the complete `Valid_Flow` immediately
+before the call, all passed. The UTC run ledger has the diagnosis, and the
+packet retains the proof report, Why3 session and shapes. Why3 recorded CVC5,
+Z3 and Alt-Ergo timeouts on `def'vc.671` and a counterexample timeout. The
+goal shape contains the position/target/flow body guard and context validity
+on the actual recursive-call arguments.
+
+A [source-isolated GNATprove experiment](20261127T130601-2687d262ec8e/region-flow.log.gz),
+`20261127T135056-554813d76be1`, added four assertions beside that call and
+selected only their lines through the call. Its process exited zero. The
+[SPARK report](20261127T130601-2687d262ec8e/region-flow.spark.gz) contains
+zero proof rows and stops at `STOP_REASON_ERROR_FLOW`. Its 298 SPARK entities
+produced 682 informational flow results and exactly two flow errors. Both
+were variable inputs to subtype constraints, in `Package_Completion_At` on
+`Input.Count` and in `Imported_Package` on the mutable candidate name span.
+Their primary-source positions are 9316:42 and 9656:60. The probe's four
+added lines precede both diagnostics. The earlier focused successes remain
+scoped to their selected helpers. Both affected helpers and their direct
+package Body/Main callers are pending in the coverage inventory.

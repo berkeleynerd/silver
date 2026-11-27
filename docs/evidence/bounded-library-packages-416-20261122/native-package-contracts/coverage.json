@@ -333,10 +333,11 @@
         8944,
         8997
       ],
-      "coverage": "repair-prepared-complete-helper-pending",
+      "coverage": "complete-helper-failed",
       "failed_run": "20261127T121829-562685cbce5e",
       "failed_source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004",
-      "unproved": 1
+      "unproved": 1,
+      "latest_failure": "20261127T130601-2687d262ec8e"
     },
     {
       "name": "Application_Tail",
