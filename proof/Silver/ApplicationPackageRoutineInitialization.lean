@@ -1001,4 +1001,179 @@ theorem local_ranges_widen (ranges : SharedRanges) (rows : List LocalObject) :
   have same := (RangesAgreeOutside.refl ranges []).locals rows
   simpa only [List.nil_append] using same.widen_eq
 
+theorem RangesAgreeOutside.check {current next declared : SharedRanges} {mutable : List Cell}
+    {item : LocalInitializer} (same : RangesAgreeOutside current declared mutable)
+    (checked : item.check current = some next) :
+    RangesAgreeOutside next (item.declare declared) (mutable ++ [item.target]) := by
+  simp only [LocalInitializer.check] at checked
+  split at checked
+  · cases target : item.target <;> cases domain : item.domain <;> cases value : item.value <;>
+      simp only [target, domain, value] at checked
+    all_goals try contradiction
+    · rename_i identity bounds expression
+      simp only [Option.bind_eq_some_iff] at checked
+      obtain ⟨inferred, _, update⟩ := checked
+      split at update
+      · cases Option.some.inj update
+        refine ⟨same.1, ?_⟩
+        intro other outside
+        have prior : .integer other ∉ mutable := fun member => outside (List.mem_append_left _ member)
+        have apart : other ≠ identity := by
+          intro equal
+          apply outside
+          apply List.mem_append_right
+          simp only [equal, List.mem_singleton]
+        simpa only [LocalInitializer.declare, extendRanges, target, domain, Integer.put, apart, ite_false]
+          using same.2 other prior
+      · contradiction
+    · split at checked
+      · cases Option.some.inj checked
+        refine ⟨same.1, ?_⟩
+        intro identity outside
+        simpa only [LocalInitializer.declare, extendRanges, target, domain] using
+          same.2 identity (fun member => outside (List.mem_append_left _ member))
+      · contradiction
+  · contradiction
+
+theorem RangesAgreeOutside.checks {current next declared : SharedRanges} {mutable : List Cell}
+    {items : List LocalInitializer} (same : RangesAgreeOutside current declared mutable)
+    (checked : checkInitializers current items = some next) :
+    RangesAgreeOutside next (initializerDomains declared items) (mutable ++ items.map LocalInitializer.target) := by
+  induction items generalizing current declared mutable with
+  | nil =>
+    cases Option.some.inj checked
+    simpa only [initializerDomains, List.map_nil, List.append_nil] using same
+  | cons item items ih =>
+    simp only [checkInitializers, Option.bind_eq_some_iff] at checked
+    obtain ⟨middle, first, rest⟩ := checked
+    simpa only [initializerDomains, List.map_cons, List.append_assoc, List.singleton_append] using
+      ih (same.check first) rest
+
+/-- Native body entry widens every output target after the output RHS pass.
+The complete declared map is recovered, irrespective of inferred output ranges. -/
+theorem output_ranges_widen {before after : SharedRanges} {items : List LocalInitializer}
+    (checked : checkInitializers before items = some after) (mutable : List Cell) :
+    after.widenLocals (initializerDomains before items) (mutable ++ items.map LocalInitializer.target) =
+      initializerDomains before items :=
+  ((RangesAgreeOutside.refl before mutable).checks checked).widen_eq
+
+def OutputObject.target (info : PackageBindings.Metadata) (row : OutputObject) : Cell :=
+  match (info.parameterAt row.index).kind with
+  | .integer => .integer (info.parameterAt row.index).bodyName.first
+  | .boolean => .boolean (info.parameterAt row.index).bodyName.first
+
+def OutputObject.domain (info : PackageBindings.Metadata) (row : OutputObject) : ScalarFunctions.ScalarType :=
+  match (info.parameterAt row.index).kind with
+  | .integer => .integer (info.parameterAt row.index).bounds
+  | .boolean => .boolean
+
+def OutputObject.initializer (bound : Nat) (info : PackageBindings.Metadata)
+    (calls : CompletionCalls) (row : OutputObject) (value : ScalarFunctions.Actual) : LocalInitializer where
+  target := row.target info
+  domain := row.domain info
+  value := value
+  layout := layout bound info (row.context calls)
+  analysis := (row.context calls).analysis
+  booleans := BooleanBindings.analysis row.before.frame.booleanNames
+
+private theorem local_check_of_actual {item : LocalInitializer} {ranges : SharedRanges}
+    (scalar : ScalarFunctions.scalarActual item.value = true)
+    (typed : CellDomain item.target item.domain)
+    (checked : item.value.check Bindings.emptyShape item.analysis (item.flow ranges) item.booleans item.domain = true) :
+    ∃ after, item.check ranges = some after := by
+  simp only [LocalInitializer.check, scalar, ite_true]
+  cases target : item.target <;> cases domain : item.domain <;> cases value : item.value <;>
+    simp only [CellDomain, target, domain, value, ScalarFunctions.Actual.check] at typed checked ⊢
+  all_goals try contradiction
+  · rename_i identity bounds expression
+    change (match expression.infer (ranges.view item.layout) with
+      | some actual => !actual.isEmpty && actual.included bounds
+      | none => false) = true at checked
+    cases reading : expression.infer (ranges.view item.layout) with
+    | none => simp only [reading, Bool.false_eq_true] at checked
+    | some actual =>
+      have accepted : (!actual.isEmpty && actual.included bounds) = true := by simpa only [reading] using checked
+      exact ⟨{ranges with locals := Integer.put ranges.locals identity (some actual)},
+        by simp only [Option.bind_some, accepted, ite_true]⟩
+  · exact ⟨_, by rw [ite_eq_left checked]⟩
+
+/-- The native output reader uses a bodyEnvironment context with no declaration
+snapshot prefix. Its original ActualAt supplies both Boolean and Integer checks. -/
+theorem OutputObject.initializer_checked {calls : CompletionCalls} {text : Source}
+    {info : PackageBindings.Metadata} {row : OutputObject} {value : ScalarFunctions.Actual}
+    {ranges : SharedRanges}
+    (context : calls.contextOf = Predicate.contextOf)
+    (flow : calls.initialFlow = fun context => ActiveFlow.initial context.scalarNames (initialFacts context.hasArguments))
+    (framed : ReaderFrame text row.before.frame)
+    (closed : ApplicationPackageRoutineClosedFrames.Closed row.before.frame)
+    (source : ActualAt text (row.context calls) (row.valueFirst calls text)
+      (calls.initialFlow (row.context calls)) (row.formal info) value (row.valueAfter calls text info))
+    (rows : ScalarRangeRows info ranges (ScalarExpression.bodyEnvironment row.before.frame.scalarNames))
+    (bounded : LocalRangesBound text.length ranges) :
+    (row.initializer text.length info calls value).Readable ∧
+      ∃ after, (row.initializer text.length info calls value).check ranges = some after := by
+  let ctx := row.context calls
+  have ctxEq : ctx = {Predicate.contextOf ⟨row.before.frame, false, false⟩ with declarationCount := 0} := by
+    simp only [ctx, OutputObject.context, context]
+  have noArguments : ctx.hasArguments = false := by
+    simp only [ctxEq, Predicate.contextOf, closed.dynamicFirst, ne_eq, not_true_eq_false, decide_false]
+  have noStrings : ctx.names = [] := by simpa only [ctxEq, Predicate.contextOf] using closed.names
+  have noArrays : ctx.arrayNames = [] := by simpa only [ctxEq, Predicate.contextOf] using closed.arrayNames
+  have pure : ctx.pure = true := by simpa only [ctxEq, Predicate.contextOf] using closed.pure
+  have closedContext : ClosedFunctionContext ctx := ClosedFunctionContext.ofEmpty pure noArguments noStrings noArrays
+  have scalar := actual_source_scalar closedContext source
+  have native := framed.native
+  have full := native.ready.baseReady framed.typed.scalarCount
+  have ready : ScalarMetadata.ContextReady ctx.scalarNames ctx.declarationCount ctx.elaborating := by
+    rw [ctxEq]
+    refine ⟨fun _ => full.body, Nat.zero_le _, ?_, full.mutable_bounds, full.size⟩
+    intro index positive inside
+    change index ≤ 0 at inside
+    omega
+  have normal : NamesNormal ctx.names := by
+    simpa only [ctxEq, Predicate.contextOf] using native.bounds.normal
+  have names : ValidNames text ctx.names := by
+    simpa only [ctxEq, Predicate.contextOf] using native.base.2.1
+  have arrays : ctx.ArraysReady text := by
+    simpa only [ParseContext.ArraysReady, ParseContext.arrayTable, ctxEq, Predicate.contextOf,
+      ArrayBindings.Env.table] using native.base.arrays.1
+  have compatible : ScalarMetadata.OverlayCompatible ctx.scalarNames ctx.declarationCount (calls.initialFlow ctx) := by
+    rw [flow]
+    exact ScalarMetadata.initial_compatible _ _ _
+  have path : (calls.initialFlow ctx).path.Bounded := by
+    rw [flow]
+    change (initialFacts ctx.hasArguments).Bounded
+    rw [noArguments]
+    exact Nat.zero_le _
+  have meaning := actual_meaning normal names ready arrays compatible path source (fun impossible => False.elim (impossible rfl))
+  have originalFlow : ctx.flow (calls.initialFlow ctx) =
+      ⟨ScalarFunctions.entryContext, ScalarExpression.ranges ctx.scalarNames⟩ := by
+    rw [flow]
+    simp only [ParseContext.flow, ActiveFlow.initial_model, noArrays, ArrayBindings.viewRanges,
+      ArrayBindings.viewNames, List.map_nil, ArrayBindings.viewElaborating, List.any_nil,
+      Bool.not_false, Bool.and_true, ArrayBindings.integerRanges, ArrayBindings.integerNames,
+      List.filter_nil, ArrayBindings.ranges_nil, noArguments]
+    rfl
+  have same : ranges.view (layout text.length info ctx) = ScalarExpression.ranges ctx.scalarNames :=
+    ScalarRangeRows.view_eq (by simpa only [ctxEq, Predicate.contextOf] using rows) bounded
+  have booleanNames : ctx.booleanNames = row.before.frame.booleanNames := by simp only [ctxEq, Predicate.contextOf]
+  have checked : value.check Bindings.emptyShape ctx.analysis
+      ⟨ScalarFunctions.entryContext, ranges.view (layout text.length info ctx)⟩
+      (BooleanBindings.analysis row.before.frame.booleanNames) (row.domain info) = true := by
+    have actual := meaning.2
+    rw [originalFlow] at actual
+    rw [same]
+    cases kind : (info.parameterAt row.index).kind <;>
+    simpa only [noStrings, empty_names_shape, noArrays, ArrayBindings.booleanAnalysis,
+      ArrayBindings.booleanNames, List.filter_nil, List.any_nil, Bool.false_or,
+      List.find?_nil, booleanNames, OutputObject.formal, formalType, ne_eq, not_true_eq_false,
+      ite_false, OutputObject.domain, BooleanBindings.analysis, kind] using actual
+  refine ⟨?_, local_check_of_actual scalar ?_ checked⟩
+  · simpa only [LocalInitializer.Readable, OutputObject.initializer, noArguments, noStrings,
+      empty_names_shape, noArrays, ArrayBindings.booleanAnalysis, ArrayBindings.booleanNames,
+      List.filter_nil, List.any_nil, Bool.false_or, List.find?_nil, booleanNames,
+      BooleanBindings.analysis] using meaning.1
+  · cases kind : (info.parameterAt row.index).kind <;>
+      simp only [CellDomain, OutputObject.initializer, OutputObject.target, OutputObject.domain, kind]
+
 end Silver.ApplicationPackageInitializers
