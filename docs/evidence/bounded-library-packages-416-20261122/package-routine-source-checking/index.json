@@ -1,0 +1,14 @@
+{
+  "run_id": "20261128T001756-73cc4aad2469",
+  "declarations": 84300,
+  "captured_inputs_verified": 1691,
+  "source_sha256": {
+    "ApplicationPackageRoutineBodySource": "baf39cfc4d68b97c0fd3107c2a08ae645141f7977c7a4cbc1566d20db727a496",
+    "ApplicationPackageRoutineSourceChecking": "a68afc3f91d8a0e38ee02741dc2ce78465d4d266d9fb9a3f61813e20b9da6743"
+  },
+  "artifacts_sha256": {
+    "events.jsonl.gz": "acf04591c827fa4e4ca7602e1c36652bd6e611c5137012587249c5393b9365dd",
+    "evidence.json": "b6a2b63ea8741e3bc37f0a7e4d8ceb5f90006ff5f2a64c28390cf4fdeb168375",
+    "lean-focused.log.gz": "fa1fab061a80320bc588e83dec24af3dc3af287e73ca16e33b2f19173cd84fe5"
+  }
+}
