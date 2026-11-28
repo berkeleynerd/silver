@@ -263,4 +263,177 @@ theorem completion_formals_present {reader : BooleanElaboration.Native.Reader} {
     have begun : FormalPresent (beginOutputs (declarationReaders reader calls) text frames.locals).frame formal := localRows
     exact (begun.outputs frames.outputs.read).stored outputs
 
+
+/-- A result is read from the exact original formal row in the final native
+frame, with its declared bounds and mutability retained. -/
+inductive FormalResultAt (context : ParseContext) (formal : PackageBindings.Formal) :
+    ScalarFunctions.Actual → Prop
+  | integer {slot : Nat} (kind : formal.kind = .integer) (positive : 0 < slot)
+      (active : slot ≤ context.scalarNames.length)
+      (row : ScalarExpression.binding context.scalarNames slot =
+        ⟨formal.bodyName.first, formal.bodyName.after, formal.bounds, false, formal.bounds,
+          decide (formal.mode ≠ .input), 0, 0⟩) :
+      FormalResultAt context formal (.integer (.name slot))
+  | boolean {slot : Nat} (kind : formal.kind = .boolean) (positive : 0 < slot)
+      (active : slot ≤ context.booleanNames.length)
+      (row : BooleanBindings.binding context.booleanNames slot =
+        ⟨formal.bodyName.first, formal.bodyName.after, decide (formal.mode ≠ .input), 0, 0, false, false⟩) :
+      FormalResultAt context formal (.boolean (.booleanName slot))
+
+theorem FormalPresent.result {frame : ParserState} {formal : PackageBindings.Formal}
+    (present : FormalPresent frame formal) (scan : ScanResult) (same : scan.state = frame)
+    (count : Nat) : ∃ actual, FormalResultAt {Predicate.contextOf scan with declarationCount := count} formal actual := by
+  subst frame
+  cases kind : formal.kind with
+  | integer =>
+      let row : ScalarExpression.Binding :=
+        ⟨formal.bodyName.first, formal.bodyName.after, formal.bounds, false, formal.bounds,
+          decide (formal.mode ≠ .input), 0, 0⟩
+      have member : row ∈ scan.state.scalarNames := present.1 row (by simp only [scalar, kind, ↓reduceIte, row])
+      have widened : row ∈ ScalarExpression.bodyEnvironment scan.state.scalarNames := by
+        have fixed : ScalarExpression.bodyBinding row = row := by
+          dsimp only [ScalarExpression.bodyBinding, row]
+          split <;> rfl
+        exact List.mem_map.mpr ⟨row, member, fixed⟩
+      obtain ⟨index, inside, atRow⟩ := List.mem_iff_getElem.mp widened
+      refine ⟨.integer (.name (index + 1)), .integer kind (by omega) (by simpa only [Predicate.contextOf] using Nat.succ_le_of_lt inside) ?_⟩
+      simpa only [Predicate.contextOf, ScalarExpression.binding, Nat.add_one_sub_one,
+        List.getD_eq_getElem?_getD, List.getElem?_eq_getElem inside, Option.getD_some] using atRow
+  | boolean =>
+      let row : BooleanBindings.Binding :=
+        ⟨formal.bodyName.first, formal.bodyName.after, decide (formal.mode ≠ .input), 0, 0, false, false⟩
+      have member : row ∈ scan.state.booleanNames := present.2 row (by simp only [flag, kind, ↓reduceIte, row])
+      obtain ⟨index, inside, atRow⟩ := List.mem_iff_getElem.mp member
+      refine ⟨.boolean (.booleanName (index + 1)), .boolean kind (by omega) (by simpa only [Predicate.contextOf] using Nat.succ_le_of_lt inside) ?_⟩
+      simpa only [Predicate.contextOf, BooleanBindings.binding, Nat.add_one_sub_one,
+        List.getD_eq_getElem?_getD, List.getElem?_eq_getElem inside, Option.getD_some] using atRow
+
+theorem FormalResultAt.checked {context : ParseContext} {formal : PackageBindings.Formal}
+    {actual : ScalarFunctions.Actual} {facts : ActiveFlow}
+    (source : FormalResultAt context formal actual) (writable : formal.mode ≠ .input)
+    (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts)
+    (noArrays : context.arrayNames = []) :
+    actual.Readable false Bindings.emptyShape
+      (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
+      ScalarFunctions.scalarActual actual = true ∧
+      actual.check Bindings.emptyShape context.analysis (context.flow facts)
+        (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) formal.domain = true := by
+  cases source with
+  | @integer slot kind positive active row =>
+      have mutable : ScalarExpression.mutability context.scalarNames slot = true := by
+        simp only [ScalarExpression.mutability, positive, active, and_self, decide_true,
+          Bool.true_and, row, writable, ne_eq, not_false_eq_true, decide_true]
+      have domain : ScalarMetadata.flowBounds context.scalarNames slot = some formal.bounds := by
+        rw [ScalarMetadata.flowBounds_active _ _ positive active, row]
+        simp only [writable, ne_eq, not_false_eq_true, decide_true, ↓reduceIte]
+      obtain ⟨bounds, found, included⟩ := ready.contained slot formal.bounds domain
+      have bounded := ready.bounded slot bounds found
+      have nonempty := ready.mutableNonempty slot bounds mutable found
+      have contained : bounds.included formal.bounds = true := by
+        simpa only [ApplicationPackageCalls.includedCheck_model] using ApplicationPackageCalls.includedCheck_of_contains included
+      have viewed : (context.flow facts).scalars = facts.model.scalars := by
+        simp only [ParseContext.flow, noArrays, ArrayBindings.viewRanges, ArrayBindings.viewNames,
+          List.map_nil, ArrayBindings.integerRanges, ArrayBindings.integerNames, List.filter_nil,
+          ArrayBindings.ranges_nil]
+      refine ⟨trivial, rfl, ?_⟩
+      simp only [PackageBindings.Formal.domain, kind, ScalarFunctions.Actual.check,
+        Integer.Expr.infer, viewed, found, Option.bind_some, Integer.accepted, Integer.checked,
+        nonempty, Bool.false_eq_true, ↓reduceIte, bounded, Bool.not_false, contained, Bool.and_self]
+  | @boolean slot kind positive active row =>
+      have initialized : (ArrayBindings.booleanAnalysis context.arrayNames
+          (BooleanBindings.analysis context.booleanNames)).initialized slot = true := by
+        simp only [noArrays, ArrayBindings.booleanAnalysis, ArrayBindings.booleanNames, List.filter_nil,
+          List.any_nil, Bool.false_or, BooleanBindings.analysis, positive, active, and_self, decide_true]
+      exact ⟨⟨trivial, initialized⟩, rfl, by
+        simpa only [PackageBindings.Formal.domain, kind, ScalarFunctions.Actual.check,
+          Condition.checkBounds] using initialized⟩
+
+/-- Copy-back results follow formal order and include precisely the writable
+modes. No expression or flow checker is embedded in this source relation. -/
+inductive ProcedureResultsAt (context : ParseContext) : List PackageBindings.Formal → List ScalarFunctions.Actual → Prop
+  | nil : ProcedureResultsAt context [] []
+  | input {formal formals actuals} (mode : formal.mode = .input)
+      (rest : ProcedureResultsAt context formals actuals) :
+      ProcedureResultsAt context (formal :: formals) actuals
+  | output {formal formals actual actuals} (mode : formal.mode ≠ .input)
+      (head : FormalResultAt context formal actual) (rest : ProcedureResultsAt context formals actuals) :
+      ProcedureResultsAt context (formal :: formals) (actual :: actuals)
+
+theorem procedure_results_at {context : ParseContext} {formals : List PackageBindings.Formal}
+    (present : ∀ formal ∈ formals, ∃ actual, FormalResultAt context formal actual) :
+    ∃ actuals, ProcedureResultsAt context formals actuals := by
+  induction formals with
+  | nil => exact ⟨[], .nil⟩
+  | cons formal formals ih =>
+      obtain ⟨actuals, rest⟩ := ih (fun formal member => present formal (List.mem_cons_of_mem _ member))
+      by_cases input : formal.mode = .input
+      · exact ⟨actuals, .input input rest⟩
+      · obtain ⟨actual, original⟩ := present formal (List.mem_cons_self ..)
+        exact ⟨actual :: actuals, .output input original rest⟩
+
+theorem ProcedureResultsAt.checked {context : ParseContext} {formals : List PackageBindings.Formal}
+    {actuals : List ScalarFunctions.Actual} {facts : ActiveFlow}
+    (source : ProcedureResultsAt context formals actuals)
+    (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts)
+    (noArrays : context.arrayNames = []) :
+    (∀ actual ∈ actuals, actual.Readable false Bindings.emptyShape
+      (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))) ∧
+    (∀ actual ∈ actuals, ScalarFunctions.scalarActual actual = true) ∧
+    ScalarFunctions.checkActuals Bindings.emptyShape context.analysis (context.flow facts)
+      (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames))
+      (ScalarProcedures.outputTypes (formals.map PackageBindings.Formal.semantic)) actuals = true := by
+  induction source with
+  | nil => exact ⟨by simp, by simp, rfl⟩
+  | @input formal formals actuals mode rest ih =>
+      refine ⟨ih.1, ih.2.1, ?_⟩
+      simpa only [List.map_cons, PackageBindings.Formal.semantic, mode, ScalarProcedures.outputTypes] using ih.2.2
+  | @output formal formals actual actuals mode head rest ih =>
+      have checked := head.checked mode ready noArrays
+      refine ⟨fun seen member => ?_, fun seen member => ?_, ?_⟩
+      · rcases List.mem_cons.mp member with rfl | later
+        · exact checked.1
+        · exact ih.1 seen later
+      · rcases List.mem_cons.mp member with rfl | later
+        · exact checked.2.1
+        · exact ih.2.1 seen later
+      · cases selectedMode : formal.mode with
+        | input => exact False.elim (mode selectedMode)
+        | output | inputOutput =>
+            simpa only [List.map_cons, PackageBindings.Formal.semantic, selectedMode,
+              ScalarProcedures.outputTypes, ScalarFunctions.checkActuals, checked.2.2,
+              Bool.true_and] using ih.2.2
+
+theorem completion_procedure_results {reader : BooleanElaboration.Native.Reader} {calls : CompletionCalls}
+    {text : Source} {globals : ParserState} {info : Metadata} {result : CompletionResult}
+    (frames : CompletionFrames (declarationReaders reader calls) text globals info result)
+    (notOuter : ∀ formal ∈ (frames.signature.info.routineAt (info.completed + 1)).formals frames.signature.info,
+      ApplicationPackageNames.outerDeclaration frames.signature.info formal.bodyName = false)
+    (ready : ScalarMetadata.FlowReady frames.bodySource.context.scalarNames
+      frames.bodySource.context.declarationCount
+      (completionDispatch (declarationReaders reader calls) text frames.signature.info
+        (frames.signature.info.routineAt (info.completed + 1)) frames.outputs.body).scan.facts)
+    (tables : ApplicationPackageRoutineClosedFrames.Tables globals)
+    (kind : (frames.signature.info.routineAt (info.completed + 1)).kind = .procedure) :
+    ∃ actuals,
+      ProcedureResultsAt frames.bodySource.context
+        ((frames.signature.info.routineAt (info.completed + 1)).formals frames.signature.info) actuals ∧
+      (∀ actual ∈ actuals, actual.Readable false Bindings.emptyShape
+        (ArrayBindings.booleanAnalysis frames.bodySource.context.arrayNames
+          (BooleanBindings.analysis frames.bodySource.context.booleanNames))) ∧
+      (∀ actual ∈ actuals, ScalarFunctions.scalarActual actual = true) ∧
+      ScalarFunctions.checkActuals Bindings.emptyShape frames.bodySource.context.analysis
+        (frames.bodySource.context.flow
+          (completionDispatch (declarationReaders reader calls) text frames.signature.info
+            (frames.signature.info.routineAt (info.completed + 1)) frames.outputs.body).scan.facts)
+        (ArrayBindings.booleanAnalysis frames.bodySource.context.arrayNames
+          (BooleanBindings.analysis frames.bodySource.context.booleanNames))
+        ((frames.signature.info.routineAt (info.completed + 1)).signature frames.signature.info).outputTypes actuals = true := by
+  have present := completion_formals_present frames notOuter
+  obtain ⟨actuals, original⟩ := procedure_results_at (context := frames.bodySource.context)
+    (fun formal member => (present formal member).result
+      ⟨frames.outputs.completed, frames.outputs.initialized.initialized, false⟩ rfl 0)
+  have checked := original.checked ready (frames.body_closed tables).arrayNames
+  refine ⟨actuals, original, checked.1, checked.2.1, ?_⟩
+  simpa only [PackageBindings.Routine.signature, kind, RoutineSignature.outputTypes] using checked.2.2
+
 end Silver.ApplicationPackageRoutineResults

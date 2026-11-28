@@ -40,3 +40,19 @@ Focused run `20261128T000125-19344470ba07` passed
 39,001 audited declarations, build 5.150 s and audit 3.784 s. All captured inputs
 matched. The initial failed run is retained; fixes removed unused simp arguments,
 qualified an ambiguous selected definition, and called a theorem by its namespace.
+
+## Procedure results from original formal rows
+
+`FormalResultAt` retains the canonical native row and chooses its Integer or
+Boolean name expression. `FormalPresent.result` derives these rows in the exact
+body context. `FormalResultAt.checked` derives the full output-domain check from
+native FlowReady, preserving mutable nonemptiness and bounded intermediate reads.
+`ProcedureResultsAt` retains formal order and exactly output/in-out modes;
+`completion_procedure_results` combines all original completion passes into the
+result readability, scalar syntax and native-signature output check. Empty result
+lists and mixed Integer/Boolean outputs are covered.
+
+Focused run `20261128T000522-fd1aa11e2dba` passed 39,031 audited declarations with
+all 1,715 captured inputs matching. The prior failure is retained (explicit local
+row unfolding and one qualified imported theorem name). The original body flow
+and domains are unchanged. Complete source-derived notOuter/effect joins remain.
