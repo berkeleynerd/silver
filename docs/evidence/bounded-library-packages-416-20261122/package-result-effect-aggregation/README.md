@@ -303,3 +303,24 @@ explicit identity callee renaming and local Lean binder/elaboration details;
 no native source, input domain or proof budget changed. The existing Linux
 x86_64 / Lean 4.34.1 / CPU 6–7 / automatic two-worker/two-thread / 8,192 MiB
 settings apply. The full recursive body fold remains outstanding.
+
+## Original guard and counted-bound effects
+
+`ApplicationPackageBranchEffects` includes each original IF/ELSIF guard in the
+pre-body native mask. Counted-loop coverage follows the source scanner through
+the complete lower expression, exact `..` delimiter and upper expression. It
+therefore preserves upper-bound reads and lexical shadowing without assuming
+arbitrary scanner-prefix monotonicity. The native header wrapper records those
+reads, and the new loop binder contributes no global write.
+
+`ReaderEffects` states only the original target/read-helper equations over valid
+native lookup tables and bounded cursors, exactly the domains already proved by
+`EffectsImports.imported_target` and `imported_reads`. It contains no semantic
+coverage, checker or admitted-program premise.
+
+Focused run `20261128T020459-f116b741f0b7` passed, freshly auditing 54,960
+declarations with all captured hashes matching. Five failed drafts are retained;
+repairs made Lean record/context projections explicit and kept inherited readers
+opaque during wrapper normalization. No input-domain, native source, or proof
+budget change. Existing Linux/Lean/CPU/memory settings apply. The final original
+recursive body fold remains outstanding.
