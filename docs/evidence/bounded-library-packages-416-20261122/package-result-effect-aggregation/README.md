@@ -147,3 +147,18 @@ including arbitrary backing masks and explicit storage bounds for new bits.
 Focused batch `20261128T004753-ea5550dbc231` passed 84,400 audited declarations with all
 captured input hashes matching under the same Linux/Lean/CPU/memory settings.
 This is algebraic support; the complete source mask fold remains pending.
+
+## Native actual mask accumulation
+
+`NativeReads.read_actuals_stored` derives inclusion of every physical stored
+actual mask in the native call-read accumulator, from the original successful
+`readActuals` equation. `read_actuals_incoming` preserves incoming reads and
+exact incoming writes. The fold covers arbitrary backing indices, named and
+positional associations, empty argument lists and all accepted actual steps.
+
+Run `20261128T005359-5724ec19ec16` passed 32,494 audited declarations/all captured hashes.
+A local irreducibility boundary for the already-proved `stateUnion` prevented
+reflexive record-projection normalization from expanding its fixed-capacity
+list implementation. Two failed diagnostic drafts remain retained; no domain,
+native source or proof-budget change. This checks the raw native accumulator;
+source expression/row-mask and recursive body joins remain pending.

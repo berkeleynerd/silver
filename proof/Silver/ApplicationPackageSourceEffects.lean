@@ -304,4 +304,151 @@ theorem actual_global_reads {text : Source} {context : ParseContext}
       have positive := reading.nominal
       omega
 
+namespace NativeReads
+open ApplicationPackageCalls ApplicationPackages
+
+attribute [local irreducible] PackageBindings.stateUnion
+
+private theorem getD_set_either {α : Type} (values : List α) (index position : Nat) (value fallback : α) :
+    (values.set index value).getD position fallback = value ∨
+      (values.set index value).getD position fallback = values.getD position fallback := by
+  induction values generalizing index position with
+  | nil => exact Or.inr rfl
+  | cons head tail ih =>
+    cases index with
+    | zero => cases position with
+      | zero => exact Or.inl rfl
+      | succ position => exact Or.inr rfl
+    | succ index => cases position with
+      | zero => exact Or.inr rfl
+      | succ position => exact ih index position
+
+/-- Every physical actual row's mask is contained in the native accumulator.
+The invariant includes arbitrary backing indices and does not assume source
+association order or an already completed semantic checker. -/
+def StoredReads (info : PackageBindings.Metadata) (frame : ActualFrame) : Prop :=
+  ∀ slot cell, cell ∈ info.effectCells (frame.actual slot).reads →
+    cell ∈ info.effectCells frame.result.result.reads
+
+theorem actual_step_masks {calls text context input info item ordinal before after}
+    (accepted : actualStep calls text context input info item ordinal before = some after) :
+    ∃ slot row, after.actuals = before.actuals.set (slot - 1) row ∧
+      after.result.result.reads = PackageBindings.stateUnion before.result.result.reads row.reads ∧
+      after.result.result.writes = before.result.result.writes := by
+  unfold actualStep at accepted
+  simp only [Option.bind_eq_bind, Option.bind_eq_some_iff] at accepted
+  obtain ⟨⟨slot, named, cursor⟩, _, accepted⟩ := accepted
+  dsimp only at accepted
+  by_cases unavailable : slot = 0 ∨ before.seen.getD (slot - 1) false = true
+  · simp only [unavailable, ite_true, reduceCtorEq] at accepted
+  · simp only [unavailable, ite_false] at accepted
+    cases read : actualPayload calls text context input (info.parameterAt slot) info cursor
+        {before.actual slot with first := cursor} with
+    | mk following value =>
+      simp only [read] at accepted
+      by_cases stopped : following ≤ cursor
+      · simp only [stopped, ite_true, reduceCtorEq] at accepted
+      · by_cases absent : calls.take text following (if ordinal = item.count then .symbol ")" else .symbol ",") = 0
+        · simp only [stopped, absent, ite_true, ite_false, reduceCtorEq] at accepted
+        · simp only [stopped, absent, ite_false, Option.some.injEq] at accepted
+          subst after
+          refine ⟨slot, _, rfl, rfl, rfl⟩
+
+theorem actual_step_stored {calls text context input info item ordinal before after}
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (stored : StoredReads info before)
+    (accepted : actualStep calls text context input info item ordinal before = some after) :
+    StoredReads info after := by
+  obtain ⟨index, row, cells, reads, _⟩ := actual_step_masks accepted
+  intro slot cell member
+  have selected : after.actual slot = row ∨ after.actual slot = before.actual slot := by
+    simp only [ActualFrame.actual, cells]
+    exact getD_set_either before.actuals (index - 1) (slot - 1) row {}
+  rw [reads]
+  rcases selected with current | earlier
+  · rw [current] at member
+    exact union_right capacity _ _ cell member
+  · rw [earlier] at member
+    exact union_left capacity _ _ cell (stored slot cell member)
+
+theorem actual_step_incoming {calls text context input info item ordinal before after}
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (accepted : actualStep calls text context input info item ordinal before = some after) :
+    (∀ cell ∈ info.effectCells before.result.result.reads, cell ∈ info.effectCells after.result.result.reads) ∧
+      after.result.result.writes = before.result.result.writes := by
+  obtain ⟨_, row, _, reads, writes⟩ := actual_step_masks accepted
+  rw [reads]
+  exact ⟨union_left capacity _ row.reads, writes⟩
+
+private theorem initial_stored (info : PackageBindings.Metadata) (input : ApplicationScan)
+    (item : PackageBindings.Routine) (cursor : Nat) : StoredReads info (initialActualFrame input item cursor) := by
+  intro slot cell member
+  have row : (initialActualFrame input item cursor).actual slot = {} := by
+    simp only [initialActualFrame, ActualFrame.actual, List.getD_eq_getElem?_getD, List.getElem?_replicate]
+    split <;> rfl
+  rw [row] at member
+  change cell ∈ info.effectCells PackageBindings.emptyStateSet at member
+  rw [empty_cells] at member
+  contradiction
+
+private theorem fold_stored {calls text context input info item before after} (indices : List Nat)
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (stored : StoredReads info before)
+    (accepted : indices.foldlM (fun frame index => actualStep calls text context input info item (index + 1) frame)
+      before = some after) : StoredReads info after := by
+  induction indices generalizing before with
+  | nil => cases Option.some.inj accepted; exact stored
+  | cons index rest ih =>
+    simp only [List.foldlM_cons, Option.bind_eq_bind, Option.bind_eq_some_iff] at accepted
+    obtain ⟨middle, first, remaining⟩ := accepted
+    exact ih (actual_step_stored capacity stored first) remaining
+
+/-- The actual reader starts with empty row masks and accumulates every
+stored actual mask through the original successful native fold. -/
+theorem read_actuals_stored {calls text context input info item afterName frame}
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (accepted : readActuals calls text context input info item afterName = some frame) :
+    StoredReads info frame := by
+  unfold readActuals at accepted
+  by_cases zero : item.count = 0
+  · simp only [zero, ite_true, Option.some.injEq] at accepted
+    subst frame
+    exact initial_stored info input item afterName
+  · by_cases missing : calls.take text afterName (.symbol "(") = 0
+    · simp only [zero, missing, ite_false, ite_true, reduceCtorEq] at accepted
+    · simp only [zero, missing, ite_false] at accepted
+      exact fold_stored _ capacity (initial_stored info input item _) accepted
+
+private theorem fold_incoming {calls text context input info item before after} (indices : List Nat)
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (accepted : indices.foldlM (fun frame index => actualStep calls text context input info item (index + 1) frame)
+      before = some after) :
+    (∀ cell ∈ info.effectCells before.result.result.reads, cell ∈ info.effectCells after.result.result.reads) ∧
+      after.result.result.writes = before.result.result.writes := by
+  induction indices generalizing before with
+  | nil => cases Option.some.inj accepted; exact ⟨fun _ member => member, rfl⟩
+  | cons index rest ih =>
+    simp only [List.foldlM_cons, Option.bind_eq_bind, Option.bind_eq_some_iff] at accepted
+    obtain ⟨middle, first, remaining⟩ := accepted
+    have head := actual_step_incoming capacity first
+    have tail := ih remaining
+    exact ⟨fun cell member => tail.1 cell (head.1 cell member), tail.2.trans head.2⟩
+
+theorem read_actuals_incoming {calls text context input info item afterName frame}
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (accepted : readActuals calls text context input info item afterName = some frame) :
+    (∀ cell ∈ info.effectCells input.reads, cell ∈ info.effectCells frame.result.result.reads) ∧
+      frame.result.result.writes = input.writes := by
+  unfold readActuals at accepted
+  by_cases zero : item.count = 0
+  · simp only [zero, ite_true, Option.some.injEq] at accepted
+    subst frame
+    exact ⟨fun _ member => member, rfl⟩
+  · by_cases missing : calls.take text afterName (.symbol "(") = 0
+    · simp only [zero, missing, ite_false, ite_true, reduceCtorEq] at accepted
+    · simp only [zero, missing, ite_false] at accepted
+      exact fold_incoming _ capacity accepted
+
+end NativeReads
+
 end Silver.ApplicationPackageSourceEffects
