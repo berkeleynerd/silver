@@ -1,0 +1,106 @@
+[
+  {
+    "run_id": "20261128T000106-49fe0a39da56",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:27:61:Tactic `simp` failed with a nested error:"
+    ]
+  },
+  {
+    "run_id": "20261128T000324-19c11044367c",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:28:61:Tactic `simp` failed with a nested error:"
+    ]
+  },
+  {
+    "run_id": "20261128T000711-d123f71131a7",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:104:61:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:55:78:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:71:83:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:91:88:Tactic `simp` failed with a nested error:"
+    ]
+  },
+  {
+    "run_id": "20261128T000920-22cda4de1dd9",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:106:61:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:57:78:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:73:83:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:93:88:Tactic `simp` failed with a nested error:"
+    ]
+  },
+  {
+    "run_id": "20261128T001048-6e546d6e6c56",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:103:88:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:116:61:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:67:78:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:83:83:Tactic `simp` failed with a nested error:"
+    ]
+  },
+  {
+    "run_id": "20261128T001210-6b156c48102c",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:109:88:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:122:61:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:73:78:Tactic `simp` failed with a nested error:",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:89:83:Tactic `simp` failed with a nested error:"
+    ]
+  },
+  {
+    "run_id": "20261128T001436-bd10beecb5cd",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:36:2:(deterministic) timeout at `isDefEq`, maximum number of heartbeats (2000000) has been reached"
+    ]
+  },
+  {
+    "run_id": "20261128T001724-74f9670d7762",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:34:61:unsolved goals",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:41:104:This simp argument is unused:"
+    ]
+  },
+  {
+    "run_id": "20261128T001858-cda0aa254efb",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:34:61:unsolved goals",
+      "lean:build:Silver/ApplicationAdmissionEquations.lean:42:104:This simp argument is unused:"
+    ]
+  },
+  {
+    "run_id": "20261128T002151-53b93cd01768",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:51:6:Tactic `rfl` failed: The left-hand side",
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:53:8:Tactic `rfl` failed: The left-hand side",
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:58:10:Tactic `rfl` failed: The left-hand side",
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:59:8:unsolved goals",
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:83:24:Application type mismatch: The argument",
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:85:83:Application type mismatch: The argument",
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:86:64:Application type mismatch: The argument"
+    ]
+  },
+  {
+    "run_id": "20261128T002300-7833f6d7064e",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:59:57:Application type mismatch: The argument"
+    ]
+  },
+  {
+    "run_id": "20261128T002610-c97f815d6161",
+    "outcome": "failure",
+    "failure_keys": [
+      "lean:build:Silver/ApplicationAdmissionPackageComposition.lean:56:17:This simp argument is unused:"
+    ]
+  }
+]

@@ -25,12 +25,13 @@ therefore justified by the preceding native assignment/call order. -/
 theorem analyzeBody_meaning (calls : ApplicationAdmission.Calls) (locals : Locals) :
     analyzeBody.eval (modelCallees calls) locals =
       analyzeApplication calls (locals .bundle "sources") := by
-  simp only [Body.eval, analyzeBody, Command.list, List.foldr, List.foldl,
+  dsimp only [Body.eval, analyzeBody, Command.list, List.foldr, List.foldl,
     Declaration.eval, Command.eval, forKinds, originalKinds, Location.set, Location.expression,
     sourceRejected, specificationRejected, bodyRejected, resultRejected,
     Expr.eval, modelCallees, modelFunctions, Field.get, Field.set, Locals.set,
     sourceBundle, sourceText, exports, info, result, unitPrefix,
     reduceCtorEq, ↓reduceIte, ↓reduceDIte]
+  simp only [reduceCtorEq, ↓reduceIte, ↓reduceDIte]
   simp only [analyzeApplication, chargeUnits, originalKinds, resultValid, finalGuard, guardSwap, id_eq]
   let sources := locals .bundle "sources"
   generalize chargedSpecification : calls.chargeUnit (sources.unitSource .packageSpecification)
