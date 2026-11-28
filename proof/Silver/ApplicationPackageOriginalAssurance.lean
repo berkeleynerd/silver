@@ -187,9 +187,10 @@ theorem source_functions_preserve_from {reader calls text readers specRows befor
 
 noncomputable def SourceMeaning.obligations {library reader packageReaders mainLibrary mainOther mainReaders other sources}
     (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources) :
-    List Predicate.Obligation :=
-  source.package.headerObligations ++
-    summaryLibraryObligationsFrom source.parsed.body.info.stateSchema .empty source.package.entries ++
+    List Semantics.Obligation :=
+  (source.package.headerObligations ++
+    summaryLibraryObligationsFrom source.parsed.body.info.stateSchema .empty source.package.entries).map
+      Predicate.Obligation.toObligation ++
     source.main.obligations
 
 /-- All package and Main semantic-library facts, derived separately from the
@@ -203,7 +204,7 @@ structure SourceMeaning.Semantic {library reader packageReaders mainLibrary main
     source.parsed.body.info.stateSchema
   routines : SummaryRoutinesSafeFrom source.parsed.body.info.stateSchema .empty source.package.entries
   functions : FunctionsPreserveFrom .empty source.package.entries
-  discharged : Predicate.discharged source.obligations = true
+  discharged : Semantics.discharge source.obligations = true
 
 theorem SourceMeaning.semantic {library reader packageReaders mainLibrary mainOther mainReaders other sources}
     (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources)
@@ -219,12 +220,23 @@ theorem SourceMeaning.semantic {library reader packageReaders mainLibrary mainOt
       original_routine_start source.parsed, List.take_zero, List.map_nil]
   have functions := source_functions_preserve_from source.parsed.history.completions source.package.routines
     effects .empty prior SharedEnvironment.empty_respectsEffects
+  obtain ⟨fallback, argument⟩ := source.original_argument native
+  have mainChecks := source.main.obligations_discharge (textOf_valid native.valid) checked.entry
+    argument checked.mainObligations
+  have packageChecks : Predicate.discharged (source.package.headerObligations ++
+      summaryLibraryObligationsFrom source.parsed.body.info.stateSchema .empty source.package.entries) = true := by
+    rw [Predicate.discharged_append, checked.headers, package.2.2.2]
+    rfl
   refine ⟨source.parsed.body.info.stateSchema_valid native.typed
       (Bool.and_eq_true_iff.mp source.parsed.complete).1,
     package.1, ⟨checked.functions, checked.procedures, package.2.1⟩, package.2.2.1, functions, ?_⟩
-  rw [SourceMeaning.obligations, Predicate.discharged_append, Predicate.discharged_append,
-    checked.headers, package.2.2.2, checked.mainObligations]
-  rfl
+  apply (Semantics.discharge_iff _).mpr
+  intro check member
+  unfold SourceMeaning.obligations at member
+  rcases List.mem_append.mp member with packageMember | mainMember
+  · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp packageMember
+    exact List.all_eq_true.mp packageChecks schema present
+  · exact (Semantics.discharge_iff _).mp mainChecks check mainMember
 
 /-- Actual interpreted Analyze acceptance derives the complete original
 source meaning and every package-library/Main-checking obligation. None of
@@ -307,6 +319,40 @@ theorem interpreted_accepted_values {specification implementation scalarSpec pac
     packageReaders packageInterpreted imports mainOther mainReaders mainInterpreted other locals represented accepted
   exact ⟨meaning, legal, checked, semantic, meaning.initial_values booleans booleanSource legal⟩
 
+/-- Raw header source bounds and actual Ada bounds for every runtime argument
+list. The original optional argument initializes its exact first String cell;
+ordinary declarations then advance their source-order value and bound stores. -/
+def SourceMeaning.HeaderBounds {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources) : Prop :=
+  let entry := argumentFrame (mainLibrary.model mainOther) sources
+    source.parsed.specification.exports source.parsed.body.info
+  let final := declarationsFrame (mainLibrary.model mainOther) sources
+    source.parsed.specification.exports source.parsed.body.info
+  let hasArgument := (contextClauses (mainLibrary.model mainOther) sources source.parsed.body.info).argumentsWith
+  ∃ fallback, MainArgumentAt (textOf sources) entry hasArgument fallback ∧
+    ∀ (arguments : Arguments.Runtime.Arguments) (bounds : BoundsStore),
+      let input := runtimeInput hasArgument fallback arguments
+      let inputValid := runtimeInputValid hasArgument arguments
+      let values := if hasArgument then argumentDeclaration.execute Bindings.emptyValues input else Bindings.emptyValues
+      let initialBounds := if hasArgument then argumentDeclaration.executeBounds bounds input else bounds
+      NamesBoundsValid final.names ∧ final.names.length ≤ maxBindings ∧
+        Bindings.Fits final.names.shape input (source.main.inventory.runtimeValues hasArgument input) ∧
+        initialBounds.Compatible entry.names input ∧
+        RawHeaderBoundsTrace (textOf sources) hasArgument (source.main.headerProgram fallback) input inputValid
+          entry values source.main.inventory.strings source.main.inventory.booleans source.main.inventory.booleanChecks final ∧
+        (executeDeclarationsBounds input source.main.inventory.strings initialBounds).Compatible final.names input ∧
+        ActualHeaderBoundsTrace (textOf sources) hasArgument input inputValid entry values initialBounds
+          source.main.inventory.strings source.main.inventory.booleans source.main.inventory.booleanChecks final
+
+theorem SourceMeaning.header_bounds {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources)
+    (native : source.NativeFacts) (checked : source.Checked) : source.HeaderBounds := by
+  obtain ⟨fallback, argument⟩ := source.original_argument native
+  refine ⟨fallback, argument, ?_⟩
+  intro arguments bounds
+  exact original_main_bounds (argument.runtime_start arguments) source.main.declarations rfl rfl rfl
+    (textOf_valid native.valid) checked.entry bounds
+
 /-- Runtime safety quantifies over every actual argument list. All initial
 stores and the fallback literal come from the original Main syntax; no fitting
 store, successful semantic check or safety certificate is a source premise. -/
@@ -367,10 +413,12 @@ theorem interpreted_accepted_assurance {specification implementation scalarSpec 
       (ApplicationAdmission.Native.modelCallees (native.calls booleans.condition mainOther other)) locals).accepted = true) :
     ∃ meaning : SourceMeaning native.completion booleans.condition packageReaders native.main mainOther mainReaders
         (native.boundary other) (locals .bundle "sources"),
-      meaning.NativeFacts ∧ meaning.Checked ∧ meaning.Semantic ∧ meaning.InitialValues ∧ meaning.RuntimeSound := by
+      meaning.NativeFacts ∧ meaning.Checked ∧ meaning.Semantic ∧ meaning.InitialValues ∧
+        meaning.HeaderBounds ∧ meaning.RuntimeSound := by
   obtain ⟨meaning, legal, checked, semantic, values⟩ := interpreted_accepted_values native booleans booleanSource
     packageReaders packageInterpreted imports mainOther mainReaders mainInterpreted other locals represented accepted
-  exact ⟨meaning, legal, checked, semantic, values, meaning.runtime_sound legal checked semantic⟩
+  exact ⟨meaning, legal, checked, semantic, values, meaning.header_bounds legal checked,
+    meaning.runtime_sound legal checked semantic⟩
 
 /-- The canonical native effect imports discharge the primitive equations as
 well. This endpoint has no caller-supplied semantic coverage, successful decoder,
@@ -391,7 +439,8 @@ theorem interpreted_bound_assurance {specification implementation scalarSpec pac
     let packageReaders := recursive.readers (ReaderEffectsImports.boundReaders native.completion.leaves.effects packageOther)
     ∃ meaning : SourceMeaning native.completion booleans.condition packageReaders native.main mainOther mainReaders
         (native.boundary other) (locals .bundle "sources"),
-      meaning.NativeFacts ∧ meaning.Checked ∧ meaning.Semantic ∧ meaning.InitialValues ∧ meaning.RuntimeSound :=
+      meaning.NativeFacts ∧ meaning.Checked ∧ meaning.Semantic ∧ meaning.InitialValues ∧
+        meaning.HeaderBounds ∧ meaning.RuntimeSound :=
   interpreted_accepted_assurance native booleans booleanSource _ packageInterpreted
     (ReaderEffectsImports.bound recursive native.completion.leaves.effects packageOther)
     mainOther mainReaders mainInterpreted other locals represented accepted
