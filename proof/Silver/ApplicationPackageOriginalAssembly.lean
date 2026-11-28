@@ -155,7 +155,9 @@ theorem accepted_assembly (library : ApplicationPackageCompletion.Library)
     ∃ parsed : ParsedPackage reader (ApplicationPackageCompletion.LeafLibraries.model (library.calls reader))
         (packageCalls library reader (main.calls mainOther) other) sources
         (analyzeApplication (packageCalls library reader (main.calls mainOther) other) sources),
-      sources.Valid ∧ parsed.body.info.Typed ∧ parsed.body.info.units = sources.units ∧
+      sources.Valid ∧ ReaderFrame (sources.prefix .packageBody) parsed.specification.exports ∧
+      ReaderFrame (textOf sources) parsed.specification.exports ∧
+      parsed.body.info.Typed ∧ parsed.body.info.units = sources.units ∧
       ∃ package : PackageSyntax parsed packageReaders,
         EntriesRelated (EntryCheckedAt parsed.body.info.stateSchema) parsed.history.rows package.entries ∧
         (buildSummaryLibrary package.entries).effects = ApplicationPackageCalls.completedEnvironment parsed.body.info ∧
@@ -180,7 +182,88 @@ theorem accepted_assembly (library : ApplicationPackageCompletion.Library)
       (buildSummaryLibrary package.entries).environment signatures mainAccepted
   let source : MainSyntax parsed main mainOther mainReaders (buildSummaryLibrary package.entries).environment :=
     ⟨inventory, code, declarations, body⟩
-  exact ⟨parsed, valid, typed, units, package, phases, summaries, headerChecks,
+  exact ⟨parsed, valid, bodyFrame, mainFrame, typed, units, package, phases, summaries, headerChecks,
     source, entry, functions, procedures, checked, discharged⟩
+
+/-- Meaning of the original three-unit Bundle. Native reading histories
+identify the exact source declarations and recursive statements. No semantic
+decoder, checker, effect-inclusion, obligation or safety result is stored here. -/
+structure SourceMeaning (library : ApplicationPackageCompletion.Library)
+    (reader : BooleanElaboration.Native.Reader) (packageReaders : Readers)
+    (mainLibrary : BodyLibraries) (mainOther : ApplicationPackageMain.Calls) (mainReaders : Readers)
+    (other : ApplicationAdmission.Calls) (sources : ApplicationUnits.Bundle) where
+  parsed : ParsedPackage reader (ApplicationPackageCompletion.LeafLibraries.model (library.calls reader))
+    (packageCalls library reader (mainLibrary.calls mainOther) other) sources
+    (analyzeApplication (packageCalls library reader (mainLibrary.calls mainOther) other) sources)
+  package : PackageSyntax parsed packageReaders
+  main : MainSyntax parsed mainLibrary mainOther mainReaders (buildSummaryLibrary package.entries).environment
+
+structure SourceMeaning.NativeFacts {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources) : Prop where
+  valid : sources.Valid
+  bodyFrame : ReaderFrame (sources.prefix .packageBody) source.parsed.specification.exports
+  mainFrame : ReaderFrame (textOf sources) source.parsed.specification.exports
+  typed : source.parsed.body.info.Typed
+  units : source.parsed.body.info.units = sources.units
+
+/-- Derived checking facts, deliberately separate from SourceMeaning. -/
+structure SourceMeaning.Checked {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources) : Prop where
+  phases : EntriesRelated (EntryCheckedAt source.parsed.body.info.stateSchema)
+    source.parsed.history.rows source.package.entries
+  summaries : (buildSummaryLibrary source.package.entries).effects =
+    ApplicationPackageCalls.completedEnvironment source.parsed.body.info
+  headers : Predicate.discharged source.package.headerObligations = true
+  entry : DeclarationEntry (textOf sources)
+    (argumentFrame (mainLibrary.model mainOther) sources source.parsed.specification.exports source.parsed.body.info)
+  functions : source.main.inventory.localFunctions.Valid
+  procedures : source.main.inventory.localProcedures.Valid
+  body : MainChecked (source.main.inventory.environment (buildSummaryLibrary source.package.entries).environment)
+    (mainLibrary.input mainOther sources source.parsed.specification.exports source.parsed.body.info)
+    (mainLibrary.result mainOther sources source.parsed.specification.exports source.parsed.body.info) source.main.code
+  mainObligations : Predicate.discharged source.main.obligations = true
+
+theorem accepted_meaning (library : ApplicationPackageCompletion.Library)
+    (reader : BooleanElaboration.Native.Reader) (packageReaders : Readers)
+    (packageInterpreted : library.readers = sourceReaders packageReaders)
+    (main : BodyLibraries) (mainOther : ApplicationPackageMain.Calls) (mainReaders : Readers)
+    (mainInterpreted : main.readers = sourceReaders mainReaders)
+    (other : ApplicationAdmission.Calls) (sources : ApplicationUnits.Bundle)
+    (represented : sources.Representable)
+    (accepted : (analyzeApplication (packageCalls library reader (main.calls mainOther) other) sources).accepted = true) :
+    ∃ meaning : SourceMeaning library reader packageReaders main mainOther mainReaders other sources,
+      meaning.NativeFacts ∧ meaning.Checked := by
+  obtain ⟨parsed, valid, bodyFrame, mainFrame, typed, units, package, phases, summaries, headers,
+      mainSource, entry, functions, procedures, body, mainObligations⟩ :=
+    accepted_assembly library reader packageReaders packageInterpreted main mainOther mainReaders
+      mainInterpreted other sources represented accepted
+  exact ⟨⟨parsed, package, mainSource⟩, ⟨valid, bodyFrame, mainFrame, typed, units⟩,
+    ⟨phases, summaries, headers, entry, functions, procedures, body, mainObligations⟩⟩
+
+/-- The checked native wrapper interpretation reaches the same original
+Bundle meaning. Its arbitrary caller locals and full native storage domain are
+preserved; source slices are never flattened into the single-unit grammar. -/
+theorem interpreted_accepted_meaning {specification implementation scalarSpec packageSpec : List String}
+    (native : ApplicationPackageSourceBridge.InterpretedSource specification implementation scalarSpec packageSpec)
+    (reader : BooleanElaboration.Native.Reader) (packageReaders : Readers)
+    (packageInterpreted : native.completion.readers = sourceReaders packageReaders)
+    (mainOther : ApplicationPackageMain.Calls) (mainReaders : Readers)
+    (mainInterpreted : native.main.readers = sourceReaders mainReaders)
+    (other : ApplicationAdmission.Calls) (locals : ApplicationNative.Locals)
+    (represented : (locals .bundle "sources").Representable)
+    (accepted : (ApplicationAdmission.Native.analyzeBody.eval
+      (ApplicationAdmission.Native.modelCallees (native.calls reader mainOther other)) locals).accepted = true) :
+    ∃ meaning : SourceMeaning native.completion reader packageReaders native.main mainOther mainReaders
+        (native.boundary other) (locals .bundle "sources"), meaning.NativeFacts ∧ meaning.Checked := by
+  rw [native.analysis reader mainOther other locals represented] at accepted
+  have same := package_main_imports native.completion reader native.main mainOther
+    (native.boundary other) (locals .bundle "sources") represented
+  change analyzeApplication (native.calls reader mainOther other) (locals .bundle "sources") =
+    analyzeApplication (native.model reader mainOther other) (locals .bundle "sources") at same
+  have original : (analyzeApplication (native.calls reader mainOther other) (locals .bundle "sources")).accepted = true := by
+    rw [same]
+    exact accepted
+  exact accepted_meaning native.completion reader packageReaders packageInterpreted native.main mainOther mainReaders
+    mainInterpreted (native.boundary other) (locals .bundle "sources") represented original
 
 end Silver.ApplicationPackageOriginal

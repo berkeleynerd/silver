@@ -140,4 +140,169 @@ theorem package_library (library : ApplicationPackageCompletion.Library)
   have safe := checkSummaryLibrary_sound schema checked.2.2 checked.1
   exact ⟨checked.1, safe.1, safe.2.2.1, checkSummaryLibraryFrom_obligations_discharge checked.1⟩
 
+/-- Every function body, at its actual completion-order callable prefix,
+preserves all globals. This records the source/executable correspondence which
+is separate from the wrapper's value-only function interface. -/
+def FunctionsPreserveFrom : RoutineLibrary → List SummaryRoutineEntry → Prop
+  | _, [] => True
+  | library, entry :: rest =>
+      (∀ signature, entry.routine.definition.signature = .function signature →
+        ∀ state inputs, (entry.routine.definition.execute library.environment state inputs).1 = state) ∧
+      FunctionsPreserveFrom (entry.extend library) rest
+
+theorem source_functions_preserve_from {reader calls text readers specRows before rows result entries}
+    (history : RoutineHistory (bodyReaders reader calls) text before rows result)
+    (sources : RoutineEntriesAt reader calls text readers specRows rows entries)
+    (effects : EntriesRelated EntryEffectsAt rows entries)
+    (initial : RoutineLibrary) (prior : initial.effects = ApplicationPackageCalls.completedEnvironment before.info)
+    (previous : initial.environment.RespectsEffects initial.effects) :
+    FunctionsPreserveFrom initial entries := by
+  induction history generalizing entries initial with
+  | finished => cases sources; trivial
+  | @added row later result phase pending read advanced rest ih =>
+    cases sources with
+    | cons frames code sourcePending present originals =>
+      cases effects with
+      | cons footprint footprints =>
+        obtain ⟨inferred, inference, included⟩ := footprint
+        rw [← prior] at inference
+        have next : ((code.summaryEntry specRows).extend initial).effects =
+            ApplicationPackageCalls.completedEnvironment row.result.info := by
+          change initial.effects ++ [(code.summaryEntry specRows).summary] = _
+          rw [prior, code.summary_original sourcePending present]
+          exact (next_environment phase pending read advanced rest).symm
+        refine ⟨?_, ih originals footprints _ next (append_respects_summary previous inference included)⟩
+        intro signature function state inputs
+        have kind : (frames.signature.info.routineAt (row.before.info.completed + 1)).kind = .function := by
+          cases selected : (frames.signature.info.routineAt (row.before.info.completed + 1)).kind with
+          | function => rfl
+          | procedure =>
+            simp only [RoutineCode.summaryEntry, RoutineCode.entry, RoutineCode.definition,
+              PackageBindings.Routine.signature, selected] at function
+            cases function
+        exact function_execution_readonly code specRows sourcePending present kind
+          previous inference included state inputs
+
+noncomputable def SourceMeaning.obligations {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources) :
+    List Predicate.Obligation :=
+  source.package.headerObligations ++
+    summaryLibraryObligationsFrom source.parsed.body.info.stateSchema .empty source.package.entries ++
+    source.main.obligations
+
+/-- All package and Main semantic-library facts, derived separately from the
+original source meaning. Runtime initialization is joined below this boundary. -/
+structure SourceMeaning.Semantic {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources) : Prop where
+  schema : source.parsed.body.info.stateSchema.Valid
+  library : checkSummaryLibrary source.parsed.body.info.stateSchema source.package.entries =
+    some (buildSummaryLibrary source.package.entries)
+  environment : (source.main.inventory.environment (buildSummaryLibrary source.package.entries).environment).Valid
+    source.parsed.body.info.stateSchema
+  routines : SummaryRoutinesSafeFrom source.parsed.body.info.stateSchema .empty source.package.entries
+  functions : FunctionsPreserveFrom .empty source.package.entries
+  discharged : Predicate.discharged source.obligations = true
+
+theorem SourceMeaning.semantic {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources)
+    (native : source.NativeFacts) (checked : source.Checked) (imports : ReaderEffects packageReaders) :
+    source.Semantic := by
+  have package := package_library library reader imports source.parsed native.valid native.bodyFrame
+    native.typed source.package checked.phases
+  have effects := package_effects library reader imports source.parsed native.valid native.bodyFrame
+    native.typed source.package checked.phases
+  have prior : RoutineLibrary.empty.effects =
+      ApplicationPackageCalls.completedEnvironment source.parsed.history.routinesStart.info := by
+    simp only [RoutineLibrary.empty, ApplicationPackageCalls.completedEnvironment,
+      original_routine_start source.parsed, List.take_zero, List.map_nil]
+  have functions := source_functions_preserve_from source.parsed.history.completions source.package.routines
+    effects .empty prior SharedEnvironment.empty_respectsEffects
+  refine ⟨source.parsed.body.info.stateSchema_valid native.typed
+      (Bool.and_eq_true_iff.mp source.parsed.complete).1,
+    package.1, ⟨checked.functions, checked.procedures, package.2.1⟩, package.2.2.1, functions, ?_⟩
+  rw [SourceMeaning.obligations, Predicate.discharged_append, Predicate.discharged_append,
+    checked.headers, package.2.2.2, checked.mainObligations]
+  rfl
+
+/-- Actual interpreted Analyze acceptance derives the complete original
+source meaning and every package-library/Main-checking obligation. None of
+those semantic conclusions is assumed in the native source relation. -/
+theorem interpreted_accepted_semantics {specification implementation scalarSpec packageSpec : List String}
+    (native : ApplicationPackageSourceBridge.InterpretedSource specification implementation scalarSpec packageSpec)
+    (reader : BooleanElaboration.Native.Reader) (packageReaders : Readers)
+    (packageInterpreted : native.completion.readers = sourceReaders packageReaders)
+    (imports : ReaderEffects packageReaders)
+    (mainOther : ApplicationPackageMain.Calls) (mainReaders : Readers)
+    (mainInterpreted : native.main.readers = sourceReaders mainReaders)
+    (other : ApplicationAdmission.Calls) (locals : ApplicationNative.Locals)
+    (represented : (locals .bundle "sources").Representable)
+    (accepted : (ApplicationAdmission.Native.analyzeBody.eval
+      (ApplicationAdmission.Native.modelCallees (native.calls reader mainOther other)) locals).accepted = true) :
+    ∃ meaning : SourceMeaning native.completion reader packageReaders native.main mainOther mainReaders
+        (native.boundary other) (locals .bundle "sources"),
+      meaning.NativeFacts ∧ meaning.Checked ∧ meaning.Semantic := by
+  obtain ⟨meaning, legal, checked⟩ := interpreted_accepted_meaning native reader packageReaders packageInterpreted
+    mainOther mainReaders mainInterpreted other locals represented accepted
+  exact ⟨meaning, legal, checked, meaning.semantic legal checked imports⟩
+
+/-- Source-value correspondence is also derived separately: immutable
+loads retain their original declaration order, and each persistent cell has
+the value of its original RHS on every fitting elaboration store. -/
+structure SourceMeaning.InitialValues {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources) : Prop where
+  constants : ∃ readings : List (OriginalConstant (sources.prefix .packageSpecification)),
+    readings.map OriginalConstant.seed = specificationSeeds source.package.specRows ∧
+      (∀ item ∈ readings, item.row ∈ source.package.specRows) ∧
+      ∀ stores, (∀ item ∈ readings,
+        ElaborationStore (sources.prefix .packageSpecification) item.row.before.exports item.row.before.info (stores item)) →
+        ∀ backing, loadOriginalConstants stores backing readings =
+          initializeLocals backing ((specificationSeeds source.package.specRows).map ConstantSeed.initializer)
+  states : ∀ index, index < source.parsed.history.objects.length →
+    ∃ row expression, source.parsed.history.objects[index]? = some row ∧
+      OriginalValueAt (sources.prefix .packageBody) row.before.globals row.before.info row.object expression ∧
+      ∀ state, ElaborationStore (sources.prefix .packageBody) row.before.globals row.before.info state →
+        ∀ backing, readCell (initializeFrom backing source.parsed.body.info.stateSchema)
+          ((stateDeclaration row.object).cell (index + 1)) = expression.evaluate state
+
+theorem SourceMeaning.initial_values {library : ApplicationPackageCompletion.Library}
+    {objects : ObjectLibraries} (booleans : BooleanElaboration.Native.SourceImports.Library objects)
+    {tokens : List String} (booleanSource : BooleanElaboration.Native.SourceChecks.Checked tokens)
+    {packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library booleans.condition packageReaders mainLibrary mainOther mainReaders other sources)
+    (native : source.NativeFacts) : source.InitialValues := by
+  have specValid := specification_prefix_valid sources native.valid .packageSpecification
+  have bodyValid := specification_prefix_valid sources native.valid .packageBody
+  have specFrame := specification_start_framed booleans.condition
+    (sources.prefix .packageSpecification) {units := sources.units}
+  rw [source.package.started] at specFrame
+  have specTyped := readSpecification_typed booleans.condition specValid {units := sources.units}
+    (specification_seed_typed sources native.valid.1)
+  rw [source.parsed.specified] at specTyped
+  exact ⟨source.package.specification.constant_loading booleans booleanSource specValid specFrame,
+    fun index inside => ApplicationPackageInitializers.BodyHistory.loaded_values booleans booleanSource library
+      source.parsed.history bodyValid native.bodyFrame specTyped.1 native.typed
+      (Bool.and_eq_true_iff.mp source.parsed.complete).1 index inside⟩
+
+/-- The same native source interpretation supplies raw Boolean initializer
+meaning, so original declaration evaluation is a conclusion alongside all
+package/Main semantic checking and full obligation discharge. -/
+theorem interpreted_accepted_values {specification implementation scalarSpec packageSpec : List String}
+    (native : ApplicationPackageSourceBridge.InterpretedSource specification implementation scalarSpec packageSpec)
+    (booleans : BooleanElaboration.Native.SourceImports.Library native.completion.objects)
+    (booleanSource : BooleanElaboration.Native.SourceChecks.Checked implementation)
+    (packageReaders : Readers) (packageInterpreted : native.completion.readers = sourceReaders packageReaders)
+    (imports : ReaderEffects packageReaders)
+    (mainOther : ApplicationPackageMain.Calls) (mainReaders : Readers)
+    (mainInterpreted : native.main.readers = sourceReaders mainReaders)
+    (other : ApplicationAdmission.Calls) (locals : ApplicationNative.Locals)
+    (represented : (locals .bundle "sources").Representable)
+    (accepted : (ApplicationAdmission.Native.analyzeBody.eval
+      (ApplicationAdmission.Native.modelCallees (native.calls booleans.condition mainOther other)) locals).accepted = true) :
+    ∃ meaning : SourceMeaning native.completion booleans.condition packageReaders native.main mainOther mainReaders
+        (native.boundary other) (locals .bundle "sources"),
+      meaning.NativeFacts ∧ meaning.Checked ∧ meaning.Semantic ∧ meaning.InitialValues := by
+  obtain ⟨meaning, legal, checked, semantic⟩ := interpreted_accepted_semantics native booleans.condition
+    packageReaders packageInterpreted imports mainOther mainReaders mainInterpreted other locals represented accepted
+  exact ⟨meaning, legal, checked, semantic, meaning.initial_values booleans booleanSource legal⟩
+
 end Silver.ApplicationPackageOriginal
