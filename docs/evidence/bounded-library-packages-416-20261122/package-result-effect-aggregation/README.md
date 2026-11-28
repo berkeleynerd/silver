@@ -109,3 +109,19 @@ same Linux x86_64/Lean 4.34.1, CPUs 6–7, automatic two workers/two threads,
 proof block and supplied explicit equation reductions/witnesses. No proof budget,
 source domain or semantic assumption changed. Selected Astra Max; actual runtime
 model/effort and token/cost data remain unavailable.
+
+## Original scalar body syntax
+
+`RoutineEffects.tail_scalar` derives scalar-body membership from the complete
+original recursive source tree and closed native frame. It visits every
+conditional arm, loop body and function/procedure argument; native pure-frame
+selection excludes the array-loop arm. No completed semantic checker, effect
+coverage premise or narrower source domain is used.
+
+Focused run `20261128T003728-186581097125` passed with 84,383 audited
+declarations and all 1,724 captured input hashes matching. Build 5.656 s and
+fresh audit 4.268 s; Linux x86_64 / Lean 4.34.1, CPUs 6–7, automatic two
+workers/two threads and 8,192 MiB per process. Earlier failed drafts are retained
+in the managed ledger; the original failed run is included here. Repairs
+corrected mutual-recursion binder order, alias normalization and explicit
+context transport. Full effect inclusion and complete assurance remain pending.
