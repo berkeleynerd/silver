@@ -1203,8 +1203,20 @@ accepted that connection. The [delivery evidence](bounded-string-characters.md#d
 records the successful complete native and actual-source checkpoints, final
 regression coverage and independent source review.
 
+`Predicate.Program.checks` retains the normalized program's schemas.
+`PredicateScalarHeaderInventory` additionally follows the original shell and
+declaration histories to retain raw inline Integer range expressions in Main
+objects and every local callable, including unused definitions. Each expression
+keeps its declaration-time scalar and array scope. `Current.checks source program`
+combines these inventories; the source relation and complete discharge are
+derived separately from the admitted meaning. Its finite mathematical inventory
+uses `Classical.choose` on proved existence, not a compiler operation or an
+additional admission condition. The [#428 repair record](evidence/bounded-library-packages-416-20261128/standalone-scalar-headers-428/README.md)
+distinguishes focused validation from the outstanding complete checkpoint.
+
 `Current.all_obligations_discharge` proves terminating mathematical discharge
-for every admitted meaning; `fragment_checks_valid` supplies schema validity.
+of the combined source-dependent inventory for every admitted meaning;
+`fragment_checks_valid` supplies schema validity.
 `automatic_discharge_complete` returns the small uniform declaration-fragment
 certificate after admission. Source-specific path schemas are discharged by the
 separate universal theorem, not by that uniform calculation. The step bound in
@@ -1219,7 +1231,9 @@ faithful completed parsing, obligation generation, completion of proof for every
 source schema accepted by the Lean endpoint-discharge checker, fixed-library
 proof completion, same-source build completion, and preservation and realization
 of modeled execution.
-The generation relation must associate every emitted range, length, index, overflow or
+Generation retains the same source and parsed program throughout the pipeline;
+its completion contract applies to admitted source/program pairs. The generation
+relation must associate every emitted range, length, index, overflow or
 nonzero-divisor check with its source schema; that association alone does not establish that the producer
 omitted no required obligation. Faithful and complete GNATprove generation,
 applicable static elimination, accurate diagnostics and the accepted report
