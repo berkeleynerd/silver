@@ -235,3 +235,20 @@ CPUs 6–7, automatic two workers/two threads and 8,192 MiB per process. No chan
 source relation, domain or proof budget; no independent replay or complete
 package assurance is claimed. Body-added assignment/call/guard/loop effects and
 their final recursive aggregate remain the outstanding source proof.
+
+## Original assignment and writable-actual source cells
+
+`assignment_name` reconstructs the exact writable spelling from the original
+assignment delimiter and native target selection. `named_write` then places every
+shared target in the native updated write mask. `named_read` and
+`NativeReads.target_read_included` likewise include the lexical reads of original
+in-out actuals in the executed call accumulator, preserving local shadowing and
+the declared metadata/mask bounds.
+
+Final focused run `20261128T012552-7ea47ff435ec` passed SourceEffects and its
+RoutineEffects consumer, with 84,475 freshly audited declarations and all 1,724
+captured input hashes matching. The preceding successful increments and failed
+elaboration drafts are retained separately. Linux x86_64 / Lean 4.34.1,
+CPUs 6–7, automatic two workers/two threads and 8,192 MiB per process. No native
+source, input domain or proof budget changed. The original procedure-call and
+recursive body aggregate remain outstanding; this is focused partial validation.

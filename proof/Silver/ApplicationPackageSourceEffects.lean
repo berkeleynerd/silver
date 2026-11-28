@@ -6,6 +6,7 @@ public import Silver.PredicateFunctionCallMeaning
 public import Silver.PackageEffectSummaries
 public import Silver.ApplicationPackageCallsActualOrder
 public import Silver.ApplicationPackageRecursiveSyntax
+public import Silver.ApplicationPackageProcedureTargetCells
 
 @[expose] public section
 
@@ -101,6 +102,100 @@ theorem marked_cell {info : PackageBindings.Metadata} {mask : PackageBindings.St
   simp only [ApplicationPackageCalls.markState, Nat.ne_of_gt positive, ite_false,
     PackageBindings.StateSet.get, List.getD_eq_getElem?_getD,
     List.getElem?_set_self (by omega : identity - 1 < mask.length), Option.getD_some]
+
+/-- The original assignment delimiter and native target selection determine
+the exact writable source spelling used by the layout. -/
+theorem assignment_name {text : Source} {context : ParseContext} {scan : BodyScan}
+    (delimiter : scalarAssignmentStart text scan ≠ 0)
+    (selected : scalarTarget text context scan.position ≠ 0 ∨ booleanTarget text context scan.position ≠ 0) :
+    WritableNameAt text context scan.position (nameAfter text (skipAt text scan.position))
+      (ScalarProcedures.targetCell (functionAssignmentTarget text context scan)) := by
+  have afterPositive : nameAfter text (skipAt text scan.position) ≠ 0 := fixedAfter_nonzero delimiter
+  have firstPositive : skipAt text scan.position ≠ 0 := by
+    intro zero
+    simp only [nameAfter, zero, ite_true] at afterPositive
+    exact afterPositive rfl
+  have identifierPositive : Named.identifierEnd text (skipAt text scan.position) ≠ 0 := by
+    simpa only [nameAfter, firstPositive, ite_false] using afterPositive
+  obtain ⟨bytes, parsed⟩ := Named.identifierEnd_sound text _ identifierPositive
+  have named : Named.IdentifierAt text (skipAt text scan.position) bytes
+      (nameAfter text (skipAt text scan.position)) := by
+    simpa only [nameAfter, firstPositive, ite_false] using parsed
+  by_cases integer : scalarTarget text context scan.position ≠ 0
+  · rw [functionAssignmentTarget, ite_eq_left integer]
+    simp only [ScalarProcedures.targetCell]
+    exact .name rfl firstPositive named (.integer rfl integer)
+  · have absent : scalarTarget text context scan.position = 0 := by omega
+    have boolean := selected.resolve_left integer
+    rw [functionAssignmentTarget, ite_eq_right integer]
+    simp only [ScalarProcedures.targetCell]
+    apply WritableNameAt.name rfl firstPositive named
+    apply CellSpelling.boolean absent ?_ boolean
+    change ScalarExpression.lookup text context.scalarNames (skipAt text scan.position)
+      (nameAfter text (skipAt text scan.position)) = 0 at absent
+    simp only [booleanTarget, absent, ne_eq, not_true_eq_false, ite_false]
+
+theorem named_write {text : Source} {context : ParseContext} {info : PackageBindings.Metadata}
+    {position after bound : Nat} {target : Cell} {mask : PackageBindings.StateSet}
+    (source : WritableNameAt text context position after target)
+    (valid : 0 < text.length ∧ text.length ≤ maxSourceLength)
+    (declarations : StateDeclarations text info.states)
+    (space : info.states.length ≤ mask.length) :
+    ∀ cell ∈ globalCells (layout bound info context) [target],
+      cell ∈ info.effectCells (ApplicationPackageCalls.markState mask
+        (stateTarget modelCalls text context info position)) := by
+  intro cell member
+  obtain ⟨localCell, used, placed⟩ := globalCells_mem.mp member
+  have same := List.mem_singleton.mp used
+  subst localCell
+  obtain ⟨identity, positive, active, equal⟩ := layout_global_state placed
+  rw [equal] at placed ⊢
+  have selected := (writableName_stateTarget_iff valid declarations source identity positive bound).mpr placed
+  rw [selected]
+  exact marked_cell positive active (Nat.le_trans active space)
+
+/-- A bare in-out target is also a lexical read of the same original state
+cell. Local shadowing remains governed by the actual state-target lookup. -/
+theorem named_read {text : Source} {context : ParseContext} {info : PackageBindings.Metadata}
+    {position after limit bound : Nat} {target : Cell}
+    (source : WritableNameAt text context position after target)
+    (valid : 0 < text.length ∧ text.length ≤ maxSourceLength)
+    (declarations : StateDeclarations text info.states)
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (positionBound : position ≤ text.length + 1) (endBound : after ≤ limit) :
+    ∀ cell ∈ globalCells (layout bound info context) [target],
+      cell ∈ info.effectCells (stateReads modelCalls text context info position limit) := by
+  have advance := source.advance positionBound
+  intro cell member
+  obtain ⟨localCell, used, placed⟩ := globalCells_mem.mp member
+  have same := List.mem_singleton.mp used
+  subst localCell
+  obtain ⟨identity, positive, active, equal⟩ := layout_global_state placed
+  rw [equal] at placed ⊢
+  have selected := (writableName_stateTarget_iff valid declarations source identity positive bound).mpr placed
+  obtain ⟨lookup, visible⟩ := stateTarget_selected selected (Nat.ne_of_gt positive)
+  cases source with
+  | @name first bytes skipped firstPositive identifier _ =>
+    have ended := Named.identifierEnd_complete identifier
+    have nameEnd : nameAfter text first = after := by
+      simp only [nameAfter, firstPositive, ite_false, ended]
+    change PackageBindings.lookupState (ApplicationPackageNames.metadataText text) info _ = identity at lookup
+    simp only [modelCalls, skipped, nameEnd] at lookup
+    have found : PackageBindings.lookupState (ApplicationPackageNames.metadataText text) info _ ≠ 0 :=
+      lookup ▸ Nat.ne_of_gt positive
+    have spelling := PackageBindings.lookupFrom_found found
+    change PackageBindings.sameName _ (info.stateAt (PackageBindings.lookupState _ info _)).name _ = true at spelling
+    rw [lookup] at spelling
+    simp only [PackageBindings.sameName, Bool.and_eq_true] at spelling
+    have occurrence := actualNameFree_identifier_alias (Nat.lt_of_lt_of_le advance endBound)
+      skipped firstPositive identifier endBound (equalName_symm spelling.2)
+    have nonzero : position ≠ 0 := by
+      intro zero
+      subst position
+      have absent : _ = 0 := skipped.symm
+      exact firstPositive absent
+    exact (stateReads_cell modelCalls text context info position limit identity
+      positive active (Nat.le_trans active capacity)).mpr ⟨by omega, visible, occurrence⟩
 
 theorem condition_integer_global_read {text : Source} {context : ParseContext}
     {info : PackageBindings.Metadata} {bound position limit slot identity : Nat}
@@ -545,6 +640,39 @@ theorem actual_read_included {text : Source} {context : ParseContext}
     declarations capacity scalarCapacity booleanCapacity
   have recorded := read_actuals_row_reads read slot positive mode source.positive
   intro cell member
+  apply read_actuals_stored capacity read slot cell
+  rw [recorded]
+  exact lexical cell member
+
+theorem target_read_included {text : Source} {context : ParseContext}
+    {input : ApplicationScan} {info : PackageBindings.Metadata} {item : PackageBindings.Routine}
+    {afterName slot bound : Nat} {frame : ActualFrame}
+    (read : readActuals ApplicationPackageCalls.modelCalls text context input info item afterName = some frame)
+    (target : procedureTargetActual text context (frame.actual slot).first input.scan.facts
+      (outputFormal (info.parameterAt slot)) = (frame.actual slot).target)
+    (ends : (frame.actual slot).after = (frame.actual slot).target.after)
+    (positive : 0 < slot) (mode : (info.parameterAt slot).mode ≠ .output)
+    (present : (frame.actual slot).after ≠ 0)
+    (firstBound : (frame.actual slot).first ≤ text.length + 1)
+    (valid : 0 < text.length ∧ text.length ≤ maxSourceLength)
+    (declarations : StateDeclarations text info.states)
+    (capacity : info.states.length ≤ PackageBindings.maxStates) :
+    ∀ cell ∈ globalCells (layout bound info context)
+      (actualReads (ScalarProcedures.targetRead (procedureTargetIdentity context (frame.actual slot).target))),
+      cell ∈ info.effectCells frame.result.result.reads := by
+  have nativePresent : (procedureTargetActual text context (frame.actual slot).first input.scan.facts
+      (outputFormal (info.parameterAt slot))).after ≠ 0 := by
+    rw [target, ← ends]
+    exact present
+  have named := procedureTargetActual_name nativePresent
+  rw [target, ← ends] at named
+  have lexical := named_read (bound := bound) named valid declarations capacity firstBound (Nat.le_refl _)
+  have recorded := read_actuals_row_reads read slot positive mode present
+  have readCells (object : ScalarFunctions.Target) :
+      actualReads (ScalarProcedures.targetRead object) = [ScalarProcedures.targetCell object] := by
+    cases object <;> rfl
+  intro cell member
+  rw [readCells] at member
   apply read_actuals_stored capacity read slot cell
   rw [recorded]
   exact lexical cell member

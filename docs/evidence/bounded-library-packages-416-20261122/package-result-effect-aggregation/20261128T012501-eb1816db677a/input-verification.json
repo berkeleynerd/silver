@@ -1,0 +1,15 @@
+{
+  "run_id": "20261128T012501-eb1816db677a",
+  "captured_source_count": 1724,
+  "changed": [
+    "proof/Silver/ApplicationPackageSourceEffects.lean"
+  ],
+  "missing": [],
+  "outcome": "success",
+  "returncode": null,
+  "cpu_affinity": [
+    6,
+    7
+  ],
+  "workers": 2
+}
