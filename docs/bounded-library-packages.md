@@ -1057,3 +1057,37 @@ and their threads found no affinity outside guest CPUs 0–7. Concurrent managed
 allocations remain within that ceiling. Complete native/Lean assurance,
 regressions, Rosetta promotion and independent closing review remain pending.
 PR #424 stays draft, and #426/#427 remain open through final validation.
+
+### Original source assembly and timeout policy, 2026-11-28 00:53 UTC
+
+The [source/native composition bridge](evidence/bounded-library-packages-416-20261128/original-source-bridge/README.md)
+passed a focused 86,252-declaration audit. It joins Analyze, Specification,
+Completion/Unit, Main and their primitive guards through the same supplied
+libraries, including rejected inputs and arbitrary caller locals. Its
+authoritative-source companion is prepared but explicitly unbuilt until the
+stable source checkpoint. The [original routine assembly](evidence/bounded-library-packages-416-20261128/source-routine-library/README.md)
+passed 84,497 declarations: original frame/history facts derive every completion
+entry and its phased checks, with a library fold ready to consume independently
+derived effect inclusion. The [effect packet](evidence/bounded-library-packages-416-20261122/package-result-effect-aggregation/README.md)
+now establishes effect-inference existence and native bitmask membership; complete
+body/footer inclusion and global initializer value aggregation remain in progress.
+
+The owner instructed **“Double all default timeouts if it will help.”** All 18
+main-prover attempts on the six provisional array-declaration roots timed out
+at 30 seconds. The [prepared policy branch](https://github.com/berkeleynerd/silver/tree/fix/packages-416-proof-timeout)
+raises the shared native compiler solver default to 60 seconds per prover and
+updates current guidance; 43 runner and 27 provenance tests pass. It also repairs
+an independently reviewed existing source-policy omission for two exact package
+metadata abstraction annotations, with all 79 auditor tests passing. Retained
+failed records remain failed. Integrate commits `82a03c1413`, `84d9054704` and
+`2b85e2654a` only after native run `20261127T195636-5b2a2f886237` terminates, so
+its captured source/script inputs remain unchanged. Then inspect the final
+mapped failures and check affected whole helpers under the new budget. No proof
+success at 60 seconds is claimed. Lean has no managed wall-clock timeout; no
+evidence supports doubling unrelated timeout settings.
+
+Original application/source/tool composition, remaining focused native checks,
+complete assurance, regressions, Rosetta promotion and independent closing
+review remain required. The native job retains CPUs 2–3; semantic, source/value
+and effect subthreads share 0–1, 4–5 and 6–7 respectively. The lead's temporary
+Python-test use of 4–5 has ended. No merge or successor implementation is authorized.
