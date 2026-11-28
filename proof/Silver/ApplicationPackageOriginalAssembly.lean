@@ -2,6 +2,7 @@ module
 
 public import Silver.ApplicationPackageOriginalInitialization
 public import Silver.ApplicationPackageOriginalRoutineEntries
+public import Silver.ApplicationPackageOriginalLocalHeaders
 public import Silver.ApplicationPackageRoutineSourceLibrary
 public import Silver.ApplicationPackageMainSourceChecking
 public import Silver.ApplicationPackageMainRuntimeInitialization
@@ -42,11 +43,15 @@ structure PackageSyntax {reader : BooleanElaboration.Native.Reader} {completion 
   entries : List SummaryRoutineEntry
   routines : RoutineEntriesAt reader completion (sources.prefix .packageBody) readers specRows
     parsed.history.rows entries
+  localHeaders : List RoutineLocalHeader
+  localHeadersSource : RoutineLocalHeadersAt reader completion (sources.prefix .packageBody)
+    parsed.history.rows localHeaders
 
 def PackageSyntax.headerObligations {reader completion calls sources result parsed readers}
     (source : @PackageSyntax reader completion calls sources result parsed readers) : List Predicate.Obligation :=
-  specificationObligations (sources.prefix .packageSpecification) source.specRows ++
-    source.stateRows.flatMap (stateObjectObligations (sources.prefix .packageBody))
+  (specificationObligations (sources.prefix .packageSpecification) source.specRows ++
+    source.stateRows.flatMap (stateObjectObligations (sources.prefix .packageBody))) ++
+      routineLocalHeaderObligations (sources.prefix .packageBody) source.localHeaders
 
 theorem summary_signatures_from (initial : RoutineLibrary) (entries : List SummaryRoutineEntry)
     (prior : initial.environment.signatures = initial.effects.map RoutineEffects.signature) :
@@ -102,15 +107,21 @@ theorem package_syntax (library : ApplicationPackageCompletion.Library)
   obtain ⟨stateRows, stateOrder, stateSource, stateChecks⟩ :=
     ApplicationPackageInitializers.BodyHistory.state_inventory library reader parsed.history
       bodyValid framed specTyped.1
+  obtain ⟨localHeaders, localHeadersSource, localChecks⟩ :=
+    original_package_local_headers parsed valid domain.frame domain.metadata typed originals
+      (fun globals info framed typed => library.completion_read_typed reader bodyValid globals framed info typed)
   let source : PackageSyntax parsed readers :=
-    ⟨first, last, rows, start, specified, scalars, stateRows, stateOrder, stateSource, entries, originals⟩
+    ⟨first, last, rows, start, specified, scalars, stateRows, stateOrder, stateSource, entries, originals,
+      localHeaders, localHeadersSource⟩
   have prior : RoutineLibrary.empty.effects =
       ApplicationPackageCalls.completedEnvironment parsed.history.routinesStart.info := by
     simp only [RoutineLibrary.empty, ApplicationPackageCalls.completedEnvironment,
       original_routine_start parsed, List.take_zero, List.map_nil]
   refine ⟨source, phases, originals.final_effects parsed.history.completions .empty prior, ?_⟩
-  rw [PackageSyntax.headerObligations, Predicate.discharged_append]
-  exact Bool.and_eq_true_iff.mpr ⟨specChecks, stateChecks⟩
+  change Predicate.discharged ((specificationObligations _ rows ++
+    stateRows.flatMap (stateObjectObligations _)) ++ routineLocalHeaderObligations _ localHeaders) = true
+  rw [Predicate.discharged_append, Predicate.discharged_append, specChecks, stateChecks, localChecks]
+  rfl
 
 /-- Main's original declaration and recursive syntax, independently of any
 successful semantic checker or runtime-state certificate. -/
