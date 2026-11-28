@@ -162,4 +162,96 @@ theorem MainInventory.string_bounds {text : Source} {arguments : Bool} {entry fi
     static stored compatible
   exact ⟨raw, actual⟩
 
+/-- The original argument declaration creates its sole dynamic String cell.
+Its actual bounds are compatible for every bounded runtime input, including
+empty input, and do not depend on the previous bound store. -/
+theorem argument_actual_bounds_compatible {text fallback input : Source}
+    {before entry : ParserState} (argument : ArgumentAt text before fallback entry)
+    (inputBound : input.length ≤ maxSourceLength) (bounds : BoundsStore) :
+    (argumentDeclaration.executeBounds bounds input).Compatible entry.names input := by
+  intro index info selected
+  have cell : entry.names.shape index = some info.cell := by
+    simp only [BindingEnvironment.shape, selected, Option.map_some]
+  rw [(argument_shape argument).2.1] at cell
+  by_cases same : index = 1
+  · subst index
+    have infoCell : info.cell = ⟨.argument, false⟩ := by
+      simpa [argumentShape, Bindings.put] using cell.symm
+    have dynamic : info.dynamic = true := by
+      have bound := congrArg CellInfo.bound infoCell
+      cases flag : info.dynamic with
+      | true => rfl
+      | false => simp [BindingInfo.cell, BindingInfo.bound, flag] at bound
+    simpa [Declaration.executeBounds, argumentDeclaration, Expression.actualBounds,
+      Operand.actualBounds, Operand.objectBounds, Bindings.put, StringObjectBounds.Bounds.concatenate,
+      StringObjectBounds.Bounds.isNull, StringObjectBounds.Bounds.canonical, namedModelBounds, dynamic] using
+      StringObjectBounds.Bounds.NullEquivalent.refl (canonical_bounds_valid inputBound)
+  · simp [argumentShape, Bindings.put, same, emptyShape] at cell
+
+/-- Main with an original optional argument retains that declaration in the
+complete String program. The following source region derives every raw range
+certificate and actual bound-store step from the same original history. -/
+theorem MainInventory.string_bounds_after_argument {text fallback : Source}
+    {before entry final : ParserState} {inventory : MainInventory}
+    (argument : ArgumentAt text before fallback entry)
+    (source : inventory.SourceAt text true entry final)
+    {program : Predicate.Program}
+    (programStrings : program.declarations = argumentDeclaration :: inventory.strings)
+    (programNames : program.names = final.names)
+    (programBooleans : program.booleanInitializerChecks = inventory.booleanChecks)
+    (textValid : ValidText text) (stateValid : ValidState text entry)
+    (ready : ScalarMetadata.HeaderReady entry.scalarNames)
+    (static : ScalarExpression.StaticEnvironment entry.scalarNames) (stored : entry.StoredArrays)
+    {input : Source} {inputValid : Bool} (bounds : BoundsStore)
+    (inputBound : input.length ≤ maxSourceLength) (printable : Bindings.Printable input)
+    (allowed : (booleanDeclarationFacts entry).path.Allows inputValid input.length false) :
+    NamesBoundsValid final.names ∧ final.names.length ≤ maxBindings ∧
+      Fits final.names.shape input
+        (executeDeclarations input inventory.strings (argumentDeclaration.execute emptyValues input)) ∧
+      RawHeaderBoundsTrace text true program input inputValid entry
+        (argumentDeclaration.execute emptyValues input)
+        inventory.strings inventory.booleans inventory.booleanChecks final ∧
+      (executeDeclarationsBounds input inventory.strings
+        (argumentDeclaration.executeBounds bounds input)).Compatible final.names input ∧
+      ActualHeaderBoundsTrace text true input inputValid entry
+        (argumentDeclaration.execute emptyValues input) (argumentDeclaration.executeBounds bounds input)
+        inventory.strings inventory.booleans inventory.booleanChecks final := by
+  have entryBounds := argument_bounds argument
+  have entryShape := (argument_shape argument).2.1
+  have stringsFit : Fits entry.names.shape input (argumentDeclaration.execute emptyValues input) := by
+    rw [entryShape]
+    exact Bindings.declaration_preserves (empty_fits input) printable (argument_shape argument).2.2
+  have declared := declarations_shape entryBounds.1.normal static stored source.strings
+  have booleans := (boolean_declarations_valid textValid source.booleans entryBounds.1.normal
+    stateValid ready static stored).2.2
+  have fragments : InitializerBoundsFragments program := by
+    apply InitializerBoundsFragments.of_initializers
+    · rw [programStrings, programNames]
+      exact prepend_argument (entryShape ▸ declared)
+    · simpa only [programBooleans] using booleans
+  have rangeInventory : ∀ declarations, DeclarationsAt text true entry declarations final →
+      ∀ schema ∈ declarationRangeObligations entry.names.shape final.names.shape declarations,
+        Check.declaration (.range schema) ∈ program.checks := by
+    intro declarations reading schema member
+    have same := (declarations_unique source.strings reading).1
+    have target : final.names.shape 1 = some ⟨.argument, false⟩ := by
+      apply declarations_extend declared
+      rw [entryShape]
+      exact put_same _ _ _
+    apply declaration_range_check_present
+    rw [programStrings, programNames]
+    simp only [declarationRangeObligations, declarationBound, argumentDeclaration, target,
+      Option.map_some, Option.getD_some, Declaration.extend]
+    exact List.mem_cons_of_mem _ (by simpa only [entryShape, argumentShape, same] using member)
+  obtain ⟨strings, reading, raw⟩ := boolean_region_bounds_trace_of_fragments textValid
+    inputBound printable fragments entryBounds.1 entryBounds.2 stringsFit stateValid ready static stored allowed
+    source.booleans rangeInventory (by intro check member; simpa only [programBooleans] using member)
+  have same := (declarations_unique source.strings reading).1
+  rw [← same] at raw
+  have actual := raw.actual_bounds textValid.2 inputBound printable entryBounds.2 entryBounds.1 stringsFit
+    static stored (argument_actual_bounds_compatible argument inputBound bounds)
+  have finalBounds := declarations_bounds_after_argument textValid.2 inputBound printable static stored
+    argument source.strings
+  exact ⟨finalBounds.1, finalBounds.2.1, finalBounds.2.2, raw, actual⟩
+
 end Silver.ApplicationPackageInitializers
