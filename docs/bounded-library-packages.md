@@ -1073,9 +1073,9 @@ now establishes effect-inference existence and native bitmask membership; comple
 body/footer inclusion and global initializer value aggregation remain in progress.
 
 The owner instructed **“Double all default timeouts if it will help.”** All 18
-main-prover attempts on the six provisional array-declaration roots timed out
-at 30 seconds. The [prepared policy branch](https://github.com/berkeleynerd/silver/tree/fix/packages-416-proof-timeout)
-raises the shared native compiler solver default to 60 seconds per prover and
+main-prover attempts on the six provisional array-declaration roots reported
+timeouts under the nominal 30-second setting. The [prepared policy branch](https://github.com/berkeleynerd/silver/tree/fix/packages-416-proof-timeout)
+raises the shared native compiler solver timeout setting to 60 seconds and
 updates current guidance; 43 runner and 27 provenance tests pass. It also repairs
 an independently reviewed existing source-policy omission for two exact package
 metadata abstraction annotations, with all 79 auditor tests passing. Retained
@@ -1119,3 +1119,37 @@ currently proving Application_Statement. Its inputs and CPUs 2–3 remain unchan
 The native subthread is assessing an isolated canonical 60-second helper probe
 without stopping that run. Complete native/Lean/project validation, applicable
 regressions, Rosetta promotion and closing review remain required; PR #424 is draft.
+
+### Standalone inventory repair and native cost diagnosis, 2026-11-28 05:40 UTC
+
+The [#428 standalone repair](evidence/bounded-library-packages-416-20261128/standalone-scalar-headers-428/README.md)
+is integrated as `5d6912f5dc`, with [independent critical review](reviews/review-standalone-scalar-headers-428-20261128.md).
+It retains Main and local-callable raw Integer range expressions in the complete
+source-dependent inventory and in same-source tool generation. The normalized
+program, admission and runtime are unchanged. Final focused `Current` validation
+passed 29,297 declarations. The authoritative-source/`PredicateCorrespondence`
+batch remains separate and pending; the finding stays open through complete
+validation. The new original package tool contract passed its focused
+96,229-declaration audit and received a [scoped independent review](reviews/review-packages-416-original-tool-source-20261128.md);
+its actual-source companion still awaits its first successful source checkpoint.
+
+At the owner's request, the lead and native subthread inspected live/retained
+native cost evidence without restarting jobs. The [diagnosis](evidence/bounded-library-packages-416-20261128/native-performance-diagnosis/README.md)
+records large generated proof contexts, substantial Why3 transformations even
+for successful helpers, deliberate two-worker native allocations, and cache/scope
+differences that prevent comparison with old warm final audits. The bounded host
+sample shows ample available memory and negligible I/O wait/CPU steal. The pinned
+toolchain's nominal 30/60-second settings produce outer CPU guards of 121/241
+seconds per process through the cache-wrapper/Why3 interaction; timeout report
+values need not be measured consumed CPU time. This explains a budget multiplier,
+not the entire run's duration or a need to change the trusted toolchain now.
+
+The original 30-second unit run and isolated 60-second Model probe remain active
+on CPUs 2–3 and 6–7. The source batch uses 0,1,4,5; managed reservations total
+eight. Timeout/policy commits remain isolated until the primary native run ends.
+The next performance experiment, if selected from the final evidence, belongs
+on existing #381 and should target one measured helper/context or a justified
+reuse boundary. No new benchmark, scheduler or broad strategy change was launched.
+Proof review/design uses the repository's Astra Max category; runtime model and
+effort are not independently exposed. Complete assurance, applicable regressions,
+Rosetta delivery and closing review still block feature completion and merge.

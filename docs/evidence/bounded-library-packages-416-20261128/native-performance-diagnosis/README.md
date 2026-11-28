@@ -37,9 +37,11 @@ authorized clean 60-second helper probe continues on CPUs 6–7; the original
    inherited soft/hard `RLIMIT_CPU` of 241 seconds. Original 30-second solver
    children show 121 seconds. The retained successful Signature report records
    a CVC5 attempt of 106.419 seconds under the configured 30-second policy.
-   This establishes the distinction, not its cause: the pinned wrapper/Why3
-   implementation has not yet been traced. Do not treat the setting as an
-   observed strict CPU cap or compute elapsed cost from it.
+   The subsequent [installed-toolchain trace](timeout-semantics.md) establishes
+   the cause: the cache salt triggers Why3's internal-timeout allowance, producing
+   an outer per-process CPU guard of `4t + 1`, while the main solver commands
+   have no internal timeout argument. Timeout report values can also be normalized
+   back to `t`. Do not compute actual elapsed cost from those settings/reports.
 
 4. **Scope and cache boundaries repeat useful work.** The current unit gate
    covers the remaining helper/caller inventory and repeats previously focused
@@ -172,9 +174,9 @@ results before claiming a timeout improvement. If the same preconditions remain
 unresolved, diagnose their exact final source locations and missing exported
 span facts before any further expensive rerun or native source change.
 
-For performance, first read the pinned wrapper/Why3 limit handling to explain
-the observed 121/241-second guard, using these captured arguments. Then review
-one heavy successful helper's full-domain contract/context and existing timing
+The [pinned limit-handling trace](timeout-semantics.md) now explains the observed
+121/241-second guard. Next review one heavy successful helper's full-domain
+contract/context and existing timing
 counters for a bounded transformation-reduction experiment. A future cache-reuse
 review can ask whether proven-identical inputs permit safe reuse across the
 focused/complete boundary; this record neither changes that boundary nor
