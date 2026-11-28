@@ -1,0 +1,15 @@
+{
+  "run_id": "20261128T014654-6c22f4c7bd1b",
+  "captured_source_count": 1727,
+  "changed": [
+    "proof/Silver/ApplicationPackageInheritedEffects.lean"
+  ],
+  "missing": [],
+  "outcome": "failure",
+  "returncode": 1,
+  "cpu_affinity": [
+    6,
+    7
+  ],
+  "workers": 2
+}

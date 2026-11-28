@@ -286,3 +286,20 @@ freshly auditing 84,516 declarations with all 1,726 captured inputs matching.
 Its failed elaboration draft is retained. Existing Linux/Lean/CPU/memory settings
 remain unchanged. Inherited scalar assignments and the complete recursive body
 fold remain outstanding; complete source assurance is not claimed.
+
+## Complete original Basic effect inclusion
+
+`ApplicationPackageInheritedEffects` connects every inherited scalar/Boolean
+assignment's original expression and target to the native wrapper's read/write
+masks. `BasicMasks.basic_effects` combines these with the already checked package
+function and procedure paths. It retains the actual native input domain,
+declaration history and mask capacity; the imported target/read equations remain
+explicit, without assuming semantic effect coverage.
+
+Focused run `20261128T015207-8f540ae432aa` passed InheritedEffects and RoutineEffects,
+freshly auditing 84,526 declarations with all captured inputs matching. The four
+preceding failed local drafts are retained. Repairs corrected record projections,
+explicit identity callee renaming and local Lean binder/elaboration details;
+no native source, input domain or proof budget changed. The existing Linux
+x86_64 / Lean 4.34.1 / CPU 6–7 / automatic two-worker/two-thread / 8,192 MiB
+settings apply. The full recursive body fold remains outstanding.
