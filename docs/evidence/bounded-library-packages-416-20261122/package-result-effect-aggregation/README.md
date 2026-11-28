@@ -56,3 +56,33 @@ Focused run `20261128T000522-fd1aa11e2dba` passed 39,031 audited declarations wi
 all 1,715 captured inputs matching. The prior failure is retained (explicit local
 row unfolding and one qualified imported theorem name). The original body flow
 and domains are unchanged. Complete source-derived notOuter/effect joins remain.
+
+## Original output identities and conservative summary extension
+
+The original signature order, export-unit bounds and `StateFrame.statesBefore`
+derive `completion_formals_nonouter`. `FormalResultAt.local_reads` identifies the
+actual scalar/Boolean slot with the original formal's invocation-local cell.
+Its evaluation theorem covers every shared state. `ProcedureResultsAt.evaluates`
+collects exactly writable formals in declaration order, while `no_global_reads`
+shows that implicit copy-back contributes no global reads.
+
+`PackageEffectSummaries.Included` (namespace `Packages.EffectSummaries`) records
+read/write membership inclusion. The generic execution and append theorems retain
+the native conservative summary at the original routine identity. Locality covers
+extra capture cells by proving that execution preserves cells outside the
+inferred write footprint; it does not require equality of ordered effect lists.
+The source-facing `ApplicationPackageRoutineEffects` reexports these helpers.
+The remaining original initializer/body/return effect fold must derive their
+inference and inclusion premises before full library integration.
+
+Focused batch `20261128T001850-7259e817ef98` passed RoutineResults,
+PackageEffectSummaries and RoutineEffects with a fresh audit of 39,089
+declarations. All 1,717 captured input hashes match. Linux x86_64 / Lean 4.34.1,
+CPUs 6–7, automatic two workers/two threads, 8,192 MiB per process; build 7.039 s,
+audit 3.807 s. The two preceding failed drafts are retained with their exact
+inputs and logs. Repairs corrected namespace syntax, an explicit retained-field
+projection and record reconstruction, plus current Lean simplifier conventions.
+No domains, source semantics or proof budgets changed. This was incremental
+focused validation, with no independent kernel replay or complete assurance claim.
+Selected proof role: Astra Max; actual runtime model/effort and token/cost data
+are unavailable. Native proof monitoring remains separate and read-only.
