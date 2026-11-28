@@ -1,0 +1,52 @@
+334: pid_t create_process(char* cmd,
+335:                      int argc,
+336:                      char** argv,
+337:                      bool usestdin,
+338:                      int outfile,
+339:                      int timelimit,
+340:                      unsigned int memlimit) {
+
+382:   // we set the resource limits
+383:   if (timelimit > 0) {
+384:     /* set the CPU time limit */
+385:     getrlimit(RLIMIT_CPU,&res);
+386:     res.rlim_cur = timelimit;
+387:     res.rlim_max = timelimit;
+388:     setrlimit(RLIMIT_CPU,&res);
+389:   }
+390:
+391:   if (memlimit > 0) {
+392:     /* set the CPU memory limit */
+393:     getrlimit(RLIMIT_AS,&res);
+394:     res.rlim_cur = (rlim_t)memlimit * 1024 * 1024;
+395:     res.rlim_max = (rlim_t)memlimit * 1024 * 1024;
+396:     setrlimit(RLIMIT_AS,&res);
+397:   }
+398:
+399:   if (timelimit > 0 || memlimit > 0) {
+400:     /* do not generate core dumps */
+401:     getrlimit(RLIMIT_CORE,&res);
+402:     res.rlim_cur = 0;
+403:     res.rlim_max = 0;
+404:     setrlimit(RLIMIT_CORE,&res);
+
+529: void run_request (prequest r) {
+530:   char* outfile;
+531:   int out_descr;
+532:   pproc proc;
+533:   pclient client;
+534:   pid_t id;
+535:   assert (r != NULL);
+536:
+537:   client = (pclient) list_lookup(clients, r->key);
+538:   if (client == NULL) {
+539:     return;
+540:   }
+541:   out_descr = open_temp_file(current_dir, &outfile);
+542:   id = create_process(r->cmd,
+543:                       r->numargs,
+544:                       r->args,
+545:                       r->usestdin,
+546:                       out_descr,
+547:                       r->timeout,
+548:                       r->memlimit);

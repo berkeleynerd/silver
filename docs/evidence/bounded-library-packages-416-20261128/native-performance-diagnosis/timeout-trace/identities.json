@@ -1,0 +1,127 @@
+{
+  "recorded_utc": "2026-11-28T05:36:43.177987+00:00",
+  "identities": [
+    {
+      "kind": "configuration",
+      "name": "installed-gnatprove.conf",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/config/gnatprove.conf",
+      "sha256": "4ff4651508373959ad0d6834e482b539670e9f6f0ca6b90bb3683fd27d8be6cf",
+      "bytes": 3023
+    },
+    {
+      "kind": "configuration",
+      "name": "generated-why3-60.conf",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.silver/linux-x86_64/compiler/obj/focused/97769bfda44bef44/gnatprove/why3.conf",
+      "sha256": "76197f1278a80eeceba08932ffda53a955da4ec77203ada9616b01a3453c0284",
+      "bytes": 6266
+    },
+    {
+      "kind": "configuration",
+      "name": "generated-why3-30.conf",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove/why3.conf",
+      "sha256": "ffe14d80fa4d0f2a887409cc23ec34745156ca5ad8da9c9994b3b46a7698b213",
+      "bytes": 6266
+    },
+    {
+      "kind": "installed_binary",
+      "name": "gnatwhy3",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+      "bytes": 24561432
+    },
+    {
+      "kind": "installed_binary",
+      "name": "why3server",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+      "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80",
+      "bytes": 96904
+    },
+    {
+      "kind": "installed_binary",
+      "name": "spark_memcached_wrapper",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_memcached_wrapper",
+      "sha256": "4d05cae7a7a0bd20e2df8fa4a152a90bffd4c8d6d71735be593afcc37ec4ee51",
+      "bytes": 4450184
+    },
+    {
+      "kind": "installed_runtime_source",
+      "name": "g-expect.adb",
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/g-expect.adb",
+      "sha256": "dc82aae70cd09296d946e9426dca82e408d515a7eba247444eec5db017ca9fad",
+      "excerpt_lines": [
+        947,
+        1025
+      ]
+    }
+  ],
+  "disassembly_uncompressed_sha256": "f090513e0cb2ecde8cf5c6441b26e30e1b8129e1cf999ca5a25b503f71c02932",
+  "disassembly_uncompressed_bytes": 106785,
+  "installed_function_addresses": {
+    "percent_t_sets_on_timelimit": "gnatwhy3 0x5ce79c..0x5ce7c3",
+    "adapt_limits": "gnatwhy3 0x5ce9b0; zero-step on_timelimit branch0x5cea10..0x5cea46",
+    "constants": "gnatwhy3 0x9ec810=4.0,0x9ec818=2.0,0x9ec820=1.0,0x9ec828=0.9,0x9ec830=0.1",
+    "call_adapter_then_send": "gnatwhy3 0x5ced4c then0x5cee8e",
+    "wrapper_first_argument_sha1": "spark_memcached_wrapper 0x262e6..0x262ff",
+    "wrapper_capture_without_timeout": "spark_memcached_wrapper 0x26a9b calls gnat__expect__get_command_output",
+    "server_rlimit_cpu": "why3server 0x4445..0x446e sets soft/hard resource0",
+    "timeout_result_normalization": "gnatwhy3 0x5ce122..0x5ce1cb"
+  },
+  "upstream_references": [
+    {
+      "name": "call_provers.ml",
+      "source_sha256": "203776a253fb6cf2234a369d24a480b257f4877424ed7b3f8fb292381ae59941",
+      "ranges": [
+        [
+          377,
+          425
+        ],
+        [
+          438,
+          491
+        ],
+        [
+          540,
+          565
+        ]
+      ],
+      "source_url": "https://raw.githubusercontent.com/AdaCore/why3/master/src/driver/call_provers.ml",
+      "status": "Unpinned upstream reference retrieved for readability; not claimed identical to installed release."
+    },
+    {
+      "name": "spark_memcached_wrapper.adb",
+      "source_sha256": "827945c781a1f52fd486a32c8d7d92088bd28cabf30362c3967b897bee9945b4",
+      "ranges": [
+        [
+          168,
+          192
+        ],
+        [
+          638,
+          651
+        ]
+      ],
+      "source_url": "https://raw.githubusercontent.com/AdaCore/spark2014/master/src/gnatprove/spark_memcached_wrapper.adb",
+      "status": "Unpinned upstream reference retrieved for readability; not claimed identical to installed release."
+    },
+    {
+      "name": "server-unix.c",
+      "source_sha256": "2c7ad1f2b6acd8b01598889f245966e3e758cc90ebace55c18e1afd520a4afdb",
+      "ranges": [
+        [
+          334,
+          340
+        ],
+        [
+          382,
+          404
+        ],
+        [
+          529,
+          548
+        ]
+      ],
+      "source_url": "https://raw.githubusercontent.com/AdaCore/why3/master/src/server/server-unix.c",
+      "status": "Unpinned upstream reference retrieved for readability; not claimed identical to installed release."
+    }
+  ]
+}

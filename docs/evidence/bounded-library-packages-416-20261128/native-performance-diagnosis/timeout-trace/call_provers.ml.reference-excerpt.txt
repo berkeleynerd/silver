@@ -1,0 +1,131 @@
+377:      value is meaningless for Why3 anyway (e.g. some windows status codes). If
+378:      it becomes meaningful, we might want to change the conversion here *)
+379:   let int_exitcode = Int64.to_int exitcode in
+380:   let cache_source, out = strip_wrapper_source out in
+381:   let ans, models =
+382:     let exit_result =
+383:       if signaled then [Answer (HighFailure "signaled")] else
+384:       try [Answer (List.assoc int_exitcode res_parser.prp_exitcodes)]
+385:       with Not_found -> []
+386:     in analyse_result exit_result res_parser get_model out
+387:   in
+388:   Debug.dprintf debug "Call_provers: prover output:@\n%s@." out;
+389:   let time = Option.value ~default:(time) (grep_time out res_parser.prp_timeregexps) in
+390:   let steps = Option.value ~default:(-1) (grep_steps out res_parser.prp_stepregexps) in
+391:   let tlimit = limit.limit_time in
+392:   let stepslimit = limit.limit_steps in
+393:   let ans, time, steps =
+394:     (* HighFailure or Unknown when steps >= stepslimit are assumed to be StepLimitExceeded *)
+395:     if stepslimit > 0 && steps >= stepslimit then
+396:       match ans with
+397:       | HighFailure _ | Unknown _ | StepLimitExceeded ->
+398:           Debug.dprintf debug
+399:             "[Call_provers.parse_prover_run] answer after %d steps >= stepslimit -> StepLimitExceeded@." steps;
+400:           StepLimitExceeded, time, steps
+401:       | _ -> ans, time, steps
+402:     else
+403:       (* HighFailure or Unknown close to time limit are assumed to be timeouts *)
+404:     if tlimit > 0.0 && time >= 0.9 *. tlimit -. 0.1 then
+405:       match ans with
+406:       | HighFailure _ | Unknown _ | Timeout ->
+407:           Debug.dprintf debug
+408:             "[Call_provers.parse_prover_run] answer after %f >= 0.9 * timelimit - 0.1 -> Timeout@." time;
+409:           Timeout, tlimit, steps
+410:       | _ -> ans, time, steps
+411:     else
+412:       ans, time, steps
+413:   in
+414:   (* We avoid times smaller than 1/1000000s*)
+415:   let time = max 0.000001 time in
+416:   { pr_answer = ans;
+417:     pr_status = if signaled then Unix.WSIGNALED int_exitcode else Unix.WEXITED int_exitcode;
+418:     pr_output = out;
+419:     pr_time   = time;
+420:     pr_steps  = steps;
+421:     pr_models = models;
+422:     pr_cache_source = cache_source;
+423:   }
+424:
+425: let parse_prover_run res_parser signaled time outfile exitcode limit get_model =
+
+438: let actualcommand ~config command limit file =
+439:   let stime = string_of_int (Float.to_int (Float.ceil limit.limit_time)) in
+440:   let stimef = string_of_float limit.limit_time in
+441:   let stimems = string_of_int (Float.to_int (limit.limit_time *. 1000.)) in
+442:   let smem = string_of_int limit.limit_mem in
+443:   let arglist = Cmdline.cmdline_split command in
+444:   let use_stdin = ref true in
+445:   let on_timelimit = ref false in
+446:   let cmd_regexp = Re.Str.regexp "%\\([.]?.\\)" in
+447:   let replace s = match Re.Str.matched_group 1 s with
+448:     | "%" -> "%"
+449:     | "f" -> use_stdin := false; file
+450:     | "t" -> on_timelimit := true; stime
+451:     | ".t" -> on_timelimit := true; stimef
+452:     | "T" -> on_timelimit := true; stimems
+453:     | "m" -> smem
+454:     | "l" -> Whyconf.libdir config
+455:     | "d" -> Whyconf.datadir config
+456:     | "S" -> string_of_int limit.limit_steps
+457:     | _ -> failwith "unknown specifier, use %%, %f, %t, %.t, %T, %m, %l, %d or %S"
+458:   in
+459:   let args =
+460:     List.map (Re.Str.global_substitute cmd_regexp replace) arglist
+461:   in
+462:   args, !use_stdin, !on_timelimit
+463:
+464: let actualcommand ~cleanup ~inplace ~config command limit file =
+465:   try
+466:     let (cmd, _,_) as x =
+467:       actualcommand ~config command limit file
+468:     in
+469:     Debug.dprintf debug "@[<hv 2>Call_provers: actual command is:@ @[%a@]@]@."
+470:                   (Pp.print_list Pp.space pp_print_string) cmd;
+471:     x
+472:   with e ->
+473:     Debug.dprintf
+474:       debug
+475:       "@[<hv 2>Call_provers: failed to build an actual corresponding to@ %s@]@."
+476:       command;
+477:     if cleanup then Sys.remove file;
+478:     if inplace then Sys.rename (backup_file file) file;
+479:     raise e
+480:
+481: let adapt_limits limit on_timelimit =
+482:   if limit.limit_time = empty_limits.limit_time then limit
+483:   else
+484:     { limit with limit_time =
+485:       (* for steps limit use 2 * t + 1 time *)
+486:       if limit.limit_steps <> empty_limits.limit_steps
+487:       then (2. *. limit.limit_time +. 1.)
+488:       (* if prover implements time limit, use 4t + 1 *)
+489:       else if on_timelimit then 4. *. limit.limit_time +. 1.
+490:       (* otherwise use t *)
+491:       else limit.limit_time }
+
+540: let call_on_file
+541:       ~config ~command ~limits ~res_parser ~get_model ?(inplace=false) fin =
+542:   let id = gen_id () in
+543:   let cmd, use_stdin, on_timelimit =
+544:     actualcommand ~cleanup:true ~inplace ~config command limits fin in
+545:   let save = {
+546:     vc_file         = fin;
+547:     inplace         = inplace;
+548:     limits          = limits;
+549:     res_parser      = res_parser;
+550:     get_model       = get_model;
+551:   } in
+552:   Hashtbl.add saved_data id save;
+553:   let limits = adapt_limits limits on_timelimit in
+554:   let use_stdin = if use_stdin then Some fin else None in
+555:   Debug.dprintf
+556:     debug
+557:     "Request sent to prove_client:@ timelimit=%.2f@ memlimit=%d@ cmd=@[[%a]@]@."
+558:     limits.limit_time limits.limit_mem
+559:     (Pp.print_list Pp.comma Pp.string) cmd;
+560:   let libdir = Whyconf.libdir config in
+561:   send_request ~libdir ~use_stdin ~id
+562:                             ~timelimit:limits.limit_time
+563:                             ~memlimit:limits.limit_mem
+564:                             ~cmd;
+565:   id

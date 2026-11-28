@@ -1,0 +1,345 @@
+{
+  "utc": "2026-11-28T05:38:28.874084+00:00",
+  "processes": [
+    {
+      "pid": 462512,
+      "ppid": 462511,
+      "name": "spark_memcached_wrapper",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_memcached_wrapper",
+        "salt",
+        "file:/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.silver/linux-x86_64/compiler/obj/focused/97769bfda44bef44/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "gnatwhy3",
+        "--timeout",
+        "60",
+        "--steps",
+        "0",
+        "--ce-steps",
+        "0",
+        "--memlimit",
+        "1000",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--force",
+        "-j",
+        "2",
+        "--counterexample",
+        "on",
+        "--giant-step-rac",
+        "on",
+        "--rac-prover",
+        "cvc5",
+        "--warn-prover",
+        "cvc5",
+        "--ce-timeout",
+        "10",
+        "--entity",
+        "17157",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.silver/linux-x86_64/compiler/obj/focused/97769bfda44bef44/gnatprove/silver_output_profile__array_declaration_model.gnat-json"
+      ],
+      "cpu_seconds": 0.06,
+      "state": "S",
+      "affinity": [
+        6,
+        7
+      ],
+      "cpu_limit": "Max cpu time              unlimited            unlimited            seconds   "
+    },
+    {
+      "pid": 462513,
+      "ppid": 462512,
+      "name": "gnatwhy3",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "--timeout",
+        "60",
+        "--steps",
+        "0",
+        "--ce-steps",
+        "0",
+        "--memlimit",
+        "1000",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--force",
+        "-j",
+        "2",
+        "--counterexample",
+        "on",
+        "--giant-step-rac",
+        "on",
+        "--rac-prover",
+        "cvc5",
+        "--warn-prover",
+        "cvc5",
+        "--ce-timeout",
+        "10",
+        "--entity",
+        "17157",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.silver/linux-x86_64/compiler/obj/focused/97769bfda44bef44/gnatprove/silver_output_profile__array_declaration_model.gnat-json"
+      ],
+      "cpu_seconds": 212.26,
+      "state": "S",
+      "affinity": [
+        6,
+        7
+      ],
+      "cpu_limit": "Max cpu time              unlimited            unlimited            seconds   "
+    },
+    {
+      "pid": 466433,
+      "ppid": 415900,
+      "name": "spark_memcached_wrapper",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_memcached_wrapper",
+        "salt",
+        "file:/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "gnatwhy3",
+        "--timeout",
+        "30",
+        "--steps",
+        "0",
+        "--ce-steps",
+        "0",
+        "--memlimit",
+        "1000",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--force",
+        "-j",
+        "2",
+        "--counterexample",
+        "on",
+        "--giant-step-rac",
+        "on",
+        "--rac-prover",
+        "cvc5",
+        "--warn-prover",
+        "cvc5",
+        "--ce-timeout",
+        "10",
+        "--entity",
+        "72595",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove/silver_output_profile__package_completion_at.gnat-json"
+      ],
+      "cpu_seconds": 0.08,
+      "state": "S",
+      "affinity": [
+        2,
+        3
+      ],
+      "cpu_limit": "Max cpu time              unlimited            unlimited            seconds   "
+    },
+    {
+      "pid": 466434,
+      "ppid": 466433,
+      "name": "gnatwhy3",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "--timeout",
+        "30",
+        "--steps",
+        "0",
+        "--ce-steps",
+        "0",
+        "--memlimit",
+        "1000",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--force",
+        "-j",
+        "2",
+        "--counterexample",
+        "on",
+        "--giant-step-rac",
+        "on",
+        "--rac-prover",
+        "cvc5",
+        "--warn-prover",
+        "cvc5",
+        "--ce-timeout",
+        "10",
+        "--entity",
+        "72595",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove/silver_output_profile__package_completion_at.gnat-json"
+      ],
+      "cpu_seconds": 419.36,
+      "state": "R",
+      "affinity": [
+        2,
+        3
+      ],
+      "cpu_limit": "Max cpu time              unlimited            unlimited            seconds   "
+    },
+    {
+      "pid": 467985,
+      "ppid": 462349,
+      "name": "spark_memcached_wrapper",
+      "argv": [
+        "spark_memcached_wrapper",
+        "60",
+        "file:/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.silver/linux-x86_64/compiler/obj/focused/97769bfda44bef44/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "alt-ergo",
+        "--max-split",
+        "5",
+        "--disable-weaks",
+        "/tmp/why_878024_silver_output_profile-T-defqtvc.psmt2"
+      ],
+      "cpu_seconds": 0.0,
+      "state": "S",
+      "affinity": [
+        6,
+        7
+      ],
+      "cpu_limit": "Max cpu time              241                  241                  seconds   "
+    },
+    {
+      "pid": 467986,
+      "ppid": 467985,
+      "name": "alt-ergo",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+        "--max-split",
+        "5",
+        "--disable-weaks",
+        "/tmp/why_878024_silver_output_profile-T-defqtvc.psmt2"
+      ],
+      "cpu_seconds": 226.21,
+      "state": "R",
+      "affinity": [
+        6,
+        7
+      ],
+      "cpu_limit": "Max cpu time              241                  241                  seconds   "
+    },
+    {
+      "pid": 469612,
+      "ppid": 462349,
+      "name": "spark_memcached_wrapper",
+      "argv": [
+        "spark_memcached_wrapper",
+        "10",
+        "file:/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.silver/linux-x86_64/compiler/obj/focused/97769bfda44bef44/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "cvc5",
+        "--prenex-quant=none",
+        "--stats-internal",
+        "/tmp/why_d4ef94_silver_output_profile-T-defqtvc.smt2"
+      ],
+      "cpu_seconds": 0.01,
+      "state": "S",
+      "affinity": [
+        6,
+        7
+      ],
+      "cpu_limit": "Max cpu time              41                   41                   seconds   "
+    },
+    {
+      "pid": 469613,
+      "ppid": 469612,
+      "name": "cvc5",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof-timeout/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+        "--prenex-quant=none",
+        "--stats-internal",
+        "/tmp/why_d4ef94_silver_output_profile-T-defqtvc.smt2"
+      ],
+      "cpu_seconds": 19.36,
+      "state": "R",
+      "affinity": [
+        6,
+        7
+      ],
+      "cpu_limit": "Max cpu time              41                   41                   seconds   "
+    },
+    {
+      "pid": 469711,
+      "ppid": 176611,
+      "name": "spark_memcached_wrapper",
+      "argv": [
+        "spark_memcached_wrapper",
+        "30",
+        "file:/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "alt-ergo",
+        "--max-split",
+        "5",
+        "--disable-weaks",
+        "/tmp/why_f971a7_silver_output_profile-T-defqtvc.psmt2"
+      ],
+      "cpu_seconds": 0.01,
+      "state": "S",
+      "affinity": [
+        2,
+        3
+      ],
+      "cpu_limit": "Max cpu time              121                  121                  seconds   "
+    },
+    {
+      "pid": 469712,
+      "ppid": 469711,
+      "name": "alt-ergo",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+        "--max-split",
+        "5",
+        "--disable-weaks",
+        "/tmp/why_f971a7_silver_output_profile-T-defqtvc.psmt2"
+      ],
+      "cpu_seconds": 11.94,
+      "state": "R",
+      "affinity": [
+        2,
+        3
+      ],
+      "cpu_limit": "Max cpu time              121                  121                  seconds   "
+    },
+    {
+      "pid": 469748,
+      "ppid": 176611,
+      "name": "spark_memcached_wrapper",
+      "argv": [
+        "spark_memcached_wrapper",
+        "30",
+        "file:/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "alt-ergo",
+        "--max-split",
+        "5",
+        "--disable-weaks",
+        "/tmp/why_e914f5_silver_output_profile-T-defqtvc.psmt2"
+      ],
+      "cpu_seconds": 0.0,
+      "state": "S",
+      "affinity": [
+        2,
+        3
+      ],
+      "cpu_limit": "Max cpu time              121                  121                  seconds   "
+    },
+    {
+      "pid": 469749,
+      "ppid": 469748,
+      "name": "alt-ergo",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+        "--max-split",
+        "5",
+        "--disable-weaks",
+        "/tmp/why_e914f5_silver_output_profile-T-defqtvc.psmt2"
+      ],
+      "cpu_seconds": 0.18,
+      "state": "R",
+      "affinity": [
+        2,
+        3
+      ],
+      "cpu_limit": "Max cpu time              121                  121                  seconds   "
+    }
+  ]
+}
