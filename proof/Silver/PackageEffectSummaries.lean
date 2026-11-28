@@ -1,6 +1,7 @@
 module
 
 public import Silver.PackageDefinitions
+public import Silver.PackageChecking
 
 @[expose] public section
 
@@ -41,6 +42,94 @@ theorem Included.merge {first second firstSummary secondSummary : Effects}
     exact (List.mem_append.mp member).elim
       (fun write => List.mem_append_left _ (left.writes cell write))
       (fun write => List.mem_append_right _ (right.writes cell write))
+
+theorem Included.merge_bound {first second summary : Effects}
+    (left : Included first summary) (right : Included second summary) :
+    Included (first.merge second) summary := by
+  constructor
+  · intro cell member
+    exact (List.mem_append.mp member).elim (left.reads cell) (right.reads cell)
+  · intro cell member
+    exact (List.mem_append.mp member).elim (left.writes cell) (right.writes cell)
+
+/- Successful semantic checking resolves exactly the callable identities used
+by effect inference. No guessed summary or separate call-resolution premise is
+needed, and both branches and every loop body are retained. -/
+mutual
+  theorem statement_inference {earlier : EffectEnvironment} {layout : FrameLayout}
+      {analysis : Integer.Analysis} {before after : Predicate.Flow} {booleans : Boolean.Analysis}
+      {statement : Predicate.Statement}
+      (checked : checkPackageStatement earlier layout analysis before booleans statement = some after) :
+      ∃ effects, inferStatementEffects earlier layout statement = some effects := by
+    cases statement with
+    | simple item =>
+        cases item with
+        | null => exact ⟨⟨[], []⟩, by simp only [inferStatementEffects]⟩
+        | assign | output | put => simp only [checkPackageStatement] at checked; contradiction
+    | scalarAssign | booleanAssign => exact ⟨_, by simp only [inferStatementEffects]; rfl⟩
+    | callAssign update =>
+        simp only [checkPackageStatement, checkFunctionAssignment, Option.bind_eq_some_iff] at checked
+        obtain ⟨domain, called, _⟩ := checked
+        obtain ⟨signature, found, _, _⟩ := checkFunction_success called
+        have mapped : (lookupRoutine earlier update.call.callee).map RoutineEffects.signature =
+            some (.function signature) := by
+          by_cases zero : update.call.callee = 0
+          · simp only [lookupRoutine, zero, ite_true] at found
+            contradiction
+          · simpa only [lookupRoutine, zero, ite_false, List.getElem?_map] using found
+        obtain ⟨routine, known, kind⟩ := Option.map_eq_some_iff.mp mapped
+        exact ⟨_, by simp only [inferStatementEffects, known, Option.bind_some, kind]; rfl⟩
+    | procedureCall call =>
+        simp only [checkPackageStatement, checkProcedureCall] at checked
+        split at checked
+        · simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+          obtain ⟨resolved, bound, routine, known, _⟩ := checked
+          exact ⟨_, by simp only [inferStatementEffects, bound, Option.bind_some, known, Option.map_some]; rfl⟩
+        · contradiction
+    | choice condition yes no =>
+        simp only [checkPackageStatement] at checked
+        split at checked
+        · simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+          obtain ⟨afterYes, yesChecked, afterNo, noChecked, _⟩ := checked
+          obtain ⟨left, inferredLeft⟩ := statements_inference yesChecked
+          obtain ⟨right, inferredRight⟩ := statements_inference noChecked
+          exact ⟨_, by simp only [inferStatementEffects, inferredLeft, Option.bind_some,
+            inferredRight, Option.map_some]; rfl⟩
+        · contradiction
+    | forLoop index reverse lower upper body =>
+        simp only [checkPackageStatement, Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+        obtain ⟨_, _, _, _, _, bodyChecked, _⟩ := checked
+        obtain ⟨inner, inferred⟩ := statements_inference bodyChecked
+        exact ⟨_, by simp only [inferStatementEffects, inferred, Option.map_some]; rfl⟩
+    | arrayAssign | booleanArrayAssign | reject | arrayLoop =>
+        simp only [checkPackageStatement] at checked
+        contradiction
+  termination_by sizeOf statement
+
+  theorem statements_inference {earlier : EffectEnvironment} {layout : FrameLayout}
+      {analysis : Integer.Analysis} {before after : Predicate.Flow} {booleans : Boolean.Analysis}
+      {statements : List Predicate.Statement}
+      (checked : checkPackageStatements earlier layout analysis before booleans statements = some after) :
+      ∃ effects, inferStatementsEffects earlier layout statements = some effects := by
+    cases statements with
+    | nil => exact ⟨⟨[], []⟩, by simp only [inferStatementsEffects]⟩
+    | cons statement rest =>
+        simp only [checkPackageStatements, Option.bind_eq_some_iff] at checked
+        obtain ⟨middle, first, later⟩ := checked
+        obtain ⟨head, inferredHead⟩ := statement_inference first
+        obtain ⟨tail, inferredTail⟩ := statements_inference later
+        exact ⟨_, by simp only [inferStatementsEffects, inferredHead, Option.bind_some,
+          inferredTail, Option.map_some]; rfl⟩
+  termination_by sizeOf statements
+end
+
+theorem body_inference {earlier : EffectEnvironment} {layout : FrameLayout}
+    {analysis : Integer.Analysis} {before after : Predicate.Flow} {booleans : Boolean.Analysis}
+    {statements : List Predicate.Statement}
+    (scalar : ScalarProcedures.scalarStatements statements = true)
+    (checked : checkPackageStatements earlier layout analysis before booleans statements = some after) :
+    ∃ effects, inferBodyEffects earlier layout statements = some effects := by
+  simpa only [inferBodyEffects, scalar, ite_true] using statements_inference checked
 
 /-- Extra native capture cells preserve their incoming values unless the
 inferred write footprint contains them. Both cases are proved by execution. -/

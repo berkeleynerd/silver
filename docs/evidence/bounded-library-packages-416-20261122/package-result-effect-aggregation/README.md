@@ -86,3 +86,26 @@ No domains, source semantics or proof budgets changed. This was incremental
 focused validation, with no independent kernel replay or complete assurance claim.
 Selected proof role: Astra Max; actual runtime model/effort and token/cost data
 are unavailable. Native proof monitoring remains separate and read-only.
+
+## Inference existence and original scalar actual reads
+
+`EffectSummaries.statement_inference` and `statements_inference` derive successful
+effect inference from the existing successful package checker, including exact
+lookup of functions/procedures and traversal of every conditional branch and loop
+body. `body_inference` additionally uses the declared scalar-body predicate.
+`Included.merge_bound` composes membership coverage into one conservative summary.
+
+`ApplicationPackageSourceEffects.actual_global_reads` covers the original checked
+Integer/Boolean actual and exact native finishing position. `union_cells` and
+`empty_cells` connect native fixed-capacity masks to semantic cell membership.
+These are full-domain helper results; the original complete routine history must
+still supply scalar-body syntax and compose its local, body and return effects.
+
+Batch `20261128T002514-a543ce06b6f4` passed with a fresh audit of 39,106
+declarations and all 1,721 captured inputs matching. Build 5.338 s; audit 3.767 s;
+same Linux x86_64/Lean 4.34.1, CPUs 6–7, automatic two workers/two threads,
+8,192 MiB and focused/incremental scope as above. Failed draft
+`20261128T002359-8f36d398739c` is retained; repair selected the intended mutual
+proof block and supplied explicit equation reductions/witnesses. No proof budget,
+source domain or semantic assumption changed. Selected Astra Max; actual runtime
+model/effort and token/cost data remain unavailable.

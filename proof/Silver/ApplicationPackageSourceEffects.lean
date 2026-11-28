@@ -11,6 +11,40 @@ scanning may conservatively include more cells, and list order is immaterial. -/
 namespace Silver.ApplicationPackageSourceEffects
 open Compose Predicate Packages ApplicationPackageFrameLayout ApplicationPackageEffects
 
+theorem union_cells {info : PackageBindings.Metadata}
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (left right : PackageBindings.StateSet) (cell : Cell) :
+    cell ∈ info.effectCells (PackageBindings.stateUnion left right) ↔
+      cell ∈ info.effectCells left ∨ cell ∈ info.effectCells right := by
+  constructor
+  · intro member
+    obtain ⟨offset, inside, selected, same⟩ := (info.mem_effectCells _ _).mp member
+    rw [PackageBindings.stateUnion_get left right (offset + 1) (by omega) (by omega),
+      Bool.or_eq_true] at selected
+    exact selected.elim
+      (fun included => Or.inl ((info.mem_effectCells _ _).mpr ⟨offset, inside, included, same⟩))
+      (fun included => Or.inr ((info.mem_effectCells _ _).mpr ⟨offset, inside, included, same⟩))
+  · intro member
+    rcases member with leftMember | rightMember
+    · obtain ⟨offset, inside, selected, same⟩ := (info.mem_effectCells _ _).mp leftMember
+      apply (info.mem_effectCells _ _).mpr
+      refine ⟨offset, inside, ?_, same⟩
+      rw [PackageBindings.stateUnion_get left right (offset + 1) (by omega) (by omega), selected]
+      rfl
+    · obtain ⟨offset, inside, selected, same⟩ := (info.mem_effectCells _ _).mp rightMember
+      apply (info.mem_effectCells _ _).mpr
+      refine ⟨offset, inside, ?_, same⟩
+      rw [PackageBindings.stateUnion_get left right (offset + 1) (by omega) (by omega), selected]
+      exact Bool.or_true _
+
+theorem empty_cells (info : PackageBindings.Metadata) :
+    info.effectCells PackageBindings.emptyStateSet = [] := by
+  apply List.eq_nil_iff_forall_not_mem.mpr
+  intro cell member
+  obtain ⟨offset, _, selected, _⟩ := (info.mem_effectCells _ _).mp member
+  rw [emptyStateSet_get] at selected
+  contradiction
+
 theorem condition_integer_global_read {text : Source} {context : ParseContext}
     {info : PackageBindings.Metadata} {bound position limit slot identity : Nat}
     {condition : Condition} {result : ConditionResult} {facts : ActiveFlow} {initials : ArrayBindings.Initials}
@@ -180,5 +214,38 @@ theorem scalar_global_reads {text : Source} {context : ParseContext}
           exact scalar_global_read source finishBound declarations capacity scalarCapacity address used
   | boolean slot =>
       exact (integerReads_no_boolean expression slot used).elim
+
+/-- Scalar actuals include both the original Integer/Boolean expression and
+the native reader's exact finishing position. The subsequent native lexical
+mask may contain extra reads, but it cannot omit an interpreted global read. -/
+theorem actual_global_reads {text : Source} {context : ParseContext}
+    {info : PackageBindings.Metadata} {bound position after limit : Nat}
+    {formal : FunctionBindings.Formal} {actual : ScalarFunctions.Actual} {facts : ActiveFlow}
+    (source : ActualAt text context position facts formal actual after)
+    (scalar : formal.typeId = 0)
+    (positionPositive : position ≠ 0) (positionBound : position ≤ text.length + 1)
+    (finishBound : after ≤ limit)
+    (declarations : StateDeclarations text info.states)
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (scalarCapacity : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (booleanCapacity : context.booleanNames.length ≤ BooleanBindings.maxBindings) :
+    ∀ cell ∈ globalCells (layout bound info context) (actualReads actual),
+      cell ∈ info.effectCells (stateReads modelCalls text context info position limit) := by
+  cases source.payload with
+  | integer scalar kind reading nonempty included =>
+      have bounds := reading.cursorBounds
+      have positive : (readScalarInFlow text context position facts).after ≠ 0 := by omega
+      have finish := source.equation
+      simp only [actualAfter, scalar, ne_eq, not_true_eq_false, kind, reduceCtorEq, ↓reduceIte,
+        positive, nonempty, included, Bool.not_true, Bool.false_eq_true, or_self] at finish
+      exact scalar_global_reads reading (finish ▸ finishBound) declarations capacity scalarCapacity
+  | boolean scalar kind reading =>
+      have finish : (readCondition text context position facts).after = after := by
+        simpa only [actualAfter, scalar, ne_eq, not_true_eq_false, kind, ↓reduceIte] using source.equation
+      exact condition_global_reads reading positionPositive positionBound (finish ▸ finishBound)
+        declarations capacity scalarCapacity booleanCapacity
+  | array reading =>
+      have positive := reading.nominal
+      omega
 
 end Silver.ApplicationPackageSourceEffects
