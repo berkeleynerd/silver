@@ -1,0 +1,9 @@
+# Original Main source and checking assembly
+
+Authorized #416 source-correspondence follow-up, 2026-11-28. Parent selected Astra Max; live model/effort and token/cost measurements are not exposed.
+
+`ApplicationPackageMainSourceChecking` compiles exact source-local function/procedure inventories into executable environments. It derives definition checking, full formal-domain environment validity and safety of every definition, including unused ones, from the original mixed declaration history and source-derived entry facts. Exact catalog equations connect those environments to the original body context.
+
+`BodyLibraries.original_body_checked` composes original package histories, Main entry scope, native domain and accepted recursive tree with the complete recursive source/checking theorem. `original_assembly` constructs the declaration inventory and body code, derives local environment validity, retains the original source relations, and discharges the exact concatenated `MainInventory.obligations` and body `statementsObligations` lists. The reader equality is the literal original interpretation dictionary; there is no program-validity, successful semantic-check, safety or discharge premise. Runtime String bounds come from MainInitialization, while package-library semantics and the final complete application/source assurance remain separate integration work.
+
+Focused run `20261128T003119-dbf27a9a586c` passed on Linux x86-64 with a fresh 83,165-declaration axiom audit and all 1,717 captured source hashes matching. Automatic allocation used two workers and two threads on CPUs 4–5, 8192 MiB/process. The first draft also passed; the final focused check follows a comment clarification only and retains identical theorem statements and proof terms. There was no failed repair, budget increase, clean build or independent kernel replay. This focused partial result does not establish completed feature assurance.
