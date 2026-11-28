@@ -1,6 +1,7 @@
 module
 
 public import Silver.ApplicationPackageLocalInitializerEffects
+public import Silver.ApplicationPackageRecursiveMasks
 
 @[expose] public section
 
@@ -13,6 +14,40 @@ open ApplicationPackageSourceEffects ApplicationPackageRoutineFooterEffects
 open ApplicationPackageLocalInitializerEffects
 
 set_option backward.dsimp.instances true
+
+theorem local_history_width {calls : CompletionCalls} {text : Source} {info : Metadata}
+    {routine : Routine} {before after : InitializationFrame} {rows : List LocalObject}
+    (history : LocalObjects calls text info routine before rows after)
+    (width : before.reads.length = maxStates) : after.reads.length = maxStates := by
+  induction history with
+  | finished => exact width
+  | added _ _ _ _ _ ih =>
+    apply ih
+    simp only [LocalObject.after, stateUnion, List.length_map, List.length_range]
+
+theorem output_history_width {calls : CompletionCalls} {text : Source} {info : Metadata}
+    {indices : List Nat} {before after : InitializationFrame} {rows : List OutputObject}
+    (history : OutputObjects calls text info indices before rows after)
+    (width : before.reads.length = maxStates) : after.reads.length = maxStates := by
+  induction history with
+  | nil => exact width
+  | skipped _ _ ih => exact ih width
+  | added output read _ ih =>
+    apply ih
+    rw [output_read_mask output read]
+    simp only [stateUnion, List.length_map, List.length_range]
+
+/-- Fixed native masks are allocated by the original empty entry and retained
+through every local/output initializer, before the recursive body starts. -/
+theorem body_input_width {reader : BooleanElaboration.Native.Reader} {calls : CompletionCalls}
+    {text : Source} {globals : ParserState} {info : Metadata} {result : CompletionResult}
+    (frames : CompletionFrames (declarationReaders reader calls) text globals info result) :
+    frames.bodySource.input.MaskWidth := by
+  have locals := local_history_width frames.declarations (by simp only [emptyStateSet, List.length_replicate])
+  obtain ⟨rows, history⟩ := output_initializers_objects frames.outputs.read
+  have outputs := output_history_width history locals
+  exact ⟨outputs, by simp only [CompletionFrames.bodySource, completionInput,
+    emptyStateSet, List.length_replicate]⟩
 
 theorem local_history_domains {reader : BooleanElaboration.Native.Reader} {calls : CompletionCalls}
     {text : Source} {info : Metadata} {routine : Routine}
