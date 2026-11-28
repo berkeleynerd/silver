@@ -26,3 +26,17 @@ premise; it does not remove source-name, capacity or lookup requirements.
 
 Procedure result row retention, complete effect folding and final source wrapper
 integration are still in progress. These helper results do not close #416.
+
+## Formal storage retention
+
+`hideEntries_nonouter` and `hideOuter_nonouter` prove the actual successful hiding
+pass retains same-scope rows. `FormalPresent` records only original canonical
+header rows. Its Object/local-history/output-storage lemmas derive
+`completion_formals_present` for all formals, including in-out rows installed at
+entry and output rows installed after initializers. The remaining `notOuter`
+premise is a declaration-order fact, to be derived at the complete source join.
+
+Focused run `20261128T000125-19344470ba07` passed
+39,001 audited declarations, build 5.150 s and audit 3.784 s. All captured inputs
+matched. The initial failed run is retained; fixes removed unused simp arguments,
+qualified an ambiguous selected definition, and called a theorem by its namespace.
