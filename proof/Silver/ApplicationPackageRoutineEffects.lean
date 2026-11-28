@@ -5,6 +5,7 @@ public import Silver.ApplicationPackageSourceEffects
 public import Silver.ApplicationPackageProcedureEffects
 public import Silver.ApplicationPackageBasicEffects
 public import Silver.ApplicationPackageInheritedEffects
+public import Silver.ApplicationPackageRecursiveEffects
 public import Silver.ApplicationPackageRoutineSourceChecking
 
 @[expose] public section

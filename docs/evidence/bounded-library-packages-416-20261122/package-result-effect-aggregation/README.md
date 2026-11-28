@@ -324,3 +324,32 @@ repairs made Lean record/context projections explicit and kept inherited readers
 opaque during wrapper normalization. No input-domain, native source, or proof
 budget change. Existing Linux/Lean/CPU/memory settings apply. The final original
 recursive body fold remains outstanding.
+
+## Complete original recursive body effects
+
+`ApplicationPackageRecursiveEffects.original_body_effects` folds the original
+Basic/Statement/arm/ELSE/loop/Tail source tree. It derives the native output
+domain, exact mask widths, cursor progress, retention of incoming effects, and
+inclusion of every successfully inferred body effect in the outgoing native
+masks. The hypotheses are original source syntax, its native entry domain,
+source-derived `PackageScope`, input mask width and the exact imported helper
+equations from `ReaderEffects`. It assumes no child checker, coverage or safety
+certificate and requires no separate recursive-equation premise.
+
+Every arm and counted-loop body is retained, including bodies not reached at
+runtime. Loop context extension preserves global addresses through the existing
+`GlobalAgreement` theorem; the new binder is local. The original pure-header
+guard excludes the array-loop branch. Sequential composition preserves the
+original completed-callable prefix and weakens earlier effects only through
+proved native mask retention.
+
+Focused run `20261128T020637-96168c94cee8` passed RecursiveEffects and the full
+RoutineEffects consumer: 84,994 declarations freshly audited, all captured input
+hashes matched. The failed initial draft `20261128T020549-1caeb008fa15` is retained;
+its repair made empty inference and native Basic normalization explicit. Build
+7.174 s, fresh audit 4.241 s; Linux x86_64, Lean 4.34.1, CPUs 6–7, automatic two
+workers/two threads, 8,192 MiB per process. Proof-role setting selected by project
+policy is GPT-6 Astra Max; the live runtime setting and token/cost measurements
+are not independently exposed. This is focused partial validation, without
+independent replay. Initializer/body/result/footer and whole-application source
+composition are owned by the enclosing integration stream and remain separate.
