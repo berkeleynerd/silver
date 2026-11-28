@@ -353,3 +353,57 @@ policy is GPT-6 Astra Max; the live runtime setting and token/cost measurements
 are not independently exposed. This is focused partial validation, without
 independent replay. Initializer/body/result/footer and whole-application source
 composition are owned by the enclosing integration stream and remain separate.
+
+## Imported native effect-reader adapter
+
+`ApplicationPackageReaderEffectsImports` supplies
+`ApplicationPackageSourceEffects.ReaderEffectsImports.imported` from the existing
+native effect imports and literal equations for the three reader slots.
+`boundReaders` installs those original imported target/read functions while
+retaining the recursive functions and package-call reader; `bound` derives
+`ReaderEffects (library.readers (boundReaders effects other))` without any
+additional helper equation, semantic coverage or accepted-program premise.
+The target/read meanings retain their original `ValidText`, lookup-table and
+bounded-cursor domains. Source interpretation still supplies the original
+effect imports and recursive-library dictionaries.
+
+Focused run `20261128T021255-889e56c08635` passed on Linux x86_64 / Lean 4.34.1:
+85,149 declarations freshly audited, all 1,730 captured input hashes matched.
+The first adapter check succeeded; build 179.065 s (including imported dependency
+rebuilds), audit 4.401 s, managed elapsed 194.070 s. CPUs 6–7, automatic two
+workers/two threads and 8,192 MiB per process. No native source, source pin,
+domain or proof budget changed. This remains focused partial validation,
+without independent replay. Proof-role policy selected GPT-6 Astra Max; live
+model/effort and token/cost measurements are not independently exposed.
+
+## Scoped review of the original routine/library join
+
+The effects subthread reviewed `ApplicationPackageOriginalAssurance.lean` at
+`b24c2b459b` and `ApplicationPackageOriginalAssembly.lean` plus
+`ApplicationPackageRoutineFooterEffects.lean` at `d83e3dfadd`. The reviewed
+files' SHA-256 values are, respectively,
+`0d723d9ff219238a7862fb8fa0fd583ed0456ff641b66cd6cd80e59b72c3cbc2`,
+`f2e1ec782f303dd11cbdf342e004700db535cab43304db0a4c660ae6194b4143`, and
+`038be92ef5e95fd2f72f266a0961b49c872a9e671c388b2b79a140fc5bcc66df`.
+This review found no missing effect or circular semantic premise in that join.
+
+The exact routine inference decomposes into initializer, body and result
+effects. Local/output RHS reads enter the original initializer masks; immutable
+constant seeds have already derived values and no global reads. The complete
+recursive body theorem covers all original branches and retains incoming masks.
+Return processing retains those masks and includes function-result reads;
+procedure result reads refer to invocation-local formals. The original footer
+stores the resulting masks at the same routine identity without changing the
+state-table interpretation. The library fold visits every original completion,
+including unused routines, and preserves the native prefix and conservative
+membership inclusion. Successful phased checking is derived by
+`package_syntax`/`accepted_assembly`; it is not a fact supplied by program authors.
+
+The review reused the integration stream's checked source-assembly and
+library-assurance evidence and inspected their supporting definitions; no proof
+rerun or native validation was launched for this review. Reviewer policy setting
+is GPT-6 Astra Max, with the live setting and separate review elapsed/token/cost
+measurements unavailable. This is a bounded review of another subthread's join,
+not an independent review of the effects subthread's own supporting proofs.
+The final Main runtime/Analyze join, complete actual-source and native validation,
+and closing independent review remain separate requirements.
