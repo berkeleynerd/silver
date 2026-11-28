@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-28T05:18:39.232700+00:00",
+  "baseline_run": "20261127T195636-5b2a2f886237",
+  "native_source_changes": [],
+  "baseline_missing": [],
+  "changed_baseline_input_paths": [
+    ".silver/linux-x86_64/generated/silver_build.ads",
+    ".silver/linux-x86_64/generated/silver_image_config.ads",
+    ".tools/linux-x86_64/alire/settings/indexes/community/repo/index/ma/matreshka_league/matreshka_league-21.0.0.toml",
+    ".tools/linux-x86_64/alire/settings/settings.toml",
+    "scripts/check_evidence.py"
+  ],
+  "tools_matching": {
+    "alr": true,
+    "alt-ergo": true,
+    "cvc5": true,
+    "gcc": true,
+    "gnat2why": true,
+    "gnatls": true,
+    "gnatprove": true,
+    "gnatwhy3": true,
+    "gprbuild": true,
+    "why3server": true,
+    "z3": true
+  },
+  "empty_compiler_namespace_before_launch": true,
+  "shared_primary_writable_paths": false
+}

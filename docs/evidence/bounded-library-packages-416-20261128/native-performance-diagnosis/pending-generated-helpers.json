@@ -1,0 +1,48 @@
+{
+  "snapshot_utc": "2026-11-28T05:27:25.754053+00:00",
+  "current_json_count": 276,
+  "pending_or_unconfirmed_sessions": [
+    {
+      "helper": "package_completion_at",
+      "generated_utc": "2026-11-28T02:43:15.309284+00:00",
+      "bytes": 21598371,
+      "retained_session_old": true
+    },
+    {
+      "helper": "charge_unit",
+      "generated_utc": "2026-11-28T03:07:56.804543+00:00",
+      "bytes": 1136049,
+      "retained_session_old": true
+    },
+    {
+      "helper": "same_package_spelling",
+      "generated_utc": "2026-11-28T02:59:21.866086+00:00",
+      "bytes": 1363716,
+      "retained_session_old": true
+    },
+    {
+      "helper": "package_body_at",
+      "generated_utc": "2026-11-28T02:52:35.937030+00:00",
+      "bytes": 7231577,
+      "retained_session_old": true
+    },
+    {
+      "helper": "routine_frame",
+      "generated_utc": "2026-11-28T02:36:34.489303+00:00",
+      "bytes": 5577137,
+      "retained_session_old": true
+    },
+    {
+      "helper": "package_main_at",
+      "generated_utc": "2026-11-28T02:59:59.694700+00:00",
+      "bytes": 25477162,
+      "retained_session_old": true
+    },
+    {
+      "helper": "imported_frame",
+      "generated_utc": "2026-11-28T02:53:23.215852+00:00",
+      "bytes": 5345854,
+      "retained_session_old": true
+    }
+  ]
+}

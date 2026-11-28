@@ -1,0 +1,12 @@
+{
+  "observed_utc": "2026-11-28T05:26:47.800030+00:00",
+  "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+  "file_count": 125058,
+  "files_modified_since_current_run_start": 71293,
+  "total_bytes": 260113448,
+  "caveats": [
+    "Live traversal; files may change during enumeration.",
+    "Includes temporary files.",
+    "Modification times and count do not establish cache hits/misses or avoided CPU time."
+  ]
+}

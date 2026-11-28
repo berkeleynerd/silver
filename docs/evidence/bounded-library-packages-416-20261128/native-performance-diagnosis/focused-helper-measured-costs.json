@@ -1,0 +1,499 @@
+{
+  "snapshot_utc": "2026-11-28T05:25:13.456042+00:00",
+  "caveats": [
+    "Reported proof attempt time is not established as new CPU used in this run; memcached may replay prior solver output.",
+    "Phase and helper/transformation counters need not be disjoint. Do not subtract or sum them into an exact elapsed partition."
+  ],
+  "runs": [
+    {
+      "run": "20261127T190610-5f1996739339",
+      "scope": [
+        "compiler",
+        "--limit-subp=silver_output_profile.adb:9492"
+      ],
+      "outcome": "failure",
+      "total_elapsed_seconds": 1471.698658453,
+      "phases": {
+        "preflight": 2.928560278,
+        "native-tool": null
+      },
+      "flow_checks": 5,
+      "proof_checks": 47,
+      "unresolved": [
+        [
+          9503,
+          "VC_ASSERT"
+        ],
+        [
+          9505,
+          "VC_ASSERT"
+        ]
+      ],
+      "selected_timings": {
+        "gnat2why.vc_generation": 1.358,
+        "gnatwhy3.init": 4.935,
+        "gnatwhy3.register_vcs": 4.317,
+        "gnatwhy3.run_vcs": 0.001,
+        "gnatwhy3.save_session": 2.357,
+        "gnatwhy3.schedule_vcs": 134.661,
+        "transformation_time_counters_sum": 728.353,
+        "transformations_top": [
+          {
+            "name": "inline_trivial",
+            "seconds": 300.432
+          },
+          {
+            "name": "remove_unused",
+            "seconds": 191.548
+          },
+          {
+            "name": "simplify_formula",
+            "seconds": 44.344
+          }
+        ]
+      },
+      "attempt_counts": 757,
+      "attempts_by_status": [
+        {
+          "prover": "CVC5",
+          "result": "Valid",
+          "count": 195,
+          "reported_time_sum": 318.978
+        },
+        {
+          "prover": "Z3",
+          "result": "Valid",
+          "count": 245,
+          "reported_time_sum": 41.751
+        },
+        {
+          "prover": "altergo",
+          "result": "Valid",
+          "count": 213,
+          "reported_time_sum": 154.196
+        },
+        {
+          "prover": "Z3",
+          "result": "High failure (signaled)",
+          "count": 3,
+          "reported_time_sum": 0.009
+        },
+        {
+          "prover": "altergo",
+          "result": "Failure\n(interrupted)",
+          "count": 2,
+          "reported_time_sum": 0.0
+        },
+        {
+          "prover": "CVC5",
+          "result": "High failure (signaled)",
+          "count": 53,
+          "reported_time_sum": 0.438
+        },
+        {
+          "prover": "altergo",
+          "result": "High failure (signaled)",
+          "count": 33,
+          "reported_time_sum": 0.329
+        },
+        {
+          "prover": "Trivial",
+          "result": "Valid",
+          "count": 5,
+          "reported_time_sum": 0.0
+        },
+        {
+          "prover": "CVC5",
+          "result": "Unknown\n(unknown + incomplete)",
+          "count": 2,
+          "reported_time_sum": 0.369
+        },
+        {
+          "prover": "Z3",
+          "result": "Timeout",
+          "count": 2,
+          "reported_time_sum": 60.0
+        },
+        {
+          "prover": "altergo",
+          "result": "Timeout",
+          "count": 2,
+          "reported_time_sum": 60.0
+        },
+        {
+          "prover": "CVC5_CE",
+          "result": "Unknown\n(unknown + incomplete)",
+          "count": 2,
+          "reported_time_sum": 2.497
+        }
+      ],
+      "all_reported_attempt_seconds": 638.566,
+      "max_reported_attempt": {
+        "prover": "Z3",
+        "result": "Timeout",
+        "steps": 1,
+        "time": 30
+      },
+      "native_input_signature": "e28f28e334147386670b1ee180a0ce2c835be27c3a2ee8867e426bbca5c30906",
+      "report_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T190610-5f1996739339/reports/0/silver_output_profile.spark",
+      "report_sha256": "99cf0ead55645e0b32879c61bfc8814003ca8148d83ed7884c8841539d793e9f",
+      "events_sha256": "3bb1c1695861c8f1a013362ed59d3efdcb859226d7756de97f6b80754e89ee46"
+    },
+    {
+      "run": "20261127T193939-4dba03f7ee42",
+      "scope": [
+        "compiler",
+        "--limit-subp=silver_output_profile.adb:9492"
+      ],
+      "outcome": "success",
+      "total_elapsed_seconds": 810.94417606,
+      "phases": {
+        "preflight": 2.805832797,
+        "native-tool": 807.459801477
+      },
+      "flow_checks": 5,
+      "proof_checks": 47,
+      "unresolved": [],
+      "selected_timings": {
+        "gnat2why.vc_generation": 1.284,
+        "gnatwhy3.init": 5.366,
+        "gnatwhy3.register_vcs": 6.143,
+        "gnatwhy3.run_vcs": 0.001,
+        "gnatwhy3.save_session": 4.14,
+        "gnatwhy3.schedule_vcs": 130.376,
+        "transformation_time_counters_sum": 685.694,
+        "transformations_top": [
+          {
+            "name": "inline_trivial",
+            "seconds": 298.88
+          },
+          {
+            "name": "remove_unused",
+            "seconds": 185.212
+          },
+          {
+            "name": "simplify_formula",
+            "seconds": 39.1
+          }
+        ]
+      },
+      "attempt_counts": 764,
+      "attempts_by_status": [
+        {
+          "prover": "CVC5",
+          "result": "Valid",
+          "count": 214,
+          "reported_time_sum": 470.37
+        },
+        {
+          "prover": "Z3",
+          "result": "Valid",
+          "count": 251,
+          "reported_time_sum": 44.327
+        },
+        {
+          "prover": "altergo",
+          "result": "Valid",
+          "count": 231,
+          "reported_time_sum": 188.215
+        },
+        {
+          "prover": "CVC5",
+          "result": "High failure (signaled)",
+          "count": 39,
+          "reported_time_sum": 0.33
+        },
+        {
+          "prover": "Trivial",
+          "result": "Valid",
+          "count": 5,
+          "reported_time_sum": 0.0
+        },
+        {
+          "prover": "altergo",
+          "result": "High failure (signaled)",
+          "count": 22,
+          "reported_time_sum": 0.188
+        },
+        {
+          "prover": "Z3",
+          "result": "High failure (signaled)",
+          "count": 2,
+          "reported_time_sum": 0.009
+        }
+      ],
+      "all_reported_attempt_seconds": 703.439,
+      "max_reported_attempt": {
+        "prover": "CVC5",
+        "result": "Valid",
+        "steps": 38332,
+        "time": 23.767
+      },
+      "native_input_signature": "3cffd7f8c5b419f4c2b33d0192e6be80ec25d78a2b5589397be36ece49e7f382",
+      "report_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T193939-4dba03f7ee42/focused-evidence/0/silver_output_profile.spark",
+      "report_sha256": "cccc399122fe0ee35b49b8a3e0f638b5eb8f779123f65056d1b2a068de628a9b",
+      "events_sha256": "827f6e64640a41f3b341bb7743acce8e6f6042b7b83650474c7dc3106919b129"
+    },
+    {
+      "run": "20261127T195352-f016f03f782d",
+      "scope": [
+        "compiler",
+        "--limit-subp=silver_output_profile.adb:9590"
+      ],
+      "outcome": "success",
+      "total_elapsed_seconds": 124.790424464,
+      "phases": {
+        "preflight": 3.185564349,
+        "native-tool": 120.896039861
+      },
+      "flow_checks": 5,
+      "proof_checks": 25,
+      "unresolved": [],
+      "selected_timings": {
+        "gnat2why.vc_generation": 1.453,
+        "gnatwhy3.init": 1.222,
+        "gnatwhy3.register_vcs": 1.215,
+        "gnatwhy3.run_vcs": 0.001,
+        "gnatwhy3.save_session": 0.496,
+        "gnatwhy3.schedule_vcs": 12.576,
+        "transformation_time_counters_sum": 82.969,
+        "transformations_top": [
+          {
+            "name": "inline_trivial",
+            "seconds": 40.582
+          },
+          {
+            "name": "remove_unused",
+            "seconds": 19.362
+          },
+          {
+            "name": "simplify_formula",
+            "seconds": 4.857
+          }
+        ]
+      },
+      "attempt_counts": 543,
+      "attempts_by_status": [
+        {
+          "prover": "CVC5",
+          "result": "Valid",
+          "count": 180,
+          "reported_time_sum": 18.63
+        },
+        {
+          "prover": "Z3",
+          "result": "Valid",
+          "count": 180,
+          "reported_time_sum": 6.027
+        },
+        {
+          "prover": "altergo",
+          "result": "Valid",
+          "count": 173,
+          "reported_time_sum": 28.795
+        },
+        {
+          "prover": "Trivial",
+          "result": "Valid",
+          "count": 3,
+          "reported_time_sum": 0.0
+        },
+        {
+          "prover": "altergo",
+          "result": "High failure (signaled)",
+          "count": 7,
+          "reported_time_sum": 0.016
+        }
+      ],
+      "all_reported_attempt_seconds": 53.469,
+      "max_reported_attempt": {
+        "prover": "altergo",
+        "result": "Valid",
+        "steps": 24819,
+        "time": 2.17252
+      },
+      "native_input_signature": "5a409f8a5e15f04597ee0011c9327cb167d31cb167b09447f59cdb1ab40ab640",
+      "report_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T195352-f016f03f782d/focused-evidence/0/silver_output_profile.spark",
+      "report_sha256": "558c06a99c3779c18f49ee1dec1e33a8e082830d487d53d522cf4f151a36fa94",
+      "events_sha256": "d152565018146538ea351e600276bd4b03344c526f5690a958520215c69a31be"
+    },
+    {
+      "run": "20261127T184159-a0acf00fba2f",
+      "scope": [
+        "compiler",
+        "--limit-subp=silver_output_profile.adb:8395"
+      ],
+      "outcome": "success",
+      "total_elapsed_seconds": 1020.793757737,
+      "phases": {
+        "preflight": 2.988872492,
+        "native-tool": 1017.158437544
+      },
+      "flow_checks": 14,
+      "proof_checks": 65,
+      "unresolved": [],
+      "selected_timings": {
+        "gnat2why.vc_generation": 1.339,
+        "gnatwhy3.init": 1.762,
+        "gnatwhy3.register_vcs": 6.624,
+        "gnatwhy3.run_vcs": 0.002,
+        "gnatwhy3.save_session": 2.027,
+        "gnatwhy3.schedule_vcs": 104.671,
+        "transformation_time_counters_sum": 382.876,
+        "transformations_top": [
+          {
+            "name": "inline_trivial",
+            "seconds": 124.522
+          },
+          {
+            "name": "remove_unused",
+            "seconds": 73.346
+          },
+          {
+            "name": "simplify_formula",
+            "seconds": 31.825
+          }
+        ]
+      },
+      "attempt_counts": 945,
+      "attempts_by_status": [
+        {
+          "prover": "CVC5",
+          "result": "Valid",
+          "count": 271,
+          "reported_time_sum": 635.335
+        },
+        {
+          "prover": "Z3",
+          "result": "Valid",
+          "count": 297,
+          "reported_time_sum": 65.002
+        },
+        {
+          "prover": "altergo",
+          "result": "High failure (signaled)",
+          "count": 78,
+          "reported_time_sum": 0.331
+        },
+        {
+          "prover": "CVC5",
+          "result": "High failure (signaled)",
+          "count": 41,
+          "reported_time_sum": 0.156
+        },
+        {
+          "prover": "Z3",
+          "result": "High failure (signaled)",
+          "count": 15,
+          "reported_time_sum": 0.091
+        },
+        {
+          "prover": "Trivial",
+          "result": "Valid",
+          "count": 9,
+          "reported_time_sum": 0.0
+        },
+        {
+          "prover": "altergo",
+          "result": "Valid",
+          "count": 234,
+          "reported_time_sum": 101.426
+        }
+      ],
+      "all_reported_attempt_seconds": 802.341,
+      "max_reported_attempt": {
+        "prover": "CVC5",
+        "result": "Valid",
+        "steps": 150085,
+        "time": 106.419
+      },
+      "native_input_signature": "576bd3915dd883aae1848f094587c2bc46fcd989d7455dbaee5318d5fbca2454",
+      "report_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T184159-a0acf00fba2f/focused-evidence/0/silver_output_profile.spark",
+      "report_sha256": "0546838b75e8815aac37f051df34a76a5d91c5f5d8de7aa5a9ff8d4a16b5285a",
+      "events_sha256": "b815a5329ad15f91ef9ddb820b228ee4274f05c71ea6f5b7ec5e4403970a540e"
+    },
+    {
+      "run": "20261127T185933-2055189d72e9",
+      "scope": [
+        "compiler",
+        "--limit-subp=silver_output_profile.adb:8581"
+      ],
+      "outcome": "success",
+      "total_elapsed_seconds": 362.112600519,
+      "phases": {
+        "preflight": 2.703871289,
+        "native-tool": 358.71345743
+      },
+      "flow_checks": 9,
+      "proof_checks": 36,
+      "unresolved": [],
+      "selected_timings": {
+        "gnat2why.vc_generation": 1.437,
+        "gnatwhy3.init": 2.16,
+        "gnatwhy3.register_vcs": 3.151,
+        "gnatwhy3.run_vcs": 0.001,
+        "gnatwhy3.save_session": 1.505,
+        "gnatwhy3.schedule_vcs": 56.498,
+        "transformation_time_counters_sum": 292.247,
+        "transformations_top": [
+          {
+            "name": "inline_trivial",
+            "seconds": 112.99
+          },
+          {
+            "name": "remove_unused",
+            "seconds": 66.845
+          },
+          {
+            "name": "simplify_formula",
+            "seconds": 22.004
+          }
+        ]
+      },
+      "attempt_counts": 606,
+      "attempts_by_status": [
+        {
+          "prover": "CVC5",
+          "result": "Valid",
+          "count": 193,
+          "reported_time_sum": 60.849
+        },
+        {
+          "prover": "Z3",
+          "result": "Valid",
+          "count": 202,
+          "reported_time_sum": 18.023
+        },
+        {
+          "prover": "altergo",
+          "result": "High failure (signaled)",
+          "count": 22,
+          "reported_time_sum": 0.151
+        },
+        {
+          "prover": "CVC5",
+          "result": "High failure (signaled)",
+          "count": 9,
+          "reported_time_sum": 0.054
+        },
+        {
+          "prover": "altergo",
+          "result": "Valid",
+          "count": 180,
+          "reported_time_sum": 46.71
+        }
+      ],
+      "all_reported_attempt_seconds": 125.787,
+      "max_reported_attempt": {
+        "prover": "altergo",
+        "result": "Valid",
+        "steps": 202379,
+        "time": 16.6099
+      },
+      "native_input_signature": "8ad4e7263cf8b5709a0e977af2b5f026f1712e88f002fe75ee81702f6962e84f",
+      "report_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261127T185933-2055189d72e9/focused-evidence/0/silver_output_profile.spark",
+      "report_sha256": "fd3fa3a876f9deb7284b1538f9b8365359ef3a5e101cae036a3660f40ac24348",
+      "events_sha256": "1e688b9b4812dac376ca3edfa316ff484c76256eb819b4b5e27dcf65f89be558"
+    }
+  ]
+}
