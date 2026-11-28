@@ -149,4 +149,78 @@ theorem tail_scalar {readers : Readers} {names source stop required seen result 
     rw [scalars_append, headIH closed functions procedures, restIH closed functions procedures]
     rfl
 
+private theorem initializer_scalar {item : LocalInitializer} {before after : SharedRanges}
+    (checked : item.check before = some after) : ScalarFunctions.scalarActual item.value = true := by
+  unfold LocalInitializer.check at checked
+  split at checked
+  · assumption
+  · contradiction
+
+private theorem initializers_scalar {items : List LocalInitializer} {before after : SharedRanges}
+    (checked : checkInitializers before items = some after) :
+    items.all (fun item => ScalarFunctions.scalarActual item.value) = true := by
+  induction items generalizing before with
+  | nil => rfl
+  | cons item rest ih =>
+      simp only [checkInitializers, Option.bind_eq_some_iff] at checked
+      obtain ⟨middle, first, later⟩ := checked
+      rw [List.all_cons]
+      exact Bool.and_eq_true_iff.mpr ⟨initializer_scalar first, ih later⟩
+
+private theorem phases_scalar {phases : InitializerPhases} {before : SharedRanges} {after : InitializedRanges}
+    (checked : phases.check before = some after) :
+    phases.items.all (fun item => ScalarFunctions.scalarActual item.value) = true := by
+  obtain ⟨middle, first, later, _⟩ := phases.check_success checked
+  rw [InitializerPhases.items, List.all_append, initializers_scalar first, initializers_scalar later]
+  rfl
+
+private theorem procedure_results_scalar {context formals actuals}
+    (source : ProcedureResultsAt context formals actuals) :
+    actuals.all ScalarFunctions.scalarActual = true := by
+  induction source with
+  | nil => rfl
+  | input _ _ ih => exact ih
+  | output _ head _ ih =>
+      rw [List.all_cons]
+      refine Bool.and_eq_true_iff.mpr ⟨?_, ih⟩
+      cases head <;> rfl
+
+/-- Original result syntax alone determines the scalar result fragment. -/
+theorem result_scalar {text context info item scan actuals}
+    (source : ResultValuesAt text context info item scan actuals)
+    (closed : ClosedFunctionContext context) :
+    actuals.all ScalarFunctions.scalarActual = true := by
+  cases source with
+  | function _ reading =>
+      rw [List.all_cons]
+      exact Bool.and_eq_true_iff.mpr ⟨actual_source_scalar closed reading, rfl⟩
+  | procedure _ reading => exact procedure_results_scalar reading
+
+/-- The existing source-derived phased checker, original body tree and result
+syntax imply successful inference at the original native callable prefix. The
+conservative-footer inclusion is a separate source-history theorem. -/
+theorem routine_inference {reader calls text globals info result readers}
+    {frames : CompletionFrames (declarationReaders reader calls)
+      text globals info result}
+    (source : RoutineCode frames readers) (specRows : List ApplicationPackageInitializers.SpecificationItem)
+    (tables : ApplicationPackageRoutineClosedFrames.Tables globals)
+    {schema : StateSchema} {earlier : EffectEnvironment} {initialized : InitializedRanges} {after : Flow}
+    (checked : (source.definition specRows).checkPhased schema earlier source.context
+      (source.phases specRows) = some (initialized, after)) :
+    ∃ effects, (source.definition specRows).inferEffects earlier = some effects := by
+  have phases := RoutineDefinition.checkPhased_success checked
+  have initial := phases_scalar phases.1
+  have scalar := tail_scalar source.bodySource (frames.closed_context tables) rfl rfl
+  have results := result_scalar source.resultSource (frames.closed_context tables)
+  obtain ⟨effects, inferred⟩ := body_inference scalar phases.2.1
+  change inferBodyEffects earlier (source.definition specRows).layout
+    (source.definition specRows).body = some effects at inferred
+  have initialEq : (source.definition specRows).initializers.all
+      (fun item => ScalarFunctions.scalarActual item.value) = true := initial
+  have resultsEq : (source.definition specRows).results.all ScalarFunctions.scalarActual = true := results
+  refine ⟨(source.definition specRows).initialEffects.merge
+    (effects.merge (source.definition specRows).resultEffects), ?_⟩
+  simp only [RoutineDefinition.inferEffects, initialEq, resultsEq, Bool.and_self, ite_true,
+    inferred, Option.map_some]
+
 end Silver.ApplicationPackageRoutineEffects

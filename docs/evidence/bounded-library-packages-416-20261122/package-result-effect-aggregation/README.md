@@ -125,3 +125,17 @@ workers/two threads and 8,192 MiB per process. Earlier failed drafts are retaine
 in the managed ledger; the original failed run is included here. Repairs
 corrected mutual-recursion binder order, alias normalization and explicit
 context transport. Full effect inclusion and complete assurance remain pending.
+
+## Complete routine inference existence
+
+`RoutineEffects.routine_inference` now derives successful effect inference for
+every original `RoutineCode` whose original closed native frame and existing
+phased check succeed. Initializer scalar syntax follows the actual initializer
+checks, result scalar syntax follows `ResultValuesAt`, and body syntax follows
+the original recursive tree. The native callable prefix can remain unchanged.
+This establishes inference existence; native mask inclusion remains separate.
+
+Run `20261128T004416-7d69b2722c94` passed a fresh audit of 84,391 declarations; all captured
+input hashes match. Same focused Linux x86_64 / Lean 4.34.1 and CPU/memory settings
+as above. The diagnostic ledger records the failed namespace/witness/projection
+drafts and the explicit projection repair. No domain or proof-budget change.
