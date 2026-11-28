@@ -3,6 +3,8 @@ module
 public import Silver.ApplicationPackageLayoutEffects
 public import Silver.ApplicationPackageVisibleStateLayout
 public import Silver.PredicateFunctionCallMeaning
+public import Silver.PackageEffectSummaries
+public import Silver.ApplicationPackageCallsActualOrder
 
 @[expose] public section
 
@@ -44,6 +46,60 @@ theorem empty_cells (info : PackageBindings.Metadata) :
   obtain ⟨offset, _, selected, _⟩ := (info.mem_effectCells _ _).mp member
   rw [emptyStateSet_get] at selected
   contradiction
+
+/-- Exact native bitmasks interpreted through the original state table. -/
+def maskEffects (info : PackageBindings.Metadata) (reads writes : PackageBindings.StateSet) : Effects :=
+  ⟨info.effectCells reads, info.effectCells writes⟩
+
+def scanEffects (info : PackageBindings.Metadata) (scan : ApplicationPackages.ApplicationScan) : Effects :=
+  maskEffects info scan.reads scan.writes
+
+theorem mask_included {info : PackageBindings.Metadata} {reads writes laterReads laterWrites}
+    (read : ∀ cell ∈ info.effectCells reads, cell ∈ info.effectCells laterReads)
+    (write : ∀ cell ∈ info.effectCells writes, cell ∈ info.effectCells laterWrites) :
+    EffectSummaries.Included (maskEffects info reads writes) (maskEffects info laterReads laterWrites) :=
+  ⟨read, write⟩
+
+theorem union_left {info : PackageBindings.Metadata}
+    (capacity : info.states.length ≤ PackageBindings.maxStates) (first second : PackageBindings.StateSet) :
+    ∀ cell ∈ info.effectCells first, cell ∈ info.effectCells (PackageBindings.stateUnion first second) :=
+  fun cell member => (union_cells capacity first second cell).mpr (Or.inl member)
+
+theorem union_right {info : PackageBindings.Metadata}
+    (capacity : info.states.length ≤ PackageBindings.maxStates) (first second : PackageBindings.StateSet) :
+    ∀ cell ∈ info.effectCells second, cell ∈ info.effectCells (PackageBindings.stateUnion first second) :=
+  fun cell member => (union_cells capacity first second cell).mpr (Or.inr member)
+
+theorem marked_mono (info : PackageBindings.Metadata) (mask : PackageBindings.StateSet) (identity : Nat) :
+    ∀ cell ∈ info.effectCells mask, cell ∈ info.effectCells (ApplicationPackageCalls.markState mask identity) := by
+  intro cell member
+  obtain ⟨offset, inside, selected, same⟩ := (info.mem_effectCells _ _).mp member
+  apply (info.mem_effectCells _ _).mpr
+  refine ⟨offset, inside, ?_, same⟩
+  by_cases zero : identity = 0
+  · simpa only [ApplicationPackageCalls.markState, zero, ite_true] using selected
+  · simp only [ApplicationPackageCalls.markState, zero, ite_false, PackageBindings.StateSet.get,
+      Nat.add_one_sub_one, List.getD_eq_getElem?_getD]
+    by_cases atSlot : identity - 1 = offset
+    · have inMask : offset < mask.length := by
+        by_cases active : offset < mask.length
+        · exact active
+        · simp only [PackageBindings.StateSet.get, Nat.add_one_sub_one, List.getD_eq_getElem?_getD,
+            List.getElem?_eq_none (by omega : mask.length ≤ offset), Option.getD_none] at selected
+          contradiction
+      rw [atSlot, List.getElem?_set_self inMask]
+      rfl
+    · simpa only [List.getElem?_set_ne atSlot, PackageBindings.StateSet.get,
+        Nat.add_one_sub_one, List.getD_eq_getElem?_getD] using selected
+
+theorem marked_cell {info : PackageBindings.Metadata} {mask : PackageBindings.StateSet} {identity : Nat}
+    (positive : 0 < identity) (active : identity ≤ info.states.length) (space : identity ≤ mask.length) :
+    (info.stateAt identity).cell identity ∈
+      info.effectCells (ApplicationPackageCalls.markState mask identity) := by
+  rw [info.effectCells_index positive active]
+  simp only [ApplicationPackageCalls.markState, Nat.ne_of_gt positive, ite_false,
+    PackageBindings.StateSet.get, List.getD_eq_getElem?_getD,
+    List.getElem?_set_self (by omega : identity - 1 < mask.length), Option.getD_some]
 
 theorem condition_integer_global_read {text : Source} {context : ParseContext}
     {info : PackageBindings.Metadata} {bound position limit slot identity : Nat}

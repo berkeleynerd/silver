@@ -139,3 +139,11 @@ Run `20261128T004416-7d69b2722c94` passed a fresh audit of 84,391 declarations; 
 input hashes match. Same focused Linux x86_64 / Lean 4.34.1 and CPU/memory settings
 as above. The diagnostic ledger records the failed namespace/witness/projection
 drafts and the explicit projection repair. No domain or proof-budget change.
+
+`SourceEffects.maskEffects` and `scanEffects` now name the native mask
+interpretation. `union_left`, `union_right`, `marked_mono` and `marked_cell`
+connect all native union/update operations to semantic cell membership,
+including arbitrary backing masks and explicit storage bounds for new bits.
+Focused batch `20261128T004753-ea5550dbc231` passed 84,400 audited declarations with all
+captured input hashes matching under the same Linux/Lean/CPU/memory settings.
+This is algebraic support; the complete source mask fold remains pending.
