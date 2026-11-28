@@ -1060,9 +1060,16 @@ def audit_source_policy(source: Path) -> None:
                        "raw_diagnostic_message", "output_message", "raw_output_message",
                        "formal_advisory_message", "raw_formal_advisory_message",
                        "object_policy", "raw_object_policy")}
+    # Audit_Normalized_Report repeats these guards with identical arguments in
+    # Object_Policy. Hide their bodies, not the guards or their obligations.
+    metadata_hide_info_forms = {
+        ("pragma", "annotate", "(", "gnatprove", ",", "hide_info", ",",
+         '"Expression_Function_Body"', ",", "application_metadata", ".", target, ")", ";")
+        for target in ("valid", "owned_views_match")}
     for index, (left, right) in enumerate(zip(tokens, tokens[1:])):
         hide_info = (source.name == "silver_library_reports.adb"
-                     and tuple(tokens[index:index + 12]) in hide_info_forms)
+                     and (tuple(tokens[index:index + 12]) in hide_info_forms
+                          or tuple(tokens[index:index + 14]) in metadata_hide_info_forms))
         require(left != "pragma" or right not in forbidden or hide_info,
                 f"{source}: forbidden assumption/check-policy pragma {right}")
     for index, token in enumerate(tokens):

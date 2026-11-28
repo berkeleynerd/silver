@@ -1116,7 +1116,9 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
                        "Diagnostic_Message", "Raw_Diagnostic_Message",
                        "Output_Message", "Raw_Output_Message",
                        "Formal_Advisory_Message", "Raw_Formal_Advisory_Message",
-                       "Object_Policy", "Raw_Object_Policy"):
+                       "Object_Policy", "Raw_Object_Policy",
+                       "Application_Metadata.Valid", "Application_Metadata.Owned_Views_Match",
+                       "aPpLiCaTiOn_MeTaDaTa . VaLiD"):
             with self.subTest(target=target):
                 self.source('PrAgMa -- caller-local abstraction\n AnNoTaTe\n'
                             '(GnAtPrOvE, -- producer\n HiDe_InFo, "Expression_Function_Body", '
@@ -1128,7 +1130,8 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
 
     def test_hide_info_requires_exact_complete_pragma(self) -> None:
         for target in ("Raw_List_Spec", "Formal_Advisory_Message",
-                       "Raw_Formal_Advisory_Message", "Object_Policy", "Raw_Object_Policy"):
+                       "Raw_Formal_Advisory_Message", "Object_Policy", "Raw_Object_Policy",
+                       "Application_Metadata.Valid", "Application_Metadata.Owned_Views_Match"):
             safe = f'pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", {target});'
             mutations = (safe.replace("GNATprove", "Other_Tool"),
                          safe.replace("Hide_Info", "False_Positive"),
@@ -1142,6 +1145,10 @@ class CompilerHideInfoPolicyTests(unittest.TestCase):
                          safe.replace(f'{target})', f'{target}, List_Spec)'),
                          safe.replace(');', ')'), safe.replace(');', ';'),
                          safe.replace(');', '));'), safe.replace(');', ') Extra;'))
+            if target.startswith("Application_Metadata."):
+                mutations += (safe.replace("Application_Metadata.", "Other_Package."),
+                              safe.replace("Application_Metadata.", ""),
+                              safe.replace(target, "Application_Metadata.Other_Guard"))
             for annotation in mutations:
                 with self.subTest(target=target, annotation=annotation):
                     self.source(annotation)

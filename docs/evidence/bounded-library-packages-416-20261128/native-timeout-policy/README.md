@@ -28,8 +28,9 @@ The additional auditor run `20261128T004617-980fe8fbe747` passed 78 of 79 tests.
 Its existing `test_current_report_body_uses_reviewed_source_policy` failed on
 two qualified metadata `Hide_Info` targets introduced by `e35fd0a741`.
 The original 30-second baseline auditor reproduces the same rejection; the
-timeout edit does not cause it. Its record remains failed. Review and repair
-of that source-policy mismatch are separate remaining #416 integration work.
+timeout edit does not cause it. Its record remains failed. The separately
+[reviewed repair](../metadata-abstraction-policy/README.md) passes all 79 auditor
+tests and is prepared for the same safe integration boundary.
 
 The 60-second native helper probe remains pending at the live run's terminal
 boundary. Native proof, complete obligation discharge and source-correspondence

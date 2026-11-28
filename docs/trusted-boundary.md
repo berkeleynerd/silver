@@ -1003,7 +1003,13 @@ in `silver_library_reports.adb`, where `F` is `Raw_List_Spec`, `List_Spec`, `Ini
 `Raw_Initializer_Message`, `Procedure_Output_Message`,
 `Raw_Procedure_Output_Message`, `Termination_Policy`, `Initialization_Policy`,
 `Initialization_Index_Model`, `Raw_Initialization_Index`, `Diagnostic_Message`,
-`Raw_Diagnostic_Message`, `Output_Message` or `Raw_Output_Message`. The record classifiers
+`Raw_Diagnostic_Message`, `Output_Message`, `Raw_Output_Message`,
+`Formal_Advisory_Message`, `Raw_Formal_Advisory_Message`, `Object_Policy`,
+`Raw_Object_Policy`, `Application_Metadata.Valid` or
+`Application_Metadata.Owned_Views_Match`. The last two qualified forms keep the
+metadata guards abstract while `Audit_Normalized_Report` uses their identical
+arguments in its executable guard and `Object_Policy`. Their definitions remain
+proved in the metadata unit. The record classifiers
 use their existing proved helper equalities without expanding the quantified
 message checks, nested witness policies or recursive initialization-index search.
 The runtime and text-model diagnostic branches share `Diagnostic_Message` over
