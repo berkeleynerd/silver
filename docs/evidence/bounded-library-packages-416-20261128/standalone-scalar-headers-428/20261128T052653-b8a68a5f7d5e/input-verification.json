@@ -1,0 +1,30 @@
+{
+  "run_id": "20261128T052653-b8a68a5f7d5e",
+  "input_count": 1752,
+  "input_mismatches": [],
+  "owned_sources": {
+    "PredicateScalarHeaderInventory": {
+      "sha256": "8e125dfc6cabdd4b186cdf9832d4954b6178778e3235732149cec93b4d426083",
+      "matches_managed_workspace_source": true
+    },
+    "Current": {
+      "sha256": "c5d36ab7d85f6eca2c03caaf9a91e5b81844bd2fa23f4293f4c1d2b002baeacc",
+      "matches_managed_workspace_source": true
+    },
+    "PredicateCorrespondence": {
+      "sha256": "ee4ba117a88ff3f9202e018aa730b3a155b6e5e82560443488628b1eeba03c8f",
+      "matches_managed_workspace_source": true
+    }
+  },
+  "compiled_artifacts": {
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateScalarHeaderInventory.olean": "fb2aaf441bb8322e18c07b7fa72c6e59461073e603a1d1b87d99bb66d95f2fd7",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateScalarHeaderInventory.olean.private": "89498debc8ff1d6ceab729d81e68a83488310060356df398efba26fabcc04cf2",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateScalarHeaderInventory.olean.server": "aae1ddb4fedfb92b9c26df4e9f9f37027136915c3f34b80c7d7c0ab0473d386c",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateScalarHeaderInventory.ilean": "93fe0b23553c7e867248416a5f6f7d67d624c02e9c63d83b590117431576189a",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/Current.olean": "57ecfe94f95a408c616cc69fd6a8f9b7574c3acaf5d404ec7b3c6d4967734a5c",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/Current.olean.private": "b9c58fa4438e014408efb45200363511e536cd66c528d49f672419bcd1c014aa",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/Current.olean.server": "119a57ce33997191d120faec09ec716429dbd513200bd6270469e3611d044d44",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/Current.ilean": "08981448d3cdeb9ae335cfc1d72002a05368ad737a89ce2ab08bd88d829b48f6"
+  },
+  "unvalidated_owned_target": "Silver.PredicateCorrespondence"
+}
