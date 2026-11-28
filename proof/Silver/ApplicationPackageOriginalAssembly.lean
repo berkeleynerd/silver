@@ -3,6 +3,7 @@ module
 public import Silver.ApplicationPackageOriginalInitialization
 public import Silver.ApplicationPackageOriginalRoutineEntries
 public import Silver.ApplicationPackageOriginalLocalHeaders
+public import Silver.ApplicationPackageOriginalScalarHeaders
 public import Silver.ApplicationPackageRoutineSourceLibrary
 public import Silver.ApplicationPackageMainSourceChecking
 public import Silver.ApplicationPackageMainRuntimeInitialization
@@ -139,19 +140,22 @@ structure MainSyntax {reader : BooleanElaboration.Native.Reader} {completion : C
   body : TailCodeAt (sourceReaders readers) (mainNames (inventory.environment packages))
     (library.input other sources parsed.specification.exports parsed.body.info) .endOnly true false
     (library.result other sources parsed.specification.exports parsed.body.info) code
+  scalarHeaders : ApplicationPackageScalarHeaders.MainHeaders
+  scalarHeadersSource : scalarHeaders.SourceAt declarations
 
 def MainSyntax.predicateObligations {reader completion calls sources result parsed library other readers packages}
     (source : @MainSyntax reader completion calls sources result parsed library other readers packages) :
     List Predicate.Obligation :=
   let input := library.input other sources parsed.specification.exports parsed.body.info
-  source.inventory.obligations
+  source.scalarHeaders.obligations.map Predicate.Obligation.scalar ++
+    (source.inventory.obligations
       (argumentFrame (library.model other) sources parsed.specification.exports parsed.body.info)
       (declarationsFrame (library.model other) sources parsed.specification.exports parsed.body.info) ++
     statementsObligations input.context.names.shape input.context.analysis
       (input.context.flow input.input.scan.facts) source.code
       (ArrayBindings.booleanAnalysis input.context.arrayNames (BooleanBindings.analysis input.context.booleanNames))
       (source.inventory.environment packages).functionSignatures
-      (source.inventory.environment packages).procedureSignatures
+      (source.inventory.environment packages).procedureSignatures)
 
 /-- A projection used only by the shared header-schema and raw-bound trace
 relations. Main execution keeps its package environment and actual imported
@@ -321,10 +325,15 @@ theorem accepted_assembly (library : ApplicationPackageCompletion.Library)
   obtain ⟨inventory, code, declarations, entry, functions, procedures, _tree, body, checked, discharged⟩ :=
     main.original_assembly mainOther mainReaders mainInterpreted parsed valid mainFrame typed units
       (buildSummaryLibrary package.entries).environment signatures mainAccepted
+  obtain ⟨scalarHeaders, scalarHeadersSource, scalarChecks⟩ :=
+    ApplicationPackageScalarHeaders.main_headers declarations
   let source : MainSyntax parsed main mainOther mainReaders (buildSummaryLibrary package.entries).environment :=
-    ⟨inventory, code, declarations, body⟩
-  exact ⟨parsed, valid, bodyFrame, mainFrame, typed, units, package, phases, summaries, headerChecks,
-    source, entry, functions, procedures, checked, discharged⟩
+    ⟨inventory, code, declarations, body, scalarHeaders, scalarHeadersSource⟩
+  refine ⟨parsed, valid, bodyFrame, mainFrame, typed, units, package, phases, summaries, headerChecks,
+    source, entry, functions, procedures, checked, ?_⟩
+  change Predicate.discharged (scalarHeaders.obligations.map Predicate.Obligation.scalar ++ _) = true
+  rw [Predicate.discharged_append, Predicate.scalar_discharged, scalarChecks, discharged]
+  rfl
 
 /-- Meaning of the original three-unit Bundle. Native reading histories
 identify the exact source declarations and recursive statements. No semantic
