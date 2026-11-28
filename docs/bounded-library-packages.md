@@ -1091,3 +1091,31 @@ complete assurance, regressions, Rosetta promotion and independent closing
 review remain required. The native job retains CPUs 2–3; semantic, source/value
 and effect subthreads share 0–1, 4–5 and 6–7 respectively. The lead's temporary
 Python-test use of 4–5 has ended. No merge or successor implementation is authorized.
+
+### Original application assurance and coverage review, 2026-11-28 05:16 UTC
+
+The [complete original-obligation join](evidence/bounded-library-packages-416-20261122/package-original-complete-obligations/README.md)
+passed its focused Linux check and fresh 96,110-declaration audit at 02:53 UTC.
+It derives source histories, complete routine effects, function state preservation,
+Main runtime initialization and execution soundness from original native
+acceptance. Independent review found missing raw declaration-obligation families
+in earlier drafts; the retained corrections include Main String/Character and
+argument bounds, Boolean checks, package routine-local Integer range expressions,
+and Main/top-level callable-local Integer range expressions. The final scoped
+reviews found no blocker. Earlier successful drafts retain their narrower scope.
+
+The lead integrated the checked endpoint and its prerequisites. Comparison with
+the focused run's 1,761 captured inputs found two older dependency files in that
+private checkpoint: the integration branch already has the default name-context
+proof and explicit procedure binding qualification fields. Those exact files
+have been synchronized for the next source check; the private focused result is
+not a claim of complete validation of the integrated tree.
+
+The authoritative-source constructor and final source/tool join remain in
+progress. A bounded follow-up checks applicability of the new raw range inventory
+to the inherited standalone endpoint. Native containing-unit run
+`20261127T195636-5b2a2f886237` remains productive after more than nine hours,
+currently proving Application_Statement. Its inputs and CPUs 2–3 remain unchanged.
+The native subthread is assessing an isolated canonical 60-second helper probe
+without stopping that run. Complete native/Lean/project validation, applicable
+regressions, Rosetta promotion and closing review remain required; PR #424 is draft.
