@@ -3,6 +3,7 @@ module
 public import Silver.PackageEffectSummaries
 public import Silver.ApplicationPackageSourceEffects
 public import Silver.ApplicationPackageProcedureEffects
+public import Silver.ApplicationPackageBasicEffects
 public import Silver.ApplicationPackageRoutineSourceChecking
 
 @[expose] public section

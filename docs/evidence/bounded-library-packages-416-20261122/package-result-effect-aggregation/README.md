@@ -271,3 +271,18 @@ recursive output binding explicit and avoided substituting a callee through the
 wrong equality. No native source, language domain, budget or guarantee changed.
 The existing Linux/Lean/CPU/memory settings apply. Function assignment and the
 recursive body aggregate remain outstanding.
+
+## Function-call assignment effects
+
+`ApplicationPackageBasicEffects` derives function argument/callee effects from
+the original call, derives the outgoing mask length from the executed native
+union, and joins the original assignment target to the wrapper's final write
+mask. `BasicMasks.function_assignment_effects` consumes the existing original
+syntax and inferred effect. The exact target-helper equation remains explicit
+for the source-import adapter; it assumes no semantic effect-coverage property.
+
+Focused run `20261128T013911-0bd2ac3fa899` passed BasicEffects and RoutineEffects,
+freshly auditing 84,516 declarations with all 1,726 captured inputs matching.
+Its failed elaboration draft is retained. Existing Linux/Lean/CPU/memory settings
+remain unchanged. Inherited scalar assignments and the complete recursive body
+fold remain outstanding; complete source assurance is not claimed.
