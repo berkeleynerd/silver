@@ -4,6 +4,8 @@ public import Silver.ApplicationPackageOriginalAssembly
 public import Silver.ApplicationPackageRoutineInitializerEffects
 public import Silver.ApplicationSummaryAssurance
 public import Silver.ApplicationPackageOriginalValues
+public import Silver.ApplicationPackageMainRuntimeInitialization
+public import Silver.ApplicationPackageReaderEffectsImports
 
 @[expose] public section
 
@@ -304,5 +306,94 @@ theorem interpreted_accepted_values {specification implementation scalarSpec pac
   obtain ⟨meaning, legal, checked, semantic⟩ := interpreted_accepted_semantics native booleans.condition
     packageReaders packageInterpreted imports mainOther mainReaders mainInterpreted other locals represented accepted
   exact ⟨meaning, legal, checked, semantic, meaning.initial_values booleans booleanSource legal⟩
+
+/-- Runtime safety quantifies over every actual argument list. All initial
+stores and the fallback literal come from the original Main syntax; no fitting
+store, successful semantic check or safety certificate is a source premise. -/
+def SourceMeaning.RuntimeSound {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources) : Prop :=
+  let entry := argumentFrame (mainLibrary.model mainOther) sources
+    source.parsed.specification.exports source.parsed.body.info
+  let final := declarationsFrame (mainLibrary.model mainOther) sources
+    source.parsed.specification.exports source.parsed.body.info
+  let hasArgument := (contextClauses (mainLibrary.model mainOther) sources source.parsed.body.info).argumentsWith
+  let original := mainLibrary.input mainOther sources source.parsed.specification.exports source.parsed.body.info
+  let returned := mainLibrary.result mainOther sources source.parsed.specification.exports source.parsed.body.info
+  let environment := source.main.inventory.environment (buildSummaryLibrary source.package.entries).environment
+  ∃ fallback, MainArgumentAt (textOf sources) entry hasArgument fallback ∧
+    ∀ arguments : Arguments.Runtime.Arguments,
+      let input := runtimeInput hasArgument fallback arguments
+      let inputValid := runtimeInputValid hasArgument arguments
+      let values := source.main.inventory.runtimeValues hasArgument input
+      let integers := source.main.inventory.runtimeIntegers entry final
+      let booleans := source.main.inventory.runtimeBooleans entry values input inputValid
+      Applications.ExecutionSound source.parsed.body.info.stateSchema original.context.names.shape
+        original.context.analysis (original.context.flow returned.scan.facts) input inputValid false
+        (Applications.executeStatements environment (Packages.initialState source.parsed.body.info.stateSchema)
+          input inputValid values source.main.code integers booleans)
+        (Applications.checkedStatements environment (Packages.initialState source.parsed.body.info.stateSchema)
+          input inputValid values source.main.code integers booleans)
+
+theorem SourceMeaning.runtime_sound {library reader packageReaders mainLibrary mainOther mainReaders other sources}
+    (source : SourceMeaning library reader packageReaders mainLibrary mainOther mainReaders other sources)
+    (native : source.NativeFacts) (checked : source.Checked) (semantic : source.Semantic) :
+    source.RuntimeSound := by
+  have modeled := (mainLibrary.main_meaning mainOther native.valid source.parsed.specification.exports
+    native.mainFrame source.parsed.body.info native.typed source.parsed.complete) ▸ native.mainAccepted
+  have present := ((packageMainAt_accepted_iff _ _ _ _).mp modeled).argumentPresent
+  obtain ⟨fallback, argument, states⟩ := mainLibrary.original_runtime mainOther native.valid source.parsed.specified
+    source.parsed.body.info source.main.declarations checked.entry present
+  refine ⟨fallback, argument, ?_⟩
+  intro arguments
+  obtain ⟨values, printable, allowed, declared⟩ := states arguments
+  exact Applications.statements_execution_sound semantic.environment (Packages.initialState_fits semantic.schema)
+    checked.body.form checked.body.check values printable allowed declared
+
+/-- Full original-Bundle assurance for the interpreted native Analyze call.
+All package definitions (including unused ones), raw initializer values, Main
+initial stores, body execution and complete obligations are derived from that
+accepted source. The conclusion covers every runtime argument list. -/
+theorem interpreted_accepted_assurance {specification implementation scalarSpec packageSpec : List String}
+    (native : ApplicationPackageSourceBridge.InterpretedSource specification implementation scalarSpec packageSpec)
+    (booleans : BooleanElaboration.Native.SourceImports.Library native.completion.objects)
+    (booleanSource : BooleanElaboration.Native.SourceChecks.Checked implementation)
+    (packageReaders : Readers) (packageInterpreted : native.completion.readers = sourceReaders packageReaders)
+    (imports : ReaderEffects packageReaders)
+    (mainOther : ApplicationPackageMain.Calls) (mainReaders : Readers)
+    (mainInterpreted : native.main.readers = sourceReaders mainReaders)
+    (other : ApplicationAdmission.Calls) (locals : ApplicationNative.Locals)
+    (represented : (locals .bundle "sources").Representable)
+    (accepted : (ApplicationAdmission.Native.analyzeBody.eval
+      (ApplicationAdmission.Native.modelCallees (native.calls booleans.condition mainOther other)) locals).accepted = true) :
+    ∃ meaning : SourceMeaning native.completion booleans.condition packageReaders native.main mainOther mainReaders
+        (native.boundary other) (locals .bundle "sources"),
+      meaning.NativeFacts ∧ meaning.Checked ∧ meaning.Semantic ∧ meaning.InitialValues ∧ meaning.RuntimeSound := by
+  obtain ⟨meaning, legal, checked, semantic, values⟩ := interpreted_accepted_values native booleans booleanSource
+    packageReaders packageInterpreted imports mainOther mainReaders mainInterpreted other locals represented accepted
+  exact ⟨meaning, legal, checked, semantic, values, meaning.runtime_sound legal checked semantic⟩
+
+/-- The canonical native effect imports discharge the primitive equations as
+well. This endpoint has no caller-supplied semantic coverage, successful decoder,
+checker or safety premise beyond the original accepted native call itself. -/
+theorem interpreted_bound_assurance {specification implementation scalarSpec packageSpec : List String}
+    (native : ApplicationPackageSourceBridge.InterpretedSource specification implementation scalarSpec packageSpec)
+    (booleans : BooleanElaboration.Native.SourceImports.Library native.completion.objects)
+    (booleanSource : BooleanElaboration.Native.SourceChecks.Checked implementation)
+    (recursive : ApplicationPackageBodies.RecursiveSource.Libraries) (packageOther : Readers)
+    (packageInterpreted : native.completion.readers = sourceReaders
+      (recursive.readers (ReaderEffectsImports.boundReaders native.completion.leaves.effects packageOther)))
+    (mainOther : ApplicationPackageMain.Calls) (mainReaders : Readers)
+    (mainInterpreted : native.main.readers = sourceReaders mainReaders)
+    (other : ApplicationAdmission.Calls) (locals : ApplicationNative.Locals)
+    (represented : (locals .bundle "sources").Representable)
+    (accepted : (ApplicationAdmission.Native.analyzeBody.eval
+      (ApplicationAdmission.Native.modelCallees (native.calls booleans.condition mainOther other)) locals).accepted = true) :
+    let packageReaders := recursive.readers (ReaderEffectsImports.boundReaders native.completion.leaves.effects packageOther)
+    ∃ meaning : SourceMeaning native.completion booleans.condition packageReaders native.main mainOther mainReaders
+        (native.boundary other) (locals .bundle "sources"),
+      meaning.NativeFacts ∧ meaning.Checked ∧ meaning.Semantic ∧ meaning.InitialValues ∧ meaning.RuntimeSound :=
+  interpreted_accepted_assurance native booleans booleanSource _ packageInterpreted
+    (ReaderEffectsImports.bound recursive native.completion.leaves.effects packageOther)
+    mainOther mainReaders mainInterpreted other locals represented accepted
 
 end Silver.ApplicationPackageOriginal

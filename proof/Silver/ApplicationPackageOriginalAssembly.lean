@@ -205,6 +205,8 @@ structure SourceMeaning.NativeFacts {library reader packageReaders mainLibrary m
   mainFrame : ReaderFrame (textOf sources) source.parsed.specification.exports
   typed : source.parsed.body.info.Typed
   units : source.parsed.body.info.units = sources.units
+  mainAccepted : (packageMainAt (mainLibrary.calls mainOther) sources
+    source.parsed.specification.exports source.parsed.body.info).accepted = true
 
 /-- Derived checking facts, deliberately separate from SourceMeaning. -/
 structure SourceMeaning.Checked {library reader packageReaders mainLibrary mainOther mainReaders other sources}
@@ -237,7 +239,14 @@ theorem accepted_meaning (library : ApplicationPackageCompletion.Library)
       mainSource, entry, functions, procedures, body, mainObligations⟩ :=
     accepted_assembly library reader packageReaders packageInterpreted main mainOther mainReaders
       mainInterpreted other sources represented accepted
-  exact ⟨⟨parsed, package, mainSource⟩, ⟨valid, bodyFrame, mainFrame, typed, units⟩,
+  have mainAccepted : (packageMainAt (main.calls mainOther) sources
+      parsed.specification.exports parsed.body.info).accepted = true := by
+    have read := parsed.main
+    change packageMainAt (main.calls mainOther) sources parsed.specification.exports parsed.body.info =
+      analyzeApplication (packageCalls library reader (main.calls mainOther) other) sources at read
+    rw [read]
+    exact accepted
+  exact ⟨⟨parsed, package, mainSource⟩, ⟨valid, bodyFrame, mainFrame, typed, units, mainAccepted⟩,
     ⟨phases, summaries, headers, entry, functions, procedures, body, mainObligations⟩⟩
 
 /-- The checked native wrapper interpretation reaches the same original
