@@ -998,3 +998,35 @@ exposed. The existing native unit run remains active with the six provisional
 array-declaration timeouts awaiting its final audit. Complete assurance,
 regressions, Rosetta delivery and independent final review remain required.
 PR #424 remains draft; no merge or successor feature is authorized.
+
+### Specification contracts and original entry rows, 2026-11-28 00:02 UTC
+
+The [Specification result contract](evidence/bounded-library-packages-416-20261127/specification-metadata-imports/README.md)
+passed 75,239 audited declarations. Its original typed execution preserves the
+unit table and derives metadata component types and the returned parser frame,
+including rejected inputs and partial writes. The preceding signature and
+Specification component-type checks are retained separately. The actual Bundle
+representation supplies the initial metadata types; no successful parse or
+semantic safety certificate is added as a premise.
+
+The [source entry-row checkpoint](evidence/bounded-library-packages-416-20261122/package-entry-seed-rows/README.md)
+passed 75,368 declarations. Original specification constants, private state and
+input formal rows determine the invocation's scalar range map through native
+widening and hiding. The [result/effect checkpoint](evidence/bounded-library-packages-416-20261122/package-result-effect-aggregation/README.md)
+passed 38,991 declarations, deriving original function return syntax, argument
+checking and result obligations, together with expression/condition global reads.
+Procedure output coverage and complete routine effects remain in progress.
+
+The lead is joining these domains through Analyze_Application into Main in a
+separate focused check. Declaration-derived Main scope, phased library aggregation
+and the final original-source/tool endpoint remain required. These focused
+successes do not constitute the complete feature assurance checkpoint.
+
+Native unit run `20261127T195636-5b2a2f886237` remains active on unchanged native
+inputs. Its six provisional array-declaration roots have only timeout attempts;
+the final report and whole-helper coverage reconciliation are still pending.
+The host detects eight CPUs, and all inspected managed proof/tool threads remain
+within guest CPUs 0–7. Proof roles retain the selected Astra Max setting; live
+runtime settings are not independently exposed. Complete validation, applicable
+regressions, Rosetta delivery and independent closing review remain outstanding.
+PR #424 stays draft; #426/#427 remain open. No merge or successor work is authorized.
