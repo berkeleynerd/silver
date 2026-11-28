@@ -162,3 +162,18 @@ reflexive record-projection normalization from expanding its fixed-capacity
 list implementation. Two failed diagnostic drafts remain retained; no domain,
 native source or proof-budget change. This checks the raw native accumulator;
 source expression/row-mask and recursive body joins remain pending.
+
+## Shared-address agreement and source sequence composition
+
+`statement_effects_agree` and `statements_effects_agree` preserve exact inferred
+effects when invocation-local bindings change but global addresses agree.
+`inference_append` retains the precise effect split for original statement-list
+concatenation, including every branch and loop body.
+
+Focused batch `20261128T005920-90b70967a224` passed both the generic summary
+module and its routine-source consumer, with a fresh audit of 84,418 declarations
+and all captured inputs matching. Settings remain Linux x86_64 / Lean 4.34.1,
+CPUs 6–7, automatic two workers/two threads and 8,192 MiB per process. The failed
+draft is retained; its repair changed a mutual-block comment and used explicit
+equation rewrites for recursive definitions. Source domains, semantics and proof
+budgets are unchanged. Complete original body mask inclusion remains pending.

@@ -2,6 +2,7 @@ module
 
 public import Silver.PackageDefinitions
 public import Silver.PackageChecking
+public import Silver.PackageGlobalChecking
 
 @[expose] public section
 
@@ -51,6 +52,61 @@ theorem Included.merge_bound {first second summary : Effects}
     exact (List.mem_append.mp member).elim (left.reads cell) (right.reads cell)
   · intro cell member
     exact (List.mem_append.mp member).elim (left.writes cell) (right.writes cell)
+
+/- Invocation-local address changes preserve the inferred shared-state
+footprint. Loop binders use this source-derived global-address agreement. -/
+mutual
+  theorem statement_effects_agree {left right : FrameLayout} (same : left.GlobalAgreement right)
+      (earlier : EffectEnvironment) (item : Predicate.Statement) :
+      inferStatementEffects earlier left item = inferStatementEffects earlier right item := by
+    cases item with
+    | simple item => cases item <;> simp only [inferStatementEffects]
+    | scalarAssign | booleanAssign | callAssign | procedureCall =>
+      simp only [inferStatementEffects, directEffects, same.globalCells]
+    | choice condition yes no =>
+      simp only [inferStatementEffects, statements_effects_agree same earlier yes,
+        statements_effects_agree same earlier no, directEffects, same.globalCells]
+    | forLoop index reverse lower upper body =>
+      simp only [inferStatementEffects, statements_effects_agree same earlier body,
+        directEffects, same.globalCells]
+    | arrayAssign | booleanArrayAssign | arrayLoop | reject => simp only [inferStatementEffects]
+  termination_by sizeOf item
+
+  theorem statements_effects_agree {left right : FrameLayout} (same : left.GlobalAgreement right)
+      (earlier : EffectEnvironment) (items : List Predicate.Statement) :
+      inferStatementsEffects earlier left items = inferStatementsEffects earlier right items := by
+    cases items with
+    | nil => simp only [inferStatementsEffects]
+    | cons head tail =>
+      simp only [inferStatementsEffects, statement_effects_agree same earlier head,
+        statements_effects_agree same earlier tail]
+  termination_by sizeOf items
+end
+
+theorem merge_assoc (first middle last : Effects) :
+    (first.merge middle).merge last = first.merge (middle.merge last) := by
+  cases first; cases middle; cases last
+  simp only [Effects.merge, List.append_assoc]
+
+/-- Source tail concatenation preserves the precise inference split, so no
+body prefix or unvisited branch is dropped from a conservative mask proof. -/
+theorem inference_append (earlier : EffectEnvironment) (layout : FrameLayout)
+    (first rest : List Predicate.Statement) :
+    inferStatementsEffects earlier layout (first ++ rest) =
+      (inferStatementsEffects earlier layout first).bind (fun initial =>
+        (inferStatementsEffects earlier layout rest).map initial.merge) := by
+  induction first with
+  | nil =>
+    simp only [List.nil_append, inferStatementsEffects, Option.bind_some]
+    cases found : inferStatementsEffects earlier layout rest with
+    | none => rfl
+    | some effects => cases effects; rfl
+  | cons head tail ih =>
+    simp only [List.cons_append, inferStatementsEffects, ih]
+    cases first : inferStatementEffects earlier layout head <;>
+      cases later : inferStatementsEffects earlier layout tail <;>
+      cases last : inferStatementsEffects earlier layout rest <;>
+      simp only [Option.bind_none, Option.bind_some, Option.map_none, Option.map_some, merge_assoc]
 
 /- Successful semantic checking resolves exactly the callable identities used
 by effect inference. No guessed summary or separate call-resolution premise is
