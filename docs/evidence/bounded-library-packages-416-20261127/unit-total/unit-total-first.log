@@ -1,0 +1,275 @@
+Lean concurrency: 2 Lake workers, 2 threads per Lean process (8 available CPUs).
+Resource allocation: memory_mb requested=8192 actual=8192; threads requested=2 actual=2 automatic=2; workers requested=2 actual=2 automatic=4; deliberate reduction: workers; reason: host's eight-CPU allocation
+Lean phase build started at 2026-11-27T21:09:29.501410+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageUnitTotal +Silver.AxiomAudit
+✔ [147/159] Built Silver.ApplicationPackageBodiesUnit (1.3s)
+✔ [150/159] Built Silver.ApplicationPackageProcedureLoops (1.6s)
+✔ [151/159] Built Silver.ApplicationPackageBodiesExecution (1.0s)
+✔ [152/159] Built Silver.ApplicationPackageRoutineFrame (917ms)
+✔ [153/160] Built Silver.ApplicationPackageFormalStorage (985ms)
+✔ [154/161] Built Silver.ApplicationPackageUnitNative (3.0s)
+✔ [155/162] Built Silver.PackageClosure (1.3s)
+✔ [157/163] Built Silver.ScalarCallChecking (1.3s)
+✔ [158/201] Built Silver.ScalarProcedureChecking (1.0s)
+✔ [191/204] Built Silver.ApplicationPackageUnitEquations (3.8s)
+✔ [193/204] Built Silver.ScalarCallExecution (1.3s)
+✔ [194/205] Built Silver.ApplicationPackageUnitLoops (1.7s)
+✔ [195/205] Built Silver.ComposeMain (1.3s)
+✔ [196/205] Built Silver.ScalarProcedureExecution (1.1s)
+✔ [198/206] Built Silver.ApplicationPackageUnitInterpretation (3.1s)
+✔ [199/212] Built Silver.SequenceSyntax (2.8s)
+✔ [200/212] Built Silver.ApplicationPackageUnitSimulation (1.9s)
+✔ [201/212] Built Silver.ComposeObligations (1.4s)
+✔ [202/217] Built Silver.SequenceSemantics (2.3s)
+✔ [204/220] Built Silver.PredicateStatements (4.1s)
+✔ [205/220] Built Silver.SequenceExecution (2.2s)
+✔ [206/224] Built Silver.ScalarProcedureFrame (1.7s)
+✔ [207/224] Built Silver.PredicateObligations (3.5s)
+✔ [208/235] Built Silver.BooleanDeclarationObligations (828ms)
+✔ [212/235] Built Silver.ApplicationPackageUnitObjectHistory (1.0s)
+✔ [213/238] Built Silver.ApplicationPackageCompletionLocalHistory (969ms)
+✔ [214/238] Built Silver.ApplicationPackageEffectsModel (931ms)
+✔ [215/238] Built Silver.ApplicationPackageEffectsNative (3.5s)
+✔ [216/242] Built Silver.PredicateExecution (11s)
+✔ [217/249] Built Silver.ApplicationPackageEffectsInterpretation (2.4s)
+✔ [226/252] Built Silver.ProcedureNameIdentity (876ms)
+✔ [227/252] Built Silver.ScalarFunctionDefinition (1.6s)
+✔ [228/255] Built Silver.ProcedureNameTraceTraversal (1.1s)
+✔ [230/255] Built Silver.ApplicationPackageEffectsMeaning (914ms)
+✔ [231/255] Built Silver.ScalarProcedureDefinition (1.4s)
+✔ [232/255] Built Silver.ScalarFunctionSemantics (1.5s)
+✔ [233/255] Built Silver.ProcedureNameTerminals (1.3s)
+✔ [234/255] Built Silver.PackageReindex (1.0s)
+✔ [235/261] Built Silver.ProcedureNameReadings (854ms)
+✔ [236/263] Built Silver.PackageSyntax (1.5s)
+✔ [237/263] Built Silver.ProcedureNameLiteralTraversal (1.3s)
+✔ [238/263] Built Silver.ProcedureNameIdentifierWords (1.4s)
+✔ [239/263] Built Silver.PackageReadMentions (1.7s)
+✔ [240/263] Built Silver.PackageExecution (2.7s)
+✔ [241/263] Built Silver.ProcedureNameAttributes (1.3s)
+✔ [242/263] Built Silver.ProcedureNameSelectors (2.9s)
+✔ [243/265] Built Silver.PackageLowering (3.2s)
+✔ [244/267] Built Silver.ProcedureNameQualified (1.7s)
+✔ [245/267] Built Silver.PackageDefinitions (1.7s)
+✔ [246/269] Built Silver.ProcedureNamePunctuation (1.8s)
+✔ [247/271] Built Silver.ProcedureNameLengthLiterals (943ms)
+✔ [248/271] Built Silver.ProcedureNameScalarReadings (2.3s)
+✔ [249/271] Built Silver.PackageMetadataSemantics (1.7s)
+✔ [250/271] Built Silver.PackageInitialization (1.5s)
+✔ [251/272] Built Silver.ProcedureNameCompoundTokens (1.3s)
+✔ [252/272] Built Silver.PredicateNativeProgress (1.8s)
+✔ [253/272] Built Silver.ProcedureNameArrayReadings (2.5s)
+✔ [254/272] Built Silver.ApplicationPackageEffectBits (1.4s)
+✔ [255/272] Built Silver.PackageSharedFrames (1.1s)
+✔ [256/272] Built Silver.ProcedureNameLengthReadings (995ms)
+✔ [257/272] Built Silver.ProcedureNameConditionTokens (1.6s)
+✔ [258/272] Built Silver.ProcedureNameStringCursors (10s)
+✔ [259/272] Built Silver.ApplicationPackageExpressionEffects (1.2s)
+✔ [260/275] Built Silver.ApplicationPackageFrameLayout (1.1s)
+✔ [261/275] Built Silver.ProcedureNameConditionBounds (1.2s)
+✔ [262/277] Built Silver.ApplicationPackageScalarReadIdentity (1.3s)
+✔ [264/277] Built Silver.ApplicationPackageFrameHistory (1.2s)
+✔ [265/277] Built Silver.ProcedureNameConditionCursors (1.7s)
+✔ [266/277] Built Silver.ProcedureNameCharacterReadings (2.1s)
+✔ [267/277] Built Silver.ApplicationPackageObjectRows (2.8s)
+✔ [268/278] Built Silver.ProcedureNameImageReadings (16s)
+✔ [269/280] Built Silver.ProcedureNameIndexedReadings (15s)
+✔ [270/281] Built Silver.ApplicationPackageObjectCursors (1.0s)
+✔ [271/281] Built Silver.PredicateAssociationBounds (952ms)
+✔ [272/286] Built Silver.PredicateConditionUnique (4.4s)
+✔ [273/286] Built Silver.ApplicationPackageObjectExtent (3.2s)
+✔ [274/298] Built Silver.PredicateProcedureCallProperties (1.3s)
+✔ [275/298] Built Silver.PredicateFunctionCallReadings (1.7s)
+✔ [276/298] Built Silver.ProcedureMetadataSemantics (1.2s)
+✔ [277/298] Built Silver.ApplicationPackageObjectFrameOrder (825ms)
+✔ [278/298] Built Silver.ProcedureNameValidityReading (1.3s)
+✔ [279/298] Built Silver.ProcedureNameStringReadings (14s)
+✔ [280/298] Built Silver.ApplicationPackageObjectStateFields (963ms)
+✔ [281/304] Built Silver.ApplicationPackageRoutineRows (1.1s)
+✔ [282/304] Built Silver.PredicateProcedureCallReadings (2.5s)
+✔ [284/315] Built Silver.ApplicationPackageFormalReferences (1.0s)
+✔ [285/315] Built Silver.ProcedureNameTargets (1.0s)
+✔ [289/315] Built Silver.ApplicationPackageDeclarationsSignatureStates (1.6s)
+✔ [290/315] Built Silver.ApplicationPackageDeclarationsFormalSpans (1.5s)
+✔ [292/315] Built Silver.ProcedureNameBooleanReadings (1.5s)
+✔ [293/315] Built Silver.ApplicationPackageDeclarationsFormalIteration (1.7s)
+✔ [294/315] Built Silver.ProcedureNameRelationReadings (1.7s)
+✔ [295/315] Built Silver.ApplicationPackageDeclarationsCompletionSpans (2.1s)
+✔ [296/315] Built Silver.ProcedureNameConditionReadings (8.8s)
+✔ [297/315] Built Silver.ApplicationPackageConditionEffects (923ms)
+✔ [298/315] Built Silver.ApplicationPackageConditionReadIdentity (3.1s)
+✔ [299/315] Built Silver.ApplicationPackageLayoutEffects (990ms)
+✔ [300/315] Built Silver.ApplicationPackageLayoutContext (845ms)
+✔ [301/315] Built Silver.ApplicationPackageObjectLayout (843ms)
+✔ [302/315] Built Silver.ApplicationPackageFormalEntry (2.6s)
+✔ [303/315] Built Silver.ApplicationPackageFormalLocalScope (968ms)
+✔ [304/315] Built Silver.ApplicationPackageFormalLayout (1.0s)
+✔ [305/315] Built Silver.ApplicationPackageCompletionLayout (1.0s)
+✔ [306/315] Built Silver.ApplicationPackageFrameCapacity (1.3s)
+✔ [307/315] Built Silver.ApplicationPackageCompletionFrameHistory (1.4s)
+✔ [308/315] Built Silver.ApplicationPackageExportRows (1.4s)
+✔ [309/315] Built Silver.ApplicationPackageCompletionSourceLayout (1.9s)
+✔ [310/315] Built Silver.ApplicationPackageBodyEntry (1.5s)
+✔ [311/315] Built Silver.ApplicationPackageCompletionTotal (1.7s)
+✔ [312/315] Built Silver.ApplicationPackageRoutineHistory (1.1s)
+✔ [313/315] Built Silver.ApplicationPackageBodyHistory (1.0s)
+✔ [314/315] Built Silver.ApplicationPackageBodyTotal (1.5s)
+✖ [315/315] Building Silver.ApplicationPackageUnitTotal (1.3s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/Silver/ApplicationPackageUnitTotal.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageUnitTotal.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageUnitTotal.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageUnitTotal.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageUnitTotal.setup.json --json
+error: Silver/ApplicationPackageUnitTotal.lean:51:45: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 0
+  b ≥ -1
+  a ≥ 0
+  a - b ≥ 2
+  a - b ≥ 2
+where
+ a := ↑((objectStep calls store).locals Ty.state "globals").position
+ b := ↑(List.length text)
+error: Silver/ApplicationPackageUnitTotal.lean:71:43: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 0
+  b ≥ -1
+  a ≥ 0
+  a - b ≥ 2
+  a - b ≥ 2
+where
+ a := ↑((routineStep calls store).locals Ty.state "globals").position
+ b := ↑(List.length text)
+error: Silver/ApplicationPackageUnitTotal.lean:99:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+error: Silver/ApplicationPackageUnitTotal.lean:113:34: unsolved goals
+calls : UnitCalls
+locals : Locals
+pragmaBound :
+  ∀ (position : Nat),
+    calls.sparkPragmaAfter (locals Ty.source "text") position ≤ List.length (locals Ty.source "text") + 1
+objects :
+  ∀ (frame : ParserState) (info : PackageBindings.Metadata),
+    (calls.objectAt (locals Ty.source "text") frame info false).frame.position ≤
+      List.length (locals Ty.source "text") + 1
+completions :
+  ∀ (frame : ParserState) (info : PackageBindings.Metadata),
+    (calls.completionAt (locals Ty.source "text") frame info).globals.position ≤
+      List.length (locals Ty.source "text") + 1
+text : Ty.source.meaning := locals Ty.source "text"
+start : Outcome := prefixStep calls (initializedLocals calls locals)
+textAt : start.locals Ty.source "text" = text
+startBound : start.returned = false → Bounded text start.locals
+returned : ¬start.returned = true
+continuing : start.returned = false
+objectResult : Outcome
+objectDone : objectLoop calls (List.length text + 2) start.locals = some objectResult
+objectBound : Bounded text objectResult.locals
+objectReturns : objectResult.returned = true
+⊢ Option.map Outcome.locals (if false = true then some start else some objectResult) = some objectResult.locals
+error: Silver/ApplicationPackageUnitTotal.lean:119:37: unsolved goals
+calls : UnitCalls
+locals : Locals
+pragmaBound :
+  ∀ (position : Nat),
+    calls.sparkPragmaAfter (locals Ty.source "text") position ≤ List.length (locals Ty.source "text") + 1
+objects :
+  ∀ (frame : ParserState) (info : PackageBindings.Metadata),
+    (calls.objectAt (locals Ty.source "text") frame info false).frame.position ≤
+      List.length (locals Ty.source "text") + 1
+completions :
+  ∀ (frame : ParserState) (info : PackageBindings.Metadata),
+    (calls.completionAt (locals Ty.source "text") frame info).globals.position ≤
+      List.length (locals Ty.source "text") + 1
+text : Ty.source.meaning := locals Ty.source "text"
+start : Outcome := prefixStep calls (initializedLocals calls locals)
+textAt : start.locals Ty.source "text" = text
+startBound : start.returned = false → Bounded text start.locals
+returned : ¬start.returned = true
+continuing : start.returned = false
+objectResult : Outcome
+objectDone : objectLoop calls (List.length text + 2) start.locals = some objectResult
+objectBound : Bounded text objectResult.locals
+objectReturns : ¬objectResult.returned = true
+routineResult : Outcome
+routineDone : routineLoop calls (List.length text + 2) objectResult.locals = some routineResult
+routineReturns : routineResult.returned = true
+⊢ Option.map Outcome.locals
+      (if false = true then some start else if false = true then some objectResult else some routineResult) =
+    some routineResult.locals
+error: Silver/ApplicationPackageUnitTotal.lean:121:10: unsolved goals
+calls : UnitCalls
+locals : Locals
+pragmaBound :
+  ∀ (position : Nat),
+    calls.sparkPragmaAfter (locals Ty.source "text") position ≤ List.length (locals Ty.source "text") + 1
+objects :
+  ∀ (frame : ParserState) (info : PackageBindings.Metadata),
+    (calls.objectAt (locals Ty.source "text") frame info false).frame.position ≤
+      List.length (locals Ty.source "text") + 1
+completions :
+  ∀ (frame : ParserState) (info : PackageBindings.Metadata),
+    (calls.completionAt (locals Ty.source "text") frame info).globals.position ≤
+      List.length (locals Ty.source "text") + 1
+text : Ty.source.meaning := locals Ty.source "text"
+start : Outcome := prefixStep calls (initializedLocals calls locals)
+textAt : start.locals Ty.source "text" = text
+startBound : start.returned = false → Bounded text start.locals
+returned : ¬start.returned = true
+continuing : start.returned = false
+objectResult : Outcome
+objectDone : objectLoop calls (List.length text + 2) start.locals = some objectResult
+objectBound : Bounded text objectResult.locals
+objectReturns : ¬objectResult.returned = true
+routineResult : Outcome
+routineDone : routineLoop calls (List.length text + 2) objectResult.locals = some routineResult
+routineReturns : ¬routineResult.returned = true
+⊢ Option.map Outcome.locals
+      (if false = true then some start
+      else
+        if false = true then some objectResult
+        else if false = true then some routineResult else some (footerStep calls routineResult.locals)) =
+    some (footerStep calls routineResult.locals).locals
+error: Silver/ApplicationPackageUnitTotal.lean:111:39: This simp argument is unused:
+  ↓reduceIte
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Outcome.bind, returned, objectDone, Option.bind_some]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageUnitTotal.lean:113:75: This simp argument is unused:
+  Option.map_some
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [objectReturns, ↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageUnitTotal.lean:114:32: This simp argument is unused:
+  ↓reduceIte
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [objectReturns]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageUnitTotal.lean:119:79: This simp argument is unused:
+  Option.map_some
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [routineReturns, ↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageUnitTotal.lean:121:40: This simp argument is unused:
+  ↓reduceIte
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [routineReturns, Option.map_some]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageUnitTotal.lean:121:52: This simp argument is unused:
+  Option.map_some
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [routineReturns, ↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Some required targets logged failures:
+- Silver.ApplicationPackageUnitTotal
+error: build failed
+
+Lean phase build finished at 2026-11-27T21:11:53.396252+00:00; elapsed 143.895s; exit 1
+check_lean: Lean check failed; see /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log

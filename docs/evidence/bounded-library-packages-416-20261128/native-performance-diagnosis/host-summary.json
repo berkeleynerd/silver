@@ -1,0 +1,68 @@
+{
+  "interval_seconds": 30.002548694610596,
+  "groups": {
+    "original": {
+      "observed_cpu_seconds": 43.67,
+      "last_processes": 17,
+      "last_rss_bytes_sum": 6123872256
+    },
+    "probe60": {
+      "observed_cpu_seconds": 59.96,
+      "last_processes": 13,
+      "last_rss_bytes_sum": 2531385344
+    }
+  },
+  "cpu_percent": {
+    "cpu": {
+      "busy": 65.06971904266389,
+      "iowait": 0.008324661810613945,
+      "steal": 0.012486992715920915
+    },
+    "cpu0": {
+      "busy": 40.07976071784646,
+      "iowait": 0.03323363243602526,
+      "steal": 0.03323363243602526
+    },
+    "cpu1": {
+      "busy": 11.510312707917498,
+      "iowait": 0.0,
+      "steal": 0.0
+    },
+    "cpu2": {
+      "busy": 100.0,
+      "iowait": 0.0,
+      "steal": 0.0
+    },
+    "cpu3": {
+      "busy": 67.07805203468979,
+      "iowait": 0.066711140760507,
+      "steal": 0.0333555703802535
+    },
+    "cpu4": {
+      "busy": 85.63333333333334,
+      "iowait": 0.0,
+      "steal": 0.0
+    },
+    "cpu5": {
+      "busy": 16.555851063829788,
+      "iowait": 0.0,
+      "steal": 0.03324468085106383
+    },
+    "cpu6": {
+      "busy": 100.0,
+      "iowait": 0.0,
+      "steal": 0.03333333333333333
+    },
+    "cpu7": {
+      "busy": 100.0,
+      "iowait": 0.0,
+      "steal": 0.0
+    }
+  },
+  "memory": {
+    "MemTotal": "65931660 kB",
+    "MemAvailable": "53240040 kB",
+    "SwapTotal": "0 kB",
+    "SwapFree": "0 kB"
+  }
+}

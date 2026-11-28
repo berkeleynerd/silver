@@ -35,6 +35,9 @@ structure ParseContext where
   pure : Bool := false
   outerIntegerHidden : Bool := false
   arrayTypes : ArrayBindings.TypeEnvironment := []
+  contextFirst : Nat := 1
+  packageFirst : Nat := 0
+  packageAfter : Nat := 0
   deriving Repr
 
 def ParseContext.arrayTable (context : ParseContext) : ArrayBindings.Table :=
@@ -131,7 +134,7 @@ def ParseContext.validityHidden (context : ParseContext) (text : Source) : Bool 
 def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (initials : ArrayBindings.Initials := []) : ExpressionResult :=
   expressionAt text position context.names (context.readingNames facts)
-    (context.integerHidden text) context.arrayTable initials context.elaborating
+    (context.integerHidden text) context.arrayTable initials context.elaborating context.contextFirst
 
 def Comparison.toInteger : Comparison → Integer.Comparison
   | .eq => .eq | .ne => .ne | .lt => .lt | .le => .le | .gt => .gt | .ge => .ge
@@ -187,9 +190,10 @@ def characterCondition (text : Source) (context : ParseContext) (position : Nat)
   else ⟨right.after, facts, facts⟩
 
 def bareTarget (text : Source) (context : ParseContext) (position after : Nat) : Nat :=
-  let first := skipAt text position
-  let last := nameAfter text first
-  let index := ScalarExpression.lookup text context.scalarNames first last
+  let reference := ScalarExpression.readReference text position
+  let last := reference.after
+  let index := ScalarExpression.lookup text context.scalarNames reference.first last
+    reference.qualifierFirst reference.qualifierAfter
   if index ≠ 0 ∧ last = after ∧
       ((ScalarExpression.binding context.scalarNames index).mutable || decide (context.declarationCount < index))
   then index else 0
@@ -267,10 +271,14 @@ def booleanArrayAfter (text : Source) (context : ParseContext) (position : Nat)
   then 0 else close
 
 def booleanAtomAfter (text : Source) (context : ParseContext) (position : Nat) : Nat :=
-  let first := skipAt text position
-  let after := nameAfter text first
-  if first = 0 ∨ after ≤ first ∨
-      (context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter first after) ∨
+  let reference := ScalarExpression.readReference text position
+  let first := reference.first
+  let after := reference.after
+  if first = 0 ∨ after ≤ first then 0
+  else if reference.qualifierFirst ≠ 0 then
+    if BooleanBindings.lookup text context.booleanNames first after
+        reference.qualifierFirst reference.qualifierAfter ≠ 0 then after else 0
+  else if (context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter first after) ∨
       ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
       lookupName text context.names first after ≠ 0 ∨
       ArrayBindings.lookup text context.arrayNames first after ≠ 0 ∨
@@ -298,7 +306,7 @@ mutual
     else if !context.hasArguments then invalidCondition facts
     else
       let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayTable
-        (context.validityHidden text) context.booleanNames
+        (context.validityHidden text) context.booleanNames context.contextFirst context.packageFirst context.packageAfter
       if afterCall = 0 then invalidCondition facts else
         ⟨afterCall, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
   termination_by remainingAt text position * 7 + 1

@@ -2,6 +2,7 @@ module
 
 public import Silver.ProcedureNameIdentifierWords
 public import Silver.ComposeBounds
+public import Silver.ScalarProcedureSyntax
 
 @[expose] public section
 

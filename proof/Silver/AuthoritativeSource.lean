@@ -1,5 +1,10 @@
 module
 
+public import Silver.ApplicationUnitsSpecSource
+public import Silver.ApplicationUnitsBodySource
+public import Silver.PackageBindingsSpecSource
+public import Silver.PackageBindingsBodySource
+
 public import Silver.ImageFilesSpecSource
 public import Silver.ImageFilesBodySource
 public import Silver.LengthIntervalsSpecSource

@@ -25,13 +25,13 @@ def stringReferenceValue (after index : Nat) (info : BindingInfo) : ValueResult 
 
 inductive ValueAtCore (text : Source) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (arrays : ArrayBindings.Table) (initials : ArrayBindings.Initials) (elaborating : Bool) :
-    Nat → Operand → ValueResult → Prop
+    (arrays : ArrayBindings.Table) (initials : ArrayBindings.Initials) (elaborating : Bool)
+    (contextFirst : Nat) : Nat → Operand → ValueResult → Prop
   | literal {position after : Nat} {bytes : Source} :
       skipAt text position ≠ 0 → skipAt text position ≤ text.length →
       Cursor.byteAt text (skipAt text position) = 34 →
       Output.LiteralAt text (skipAt text position + 1) bytes after →
-      ValueAtCore text names scalarNames integerHidden arrays initials elaborating position (.literal bytes)
+      ValueAtCore text names scalarNames integerHidden arrays initials elaborating contextFirst position (.literal bytes)
         ⟨after, skipAt text position + 1, bytes.length, bytes.length, false, false, false, 0,
           1, .singleton 1, .singleton bytes.length⟩
   | reference {position after index : Nat} {name : Source} {info : BindingInfo} :
@@ -41,26 +41,28 @@ inductive ValueAtCore (text : Source) (names : BindingEnvironment)
       ScalarExpression.lookup text scalarNames (skipAt text position) after = 0 →
       names.get index = some info → info.isCharacter = false →
       fixedAfter text after "(" false = 0 →
-      ValueAtCore text names scalarNames integerHidden arrays initials elaborating position (.reference index)
+      ValueAtCore text names scalarNames integerHidden arrays initials elaborating contextFirst position (.reference index)
         (stringReferenceValue after index info)
   | slice {position : Nat} {info : BindingInfo} {lower upper : Integer.Expr} :
       ¬ QuotedValueAt text position → slicePrefix text position names →
-      IndexedReading text names scalarNames arrays initials elaborating false position info lower upper →
-      ValueAtCore text names scalarNames integerHidden arrays initials elaborating position
+      IndexedReading (contextFirst := contextFirst) text names scalarNames arrays initials elaborating false position info lower upper →
+      ValueAtCore text names scalarNames integerHidden arrays initials elaborating contextFirst position
         (.slice (indexedParts text position names scalarNames arrays initials elaborating false).target info.firstIndex lower upper)
         (indexedValue (indexedParts text position names scalarNames arrays initials elaborating false) false)
   | image {position : Nat} {expression : Integer.Expr} :
       ¬ QuotedValueAt text position → ¬ slicePrefix text position names →
       ¬ stringReference text position names scalarNames →
       ImageReading text names scalarNames integerHidden position expression arrays initials elaborating →
-      ValueAtCore text names scalarNames integerHidden arrays initials elaborating position (.image expression)
+      ValueAtCore text names scalarNames integerHidden arrays initials elaborating contextFirst position (.image expression)
         (imageValue (imageParts text position scalarNames arrays initials elaborating))
 
 abbrev ValueAt (text : Source) (names : BindingEnvironment) (position : Nat)
     (value : Operand) (result : ValueResult) (scalarNames : ScalarExpression.Environment := [])
     (integerHidden : Bool := false) (arrays : ArrayBindings.Table := {})
-    (initials : ArrayBindings.Initials := []) (elaborating : Bool := false) : Prop :=
-  ValueAtCore text names scalarNames integerHidden arrays initials elaborating position value result
+    (initials : ArrayBindings.Initials := []) (elaborating : Bool := false) (contextFirst : Nat := 1) : Prop :=
+  ValueAtCore text names scalarNames integerHidden arrays initials elaborating contextFirst position value result
+
+variable {contextFirst : Nat}
 
 theorem noQuotedValue {text : Source} {position : Nat} (absent : ¬ QuotedValueAt text position) :
     (literalAt text (skipAt text position)).after = 0 := by
@@ -71,8 +73,8 @@ theorem noQuotedValue {text : Source} {position : Nat} (absent : ¬ QuotedValueA
 theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
     {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat} {value : Operand} {result : ValueResult}
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
-    valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names = result := by
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
+    valueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names = result := by
   cases parsed with
   | literal positive bound quote parsed =>
       rename_i after bytes
@@ -98,24 +100,24 @@ theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames
 theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment)
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool}
-    (accepted : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
-    ∃ value, ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value
-      (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
+    (accepted : (valueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
+    ∃ value, ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value
+      (valueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
   by_cases quoted : (literalAt text (skipAt text position)).after ≠ 0
   · obtain ⟨bytes, after, positive, bound, quote, parsed⟩ := (quotedValue_iff text position).mpr quoted
-    have source : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    have source : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
         (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position (.literal bytes)
         ⟨after, skipAt text position + 1, bytes.length, bytes.length, false, false, false, 0,
           1, .singleton 1, .singleton bytes.length⟩ := .literal positive bound quote parsed
     exact ⟨_, (value_complete source).symm ▸ source⟩
   · have noLiteral : ¬ QuotedValueAt text position := fun present => quoted ((quotedValue_iff text position).mp present)
     by_cases sliced : slicePrefix text position names
-    · have raw : (indexedAt text position names scalarNames arrays initials elaborating false).after ≠ 0 := by
+    · have raw : (indexedAt (contextFirst := contextFirst) text position names scalarNames arrays initials elaborating false).after ≠ 0 := by
         unfold slicePrefix at sliced
         simp only [valueAt, quoted, ↓reduceIte] at accepted
         rwa [ite_eq_left sliced] at accepted
       obtain ⟨info, lower, upper, parsed⟩ := indexed_sound raw
-      have source : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+      have source : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
           (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position
           (.slice (indexedParts text position names scalarNames arrays initials elaborating false).target info.firstIndex lower upper)
           (indexedValue (indexedParts text position names scalarNames arrays initials elaborating false) false) :=
@@ -134,7 +136,7 @@ theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment
           by_cases zero : fixedAfter text (nameAfter text (skipAt text position)) "(" false = 0
           · exact zero
           · exact False.elim (sliced ⟨referenced.1, referenced.2.1, zero⟩)
-        have source : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+        have source : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
             (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position
             (.reference (lookupName text names (skipAt text position) (nameAfter text (skipAt text position))))
             (stringReferenceValue (nameAfter text (skipAt text position))
@@ -146,7 +148,7 @@ theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment
           unfold stringReference at referenced
           simpa only [valueAt, quoted, ↓reduceIte, sliced, referenced] using accepted
         obtain ⟨expression, parsed⟩ := image_sound raw
-        have source : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+        have source : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
             (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position (.image expression)
             (imageValue (imageParts text position scalarNames arrays initials elaborating)) :=
           .image noLiteral sliced referenced parsed
@@ -159,7 +161,7 @@ theorem value_inferLength {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult} (normal : NamesNormal names)
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
     value.inferLength names.shape (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
   cases parsed with
   | literal => rfl
@@ -187,7 +189,7 @@ theorem value_literals {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult}
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
     value.PrintableLiterals := by
   cases parsed with
   | literal _ _ _ parsed => exact (Output.literalAt_bounds parsed).2.2
@@ -226,7 +228,7 @@ theorem value_operands {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult}
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
     result.operands = value.sourceOperands ∧ 0 < result.operands ∧ result.operands ≤ maxExpressionOperands := by
   cases parsed with
@@ -242,7 +244,7 @@ theorem value_readable {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult}
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
     value.StringReadable names.shape := by
   cases parsed with
@@ -255,8 +257,8 @@ theorem value_readable {text : Source} {names : BindingEnvironment}
 theorem value_unique {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Table} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {left right : Operand} {leftResult rightResult : ValueResult}
-    (first : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position left leftResult)
-    (second : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position right rightResult) :
+    (first : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position left leftResult)
+    (second : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position right rightResult) :
     left = right ∧ leftResult = rightResult := by
   have results := (value_complete first).symm.trans (value_complete second)
   refine ⟨?_, results⟩

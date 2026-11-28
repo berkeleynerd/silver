@@ -1,5 +1,10 @@
 module
 
+public import Silver.ApplicationUnitsSpecCertificate
+public import Silver.ApplicationUnitsBodyCertificate
+public import Silver.PackageBindingsSpecCertificate
+public import Silver.PackageBindingsBodyCertificate
+
 public import Silver.ImageModelSpecCertificate
 public import Silver.ImageModelBodyCertificate
 public import Silver.ImageModelTemplatesSpecCertificate

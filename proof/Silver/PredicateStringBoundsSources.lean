@@ -670,7 +670,7 @@ def RawStringInitializerBounds (text : Source) (program : Program) (state next :
   ∃ raw result certificate,
     ExpressionAt text state.names (declarationValuePosition text state) raw result
       state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.table state.arrayNames.values true ∧
+      state.arrayNames.table state.arrayNames.values true state.contextFirst ∧
     declaration.initializer = raw.freezeImages
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) ∧
     certificate = declarationBoundsCertificate state.names declaration ∧
@@ -696,8 +696,36 @@ def RawStringInitializerBounds (text : Source) (program : Program) (state next :
       (info.dynamic = false → BindingInfo.objectBounds info = raw.objectBounds state.names input
         (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)))
 
-theorem raw_string_initializer_bounds {text input : Source} {arguments state next declaration values program}
-    (valid : program.Valid) (inputBound : input.length ≤ maxSourceLength)
+/-- The region proof needs only the original declaration-range and raw Boolean
+initializer fragments. It does not depend on body validity or standalone Main
+entry assumptions. This is an internal proof interface, never a source premise. -/
+structure InitializerBoundsFragments (program : Program) : Prop where
+  ranges : ∀ schema, Check.declaration (.range schema) ∈ program.checks →
+    (Check.declaration (.range schema)).InFragment
+  booleans : ∀ context summary, Obligation.stringRange context summary ∈ program.booleanInitializerChecks →
+    (Check.path (.stringRange context summary)).InFragment
+
+theorem InitializerBoundsFragments.of_valid {program : Program} (valid : program.Valid) :
+    InitializerBoundsFragments program :=
+  ⟨fun _ member => Program.checks_fragment valid _ member,
+    fun _ _ member => Program.checks_fragment valid _ (raw_boolean_check_present member)⟩
+
+/-- The imported-entry declaration join derives this interface directly from
+its exact String declarations and raw Boolean obligation inventory. -/
+theorem InitializerBoundsFragments.of_initializers {program : Program}
+    (declared : DeclarationsValid emptyShape program.declarations program.names.shape)
+    (booleans : Predicate.discharged program.booleanInitializerChecks = true) :
+    InitializerBoundsFragments program := by
+  constructor
+  · intro schema member
+    have present : schema ∈ declarationRangeObligations emptyShape program.names.shape program.declarations := by
+      simpa [Program.checks, declarationChecks] using member
+    exact ⟨_, by simp [Compose.uniformRangeObligations], Compose.declaration_schemas declared schema present⟩
+  · intro context summary member
+    exact List.all_eq_true.mp booleans _ member
+
+theorem raw_string_initializer_bounds_of_fragments {text input : Source} {arguments state next declaration values program}
+    (fragments : InitializerBoundsFragments program) (inputBound : input.length ≤ maxSourceLength)
     (count : state.names.length ≤ maxBindings) (metadata : NamesBoundsValid state.names)
     (strings : Fits state.names.shape input values)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
@@ -714,7 +742,7 @@ theorem raw_string_initializer_bounds {text input : Source} {arguments state nex
       let declaration : Declaration := ⟨state.names.length + 1, decide (parts.constantAfter = 0), frozen⟩
       let certificate := declarationBoundsCertificate state.names declaration
       have refined := declarationBoundsCertificate_refines count declaration
-      have fragment := Check.fragment_of_refines refined (Program.checks_fragment valid _ present)
+      have fragment := Check.fragment_of_refines refined (fragments.ranges _ present)
       have certificateValid : certificate.Valid := Check.fragment_valid fragment
       have frozenSafe := expressionAt_safe (arrays := state.arrayNames.table) metadata.normal static stored source bounded
       have scalars := frozenIntegers_view_fits (arrays := state.arrayNames.table)
@@ -751,6 +779,19 @@ theorem raw_string_initializer_bounds {text input : Source} {arguments state nex
         cases same.1
         exact ⟨info, selected, typed, bounds⟩
 
+theorem raw_string_initializer_bounds {text input : Source} {arguments state next declaration values program}
+    (valid : program.Valid) (inputBound : input.length ≤ maxSourceLength)
+    (count : state.names.length ≤ maxBindings) (metadata : NamesBoundsValid state.names)
+    (strings : Fits state.names.shape input values)
+    (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
+    (present : Check.declaration (.range
+      (expressionSchema state.names.shape maxSourceLength declaration.initializer)) ∈ program.checks)
+    (parsed : StringDeclarationAt text arguments state declaration next) :
+    RawStringInitializerBounds text program state next declaration input values :=
+  raw_string_initializer_bounds_of_fragments (InitializerBoundsFragments.of_valid valid) inputBound count metadata strings static stored present parsed
+
+
 def RawCharacterInitializerBounds (text : Source) (program : Program) (state next : ParserState)
     (declaration : Declaration) (input : Source) (values : Values) : Prop :=
   ∃ position raw result certificate,
@@ -778,8 +819,8 @@ def RawCharacterInitializerBounds (text : Source) (program : Program) (state nex
       declaration.initializer.evaluate values input = [expression.evaluate values
         (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)])
 
-theorem raw_character_initializer_bounds {text input : Source} {arguments state next declaration values program}
-    (valid : program.Valid) (inputBound : input.length ≤ maxSourceLength)
+theorem raw_character_initializer_bounds_of_fragments {text input : Source} {arguments state next declaration values program}
+    (fragments : InitializerBoundsFragments program) (inputBound : input.length ≤ maxSourceLength)
     (count : state.names.length ≤ maxBindings) (metadata : NamesBoundsValid state.names)
     (strings : Fits state.names.shape input values)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
@@ -798,7 +839,7 @@ theorem raw_character_initializer_bounds {text input : Source} {arguments state 
       let certificate := declarationBoundsCertificate state.names declaration
       have refined := declarationBoundsCertificate_refines count declaration
       have certificateValid : certificate.Valid := Check.fragment_valid
-        (Check.fragment_of_refines refined (Program.checks_fragment valid _ present))
+        (Check.fragment_of_refines refined (fragments.ranges _ present))
       have scalars := frozenIntegers_view_fits (arrays := state.arrayNames.table)
         (initials := state.arrayNames.values) static stored
       have frozenSafe := characterExpression_frozen_safe metadata.normal source scalars
@@ -829,6 +870,19 @@ theorem raw_character_initializer_bounds {text input : Source} {arguments state 
         simpa only [frozen, frozen_expression_evaluate, length] using covered true false
       exact ⟨_, expression, parts.value, certificate, source, rfl, rfl, present, refined,
         certificateValid, covered, rawSafe, rawBounds, frozenBounds, capture⟩
+
+theorem raw_character_initializer_bounds {text input : Source} {arguments state next declaration values program}
+    (valid : program.Valid) (inputBound : input.length ≤ maxSourceLength)
+    (count : state.names.length ≤ maxBindings) (metadata : NamesBoundsValid state.names)
+    (strings : Fits state.names.shape input values)
+    (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
+    (present : Check.declaration (.range
+      (expressionSchema state.names.shape maxSourceLength declaration.initializer)) ∈ program.checks)
+    (parsed : CharacterDeclarationAt text arguments state declaration next) :
+    RawCharacterInitializerBounds text program state next declaration input values :=
+  raw_character_initializer_bounds_of_fragments (InitializerBoundsFragments.of_valid valid) inputBound count metadata strings static stored present parsed
+
 
 /-- The old retained declaration schema is calculated in exactly the prefix
 table used by this raw initializer. This is the key source-order inventory
@@ -863,16 +917,23 @@ def RawBooleanBoundsCertificates (program : Program) (names : Compose.BindingEnv
       (Check.stringBounds certificate).Refines (.path (.stringRange context summary)) ∧
       certificate.Valid
 
-theorem raw_boolean_bounds_certificates {program : Program} {names : Compose.BindingEnvironment}
-    {checks : List Obligation} (valid : program.Valid) (count : names.length ≤ maxBindings)
+theorem raw_boolean_bounds_certificates_of_fragments {program : Program} {names : Compose.BindingEnvironment}
+    {checks : List Obligation} (fragments : InitializerBoundsFragments program) (count : names.length ≤ maxBindings)
     (members : ∀ check ∈ checks, check ∈ program.booleanInitializerChecks) :
     RawBooleanBoundsCertificates program names checks := by
   intro context summary member
   let certificate : StringBoundsObligation := ⟨names.length, .path context summary⟩
   have present := raw_boolean_check_present (members _ member)
   have refined : (Check.stringBounds certificate).Refines (.path (.stringRange context summary)) := ⟨count, rfl⟩
-  have fragment := Check.fragment_of_refines refined (Program.checks_fragment valid _ present)
+  have fragment := Check.fragment_of_refines refined (fragments.booleans _ _ (members _ member))
   exact ⟨certificate, rfl, rfl, present, refined, Check.fragment_valid fragment⟩
+
+theorem raw_boolean_bounds_certificates {program : Program} {names : Compose.BindingEnvironment}
+    {checks : List Obligation} (valid : program.Valid) (count : names.length ≤ maxBindings)
+    (members : ∀ check ∈ checks, check ∈ program.booleanInitializerChecks) :
+    RawBooleanBoundsCertificates program names checks :=
+  raw_boolean_bounds_certificates_of_fragments (InitializerBoundsFragments.of_valid valid) count members
+
 
 /-- Consume the exact certificates of the raw source condition at each reached
 String comparison. In particular, the proof of actual bounds does not discard
@@ -967,8 +1028,8 @@ def RawBooleanInitializerBounds (text : Source) (program : Program) (state : Par
 /-- This local lemma consumes the same checked raw condition and its exact
 declaration-time flow. The global traversal must derive `allowed` from the
 decoded program's initial input context, never assume it as a native contract. -/
-theorem raw_boolean_initializer_bounds {text state declaration checks program input inputValid values}
-    (valid : program.Valid) (count : state.names.length ≤ maxBindings)
+theorem raw_boolean_initializer_bounds_of_fragments {text state declaration checks program input inputValid values}
+    (fragments : InitializerBoundsFragments program) (count : state.names.length ≤ maxBindings)
     (metadata : NamesBoundsValid state.names) (strings : Fits state.names.shape input values)
     (stateValid : Compose.Expressions.ValidState text state)
     (ready : ScalarMetadata.HeaderReady state.scalarNames)
@@ -988,7 +1049,7 @@ theorem raw_boolean_initializer_bounds {text state declaration checks program in
   have safe : ∀ booleans, raw.Safe state.names.shape values input inputValid
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) booleans :=
     fun _ => Condition.checkBounds_sound strings meaning.readable flowAllowed meaning.checked
-  have certificates := raw_boolean_bounds_certificates valid count members
+  have certificates := raw_boolean_bounds_certificates_of_fragments fragments count members
   refine ⟨raw, parsed, frozen, schemas, certificates, ?_, ?_⟩
   · intro booleans
     rw [schemas] at certificates
@@ -998,6 +1059,19 @@ theorem raw_boolean_initializer_bounds {text state declaration checks program in
     rw [frozen]
     exact Condition.objectBoundsSafe_of_safe count metadata strings
       (Condition.boundsOrigin_freeze _ origin) (Condition.freezeIntegers_safe (safe booleans))
+
+theorem raw_boolean_initializer_bounds {text state declaration checks program input inputValid values}
+    (valid : program.Valid) (count : state.names.length ≤ maxBindings)
+    (metadata : NamesBoundsValid state.names) (strings : Fits state.names.shape input values)
+    (stateValid : Compose.Expressions.ValidState text state)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames)
+    (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
+    (allowed : (booleanDeclarationFacts state).path.Allows inputValid input.length false)
+    (members : ∀ check ∈ checks, check ∈ program.booleanInitializerChecks)
+    (trace : BooleanDeclarationChecksAt text state declaration checks) :
+    RawBooleanInitializerBounds text program state declaration checks input inputValid values :=
+  raw_boolean_initializer_bounds_of_fragments (InitializerBoundsFragments.of_valid valid) count metadata strings stateValid ready static stored allowed members trace
 
 
 /-- Every component retains its source condition and raw certificates. All
@@ -1020,8 +1094,8 @@ def RawBooleanArrayInitializerBounds (text : Source) (program : Program) (state 
     (∀ value ∈ declaration.values, ∀ after booleans,
       value.ObjectBoundsSafe state.names values input inputValid after booleans)
 
-theorem raw_boolean_array_initializer_bounds {text state declaration checks program input inputValid values}
-    (valid : program.Valid) (count : state.names.length ≤ maxBindings)
+theorem raw_boolean_array_initializer_bounds_of_fragments {text state declaration checks program input inputValid values}
+    (fragments : InitializerBoundsFragments program) (count : state.names.length ≤ maxBindings)
     (metadata : NamesBoundsValid state.names) (strings : Fits state.names.shape input values)
     (stateValid : Compose.Expressions.ValidState text state)
     (ready : ScalarMetadata.HeaderReady state.scalarNames)
@@ -1038,7 +1112,7 @@ theorem raw_boolean_array_initializer_bounds {text state declaration checks prog
   have flowAllowed : ((booleanInitializerContext state parts.first parts.after).flow
       (booleanInitializerFacts state) state.arrayNames.values).Allows inputValid input.length false
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) := ⟨allowed, fits⟩
-  have certificates := raw_boolean_bounds_certificates valid count members
+  have certificates := raw_boolean_bounds_certificates_of_fragments fragments count members
   have safe : ∀ value ∈ raw, ∀ booleans, value.Safe state.names.shape values input inputValid
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) booleans := by
     intro value member booleans
@@ -1057,6 +1131,20 @@ theorem raw_boolean_array_initializer_bounds {text state declaration checks prog
     exact Condition.objectBoundsSafe_of_safe count metadata strings
       (Condition.boundsOrigin_freeze _ (origins condition present))
       (Condition.freezeIntegers_safe (safe condition present booleans))
+
+theorem raw_boolean_array_initializer_bounds {text state declaration checks program input inputValid values}
+    (valid : program.Valid) (count : state.names.length ≤ maxBindings)
+    (metadata : NamesBoundsValid state.names) (strings : Fits state.names.shape input values)
+    (stateValid : Compose.Expressions.ValidState text state)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames)
+    (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
+    (allowed : (booleanDeclarationFacts state).path.Allows inputValid input.length false)
+    (members : ∀ check ∈ checks, check ∈ program.booleanInitializerChecks)
+    (trace : BooleanArrayDeclarationChecksAt text state declaration checks) :
+    RawBooleanArrayInitializerBounds text program state declaration checks input inputValid values :=
+  raw_boolean_array_initializer_bounds_of_fragments (InitializerBoundsFragments.of_valid valid) count metadata strings stateValid ready static stored allowed members trace
+
 
 /-- This checked trace follows all nine alternatives of the *same* mixed source
 declaration grammar. The String store advances only at String/Character
@@ -1179,9 +1267,9 @@ theorem RawHeaderBoundsTrace.source {text arguments program input inputValid sta
 declaration uniqueness makes all its source witnesses identical. It is
 instantiated from `decodePrefix` and `Program.checks`, never exposed as a native
 helper or admitted-program premise. -/
-theorem boolean_region_bounds_trace {text input : Source} {arguments state final booleans checks inputValid values program}
+theorem boolean_region_bounds_trace_of_fragments {text input : Source} {arguments state final booleans checks inputValid values program}
     (textValid : Compose.Expressions.ValidText text) (inputBound : input.length ≤ maxSourceLength)
-    (printable : Bindings.Printable input) (valid : program.Valid)
+    (printable : Bindings.Printable input) (fragments : InitializerBoundsFragments program)
     (metadata : NamesBoundsValid state.names) (count : state.names.length ≤ maxBindings)
     (stringsFit : Fits state.names.shape input values)
     (stateValid : Compose.Expressions.ValidState text state)
@@ -1237,8 +1325,8 @@ theorem boolean_region_bounds_trace {text input : Source} {arguments state final
       have localBounds : RawStringInitializerBounds text program state middle declaration input values ∨
           RawCharacterInitializerBounds text program state middle declaration input values := by
         cases first with
-        | string _ source => exact Or.inl (raw_string_initializer_bounds valid inputBound count metadata stringsFit static stored present source)
-        | character source => exact Or.inr (raw_character_initializer_bounds valid inputBound count metadata stringsFit static stored present source)
+        | string _ source => exact Or.inl (raw_string_initializer_bounds_of_fragments fragments inputBound count metadata stringsFit static stored present source)
+        | character source => exact Or.inr (raw_character_initializer_bounds_of_fragments fragments inputBound count metadata stringsFit static stored present source)
       have nextInventory : ∀ declarations, DeclarationsAt text arguments middle declarations final →
           ∀ schema ∈ declarationRangeObligations middle.names.shape final.names.shape declarations,
             Check.declaration (.range schema) ∈ program.checks := by
@@ -1288,7 +1376,7 @@ theorem boolean_region_bounds_trace {text input : Source} {arguments state final
       exact ⟨declarations, .array positive more noCallable noSubtype noScalar first noArrayType source,
         .array positive more noCallable noSubtype noScalar first noArrayType bounds⟩
   | @booleanArray state middle final declaration booleans firstChecks checks positive more noCallable noSubtype noScalar first noArrayType raw tail ih =>
-      have localBounds := raw_boolean_array_initializer_bounds valid count metadata stringsFit stateValid ready static stored allowed
+      have localBounds := raw_boolean_array_initializer_bounds_of_fragments fragments count metadata stringsFit stateValid ready static stored allowed
         (fun check member => booleanInventory check (List.mem_append_left _ member)) raw
       have names := (boolean_array_declaration_preserves first).1
       have scalars := (boolean_array_declaration_preserves first).2.1
@@ -1324,7 +1412,7 @@ theorem boolean_region_bounds_trace {text input : Source} {arguments state final
         (scalars.symm ▸ ready) (scalars.symm ▸ static) nextStored nextAllowed nextInventory booleanInventory
       exact ⟨declarations, .subtype positive more noCallable first noArrayType source, .subtype positive more noCallable first noArrayType bounds⟩
   | @boolean state middle final declaration booleans firstChecks checks positive more noCallable noSubtype noScalar noArray first noArrayType raw tail ih =>
-      have localBounds := raw_boolean_initializer_bounds valid count metadata stringsFit stateValid ready static stored allowed
+      have localBounds := raw_boolean_initializer_bounds_of_fragments fragments count metadata stringsFit stateValid ready static stored allowed
         (fun check member => booleanInventory check (List.mem_append_left _ member)) raw
       have names := (boolean_declaration_preserves first).1
       have scalars := (boolean_declaration_preserves first).2.1
@@ -1361,6 +1449,26 @@ theorem boolean_region_bounds_trace {text input : Source} {arguments state final
         (kept.names.symm ▸ stringsFit) (Compose.Expressions.model_callable_declaration_valid textValid stateValid)
         (kept.scalarNames.symm ▸ ready) (kept.scalarNames.symm ▸ static) nextStored nextAllowed nextInventory booleanInventory
       exact ⟨declarations, .callable positive more accepted source, .callable positive more accepted bounds⟩
+
+theorem boolean_region_bounds_trace {text input : Source} {arguments state final booleans checks inputValid values program}
+    (textValid : Compose.Expressions.ValidText text) (inputBound : input.length ≤ maxSourceLength)
+    (printable : Bindings.Printable input) (valid : program.Valid)
+    (metadata : NamesBoundsValid state.names) (count : state.names.length ≤ maxBindings)
+    (stringsFit : Fits state.names.shape input values)
+    (stateValid : Compose.Expressions.ValidState text state)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames)
+    (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (stored : state.StoredArrays)
+    (allowed : (booleanDeclarationFacts state).path.Allows inputValid input.length false)
+    (trace : BooleanDeclarationsAt text arguments state booleans checks final)
+    (rangeInventory : ∀ declarations, DeclarationsAt text arguments state declarations final →
+      ∀ schema ∈ declarationRangeObligations state.names.shape final.names.shape declarations,
+        Check.declaration (.range schema) ∈ program.checks)
+    (booleanInventory : ∀ check ∈ checks, check ∈ program.booleanInitializerChecks) :
+    ∃ declarations, DeclarationsAt text arguments state declarations final ∧
+      RawHeaderBoundsTrace text arguments program input inputValid state values declarations booleans checks final :=
+  boolean_region_bounds_trace_of_fragments textValid inputBound printable (InitializerBoundsFragments.of_valid valid) metadata count stringsFit stateValid ready static stored allowed trace rangeInventory booleanInventory
+
 
 def headerLeadDeclarations (form : Form) : List Declaration :=
   if form.hasArguments then [argumentDeclaration] else []

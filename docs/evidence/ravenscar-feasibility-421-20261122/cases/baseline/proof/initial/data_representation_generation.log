@@ -1,0 +1,9 @@
+object directory "/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline/out/obj/explore/initial/gnatprove/data_representation" created for project Probe
+exec directory "/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline/out/bin/explore/initial/gnatprove/data_representation" created for project Probe
+Changing to object directory of "Probe": "/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline/out/obj/explore/initial/gnatprove/data_representation/"
+/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gcc -c -x ada -gnatA -gnat2022 -gnata -gnato -g -S -gnatR2js -gnatws -gnatx -gnatis -gnatec=/tmp/GPR.226587/GNAT-TEMP-000002.TMP -gnatec=/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline/ravenscar.adc -gnatem=/tmp/GPR.226587/GNAT-TEMP-000003.TMP /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline/src/main.adb
+main.adb:2:01: error: incorrect placement for configuration pragma "SPARK_Mode"
+
+   compilation of main.adb failed
+
+gprbuild: *** compilation phase failed

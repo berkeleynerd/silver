@@ -1,0 +1,72 @@
+Lean phase build started at 2026-11-22T15:02:48.314268+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 build +Silver.ScalarArrayExpressionRecognition +Silver.ScalarArrayGrammarSyntax +Silver.ScalarArrayGrammarFrames +Silver.IntegerSubtypeBindings +Silver.AxiomAudit
+✔ [62/62] Built Silver.IntegerSubtypeBindings (1.2s)
+Build completed successfully (62 jobs).
+
+Lean phase build finished at 2026-11-22T15:02:52.606431+00:00; elapsed 4.292s; exit 0
+Lean phase audit started at 2026-11-22T15:02:53.354317+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lake -K silverThreads=2 env /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lean -DwarningAsError=true -j2 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.OutputLiteral
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.OutputAdmission
+SILVER_MODULE Silver.NamedIdentifier
+SILVER_MODULE Silver.NamedAdmission
+SILVER_MODULE Silver.ArgumentsAdmission
+SILVER_MODULE Silver.GuardedDecimal
+SILVER_MODULE Silver.ScalarLiteral
+SILVER_MODULE Silver.IntegerIntervals
+SILVER_MODULE Silver.IntegerDivision
+SILVER_MODULE Silver.ArrayLayout
+SILVER_MODULE Silver.IntegerExpressions
+SILVER_MODULE Silver.IntegerDeclarations
+SILVER_MODULE Silver.IntegerMutable
+SILVER_MODULE Silver.StringIndexing
+SILVER_MODULE Silver.IntegerChecks
+SILVER_MODULE Silver.IntegerArraySnapshots
+SILVER_MODULE Silver.IntegerArrays
+SILVER_MODULE Silver.BooleanModel
+SILVER_MODULE Silver.BooleanArrays
+SILVER_MODULE Silver.QualifiedNames
+SILVER_MODULE Silver.BooleanBindings
+SILVER_MODULE Silver.ArrayBindings
+SILVER_MODULE Silver.ScalarExpression
+SILVER_MODULE Silver.ScalarExpressionBounds
+SILVER_MODULE Silver.ScalarExpressionGrammar
+SILVER_MODULE Silver.ScalarExpressionRecognition
+SILVER_MODULE Silver.ScalarArrayExpressionGrammar
+SILVER_MODULE Silver.ScalarArrayExpressionRecognition
+SILVER_MODULE Silver.NamedArrayParameters
+SILVER_MODULE Silver.ArrayBindingsMetadata
+SILVER_MODULE Silver.ScalarArrayAttributes
+SILVER_MODULE Silver.ScalarArrayAttributeSyntax
+SILVER_MODULE Silver.IntegerComparisons
+SILVER_MODULE Silver.OutputRuntime
+SILVER_MODULE Silver.ArgumentsRuntime
+SILVER_MODULE Silver.IntegerImage
+SILVER_MODULE Silver.CharacterExpressions
+SILVER_MODULE Silver.Bindings
+SILVER_MODULE Silver.PathFacts
+SILVER_MODULE Silver.ScalarFlow
+SILVER_MODULE Silver.ScalarExpressionEnvironment
+SILVER_MODULE Silver.PredicateFlowStorage
+SILVER_MODULE Silver.PredicateFlowOverlay
+SILVER_MODULE Silver.PredicateFlowOperations
+SILVER_MODULE Silver.PredicateFlowInvariant
+SILVER_MODULE Silver.PredicateFlowWidening
+SILVER_MODULE Silver.PredicateArrayFlow
+SILVER_MODULE Silver.PredicateArrayViews
+SILVER_MODULE Silver.ScalarArrayGrammar
+SILVER_MODULE Silver.ScalarArrayGrammarRecognition
+SILVER_MODULE Silver.ScalarArrayGrammarSyntax
+SILVER_MODULE Silver.ScalarFunctionTypes
+SILVER_MODULE Silver.ScalarFunctionFrame
+SILVER_MODULE Silver.ScalarFunctionArrayShape
+SILVER_MODULE Silver.ScalarArrayGrammarFrames
+SILVER_MODULE Silver.Names
+SILVER_MODULE Silver.IntegerSubtypeBindings
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 7155 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-22T15:02:56.052077+00:00; elapsed 2.698s; exit 0

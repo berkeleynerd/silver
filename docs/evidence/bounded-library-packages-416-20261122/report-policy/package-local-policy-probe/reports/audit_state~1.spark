@@ -1,0 +1,432 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 7,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 8,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Audit_State.Ignore",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "audit_state.ads",
+          "line": 11
+        }
+      ]
+    },
+    " 2": {
+      "name": "Audit_State.Produce",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "audit_state.ads",
+          "line": 5
+        }
+      ]
+    },
+    " 3": {
+      "name": "Audit_State.Depend",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "audit_state.ads",
+          "line": 6
+        }
+      ]
+    },
+    " 4": {
+      "name": "Audit_State.Local_Warnings",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "audit_state.ads",
+          "line": 9
+        }
+      ]
+    },
+    " 5": {
+      "name": "Audit_State.Read",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "audit_state.ads",
+          "line": 10
+        }
+      ]
+    },
+    " 6": {
+      "name": "Audit_State",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "audit_state.ads",
+          "line": 2
+        }
+      ]
+    },
+    " 7": {
+      "name": "Audit_State.Reset",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "audit_state.ads",
+          "line": 7
+        }
+      ]
+    },
+    " 8": {
+      "name": "Audit_State.Replace",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "audit_state.ads",
+          "line": 8
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 1,
+      "file": "audit_state.ads",
+      "how_proved": "flow",
+      "line": 11,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Ignore\" has been proved, subprogram will terminate"
+      },
+      "msg_id": 0,
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 43,
+      "entity": 2,
+      "file": "audit_state.ads",
+      "how_proved": "flow",
+      "line": 5,
+      "message": {
+        "text": "unused variable \"Unread\""
+      },
+      "msg_id": 1,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 23,
+      "entity": 2,
+      "file": "audit_state.ads",
+      "how_proved": "flow",
+      "line": 5,
+      "message": {
+        "text": "initialization of \"Answer\" proved"
+      },
+      "msg_id": 2,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 22,
+      "entity": 3,
+      "file": "audit_state.ads",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "unused initial value of \"Value\""
+      },
+      "msg_id": 3,
+      "rule": "UNUSED_INITIAL_VALUE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 7,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 28,
+      "message": {
+        "text": "initialization of \"Idle\" has no effect"
+      },
+      "msg_id": 4,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 7,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 29,
+      "message": {
+        "text": "initialization of \"Changed\" has no effect"
+      },
+      "msg_id": 5,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "audit_state~1__flow__0.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 7,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 30,
+      "message": {
+        "text": "initialization of \"Flag_Local\" has no effect"
+      },
+      "msg_id": 6,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 15,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 32,
+      "message": {
+        "text": "unused assignment"
+      },
+      "msg_id": 7,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 14,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 33,
+      "message": {
+        "text": "unused assignment"
+      },
+      "msg_id": 8,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "audit_state~1__flow__1.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 7,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 34,
+      "message": {
+        "text": "statement has no effect"
+      },
+      "msg_id": 9,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 7,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 34,
+      "message": {
+        "text": "\"Stored\" is set by \"Reset\" but not used after the call"
+      },
+      "msg_id": 10,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "audit_state~1__flow__2.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 7,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 34,
+      "message": {
+        "text": "\"Flag\" is set by \"Reset\" but not used after the call"
+      },
+      "msg_id": 11,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "audit_state~1__flow__3.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 7,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 36,
+      "message": {
+        "text": "statement has no effect"
+      },
+      "msg_id": 12,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 17,
+      "entity": 4,
+      "file": "audit_state.adb",
+      "how_proved": "flow",
+      "line": 37,
+      "message": {
+        "text": "this statement is never reached"
+      },
+      "msg_id": 13,
+      "rule": "DEAD_CODE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 5,
+      "file": "audit_state.ads",
+      "how_proved": "flow",
+      "line": 10,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+      },
+      "msg_id": 14,
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "all",
+    " 3": "all",
+    " 4": "all",
+    " 5": "all",
+    " 6": "all",
+    " 7": "all",
+    " 8": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 4.09999993280508E-05
+    },
+    " 2": {
+      "gnat2why.vc_generation": 5.77000027988106E-04
+    },
+    " 3": {
+      "gnat2why.vc_generation": 3.50000009348150E-05
+    },
+    " 4": {
+      "gnat2why.vc_generation": 1.27000006614253E-04
+    },
+    " 5": {
+      "gnat2why.vc_generation": 4.50000006821938E-05
+    },
+    " 7": {
+      "gnat2why.vc_generation": 5.60000007681083E-05
+    },
+    " 8": {
+      "gnat2why.vc_generation": 5.80000014451798E-05
+    },
+    "global": {
+      "flow analysis": 2.84099997952580E-03,
+      "globals (advanced)": 2.61999986832961E-04,
+      "globals (basic)": 2.01000002562068E-04,
+      "init_why_sections": 4.87999990582466E-04,
+      "marking": 3.08999995468184E-04,
+      "properties (advanced)": 3.09999995806720E-05,
+      "translation of standard": 1.01200002245605E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

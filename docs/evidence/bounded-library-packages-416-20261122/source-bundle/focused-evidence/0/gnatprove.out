@@ -1,0 +1,42 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+----------------------------------------------------------------------------------------------------------
+SPARK Analysis results        Total        Flow                             Provers   Justified   Unproved
+----------------------------------------------------------------------------------------------------------
+Data Dependencies                 6           6                                   .           .          .
+Flow Dependencies                 .           .                                   .           .          .
+Initialization                    .           .                                   .           .          .
+Non-Aliasing                      .           .                                   .           .          .
+Run-time Checks                  62           .    62 (CVC5 3%, Z3 96%, altergo 1%)           .          .
+Assertions                        .           .                                   .           .          .
+Functional Contracts              7           .                7 (CVC5 10%, Z3 90%)           .          .
+LSP Verification                  .           .                                   .           .          .
+Termination                       6           6                                   .           .          .
+Concurrency                       .           .                                   .           .          .
+----------------------------------------------------------------------------------------------------------
+Total                            81    12 (15%)                            69 (85%)           .          .
+
+
+max steps used for successful proof: 3
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 1 unit
+in unit silver_application_units, 7 subprograms and packages out of 7 analyzed
+  Silver_Application_Units at silver_application_units.ads:3 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Application_Units.Fits at silver_application_units.ads:32 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (7 checks)
+  Silver_Application_Units.Pack at silver_application_units.ads:89 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (55 checks)
+  Silver_Application_Units.Prefix at silver_application_units.ads:79 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (3 checks)
+  Silver_Application_Units.Unit_Source at silver_application_units.ads:69 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (3 checks)
+  Silver_Application_Units.Unit_Span at silver_application_units.ads:60 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (1 checks)
+  Silver_Application_Units.Valid at silver_application_units.ads:45 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)

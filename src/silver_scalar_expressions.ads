@@ -19,9 +19,12 @@ package Silver_Scalar_Expressions with SPARK_Mode => On is
       Static : Boolean;
       Declared_Bounds : Silver_Scalars.Interval;
       Mutable : Boolean;
+      --  Nonzero qualifier spans denote an imported constant. Ordinary local
+      --  bindings keep both zero, so P.X and a local X have distinct names.
+      Qualifier_First, Qualifier_After : Literal_Position := 0;
    end record;
    Empty_Binding : constant Binding :=
-     (0, 0, Silver_Scalars.Empty, False, Silver_Scalars.Empty, False);
+     (0, 0, Silver_Scalars.Empty, False, Silver_Scalars.Empty, False, 0, 0);
    type Binding_Array is array (Binding_Index) of Binding;
    type Environment is record
       Count : Binding_Count;
@@ -35,25 +38,34 @@ package Silver_Scalar_Expressions with SPARK_Mode => On is
      (for all Index in 1 .. Names.Count =>
         Names.Items (Index).First > 0
         and then Valid_Name_State
-          (Text, Names.Items (Index).First, Names.Items (Index).After));
+          (Text, Names.Items (Index).First, Names.Items (Index).After)
+        and then Valid_Name_State
+          (Text, Names.Items (Index).Qualifier_First, Names.Items (Index).Qualifier_After));
    function Lookup_Model
      (Text : String; Names : Environment; First, After : Literal_Position;
-      Index : Binding_Count) return Binding_Count
+      Index : Binding_Count;
+      Qualifier_First : Literal_Position := 0;
+      Qualifier_After : Literal_Position := 0) return Binding_Count
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Environment (Text, Names) and then Index <= Names.Count
-         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1
+         and then Valid_Name_State (Text, Qualifier_First, Qualifier_After),
        Post => Lookup_Model'Result <= Index,
        Subprogram_Variant => (Decreases => Index);
    function Lookup
-     (Text : String; Names : Environment; First, After : Literal_Position)
+     (Text : String; Names : Environment; First, After : Literal_Position;
+      Qualifier_First : Literal_Position := 0;
+      Qualifier_After : Literal_Position := 0)
       return Binding_Count
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Environment (Text, Names)
-         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1
+         and then Valid_Name_State (Text, Qualifier_First, Qualifier_After),
        Post => (Runtime => Lookup'Result <= Names.Count,
-         Static => Lookup'Result = Lookup_Model (Text, Names, First, After, Names.Count));
+         Static => Lookup'Result = Lookup_Model
+           (Text, Names, First, After, Names.Count, Qualifier_First, Qualifier_After));
    function Append (Names : Environment; Item : Binding) return Environment is
      ((Count => Names.Count + 1,
        Items => (Names.Items with delta Names.Count + 1 => Item)))
@@ -77,6 +89,24 @@ package Silver_Scalar_Expressions with SPARK_Mode => On is
       Static : Boolean;
    end record;
    Invalid : constant Expression_Result := (0, Silver_Scalars.Empty, 0, False);
+   type Name_Reference is record
+      First, After, Qualifier_First, Qualifier_After : Literal_Position := 0;
+   end record;
+   Invalid_Reference : constant Name_Reference := (others => 0);
+   function Read_Reference (Text : String; Position : Literal_Position)
+      return Name_Reference
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => Valid_Name_State
+           (Text, Read_Reference'Result.First, Read_Reference'Result.After)
+         and then Valid_Name_State
+           (Text, Read_Reference'Result.Qualifier_First,
+            Read_Reference'Result.Qualifier_After)
+         and then (Read_Reference'Result.After = 0
+         or else (Read_Reference'Result.First > 0
+           and then Read_Reference'Result.First < Read_Reference'Result.After
+           and then Read_Reference'Result.After in Position + 1 .. Text'Last + 1));
    type Array_Read_Mode is (All_Elements, Mutable_Elements, No_Elements);
    --  Shape queries remain available when indexed component reads are excluded.
    --  Range_Query selects the discrete-range spelling, never an Integer atom.

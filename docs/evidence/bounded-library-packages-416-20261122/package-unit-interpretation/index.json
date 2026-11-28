@@ -1,0 +1,16 @@
+{
+  "run_id": "20261122T184448-488a4db35d80",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageUnitInterpretation",
+    "Silver.ApplicationPackageBodiesSourceCandidate"
+  ],
+  "declarations": 20987,
+  "implementation_commit": "b87fb94037176872a63b3fd88e34e5f49aec816f",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "ed37c4365a04f1a5d09d752a9841f0c1ca4b4f93d91c389ec5967cffd6719c94",
+    "evidence.json": "a4900abe8634b21e72da4ed3f3b2e02b6490a49c9db33eb8192d89c2f1733c00",
+    "lean-focused.log.gz": "5963a4471bd64c588602b8dad48e2e4045ff79468168e6fed317129b5b78f1ca"
+  },
+  "scope": "Whole typed Unit procedure execution over arbitrary locals/callees, loop progress/preservation, and exact full procedure token candidate. Raw phased-unit refinement, Completion and original-source semantic closure remain open."
+}

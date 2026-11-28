@@ -267,7 +267,7 @@ class OutputIntegrityTests(unittest.TestCase):
         fixture = self.fixtures / "main~1.spark"
         original = fixture.read_bytes()
         self.addCleanup(fixture.write_bytes, original)
-        maximum = original + b" " * (67_108_864 - len(original))
+        maximum = original + b" " * (268_435_456 - len(original))
         fixture.write_bytes(maximum)
         result, _ = self.run_scenario({})
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
@@ -286,8 +286,9 @@ class OutputIntegrityTests(unittest.TestCase):
                     data = json.loads(original)
                     if name == "main~1.spark":
                         data["proof"] = main_report(1)["proof"]
+                    opaque_bytes = 268_435_457 if name == "main~1.spark" else 262_145
                     data["proof"][0]["check_tree"] = [{"proof_attempts": {
-                        "Z3": {"result": 'Failure\\\"[]{}\n' + "x" * 34_000_000}}}]
+                        "Z3": {"result": 'Failure\\\"[]{}\n' + "x" * opaque_bytes}}}]
                     raw = json.dumps(data).encode()
                     fixture.write_bytes(raw)
                     result, workspace = self.run_scenario({}, command="compile")

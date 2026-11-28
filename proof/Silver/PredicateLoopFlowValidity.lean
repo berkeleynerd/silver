@@ -134,7 +134,7 @@ theorem loopHeader_flowReady {text : Source} {context : ParseContext} {scan : Bo
   have typed := loopHeader_bounds_bounded arrays positive
   let header := loopHeader text context scan
   let item : ScalarExpression.Binding :=
-    ⟨header.first, header.after, header.bounds, false, header.bounds, false⟩
+    {first := header.first, after := header.after, bounds := header.bounds, isStatic := false, declaredBounds := header.bounds, mutable := false}
   exact (ScalarMetadata.FlowReady.append_immutable base
     (ScalarMetadata.FlowReady.widen base ready environment) item rfl typed).withPath _
 

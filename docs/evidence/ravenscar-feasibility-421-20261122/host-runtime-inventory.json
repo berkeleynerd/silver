@@ -1,0 +1,59 @@
+{
+  "timestamp_utc": "2026-11-22T12:43:58.275902+00:00",
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.41",
+  "uname": [
+    "Linux",
+    "silver",
+    "7.0.14",
+    "#1 SMP PREEMPT Sat Nov  7 12:40:40 UTC 2026",
+    "x86_64"
+  ],
+  "uid": 1000,
+  "euid": 1000,
+  "allowed_cpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "cpu_count": 8,
+  "rlimit_rtprio": [
+    0,
+    0
+  ],
+  "observer_shell_stack_before_native_override": [
+    8388608,
+    -1
+  ],
+  "proc_status": "Name:\tpython3\nUmask:\t0022\nState:\tR (running)\nTgid:\t227722\nNgid:\t0\nPid:\t227722\nPPid:\t227721\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t27 999 1000 \nNStgid:\t227722\nNSpid:\t227722\nNSpgid:\t227721\nNSsid:\t227721\nKthread:\t0\nVmPeak:\t   29764 kB\nVmSize:\t   28664 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t   22792 kB\nVmRSS:\t   21932 kB\nRssAnon:\t   11160 kB\nRssFile:\t   10772 kB\nRssShmem:\t       0 kB\nVmData:\t   11896 kB\nVmStk:\t     136 kB\nVmExe:\t       4 kB\nVmLib:\t    9472 kB\nVmPTE:\t      92 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t0\nuntag_mask:\t0xffffffffffffffff\nThreads:\t1\nSigQ:\t0/257534\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000001001000\nSigCgt:\t0000000000000002\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tff\nCpus_allowed_list:\t0-7\nMems_allowed:\t00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t7\n",
+  "selected_runtime_files": {
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-taprop.adb": {
+      "sha256": "169121ca162329decae9986c22ddcca7620df7374a44e7b1c371ff58d77e8d0b",
+      "size": 41671
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads": {
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
+      "size": 7503
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-reatim.ads": {
+      "sha256": "aba7a8e3b1c02e0e9fb04c31a1c756cac47782bba3f79d9ad01d70abc80b103b",
+      "size": 8249
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-reatim.adb": {
+      "sha256": "43b0398d864457199041a514ac895f7afe432b0f7bde80f9328d636cd61c8da1",
+      "size": 13373
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnarl.a": {
+      "sha256": "0b277da8075d68deaa17bd4c52928b83c9d12653b171993db06801a751e26f37",
+      "size": 1885196
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a": {
+      "sha256": "0ad4faf3482b659765f96e1cc6fc3dcb13c7206b6f366d565a5d3d04a78a756d",
+      "size": 27038044
+    }
+  }
+}

@@ -32,11 +32,11 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
   case' neg =>
     by_cases nullToken : fixedAfter text scan.position "null" true ≠ 0
     case' neg =>
-      by_cases outputCall : !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames ≠ 0) = true
+      by_cases outputCall : !context.pure && decide (callAfter text context.names scan.position .output context.scalarNames context.arrayTable (context.subtypeHiding.get .output) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0) = true
       case' neg =>
-        by_cases putCall : !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0) = true
+        by_cases putCall : !context.pure && decide (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayTable (context.subtypeHiding.get .partialOutput) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0) = true
         case' neg =>
-          by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames ≠ 0
+          by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayTable (context.subtypeHiding.get .reject) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0
           case' neg =>
             by_cases scalar : scalarTarget text context.model scan.position ≠ 0
             case' neg =>
@@ -78,13 +78,14 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
 /-- Calls in the typed block are connected to already checked source primitives.
 The model below is an explicit inhabitant, rather than an assumed equation set. -/
 structure PrimitiveEquations (primitive : Primitives) : Prop where
-  callAfter : primitive.callAfter = (fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans)
+  callAfter : primitive.callAfter = (fun text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter => Compose.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter)
   associationAfter : primitive.associationAfter = Names.associationAfter
   token : primitive.token = tokenAfter
   expression : primitive.expression = (fun text context position facts => readStringInFlow text context.model position facts)
   readingNames : primitive.readingNames = (fun context facts => context.model.readingNames facts)
   character : primitive.character = (fun text position names scalarNames arrays => characterAt text position names scalarNames arrays)
-  indexed : primitive.indexed = indexedAt
+  indexed : primitive.indexed = fun text position names scalarNames arrays initials elaborating element =>
+    indexedAt text position names scalarNames arrays initials elaborating element 1
   target : primitive.target = ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
   bodyToken : primitive.bodyToken = fun text _ scan token => Predicate.bodyToken text scan token
   invalid : primitive.invalid = invalidBody

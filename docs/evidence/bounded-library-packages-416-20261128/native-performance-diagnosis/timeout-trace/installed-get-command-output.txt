@@ -1,0 +1,79 @@
+947:    function Get_Command_Output
+948:      (Command    : String;
+949:       Arguments  : GNAT.OS_Lib.Argument_List;
+950:       Input      : String;
+951:       Status     : not null access Integer;
+952:       Err_To_Out : Boolean := False) return String
+953:    is
+954:       Process : Process_Descriptor;
+955:
+956:       Output : String_Access := new String (1 .. 1024);
+957:       --  Buffer used to accumulate standard output from the launched
+958:       --  command, expanded as necessary during execution.
+959:
+960:       Last : Integer := 0;
+961:       --  Index of the last used character within Output
+962:
+963:    begin
+964:       Non_Blocking_Spawn
+965:         (Process, Command, Arguments, Err_To_Out => Err_To_Out,
+966:          Buffer_Size => 0);
+967:
+968:       if Input'Length > 0 then
+969:          Send (Process, Input);
+970:       end if;
+971:
+972:       Close_Input (Process);
+973:
+974:       declare
+975:          Result : Expect_Match;
+976:
+977:       begin
+978:          --  This loop runs until the call to Expect raises Process_Died
+979:
+980:          loop
+981:             Expect (Process, Result, ".+", Timeout => -1);
+982:
+983:             declare
+984:                NOutput : String_Access;
+985:                S       : constant String := Expect_Out (Process);
+986:                pragma Assert (S'Length > 0);
+987:
+988:             begin
+989:                --  Expand buffer if we need more space. Note here that we add
+990:                --  S'Length to ensure that S will fit in the new buffer size.
+991:
+992:                if Last + S'Length > Output'Last then
+993:                   NOutput := new String (1 .. 2 * Output'Last + S'Length);
+994:                   NOutput (Output'Range) := Output.all;
+995:                   Free (Output);
+996:
+997:                --  Here if current buffer size is OK
+998:
+999:                else
+1000:                   NOutput := Output;
+1001:                end if;
+1002:
+1003:                NOutput (Last + 1 .. Last + S'Length) := S;
+1004:                Last := Last + S'Length;
+1005:                Output := NOutput;
+1006:             end;
+1007:          end loop;
+1008:
+1009:       exception
+1010:          when Process_Died =>
+1011:             Close (Process, Status.all);
+1012:       end;
+1013:
+1014:       if Last = 0 then
+1015:          Free (Output);
+1016:          return "";
+1017:       end if;
+1018:
+1019:       declare
+1020:          S : constant String := Output (1 .. Last);
+1021:       begin
+1022:          Free (Output);
+1023:          return S;
+1024:       end;
+1025:    end Get_Command_Output;

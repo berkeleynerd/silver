@@ -1,0 +1,432 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 4,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 6,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 6,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 2,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 3,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 2,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 2,
+          "predicate": "CLAIM_AORTE"
+        }
+      ],
+      "claim": {
+        "arg": 3,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 5,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_AORTE"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Bounded_Probe.Counter.Read",
+      "sloc": [
+        {
+          "column": 16,
+          "file": "bounded_probe.ads",
+          "line": 6
+        }
+      ]
+    },
+    " 2": {
+      "name": "Bounded_Probe.Counter.Await_Release",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "bounded_probe.ads",
+          "line": 5
+        }
+      ]
+    },
+    " 3": {
+      "name": "Bounded_Probe.Worker",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "bounded_probe.ads",
+          "line": 12
+        }
+      ]
+    },
+    " 4": {
+      "name": "Bounded_Probe",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "bounded_probe.ads",
+          "line": 2
+        }
+      ]
+    },
+    " 5": {
+      "name": "Bounded_Probe.Counter",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "bounded_probe.ads",
+          "line": 3
+        }
+      ]
+    },
+    " 6": {
+      "name": "Bounded_Probe.Counter.Release",
+      "sloc": [
+        {
+          "column": 17,
+          "file": "bounded_probe.ads",
+          "line": 4
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 16,
+      "entity": 1,
+      "file": "bounded_probe.ads",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+      },
+      "msg_id": 0,
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+    {
+      "check_col": 28,
+      "check_file": "bounded_probe.adb",
+      "check_line": 13,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.19570000000000E-02
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 4.60900000000000E-03
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 8.21400000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 6.88700000000000E-03
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.00000000000000E-06
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 6.39400000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 28,
+      "entity": 2,
+      "file": "bounded_probe.adb",
+      "how_proved": "prover",
+      "line": 13,
+      "message": {
+        "text": "range check proved"
+      },
+      "msg_id": 1,
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 4.60899993777275E-03
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 9,
+      "check_file": "bounded_probe.ads",
+      "check_line": 12,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.03110000000000E-02
+            },
+            "Z3": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 1.00000000000000E-06
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 1.05760000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 9,
+      "entity": 3,
+      "file": "bounded_probe.ads",
+      "how_proved": "prover",
+      "line": 12,
+      "message": {
+        "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+      },
+      "msg_id": 2,
+      "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 1,
+          "max_steps": 1,
+          "max_time": 1.03110000491142E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 9,
+      "check_file": "bounded_probe.ads",
+      "check_line": 12,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 4.47200000000000E-03
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 3.27700000000000E-03
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 1.00000000000000E-06
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 9,
+      "entity": 3,
+      "file": "bounded_probe.ads",
+      "how_proved": "prover",
+      "line": 12,
+      "message": {
+        "text": "nontermination of task proved"
+      },
+      "msg_id": 3,
+      "rule": "VC_TASK_TERMINATION",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 1,
+          "max_time": 3.27700003981590E-03
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "all",
+    " 3": "all",
+    " 4": "all",
+    " 5": "all",
+    " 6": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 1.32200005464256E-03
+    },
+    " 2": {
+      "gnat2why.vc_generation": 7.40000032237731E-05,
+      "gnatwhy3.init": 2.67075002193451E-01,
+      "gnatwhy3.register_vcs": 1.27600005362183E-03,
+      "gnatwhy3.run_vcs": 4.99899988426478E-06,
+      "gnatwhy3.save_session": 6.85998995322734E-04,
+      "gnatwhy3.schedule_vcs": 1.11490003764629E-02,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 1.00599904544652E-03,
+      "gnatwhy3.transformations.detect_polymorphism": 3.22998996125534E-04,
+      "gnatwhy3.transformations.discriminate_if_poly": 3.99900000047637E-06,
+      "gnatwhy3.transformations.eliminate_algebraic": 7.68000027164817E-04,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 7.13000015821308E-04,
+      "gnatwhy3.transformations.eliminate_builtin": 8.05000017862767E-04,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 5.99990016780794E-05,
+      "gnatwhy3.transformations.eliminate_epsilon": 2.69999000011012E-04,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 2.87000002572313E-04,
+      "gnatwhy3.transformations.eliminate_inductive": 3.07998998323455E-04,
+      "gnatwhy3.transformations.eliminate_literal": 8.67000024300069E-04,
+      "gnatwhy3.transformations.eliminate_projections_sums": 1.05999002698809E-04,
+      "gnatwhy3.transformations.eliminate_recursion": 2.40000008489005E-05,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 1.99900000552589E-06,
+      "gnatwhy3.transformations.inline_trivial": 4.96800011023879E-03,
+      "gnatwhy3.transformations.introduce_premises": 7.09999003447592E-04,
+      "gnatwhy3.transformations.monomorphise_goal": 1.30000000353903E-04,
+      "gnatwhy3.transformations.remove_unused": 1.38100003823638E-03,
+      "gnatwhy3.transformations.simplify_formula": 4.93000028654933E-04,
+      "gnatwhy3.transformations.split_goal_wp_conj": 8.90998984687030E-04,
+      "gnatwhy3.transformations.split_premise_right": 1.67998994584195E-04
+    },
+    " 3": {
+      "gnatwhy3.init": 2.57768988609314E-01,
+      "gnatwhy3.register_vcs": 1.24000001233071E-03,
+      "gnatwhy3.run_vcs": 4.99899988426478E-06,
+      "gnatwhy3.save_session": 6.25999004114419E-04,
+      "gnatwhy3.schedule_vcs": 1.28600001335144E-02,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 6.94999005645514E-04,
+      "gnatwhy3.transformations.detect_polymorphism": 5.40000000910368E-05,
+      "gnatwhy3.transformations.discriminate_if_poly": 3.00000010611257E-06,
+      "gnatwhy3.transformations.eliminate_algebraic": 2.41000001551583E-04,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 2.07998993573710E-04,
+      "gnatwhy3.transformations.eliminate_builtin": 9.43000020924956E-04,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 7.69990001572296E-05,
+      "gnatwhy3.transformations.eliminate_epsilon": 1.48000006447546E-04,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 1.18998999823816E-04,
+      "gnatwhy3.transformations.eliminate_inductive": 1.61000003572553E-04,
+      "gnatwhy3.transformations.eliminate_literal": 9.20000020414591E-04,
+      "gnatwhy3.transformations.eliminate_projections_sums": 9.99990006675944E-05,
+      "gnatwhy3.transformations.eliminate_recursion": 1.49990000863909E-05,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 1.99900000552589E-06,
+      "gnatwhy3.transformations.inline_trivial": 4.82100015506148E-03,
+      "gnatwhy3.transformations.introduce_premises": 7.99990011728369E-05,
+      "gnatwhy3.transformations.monomorphise_goal": 4.99899988426478E-06,
+      "gnatwhy3.transformations.remove_unused": 1.22199894394726E-03,
+      "gnatwhy3.transformations.simplify_formula": 2.03999006771483E-04,
+      "gnatwhy3.transformations.split_goal_wp_conj": 8.99998995009810E-04,
+      "gnatwhy3.transformations.split_premise_right": 7.89990008343011E-05
+    },
+    " 6": {
+      "gnat2why.vc_generation": 6.81000004988164E-04
+    },
+    "global": {
+      "flow analysis": 1.55100005213171E-03,
+      "globals (advanced)": 3.92999994801357E-04,
+      "globals (basic)": 3.42999992426485E-04,
+      "init_why_sections": 7.80000002123415E-04,
+      "marking": 2.88999988697469E-04,
+      "properties (advanced)": 3.09999995806720E-05,
+      "translation of standard": 1.16300000809133E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

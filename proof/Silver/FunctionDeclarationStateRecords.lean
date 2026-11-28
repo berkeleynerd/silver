@@ -22,7 +22,7 @@ that enter through the existing complete native state domain. -/
 theorem native_state_record (text : Source) (tv : FunctionBindings.Native.ValidText text)
     (state : ParserState) (valid : NativeValidState text state) : StateRecord state := by
   rcases valid.base with ⟨position, names, dynamic, target, capacity, scalars, arrays,
-    subtypes, booleans, metadata, firstParameter, parameterCapacity, procedureMetadata, procedureFirst, procedureCapacity⟩
+    subtypes, booleans, metadata, firstParameter, parameterCapacity, procedureMetadata, procedureFirst, procedureCapacity, _⟩
   refine ⟨cursor_type text tv _ position, ?_, parameterCapacity, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, capacity, ?_, procedureCapacity, ?_⟩
   · refine ⟨metadata.1, metadata.2.1, ?_, ?_⟩
     · intro item member
@@ -46,7 +46,7 @@ theorem native_state_record (text : Source) (tv : FunctionBindings.Native.ValidT
     exact ⟨name.1, name.2, cursor_type text tv _ info.2.1, info.2.2, indices.1, indices.2.1⟩
   · refine ⟨scalars.1, ?_⟩
     intro item member
-    rcases scalars.2 item member with ⟨positive, ordered, bound, valueBounds, declaredBounds⟩
+    rcases scalars.2 item member with ⟨positive, ordered, bound, valueBounds, declaredBounds, _⟩
     have name := span_types text tv item.first item.after ⟨positive, ordered, bound⟩
     exact ⟨name.1, name.2, valueBounds, declaredBounds⟩
   · refine ⟨arrays.1.2.1, ?_, arrays.2.1, arrays.2.2.1.1, arrays.2.2.1.2⟩
@@ -64,7 +64,8 @@ theorem native_state_record (text : Source) (tv : FunctionBindings.Native.ValidT
     exact ⟨name.1, name.2, bounds⟩
   · refine ⟨booleans.1, ?_⟩
     intro item member
-    exact span_types text tv item.first item.after (booleans.2 item member)
+    have span := booleans.2 item member
+    exact span_types text tv item.first item.after ⟨span.1, span.2.1, span.2.2.1⟩
   · rcases dynamic with empty | span
     · change state.dynamicFirst = 0 ∧ state.dynamicAfter = 0 at empty
       rw [empty.1]

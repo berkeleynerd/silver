@@ -23,6 +23,12 @@ def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEn
     ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidTable text arrays ∧
     BooleanBindings.ValidEnvironment text booleans
 
+def CallDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
+    (booleans : BooleanBindings.Environment) (contextFirst packageFirst packageAfter : Nat) : Prop :=
+  ExpressionDomain text position names scalarNames arrays booleans ∧
+    Names.ValidContext text contextFirst packageFirst packageAfter
+
 abbrev TargetDomain := ScalarBodyNative.TargetDomain
 abbrev ScalarTargetDomain := TargetDomain
 abbrev ScalarAssignmentDomain := ScalarBodyNative.AssignmentDomain
@@ -40,8 +46,8 @@ def ValueDomain (text : Source) (position : Nat) (names : Compose.BindingEnviron
     ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidTable text arrays
 
 structure HelperMeaning (primitive : Primitives) : Prop where
-  callAfter : ∀ text names position operation scalarNames arrays hidden booleans, ExpressionDomain text position names scalarNames arrays booleans →
-    primitive.callAfter text names position operation scalarNames arrays hidden booleans = Compose.callAfter text names position operation scalarNames arrays hidden booleans
+  callAfter : ∀ text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter, CallDomain text position names scalarNames arrays booleans contextFirst packageFirst packageAfter →
+    primitive.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter = Compose.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter
   associationAfter : ∀ text position formal, Expressions.ValidText text → Expressions.ValidCursor text position →
     primitive.associationAfter text position formal = Names.associationAfter text position formal
   token : ∀ text position token, TokenDomain text position token →
@@ -94,8 +100,10 @@ Its legal values and every complete flow record remain unchanged. -/
 noncomputable def totalize (primitive : Primitives) : Primitives := by
   classical
   exact {
-    callAfter := fun text names position operation scalarNames arrays hidden booleans => if ExpressionDomain text position names scalarNames arrays booleans then
-      primitive.callAfter text names position operation scalarNames arrays hidden booleans else Compose.callAfter text names position operation scalarNames arrays hidden booleans
+    callAfter := fun text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter =>
+      if CallDomain text position names scalarNames arrays booleans contextFirst packageFirst packageAfter then
+        primitive.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter
+      else Compose.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter
     associationAfter := fun text position formal => if Expressions.ValidText text ∧ Expressions.ValidCursor text position then
       primitive.associationAfter text position formal else Names.associationAfter text position formal
     token := fun text position token => if TokenDomain text position token then
@@ -145,10 +153,10 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
 theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning primitive) :
     PrimitiveEquations (totalize primitive) where
   callAfter := by
-    funext text names position operation scalarNames arrays hidden booleans
+    funext text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter
     dsimp only [totalize]
     split
-    · exact meaning.callAfter text names position operation scalarNames arrays hidden booleans ‹_›
+    · exact meaning.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter ‹_›
     · rfl
   associationAfter := by
     funext text position formal
@@ -281,7 +289,7 @@ theorem basicEval_normalized {primitive : Primitives} (meaning : HelperMeaning p
   basicEval_of_equations (totalize_equations meaning) text context scan catalog procedures
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
-  callAfter _ _ _ _ _ _ _ _ _ := rfl
+  callAfter := by intros; rfl
   associationAfter _ _ _ _ _ := rfl
   token _ _ _ _ := rfl
   expression _ _ _ _ _ := rfl

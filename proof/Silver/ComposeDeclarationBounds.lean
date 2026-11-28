@@ -7,6 +7,8 @@ public import Silver.ComposeStringBoundSafety
 @[expose] public section
 
 namespace Silver.Compose
+
+variable {contextFirst : Nat}
 open Bindings StringObjectBounds
 
 theorem namesBoundsValid_empty : NamesBoundsValid [] := by
@@ -28,7 +30,7 @@ def ExpressionState.DynamicBounds (state : ExpressionState) : Prop :=
 
 theorem expressionStep_dynamicBounds {text names state scalarNames integerHidden arrays initials elaborating}
     (before : state.DynamicBounds) :
-    (expressionStep text names state scalarNames integerHidden arrays initials elaborating).DynamicBounds := by
+    (expressionStep (contextFirst := contextFirst) text names state scalarNames integerHidden arrays initials elaborating).DynamicBounds := by
   dsimp only [expressionStep]
   split
   · simp [ExpressionState.DynamicBounds, invalidExpressionState]
@@ -42,7 +44,7 @@ theorem expressionStep_dynamicBounds {text names state scalarNames integerHidden
           · intro dynamic
             dsimp only at dynamic ⊢
             have notFixed : ¬((elaborating = true ∧ state.dynamicCount = 0) ∧
-                (valueAt text state.position names scalarNames integerHidden arrays initials elaborating).dynamicSeen = false) := by
+                (valueAt (contextFirst := contextFirst) text state.position names scalarNames integerHidden arrays initials elaborating).dynamicSeen = false) := by
               intro ⟨⟨_, zero⟩, fixed⟩
               simp [zero, fixed] at dynamic
             simp only [Bool.and_eq_true, decide_eq_true_eq, Bool.not_eq_true']
@@ -57,7 +59,7 @@ theorem expressionStep_dynamicBounds {text names state scalarNames integerHidden
 
 theorem expressionTail_dynamicBounds {text names scalarNames integerHidden arrays initials elaborating}
     {state expression result}
-    (parsed : ExpressionTailAt text names state expression result scalarNames integerHidden arrays initials elaborating)
+    (parsed : ExpressionTailAt (contextFirst := contextFirst) text names state expression result scalarNames integerHidden arrays initials elaborating)
     (before : state.DynamicBounds) :
     result.dynamicCount ≠ 0 → result.firstIndex = .singleton 1 ∧ result.lastIndex = .singleton 0 := by
   induction parsed with
@@ -67,7 +69,7 @@ theorem expressionTail_dynamicBounds {text names scalarNames integerHidden array
 
 theorem expressionAt_dynamicBounds {text names scalarNames integerHidden arrays initials elaborating}
     {position expression result}
-    (parsed : ExpressionAt text names position expression result scalarNames integerHidden arrays initials elaborating)
+    (parsed : ExpressionAt (contextFirst := contextFirst) text names position expression result scalarNames integerHidden arrays initials elaborating)
     (dynamic : result.dynamicCount ≠ 0) :
     result.firstIndex = .singleton 1 ∧ result.lastIndex = .singleton 0 :=
   expressionTail_dynamicBounds parsed (by simp [ExpressionState.DynamicBounds]) dynamic
@@ -96,7 +98,7 @@ theorem string_initializer_bounds {text names scalarNames integerHidden arrays i
     {position expression result slot} {integers : Integer.Store}
     (input : Source) (normal : NamesNormal names)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials true (ScalarExpression.ranges scalarNames)) integers)
-    (parsed : ExpressionAt text names position expression result scalarNames integerHidden arrays initials true)
+    (parsed : ExpressionAt (contextFirst := contextFirst) text names position expression result scalarNames integerHidden arrays initials true)
     (checked : fixedDeclarationBounds result slot = true) (fixed : result.dynamicCount = 0) :
     expression.objectBounds names input integers = ⟨result.firstIndex.lower, result.lastIndex.lower⟩ := by
   have endpoints := fixedDeclarationBounds_singletons checked fixed
@@ -173,7 +175,7 @@ theorem string_declaration_capture {text arguments state next declaration}
     (stored : state.StoredArrays)
     (parsed : StringDeclarationAt text arguments state declaration next) :
     ∃ expression result info,
-      ExpressionAt text state.names (declarationValuePosition text state) expression result
+      ExpressionAt (contextFirst := state.contextFirst) text state.names (declarationValuePosition text state) expression result
         state.scalarNames (declarationIntegerHidden text state) state.arrayNames.table state.arrayNames.values true ∧
       next.names.get declaration.index = some info ∧ info.isCharacter = false ∧
       declaration.initializer.evaluate values input = expression.evaluate values input

@@ -14,7 +14,7 @@ structure InterpretedSource where
   primitives : Native.Primitives calls
   definitions : Native.Equations calls
 
-def InterpretedSource.lookup (source : InterpretedSource) := source.calls.lookup
+def InterpretedSource.lookup (source : InterpretedSource) := @source.calls.lookup
 def InterpretedSource.hidesInteger (source : InterpretedSource) := source.calls.hidesInteger
 
 theorem InterpretedSource.lookup_meaning (source : InterpretedSource)
@@ -22,6 +22,16 @@ theorem InterpretedSource.lookup_meaning (source : InterpretedSource)
     (first after : Nat) (fb : first ≤ text.length + 1) (ab : after ≤ text.length + 1) :
     source.lookup text names first after = BooleanBindings.lookup text names first after :=
   Native.lookup_meaning source.calls source.primitives source.definitions text tv names nv first after fb ab
+
+theorem InterpretedSource.lookup_qualified_meaning (source : InterpretedSource)
+    (text : Source) (tv : Native.ValidText text) (names : Environment) (nv : ValidEnvironment text names)
+    (first after : Nat) (fb : first ≤ text.length + 1) (ab : after ≤ text.length + 1)
+    (qualifierFirst qualifierAfter : Nat)
+    (qv : QualifiedNames.ValidSpan text qualifierFirst qualifierAfter) :
+    source.lookup text names first after qualifierFirst qualifierAfter =
+      BooleanBindings.lookup text names first after qualifierFirst qualifierAfter :=
+  Native.lookup_qualified_meaning source.calls source.primitives source.definitions
+    text tv names nv first after fb ab qualifierFirst qualifierAfter qv
 
 theorem InterpretedSource.hidesInteger_meaning (source : InterpretedSource)
     (text : Source) (tv : Native.ValidText text) (names : Environment) (nv : ValidEnvironment text names) :

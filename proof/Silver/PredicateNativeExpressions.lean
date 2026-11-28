@@ -12,7 +12,7 @@ arbitrary until their source equations or inherited contracts are applied. -/
 namespace Silver.Predicate.Native
 
 inductive Ty
-  | number | truth | word | value | source | arrayReadMode | arrayBinding | interval | token | chain | booleanNames | initials | operation | comparison | binding | names | scalarNames | arrays | arrayTypes | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
+  | number | truth | word | value | source | reference | arrayReadMode | arrayBinding | interval | token | chain | booleanNames | initials | operation | comparison | binding | names | scalarNames | arrays | arrayTypes | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
@@ -21,6 +21,7 @@ inductive Ty
   | .value => Compose.ValueResult
   | .word => String
   | .source => Source
+  | .reference => ScalarExpression.NameReference
   | .chain => ChainKind
   | .booleanNames => BooleanBindings.Environment
   | .initials => ArrayBindings.Initials
@@ -54,6 +55,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .value => Compose.invalidValue
   | .word => ""
   | .source => []
+  | .reference => {}
   | .chain => .noChain
   | .booleanNames => []
   | .initials => []
@@ -82,7 +84,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | readingNames | characterAt | characterCondition | xorFree | callAfter | equalName | nameIs | arrayLookup | arrayTypeLookup | arrayContains | scalarIndex | booleanArray | booleanLookup | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
+  | readingNames | characterAt | characterCondition | xorFree | callAfter | equalName | nameIs | arrayLookup | arrayTypeLookup | arrayContains | scalarIndex | booleanArray | booleanLookup | booleanQualifiedLookup | readReference | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
   deriving DecidableEq, Repr
 
 def Function.name : Function → List String
@@ -95,7 +97,8 @@ def Function.name : Function → List String
   | .nameIs => ["name_is"]
   | .arrayLookup => ["array_bindings", ".", "lookup"]
   | .arrayTypeLookup => ["array_bindings", ".", "lookup_type"]
-  | .booleanLookup => ["lookup_boolean"]
+  | .booleanLookup | .booleanQualifiedLookup => ["lookup_boolean"]
+  | .readReference => ["scalar_expressions", ".", "read_reference"]
   | .booleanArray => ["boolean_array_after"]
   | .arrayContains => ["array_bindings", ".", "contains"]
   | .scalarIndex => ["scalar_expressions", ".", "read_expression"]
@@ -138,12 +141,14 @@ def Function.name : Function → List String
   | .characterAt => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrays (.arrow .initials (.arrow .truth .value))))))
   | .characterCondition => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
   | .xorFree => .arrow .source (.arrow .number (.arrow .number .truth))
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth (.arrow .booleanNames .number)))))))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth (.arrow .booleanNames (.arrow .number (.arrow .number (.arrow .number .number))))))))))
   | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
   | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .word .truth)))
   | .arrayLookup => .arrow .source (.arrow .arrays (.arrow .number (.arrow .number .number)))
   | .arrayTypeLookup => .arrow .source (.arrow .arrayTypes (.arrow .number (.arrow .number .number)))
   | .booleanLookup => .arrow .source (.arrow .booleanNames (.arrow .number (.arrow .number .number)))
+  | .booleanQualifiedLookup => .arrow .source (.arrow .booleanNames (.arrow .number (.arrow .number (.arrow .number (.arrow .number .number)))))
+  | .readReference => .arrow .source (.arrow .number .reference)
   | .booleanArray => .arrow .source (.arrow .context (.arrow .number (.arrow .facts .number)))
   | .arrayContains => .arrow .arrayBinding (.arrow .interval .truth)
   | .scalarIndex => .arrow .source (.arrow .number (.arrow .scalarNames (.arrow .number (.arrow .number (.arrow .arrays (.arrow .arrayReadMode .scalarResult))))))
@@ -185,12 +190,14 @@ structure Calls where
   characterAt : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → ArrayBindings.Table → ArrayBindings.Initials → Bool → Compose.ValueResult
   characterCondition : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
   xorFree : Source → Nat → Nat → Bool
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Table → Bool → BooleanBindings.Environment → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Table → Bool → BooleanBindings.Environment → Nat → Nat → Nat → Nat
   equalName : Source → Nat → Nat → Nat → Nat → Bool
   nameIs : Source → Nat → Nat → String → Bool
   arrayLookup : Source → ArrayBindings.Table → Nat → Nat → Nat
   arrayTypeLookup : Source → ArrayBindings.TypeEnvironment → Nat → Nat → Nat
   booleanLookup : Source → BooleanBindings.Environment → Nat → Nat → Nat
+  booleanQualifiedLookup : Source → BooleanBindings.Environment → Nat → Nat → Nat → Nat → Nat
+  readReference : Source → Nat → ScalarExpression.NameReference
   booleanArray : Source → Context → Nat → ActiveFlow → Nat
   arrayContains : ArrayBindings.Binding → Integer.Interval → Bool
   scalarIndex : Source → Nat → ScalarExpression.Environment → Nat → Nat → ArrayBindings.Table → ScalarExpression.ArrayReadMode → ScalarExpression.Result
@@ -239,6 +246,8 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .arrayLookup => calls.arrayLookup
   | .arrayTypeLookup => calls.arrayTypeLookup
   | .booleanLookup => calls.booleanLookup
+  | .booleanQualifiedLookup => calls.booleanQualifiedLookup
+  | .readReference => calls.readReference
   | .booleanArray => calls.booleanArray
   | .arrayContains => calls.arrayContains
   | .scalarIndex => calls.scalarIndex
@@ -277,12 +286,19 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .join => calls.join
 
 inductive Field : Ty → Ty → Type
+  | referenceFirst : Field .reference .number
+  | referenceAfter : Field .reference .number
+  | referenceQualifierFirst : Field .reference .number
+  | referenceQualifierAfter : Field .reference .number
   | valueAfter : Field .value .number
   | valueNonliteral : Field .value .truth
   | bindingCharacter : Field .binding .truth
   | contextBooleans : Field .context .booleanNames
   | contextTrueHidden : Field .context .truth
   | contextFalseHidden : Field .context .truth
+  | contextFirst : Field .context .number
+  | contextPackageFirst : Field .context .number
+  | contextPackageAfter : Field .context .number
   | contextPure : Field .context .truth
   | contextElaborating : Field .context .truth
   | contextMaskFirst : Field .context .number
@@ -319,12 +335,19 @@ inductive Field : Ty → Ty → Type
   | whenFalse : Field .condition .facts
 
 def Field.name : Field a b → String
+  | .referenceFirst => "first"
+  | .referenceAfter => "after"
+  | .referenceQualifierFirst => "qualifier_first"
+  | .referenceQualifierAfter => "qualifier_after"
   | .valueAfter => "after"
   | .valueNonliteral => "nonliteral_seen"
   | .bindingCharacter => "is_character"
   | .contextBooleans => "boolean_names"
   | .contextTrueHidden => "true_hidden"
   | .contextFalseHidden => "false_hidden"
+  | .contextFirst => "context_first"
+  | .contextPackageFirst => "package_first"
+  | .contextPackageAfter => "package_after"
   | .contextPure => "pure"
   | .contextElaborating => "elaborating"
   | .contextMaskFirst => "mask_first"
@@ -360,12 +383,19 @@ def Field.name : Field a b → String
   | .whenFalse => "when_false"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .referenceFirst, value => value.first
+  | .referenceAfter, value => value.after
+  | .referenceQualifierFirst, value => value.qualifierFirst
+  | .referenceQualifierAfter, value => value.qualifierAfter
   | .valueAfter, value => value.after
   | .valueNonliteral, value => value.nonliteralSeen
   | .bindingCharacter, value => value.isCharacter
   | .contextBooleans, value => value.booleanNames
   | .contextTrueHidden, value => value.trueHidden
   | .contextFalseHidden, value => value.falseHidden
+  | .contextFirst, value => value.contextFirst
+  | .contextPackageFirst, value => value.packageFirst
+  | .contextPackageAfter, value => value.packageAfter
   | .contextPure, value => value.pure
   | .contextElaborating, value => value.elaborating
   | .contextMaskFirst, value => value.maskFirst
@@ -585,9 +615,9 @@ namespace Expr
 
 def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number)
     (operation : Expr .operation) (scalarNames : Expr .scalarNames) (arrays : Expr .arrays)
-    (hidden : Expr .truth) (booleans : Expr .booleanNames) : Expr .number :=
-  .app (.app (.app (.app (.app (.app (.app (.app (.function .callAfter) text) names)
-    position) operation) scalarNames) arrays) hidden) booleans
+    (hidden : Expr .truth) (booleans : Expr .booleanNames) (contextFirst packageFirst packageAfter : Expr .number) : Expr .number :=
+  .app (.app (.app (.app (.app (.app (.app (.app (.app (.app (.app (.function .callAfter) text) names)
+    position) operation) scalarNames) arrays) hidden) booleans) contextFirst) packageFirst) packageAfter
 
 def callEqualName (text : Expr .source) (first after otherFirst otherAfter : Expr .number) : Expr .truth :=
   .app (.app (.app (.app (.app (.function .equalName) text) first) after) otherFirst) otherAfter
@@ -603,6 +633,14 @@ def callArrayTypeLookup (text : Expr .source) (names : Expr .arrayTypes) (first 
 
 def callBooleanLookup (text : Expr .source) (names : Expr .booleanNames) (first after : Expr .number) : Expr .number :=
   .app (.app (.app (.app (.function .booleanLookup) text) names) first) after
+
+def callBooleanQualifiedLookup (text : Expr .source) (names : Expr .booleanNames)
+    (first after qualifierFirst qualifierAfter : Expr .number) : Expr .number :=
+  .app (.app (.app (.app (.app (.app (.function .booleanQualifiedLookup) text) names) first) after)
+    qualifierFirst) qualifierAfter
+
+def callReadReference (text : Expr .source) (position : Expr .number) : Expr .reference :=
+  .app (.app (.function .readReference) text) position
 
 def callBooleanArray (text : Expr .source) (context : Expr .context) (position : Expr .number)
     (facts : Expr .facts) : Expr .number :=

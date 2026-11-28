@@ -1,0 +1,11 @@
+{
+  "run_id": "20261128T052244-e933332b514d",
+  "input_count": 1752,
+  "input_mismatches": [],
+  "outcome": "interrupted",
+  "managed_workspace_source_sha256": {
+    "PredicateScalarHeaderInventory": "8e125dfc6cabdd4b186cdf9832d4954b6178778e3235732149cec93b4d426083",
+    "Current": "14a8fc3dd4349e78eda66b0cb32b06959f9bd1e59455887e35f64212c210266c",
+    "PredicateCorrespondence": "ee4ba117a88ff3f9202e018aa730b3a155b6e5e82560443488628b1eeba03c8f"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "20261127T215103-4a33f22a63ac",
+  "captured": 1605,
+  "matched": 1605,
+  "changed": [],
+  "primary_differences_before_integration": [
+    "proof/Silver/ApplicationPackageBodiesSourceChecks.lean",
+    "proof/Silver/ApplicationPackageDeclarationsSourceChecks.lean",
+    "proof/Silver/ApplicationPackageSpellingSourceChecks.lean",
+    "proof/Silver/ApplicationPackageStatementSourceChecks.lean",
+    "proof/Silver/OutputSourceBridge.lean",
+    "proof/Silver/ReviewedOutputShape.lean"
+  ]
+}

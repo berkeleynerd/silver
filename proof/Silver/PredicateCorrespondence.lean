@@ -41,7 +41,8 @@ theorem executable_main_correct (calls : Implementation.Calls) (source : Interpr
       arguments text = program.hasArguments ∧
       assignment text = program.assignmentFlag ∧
       output text = Flag.output.statements program.statements ∧
-      Semantics.discharge (Current.obligations (.sequence program)) = true ∧
+      Current.ScalarHeaderSource text (.sequence program) ∧
+      Semantics.discharge (Current.obligations text (.sequence program)) = true ∧
       (∀ environment, program.inputValid environment.arguments = false → program.run environment = ⟨1, []⟩) ∧
       (∀ environment, environment.Healthy → program.run environment =
         ⟨Sequence.expectedEffectStatus (program.execute environment.arguments).effects,
@@ -54,7 +55,8 @@ theorem executable_main_correct (calls : Implementation.Calls) (source : Interpr
   have selectors := executable_selectors calls source admit arguments assignment output refinement meaning
   have checks := Current.all_obligations_discharge (Current.SourceMeaning.sequence meaning)
   exact ⟨program, meaning, valid, fun other otherMeaning => meaning_unique otherMeaning meaning,
-    source_execution_sound meaning, selectors.1, selectors.2.1, selectors.2.2, checks.1,
+    source_execution_sound meaning, selectors.1, selectors.2.1, selectors.2.2,
+    Current.source_scalar_headers (Current.SourceMeaning.sequence meaning), checks.1,
     program.invalid_run valid, program.healthy_run valid, program.output_bound valid⟩
 
 theorem current_executable_membership (calls : Implementation.Calls) (source : InterpretedSource calls)

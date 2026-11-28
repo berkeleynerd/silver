@@ -1,12 +1,15 @@
 with Silver_Profile;
 with Silver_Function_Bindings;
 with Silver_Procedure_Bindings;
+with Silver_Application_Units;
+with Silver_Package_Bindings;
 
 package Silver_Output_Profile
   with SPARK_Mode => On
 is
    use type Silver_Function_Bindings.Metadata;
    use type Silver_Procedure_Bindings.Metadata;
+   use type Silver_Application_Units.Span_Array;
    Max_Source_Length : constant Positive := 4_096;
    Max_Expression_Operands : constant Positive := 64;
    --  Retain a source-wide operator budget; actual proof cost also depends on
@@ -90,4 +93,50 @@ is
    function Accepts (Source : String) return Boolean
      with Global => null,
        Post => (Static => Accepts'Result = Is_Member (Source));
+
+   --  Discovery chooses only the single simple application package named by
+   --  Main's context clauses. It is not a membership or filesystem operation.
+   --  The empty result also covers absent, ambiguous and malformed discovery.
+   function Imported_Package (Main_Source : String) return String
+     with Global => null,
+       Post => Imported_Package'Result'First = 1
+         and then (Imported_Package'Result'Length = 0
+           or else Silver_Package_Bindings.Is_Identifier (Imported_Package'Result));
+
+   type Analysis_Result is record
+      Accepted : Boolean := False;
+      Package_Info : Silver_Package_Bindings.Metadata :=
+        Silver_Package_Bindings.Empty_Metadata;
+      Main_Functions : Silver_Function_Bindings.Metadata :=
+        Silver_Function_Bindings.Empty_Metadata;
+      Main_Procedures : Silver_Procedure_Bindings.Metadata :=
+        Silver_Procedure_Bindings.Empty_Metadata;
+      Uses_Arguments, Uses_Assignment, Uses_Output : Boolean := False;
+   end record;
+   Invalid_Analysis : constant Analysis_Result := (others => <>);
+
+   --  All names, including Main-local callables, use offsets into Sources.Pool.
+   --  Each reader is nevertheless bounded by the original unit's own EOF.
+   function Analyze_Model (Sources : Silver_Application_Units.Bundle)
+      return Analysis_Result
+     with Ghost => Static, Global => null;
+   function Analyze (Sources : Silver_Application_Units.Bundle)
+      return Analysis_Result
+     with Global => null,
+       Post => (Runtime =>
+         (if Analyze'Result.Accepted then
+           Silver_Application_Units.Valid (Sources)
+           and then Analyze'Result.Package_Info.Units = Sources.Units
+           and then Silver_Package_Bindings.Complete_Metadata
+             (Sources.Pool (1 .. Sources.Used), Analyze'Result.Package_Info)
+           and then Silver_Function_Bindings.Valid_Metadata
+             (Sources.Pool (1 .. Sources.Used), Analyze'Result.Main_Functions)
+           and then Silver_Procedure_Bindings.Valid_Metadata
+             (Sources.Pool (1 .. Sources.Used), Analyze'Result.Main_Procedures)),
+         Static => Analyze'Result = Analyze_Model (Sources));
+   function Is_Application_Member (Sources : Silver_Application_Units.Bundle) return Boolean
+     with Ghost => Static, Global => null;
+   function Accepts_Application (Sources : Silver_Application_Units.Bundle) return Boolean
+     with Global => null,
+       Post => (Static => Accepts_Application'Result = Is_Application_Member (Sources));
 end Silver_Output_Profile;

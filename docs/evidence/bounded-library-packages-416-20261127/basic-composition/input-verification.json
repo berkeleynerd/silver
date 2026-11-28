@@ -1,0 +1,12 @@
+{
+  "run_id": "20261127T232232-d73c17163abe",
+  "captured_inputs": 1690,
+  "checking_mismatches": [],
+  "primary_mismatches_before_integration": [
+    "proof/Silver/ApplicationPackageBasicComposition.lean",
+    "proof/Silver/ApplicationPackageBasicImports.lean",
+    "proof/Silver/ApplicationPackageMainInitialization.lean",
+    "proof/Silver/ApplicationPackageRoutineInitialization.lean"
+  ],
+  "primary_commit": "730bafe752784703358c2da4e6918b97c504e253"
+}

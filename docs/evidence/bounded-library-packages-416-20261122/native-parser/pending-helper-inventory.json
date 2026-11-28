@@ -1,0 +1,969 @@
+{
+  "scope": "Conservative source-block inventory versus owner-authorized base; adjacency of type declarations may overreport helper changes. Focused proof coverage is separately listed.",
+  "files": {
+    "src/silver_output_profile.ads": [
+      {
+        "name": "Accepts",
+        "lines": [
+          93
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Imported_Package",
+        "lines": [
+          100
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Analyze_Model",
+        "lines": [
+          120
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Analyze",
+        "lines": [
+          123
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Is_Application_Member",
+        "lines": [
+          137
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Accepts_Application",
+        "lines": [
+          139
+        ],
+        "status": "new"
+      }
+    ],
+    "src/silver_output_profile.adb": [
+      {
+        "name": "Fixed_Bounds_Valid",
+        "lines": [
+          190
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Valid_Booleans",
+        "lines": [
+          220,
+          223
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Valid_Names",
+        "lines": [
+          231,
+          234
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Valid_Subtypes",
+        "lines": [
+          265,
+          268
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Valid_State",
+        "lines": [
+          329,
+          332
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Lookup_Subtype_Model",
+        "lines": [
+          527,
+          538
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Lookup_Subtype",
+        "lines": [
+          550,
+          562
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Lookup_Boolean_Model",
+        "lines": [
+          587,
+          598
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Lookup_Boolean",
+        "lines": [
+          610,
+          622
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Boolean_Hides_Integer",
+        "lines": [
+          647,
+          651
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Call_After",
+        "lines": [
+          656,
+          675
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Indexed_At",
+        "lines": [
+          807,
+          829
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Character_At",
+        "lines": [
+          891,
+          912
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Value_At",
+        "lines": [
+          1125,
+          1143
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Expression_Step",
+        "lines": [
+          1247,
+          1266
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Expression_Tail",
+        "lines": [
+          1313,
+          1331
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Expression_At",
+        "lines": [
+          1354,
+          1375
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "New_Name_Allowed",
+        "lines": [
+          1419,
+          1426
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Scalar_Type_At",
+        "lines": [
+          1510,
+          1519
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Subtype_Declaration_At",
+        "lines": [
+          1626,
+          1634
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Scalar_Declaration_At",
+        "lines": [
+          1682,
+          1695
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "String_Declaration_At",
+        "lines": [
+          1775,
+          1783
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Same_Parser_State",
+        "lines": [
+          1934
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Boolean_Declaration_At",
+        "lines": [
+          2647,
+          4909
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Function_Declaration_At",
+        "lines": [
+          2661,
+          7551
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Procedure_Declaration_At",
+        "lines": [
+          2670,
+          7661
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Argument_At",
+        "lines": [
+          2707,
+          2712
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Assignment_At",
+        "lines": [
+          2805,
+          2810
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Output_At",
+        "lines": [
+          2822,
+          2827
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Comparison_At",
+        "lines": [
+          2834,
+          2839
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Step",
+        "lines": [
+          2872,
+          2879
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Context_Of",
+        "lines": [
+          2945
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Valid_Context",
+        "lines": [
+          3037,
+          3040
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Read_String_In_Flow",
+        "lines": [
+          3277,
+          3294
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Boolean_Atom_After",
+        "lines": [
+          3694,
+          3702
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Primary_Model",
+        "lines": [
+          3740,
+          3766
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Read_Primary_Into",
+        "lines": [
+          4101,
+          4140
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Actual_Name_Step",
+        "lines": [
+          5704,
+          5713
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Basic_Body",
+        "lines": [
+          6269,
+          6279
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Loop_Body",
+        "lines": [
+          6404,
+          6575
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Hidden_Word",
+        "lines": [
+          6775
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Append_Parameter",
+        "lines": [
+          7086
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Append_Procedure_Parameter",
+        "lines": [
+          7247
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Uses_Output",
+        "lines": [
+          7872
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Package_Word",
+        "lines": [
+          7888
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Spark_Pragma_After",
+        "lines": [
+          7905
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Name_Allowed",
+        "lines": [
+          7919
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Name_Fresh",
+        "lines": [
+          7935
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Type_At",
+        "lines": [
+          7957
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Static_Boolean_At",
+        "lines": [
+          7993,
+          8105
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Static_Boolean_Primary",
+        "lines": [
+          8003
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Static_Boolean_Factor",
+        "lines": [
+          8041
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Static_Boolean_Relation",
+        "lines": [
+          8059
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Outer_Declaration",
+        "lines": [
+          8134
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Hide_Outer",
+        "lines": [
+          8142
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Object_At",
+        "lines": [
+          8218
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Append_Package_Formal",
+        "lines": [
+          8299
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Signature_At",
+        "lines": [
+          8329
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Spec_At",
+        "lines": [
+          8485
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Application_Of",
+        "lines": [
+          8574
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Invalid_Application",
+        "lines": [
+          8576
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Visible_State",
+        "lines": [
+          8579
+        ],
+        "status": "new"
+      },
+      {
+        "name": "State_Target",
+        "lines": [
+          8604
+        ],
+        "status": "new"
+      },
+      {
+        "name": "State_Reads",
+        "lines": [
+          8619
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Callee",
+        "lines": [
+          8643
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Call_At",
+        "lines": [
+          8683
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Application_Basic",
+        "lines": [
+          8813
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Application_Statement",
+        "lines": [
+          8864,
+          8917
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Application_Tail",
+        "lines": [
+          8880
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Routine_Frame",
+        "lines": [
+          9083
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Completion_At",
+        "lines": [
+          9126
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Body_At",
+        "lines": [
+          9249
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Imported_Frame",
+        "lines": [
+          9301
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Same_Package_Spelling",
+        "lines": [
+          9335
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Package_Main_At",
+        "lines": [
+          9349
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Charge_Unit",
+        "lines": [
+          9392
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Analyze_Application",
+        "lines": [
+          9435
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Analyze_Model",
+        "lines": [
+          9474
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Analyze",
+        "lines": [
+          9476
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Is_Application_Member",
+        "lines": [
+          9478
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Accepts_Application",
+        "lines": [
+          9480
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Imported_Package",
+        "lines": [
+          9483
+        ],
+        "status": "new"
+      }
+    ],
+    "src/silver_scalar_expressions.ads": [
+      {
+        "name": "Valid_Environment",
+        "lines": [
+          34,
+          37
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Lookup_Model",
+        "lines": [
+          44
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Lookup",
+        "lines": [
+          56
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Body_Environment",
+        "lines": [
+          79
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Read_Reference",
+        "lines": [
+          96
+        ],
+        "status": "new"
+      }
+    ],
+    "src/silver_scalar_expressions.adb": [
+      {
+        "name": "Lookup_Model",
+        "lines": [
+          13
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Lookup",
+        "lines": [
+          28
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Read_Reference",
+        "lines": [
+          102
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Read_Atom",
+        "lines": [
+          261,
+          277
+        ],
+        "status": "changed-or-adjacent-type"
+      }
+    ],
+    "src/silver_names.ads": [
+      {
+        "name": "Context_Model",
+        "lines": [
+          19
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Read_Context",
+        "lines": [
+          28
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Operation_After",
+        "lines": [
+          46
+        ],
+        "status": "changed-or-adjacent-type"
+      }
+    ],
+    "src/silver_names.adb": [
+      {
+        "name": "Package_Name_After",
+        "lines": [
+          61,
+          70
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Context_Step",
+        "lines": [
+          90,
+          101
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Context_Tail",
+        "lines": [
+          143,
+          153
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Context_Model",
+        "lines": [
+          164
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Read_Context",
+        "lines": [
+          171
+        ],
+        "status": "changed-or-adjacent-type"
+      },
+      {
+        "name": "Operation_After",
+        "lines": [
+          205
+        ],
+        "status": "changed-or-adjacent-type"
+      }
+    ],
+    "src/silver_package_bindings.ads": [
+      {
+        "name": "Is_Identifier",
+        "lines": [
+          123,
+          125
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Valid_Name",
+        "lines": [
+          134
+        ],
+        "status": "new"
+      },
+      {
+        "name": "In_Unit",
+        "lines": [
+          141
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Same_Name",
+        "lines": [
+          147
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Union",
+        "lines": [
+          154
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Within",
+        "lines": [
+          160
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Valid_Metadata",
+        "lines": [
+          164
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Complete_Metadata",
+        "lines": [
+          166
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Export_Lookup_Model",
+        "lines": [
+          172
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Lookup_Export",
+        "lines": [
+          179
+        ],
+        "status": "new"
+      },
+      {
+        "name": "State_Lookup_Model",
+        "lines": [
+          186
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Lookup_State",
+        "lines": [
+          193
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Routine_Lookup_Model",
+        "lines": [
+          200
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Lookup_Routine",
+        "lines": [
+          207
+        ],
+        "status": "new"
+      }
+    ],
+    "src/silver_package_bindings.adb": [
+      {
+        "name": "Valid_Metadata",
+        "lines": [
+          5
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Export_Lookup_Model",
+        "lines": [
+          90
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Lookup_Export",
+        "lines": [
+          97
+        ],
+        "status": "new"
+      },
+      {
+        "name": "State_Lookup_Model",
+        "lines": [
+          113
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Lookup_State",
+        "lines": [
+          120
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Routine_Lookup_Model",
+        "lines": [
+          136
+        ],
+        "status": "new"
+      },
+      {
+        "name": "Lookup_Routine",
+        "lines": [
+          143
+        ],
+        "status": "new"
+      }
+    ]
+  },
+  "completed_canonical_units": {
+    "silver_package_bindings.adb": {
+      "run": "20261122T131900-f578f694ab88",
+      "checks": 149
+    },
+    "silver_names.adb": {
+      "run": "20261122T133120-51dd981388d0",
+      "checks": 135
+    }
+  },
+  "pending_canonical_units": [
+    "silver_scalar_expressions.adb",
+    "silver_output_profile.adb and affected callers"
+  ]
+}

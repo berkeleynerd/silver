@@ -36,8 +36,8 @@ theorem model_ranges : RangeContracts modelCalls where
     intro text _ position names scalarNames integerHidden arrays initials elaborating _ _ _ _ _
     exact model_image_native text position names scalarNames integerHidden arrays initials elaborating
   value := by
-    intro text valid position names scalarNames integerHidden arrays initials elaborating _ namesValid _ _ _
-    exact model_value_native (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid position names namesValid
+    intro text valid position names scalarNames integerHidden arrays initials elaborating contextFirst _ _ _ namesValid _ _ _
+    exact model_value_native (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid position names namesValid
   stringDeclaration := by
     intro text valid state arguments stateValid
     refine ⟨⟨model_string_declaration_valid text valid state arguments stateValid.valid,
@@ -88,11 +88,11 @@ theorem model_ranges : RangeContracts modelCalls where
     exact ⟨model_declarations_valid text valid state arguments stateValid.valid,
       model_declarations_bounds text valid state arguments stateValid.bounds⟩
   expressionStep := by
-    intro text valid names scan scalarNames integerHidden arrays initials elaborating namesValid _ _ _ scanValid
-    exact model_scan_native (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names scan namesValid scanValid
+    intro text valid names scan scalarNames integerHidden arrays initials elaborating contextFirst _ _ namesValid _ _ _ scanValid
+    exact model_scan_native (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names scan namesValid scanValid
   expression := by
-    intro text valid position names scalarNames integerHidden arrays initials elaborating bound namesValid _ _ _
-    exact model_expression_native (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid position names bound namesValid
+    intro text valid position names scalarNames integerHidden arrays initials elaborating contextFirst _ _ bound namesValid _ _ _
+    exact model_expression_native (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid position names bound namesValid
   step := by
     intro text valid form token state _ stateValid
     exact ⟨model_step_valid text valid form token state stateValid.valid,

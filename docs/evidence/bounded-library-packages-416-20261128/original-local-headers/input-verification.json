@@ -1,0 +1,41 @@
+{
+  "checked_at": "2026-11-28T02:47:33.917464+00:00",
+  "run_id": "20261128T024621-f1cb69c23bcf",
+  "captured_sources": 1750,
+  "changed": [],
+  "missing": [],
+  "owned_file": "proof/Silver/ApplicationPackageOriginalLocalHeaders.lean",
+  "owned_sha256": "1d4b355e06e26c7128ec8446e3935e852d30eccb942b94492e17fe73ea91d0d5",
+  "workspace_copy_matches": true,
+  "artifacts_sha256": {
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageOriginalLocalHeaders.olean": "af499c7f6b6b62bb0794279ddde2d9a8f2fed164304f5f32e2e94f6f9ea1b83c",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageOriginalLocalHeaders.olean.server": "9d31c53fac924c59fad87e4d0c66d1c46efacba73e96748fa07c34221c9af008",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageOriginalLocalHeaders.olean.private": "b287f62c43b10ccfb272df89c31d6c66441aabb56e15635b3433f710e251a6d0",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageOriginalLocalHeaders.ilean": "6bc7ad44395ac7b20a5dd30e98c4b7189be86aede2bf3c37d91627d7dc2b538a"
+  },
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "allocation": {
+    "memory_mb": {
+      "actual": 8192,
+      "automatic": null,
+      "requested": 8192
+    },
+    "threads": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": null
+    },
+    "workers": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": null
+    }
+  },
+  "integration_imported_module_differences": [
+    "proof/Silver/PackageEffectSummaries.lean"
+  ],
+  "integration_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof"
+}

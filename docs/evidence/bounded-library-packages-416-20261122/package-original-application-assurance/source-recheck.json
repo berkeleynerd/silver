@@ -1,0 +1,12 @@
+{
+  "run_id": "20261128T022443-a636d38cad50",
+  "inputs": 1759,
+  "missing": [],
+  "changed": [],
+  "protected_source_hashes": {
+    "ApplicationPackageOriginalAssembly": "69800e582a786b2d8c7bcd3e45dbf4fed70ef76d3dc99da471b3f138d9035bf9",
+    "ApplicationPackageOriginalAssurance": "4e980ce016e68322e5f894e18ce4b9b4e993a999f39df217e9d129dc9a1a279b",
+    "ApplicationPackageMainRuntimeInitialization": "8286a003dbd4ff3db6df0c9f3ba3d0abbf10138f775796b1d775c272dcab53d2",
+    "ApplicationPackageReaderEffectsImports": "71b22ee3f8d7b4df1ff2fb13f4e92a4f7ef6217ffd69917d691b1b5cb6986753"
+  }
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "run_id": "20261127T204502-758353ff97fe",
+    "outcome": "failure",
+    "duration_seconds": 12.565749619
+  },
+  {
+    "run_id": "20261127T204617-293f74d0e40c",
+    "outcome": "failure",
+    "duration_seconds": 12.20485935
+  },
+  {
+    "run_id": "20261127T204701-8aed5f40da59",
+    "outcome": "failure",
+    "duration_seconds": 12.462418357
+  },
+  {
+    "run_id": "20261127T204748-4848ee80401d",
+    "outcome": "success",
+    "duration_seconds": 102.992963284,
+    "captured_input_count": 1571,
+    "captured_inputs_match": true
+  }
+]

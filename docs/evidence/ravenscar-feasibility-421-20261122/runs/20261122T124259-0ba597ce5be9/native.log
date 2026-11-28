@@ -1,0 +1,18 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: ceiling priority protocol is respected for "Bounded_Probe.Counter"
+--> main.adb:3:11
+ info: range check proved
+--> bounded_probe.adb:13:28
+
+ info: implicit aspect Always_Terminates on "Read" has been proved, subprogram will terminate
+--> bounded_probe.ads:6:16
+
+ info: ceiling priority protocol is respected for "Bounded_Probe.Counter"
+--> bounded_probe.ads:12:09
+
+ info: nontermination of task proved
+--> bounded_probe.ads:12:09
+Success: all checks proved (5 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/out/obj/explore/initial/gnatprove/gnatprove.out

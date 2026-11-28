@@ -1,0 +1,888 @@
+{
+  "run_id": "20261122T171013-51b09a5ee65a",
+  "scope": [
+    "Silver.ApplicationAdmissionEquations",
+    "Silver.ApplicationAdmissionBudget",
+    "Silver.ApplicationAdmissionSourceShape"
+  ],
+  "host": "linux-x86_64",
+  "fresh_axiom_audit": "passed",
+  "source_binding": "generic typed extraction obligations only; authoritative Output source instantiation pending",
+  "retained": [
+    {
+      "file": "lean-focused-evidence.json.gz",
+      "sha256": "748228051d41fd3adfc43c8c9553a55ef813e7804aec2346d295ae339deed9ca"
+    },
+    {
+      "file": "lean-focused.log.gz",
+      "sha256": "8d2b8eee3475cf2e18543e74593a704dcea0fd19466444188176f4f2212a4668"
+    },
+    {
+      "file": "events.jsonl.gz",
+      "sha256": "aa50f47a9fe8448a8eb2bc14fb90e2a4ab55d7cb8245a3c2929709d94884235f"
+    },
+    {
+      "file": "raw-model-evidence.json.gz",
+      "sha256": "f4229ae22b638da07fafa5b9a2ea83d365fc9bd27f1524ad75969a9739d13790"
+    },
+    {
+      "file": "raw-model.log.gz",
+      "sha256": "6964d880561636c913b9a054db51883f832dc75cd28b0e0287aed35e6af4b4b8"
+    },
+    {
+      "file": "packages-416-core-import-manifest.json",
+      "sha256": "f83ef886558c273de16ff694114c8cf12174a42efad8d0f42d9a22fd5c06b8df"
+    },
+    {
+      "file": "packages-416-core-contract-import-manifest.json",
+      "sha256": "00d1ad589d2efe87e061d74a8288f45e9ddbe5b0c7ba8021b033f5f10878f9f0"
+    }
+  ],
+  "earlier_attempts": [
+    {
+      "run_id": "20261122T164217-833b66e1e77c",
+      "task": "packages-416-admission-wrapper",
+      "completion": {
+        "duration_seconds": 10.59474642,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164217-833b66e1e77c/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164217-833b66e1e77c/previous-evidence/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164217-833b66e1e77c/previous-evidence/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164217-833b66e1e77c/previous-evidence/lean-focused-evidence.json"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionModel.lean:125:4:Tactic `contradiction` failed",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:127:4:`simp` made no progress"
+        ],
+        "monotonic_ns": 78994561645507,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164217-833b66e1e77c/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T164217-833b66e1e77c",
+        "utc": "2026-11-22T16:42:29.160017+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T164436-153381d920fb",
+      "task": "packages-416-admission-wrapper",
+      "completion": {
+        "duration_seconds": 12.438807821,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164436-153381d920fb/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164436-153381d920fb/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionModel.lean:131:39:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:131:55:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:131:6:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:131:84:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:135:41:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:135:66:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:135:8:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:136:12:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:136:41:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:140:10:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:140:43:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:140:68:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:140:91:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:141:14:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:141:43:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:149:45:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:149:70:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:149:93:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:150:16:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:150:31:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:153:73:Application type mismatch: The argument",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:153:78:Application type mismatch: The argument",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:154:12:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:154:45:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:154:70:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:154:93:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:155:16:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:155:31:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:155:60:This simp argument is unused:"
+        ],
+        "monotonic_ns": 79136037900150,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164436-153381d920fb/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T164436-153381d920fb",
+        "utc": "2026-11-22T16:44:50.636270+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T164556-99be24653a43",
+      "task": "packages-416-admission-wrapper",
+      "completion": {
+        "duration_seconds": 11.088868743,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164556-99be24653a43/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164556-99be24653a43/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionModel.lean:144:12:`dsimp` made no progress",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:145:89:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:161:14:`dsimp` made no progress",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:162:10:No goals to be solved"
+        ],
+        "monotonic_ns": 79214637809383,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164556-99be24653a43/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T164556-99be24653a43",
+        "utc": "2026-11-22T16:46:09.236182+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T164851-47275d3c2ae2",
+      "task": "packages-416-admission-types",
+      "completion": {
+        "duration_seconds": 11.216703601,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164851-47275d3c2ae2/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164851-47275d3c2ae2/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionModel.lean:126:2:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:127:32:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionModel.lean:129:4:Tactic `split` failed: Could not split an `if` or `match` expression in the type"
+        ],
+        "monotonic_ns": 79389048359702,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T164851-47275d3c2ae2/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T164851-47275d3c2ae2",
+        "utc": "2026-11-22T16:49:03.646729+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T165244-1e49d52dd861",
+      "task": "packages-416-admission-budget",
+      "completion": {
+        "duration_seconds": 10.760337033,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165244-1e49d52dd861/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165244-1e49d52dd861/previous-evidence/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165244-1e49d52dd861/previous-evidence/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165244-1e49d52dd861/previous-evidence/lean-focused-evidence.json"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:63:55:Unknown constant `Nat.strong_induction_on`"
+        ],
+        "monotonic_ns": 79622214083299,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165244-1e49d52dd861/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T165244-1e49d52dd861",
+        "utc": "2026-11-22T16:52:56.812458+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T165359-1f39a3992c60",
+      "task": "packages-416-admission-budget",
+      "completion": {
+        "duration_seconds": 12.392391411,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165359-1f39a3992c60/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165359-1f39a3992c60/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:105:0:unused `termination_by`, function is not recursive",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:64:2:`simp` failed: maximum number of steps exceeded"
+        ],
+        "monotonic_ns": 79698972993600,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165359-1f39a3992c60/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T165359-1f39a3992c60",
+        "utc": "2026-11-22T16:54:13.571368+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T165551-6572cc348307",
+      "task": "packages-416-admission-budget",
+      "completion": {
+        "duration_seconds": 11.610737501,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165551-6572cc348307/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165551-6572cc348307/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:106:0:unused `termination_by`, function is not recursive",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:64:2:`dsimp` made no progress"
+        ],
+        "monotonic_ns": 79810254329178,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165551-6572cc348307/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T165551-6572cc348307",
+        "utc": "2026-11-22T16:56:04.852705+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T165722-f6b17f3a338a",
+      "task": "packages-416-admission-budget",
+      "completion": {
+        "duration_seconds": 10.910207378,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165722-f6b17f3a338a/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165722-f6b17f3a338a/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:106:0:unused `termination_by`, function is not recursive",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:64:2:`dsimp` made no progress"
+        ],
+        "monotonic_ns": 79900584217679,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165722-f6b17f3a338a/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T165722-f6b17f3a338a",
+        "utc": "2026-11-22T16:57:35.182592+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T165746-6e3e33c6ddf1",
+      "task": "packages-416-admission-budget",
+      "completion": {
+        "duration_seconds": 11.61733219,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165746-6e3e33c6ddf1/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165746-6e3e33c6ddf1/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:16:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:50:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:106:22:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:108:20:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:110:20:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:112:18:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:113:0:unused `termination_by`, function is not recursive",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:70:10:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:72:35:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:72:8:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:77:14:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:79:12:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:55:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:18:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:16:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:57:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:16:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:55:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:16:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:62:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:18:Type mismatch: After simplification, term"
+        ],
+        "monotonic_ns": 79924759300020,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165746-6e3e33c6ddf1/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T165746-6e3e33c6ddf1",
+        "utc": "2026-11-22T16:57:59.357675+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T165837-905a5cb9ffeb",
+      "task": "packages-416-admission-native",
+      "completion": {
+        "duration_seconds": 73.646078567,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165837-905a5cb9ffeb/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165837-905a5cb9ffeb/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:16:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:45:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:75:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:106:22:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:108:20:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:108:95:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:110:20:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:112:18:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:112:85:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:57:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:18:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:59:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:16:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:57:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:18:Type mismatch: After simplification, term",
+          "lean:build:Silver/NamesEquations.lean:114:8:declaration uses `sorry`",
+          "lean:build:Silver/NamesEquations.lean:169:17:Type mismatch",
+          "lean:build:Silver/NamesEquations.lean:170:17:Type mismatch",
+          "lean:build:Silver/NamesEquations.lean:184:82:declaration uses `sorry`",
+          "lean:build:Silver/NamesEquations.lean:186:10:unsolved goals",
+          "lean:build:Silver/NamesEquations.lean:190:15:This simp argument is unused:",
+          "lean:build:Silver/NamesEquations.lean:190:28:This simp argument is unused:",
+          "lean:build:Silver/NamesEquations.lean:190:36:This simp argument is unused:",
+          "lean:build:Silver/NamesEquations.lean:194:8:Failed to rewrite using equation theorems for `contextTail`",
+          "lean:build:Silver/NamesEquations.lean:196:15:Type mismatch",
+          "lean:build:Silver/NamesEquations.lean:70:35:Type mismatch",
+          "lean:build:Silver/NamesEquations.lean:85:35:Type mismatch",
+          "lean:build:Silver/ProcedureHeaderAdmission.lean:63:7:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.ScalarExpression.Binding.mk` has 8 explicit field, but only 6 were provided",
+          "lean:build:Silver/ProcedureHeaderAdmission.lean:67:5:Insufficient number of fields for `\u27e8...\u27e9` constructor: Constructor `Silver.BooleanBindings.Binding.mk` has 7 explicit field, but only 3 were provided"
+        ],
+        "monotonic_ns": 80037424708024,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T165837-905a5cb9ffeb/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T165837-905a5cb9ffeb",
+        "utc": "2026-11-22T16:59:52.023083+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T170051-1c316aaf4edd",
+      "task": "packages-416-admission-expressions",
+      "completion": {
+        "duration_seconds": 79.667215219,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170051-1c316aaf4edd/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170051-1c316aaf4edd/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:16:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:45:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:75:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:106:22:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:108:20:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:108:95:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:110:20:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:112:18:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:112:85:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:57:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:18:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:59:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:16:Type mismatch: After simplification, term",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:57:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:18:Type mismatch: After simplification, term"
+        ],
+        "monotonic_ns": 80177960798995,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170051-1c316aaf4edd/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T170051-1c316aaf4edd",
+        "utc": "2026-11-22T17:02:12.559169+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T170231-a1def6903d53",
+      "task": "packages-416-admission-expressions",
+      "completion": {
+        "duration_seconds": 13.544970265,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170231-a1def6903d53/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170231-a1def6903d53/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:16:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:104:18:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:106:20:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:108:20:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:110:18:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:112:18:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:113:0:unused `termination_by`, function is not recursive",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:70:8:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:72:8:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:75:10:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:77:12:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:79:12:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:16:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:16:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:14:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:16:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionNative.lean:32:4:Unknown constant `Silver.ApplicationNative.Ty.sourcesValid`",
+          "lean:build:Silver/ApplicationAdmissionNative.lean:58:11:Invalid pattern: Not enough arguments to `field`; expected 2 explicit arguments",
+          "lean:build:Silver/ApplicationAdmissionNative.lean:62:11:Invalid pattern: Not enough arguments to `field`; expected 2 explicit arguments"
+        ],
+        "monotonic_ns": 80212026488800,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170231-a1def6903d53/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T170231-a1def6903d53",
+        "utc": "2026-11-22T17:02:46.624859+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T170335-ef8b4fe58010",
+      "task": "packages-416-admission-expressions",
+      "completion": {
+        "duration_seconds": 15.144097334,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170335-ef8b4fe58010/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170335-ef8b4fe58010/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:114:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:129:`dif_neg` has been deprecated: Use `dite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:29:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:43:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:57:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:71:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:85:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:101:99:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:104:101:maximum number of errors (100; from option `maxErrors`) reached, exiting",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:104:31:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:104:45:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:104:59:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:104:73:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:104:87:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:65:15:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:67:17:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:67:31:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:70:22:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:70:36:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:70:50:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:70:64:`dif_pos` has been deprecated: Use `dite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:72:21:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:72:35:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:72:49:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:72:63:`dif_neg` has been deprecated: Use `dite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:75:23:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:75:37:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:75:51:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:75:65:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:75:79:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:77:26:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:77:40:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:77:54:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:77:68:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:77:82:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:77:96:`dif_pos` has been deprecated: Use `dite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:79:25:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:79:39:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:79:53:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:79:67:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:79:81:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:79:95:`dif_neg` has been deprecated: Use `dite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:111:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:27:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:41:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:55:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:69:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:83:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:83:97:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:100:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:114:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:128:`dif_pos` has been deprecated: Use `dite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:30:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:44:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:58:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:72:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:85:86:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:113:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:127:`dif_neg` has been deprecated: Use `dite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:29:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:43:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:57:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:71:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:85:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:87:99:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:112:`dif_pos` has been deprecated: Use `dite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:28:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:42:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:56:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:70:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:84:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:89:98:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:111:`dif_neg` has been deprecated: Use `dite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:27:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:41:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:55:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:69:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:83:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:91:97:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:113:`dif_pos` has been deprecated: Use `dite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:28:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:42:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:56:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:70:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:84:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:94:98:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:112:`dif_neg` has been deprecated: Use `dite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:27:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:41:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:55:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:69:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:83:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:96:97:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:100:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:115:`if_pos` has been deprecated: Use `ite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:130:`dif_pos` has been deprecated: Use `dite_eq_left` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:30:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:44:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:58:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:72:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionBudget.lean:99:86:`if_neg` has been deprecated: Use `ite_eq_right` instead",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:16:13:unexpected token '('; expected ':'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:16:6:unexpected token 'prefix'; expected identifier",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:17:31:unexpected token ')'; expected ':'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:25:47:unexpected token 'prefix'; expected ')' or term",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:25:53:unexpected token '.'; expected ':'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:56:29:unexpected token 'prefix'; expected ')' or term",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:56:35:unexpected token '.'; expected ':'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:56:69:unexpected token; expected '(', '[', '{' or '\u2983'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:56:88:unexpected token; expected '(', '[', '{' or '\u2983'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:58:26:unexpected token '.'; expected ':'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:58:59:unexpected token; expected '(', '[', '{' or '\u2983'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:58:78:unexpected token; expected '(', '[', '{' or '\u2983'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:60:24:unexpected token; expected '(', '[', '{' or '\u2983'",
+          "lean:build:Silver/ApplicationAdmissionExpressions.lean:78:43:Tactic `decide` failed for proposition"
+        ],
+        "monotonic_ns": 80277593844630,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170335-ef8b4fe58010/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T170335-ef8b4fe58010",
+        "utc": "2026-11-22T17:03:52.192210+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T170435-9344d4cfa738",
+      "task": "packages-416-admission-equations",
+      "completion": {
+        "duration_seconds": 39.050515826,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170435-9344d4cfa738/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170435-9344d4cfa738/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionEquations.lean:18:61:unsolved goals",
+          "lean:build:Silver/ApplicationAdmissionEquations.lean:24:18:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionEquations.lean:26:16:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionEquations.lean:26:30:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionEquations.lean:27:23:This simp argument is unused:"
+        ],
+        "monotonic_ns": 80361194505289,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170435-9344d4cfa738/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T170435-9344d4cfa738",
+        "utc": "2026-11-22T17:05:15.792876+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T170638-880820ccb32c",
+      "task": "packages-416-admission-equations",
+      "completion": {
+        "duration_seconds": 34.793244863,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170638-880820ccb32c/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170638-880820ccb32c/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionEquations.lean:27:61:unsolved goals"
+        ],
+        "monotonic_ns": 80479811679217,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170638-880820ccb32c/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T170638-880820ccb32c",
+        "utc": "2026-11-22T17:07:14.410048+00:00"
+      }
+    },
+    {
+      "run_id": "20261122T170839-9dee4c2ab438",
+      "task": "packages-416-admission-equations",
+      "completion": {
+        "duration_seconds": 33.782877719,
+        "event": "finished",
+        "evidence": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused-evidence.json"
+          },
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170839-9dee4c2ab438/previous-evidence/lean-focused.log",
+            "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170839-9dee4c2ab438/previous-evidence/lean-focused.log"
+          }
+        ],
+        "failure_identities": {},
+        "failure_keys": [
+          "lean:build:Silver/ApplicationAdmissionEquations.lean:46:97:This simp argument is unused:",
+          "lean:build:Silver/ApplicationAdmissionEquations.lean:47:2:Tactic `rfl` failed: The left-hand side"
+        ],
+        "monotonic_ns": 80601392530499,
+        "outcome": "failure",
+        "retained_reports": [
+          {
+            "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-proof/.silver/linux-x86_64/lean-focused.log",
+            "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T170839-9dee4c2ab438/reports/0/lean-focused.log"
+          }
+        ],
+        "returncode": 1,
+        "run_id": "20261122T170839-9dee4c2ab438",
+        "utc": "2026-11-22T17:09:15.990901+00:00"
+      }
+    }
+  ]
+}

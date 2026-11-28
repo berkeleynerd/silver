@@ -44,9 +44,9 @@ structure AppendParameterImports (calls : Calls) (frame : ParserState)
       appendArrayParameter frame parameter.first parameter.after parameter.typeId
   scalarAppend : parameter.kind = .integer → frame.scalarNames.length ≠ ScalarExpression.maxBindings →
     calls .scalarAppend frame.scalarNames
-      ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, decide (parameter.mode ≠ .input)⟩ =
+      {first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := decide (parameter.mode ≠ .input)} =
     frame.scalarNames ++
-      [⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, decide (parameter.mode ≠ .input)⟩]
+      [{first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := decide (parameter.mode ≠ .input)}]
 
 theorem appendParameter_imports (calls : Calls) (frame : ParserState) (parameter : ProcedureBindings.Formal)
     (imports : AppendParameterImports calls frame parameter) :

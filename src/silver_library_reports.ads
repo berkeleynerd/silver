@@ -2,8 +2,12 @@ with Silver_Function_Bindings;
 with Silver_Procedure_Bindings;
 with Silver_Report_Observations;
 with Silver_Report_Projection_Observations;
+with Silver_Application_Report_Metadata;
 
 package Silver_Library_Reports with SPARK_Mode => On is
+   package Application_Metadata renames Silver_Application_Report_Metadata;
+   subtype Application_Context is Application_Metadata.Context;
+   Empty_Context : constant Application_Context := Application_Metadata.Empty_Context;
    package Function_Bindings renames Silver_Function_Bindings;
    subtype Function_Metadata is Function_Bindings.Metadata;
    Empty_Functions : constant Function_Metadata := Function_Bindings.Empty_Metadata;
@@ -11,9 +15,9 @@ package Silver_Library_Reports with SPARK_Mode => On is
    subtype Procedure_Metadata is Procedure_Bindings.Metadata;
    Empty_Procedures : constant Procedure_Metadata := Procedure_Bindings.Empty_Metadata;
    --  Source-bounded application sequences can produce many proved checks and
-   --  exact ghost-output and repeated array-loop advisories. This capacity uses
+   --  exact implicit-state-output and repeated array-loop advisories. This capacity uses
    --  the documented pinned producer envelope; it is not an additional statement-count restriction.
-   Max_Report_Length : constant Positive := 67_108_864;
+   Max_Report_Length : constant Positive := 268_435_456;
    Max_Runtime_Report_Length : constant Positive := 262_144;
    type Report_Kind is
      (Library_Body, Imported_Interface, Arguments_Body, Runtime_Interface);
@@ -27,7 +31,7 @@ package Silver_Library_Reports with SPARK_Mode => On is
    function Application_Report_Policy
      (Report : String; Kind : Application_Kind := Argument_Output;
       Source : String := ""; Functions : Function_Metadata := Empty_Functions;
-      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean
+      Procedures : Procedure_Metadata := Empty_Procedures; Context : Application_Context := Empty_Context) return Boolean
      with Ghost => Static, Global => null;
 
    --  The complete audit policy over mathematical original-report bytes.
@@ -39,7 +43,7 @@ package Silver_Library_Reports with SPARK_Mode => On is
      (Report : Silver_Report_Observations.Bytes.Sequence;
       Kind : Application_Kind := Argument_Output;
       Source : String := ""; Functions : Function_Metadata := Empty_Functions;
-      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean
+      Procedures : Procedure_Metadata := Empty_Procedures; Context : Application_Context := Empty_Context) return Boolean
      with Ghost => Static, Global => null;
 
    --  The original report is an unbounded mathematical byte sequence. Only
@@ -49,13 +53,13 @@ package Silver_Library_Reports with SPARK_Mode => On is
      (Original : Silver_Report_Observations.Bytes.Sequence; Projected : String;
       Kind : Application_Kind := Argument_Output;
       Source : String := ""; Functions : Function_Metadata := Empty_Functions;
-      Procedures : Procedure_Metadata := Empty_Procedures)
+      Procedures : Procedure_Metadata := Empty_Procedures; Context : Application_Context := Empty_Context)
      with Ghost => Static, Global => null,
        Pre => Projected'First = 1 and then Projected'Length <= Max_Report_Length
          and then Silver_Report_Projection_Observations.Audit_Projection_Observations
            (Original, Silver_Report_Observations.From_String (Projected)),
-       Post => Unbounded_Application_Report_Policy (Original, Kind, Source, Functions, Procedures) =
-         Application_Report_Policy (Projected, Kind, Source, Functions, Procedures);
+       Post => Unbounded_Application_Report_Policy (Original, Kind, Source, Functions, Procedures, Context => Context) =
+         Application_Report_Policy (Projected, Kind, Source, Functions, Procedures, Context => Context);
 
    procedure Runtime_Projection_Correspondence
      (Original : Silver_Report_Observations.Bytes.Sequence; Projected : String; Kind : Report_Kind)
@@ -114,7 +118,7 @@ package Silver_Library_Reports with SPARK_Mode => On is
    function Complete_Application_Proof
      (Report : String; Kind : Application_Kind := Argument_Output;
       Source : String := ""; Functions : Function_Metadata := Empty_Functions;
-      Procedures : Procedure_Metadata := Empty_Procedures) return Boolean
+      Procedures : Procedure_Metadata := Empty_Procedures; Context : Application_Context := Empty_Context) return Boolean
      with Global => null,
-       Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report, Kind, Source, Functions, Procedures));
+       Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report, Kind, Source, Functions, Procedures, Context => Context));
 end Silver_Library_Reports;

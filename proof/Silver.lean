@@ -1,5 +1,8 @@
 module
 
+public import Silver.ApplicationUnits
+public import Silver.PackageDefinitions
+
 public import Silver.Source
 public import Silver.PredicateCorrespondence
 public import Silver.PredicateNativeSourceBridge

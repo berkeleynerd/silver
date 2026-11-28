@@ -1,0 +1,1 @@
+with False;procedure Main is pragma SPARK_Mode(On);B:Boolean:=False;begin null;end Main;

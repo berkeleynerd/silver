@@ -1,0 +1,34 @@
+[
+  {
+    "label": "put_line_unqualified",
+    "name": "Put_Line",
+    "spec": "package Put_Line is pragma SPARK_Mode(On);procedure Noop;end Put_Line;",
+    "body": "package body Put_Line is pragma SPARK_Mode(On);procedure Noop is begin null;end Noop;end Put_Line;",
+    "main": "with Put_Line,Silver_IO;use Silver_IO;procedure Main is pragma SPARK_Mode(On);begin Put_Line(\"x\");end Main;",
+    "frontend_success": false
+  },
+  {
+    "label": "put_line_qualified",
+    "name": "Put_Line",
+    "spec": "package Put_Line is pragma SPARK_Mode(On);procedure Noop;end Put_Line;",
+    "body": "package body Put_Line is pragma SPARK_Mode(On);procedure Noop is begin null;end Noop;end Put_Line;",
+    "main": "with Put_Line,Silver_IO;use Silver_IO;procedure Main is pragma SPARK_Mode(On);begin Silver_IO.Put_Line(\"x\");end Main;",
+    "frontend_success": true
+  },
+  {
+    "label": "true_literal",
+    "name": "True",
+    "spec": "package True is pragma SPARK_Mode(On);procedure Noop;end True;",
+    "body": "package body True is pragma SPARK_Mode(On);procedure Noop is begin null;end Noop;end True;",
+    "main": "with True;procedure Main is pragma SPARK_Mode(On);B:Boolean:=True;begin null;end Main;",
+    "frontend_success": false
+  },
+  {
+    "label": "false_literal",
+    "name": "False",
+    "spec": "package False is pragma SPARK_Mode(On);procedure Noop;end False;",
+    "body": "package body False is pragma SPARK_Mode(On);procedure Noop is begin null;end Noop;end False;",
+    "main": "with False;procedure Main is pragma SPARK_Mode(On);B:Boolean:=False;begin null;end Main;",
+    "frontend_success": false
+  }
+]

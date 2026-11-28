@@ -1,0 +1,269 @@
+{
+  "run": "20261127T183145-df8197ddc96d",
+  "outcome": "success",
+  "duration_seconds": 27.814280624,
+  "scope": [
+    "compiler",
+    "silver_names"
+  ],
+  "focused_options": [
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30"
+  ],
+  "allocation": {
+    "workers": {
+      "actual": 2,
+      "automatic": 6,
+      "requested": 2
+    }
+  },
+  "cpu_affinity": [
+    2,
+    3
+  ],
+  "sources": {
+    "src/silver_names.adb": "7660b0a119b1ac53afa9478880e93a4b05e4f7ed3c601316e0cd61637539cdb6",
+    "src/silver_names.ads": "20eb7b268611e056c3fba698ec6d946956ebdcf1bd9b57ae680cc9b85afbdd74",
+    "src/silver_output_profile.adb": "34425e18be5b9e57dfe6f38d6aba3d6ed53010485b35a76ba55e6978f23e4349",
+    "src/silver_output_profile.ads": "196aa3b3a9f4401cf542397e34c1c0a93d9375b462d3e4fb4460fafa8029f2f1"
+  },
+  "reports": [
+    {
+      "file": "silver_names.spark",
+      "flow": 27,
+      "proof": 111,
+      "spark": {
+        " 1": "all",
+        " 10": "all",
+        " 11": "all",
+        " 12": "all",
+        " 2": "all",
+        " 3": "all",
+        " 4": "all",
+        " 5": "all",
+        " 6": "all",
+        " 7": "all",
+        " 8": "all",
+        " 9": "all"
+      },
+      "entities": {
+        " 1": {
+          "name": "Silver_Names.Context_Tail",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.adb",
+              "line": 143
+            }
+          ]
+        },
+        " 10": {
+          "name": "Silver_Names.Fixed_After",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.adb",
+              "line": 2
+            }
+          ]
+        },
+        " 11": {
+          "name": "Silver_Names.Operation_After",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.ads",
+              "line": 47
+            }
+          ]
+        },
+        " 12": {
+          "name": "Silver_Names",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "silver_names.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 13": {
+          "name": "Silver_Output_Lexical.Valid_Name_State",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_lexical.ads",
+              "line": 268
+            }
+          ]
+        },
+        " 14": {
+          "name": "Silver_Output_Lexical.Match_Identifier",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "silver_output_lexical.ads",
+              "line": 392
+            }
+          ]
+        },
+        " 15": {
+          "name": "Silver_Output_Lexical.Skip_Trivia",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "silver_output_lexical.ads",
+              "line": 369
+            }
+          ]
+        },
+        " 16": {
+          "name": "Silver_Output_Lexical.Equal_Name",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_lexical.ads",
+              "line": 148
+            }
+          ]
+        },
+        " 17": {
+          "name": "Silver_Output_Lexical.Trivia_End",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_lexical.ads",
+              "line": 28
+            }
+          ]
+        },
+        " 18": {
+          "name": "Silver_Output_Lexical.Token_At",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_lexical.ads",
+              "line": 48
+            }
+          ]
+        },
+        " 19": {
+          "name": "Silver_Profile.Is_Identifier_Character",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_profile.ads",
+              "line": 20
+            }
+          ]
+        },
+        " 2": {
+          "name": "Silver_Names.Take",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.adb",
+              "line": 18
+            }
+          ]
+        },
+        " 20": {
+          "name": "Silver_Profile.Lowercase",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_profile.ads",
+              "line": 31
+            }
+          ]
+        },
+        " 21": {
+          "name": "Silver_Output_Lexical.Name_Is",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_lexical.ads",
+              "line": 134
+            }
+          ]
+        },
+        " 3": {
+          "name": "Silver_Names.Context_After",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.ads",
+              "line": 39
+            }
+          ]
+        },
+        " 4": {
+          "name": "Silver_Names.Context_Step",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.adb",
+              "line": 90
+            }
+          ]
+        },
+        " 5": {
+          "name": "Silver_Names.Context_Model",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.ads",
+              "line": 19
+            }
+          ]
+        },
+        " 6": {
+          "name": "Silver_Names.Operation_Name",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.adb",
+              "line": 194
+            }
+          ]
+        },
+        " 7": {
+          "name": "Silver_Names.Package_Name_After",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.adb",
+              "line": 61
+            }
+          ]
+        },
+        " 8": {
+          "name": "Silver_Names.Read_Context",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.ads",
+              "line": 28
+            }
+          ]
+        },
+        " 9": {
+          "name": "Silver_Names.Association_After",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.ads",
+              "line": 62
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

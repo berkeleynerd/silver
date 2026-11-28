@@ -1,0 +1,57 @@
+{
+  "run_id": "20261127T182617-2888eee9a330",
+  "task": "packages-416-visibility-model",
+  "kind": "lean",
+  "scope": [
+    "Silver.NamesEquations"
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+    "--task",
+    "packages-416-visibility-model",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--resource-reason",
+    "Two-worker proof share with native namespace repair on the eight-CPU host",
+    "--target",
+    "Silver.NamesEquations"
+  ],
+  "workers": 2,
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "allocation": {
+    "memory_mb": {
+      "actual": null,
+      "automatic": null,
+      "requested": null
+    },
+    "threads": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": 2
+    },
+    "workers": {
+      "actual": 2,
+      "automatic": 8,
+      "requested": 2
+    }
+  },
+  "resource_reason": "Two-worker proof share with native namespace repair on the eight-CPU host",
+  "fingerprint": "dd522f4e2ed74d30c2361b83942708a59b9893e7a302860bdf54289c4e2bee54",
+  "worktree": {
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+    "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof"
+  },
+  "outcome": "success",
+  "duration_seconds": 30.90822688,
+  "returncode": null,
+  "failure_keys": [],
+  "started_at": "2026-11-27T18:26:19.457526+00:00",
+  "finished_at": "2026-11-27T18:26:50.365664+00:00",
+  "archive": "initial-model"
+}

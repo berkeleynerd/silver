@@ -217,6 +217,9 @@ abbrev Calls := (fn : Function) → fn.type.meaning
 
 def nativeContextOf (scan : Predicate.ScanResult) : Predicate.Native.Context :=
   { names := scan.state.names
+    contextFirst := scan.state.contextFirst
+    packageFirst := scan.state.packageFirst
+    packageAfter := scan.state.packageAfter
     dynamicFirst := scan.state.dynamicFirst
     dynamicAfter := scan.state.dynamicAfter
     scalarNames := ScalarExpression.bodyEnvironment scan.state.scalarNames
@@ -567,14 +570,14 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .appendBoolean frame parameter =>
       let before := frame.eval calls locals
       let item := parameter.eval calls locals
-      {before with booleanNames := before.booleanNames ++ [⟨item.first, item.after, false⟩]}
+      {before with booleanNames := before.booleanNames ++ [{first := item.first, after := item.after, mutable := false}]}
   | .typeResult after scalarKind bounds typeId => ⟨after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .stepResult state closed => ⟨state.eval calls locals, closed.eval calls locals⟩
   | .formal first after scalarKind bounds typeId => ⟨first.eval calls locals, after.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals, typeId.eval calls locals⟩
   | .signature first after formalFirst count scalarKind bounds => ⟨first.eval calls locals, after.eval calls locals,
       formalFirst.eval calls locals, count.eval calls locals, scalarKind.eval calls locals, bounds.eval calls locals⟩
   | .scalarBinding first after bounds mutable declared static => ⟨first.eval calls locals, after.eval calls locals,
-      bounds.eval calls locals, mutable.eval calls locals, declared.eval calls locals, static.eval calls locals⟩
+      bounds.eval calls locals, mutable.eval calls locals, declared.eval calls locals, static.eval calls locals, 0, 0⟩
   | .scan state assigned output => ⟨state.eval calls locals, assigned.eval calls locals, output.eval calls locals⟩
   | .add left right => left.eval calls locals + right.eval calls locals
   | .sub left right => left.eval calls locals - right.eval calls locals
@@ -646,14 +649,15 @@ def Expr.render : Expr ty → List String
       frame.render ++ [".", "boolean_names", ".", "count", "+", "1", ",", "items", "=>", "("] ++
       frame.render ++ [".", "boolean_names", ".", "items", "with", "delta"] ++ frame.render ++
       [".", "boolean_names", ".", "count", "+", "1", "=>", "("] ++ parameter.render ++ [".", "first", ","] ++
-      parameter.render ++ [".", "after", ",", "false", ")", ")", ")", ")"]
+      parameter.render ++ [".", "after", ",", "false", ",", "0", ",", "0", ",", "false", ",", "false", ")", ")", ")", ")"]
   | .typeResult after scalarKind bounds typeId => ["("] ++ separated [after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .stepResult state closed => ["("] ++ separated [state.render, closed.render] ++ [")"]
   | .formal first after scalarKind bounds typeId => ["("] ++ separated [first.render, after.render, scalarKind.render, bounds.render, typeId.render] ++ [")"]
   | .signature first after formalFirst count scalarKind bounds => ["("] ++
       separated [first.render, after.render, formalFirst.render, count.render, scalarKind.render, bounds.render] ++ [")"]
   | .scalarBinding first after bounds mutable declared static => ["("] ++
-      separated [first.render, after.render, bounds.render, mutable.render, declared.render, static.render] ++ [")"]
+      separated [first.render, after.render, bounds.render, mutable.render, declared.render, static.render,
+        ["0"], ["0"]] ++ [")"]
   | .scan state assigned output => ["("] ++ separated [state.render, assigned.render, output.render] ++ [")"]
   | .add left right => left.render ++ ["+"] ++ right.render
   | .sub left right => left.render ++ ["-"] ++ right.render

@@ -1,0 +1,11 @@
+# Original application native source bridge
+
+Authorized #416 source-correspondence follow-up, 2026-11-28. Parent selected Astra Max; live model/effort and token/cost measurements are not independently exposed.
+
+`ApplicationPackageSourceBridge` pairs the exact source-shape requirements for Analyze and its aliases, Object, Signature, Append, Specification, Completion, Unit and Main with their imported native libraries. It derives the Specification procedure's unique two-output result, complete Unit and Completion evaluation, Main and outer Analyze equations, and public alias results. Arbitrary caller locals, backing stores, rejected paths and partial metadata are retained on the complete native domains. Unit storage/slicing, normalization, source alphabet, state validity and package/function/procedure metadata guards use the existing primitive interpretation interfaces. The constructor assumes native equations/contracts and literal import dictionaries; it does not assume successful source checking, semantic validity, safety, a decoder or obligation discharge.
+
+Focused run `20261128T004244-613d92978deb` passed on Linux x86-64 with a fresh 86,252-declaration axiom audit. Every captured input hash matched at preservation; `input-verification.json` gives the exact inventory count. Automatic allocation used two workers and two threads on CPUs 4–5, 8192 MiB/process. No draft repair, proof-budget increase, clean build or independent kernel replay was needed.
+
+This is a source-independent interface check with parameterized token-shape proofs. The separate actual-source companion and the final complete Output_Profile certificate batch remain to be checked on stable native inputs. This focused result does not establish completed application safety, automatic discharge or feature delivery. The lead owns the final original-source/application/tool endpoint and complete assurance.
+
+`ApplicationPackageSourceActual` is prepared separately and was **not built** in this run. It supplies the core source checks and Charge library's tokens from the actual certificates, collects the existing original reader/guard source groups, and exposes the original analysis equation together with those source checks. Check that module in the final stable-source batch; its preparation is not proof evidence.

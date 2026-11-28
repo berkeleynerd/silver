@@ -1,0 +1,30 @@
+{
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline-v2/out/bin/native/main",
+  "seconds_requested": 1.0,
+  "observer_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "application_affinity_requested": [
+    0
+  ],
+  "stack_limit_bytes": [
+    16777216,
+    -1
+  ],
+  "observation_kind": "finite external observation of persistent task; never normal completion",
+  "pid": 227104,
+  "alive_at_deadline": true,
+  "harness_signal": "SIGTERM",
+  "returncode": -15,
+  "elapsed_seconds": 1.010967003996484,
+  "stdout": "",
+  "stderr": ""
+}
+thread counts: [2]

@@ -5,6 +5,7 @@ public import Silver.PredicateFlowReaderLibraries
 public import Silver.PredicateNativeScalarHelpers
 public import Silver.PredicateXorSourceBridge
 public import Silver.BooleanBindingsSourceBridge
+public import Silver.ScalarExpressionSourceBridge
 public import Silver.ArrayBindingsSourceBridge
 public import Silver.ComposeLexical
 public import Silver.ComposeModelCalls
@@ -70,6 +71,12 @@ def PathInputs.locals (inputs : PathInputs) : PathFacts.Native.Locals
   | .truth, "truth" => inputs.truth
   | ty, _ => ty.default
 
+abbrev ScalarReferenceLinks (helpers : ScalarHelpers.Calls) : Prop :=
+  ∃ sourceCalls, ScalarExpression.SourceBridge.InterpretedSource sourceCalls ∧
+    helpers.readReference = sourceCalls.readReference ∧
+    helpers.qualifiedLookup = fun text names first after qualifierFirst qualifierAfter =>
+      sourceCalls.lookup text names first after qualifierFirst qualifierAfter
+
 /-- Scalar helper definitions inherit their primitive lexical and interval
 operations from already interpreted source libraries. -/
 structure ScalarLinks (calls : Native.Calls) (composed : Compose.Expressions.Calls) : Prop where
@@ -78,6 +85,7 @@ structure ScalarLinks (calls : Native.Calls) (composed : Compose.Expressions.Cal
     helpers.skip = composed.function .skip ∧
     helpers.nameAfter = composed.function .nameAfter ∧
     helpers.lookup = composed.function .scalarLookup ∧
+    ScalarReferenceLinks helpers ∧
     ScalarHelpers.DefinitionEquations helpers ∧
     calls.scalarCondition = helpers.scalarCondition ∧ calls.invalidCondition = helpers.invalid
 
@@ -86,7 +94,8 @@ theorem scalar_primitives {helperCalls : ScalarHelpers.Calls} {composed : Compos
     (scalars : Integer.NativeSourceBridge.InterpretedSource helperCalls.scalars)
     (skip : helperCalls.skip = composed.function .skip)
     (name : helperCalls.nameAfter = composed.function .nameAfter)
-    (lookup : helperCalls.lookup = composed.function .scalarLookup) :
+    (lookup : helperCalls.lookup = composed.function .scalarLookup)
+    (references : ScalarReferenceLinks helperCalls) :
     ScalarHelpers.PrimitiveMeaning helperCalls where
   scalars := scalars
   skip text tv position pv := by
@@ -98,6 +107,16 @@ theorem scalar_primitives {helperCalls : ScalarHelpers.Calls} {composed : Compos
   lookup text tv names first after nv fv av := by
     rw [lookup]
     exact equations.scalarLookup text tv names first after nv fv av
+
+  readReference text tv position bound := by
+    obtain ⟨sourceCalls, source, observed, _⟩ := references
+    rw [observed]
+    exact ScalarExpression.SourceBridge.interpreted_readReference sourceCalls source text tv position bound
+  qualifiedLookup text tv names first after qualifierFirst qualifierAfter valid firstBound afterBound query := by
+    obtain ⟨sourceCalls, source, _, observed⟩ := references
+    rw [observed]
+    exact ScalarExpression.SourceBridge.interpreted_lookup_qualified sourceCalls source text tv names valid
+      first after firstBound afterBound qualifierFirst qualifierAfter query
 
 /-- Callee wiring only: lexical/expression calls use their inherited native
 functions; Read_Integer uses its runtime wrapper; path calls use the exact typed
@@ -124,7 +143,12 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     calls.scalarIndex = fun text position names first after arrays mode =>
       scalars.readExpression text position names first after true arrays [] false mode
   booleanLookup : ∃ source : BooleanBindings.SourceBridge.InterpretedSource,
-    calls.booleanLookup = source.lookup
+    calls.booleanLookup = fun text names first after => source.lookup text names first after
+  booleanQualifiedLookup : ∃ source : BooleanBindings.SourceBridge.InterpretedSource,
+    calls.booleanQualifiedLookup = fun text names first after qualifierFirst qualifierAfter =>
+      source.lookup text names first after qualifierFirst qualifierAfter
+  readReference : ∃ scalars, ScalarExpression.SourceBridge.InterpretedSource scalars ∧
+    calls.readReference = scalars.readReference
   callAfter : calls.callAfter = composed.function .callAfter
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = composed.function .takeToken text position token.shell
@@ -143,7 +167,7 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     calls.integer text position = integer text position
   expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → NativeNames text names →
     ScalarExpression.ValidEnvironment text scalarNames →
-    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames false {} [] false
+    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames false {} [] false 1
   assumeValid : ∀ facts : Paths,
     calls.assumeValid facts.model =
       (PathFacts.Native.assumeValidBody.eval ({facts} : PathInputs).locals).model
@@ -217,9 +241,17 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     obtain ⟨source, observed⟩ := links.booleanLookup
     rw [observed]
     exact source.lookup_meaning text tv names nv first after fb ab
-  callAfter text tv names position operation scalarNames arrays hidden booleans nv sv av bv pv := by
+  booleanQualifiedLookup text tv names first after qualifierFirst qualifierAfter nv fb ab qv := by
+    obtain ⟨source, observed⟩ := links.booleanQualifiedLookup
+    rw [observed]
+    exact source.lookup_qualified_meaning text tv names nv first after fb ab qualifierFirst qualifierAfter qv
+  readReference text tv position bound := by
+    obtain ⟨scalars, source, observed⟩ := links.readReference
+    rw [observed]
+    exact ScalarExpression.SourceBridge.interpreted_readReference scalars source text tv position bound
+  callAfter text tv names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter nv sv av bv pv contextValid := by
     rw [links.callAfter]
-    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av hidden booleans bv
+    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av hidden booleans bv contextFirst packageFirst packageAfter contextValid
   take text tv position token bounded := by
     rw [links.take text tv position token bounded,
       Compose.Expressions.interpreted_take composed composedEquations text tv position token.shell bounded (token_valid token)]
@@ -246,13 +278,13 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     FlowReaders.linked_string_full composedEquations links.readers {text, context, position, facts, initials}
       ⟨tv, cv, fv, pv, iv⟩
   scalarCondition text tv context cv position rightPosition pv rpv facts fv left right la ra operator lb rb := by
-    obtain ⟨helpers, scalars, skip, name, lookup, definitions, condition, _⟩ := links.scalarHelpers.source
+    obtain ⟨helpers, scalars, skip, name, lookup, references, definitions, condition, _⟩ := links.scalarHelpers.source
     rw [condition]
     exact ScalarHelpers.scalarCondition_meaning
-      (scalar_primitives composedEquations scalars skip name lookup) definitions
+      (scalar_primitives composedEquations scalars skip name lookup references) definitions
       text tv context cv position rightPosition pv rpv facts fv left right la ra operator lb rb
   invalidCondition facts capacity := by
-    obtain ⟨helpers, _, _, _, _, definitions, _, invalid⟩ := links.scalarHelpers.source
+    obtain ⟨helpers, _, _, _, _, _, definitions, _, invalid⟩ := links.scalarHelpers.source
     rw [invalid]
     exact ScalarHelpers.invalid_meaning definitions facts capacity
   integer text tv position bounded := by
@@ -260,7 +292,9 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     exact IntegerLiteral.Native.executable_refinement literals literalEquations integer refinement text tv position bounded
   expression text tv position names scalarNames bounded nv sv := by
     rw [links.expression text tv position names scalarNames bounded nv sv,
-      Compose.Expressions.interpreted_expression composed composedEquations text tv position names bounded nv sv
+      Compose.Expressions.interpreted_expression (contextFirst := 1)
+        composed composedEquations text tv position names (by decide)
+        (by unfold Compose.Expressions.ValidCursor; omega) bounded nv sv
         (ArrayBindings.ValidTable.emptyItems (ArrayBindings.valid_empty_types text))
         (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])]
   assumeValid facts := by
@@ -301,6 +335,9 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
   scalarIndex := ⟨ScalarExpression.Native.modelCalls, ScalarExpression.Native.model_primitives,
     ScalarExpression.Native.model_equations, rfl⟩
   booleanLookup := ⟨BooleanBindings.SourceBridge.modelSource, rfl⟩
+  booleanQualifiedLookup := ⟨BooleanBindings.SourceBridge.modelSource, rfl⟩
+  readReference := ⟨ScalarExpression.Native.modelCalls,
+    ScalarExpression.SourceBridge.model_interpreted, rfl⟩
   callAfter := rfl
   take text _ position token _ := by cases token <;> rfl
   skip _ _ _ _ := rfl
@@ -326,7 +363,8 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
         (FlowReaders.model_scalar_refinement FlowReaders.modelCalls)
         {text, context, position, facts, initials} legal (Or.inl ⟨rfl, rfl⟩)).symm
   scalarHelpers := ⟨ScalarHelpers.modelCalls, Integer.NativeSourceBridge.model_interpreted,
-    rfl, rfl, rfl, ScalarHelpers.model_equations, rfl, rfl⟩
+    rfl, rfl, rfl, ⟨ScalarExpression.Native.modelCalls, ScalarExpression.SourceBridge.model_interpreted,
+      rfl, rfl⟩, ScalarHelpers.model_equations, rfl, rfl⟩
   integer _ _ _ _ := rfl
   expression _ _ _ _ _ _ _ _ := rfl
   assumeValid facts := by

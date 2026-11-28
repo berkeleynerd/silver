@@ -1,0 +1,17 @@
+{
+  "run_id": "20261127T214851-2a69d479f1f3",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageRecursiveOutcomes"
+  ],
+  "declarations": 34780,
+  "source_sha256": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "de6e631f42d433d8077c70d0c994d8e1f6e990f84dac0f0d6f69742796891830",
+    "evidence.json": "6297d6647f897004d98e9e1e2ff30c71deb60eb8591ffc88b8f39c20df485105",
+    "input-synchronization.json": "63d2a44b709f7779833f4ee86afa79e0d6c242a751440ed3c607d1b2d75f5211",
+    "lean-focused.log.gz": "0bed7b55fd859f025d7bc312cc78a426ed9be78ce6121653d4e1885d365f7960",
+    "primary-input-comparison.json": "5f01139d580c65b0f52ff40d5862eabd83e239a5806bda6f990749966c66b03f",
+    "prior-input-comparison.json": "889ac39c2271a58607a0c26618cac6351abc54624e828c594cce77e6c5f14984"
+  }
+}

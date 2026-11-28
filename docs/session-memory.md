@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-11-28 — Investigate native verification cost
+
+The owner instructed **“We will need to investigate the slowness of native
+verification.”** Inspect current and retained native evidence alongside the
+authorized #416 delivery. Preserve productive jobs and caches, distinguish
+observed timings from inferred costs, and keep the host's shared eight-CPU
+allocation. The [bounded diagnosis](evidence/bounded-library-packages-416-20261128/native-performance-diagnosis/README.md)
+records the workload, solver limits, host observations and next focused checks.
+The existing deferred [#381](https://github.com/berkeleynerd/silver/issues/381)
+is the home for a later demonstrated-hotspot comparison; this investigation does
+not select a broad benchmark, change proof strategy or authorize a merge.
+Worca remains stopped. CLI memory was not updated.
+
+## 2026-11-27 — Independent open-PR reviews and package admission repairs
+
+The owner requested independent review of the outstanding PRs in sequence and
+then instructed **“Proceed”** with #424's two confirmed admission blockers first.
+The [review and response](reviews/review-3c0dde8f0d/README.md) preserves the
+reports, exact-source reproductions and dispositions. Findings
+[#426](https://github.com/berkeleynerd/silver/issues/426) and
+[#427](https://github.com/berkeleynerd/silver/issues/427) are part of the existing
+authorized #416 delivery; finish their native, language/catalogue and source-proof
+repairs before completing the feature. No Oracle amendment, feature merge or
+successor implementation is authorized by this instruction. The earlier
+eight-CPU allocation and instruction to stop Worca continue to apply.
+
 ## 2026-11-22 — Bounded packages and Ravenscar feasibility authorized
 
 After PR #412 merged, the owner instructed **“Proceed. As we proceed, be sure

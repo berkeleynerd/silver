@@ -1,0 +1,8 @@
+project Containers is
+   Prefix := external ("GNATPROVE_ALIRE_PREFIX", "");
+   for Source_Dirs use (Prefix & "/include/spark", Prefix & "/include/spark/full");
+   for Object_Dir use "out/containers";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnatwI");
+   end Compiler;
+end Containers;

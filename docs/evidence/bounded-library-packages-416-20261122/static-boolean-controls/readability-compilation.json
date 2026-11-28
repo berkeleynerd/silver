@@ -1,0 +1,11 @@
+{
+  "run": "20261122T155508-b304c7a9503c",
+  "status": "module-compiled-in-failed-batch-no-completed-audit",
+  "module": "Silver.BooleanElaboration",
+  "source_sha256": "633bfe6cdb53c509bf41eda9b52a2048b5569a9ac63dac1a86ff19e5e87d5194",
+  "olean_sha256": "ce46565892a9f3e7e2f48ef96f43cf1b719b2dd891e46148b2f7c73fa514dc38",
+  "claim": "successful exact evaluation implies Boolean initialized-readability for arbitrary argument availability and string shape",
+  "workers": 2,
+  "threads": 2,
+  "host": "linux-x86_64"
+}

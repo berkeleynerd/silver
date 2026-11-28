@@ -1,0 +1,83 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "arg": 2,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 3,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Main",
+      "sloc": [
+        {
+          "column": 11,
+          "file": "main.adb",
+          "line": 4
+        }
+      ]
+    },
+    " 2": {
+      "name": "Hidden_State.Increment",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "hidden_state.ads",
+          "line": 3
+        }
+      ]
+    },
+    " 3": {
+      "name": "Visible_State.Increment",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "visible_state.ads",
+          "line": 4
+        }
+      ]
+    }
+  },
+  "flow": [
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 3.92999994801357E-04
+    },
+    "global": {
+      "flow analysis": 3.11000010697171E-04,
+      "globals (advanced)": 4.26000013248995E-04,
+      "globals (basic)": 4.15999995311722E-04,
+      "init_why_sections": 3.94000002415851E-04,
+      "marking": 2.24000003072433E-04,
+      "properties (advanced)": 3.50000009348150E-05,
+      "translation of standard": 1.19500001892447E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

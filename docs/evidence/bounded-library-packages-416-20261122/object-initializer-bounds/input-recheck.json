@@ -1,0 +1,12 @@
+{
+  "run_id": "20261127T220552-b68117d81297",
+  "captured_sources": 1554,
+  "matched": 1554,
+  "mismatches": [],
+  "primary_shared_mismatches": [],
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "audited_declarations": 24705
+}

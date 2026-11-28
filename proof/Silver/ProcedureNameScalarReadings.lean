@@ -1,6 +1,7 @@
 module
 
 public import Silver.ProcedureNameReadings
+public import Silver.ProcedureNameQualified
 public import Silver.ScalarExpressionAdmission
 public import Silver.ScalarProcedureSyntax
 
@@ -101,14 +102,44 @@ theorem ActualNameFreeTrace.scalarAtom {text : Source} {names : ScalarExpression
       have atSign := trace.skipped positive (by (try dsimp only [ScalarExpression.inner] at *); (try simp only [skipAt_eq_scalarSkip] at *); omega) positionBound
       have afterSign := atSign.scalarSign (skipAt_idempotent _ _) sign (by (try dsimp only [ScalarExpression.inner] at *); (try simp only [skipAt_eq_scalarSkip] at *); omega)
       exact ⟨rfl, afterSign.number (by (try dsimp only [ScalarExpression.inner] at *); (try simp only [skipAt_eq_scalarSkip] at *); omega) rfl number finishBound⟩
-  | name positive _ _ _ identifier found indexPositive _ =>
-      have bounds := Named.identifier_bounds identifier
-      by_cases targetPositive : target = 0
-      · obtain ⟨_, following⟩ := trace.identifier (by (try dsimp only [ScalarExpression.inner] at *); (try simp only [skipAt_eq_scalarSkip] at *); omega) rfl positive identifier finishBound
-        exact ⟨by simp only [integerMentions, targetPositive, beq_eq_false_iff_ne]; exact Ne.symm indexPositive, following⟩
-      · obtain ⟨different, following⟩ := trace.scalarName (by (try dsimp only [ScalarExpression.inner] at *); (try simp only [skipAt_eq_scalarSkip] at *); omega) rfl positive identifier
-          finishBound found targetFound targetPositive
-        exact ⟨by simpa only [integerMentions, beq_eq_false_iff_ne] using different.symm, following⟩
+  | @name resolved index positive _ _ _ reference found indexPositive _ =>
+      have atPosition : QualifiedNames.At text position resolved := by
+        have equation := QualifiedNames.read_complete reference
+        change QualifiedNames.read text (QualifiedNames.skip text position) = resolved at equation
+        rw [QualifiedNames.read_skipped] at equation
+        have success : (QualifiedNames.read text position).after ≠ 0 := by
+          cases reference with
+          | bare _ identifier _ =>
+              have bounds := Named.identifier_bounds identifier
+              rw [equation]
+              dsimp only
+              omega
+          | qualified _ _ _ _ identifier =>
+              have bounds := Named.identifier_bounds identifier
+              rw [equation]
+              dsimp only
+              omega
+        simpa only [equation] using QualifiedNames.read_sound text position success
+      have following := trace.reference atPosition positionBound finishBound
+      refine ⟨?_, following⟩
+      cases atPosition with
+      | bare namePositive identifier _ =>
+          dsimp only at finishBound
+          have start : position ≤ QualifiedNames.skip text position := first.1
+          have bounds := Named.identifier_bounds identifier
+          by_cases targetPositive : target = 0
+          · simp only [integerMentions, targetPositive, beq_eq_false_iff_ne]
+            exact Ne.symm indexPositive
+          · obtain ⟨different, _⟩ := trace.scalarName (by omega) rfl
+              (Nat.ne_of_gt namePositive) identifier finishBound found targetFound targetPositive
+            simpa only [integerMentions, beq_eq_false_iff_ne] using different.symm
+      | qualified qualifierPositive _ _ _ _ =>
+          by_cases targetPositive : target = 0
+          · simp only [integerMentions, targetPositive, beq_eq_false_iff_ne]
+            exact Ne.symm indexPositive
+          · have different := scalarLookup_qualified_ne_bare
+              (Nat.ne_of_gt qualifierPositive) found targetFound targetPositive
+            simpa only [integerMentions, beq_eq_false_iff_ne] using different.symm
 
 theorem integerMentions_binary {left right result : ScalarExpression.Parsed} {operator target : Nat}
     (source : ScalarExpression.binary left right operator = some result)

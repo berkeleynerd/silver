@@ -24,18 +24,16 @@ theorem booleanAtom_progress (text : Source) (context : ParseContext) (position 
     position < booleanAtomAfter text context position := by
   unfold booleanAtomAfter at accepted ⊢
   dsimp only at accepted ⊢
-  split <;> (try simp only [*, ↓reduceIte] at accepted)
-  · contradiction
+  split
+  · simp_all only [↓reduceIte, ne_eq, not_true_eq_false]
   · rename_i allowed
-    have firstNonzero : skipAt text position ≠ 0 := fun bad => allowed (Or.inl bad)
-    have advanced : skipAt text position < nameAfter text (skipAt text position) :=
-      Nat.lt_of_not_ge (fun bad => allowed (Or.inr (Or.inl bad)))
-    have skipped := skipAt_advances text position bounded firstNonzero
-    split <;> (try simp only [*, ↓reduceIte] at accepted)
-    · omega
-    · split <;> (try simp only [*, ↓reduceIte] at accepted)
-      · omega
-      · contradiction
+    have nonzero : (ScalarExpression.readReference text position).after ≠ 0 := by
+      intro bad
+      exact allowed (Or.inr (by rw [bad]; exact Nat.zero_le _))
+    have advanced : position < (ScalarExpression.readReference text position).after :=
+      (QualifiedNames.read_success text position bounded nonzero).2.2.1
+    repeat' split
+    all_goals simp_all
 
 theorem primary_progress (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) {initials : ArrayBindings.Initials}
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
@@ -71,7 +69,7 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
             | false => simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, invalidCondition] at accepted
             | true => rfl
           have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayTable
-              (context.validityHidden text) context.booleanNames ≠ 0 := by
+              (context.validityHidden text) context.booleanNames context.contextFirst context.packageFirst context.packageAfter ≠ 0 := by
             intro absent
             simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, absent, invalidCondition] at accepted
           have progress := model_callAfter_advances text context.names position .validity bounded finalPositive

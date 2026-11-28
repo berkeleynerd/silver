@@ -1,0 +1,14 @@
+{
+  "events.jsonl.gz": {
+    "source_sha256": "a9876b27df265157656287e1729340ccdf63443780ea2711a634c1777eaad586",
+    "compressed_sha256": "767d2b69bb2347add12cda08e0cc02faef961b738cb20652f76fdf98236e49bd"
+  },
+  "lean-focused.log.gz": {
+    "source_sha256": "68c365fb41b114ff93080b355f5dfdc26e3e38514bbdc7133d8c50b9c0d196f6",
+    "compressed_sha256": "4b3e41a75e29ebcd9713cae092f2897bed94a9bc4a1765961f9afe51f9f36721"
+  },
+  "lean-focused-evidence.json.gz": {
+    "source_sha256": "fbc1ec53bb87715910871b54b6f46085fa80753d4007ca213ef53ac7ff718c2a",
+    "compressed_sha256": "7fd4e60638e341df0229248d238cb08319e2ade932795c38dee97b9018250d15"
+  }
+}

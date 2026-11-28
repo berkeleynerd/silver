@@ -1,0 +1,14 @@
+{
+  "run_id": "20261127T223541-2e18f396659a",
+  "captured_sources": 1588,
+  "matched": 1588,
+  "mismatches": [],
+  "primary_shared_mismatches": [
+    "proof/Silver/ComposeInitializerTrace.lean"
+  ],
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "audited_declarations": 82106
+}

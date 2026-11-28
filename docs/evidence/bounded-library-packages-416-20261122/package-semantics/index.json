@@ -1,0 +1,120 @@
+{
+  "host": "linux-x86_64",
+  "date": "2026-11-22",
+  "scope": "focused package and complete Main semantic safety; not complete native, source correspondence or capability assurance",
+  "selected_agent_settings": "Astra Max per task briefing; live model and effort telemetry unavailable",
+  "runs": [
+    {
+      "phase": "shared-checking",
+      "implementation_commit": "ff33c0d262",
+      "run_id": "20261122T155627-4fc8bc873581",
+      "targets": [
+        "Silver.PackageCheckedExecution"
+      ],
+      "declarations": 23285,
+      "evidence_sha256": "7cfada15e23d845122d69fb3c849c74b00baa729cd426f447c638b1bc28b6546",
+      "log_sha256": "f3b395d71907a4fd0e76abbd9de52425f182b9f5545b646cae7f4cd52bff2a42",
+      "events_sha256": "193a6f87b2dd767faf4817a0174d30e907aa373d1cca3d28c2614774efef3ed6",
+      "inputs_digest_sha256": "89a6d19ac9e60e215e8340f8d25d2058433c37d6a67d2b5e8559736ddcb96ca2",
+      "elapsed_seconds": 23.976
+    },
+    {
+      "phase": "shared-execution-safety",
+      "implementation_commit": "3f2418fa95",
+      "run_id": "20261122T160645-2dc11b71eb07",
+      "targets": [
+        "Silver.PackageIterationSafety"
+      ],
+      "declarations": 23369,
+      "evidence_sha256": "73cbddb3ec14b65451f33a7941413f95addd511e9d834f5686157d6dc1ccd92a",
+      "log_sha256": "df946d6367e3890b26b8b01726f08877eff417987a32492d235ec69240cfe52a",
+      "events_sha256": "74d2b53dedad760e4dab62ade13e90dc9df3fb67adc2f7315d414375207d76e9",
+      "inputs_digest_sha256": "aee7a409dd618e53abbb1712c0038e7b32d0ca85246c1855d0eb15d1428120aa",
+      "elapsed_seconds": 20.283
+    },
+    {
+      "phase": "shared-body-safety",
+      "implementation_commit": "fc18c397f2",
+      "run_id": "20261122T160733-97720e10f0e9",
+      "targets": [
+        "Silver.PackageBodySafety"
+      ],
+      "declarations": 23411,
+      "evidence_sha256": "f2f5aa1959b008b0b50965e18d241fdbb26cdb726e4a1c463091bd15e27ce7d1",
+      "log_sha256": "ccd55675a66ae9d659c01fb85e6fe91924a2c0eeb5eebef33588c035dc27bd0c",
+      "events_sha256": "303be1263fddbcf5055872cdf348aa95f7fba9ebeb7262f90bdcff28d8782a08",
+      "inputs_digest_sha256": "aee7a409dd618e53abbb1712c0038e7b32d0ca85246c1855d0eb15d1428120aa",
+      "elapsed_seconds": 20.1
+    },
+    {
+      "phase": "routine-safety",
+      "implementation_commit": "f6b4fff86d",
+      "run_id": "20261122T161947-490eb94a5567",
+      "targets": [
+        "Silver.PackageRoutineSafety"
+      ],
+      "declarations": 23490,
+      "evidence_sha256": "abe1fa678b75a4441d17b54d9a8fc93a09d2680bb2239ed90f09b6afb91587b5",
+      "log_sha256": "5cc35097896a5831bb33e987cbe52df036e593045b821104fe525afc46d7edaa",
+      "events_sha256": "97ba60070db1fc64182e609d18c12cf197cb8aca9d6f7134a63edb15b3d310b8",
+      "inputs_digest_sha256": "531e93fa3a6f7a7d4b799b4b03e5b76fb771de03b0ae9cc7dd829196ae3d6279",
+      "elapsed_seconds": 18.769
+    },
+    {
+      "phase": "library-safety",
+      "implementation_commit": "cbf9f8a24c",
+      "run_id": "20261122T162059-cfa96b788a96",
+      "targets": [
+        "Silver.PackageLibrarySafety"
+      ],
+      "declarations": 23559,
+      "evidence_sha256": "d507f5cfa2c566396d99d2ca779e7591a2a53a60f71578a8ff9b1a5727601b17",
+      "log_sha256": "5639c02eb9bd0d689eccde7ea1487314e344a46ea1cb760a72caae04b4775247",
+      "events_sha256": "2b26f70cc2b33f279831542f678ac117a432b9c219cef656ae61a01549bf1125",
+      "inputs_digest_sha256": "ac0ed41b4bc534ad31e2330c177a19fef235f9df082e213670c2b42d47bf80fd",
+      "elapsed_seconds": 17.537
+    },
+    {
+      "phase": "main-interfaces",
+      "implementation_commit": "1b43c58ddc",
+      "run_id": "20261122T162703-290ff4a396d1",
+      "targets": [
+        "Silver.ApplicationInterfaces"
+      ],
+      "declarations": 23634,
+      "evidence_sha256": "fe5fdb4ad42c07dee4aec19f92628e275fd9eb2918312663a58d1857fda99329",
+      "log_sha256": "6ae0a282dd9c5254126b40e736811b89e23279552448205413d92d886604d133",
+      "events_sha256": "94453c3e713b0aef44c5451f24d63813602406bdfb148fef43aa744d4dadd3ee",
+      "inputs_digest_sha256": "1e4de264244b8639b0ee2977d9063ce1f61901ff0c45bcd543788722d24f7467",
+      "elapsed_seconds": 17.85
+    },
+    {
+      "phase": "main-iteration",
+      "implementation_commit": "c70aa9ac34",
+      "run_id": "20261122T163251-ce4daca903ba",
+      "targets": [
+        "Silver.ApplicationIterationSafety"
+      ],
+      "declarations": 23796,
+      "evidence_sha256": "9bb4a784196208c0df4d64bca4b03fc405faac9b3e0c29097ad69e3ecf283362",
+      "log_sha256": "39950e1376e5678815c192ad0231ddc4f2aef1ff6cf12454e3de99cd982e573f",
+      "events_sha256": "bb7853b53ca2dbb29013a937fe05a7a1221b09815dbb8b617e23aba9315f0fd0",
+      "inputs_digest_sha256": "fcd5294113d2ed928215914c17892e2cb882f65dfd8ca30382392b1505286594",
+      "elapsed_seconds": 20.561
+    },
+    {
+      "phase": "main-assurance",
+      "implementation_commit": "b7a8dc66c8",
+      "run_id": "20261122T163552-8721ebca3536",
+      "targets": [
+        "Silver.ApplicationAssurance"
+      ],
+      "declarations": 23824,
+      "evidence_sha256": "f34692c8129dc10461d95fa6c92aeffc5f630bc8b9ff8aaeca9c9a442cefcd55",
+      "log_sha256": "4df8b97a4afa039b9699ba62f99375e47124490721c3e8cd2fec8dcf78329c29",
+      "events_sha256": "90d93ac8c8ba01bf0530f5353fb25e5a9f83b90a7c9858109cdf3e91ae647db3",
+      "inputs_digest_sha256": "c5ed61160cd61b601b581d968e30cca4f4aeb4f6d7fba521a244598246ae9dd8",
+      "elapsed_seconds": 21.728
+    }
+  ]
+}

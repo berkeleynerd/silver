@@ -92,6 +92,9 @@ structure ParserState where
   firstParameter : Nat := 0
   procedures : ProcedureBindings.Metadata := {}
   firstProcedureParameter : Nat := 0
+  contextFirst : Nat := 1
+  packageFirst : Nat := 0
+  packageAfter : Nat := 0
   deriving DecidableEq, Repr
 
 def initialState : ParserState := {}
@@ -174,13 +177,14 @@ def lookupName (text : Source) (names : BindingEnvironment) (first after : Nat) 
 def callAfter (text : Source) (names : BindingEnvironment) (position : Nat)
     (operation : Names.Operation) (scalarNames : ScalarExpression.Environment := [])
     (arrays : ArrayBindings.Table := {}) (subtypeHidden : Bool := false)
-    (booleans : BooleanBindings.Environment := []) : Nat :=
+    (booleans : BooleanBindings.Environment := [])
+    (contextFirst : Nat := 1) (packageFirst packageAfter : Nat := 0) : Nat :=
   let first := skipAt text position
   let after := nameAfter text first
   Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0 ∨ ScalarExpression.lookup text scalarNames first after ≠ 0 ∨
     ArrayBindings.lookup text arrays.items first after ≠ 0 ∨
     ArrayBindings.lookupType text arrays.types first after ≠ 0 ∨
-    BooleanBindings.lookup text booleans first after ≠ 0) || subtypeHidden)
+    BooleanBindings.lookup text booleans first after ≠ 0) || subtypeHidden) contextFirst packageFirst packageAfter
 
 
 def literalAt (text : Source) (position : Nat) : ValueResult :=
@@ -326,7 +330,7 @@ def indexedParts (text : Source) (position : Nat) (names : BindingEnvironment)
 
 def indexedAt (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
-    (initials : ArrayBindings.Initials) (elaborating element : Bool) : ValueResult :=
+    (initials : ArrayBindings.Initials) (elaborating element : Bool) (contextFirst : Nat := 1) : ValueResult :=
   let parts := indexedParts text position names scalarNames arrays initials elaborating element
   let info := (names.get parts.target).getD {}
   if parts.target = 0 ∨ info.isCharacter = true ∨ info.dynamic = true ∨
@@ -341,7 +345,7 @@ def indexedAt (text : Source) (position : Nat) (names : BindingEnvironment)
   else if parts.following ≤ position ∨ parts.upper.bounds.isEmpty = true ∨
       parts.lower.operands + parts.upper.operands ≥ maxExpressionOperands ∨
       parts.lower.bounds.upper - parts.upper.bounds.lower > Integer.maxValue ∨
-      ((!parts.lower.isStatic || !parts.upper.isStatic) && guardedAt text 1 position 0 false false) = true ∨
+      ((!parts.lower.isStatic || !parts.upper.isStatic) && guardedAt text contextFirst position 0 false false) = true ∨
       (parts.lower.bounds.lower ≤ parts.upper.bounds.upper ∧
         (parts.lower.bounds.lower < info.firstIndex ∨ info.lastIndex < parts.upper.bounds.upper))
     then invalidValue
@@ -376,7 +380,7 @@ termination_by text.length + 1 - position
 def valueAt (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
     (arrays : ArrayBindings.Table := {}) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ValueResult :=
+    (elaborating : Bool := false) (contextFirst : Nat := 1) : ValueResult :=
   let first := skipAt text position
   let quoted := literalAt text first
   let after := nameAfter text first
@@ -384,7 +388,7 @@ def valueAt (text : Source) (position : Nat) (names : BindingEnvironment)
   let info := (names.get index).getD {}
   if quoted.after ≠ 0 then quoted
   else if index ≠ 0 ∧ info.isCharacter = false ∧ fixedAfter text after "(" false ≠ 0 then
-    indexedAt text position names scalarNames arrays initials elaborating false
+    indexedAt text position names scalarNames arrays initials elaborating false contextFirst
   else if index ≠ 0 ∧ info.isCharacter = false ∧ ScalarExpression.lookup text scalarNames first after = 0 then
     ⟨after, info.valueFirst, info.staticLength, info.staticLength, info.dynamic, true, false, index,
       1, .singleton info.firstIndex,
@@ -490,9 +494,9 @@ def concatenatedLast (left : ExpressionState) (right : ValueResult) : Integer.In
 def expressionStep (text : Source) (names : BindingEnvironment) (state : ExpressionState)
     (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
     (arrays : ArrayBindings.Table := {}) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ExpressionState :=
+    (elaborating : Bool := false) (contextFirst : Nat := 1) : ExpressionState :=
   let openAfter := fixedAfter text state.position "(" false
-  let atom := valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text state.position names
+  let atom := valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst) text state.position names
   let joinAfter := fixedAfter text state.position "&" false
   let closeAfter := fixedAfter text state.position ")" false
   if state.position = 0 then invalidExpressionState
@@ -529,15 +533,15 @@ def ExpressionState.result (state : ExpressionState) : ExpressionResult :=
 def expressionTail (text : Source) (names : BindingEnvironment) (state : ExpressionState)
     (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
     (arrays : ArrayBindings.Table := {}) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ExpressionResult :=
+    (elaborating : Bool := false) (contextFirst : Nat := 1) : ExpressionResult :=
   if state.position = 0 then invalidExpression
   else if state.complete then state.result
   else
-    let next := expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state
+    let next := expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst) text names state
     if next.position = 0 then invalidExpression
     else if next.complete then next.result
     else if _advancing : text.length + 1 - next.position < text.length + 1 - state.position then
-      expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names next
+      expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst) text names next
     else invalidExpression
 termination_by text.length + 1 - state.position
 decreasing_by exact _advancing
@@ -545,8 +549,8 @@ decreasing_by exact _advancing
 def expressionAt (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
     (arrays : ArrayBindings.Table := {}) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ExpressionResult :=
-  expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names {position := position}
+    (elaborating : Bool := false) (contextFirst : Nat := 1) : ExpressionResult :=
+  expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst) text names {position := position}
 
 def fits (result : ExpressionResult) (capacity : Nat) : Bool :=
   decide (result.after ≠ 0 ∧ (result.emptyValue = true ∨ result.staticLength + result.dynamicCount * capacity ≤ maxSourceLength))

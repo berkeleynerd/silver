@@ -10,18 +10,21 @@ open Silver.Compose.Expressions
 private theorem scalarTypeAt_span (text : Source) (state : ParserState) (position : Nat) :
     (scalarTypeAt text state position).after = 0 ∨
       FunctionBindings.NameSpan text (skipAt text position) (scalarTypeAt text state position).after := by
-  dsimp only [scalarTypeAt]
-  split
-  · exact .inl rfl
-  · rename_i allowed
-    have span : FunctionBindings.NameSpan text (skipAt text position) (nameAfter text (skipAt text position)) := by
-      simp only [not_or] at allowed
-      exact ⟨by omega, by omega, function_nameAfter_bound text _⟩
-    split
-    · exact .inr span
-    · split
-      · exact .inr span
-      · exact .inl rfl
+  rcases scalarTypeAt_after text state position with failed | reading
+  · exact .inl failed
+  · by_cases empty : (QualifiedNames.read text position).after = 0
+    · exact .inl (reading.trans empty)
+    · apply Or.inr
+      rw [reading]
+      have validFirst : ¬ (QualifiedNames.skip text position = 0 ∨
+          QualifiedNames.nameAfter text (QualifiedNames.skip text position) ≤ QualifiedNames.skip text position) := by
+        intro rejected
+        exact empty (by simp [QualifiedNames.read, rejected])
+      have firstBound := QualifiedNames.nameAfter_bounds text (QualifiedNames.skip text position)
+      have success := QualifiedNames.read_success text (QualifiedNames.skip text position)
+        (by omega) (by rwa [QualifiedNames.read_skipped])
+      rw [QualifiedNames.read_skipped] at success
+      exact ⟨show 0 < QualifiedNames.skip text position by omega, success.2.2.1, success.2.2.2⟩
 
 theorem functionTypeAt_span (text : Source) (state : ParserState) (position : Nat)
     (positionBound : ValidCursor text position) :

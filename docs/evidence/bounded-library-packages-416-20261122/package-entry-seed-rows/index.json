@@ -1,0 +1,15 @@
+{
+  "run_id": "20261127T235430-b47ff869ab52",
+  "declarations": 75368,
+  "captured_inputs_verified": 1682,
+  "source_sha256": {
+    "ApplicationPackageSpecificationSeedRows": "a9390f3dcdb2f7f071eea084d90875ab013954627e529a1c1cf93954825fa323",
+    "ApplicationPackageGlobalSeedRows": "50c2f9bfade2050b93c124a65ed8f779b93792771712c6ef2b0b3f5bddc79609",
+    "ApplicationPackageEntrySeedRows": "b57e31e8e474256c0ffdf4be5ee81a3dea70ba1291b08fc77233d828cc9d5325"
+  },
+  "artifacts_sha256": {
+    "events.jsonl.gz": "b9a3b768890e47d0b0de23c747466f17b0d96e6d50efa28188dc15f53674bed2",
+    "evidence.json": "a6ed5f7b27ebeac2b8e9912e808591a79e23e1acaca5ea99ddcab085cfeba4ba",
+    "lean-focused.log.gz": "9804332232dec270ba0e3be4677e3bfcfac8e6fa7633da02f0a0a114c1cd7fd1"
+  }
+}

@@ -1,0 +1,170 @@
+[
+  {
+    "case": "zero",
+    "phase": "compile",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/zero/check.gpr",
+      "-c",
+      "-u",
+      "p.adb",
+      "main.adb",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 4,
+    "stdout": "Setup\n   [mkdir]        object directory for project Check\nCompile\n   [Ada]          p.adb\n   [Ada]          main.adb\n\n   compilation of p.adb failed\n\ngprbuild: *** compilation phase failed\n",
+    "stderr": "p.adb:1:01: error: spec of this package does not allow a body\np.adb:1:01: error: either remove the body or add pragma Elaborate_Body in the spec\n"
+  },
+  {
+    "case": "one",
+    "phase": "compile",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/one/check.gpr",
+      "-c",
+      "-u",
+      "p.adb",
+      "main.adb",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 0,
+    "stdout": "Setup\n   [mkdir]        object directory for project Check\nCompile\n   [Ada]          p.adb\n   [Ada]          main.adb\n",
+    "stderr": ""
+  },
+  {
+    "case": "one",
+    "phase": "build",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/one/check.gpr",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 0,
+    "stdout": "Bind\n   [gprbind]      main.bexch\n   [Ada]          main.ali\nLink\n   [link]         main.adb\n",
+    "stderr": ""
+  },
+  {
+    "case": "ada",
+    "phase": "compile",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/ada/check.gpr",
+      "-c",
+      "-u",
+      "ada.adb",
+      "main.adb",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 4,
+    "stdout": "Setup\n   [mkdir]        object directory for project Check\nCompile\n   [Ada]          ada.adb\n   [Ada]          main.adb\n\n   compilation of ada.adb failed\n\ngprbuild: *** compilation phase failed\n",
+    "stderr": "ada.adb:1:01: error: language-defined units cannot be recompiled\n"
+  },
+  {
+    "case": "interfaces",
+    "phase": "compile",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/interfaces/check.gpr",
+      "-c",
+      "-u",
+      "interfaces.adb",
+      "main.adb",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 4,
+    "stdout": "Setup\n   [mkdir]        object directory for project Check\nCompile\n   [Ada]          interfaces.adb\n   [Ada]          main.adb\n\n   compilation of interfaces.adb failed\n\ngprbuild: *** compilation phase failed\n",
+    "stderr": "interfaces.adb:1:01: error: language-defined units cannot be recompiled\n"
+  },
+  {
+    "case": "system",
+    "phase": "compile",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/system/check.gpr",
+      "-c",
+      "-u",
+      "system.adb",
+      "main.adb",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 4,
+    "stdout": "Setup\n   [mkdir]        object directory for project Check\nCompile\n   [Ada]          system.adb\n   [Ada]          main.adb\n\n   compilation of system.adb failed\n   compilation of main.adb failed\n\ngprbuild: *** compilation phase failed\n",
+    "stderr": "fatal error, system.ads not formatted correctly\nunexpected end of file\ncompilation abandoned\nfatal error, system.ads not formatted correctly\nunexpected end of file\ncompilation abandoned\n"
+  },
+  {
+    "case": "standard",
+    "phase": "compile",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/standard/check.gpr",
+      "-c",
+      "-u",
+      "standard.adb",
+      "main.adb",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 0,
+    "stdout": "Setup\n   [mkdir]        object directory for project Check\nCompile\n   [Ada]          standard.adb\n   [Ada]          main.adb\n",
+    "stderr": ""
+  },
+  {
+    "case": "standard",
+    "phase": "build",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/standard/check.gpr",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 0,
+    "stdout": "Bind\n   [gprbind]      main.bexch\n   [Ada]          main.ali\nLink\n   [link]         main.adb\n",
+    "stderr": ""
+  },
+  {
+    "case": "gnat",
+    "phase": "compile",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/gnat/check.gpr",
+      "-c",
+      "-u",
+      "gnat.adb",
+      "main.adb",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 0,
+    "stdout": "Setup\n   [mkdir]        object directory for project Check\nCompile\n   [Ada]          gnat.adb\n   [Ada]          main.adb\n",
+    "stderr": ""
+  },
+  {
+    "case": "gnat",
+    "phase": "build",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/body-legality/gnat/check.gpr",
+      "-p",
+      "-j8"
+    ],
+    "returncode": 0,
+    "stdout": "Bind\n   [gprbind]      main.bexch\n   [Ada]          main.ali\nLink\n   [link]         main.adb\n",
+    "stderr": ""
+  }
+]

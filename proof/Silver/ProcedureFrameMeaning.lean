@@ -35,9 +35,8 @@ theorem appendProcedureParameter_valid {text frame parameter}
           have bounded := valid.2.2.2.2.2.1.1
           omega
         have scalars := ScalarExpression.validEnvironment_append valid.2.2.2.2.2.1 space
-          (item := ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds,
-            decide (parameter.mode ≠ .input)⟩)
-          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1⟩
+          (item := {first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := decide (parameter.mode ≠ .input)})
+          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1, .inl ⟨rfl, rfl⟩⟩
         exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
           valid.2.2.2.2.1, scalars, valid.2.2.2.2.2.2⟩
     · split
@@ -47,7 +46,8 @@ theorem appendProcedureParameter_valid {text frame parameter}
           have bounded := valid.booleans.1
           omega
         have booleans := BooleanBindings.valid_append valid.booleans space
-          (item := ⟨parameter.first, parameter.after, decide (parameter.mode ≠ .input)⟩) typed.1
+          (item := {first := parameter.first, after := parameter.after, mutable := decide (parameter.mode ≠ .input)})
+          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, .inl ⟨rfl, rfl⟩⟩
         exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
           valid.2.2.2.2.1, valid.2.2.2.2.2.1, valid.2.2.2.2.2.2.1,
           valid.2.2.2.2.2.2.2.1, booleans, valid.2.2.2.2.2.2.2.2.2⟩
@@ -119,8 +119,7 @@ decreasing_by all_goals first | omega | assumption
 /-- Unlike function formals, in out and out bindings remain mutable. All three
 modes are nonstatic and use the formal's entire declared Integer interval. -/
 def procedureIntegerBinding (parameter : ProcedureBindings.Formal) : ScalarExpression.Binding :=
-  ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds,
-    decide (parameter.mode ≠ .input)⟩
+  {first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := decide (parameter.mode ≠ .input)}
 
 private theorem procedure_analysis_append (names : ScalarExpression.Environment) (declarations : Nat)
     (item : ScalarExpression.Binding) (declarationsBound : declarations ≤ names.length)
@@ -228,7 +227,7 @@ theorem appendProcedureParameter_analyses (frame : ParserState) (parameter : Pro
           simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
         have step : appendProcedureParameter frame parameter =
             {frame with booleanNames := frame.booleanNames ++
-              [⟨parameter.first, parameter.after, decide (parameter.mode ≠ .input)⟩]} := by
+              [{first := parameter.first, after := parameter.after, mutable := decide (parameter.mode ≠ .input)}]} := by
           simp [appendProcedureParameter, named, kind, space]
         rw [step]
         cases mode : parameter.mode <;>
@@ -291,9 +290,7 @@ theorem ProcedureInputFramesAt.analyses {frame index final}
               simp [appendProcedureParameter, named, kind, full, invalidState] at accepted
             have step : appendProcedureParameter before (ProcedureBindings.parameter before.procedures index) =
                 {before with booleanNames := before.booleanNames ++
-                  [⟨(ProcedureBindings.parameter before.procedures index).first,
-                    (ProcedureBindings.parameter before.procedures index).after,
-                    decide ((ProcedureBindings.parameter before.procedures index).mode ≠ .input)⟩]} := by
+                  [{first := (ProcedureBindings.parameter before.procedures index).first, after := (ProcedureBindings.parameter before.procedures index).after, mutable := decide ((ProcedureBindings.parameter before.procedures index).mode ≠ .input)}]} := by
               simp [appendProcedureParameter, named, kind, space]
             rw [step] at tail
             cases mode : (ProcedureBindings.parameter before.procedures index).mode <;>

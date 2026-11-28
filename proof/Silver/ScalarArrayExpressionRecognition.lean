@@ -336,8 +336,9 @@ theorem atom_readsOnly {text : Source} {names : Environment} {position maskFirst
     value.expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length) := by
   cases parsed with
   | unsigned | signed => trivial
-  | @name bytes finish index nonzero within notSign noNumber identifier found positive unmasked =>
-      have bounded := lookup_bound text names (skip text position) finish
+  | @name reference index nonzero within notSign noNumber identifier found positive unmasked =>
+      have bounded := lookup_bound text names reference.first reference.after
+        reference.qualifierFirst reference.qualifierAfter
       rw [found] at bounded
       exact ⟨by omega, bounded⟩
 

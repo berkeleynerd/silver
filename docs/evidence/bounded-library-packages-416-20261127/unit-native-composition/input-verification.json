@@ -1,0 +1,14 @@
+{
+  "run_id": "20261127T234358-cdc1135ede17",
+  "captured_inputs": 1706,
+  "matching_checking_worktree_inputs": 1706,
+  "mismatches": [],
+  "primary_differences_before_integration": [
+    "proof/Silver/ApplicationPackageRoutineInitialization.lean",
+    "proof/Silver/ApplicationPackageUnitComposition.lean",
+    "proof/Silver/ApplicationPackageUnitDomains.lean",
+    "proof/Silver/ApplicationPackageUnitNativeImports.lean",
+    "proof/Silver/ApplicationPackageUnitNativeTotal.lean",
+    "proof/Silver/ApplicationPackageUnitObjectTypes.lean"
+  ]
+}

@@ -1,0 +1,720 @@
+{
+  "source_sha256": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+  "contracts_total": 11,
+  "direct_callers_total": 34,
+  "union_total": 37,
+  "required_candidates": [
+    {
+      "name": "Array_Declaration_At",
+      "current_lines": [
+        2535,
+        2544
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Array_Declaration_Model",
+      "current_lines": [
+        2193,
+        2201
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Array_Type_At",
+      "current_lines": [
+        1549,
+        1556
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Assignment_At",
+      "current_lines": [
+        2806,
+        2811
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Basic_Body",
+      "current_lines": [
+        6272,
+        6282
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Boolean_Atom_After",
+      "current_lines": [
+        3697,
+        3705
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Boolean_Declaration_At",
+      "current_lines": [
+        2648,
+        4912
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Boolean_Target",
+      "current_lines": [
+        4958,
+        4964
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Call_After",
+      "current_lines": [
+        657,
+        676
+      ],
+      "changed_declaration": true,
+      "direct_caller": true,
+      "status": "current-whole-helper-success",
+      "run": "20261127T183750-dd1b3af8e76e"
+    },
+    {
+      "name": "Callee_At",
+      "current_lines": [
+        5579,
+        5587
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Character_At",
+      "current_lines": [
+        892,
+        913
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Character_Declaration_At",
+      "current_lines": [
+        1733,
+        1741
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Comparison_At",
+      "current_lines": [
+        2835,
+        2840
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Expression_At",
+      "current_lines": [
+        1355,
+        1376
+      ],
+      "changed_declaration": true,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Expression_Step",
+      "current_lines": [
+        1248,
+        1267
+      ],
+      "changed_declaration": true,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Expression_Tail",
+      "current_lines": [
+        1314,
+        1332
+      ],
+      "changed_declaration": true,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Function_Type_At",
+      "current_lines": [
+        6828,
+        6836
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Indexed_At",
+      "current_lines": [
+        808,
+        830
+      ],
+      "changed_declaration": true,
+      "direct_caller": false,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Lookup_Boolean",
+      "current_lines": [
+        611,
+        623
+      ],
+      "changed_declaration": true,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Lookup_Boolean_Model",
+      "current_lines": [
+        588,
+        599
+      ],
+      "changed_declaration": true,
+      "direct_caller": false,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Lookup_Subtype",
+      "current_lines": [
+        551,
+        563
+      ],
+      "changed_declaration": true,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Lookup_Subtype_Model",
+      "current_lines": [
+        528,
+        539
+      ],
+      "changed_declaration": true,
+      "direct_caller": false,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "New_Name_Allowed",
+      "current_lines": [
+        1420,
+        1427
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Output_At",
+      "current_lines": [
+        2823,
+        2828
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Package_Callee",
+      "current_lines": [
+        8744
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "retained-helper-source-match",
+      "run": "20261122T183016-b28ca489391a"
+    },
+    {
+      "name": "Primary_Model",
+      "current_lines": [
+        3743,
+        3769
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Procedure_Callee_At",
+      "current_lines": [
+        6225,
+        6233
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Read_Primary_Into",
+      "current_lines": [
+        4104,
+        4143
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Read_Relation_Into",
+      "current_lines": [
+        4116,
+        4380
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Read_String_In_Flow",
+      "current_lines": [
+        3278,
+        3295
+      ],
+      "changed_declaration": true,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Relation_Model",
+      "current_lines": [
+        3756,
+        3843
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Scalar_Type_At",
+      "current_lines": [
+        1511,
+        1520
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Static_Boolean_Primary",
+      "current_lines": [
+        8035
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "retained-helper-source-match",
+      "run": "20261122T175440-e22bd3c6f341"
+    },
+    {
+      "name": "String_Declaration_At",
+      "current_lines": [
+        1776,
+        1784
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Subtype_Declaration_At",
+      "current_lines": [
+        1627,
+        1635
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Value_At",
+      "current_lines": [
+        1126,
+        1144
+      ],
+      "changed_declaration": true,
+      "direct_caller": true,
+      "status": "no-current-domain-whole-helper-success",
+      "run": null
+    },
+    {
+      "name": "Visible_State",
+      "current_lines": [
+        8680
+      ],
+      "changed_declaration": false,
+      "direct_caller": true,
+      "status": "retained-helper-source-match",
+      "run": "20261122T182543-3f813ace70a3"
+    }
+  ],
+  "retained_comparisons": {
+    "Static_Boolean_Primary": {
+      "run": "20261122T175440-e22bd3c6f341",
+      "input_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a",
+      "snapshot": "docs/evidence/bounded-library-packages-416-20261122/native-package-contracts/signature-cut-points-input.adb.gz",
+      "helper_tokens_equal": true,
+      "inherited_declarations_and_helpers_equal_before_Package_Word": true,
+      "different_header_names": [
+        "Package_Object_At",
+        "Package_Signature_At",
+        "Package_Spec_At",
+        "Package_Completion_At"
+      ],
+      "selected_coverage": [
+        [
+          "Silver_Output_Profile.Static_Boolean_Primary",
+          "all"
+        ]
+      ],
+      "flow": 3,
+      "proof": 21,
+      "external_contract_inputs": {
+        "silver_output_lexical.ads": {
+          "recorded_sha256": "30ff28d51c62e822a96afc66ae8d325299ad228fc0392b885f4dc82f25783768",
+          "current_sha256": "30ff28d51c62e822a96afc66ae8d325299ad228fc0392b885f4dc82f25783768"
+        },
+        "silver_scalar_expressions.ads": {
+          "recorded_sha256": "6d8a5af1aa49df6c8e7e7cc3b0e663e2b76c4ed0d7d0983098dab7f3611c5b7d",
+          "current_sha256": "6d8a5af1aa49df6c8e7e7cc3b0e663e2b76c4ed0d7d0983098dab7f3611c5b7d"
+        }
+      },
+      "changed_internal_headers_used_by_report": [],
+      "focused_options": [
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30"
+      ],
+      "classification": "Reusable focused helper success: exact helper token sequence, inherited declarations and dependent contracts unchanged; fresh complete final-source audit still required."
+    },
+    "Visible_State": {
+      "run": "20261122T182543-3f813ace70a3",
+      "input_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02",
+      "snapshot": "docs/evidence/bounded-library-packages-416-20261122/native-package-contracts/failed-call-input.adb.gz",
+      "helper_tokens_equal": true,
+      "inherited_declarations_and_helpers_equal_before_Package_Word": true,
+      "different_header_names": [
+        "Package_Object_At",
+        "Package_Signature_At",
+        "Package_Spec_At",
+        "Package_Completion_At"
+      ],
+      "selected_coverage": [
+        [
+          "Silver_Output_Profile.Visible_State",
+          "all"
+        ]
+      ],
+      "flow": 4,
+      "proof": 8,
+      "external_contract_inputs": {
+        "silver_package_bindings.ads": {
+          "recorded_sha256": "9879b90ab8864c89a2225abf01af1ab8eb9b9a057d28497559a261fad1072585",
+          "current_sha256": "9879b90ab8864c89a2225abf01af1ab8eb9b9a057d28497559a261fad1072585"
+        },
+        "silver_scalar_expressions.ads": {
+          "recorded_sha256": "6d8a5af1aa49df6c8e7e7cc3b0e663e2b76c4ed0d7d0983098dab7f3611c5b7d",
+          "current_sha256": "6d8a5af1aa49df6c8e7e7cc3b0e663e2b76c4ed0d7d0983098dab7f3611c5b7d"
+        }
+      },
+      "changed_internal_headers_used_by_report": [],
+      "focused_options": [
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30"
+      ],
+      "classification": "Reusable focused helper success: exact helper token sequence, inherited declarations and dependent contracts unchanged; fresh complete final-source audit still required."
+    },
+    "Package_Callee": {
+      "run": "20261122T183016-b28ca489391a",
+      "input_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02",
+      "snapshot": "docs/evidence/bounded-library-packages-416-20261122/native-package-contracts/failed-call-input.adb.gz",
+      "helper_tokens_equal": true,
+      "inherited_declarations_and_helpers_equal_before_Package_Word": true,
+      "different_header_names": [
+        "Package_Object_At",
+        "Package_Signature_At",
+        "Package_Spec_At",
+        "Package_Completion_At"
+      ],
+      "selected_coverage": [
+        [
+          "Silver_Output_Profile.Package_Callee",
+          "all"
+        ]
+      ],
+      "flow": 3,
+      "proof": 8,
+      "external_contract_inputs": {
+        "silver_package_bindings.ads": {
+          "recorded_sha256": "9879b90ab8864c89a2225abf01af1ab8eb9b9a057d28497559a261fad1072585",
+          "current_sha256": "9879b90ab8864c89a2225abf01af1ab8eb9b9a057d28497559a261fad1072585"
+        },
+        "silver_scalar_expressions.ads": {
+          "recorded_sha256": "6d8a5af1aa49df6c8e7e7cc3b0e663e2b76c4ed0d7d0983098dab7f3611c5b7d",
+          "current_sha256": "6d8a5af1aa49df6c8e7e7cc3b0e663e2b76c4ed0d7d0983098dab7f3611c5b7d"
+        }
+      },
+      "changed_internal_headers_used_by_report": [],
+      "focused_options": [
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30"
+      ],
+      "classification": "Reusable focused helper success: exact helper token sequence, inherited declarations and dependent contracts unchanged; fresh complete final-source audit still required."
+    }
+  },
+  "other_changed_bodies": [
+    {
+      "name": "Actual_Name_Step",
+      "current_lines": [
+        5707,
+        5716
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Append_Parameter",
+      "current_lines": [
+        7089
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Append_Procedure_Parameter",
+      "current_lines": [
+        7250
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Argument_At",
+      "current_lines": [
+        2708,
+        2713
+      ],
+      "status": "current-whole-helper-success",
+      "run": "20261127T183902-1e32f4de3af9"
+    },
+    {
+      "name": "Bare_Target",
+      "current_lines": [
+        3601,
+        3612
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Boolean_Hides_Integer",
+      "current_lines": [
+        648,
+        652
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Context_Of",
+      "current_lines": [
+        2946
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Function_Declaration_At",
+      "current_lines": [
+        2662,
+        7554
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Hidden_Word",
+      "current_lines": [
+        6778
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Loop_Body",
+      "current_lines": [
+        6407,
+        6578
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Procedure_Declaration_At",
+      "current_lines": [
+        2671,
+        7664
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Same_Parser_State",
+      "current_lines": [
+        1935
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Scalar_Declaration_At",
+      "current_lines": [
+        1683,
+        1696
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Valid_Booleans",
+      "current_lines": [
+        221,
+        224
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Valid_Context",
+      "current_lines": [
+        3038,
+        3041
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Valid_State",
+      "current_lines": [
+        330,
+        333
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    },
+    {
+      "name": "Valid_Subtypes",
+      "current_lines": [
+        266,
+        269
+      ],
+      "status": "body-change-final-audit-required-focused-applicability-review",
+      "run": null
+    }
+  ],
+  "baseline": "20261121T191055-5cced625eb47",
+  "baseline_applicability": "The latest prior complete audit predates the qualifier parameters, expanded records/validity predicates and changed reader contracts. It does not verify the new declared domains.",
+  "baseline_base_source_sha256": "5785341f0fb90656f8db5b34cc23687fa30e3d5863a59761450167868fd56624",
+  "known_failed_body_only_trial": {
+    "name": "Bare_Target",
+    "run": "20261122T153608-c751ca2e451e",
+    "outcome": "Global-contract generation failed at unrelated old package object expression before selected Bare_Target obligations; no helper-success coverage. Later source generation works, but target still has no complete check."
+  },
+  "metadata_projection_strengthening_review": {
+    "changed_declaration": "Silver_Package_Bindings.Valid_Metadata",
+    "prior_specification_sha256": "9879b90ab8864c89a2225abf01af1ab8eb9b9a057d28497559a261fad1072585",
+    "strengthened_specification_sha256": "dbcb91fe15d79508705cd56f93917d37ce5c9898a0205cfea5c158d2512e9d26",
+    "entire_specification_outside_changed_declaration_byte_equal": true,
+    "body_sha256_unchanged": "21f668c90945d60b13939b06a71ca5eb4c634478cf3aa8140a0cf53a282dd9dc",
+    "retained_report_package_contracts": {
+      "Visible_State": [
+        "Silver_Package_Bindings.Valid_Name"
+      ],
+      "Package_Callee": [
+        "Silver_Package_Bindings.Lookup_Routine",
+        "Silver_Package_Bindings.Same_Name"
+      ],
+      "Static_Boolean_Primary": []
+    },
+    "new_complete_package_unit_run": "20261127T193818-29ae74a7539e",
+    "conclusion": "The recorded prior whole-specification hashes remain historical. Every Package_Bindings declaration used by the three retained selected reports is byte-identical, and the complete body is unchanged. The new Valid_Metadata postcondition is not among their used contracts. The selected helper successes remain applicable; the final complete-source audit is still required."
+  }
+}

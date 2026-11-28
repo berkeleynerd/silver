@@ -1,0 +1,417 @@
+{
+  "utc": "2026-11-28T05:35:18.086792+00:00",
+  "hostname": "silver",
+  "root_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "cgroup_files": {
+    "/sys/fs/cgroup/cpu.stat": "usage_usec 163227355125\nuser_usec 144670250226\nsystem_usec 18557104898\nnice_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+    "/sys/fs/cgroup/cpu.max": "unavailable",
+    "/sys/fs/cgroup/cpuset.cpus.effective": "0-7\n"
+  },
+  "pressure_files": {
+    "/proc/pressure/cpu": "unavailable",
+    "/proc/pressure/memory": "unavailable",
+    "/proc/pressure/io": "unavailable"
+  },
+  "native_groups": {
+    "original": {
+      "root": 176352,
+      "processes": [
+        {
+          "pid": 176352,
+          "ppid": 176351,
+          "name": "python3",
+          "thread_affinity": {
+            "176352": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 176469,
+          "ppid": 176352,
+          "name": "alr",
+          "thread_affinity": {
+            "176469": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 176472,
+          "ppid": 176469,
+          "name": "gnatprove",
+          "thread_affinity": {
+            "176472": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 176611,
+          "ppid": 176472,
+          "name": "why3server",
+          "thread_affinity": {
+            "176611": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 176612,
+          "ppid": 176472,
+          "name": "gprbuild",
+          "thread_affinity": {
+            "176612": [
+              2,
+              3
+            ],
+            "176613": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 176622,
+          "ppid": 176612,
+          "name": "gnat2why",
+          "thread_affinity": {
+            "176622": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 415900,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "thread_affinity": {
+            "415900": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 416948,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "thread_affinity": {
+            "416948": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 418855,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "thread_affinity": {
+            "418855": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 419353,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "thread_affinity": {
+            "419353": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 422932,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "thread_affinity": {
+            "422932": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 424077,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "thread_affinity": {
+            "424077": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 466433,
+          "ppid": 415900,
+          "name": "spark_memcached",
+          "thread_affinity": {
+            "466433": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 466434,
+          "ppid": 466433,
+          "name": "gnatwhy3",
+          "thread_affinity": {
+            "466434": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 468332,
+          "ppid": 176611,
+          "name": "spark_memcached",
+          "thread_affinity": {
+            "468332": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 468333,
+          "ppid": 468332,
+          "name": "alt-ergo",
+          "thread_affinity": {
+            "468333": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 468356,
+          "ppid": 176611,
+          "name": "spark_memcached",
+          "thread_affinity": {
+            "468356": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 468357,
+          "ppid": 468356,
+          "name": "alt-ergo",
+          "thread_affinity": {
+            "468357": [
+              2,
+              3
+            ]
+          },
+          "exited_during_sampling": 0
+        }
+      ]
+    },
+    "probe60": {
+      "root": 461937,
+      "processes": [
+        {
+          "pid": 461937,
+          "ppid": 461936,
+          "name": "python3",
+          "thread_affinity": {
+            "461937": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 461989,
+          "ppid": 461937,
+          "name": "alr",
+          "thread_affinity": {
+            "461989": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 461994,
+          "ppid": 461989,
+          "name": "gnatprove",
+          "thread_affinity": {
+            "461994": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 462349,
+          "ppid": 461994,
+          "name": "why3server",
+          "thread_affinity": {
+            "462349": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 462350,
+          "ppid": 461994,
+          "name": "gprbuild",
+          "thread_affinity": {
+            "462350": [
+              6,
+              7
+            ],
+            "462351": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 462468,
+          "ppid": 462350,
+          "name": "gnat2why",
+          "thread_affinity": {
+            "462468": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 462511,
+          "ppid": 462468,
+          "name": "spark_semaphore",
+          "thread_affinity": {
+            "462511": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 462512,
+          "ppid": 462511,
+          "name": "spark_memcached",
+          "thread_affinity": {
+            "462512": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 462513,
+          "ppid": 462512,
+          "name": "gnatwhy3",
+          "thread_affinity": {
+            "462513": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 467839,
+          "ppid": 462349,
+          "name": "spark_memcached",
+          "thread_affinity": {
+            "467839": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 467840,
+          "ppid": 467839,
+          "name": "z3",
+          "thread_affinity": {
+            "467840": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 467985,
+          "ppid": 462349,
+          "name": "spark_memcached",
+          "thread_affinity": {
+            "467985": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        },
+        {
+          "pid": 467986,
+          "ppid": 467985,
+          "name": "alt-ergo",
+          "thread_affinity": {
+            "467986": [
+              6,
+              7
+            ]
+          },
+          "exited_during_sampling": 0
+        }
+      ]
+    }
+  },
+  "workspace_free_bytes": 87626403840
+}

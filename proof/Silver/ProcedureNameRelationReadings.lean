@@ -87,19 +87,19 @@ theorem ActualNameFreeTrace.scalarPair {text : Source} {context : ParseContext} 
     (spelling.scalarLookup facts) (scalarIndex_bounded targetBound)
   exact ⟨leftFree, rightFree, afterRight⟩
 
-private theorem stringTail_positive {text names scalarNames integerHidden arrays initials elaborating scan expression result}
-    (source : ExpressionTailAt text names scan expression result scalarNames integerHidden arrays initials elaborating) :
+private theorem stringTail_positive {text names scalarNames integerHidden arrays initials elaborating contextFirst scan expression result}
+    (source : ExpressionTailAt text names scan expression result scalarNames integerHidden arrays initials elaborating contextFirst) :
     result.after ≠ 0 := by
   induction source with
   | done positive _ => exact positive
   | last _ _ positive _ _ => exact positive
   | next _ _ _ _ _ _ _ ih => exact ih
 
-private theorem stringTail_nondecreasing {text names scalarNames integerHidden arrays initials elaborating scan expression result}
-    (source : ExpressionTailAt text names scan expression result scalarNames integerHidden arrays initials elaborating) :
+private theorem stringTail_nondecreasing {text names scalarNames integerHidden arrays initials elaborating contextFirst scan expression result}
+    (source : ExpressionTailAt text names scan expression result scalarNames integerHidden arrays initials elaborating contextFirst) :
     scan.position ≤ result.after := by
   have advance := Compose.Expressions.model_tail_nondecreasing (scalarNames := scalarNames)
-    (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan
+    (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst) text names scan
   rw [expressionTail_complete source] at advance
   exact advance.resolve_left (stringTail_positive source)
 
@@ -107,9 +107,9 @@ theorem ActualNameFreeTrace.stringPair {text : Source} {context : ParseContext} 
     {initials : ArrayBindings.Initials} {position limit targetFirst targetAfter : Nat}
     {target : Cell} {left right : Expression} {leftResult rightResult : ExpressionResult}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
-    (leftSource : ExpressionAt text context.names position left leftResult (scalarNames := context.readingNames facts)
+    (leftSource : ExpressionAt (contextFirst := context.contextFirst) text context.names position left leftResult (scalarNames := context.readingNames facts)
       (integerHidden := context.integerHidden text) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating))
-    (rightSource : ExpressionAt text context.names (comparisonAt text leftResult.after).after right rightResult
+    (rightSource : ExpressionAt (contextFirst := context.contextFirst) text context.names (comparisonAt text leftResult.after).after right rightResult
       (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text)
       (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating))
     (positionBound : position ≤ text.length + 1) (finishBound : rightResult.after ≤ limit)

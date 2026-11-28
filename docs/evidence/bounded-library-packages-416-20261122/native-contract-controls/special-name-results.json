@@ -1,0 +1,84 @@
+[
+  {
+    "package": "Standard",
+    "source_sha256": {
+      "standard.ads": "19bc7c91b3de134a99f8ed715499257ffed5ae8da41ec4264158bff329429209",
+      "standard.adb": "b148fe8366a9ae66937170a8fc22e39adcd4260367193917211e3dc0fb04bd7f",
+      "main.adb": "ed867144333cad5c186e90136b8a1fe51d7edfa66e15ec249fec10a774218488"
+    },
+    "phases": [
+      {
+        "phase": "check",
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/package-special-controls/standard/main.adb"
+        ],
+        "returncode": 0,
+        "output": "Accepted: silver.\n"
+      },
+      {
+        "phase": "compile",
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/bin/silver",
+          "compile",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/package-special-controls/standard/main.adb"
+        ],
+        "returncode": 0,
+        "output": "Accepted: silver.\nPhase 1 of 3: generation of data representation information ...\nPhase 2 of 3: generation of Global contracts ...\nPhase 3 of 3: flow analysis and proof ...\n info: implicit aspect Always_Terminates on \"Is_Message\" has been proved, subprogram will terminate\n--> silver_arguments.adb:5:13\n\n info: range check proved\n--> silver_arguments.adb:6:11\n\n info: precondition proved\n--> silver_arguments.adb:14:43\n\n info: range check proved\n--> silver_arguments.adb:26:20\n\n info: range check proved\n--> silver_arguments.adb:26:49\n\n info: length check proved\n--> silver_arguments.adb:26:61\n\n info: precondition proved\n--> silver_arguments.adb:30:53\n\n info: range check proved\n--> silver_arguments.adb:33:23\n\n info: range check proved\n--> silver_arguments.adb:33:49\n\n info: length check proved\n--> silver_arguments.adb:33:61\n\n info: implicit aspect Always_Terminates on \"Input_Is_Valid\" has been proved, subprogram will terminate\n--> silver_arguments.ads:9:13\n\n info: data dependencies proved\n--> silver_arguments.ads:9:48\n\n info: implicit aspect Always_Terminates on \"First_Or_Default\" has been proved, subprogram will terminate\n--> silver_arguments.ads:13:13\n\n info: data dependencies proved\n--> silver_arguments.ads:14:11\n\n info: postcondition proved\n--> silver_arguments.ads:15:19\n\n info: range check proved\n--> silver_arguments.ads:16:45\n\n info: aspect Always_Terminates on \"Reject\" has been proved, subprogram will terminate\n--> silver_arguments.ads:21:14\n\n info: data dependencies proved\n--> silver_arguments.ads:22:11\n info: initialization of \"Status\" proved\n--> silver_io.adb:7:07\n\n info: range check proved\n--> silver_io.adb:13:14\n\n info: loop invariant initialization proved\n--> silver_io.adb:19:43\n\n info: loop invariant preservation proved\n--> silver_io.adb:19:43\n\n info: overflow check proved\n--> silver_io.adb:19:65\n\n info: loop invariant initialization proved\n--> silver_io.adb:21:23\n\n info: loop invariant preservation proved\n--> silver_io.adb:21:23\n\n info: index check proved\n--> silver_io.adb:22:30\n\n info: overflow check proved\n--> silver_io.adb:22:57\n\n info: index check proved\n--> silver_io.adb:22:57\n\n info: range check proved\n--> silver_io.adb:29:41\n\n info: index check proved\n--> silver_io.adb:30:25\n\n info: range check proved\n--> silver_io.adb:37:38\n\n info: index check proved\n--> silver_io.adb:38:22\n\n info: initialization of \"Status\" proved\n--> silver_io.adb:50:07\n\n info: range check proved\n--> silver_io.adb:56:14\n\n info: loop invariant initialization proved\n--> silver_io.adb:62:43\n\n info: loop invariant preservation proved\n--> silver_io.adb:62:43\n\n info: overflow check proved\n--> silver_io.adb:62:65\n\n info: loop invariant initialization proved\n--> silver_io.adb:64:23\n\n info: loop invariant preservation proved\n--> silver_io.adb:64:23\n\n info: index check proved\n--> silver_io.adb:65:30\n\n info: overflow check proved\n--> silver_io.adb:65:57\n\n info: index check proved\n--> silver_io.adb:65:57\n\n info: range check proved\n--> silver_io.adb:72:41\n\n info: index check proved\n--> silver_io.adb:73:25\n\n info: data dependencies proved\n--> silver_io.ads:19:11\n\n info: initialization of \"Written_Bytes\" proved\n--> silver_io.ads:20:33\n\n info: initialization of \"Written_Count\" proved\n--> silver_io.ads:20:48\n\n info: initialization of \"Flushed\" proved\n--> silver_io.ads:20:63\n\n info: initialization of \"Succeeded\" proved\n--> silver_io.ads:20:72\n\n info: postcondition proved\n--> silver_io.ads:22:30\n\n info: range check proved\n--> silver_io.ads:23:45\n\n info: range check proved\n--> silver_io.ads:24:44\n\n info: overflow check proved\n--> silver_io.ads:24:52\n\n info: range check proved\n--> silver_io.ads:25:24\n\n info: range check proved\n--> silver_io.ads:25:48\n\n info: index check proved\n--> silver_io.ads:26:39\n\n info: data dependencies proved\n--> silver_io.ads:30:11\n\n info: initialization of \"Written_Bytes\" proved\n--> silver_io.ads:31:33\n\n info: initialization of \"Written_Count\" proved\n--> silver_io.ads:31:48\n\n info: initialization of \"Flushed\" proved\n--> silver_io.ads:31:63\n\n info: initialization of \"Succeeded\" proved\n--> silver_io.ads:31:72\n\n info: postcondition proved\n--> silver_io.ads:33:30\n\n info: range check proved\n--> silver_io.ads:34:45\n\n info: range check proved\n--> silver_io.ads:35:44\n\n info: range check proved\n--> silver_io.ads:36:24\n\n info: range check proved\n--> silver_io.ads:36:48\n warning: initialization of \"Result\" has no effect\n--> main.adb:4:04\n    4 |       Result : Standard.Count := 0;\n      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n info: range check proved\n--> standard.adb:11:26\n\n info: implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate\n--> standard.ads:6:13\nSuccess: all checks proved (68 checks).\nSummary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-dOm0UB/obj/gnatprove/gnatprove.out\nCompile\n   [Ada]          main.adb\n   [Ada]          silver_io.adb\n   [Ada]          standard.adb\n   [Ada]          silver_output_libc.ads\nBind\n   [gprbind]      main~1.bexch\n   [Ada]          main~1.ali\nLink\n   [link]         main.adb\nSource: /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-dOm0UB/main.adb\nProof: /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-dOm0UB/obj/gnatprove/main~1.spark\nPackage specification: /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-dOm0UB/standard.ads\nPackage body: /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-dOm0UB/standard.adb\nPackage proof: /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-dOm0UB/obj/gnatprove/standard~1.spark\nExecutable: /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-dOm0UB/bin/main\n"
+      }
+    ],
+    "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-dOm0UB",
+    "audit": {
+      "units": 6,
+      "entities": 21,
+      "flow_checks": 20,
+      "proof_checks": 48,
+      "limitation_notes": 0,
+      "imported_entities": 6,
+      "trusted_math_notes": 0,
+      "vendor_spec_entities": 0,
+      "array_initialization_advisories": 0,
+      "operator_reassociation_advisories": 0,
+      "assignment_advisories": 1,
+      "image_advisories": 1,
+      "termination_checks": 1,
+      "initialization_checks": 0
+    },
+    "execution": {
+      "returncode": 0,
+      "stdout": " 9\n",
+      "stderr": ""
+    }
+  },
+  {
+    "package": "GNAT",
+    "source_sha256": {
+      "gnat.ads": "a7331bdc5367e10b273c14a796f9892264cfa65fe0e0c55e8da7f4f6c59a3307",
+      "gnat.adb": "99c6a6baf6677a29c6ea349bca5a9372fec94cd0f648933e8a9bc6e092db088b",
+      "main.adb": "b6f1301f3c9ae0898f50074cab33b2de9a3ca8bd652ce63663c6c4021370b1cb"
+    },
+    "phases": [
+      {
+        "phase": "check",
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/package-special-controls/gnat/main.adb"
+        ],
+        "returncode": 0,
+        "output": "Accepted: silver.\n"
+      },
+      {
+        "phase": "compile",
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/bin/silver",
+          "compile",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/tmp/package-special-controls/gnat/main.adb"
+        ],
+        "returncode": 3,
+        "output": "Accepted: silver.\nPhase 1 of 3: generation of data representation information ...\nPhase 2 of 3: generation of Global contracts ...\nPhase 3 of 3: flow analysis and proof ...\n info: implicit aspect Always_Terminates on \"Is_Message\" has been proved, subprogram will terminate\n--> silver_arguments.adb:5:13\n\n info: range check proved\n--> silver_arguments.adb:6:11\n\n info: precondition proved\n--> silver_arguments.adb:14:43\n\n info: range check proved\n--> silver_arguments.adb:26:20\n\n info: range check proved\n--> silver_arguments.adb:26:49\n\n info: length check proved\n--> silver_arguments.adb:26:61\n\n info: precondition proved\n--> silver_arguments.adb:30:53\n\n info: range check proved\n--> silver_arguments.adb:33:23\n\n info: range check proved\n--> silver_arguments.adb:33:49\n\n info: length check proved\n--> silver_arguments.adb:33:61\n\n info: implicit aspect Always_Terminates on \"Input_Is_Valid\" has been proved, subprogram will terminate\n--> silver_arguments.ads:9:13\n\n info: data dependencies proved\n--> silver_arguments.ads:9:48\n\n info: implicit aspect Always_Terminates on \"First_Or_Default\" has been proved, subprogram will terminate\n--> silver_arguments.ads:13:13\n\n info: data dependencies proved\n--> silver_arguments.ads:14:11\n\n info: postcondition proved\n--> silver_arguments.ads:15:19\n\n info: range check proved\n--> silver_arguments.ads:16:45\n\n info: aspect Always_Terminates on \"Reject\" has been proved, subprogram will terminate\n--> silver_arguments.ads:21:14\n\n info: data dependencies proved\n--> silver_arguments.ads:22:11\n info: initialization of \"Status\" proved\n--> silver_io.adb:7:07\n\n info: range check proved\n--> silver_io.adb:13:14\n\n info: loop invariant initialization proved\n--> silver_io.adb:19:43\n\n info: loop invariant preservation proved\n--> silver_io.adb:19:43\n\n info: overflow check proved\n--> silver_io.adb:19:65\n\n info: loop invariant initialization proved\n--> silver_io.adb:21:23\n\n info: loop invariant preservation proved\n--> silver_io.adb:21:23\n\n info: index check proved\n--> silver_io.adb:22:30\n\n info: overflow check proved\n--> silver_io.adb:22:57\n\n info: index check proved\n--> silver_io.adb:22:57\n\n info: range check proved\n--> silver_io.adb:29:41\n\n info: index check proved\n--> silver_io.adb:30:25\n\n info: range check proved\n--> silver_io.adb:37:38\n\n info: index check proved\n--> silver_io.adb:38:22\n\n info: initialization of \"Status\" proved\n--> silver_io.adb:50:07\n\n info: range check proved\n--> silver_io.adb:56:14\n\n info: loop invariant initialization proved\n--> silver_io.adb:62:43\n\n info: loop invariant preservation proved\n--> silver_io.adb:62:43\n\n info: overflow check proved\n--> silver_io.adb:62:65\n\n info: loop invariant initialization proved\n--> silver_io.adb:64:23\n\n info: loop invariant preservation proved\n--> silver_io.adb:64:23\n\n info: index check proved\n--> silver_io.adb:65:30\n\n info: overflow check proved\n--> silver_io.adb:65:57\n\n info: index check proved\n--> silver_io.adb:65:57\n\n info: range check proved\n--> silver_io.adb:72:41\n\n info: index check proved\n--> silver_io.adb:73:25\n\n info: data dependencies proved\n--> silver_io.ads:19:11\n\n info: initialization of \"Written_Bytes\" proved\n--> silver_io.ads:20:33\n\n info: initialization of \"Written_Count\" proved\n--> silver_io.ads:20:48\n\n info: initialization of \"Flushed\" proved\n--> silver_io.ads:20:63\n\n info: initialization of \"Succeeded\" proved\n--> silver_io.ads:20:72\n\n info: postcondition proved\n--> silver_io.ads:22:30\n\n info: range check proved\n--> silver_io.ads:23:45\n\n info: range check proved\n--> silver_io.ads:24:44\n\n info: overflow check proved\n--> silver_io.ads:24:52\n\n info: range check proved\n--> silver_io.ads:25:24\n\n info: range check proved\n--> silver_io.ads:25:48\n\n info: index check proved\n--> silver_io.ads:26:39\n\n info: data dependencies proved\n--> silver_io.ads:30:11\n\n info: initialization of \"Written_Bytes\" proved\n--> silver_io.ads:31:33\n\n info: initialization of \"Written_Count\" proved\n--> silver_io.ads:31:48\n\n info: initialization of \"Flushed\" proved\n--> silver_io.ads:31:63\n\n info: initialization of \"Succeeded\" proved\n--> silver_io.ads:31:72\n\n info: postcondition proved\n--> silver_io.ads:33:30\n\n info: range check proved\n--> silver_io.ads:34:45\n\n info: range check proved\n--> silver_io.ads:35:44\n\n info: range check proved\n--> silver_io.ads:36:24\n\n info: range check proved\n--> silver_io.ads:36:48\n warning: initialization of \"Result\" has no effect\n--> main.adb:4:04\n    4 |       Result : GNAT.Count := 0;\n      |       ^~~~~~~~~~~~~~~~~~~~~~~~\n\n warning: no Global contract available for \"Reset\" [assumed-global-null]\n--> main.adb:6:08\n    6 |       GNAT.Reset;\n      |       ~~~~^~~~~~\n      + assuming \"Reset\" has no effect on global items\n\n warning: no Always_Terminates aspect available for \"Reset\" [assumed-always-terminates]\n--> main.adb:6:08\n    6 |       GNAT.Reset;\n      |       ~~~~^~~~~~\n      + assuming \"Reset\" always terminates\n\n warning: no Global contract available for \"Increment\" [assumed-global-null]\n--> main.adb:8:11\n    8 |          GNAT.Increment;\n      |          ~~~~^~~~~~~~~~\n      + assuming \"Increment\" has no effect on global items\n\n warning: no Always_Terminates aspect available for \"Increment\" [assumed-always-terminates]\n--> main.adb:8:11\n    8 |          GNAT.Increment;\n      |          ~~~~^~~~~~~~~~\n      + assuming \"Increment\" always terminates\n\n warning: no Global contract available for \"Read\" [assumed-global-null]\n--> main.adb:10:18\n   10 |       Result := GNAT.Read;\n      |                 ~~~~^~~~~\n      + assuming \"Read\" has no effect on global items\n info: range check proved\n--> gnat.adb:11:26\n\n info: implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate\n--> gnat.ads:6:13\nSuccess: all checks proved (68 checks).\nSummary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-VHdbvp/obj/gnatprove/gnatprove.out\nVerification failure for admitted Silver: missing or incomplete proof evidence.\n"
+      }
+    ]
+  }
+]

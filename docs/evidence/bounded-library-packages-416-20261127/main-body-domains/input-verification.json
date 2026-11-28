@@ -1,0 +1,15 @@
+{
+  "run_id": "20261127T215552-3e26126b0349",
+  "captured": 1608,
+  "matched": 1608,
+  "changed": [],
+  "primary_differences_before_integration": [
+    "proof/Silver/ApplicationPackageMainBodyDomains.lean",
+    "proof/Silver/OutputSourceBridge.lean",
+    "proof/Silver/ReviewedOutputShape.lean"
+  ],
+  "changed_existing_inputs_outside_target_imports": [
+    "proof/Silver/OutputSourceBridge.lean",
+    "proof/Silver/ReviewedOutputShape.lean"
+  ]
+}

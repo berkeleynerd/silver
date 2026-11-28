@@ -1,0 +1,14 @@
+{
+  "run_id": "20261127T231519-c5039e91a6f8",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPhasedAssurance"
+  ],
+  "declarations": 24608,
+  "source_sha256": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "76c35418d31645fbf97dcc4899adb29bdee76938bb9204f32758bdfa38c58a31",
+    "evidence.json": "596502b5e551ab7e5e2e6ff807bb8ed0e91ba6ff2a7fab55a2057d04b2f06738",
+    "lean-focused.log.gz": "21ee3d0bce2042e7fc7e6419ace09ff77a83bf5222e6b928be683d67d639ce60"
+  }
+}

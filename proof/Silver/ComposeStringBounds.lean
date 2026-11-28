@@ -6,6 +6,8 @@ public import Silver.ComposeSemantics
 @[expose] public section
 
 namespace Silver.Compose
+
+variable {contextFirst : Nat}
 open Bindings StringObjectBounds
 
 structure ExpressionResult.ContainsBounds (result : ExpressionResult) (bounds : Bounds) : Prop where
@@ -28,14 +30,14 @@ theorem emission_objectBounds {text : Source} {names : BindingEnvironment}
     (input : Source) (normal : NamesNormal names)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials true (ScalarExpression.ranges scalarNames)) integers)
     (positive : state.position ≠ 0) (unfinished : state.complete = false)
-    (accepted : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (accepted : (expressionStep (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text names state).position ≠ 0)
-    (fixed : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (fixed : (expressionStep (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text names state).dynamicCount = 0)
     (before : state.ContainsBounds bounds)
-    (parsed : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (parsed : EmissionAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text names state emitted) :
-    (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (expressionStep (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text names state).ContainsBounds
       (emitted.foldBounds names input integers bounds) := by
   by_cases reading : state.needOperand = true ∧ fixedAfter text state.position "(" false = 0
@@ -43,7 +45,7 @@ theorem emission_objectBounds {text : Source} {names : BindingEnvironment}
     obtain ⟨atom, source, rfl⟩ := parsed
     simp only [expressionStep, positive, unfinished, Bool.false_eq_true, ↓reduceIte, reading.1,
       reading.2, ne_eq, not_true_eq_false] at accepted fixed ⊢
-    generalize rawEq : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    generalize rawEq : valueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text state.position names = raw at accepted fixed source ⊢
     split at accepted
     · simp [invalidExpressionState] at accepted
@@ -95,7 +97,7 @@ theorem expressionTail_objectBounds {text : Source} {names : BindingEnvironment}
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials true (ScalarExpression.ranges scalarNames)) integers)
     (bounded : state.operands ≤ maxExpressionOperands)
     (before : state.ContainsBounds bounds)
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (parsed : ExpressionTailAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text names state expression result)
     (fixed : result.dynamicCount = 0) : result.ContainsBounds (expression.foldBounds names input integers bounds) := by
   induction parsed generalizing bounds with
@@ -109,7 +111,7 @@ theorem expressionTail_objectBounds {text : Source} {names : BindingEnvironment}
       obtain ⟨summary, _, accumulated⟩ := expressionTail_summary normal facts.2.2.1 rest
       have count := congrArg LengthSummary.dynamicCount accumulated
       simp only [ExpressionResult.lengthSummary, ExpressionState.lengthSummary, LengthSummary.add] at count
-      have fixedNext : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
+      have fixedNext : (expressionStep (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
           (arrays := arrays) (initials := initials) (elaborating := true) text names scan).dynamicCount = 0 := by
         omega
       have next := emission_objectBounds input normal scalars positive unfinished accepted fixedNext before emitted
@@ -122,7 +124,7 @@ theorem expressionAt_objectBounds {text : Source} {names : BindingEnvironment}
     {position : Nat} {expression : Expression} {result : ExpressionResult} {integers : Integer.Store}
     (input : Source) (normal : NamesNormal names)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials true (ScalarExpression.ranges scalarNames)) integers)
-    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (parsed : ExpressionAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
     (fixed : result.dynamicCount = 0) : result.ContainsBounds (expression.objectBounds names input integers) :=
   expressionTail_objectBounds input normal scalars (by simp) (ExpressionState.emptyBounds position) parsed fixed

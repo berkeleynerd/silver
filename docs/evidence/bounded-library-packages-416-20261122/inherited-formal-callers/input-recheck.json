@@ -1,0 +1,17 @@
+{
+  "run_id": "20261127T222949-017cd9e2c593",
+  "captured_sources": 1587,
+  "matched": 1587,
+  "mismatches": [],
+  "primary_shared_mismatches": [
+    "proof/Silver/FunctionDeclarationInitialDomain.lean",
+    "proof/Silver/FunctionDeclarationNative.lean",
+    "proof/Silver/FunctionFrameValidity.lean",
+    "proof/Silver/ProcedureDeclarationSyntax.lean"
+  ],
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "audited_declarations": 18702
+}

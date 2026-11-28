@@ -16,7 +16,9 @@ from scripts.check_lean import CANDIDATES, CERTIFICATE_ROOTS, OUTPUT_BODY_LINES
 from scripts.platforms import native_layout
 
 ROOT = Path(__file__).resolve().parents[1]
-EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.ads",
+EMBEDDED = ("silver_application_units.ads", "silver_application_units.adb",
+            "silver_package_bindings.ads", "silver_package_bindings.adb",
+            "silver_profile.ads", "silver_profile.adb", "silver_output_profile.ads",
             "silver_output_profile.adb", "silver_output_lexical.ads", "silver_output_lexical.adb",
             "silver_io.ads", "silver_io.adb",
             "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb",
@@ -30,6 +32,8 @@ EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.a
             "silver_image_model.ads", "silver_image_model.adb",
             "silver_image_model_templates.ads", "silver_image_model_templates.adb")
 CERTIFICATE_MODULES = (
+    "ApplicationUnitsSpecCertificate", "ApplicationUnitsBodyCertificate",
+    "PackageBindingsSpecCertificate", "PackageBindingsBodyCertificate",
     "ProfileSpecCertificate", "ProfileBodyCertificate",
     "OutputSpecCertificate", "OutputBodyCertificate",
     "OutputLexicalSpecCertificate", "OutputLexicalBodyCertificate",

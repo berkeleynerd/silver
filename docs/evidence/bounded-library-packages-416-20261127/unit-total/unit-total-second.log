@@ -1,0 +1,20 @@
+Lean concurrency: 2 Lake workers, 2 threads per Lean process (8 available CPUs).
+Resource allocation: memory_mb requested=8192 actual=8192; threads requested=2 actual=2 automatic=2; workers requested=2 actual=2 automatic=4; deliberate reduction: workers; reason: host's eight-CPU allocation
+Lean phase build started at 2026-11-27T21:13:11.236890+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageUnitTotal +Silver.AxiomAudit
+✖ [315/315] Building Silver.ApplicationPackageUnitTotal (1.1s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/Silver/ApplicationPackageUnitTotal.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageUnitTotal.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageUnitTotal.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageUnitTotal.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageUnitTotal.setup.json --json
+error: Silver/ApplicationPackageUnitTotal.lean:119:67: This simp argument is unused:
+  Bool.false_eq_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [routineReturns, ↓reduceIte, Option.map_some]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/ApplicationPackageUnitTotal.lean:138:13: Unknown identifier `objectStep_positions`
+Some required targets logged failures:
+- Silver.ApplicationPackageUnitTotal
+error: build failed
+
+Lean phase build finished at 2026-11-27T21:13:16.112229+00:00; elapsed 4.875s; exit 1
+check_lean: Lean check failed; see /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-contract-source/.silver/linux-x86_64/lean-focused.log

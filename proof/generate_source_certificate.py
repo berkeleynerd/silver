@@ -20,6 +20,10 @@ _RFL_TOKEN_LIMIT = 32_768
 OUTPUT_BODY_LINE_MODULES = tuple(f"OutputBodyLines{index}" for index in range(8))
 
 SOURCE_BINDINGS = (
+    ("silver_application_units.ads", "applicationUnitsSpec", "applicationUnitsSpecTokens"),
+    ("silver_application_units.adb", "applicationUnitsBody", "applicationUnitsBodyTokens"),
+    ("silver_package_bindings.ads", "packageBindingsSpec", "packageBindingsSpecTokens"),
+    ("silver_package_bindings.adb", "packageBindingsBody", "packageBindingsBodyTokens"),
     ("silver_procedure_bindings.ads", "procedureBindingsSpec", "procedureBindingsSpecTokens"),
     ("silver_procedure_bindings.adb", "procedureBindingsBody", "procedureBindingsBodyTokens"),
     ("silver_function_bindings.ads", "functionBindingsSpec", "functionBindingsSpecTokens"),
@@ -201,6 +205,14 @@ def generate_parts(source: str, profile: str, prefix: str, *,
         f"def {prefix}_certificates : List LineCertificate :=",
         f"  {tree}.lines",
         "",
+    ])
+    # Elaborating the flattened token literal also traverses the entire list.
+    # Scale only this declaration's recursion budget as the source grows;
+    # its complete lexer equality is still checked below by the kernel.
+    if len(all_tokens) > _RFL_TOKEN_LIMIT:
+        depth = 100_000 * ((len(all_tokens) + _RFL_TOKEN_LIMIT - 1) // _RFL_TOKEN_LIMIT)
+        output.append(f"set_option maxRecDepth {depth} in")
+    output.extend([
         f"def {prefix} : Tokens :=",
         "  " + tokens_literal(all_tokens),
         "",

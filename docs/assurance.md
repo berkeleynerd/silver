@@ -155,8 +155,9 @@ remain mandatory. The pinned producer emits no procedure termination witness;
 the procedure termination argument therefore belongs to the constructed
 declaration and body semantics. The
 [producer/capacity record](scalar-procedures-report-capacity.md) derives the
-49,279,744-byte report envelope, including the #391 formal advisories, and
-unchanged 64 MiB allocation. Focused tests
+49,279,744-byte report envelope, including the #391 formal advisories, within
+the then-selected 64 MiB allocation. The [package extension](bounded-library-packages-report-capacity.md)
+raises the shared allocation to 256 MiB. Focused tests
 exercise these rules; they do not replace complete compiler or source proofs.
 
 ## Named constrained Integer-array inputs
@@ -201,7 +202,7 @@ objects and freshly auditing module coverage and the permitted foundations.
 The [final regression record](evidence/named-array-parameters-410-20261121/final-regression/README.md)
 distinguishes the full suite, affected rechecks and final metadata checks. The feature-local
 [producer account](named-array-parameters-report-capacity.md) retains the existing
-49,279,744-byte report envelope in 64 MiB under the pinned producer premises;
+49,279,744-byte report envelope within the then-selected 64 MiB allocation under the pinned producer premises;
 it is a storage argument, separate from automatic discharge. The two
 [Rosetta driver assessments](../rosetta/assessment-named-array-parameters-20261121.md)
 derive expected results and full-domain arithmetic bounds; sample success does
@@ -1202,8 +1203,20 @@ accepted that connection. The [delivery evidence](bounded-string-characters.md#d
 records the successful complete native and actual-source checkpoints, final
 regression coverage and independent source review.
 
+`Predicate.Program.checks` retains the normalized program's schemas.
+`PredicateScalarHeaderInventory` additionally follows the original shell and
+declaration histories to retain raw inline Integer range expressions in Main
+objects and every local callable, including unused definitions. Each expression
+keeps its declaration-time scalar and array scope. `Current.checks source program`
+combines these inventories; the source relation and complete discharge are
+derived separately from the admitted meaning. Its finite mathematical inventory
+uses `Classical.choose` on proved existence, not a compiler operation or an
+additional admission condition. The [#428 repair record](evidence/bounded-library-packages-416-20261128/standalone-scalar-headers-428/README.md)
+distinguishes focused validation from the outstanding complete checkpoint.
+
 `Current.all_obligations_discharge` proves terminating mathematical discharge
-for every admitted meaning; `fragment_checks_valid` supplies schema validity.
+of the combined source-dependent inventory for every admitted meaning;
+`fragment_checks_valid` supplies schema validity.
 `automatic_discharge_complete` returns the small uniform declaration-fragment
 certificate after admission. Source-specific path schemas are discharged by the
 separate universal theorem, not by that uniform calculation. The step bound in
@@ -1218,7 +1231,9 @@ faithful completed parsing, obligation generation, completion of proof for every
 source schema accepted by the Lean endpoint-discharge checker, fixed-library
 proof completion, same-source build completion, and preservation and realization
 of modeled execution.
-The generation relation must associate every emitted range, length, index, overflow or
+Generation retains the same source and parsed program throughout the pipeline;
+its completion contract applies to admitted source/program pairs. The generation
+relation must associate every emitted range, length, index, overflow or
 nonzero-divisor check with its source schema; that association alone does not establish that the producer
 omitted no required obligation. Faithful and complete GNATprove generation,
 applicable static elimination, accurate diagnostics and the accepted report
@@ -1452,7 +1467,8 @@ These specifications describe byte traversal, quoted strings, nesting, audited
 fields, entities, dependencies and every emitted record, without calling the
 executable acceptance traversal. Shared elementary predicates and immutable
 tables do not replace that refinement. Retained application audit data has a
-67,108,864-byte domain; runtime data retains 262,144 bytes. These are storage
+268,435,456-byte domain under the [package capacity account](bounded-library-packages-report-capacity.md);
+runtime data retains 262,144 bytes. These are storage
 bounds after the streaming projection of unaudited `check_tree` values, not
 limits on original evidence-file length. The original reports remain unchanged,
 and every record and policy-relevant field remains in the audited input.

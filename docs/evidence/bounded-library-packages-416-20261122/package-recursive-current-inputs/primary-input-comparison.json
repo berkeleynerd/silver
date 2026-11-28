@@ -1,0 +1,13 @@
+{
+  "primary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410",
+  "primary_head": "34fd8c65ce29e46caa49a6ba8fb6c301c8601ae2",
+  "run_id": "20261127T214851-2a69d479f1f3",
+  "captured_count": 1613,
+  "matching_common_count": 1613,
+  "changed_common_inputs": [],
+  "private_input_drift": [],
+  "private_only_inputs": [],
+  "primary_additions_outside_scope": [
+    "proof/Silver/ApplicationPackageMainDomains.lean"
+  ]
+}

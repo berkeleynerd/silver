@@ -1,6 +1,7 @@
 module
 
 public import Silver.ProcedureNameAttributes
+public import Silver.ProcedureNameScalarReadings
 public import Silver.ScalarArrayGrammarSyntax
 
 @[expose] public section

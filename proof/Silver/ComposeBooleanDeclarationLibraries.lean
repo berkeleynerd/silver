@@ -33,7 +33,7 @@ structure Links (imports : Imports) (composed : Compose.Expressions.Calls) (cond
     | .scalar => composed.function .scalarLookup text state.scalarNames first after
     | .array => composed.function .arrayLookup text state.arrayNames.table first after
     | .arrayType => composed.function .arrayTypeLookup text state.arrayNames.types first after
-    | .subtype => composed.function .subtypeLookup text state.subtypeNames first after
+    | .subtype => composed.function .subtypeLookup text state.subtypeNames first after 0 0
     | .boolean => composed.function .booleanLookup text state.booleanNames first after
     | .function => composed.function .functionLookup text state.functions first after
     | .procedure => composed.function .procedureLookup text state.procedures first after

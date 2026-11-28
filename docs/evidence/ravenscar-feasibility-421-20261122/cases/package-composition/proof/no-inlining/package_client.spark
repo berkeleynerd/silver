@@ -1,0 +1,140 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 5,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 6,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 3,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Package_Client.Read",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "package_client.ads",
+          "line": 4
+        }
+      ]
+    },
+    " 2": {
+      "name": "Package_Client",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "package_client.ads",
+          "line": 2
+        }
+      ]
+    },
+    " 3": {
+      "name": "Package_Client.Step",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "package_client.ads",
+          "line": 3
+        }
+      ]
+    },
+    " 4": {
+      "name": "Hidden_State.Increment",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "hidden_state.ads",
+          "line": 4
+        }
+      ]
+    },
+    " 5": {
+      "name": "Hidden_State.Read",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "hidden_state.ads",
+          "line": 5
+        }
+      ]
+    },
+    " 6": {
+      "name": "Hidden_State.Reset",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "hidden_state.ads",
+          "line": 3
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 1,
+      "file": "package_client.ads",
+      "how_proved": "flow",
+      "line": 4,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+      },
+      "msg_id": 0,
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "all",
+    " 3": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 5.50000004295725E-05
+    },
+    " 3": {
+      "gnat2why.vc_generation": 4.02000005124137E-04
+    },
+    "global": {
+      "flow analysis": 5.33999991603196E-04,
+      "globals (advanced)": 2.57999985478818E-04,
+      "globals (basic)": 2.14999992749654E-04,
+      "init_why_sections": 4.79999987874180E-04,
+      "marking": 2.65999988187104E-04,
+      "properties (advanced)": 2.09999998332933E-05,
+      "translation of standard": 1.37299997732043E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

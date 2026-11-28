@@ -1,0 +1,19 @@
+{
+  "run_id": "20261127T215425-45f65b025e62",
+  "captured_sources": 1550,
+  "matched": 1550,
+  "mismatches": [],
+  "primary_shared_mismatches": [],
+  "private_new_files": [
+    "proof/Silver/ApplicationPackageRoutineFrameBinding.lean",
+    "proof/Silver/ApplicationPackageRoutineFrameContract.lean",
+    "proof/Silver/ApplicationPackageRoutineFrameDomains.lean",
+    "proof/Silver/ApplicationPackageRoutineFrameImports.lean",
+    "proof/Silver/ApplicationPackageRoutineFrameLibraries.lean"
+  ],
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "audited_declarations": 50538
+}

@@ -1,0 +1,509 @@
+{
+  "source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09",
+  "scope": "Conservative helper inventory; successful prior whole-unit checks are retained evidence and still require final provenance matching. No complete Output_Profile or compiler assurance is claimed.",
+  "completed_canonical_units": {
+    "silver_package_bindings.adb": {
+      "run": "20261122T131900-f578f694ab88",
+      "checks": 149
+    },
+    "silver_names.adb": {
+      "run": "20261122T133120-51dd981388d0",
+      "checks": 135
+    },
+    "silver_scalar_expressions.adb": {
+      "run": "20261122T145409-e3b75ceb67be",
+      "checks": 312,
+      "flow": 43,
+      "proof": 269,
+      "entities": 23,
+      "policy": "final-policy"
+    }
+  },
+  "output_profile_new_helpers": [
+    {
+      "name": "Package_Word",
+      "current_lines": [
+        7891
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T174316-72d68ed05168",
+      "checks": 10,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 8,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Spark_Pragma_After",
+      "current_lines": [
+        7908
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T174440-cefef5afe8c6",
+      "checks": 11,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 9,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Package_Name_Allowed",
+      "current_lines": [
+        7922
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T174625-977fe4992c25",
+      "checks": 38,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 36,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Package_Name_Fresh",
+      "current_lines": [
+        7939
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T174750-0f1c9c8ac0bd",
+      "checks": 6,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 4,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Package_Type_At",
+      "current_lines": [
+        7961
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T174921-80fa287eba55",
+      "checks": 13,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 11,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Static_Boolean_At",
+      "current_lines": [
+        7997,
+        8109
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T180644-1f5eefc02619",
+      "unproved": 0,
+      "flow": 5,
+      "proof": 17,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02",
+      "checks": 22
+    },
+    {
+      "name": "Static_Boolean_Primary",
+      "current_lines": [
+        8007
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T175440-e22bd3c6f341",
+      "checks": 24,
+      "unproved": 0,
+      "flow": 3,
+      "proof": 21,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Static_Boolean_Factor",
+      "current_lines": [
+        8045
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T175649-1db5b6f73ba7",
+      "checks": 11,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 9,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Static_Boolean_Relation",
+      "current_lines": [
+        8063
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T175841-8a64b605158d",
+      "checks": 20,
+      "unproved": 0,
+      "flow": 6,
+      "proof": 14,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Outer_Declaration",
+      "current_lines": [
+        8137
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T175048-543c2ea12434",
+      "checks": 4,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 2,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Hide_Outer",
+      "current_lines": [
+        8145
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T175214-5b46f509c5da",
+      "checks": 37,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 35,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Package_Object_At",
+      "current_lines": [
+        8221
+      ],
+      "coverage": "complete-helper-success",
+      "previous_contract_success": {
+        "run": "20261122T180815-378d8355adc0",
+        "checks": 28,
+        "unproved": 0,
+        "flow": 7,
+        "proof": 21,
+        "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+      },
+      "run": "20261127T125548-44ef65f45db0",
+      "checks": 30,
+      "unproved": 0,
+      "flow": 7,
+      "proof": 23,
+      "run_source_sha256": "d3103d20a1a57388d68f4ffdf8d0a091face76de7ad586a29631f1250a91d6b2"
+    },
+    {
+      "name": "Append_Package_Formal",
+      "current_lines": [
+        8304
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T165616-d68c94f0ca7f",
+      "checks": 9,
+      "run_source_sha256": "c1a59b4b655fec3a25f6d27eaa56b3a20572441d41fa6532e054a7cfd81efec5"
+    },
+    {
+      "name": "Package_Signature_At",
+      "current_lines": [
+        8367
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T172039-c364b0adf1b1",
+      "checks": 77,
+      "unproved": 0,
+      "flow": 14,
+      "proof": 63,
+      "run_source_sha256": "9450a06ef818cb329cfe09d3ab22caf4362e0ece6f684a5dc7e79a87ec334b4a"
+    },
+    {
+      "name": "Package_Spec_At",
+      "current_lines": [
+        8551
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T181702-5e3c1450b9d5",
+      "unproved": 0,
+      "checks": 43,
+      "flow": 9,
+      "proof": 34,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+    },
+    {
+      "name": "Application_Of",
+      "current_lines": [
+        8643
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T182141-e8a459c49fff",
+      "checks": 2,
+      "flow": 1,
+      "proof": 1,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+    },
+    {
+      "name": "Invalid_Application",
+      "current_lines": [
+        8645
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T182245-200596709485",
+      "checks": 2,
+      "flow": 1,
+      "proof": 1,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+    },
+    {
+      "name": "Visible_State",
+      "current_lines": [
+        8648
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T182543-3f813ace70a3",
+      "checks": 12,
+      "flow": 4,
+      "proof": 8,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+    },
+    {
+      "name": "State_Target",
+      "current_lines": [
+        8673
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T182648-adfcc33cbbd5",
+      "checks": 10,
+      "flow": 2,
+      "proof": 8,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+    },
+    {
+      "name": "State_Reads",
+      "current_lines": [
+        8688
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T182838-66d41187d493",
+      "checks": 10,
+      "flow": 2,
+      "proof": 8,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+    },
+    {
+      "name": "Package_Callee",
+      "current_lines": [
+        8712
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T183016-b28ca489391a",
+      "checks": 11,
+      "flow": 3,
+      "proof": 8,
+      "unproved": 0,
+      "run_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02"
+    },
+    {
+      "name": "Package_Call_At",
+      "current_lines": [
+        8752
+      ],
+      "coverage": "complete-helper-success",
+      "failed_run": "20261122T183136-3e6f28606690",
+      "failed_source_sha256": "e181c06fc2ac104092b9166eb276338feeca254ad21446fdfc3903cd81a7dc02",
+      "unproved": 0,
+      "run": "20261122T191156-df67d2d4c1c4",
+      "checks": 85,
+      "flow": 13,
+      "proof": 72,
+      "run_source_sha256": "c37214cd9bc8772c84b2f4cd775d6582748e4499f829bf282bfe81e1264871af"
+    },
+    {
+      "name": "Application_Basic",
+      "current_lines": [
+        8893
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261122T193745-91cca7ff3c43",
+      "checks": 47,
+      "unproved": 0,
+      "flow": 3,
+      "proof": 44,
+      "run_source_sha256": "c37214cd9bc8772c84b2f4cd775d6582748e4499f829bf282bfe81e1264871af"
+    },
+    {
+      "name": "Application_Statement",
+      "current_lines": [
+        8944,
+        8997
+      ],
+      "coverage": "complete-helper-success",
+      "failed_run": "20261127T121829-562685cbce5e",
+      "failed_source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004",
+      "unproved": 0,
+      "latest_failure": "20261127T130601-2687d262ec8e",
+      "run": "20261127T141021-61ebae4a0685",
+      "checks": 158,
+      "flow": 11,
+      "proof": 147,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
+    },
+    {
+      "name": "Application_Tail",
+      "current_lines": [
+        8960
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261127T121117-3d399c0e30f1",
+      "checks": 25,
+      "unproved": 0,
+      "flow": 3,
+      "proof": 22,
+      "run_source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004"
+    },
+    {
+      "name": "Routine_Frame",
+      "current_lines": [
+        9180
+      ],
+      "coverage": "complete-helper-success",
+      "failed_run": "20261122T192845-3ee5a4e23fe9",
+      "failed_source_sha256": "c37214cd9bc8772c84b2f4cd775d6582748e4499f829bf282bfe81e1264871af",
+      "unproved": 0,
+      "run": "20261127T120823-f71ab3de8038",
+      "checks": 22,
+      "flow": 4,
+      "proof": 18,
+      "run_source_sha256": "2e055cecc2d9eb6000490f4aa4d3d589d0cc9bbd91b55d0c65619599cfc56004"
+    },
+    {
+      "name": "Package_Completion_At",
+      "current_lines": [
+        9229
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261127T144204-d3e112615a84",
+      "checks": 59,
+      "unproved": 0,
+      "flow": 15,
+      "proof": 44,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
+    },
+    {
+      "name": "Package_Body_At",
+      "current_lines": [
+        9358
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261127T150147-298ed1b9d8ea",
+      "checks": 36,
+      "unproved": 0,
+      "flow": 7,
+      "proof": 29,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
+    },
+    {
+      "name": "Imported_Frame",
+      "current_lines": [
+        9412
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261127T150627-336b243e0551",
+      "checks": 9,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 7,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
+    },
+    {
+      "name": "Same_Package_Spelling",
+      "current_lines": [
+        9446
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261127T150951-fcf99a0aab8e",
+      "checks": 6,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 4,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
+    },
+    {
+      "name": "Package_Main_At",
+      "current_lines": [
+        9460
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Charge_Unit",
+      "current_lines": [
+        9503
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261127T154143-4d9cb86d3cf6",
+      "checks": 34,
+      "unproved": 0,
+      "flow": 8,
+      "proof": 26,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
+    },
+    {
+      "name": "Analyze_Application",
+      "current_lines": [
+        9546
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Analyze_Model",
+      "current_lines": [
+        9585
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Analyze",
+      "current_lines": [
+        9587
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Is_Application_Member",
+      "current_lines": [
+        9589
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Accepts_Application",
+      "current_lines": [
+        9591
+      ],
+      "coverage": "pending"
+    },
+    {
+      "name": "Imported_Package",
+      "current_lines": [
+        9594
+      ],
+      "coverage": "complete-helper-success",
+      "run": "20261127T154445-5b43629d3f46",
+      "checks": 39,
+      "unproved": 0,
+      "flow": 2,
+      "proof": 37,
+      "run_source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09"
+    }
+  ],
+  "other_changed_output_profile_helpers": "changed-output-profile-helpers.json records existing helper changes against 1fac6fa133, with direct body callers of changed declarations. Focused evidence for these existing contracts and affected callers is pending.",
+  "next_dependencies_before_spec": [
+    "Package_Word",
+    "Spark_Pragma_After",
+    "Package_Name_Allowed",
+    "Package_Name_Fresh",
+    "Package_Type_At",
+    "Hide_Outer",
+    "Static_Boolean_Primary/Factor/Relation/At recursive group",
+    "Package_Object_At",
+    "Package_Signature_At repaired full check",
+    "Package_Spec_At"
+  ]
+}

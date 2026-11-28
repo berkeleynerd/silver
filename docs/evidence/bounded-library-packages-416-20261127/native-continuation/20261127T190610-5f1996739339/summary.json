@@ -1,0 +1,60 @@
+{
+  "run": "20261127T190610-5f1996739339",
+  "outcome": "failure",
+  "duration_seconds": 1471.698658453,
+  "scope": [
+    "compiler",
+    "--limit-subp=silver_output_profile.adb:9492"
+  ],
+  "focused_options": [
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30"
+  ],
+  "allocation": {
+    "workers": {
+      "actual": 2,
+      "automatic": 8,
+      "requested": 2
+    }
+  },
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "sources": {
+    "src/silver_names.adb": "7660b0a119b1ac53afa9478880e93a4b05e4f7ed3c601316e0cd61637539cdb6",
+    "src/silver_names.ads": "20eb7b268611e056c3fba698ec6d946956ebdcf1bd9b57ae680cc9b85afbdd74",
+    "src/silver_output_profile.adb": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+    "src/silver_output_profile.ads": "196aa3b3a9f4401cf542397e34c1c0a93d9375b462d3e4fb4460fafa8029f2f1",
+    "src/silver_package_bindings.ads": "9879b90ab8864c89a2225abf01af1ab8eb9b9a057d28497559a261fad1072585",
+    "src/silver_package_bindings.adb": "21f668c90945d60b13939b06a71ca5eb4c634478cf3aa8140a0cf53a282dd9dc"
+  },
+  "reports": [
+    {
+      "file": "silver_output_profile.spark",
+      "flow": 5,
+      "proof": 47,
+      "spark": {
+        " 1": "all"
+      },
+      "entities": {
+        " 1": {
+          "name": "Silver_Output_Profile.Package_Main_At",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 9492
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

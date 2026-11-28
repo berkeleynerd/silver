@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateStringActualAssurance
 public import Silver.PredicateGrammar
+public import Silver.PredicateScalarHeaderInventory
 public import Silver.Cursor
 
 @[expose] public section
@@ -59,12 +60,25 @@ theorem sequence_valid {source : Source} {program : Predicate.Program}
   cases meaning with
   | sequence parsed => exact Predicate.meaning_valid parsed
 
-def checks : Program → List Predicate.Check
+/-! Normalized programs can share semantics while their original inline
+constraints have different arithmetic syntax. The complete inventory and tool
+generation therefore retain the same source throughout the endpoint. -/
+noncomputable def checks (source : Source) : Program → List Predicate.Check
   | .nullMain => []
-  | .sequence program => program.checks
+  | .sequence program => program.checks ++ Predicate.ScalarHeaders.checks source program
 
-def obligations (program : Program) : List Semantics.Obligation :=
-  (checks program).map Predicate.Check.toObligation
+noncomputable def obligations (source : Source) (program : Program) : List Semantics.Obligation :=
+  (checks source program).map Predicate.Check.toObligation
+
+def ScalarHeaderSource (source : Source) : Program → Prop
+  | .nullMain => True
+  | .sequence program => (Predicate.ScalarHeaders.inventory source program).SourceAt source program
+
+theorem source_scalar_headers {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) : ScalarHeaderSource source program := by
+  cases meaning with
+  | nullMain => trivial
+  | sequence parsed => exact Predicate.ScalarHeaders.inventory_source parsed
 
 def uniformObligations : List Semantics.Obligation :=
   Compose.uniformRangeObligations.map Guarded.RangeObligation.toObligation ++
@@ -87,10 +101,14 @@ def BoundedFragment (checks : List Predicate.Check) : Prop :=
   ∀ check ∈ checks, check.InFragment
 
 theorem admitted_fragment {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) : BoundedFragment (checks program) := by
-  cases program with
+    (meaning : SourceMeaning source program) : BoundedFragment (checks source program) := by
+  cases meaning with
   | nullMain => simp [BoundedFragment, checks]
-  | sequence program => exact Predicate.Program.checks_fragment (sequence_valid meaning)
+  | sequence parsed =>
+    intro check member
+    rcases List.mem_append.mp member with normalized | header
+    · exact Predicate.Program.checks_fragment (Predicate.meaning_valid parsed) check normalized
+    · exact Predicate.ScalarHeaders.checks_fragment parsed check header
 
 theorem fragment_checks_valid {checks : List Predicate.Check}
     (fragment : BoundedFragment checks) : ∀ check ∈ checks, check.Valid := by
@@ -99,15 +117,15 @@ theorem fragment_checks_valid {checks : List Predicate.Check}
 
 theorem all_obligations_discharge {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
-    Semantics.discharge (obligations program) = true ∧
-      ∃ steps, steps ≤ (obligations program).length + 1 ∧
-        Semantics.DischargeSteps (obligations program) true steps := by
-  have discharged : Semantics.discharge (obligations program) = true := by
+    Semantics.discharge (obligations source program) = true ∧
+      ∃ steps, steps ≤ (obligations source program).length + 1 ∧
+        Semantics.DischargeSteps (obligations source program) true steps := by
+  have discharged : Semantics.discharge (obligations source program) = true := by
     apply (Semantics.discharge_iff _).mpr
     intro check member
     obtain ⟨schema, present, rfl⟩ := List.mem_map.mp member
     exact Predicate.Check.fragment_discharge (admitted_fragment meaning schema present)
-  have steps := Semantics.discharge_terminates (obligations program)
+  have steps := Semantics.discharge_terminates (obligations source program)
   rw [discharged] at steps
   exact ⟨discharged, steps⟩
 
@@ -174,23 +192,26 @@ theorem cumulative_output_bound {source : Source} {program : Program}
 theorem admitted_assurance {source : Source} (member : Member source) :
     automaticDischarge source = some true ∧
     ∃ program, SourceMeaning source program ∧
-      Semantics.discharge (obligations program) = true ∧
-      (∃ steps, steps ≤ (obligations program).length + 1 ∧
-        Semantics.DischargeSteps (obligations program) true steps) ∧
+      Semantics.discharge (obligations source program) = true ∧
+      (∃ steps, steps ≤ (obligations source program).length + 1 ∧
+        Semantics.DischargeSteps (obligations source program) true steps) ∧
+      ScalarHeaderSource source program ∧
       SourceBoundsRefinement source program ∧
       ∀ environment, StringBoundsSafe source environment program ∧
         SpecifiedOutcome environment program (execute environment program) := by
   obtain ⟨program, meaning⟩ := member_has_meaning member
   have checked := all_obligations_discharge meaning
   have bounds := source_string_bounds_assured meaning
-  exact ⟨automatic_discharge_complete member, program, meaning, checked.1, checked.2, bounds.1,
+  exact ⟨automatic_discharge_complete member, program, meaning, checked.1, checked.2,
+    source_scalar_headers meaning, bounds.1,
     fun environment => ⟨bounds.2 environment, execution_specified environment program⟩⟩
 
 theorem every_meaning_assured {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
-    Semantics.discharge (obligations program) = true ∧
-    (∃ steps, steps ≤ (obligations program).length + 1 ∧
-      Semantics.DischargeSteps (obligations program) true steps) ∧
+    Semantics.discharge (obligations source program) = true ∧
+    (∃ steps, steps ≤ (obligations source program).length + 1 ∧
+      Semantics.DischargeSteps (obligations source program) true steps) ∧
+    ScalarHeaderSource source program ∧
     SourceBoundsRefinement source program ∧
     ∀ environment, StringBoundsSafe source environment program ∧
       SpecifiedOutcome environment program (execute environment program) ∧
@@ -198,12 +219,12 @@ theorem every_meaning_assured {source : Source} {program : Program}
         execute environment program = ⟨expectedStatus environment program, intendedBytes environment program⟩) := by
   have checked := all_obligations_discharge meaning
   have bounds := source_string_bounds_assured meaning
-  exact ⟨checked.1, checked.2, bounds.1, fun environment =>
+  exact ⟨checked.1, checked.2, source_scalar_headers meaning, bounds.1, fun environment =>
     ⟨bounds.2 environment, execution_specified environment program, healthy_execution meaning environment⟩⟩
 
 structure Tools (Artifact : Type) where
   parse : Source → Program → Nat → Prop
-  generate : Program → List Predicate.Check → Nat → Prop
+  generate : Source → Program → List Predicate.Check → Nat → Prop
   prove : List Predicate.Check → Nat → Prop
   verifyFixedLibrary : Nat → Prop
   build : Source → Artifact → Nat → Prop
@@ -219,7 +240,8 @@ def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Pro
 /-- Generic external-tool contracts, without arbitrary-SPARK solver
 completeness. Declaration and executable-body obligations normalize to the
 source-derived range, exact/affine length, index, scalar arithmetic, Integer Image,
-loop and input-validity schemas under the exact refined path context.
+loop and input-validity schemas under the exact refined path context, including
+raw inline Integer constraints in Main and every declared local callable.
 Their endpoint certificates are checked in Lean. Generation may omit or repeat
 schemas; its coverage of every native Bronze/Silver obligation remains a
 trusted GNATprove premise audited through complete reports.
@@ -236,9 +258,10 @@ structure ToolContract {Artifact : Type} (tools : Tools Artifact) : Prop where
     ∃ steps, tools.parse source program steps
   parseFaithful : ∀ source program steps, tools.parse source program steps →
     SourceMeaning source program
-  generationCompletes : ∀ program, ∃ checks steps, tools.generate program checks steps
-  generationFaithful : ∀ program checks steps, tools.generate program checks steps →
-    ∀ check ∈ checks, ∃ schema ∈ Current.checks program, check.Refines schema
+  generationCompletes : ∀ source program, SourceMeaning source program →
+    ∃ checks steps, tools.generate source program checks steps
+  generationFaithful : ∀ source program checks steps, tools.generate source program checks steps →
+    ∀ check ∈ checks, ∃ schema ∈ Current.checks source program, check.Refines schema
   boundedProofCompletes : ∀ checks, BoundedFragment checks →
     ∃ steps, tools.prove checks steps
   fixedLibraryProofCompletes : ∃ steps, tools.verifyFixedLibrary steps
@@ -254,9 +277,9 @@ structure ToolContract {Artifact : Type} (tools : Tools Artifact) : Prop where
 
 /-- An explicit model of the interface shows its premises are jointly
 inhabited. It is not an implementation or verification of the external tools. -/
-def modelTools : Tools Program where
+noncomputable def modelTools : Tools Program where
   parse := fun source program steps => SourceMeaning source program ∧ steps = 1
-  generate := fun program checks steps => checks = Current.checks program ∧ steps = 1
+  generate := fun source program checks steps => checks = Current.checks source program ∧ steps = 1
   prove := fun checks steps => BoundedFragment checks ∧ steps = checks.length + 1
   verifyFixedLibrary := fun steps => steps = 1
   build := fun source program steps => SourceMeaning source program ∧ steps = 1
@@ -265,9 +288,9 @@ def modelTools : Tools Program where
 theorem model_tool_contract : ToolContract modelTools where
   parseCompletes := fun _ _ meaning => ⟨1, meaning, rfl⟩
   parseFaithful := fun _ _ _ parsed => parsed.1
-  generationCompletes := fun program => ⟨Current.checks program, 1, rfl, rfl⟩
+  generationCompletes := fun source program _ => ⟨Current.checks source program, 1, rfl, rfl⟩
   generationFaithful := by
-    intro program checks steps generated
+    intro source program checks steps generated
     intro check member
     exact ⟨check, by simpa [generated.1] using member, Predicate.Check.refines_refl _⟩
   boundedProofCompletes := fun checks fragment => ⟨checks.length + 1, fragment, rfl⟩
@@ -285,7 +308,7 @@ theorem model_tool_contract : ToolContract modelTools where
 inductive Pipeline {Artifact : Type} (tools : Tools Artifact) : Source → Artifact → Nat → Prop
   | complete {source : Source} {program : Program} {checks : List Predicate.Check}
       {artifact : Artifact} {parseSteps generateSteps proofSteps buildSteps : Nat} :
-      tools.parse source program parseSteps → tools.generate program checks generateSteps →
+      tools.parse source program parseSteps → tools.generate source program checks generateSteps →
       tools.prove checks proofSteps → LibraryEvidence tools program →
       tools.build source artifact buildSteps →
       Pipeline tools source artifact (parseSteps + generateSteps + proofSteps + buildSteps)
@@ -293,9 +316,9 @@ inductive Pipeline {Artifact : Type} (tools : Tools Artifact) : Source → Artif
 theorem generated_fragment {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} {program : Program}
     (meaning : SourceMeaning source program) {checks : List Predicate.Check} {steps : Nat}
-    (generated : tools.generate program checks steps) : BoundedFragment checks := by
+    (generated : tools.generate source program checks steps) : BoundedFragment checks := by
   intro check member
-  obtain ⟨schema, present, bounded⟩ := contract.generationFaithful program checks steps generated check member
+  obtain ⟨schema, present, bounded⟩ := contract.generationFaithful source program checks steps generated check member
   exact Predicate.Check.fragment_of_refines bounded (admitted_fragment meaning schema present)
 
 theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
@@ -303,7 +326,7 @@ theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
     ∃ artifact steps, Pipeline tools source artifact steps := by
   obtain ⟨program, meaning⟩ := member_has_meaning member
   obtain ⟨parseSteps, parsed⟩ := contract.parseCompletes source program meaning
-  obtain ⟨checks, generateSteps, generated⟩ := contract.generationCompletes program
+  obtain ⟨checks, generateSteps, generated⟩ := contract.generationCompletes source program meaning
   obtain ⟨proofSteps, proved⟩ := contract.boundedProofCompletes checks
     (generated_fragment contract meaning generated)
   obtain ⟨artifact, buildSteps, built⟩ := contract.buildCompletes source program parseSteps parsed
@@ -316,7 +339,7 @@ theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
 theorem pipeline_checks_valid {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} {program : Program}
     (meaning : SourceMeaning source program) {checks : List Predicate.Check}
-    {steps : Nat} (generated : tools.generate program checks steps) :
+    {steps : Nat} (generated : tools.generate source program checks steps) :
     ∀ check ∈ checks, check.Valid :=
   fragment_checks_valid (generated_fragment contract meaning generated)
 

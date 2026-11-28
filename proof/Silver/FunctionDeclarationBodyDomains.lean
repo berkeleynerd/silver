@@ -19,7 +19,7 @@ theorem body_context_valid (text : Source) (state : ParserState) (declarations :
     ScalarExpression.bodyEnvironment_valid valid.base.2.2.2.2.2.1,
     functionFrame_contextReady declarations valid.base valid.ready count,
     valid.base.2.2.2.2.2.2.1.1, valid.base.2.2.2.2.2.2.2.2.1,
-    Or.inl ⟨rfl, rfl⟩, valid.bounds⟩
+    Or.inl ⟨rfl, rfl⟩, valid.bounds, valid.base.unit⟩
 
 private theorem initial_path_bounded (arguments : Bool) : (Predicate.initialFacts arguments).Bounded := by
   cases arguments

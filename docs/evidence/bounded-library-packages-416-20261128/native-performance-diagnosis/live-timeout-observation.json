@@ -1,0 +1,32 @@
+{
+  "observed_utc": "2026-11-28T05:27:41.152959+00:00",
+  "primary_run": "20261127T195636-5b2a2f886237",
+  "primary_active_helper": "Routine_Frame",
+  "recent_primary_session_completions": [
+    {
+      "helper": "Application_Statement",
+      "mtime_utc": "2026-11-28T05:25:10.610181+00:00",
+      "root_proved": true
+    },
+    {
+      "helper": "Application_Tail",
+      "mtime_utc": "2026-11-28T05:26:13.941274+00:00",
+      "root_proved": true
+    }
+  ],
+  "private_run": "20261128T051819-97c12be5e24a",
+  "private_active_helper": "Array_Declaration_Model",
+  "private_configured_timeout": 60,
+  "live_cvc5_pid": 464516,
+  "live_cvc5_cpu_seconds": 144.1,
+  "live_cvc5_cpu_soft_hard_limit_seconds": 241,
+  "original_live_solver_cpu_soft_hard_limit_seconds": 121,
+  "historical_reported_example": {
+    "run": "20261127T184159-a0acf00fba2f",
+    "configured_timeout": 30,
+    "prover": "CVC5",
+    "result": "Valid",
+    "time_seconds": 106.419
+  },
+  "conclusion": "Configured per-prover timeout is not an observed strict per-process CPU cap here. The reason for the larger inherited guard has not been established from pinned source; do not label configured budgets as elapsed cost or upper bound."
+}

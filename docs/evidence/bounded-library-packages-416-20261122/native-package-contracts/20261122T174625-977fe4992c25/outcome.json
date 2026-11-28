@@ -1,0 +1,38 @@
+{
+  "duration_seconds": 34.815282482,
+  "event": "finished",
+  "evidence": [
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T174625-977fe4992c25/native.log",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T174625-977fe4992c25/native.log"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T174625-977fe4992c25/previous-reports",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T174625-977fe4992c25/previous-reports"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T174625-977fe4992c25/focused-evidence",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/78cde64c3e47f2cb/runs/20261122T174625-977fe4992c25/focused-evidence"
+    }
+  ],
+  "failure_identities": {},
+  "failure_keys": [],
+  "focused_report": {
+    "entity_count": 1,
+    "flow_checks": 2,
+    "proof_checks": 36,
+    "subprograms": [
+      "Silver_Output_Profile.Package_Name_Allowed"
+    ]
+  },
+  "monotonic_ns": 82867181586249,
+  "outcome": "success",
+  "retained_reports": [],
+  "returncode": 0,
+  "run_id": "20261122T174625-977fe4992c25",
+  "utc": "2026-11-22T17:47:01.830189+00:00"
+}

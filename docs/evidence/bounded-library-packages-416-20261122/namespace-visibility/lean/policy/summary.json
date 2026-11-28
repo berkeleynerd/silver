@@ -1,0 +1,63 @@
+{
+  "run_id": "20261127T183252-8f86bf13659d",
+  "task": "packages-416-visibility-name-policy",
+  "kind": "lean",
+  "scope": [
+    "Silver.ApplicationPackageNamesMeaning",
+    "Silver.ApplicationPackageNamesSourceCandidate",
+    "Silver.NamesEquations"
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/scripts/check_lean.py",
+    "--task",
+    "packages-416-visibility-name-policy",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--resource-reason",
+    "Two-worker proof share with native namespace checks on the eight-CPU host",
+    "--target",
+    "Silver.NamesEquations",
+    "--target",
+    "Silver.ApplicationPackageNamesMeaning",
+    "--target",
+    "Silver.ApplicationPackageNamesSourceCandidate"
+  ],
+  "workers": 2,
+  "cpu_affinity": [
+    2,
+    3
+  ],
+  "allocation": {
+    "memory_mb": {
+      "actual": null,
+      "automatic": null,
+      "requested": null
+    },
+    "threads": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": 2
+    },
+    "workers": {
+      "actual": 2,
+      "automatic": 6,
+      "requested": 2
+    }
+  },
+  "resource_reason": "Two-worker proof share with native namespace checks on the eight-CPU host",
+  "fingerprint": "cd2093132414756e5c6c2956c374c19b88c384f2860e613f6d7b18021e59e276",
+  "worktree": {
+    "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof",
+    "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof"
+  },
+  "outcome": "success",
+  "duration_seconds": 119.885178739,
+  "returncode": null,
+  "failure_keys": [],
+  "started_at": "2026-11-27T18:32:54.372147+00:00",
+  "finished_at": "2026-11-27T18:34:54.257376+00:00",
+  "archive": "policy"
+}

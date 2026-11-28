@@ -1,0 +1,9 @@
+project Check is
+ for Source_Dirs use ("src");
+ for Main use ("main.adb");
+ for Object_Dir use "../out/zero";
+ for Exec_Dir use "../out/zero";
+ package Compiler is
+  for Default_Switches ("Ada") use ("-gnat2022", "-gnata");
+ end Compiler;
+end Check;

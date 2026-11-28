@@ -19,7 +19,7 @@ set_option maxHeartbeats 2000000
 
 inductive Ty
   | number | value | truth | text | context | flow | result | condition
-  | comparison | scalarComparison | interval | binding | names
+  | comparison | scalarComparison | interval | binding | names | reference
   deriving DecidableEq
 
 @[reducible] def Ty.meaning : Ty → Type
@@ -28,6 +28,7 @@ inductive Ty
   | .condition => ConditionResult | .comparison => Comparison
   | .scalarComparison => Integer.Comparison | .interval => Integer.Interval
   | .binding => ScalarExpression.Binding | .names => ScalarExpression.Environment
+  | .reference => ScalarExpression.NameReference
 
 def Ty.default : (ty : Ty) → ty.meaning
   | .number => 0 | .value => 0 | .truth => false | .text => []
@@ -36,12 +37,15 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .condition => Predicate.invalidCondition ⟨PathFacts.Context.empty, []⟩
   | .comparison => .eq | .scalarComparison => .eq | .interval => Integer.Interval.empty
   | .binding => ScalarExpression.emptyBinding | .names => []
+  | .reference => {}
 
 structure Calls where
   scalars : Integer.Native.Calls
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
   lookup : Source → ScalarExpression.Environment → Nat → Nat → Nat
+  readReference : Source → Nat → ScalarExpression.NameReference
+  qualifiedLookup : Source → ScalarExpression.Environment → Nat → Nat → Nat → Nat → Nat
   invalid : ActiveFlow → ConditionResult
   operator : Comparison → Integer.Comparison
   refineKeep : Integer.Interval → Integer.Comparison → Int → Bool → Integer.Interval
@@ -81,6 +85,12 @@ inductive Expr : Ty → Type
   | number (value : Nat) : Expr .number
   | truth (value : Bool) : Expr .truth
   | scalarComparison (value : Integer.Comparison) : Expr .scalarComparison
+  | referenceFirst : Expr .reference → Expr .number
+  | referenceAfter : Expr .reference → Expr .number
+  | qualifierFirst : Expr .reference → Expr .number
+  | qualifierAfter : Expr .reference → Expr .number
+  | readReference : Expr .text → Expr .number → Expr .reference
+  | qualifiedLookup : Expr .text → Expr .names → Expr .number → Expr .number → Expr .number → Expr .number → Expr .number
   | names : Expr .context → Expr .names
   | declarations : Expr .context → Expr .number
   | bindingAt : Expr .names → Expr .number → Expr .binding
@@ -123,6 +133,14 @@ inductive Expr : Ty → Type
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .variable name => locals _ name
   | .number value => value | .truth value => value | .scalarComparison value => value
+  | .referenceFirst value => (value.eval calls locals).first
+  | .referenceAfter value => (value.eval calls locals).after
+  | .qualifierFirst value => (value.eval calls locals).qualifierFirst
+  | .qualifierAfter value => (value.eval calls locals).qualifierAfter
+  | .readReference text position => calls.readReference (text.eval calls locals) (position.eval calls locals)
+  | .qualifiedLookup text environment first after qFirst qAfter =>
+      calls.qualifiedLookup (text.eval calls locals) (environment.eval calls locals)
+        (first.eval calls locals) (after.eval calls locals) (qFirst.eval calls locals) (qAfter.eval calls locals)
   | .names context => (context.eval calls locals).scalarNames
   | .declarations context => (context.eval calls locals).declarationCount
   | .bindingAt environment index => ScalarExpression.binding (environment.eval calls locals) (index.eval calls locals)
@@ -189,6 +207,14 @@ def Expr.render : Expr ty → List String
   | .variable name => [name]
   | .number value => [toString value] | .truth value => [if value then "true" else "false"]
   | .scalarComparison value => ["scalars", ".", Integer.Native.comparisonName value]
+  | .referenceFirst value => value.render ++ [".", "first"]
+  | .referenceAfter value => value.render ++ [".", "after"]
+  | .qualifierFirst value => value.render ++ [".", "qualifier_first"]
+  | .qualifierAfter value => value.render ++ [".", "qualifier_after"]
+  | .readReference text position => callTokens ["scalar_expressions", ".", "read_reference"] [text.render, position.render]
+  | .qualifiedLookup text environment first after qFirst qAfter =>
+      callTokens ["scalar_expressions", ".", "lookup"]
+        [text.render, environment.render, first.render, after.render, qFirst.render, qAfter.render]
   | .names context => context.render ++ [".", "scalar_names"]
   | .declarations context => context.render ++ [".", "declaration_count"]
   | .bindingAt environment index => environment.render ++ [".", "items", "("] ++ index.render ++ [")"]
@@ -259,12 +285,15 @@ def refineKeepBody : Expr .interval :=
 def bareTargetBody : Expr .number :=
   let text : Expr .text := .variable "text"
   let context : Expr .context := .variable "context"
-  let first : Expr .number := .variable "first"
+  let reference : Expr .reference := .variable "reference"
   let last : Expr .number := .variable "last"
   let index : Expr .number := .variable "index"
-  .locals <| .local "first" ["literal_position"] (.skip text (.variable "position")) <|
-    .local "last" ["literal_position"] (.nameAfter text first) <|
-    .local "index" ["scalar_expressions", ".", "binding_count"] (.lookup text (.names context) first last) <|
+  .locals <| .local "reference" ["scalar_expressions", ".", "name_reference"]
+      (.readReference text (.variable "position")) <|
+    .local "last" ["literal_position"] (.referenceAfter reference) <|
+    .local "index" ["scalar_expressions", ".", "binding_count"]
+      (.qualifiedLookup text (.names context) (.referenceFirst reference) last
+        (.qualifierFirst reference) (.qualifierAfter reference)) <|
     .group <| .ite (.andThen (.ne index (.number 0))
       (.andThen (.eq last (.variable "after"))
         (.group (.orElse (.mutable (.bindingAt (.names context) index)) (.gt index (.declarations context))))))
@@ -345,9 +374,9 @@ def refineKeepEquation (calls : Calls) (bounds : Integer.Interval) (operator : I
   if calls.scalars .isEmpty refined then bounds else refined
 
 def bareTargetEquation (calls : Calls) (text : Source) (context : Native.Context) (position after : Nat) : Nat :=
-  let first := calls.skip text position
-  let last := calls.nameAfter text first
-  let index := calls.lookup text context.scalarNames first last
+  let reference := calls.readReference text position
+  let last := reference.after
+  let index := calls.qualifiedLookup text context.scalarNames reference.first last reference.qualifierFirst reference.qualifierAfter
   if decide (index ≠ 0) && (decide (last = after) &&
       ((ScalarExpression.binding context.scalarNames index).mutable || decide (index > context.declarationCount)))
   then index else 0
@@ -410,6 +439,13 @@ structure PrimitiveMeaning (calls : Calls) : Prop where
   lookup : ∀ text, ValidText text → ∀ names first after,
     ScalarExpression.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.lookup text names first after = ScalarExpression.lookup text names first after
+  readReference : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
+    calls.readReference text position = ScalarExpression.readReference text position
+  qualifiedLookup : ∀ text, ValidText text → ∀ names first after qualifierFirst qualifierAfter,
+    ScalarExpression.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    calls.qualifiedLookup text names first after qualifierFirst qualifierAfter =
+      ScalarExpression.lookup text names first after qualifierFirst qualifierAfter
 
 structure DefinitionEquations (calls : Calls) : Prop where
   invalid : ∀ facts, facts.count ≤ ScalarExpression.maxBindings →
@@ -466,20 +502,27 @@ theorem bareTarget_meaning {calls : Calls} (primitives : PrimitiveMeaning calls)
     (positionBound : position ≤ text.length + 1) (afterBound : after ≤ text.length + 1) :
     calls.bareTarget text context position after = Predicate.bareTarget text context.model position after := by
   rw [definitions.bareTarget text tv context cv position after positionBound afterBound, bareTarget_denotation]
-  have firstBound := model_skip_valid text position positionBound
-  have skipEquation := primitives.skip text tv position positionBound
-  have nameEquation := primitives.nameAfter text tv _ firstBound
-  have lookupEquation := primitives.lookup text tv _ _ _ cv.2.2.1 firstBound
-    (model_name_valid text (skipAt text position))
-  simp [bareTargetEquation, Predicate.bareTarget, Native.Context.model,
-    skipEquation, nameEquation, lookupEquation]
+  have referenceEquation := primitives.readReference text tv position positionBound
+  have bounds := QualifiedNames.read_bounds text position positionBound
+  have firstBound : (ScalarExpression.readReference text position).first ≤ text.length + 1 := by
+    change (QualifiedNames.read text position).first ≤ text.length + 1
+    rcases bounds.1 with absent | present <;> omega
+  have lastBound : (ScalarExpression.readReference text position).after ≤ text.length + 1 :=
+    QualifiedNames.read_after_bound text position positionBound
+  have qualifierBound : QualifiedNames.ValidSpan text
+      (ScalarExpression.readReference text position).qualifierFirst
+      (ScalarExpression.readReference text position).qualifierAfter := bounds.2.1
+  have lookupEquation := primitives.qualifiedLookup text tv _ _ _ _ _ cv.2.2.1 firstBound lastBound qualifierBound
+  simp [bareTargetEquation, Predicate.bareTarget, Native.Context.model, referenceEquation, lookupEquation]
 
 theorem bareTarget_bound (text : Source) (context : ParseContext) (position after : Nat) :
     Predicate.bareTarget text context position after ≤ context.scalarNames.length := by
   unfold Predicate.bareTarget
   dsimp only
   split
-  · exact ScalarExpression.lookup_bound ..
+  · exact ScalarExpression.lookup_bound text context.scalarNames
+      (ScalarExpression.readReference text position).first (ScalarExpression.readReference text position).after
+      (ScalarExpression.readReference text position).qualifierFirst (ScalarExpression.readReference text position).qualifierAfter
   · omega
 
 theorem refine_eq_replace (facts : ActiveFlow) (index : Nat) (bounded : index ≤ facts.count)
@@ -614,6 +657,9 @@ def modelCalls : Calls where
   skip := skipAt
   nameAfter := Compose.nameAfter
   lookup := ScalarExpression.lookup
+  readReference := ScalarExpression.readReference
+  qualifiedLookup := fun text names first after qualifierFirst qualifierAfter =>
+    ScalarExpression.lookup text names first after qualifierFirst qualifierAfter
   invalid := Predicate.invalidCondition
   operator := Comparison.toInteger
   refineKeep := Integer.Interval.refineOrKeep
@@ -627,6 +673,8 @@ theorem model_primitives : PrimitiveMeaning modelCalls where
   skip _ _ _ _ := rfl
   nameAfter _ _ _ _ := rfl
   lookup _ _ _ _ _ _ _ _ := rfl
+  readReference _ _ _ _ := rfl
+  qualifiedLookup := by intros; rfl
 
 theorem model_equations : DefinitionEquations modelCalls where
   invalid facts _ := (invalid_denotation modelCalls facts).symm

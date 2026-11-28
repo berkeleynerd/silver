@@ -1,0 +1,17 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: implicit aspect Always_Terminates on "Read" has been proved, subprogram will terminate
+--> package_client.ads:4:13
+ info: range check proved
+--> hidden_state.adb:12:25
+
+ info: implicit aspect Always_Terminates on "Read" has been proved, subprogram will terminate
+--> hidden_state.ads:5:13
+ info: range check proved
+--> visible_state.adb:11:25
+
+ info: implicit aspect Always_Terminates on "Read" has been proved, subprogram will terminate
+--> visible_state.ads:6:13
+Success: all checks proved (5 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/package-composition/out/obj/explore/no-inlining/gnatprove/gnatprove.out

@@ -64,12 +64,14 @@ set_option backward.dsimp.instances true in
   have echeck : nameCheck = fixedAfter text first "first_or_default" true :=
     interpreted_take calls equations.toRawHelperEquations text valid _ _ bfirst (by unfold ValidToken; decide)
   let hidden := (decide (first ≠ 0) && decide (after > first)) && decide (nameCheck = after)
-  let p4 := calls.names.operationAfter text p3 .argument hidden
-  have ep4 : p4 = Names.operationAfter text p3 .argument hidden :=
-    Names.interpreted_operation calls.names equations.names text valid p3 .argument hidden bp3
+  let p4 := calls.names.operationAfter text p3 .argument hidden state.contextFirst state.packageFirst state.packageAfter
+  have ep4 : p4 = Names.operationAfter text p3 .argument hidden state.contextFirst state.packageFirst state.packageAfter :=
+    Names.interpreted_operation calls.names equations.names text valid p3 .argument hidden
+      state.contextFirst state.packageFirst state.packageAfter bp3 stateValid.valid.unit
   have bp4 : ValidCursor text p4 := by
     rw [ep4]
-    exact Names.operationAfter_bound text p3 .argument hidden bp3
+    exact Names.operationAfter_bound text p3 .argument hidden
+      state.contextFirst state.packageFirst state.packageAfter bp3
   let p5 := calls.function .takeToken text p4 (.symbol "(")
   have bp5 : ValidCursor text p5 := equations.ranges.token text valid _ _ bp4 (by unfold ValidToken; decide)
   have ep5 : p5 = fixedAfter text p4 "(" false :=
@@ -94,8 +96,6 @@ set_option backward.dsimp.instances true in
   have efollowing : following = fixedAfter text close ";" false := interpreted_take calls equations.toRawHelperEquations text valid _ _ bclose (by unfold ValidToken; decide)
   have ename := interpreted_newName calls equations.toRawHelperEquations text valid state first after true stateValid bfirst bafter
   rw [equations.argument text valid state stateValid]
-  dsimp +instances only [argumentBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
-  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
   change (if !calls.function .newName text state first after true || decide (following = 0) ||
     decide (state.names.length ≠ 0) then invalidState
     else {calls.function .addBinding state first after ⟨following, 0, 0, 0, true, true, false, 0, 1, .singleton 1, ⟨0, maxSourceLength⟩⟩ false following with
@@ -170,31 +170,31 @@ decreasing_by
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : NativeState domain text state) :
     calls.function .output text state = outputAt text state := by
-  have resultValid := equations.ranges.expression text valid state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
-  have evalue := interpreted_expression (integerHidden := false) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) calls equations.toRawHelperEquations text valid state.position state.names stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
+  have resultValid := equations.ranges.expression text valid state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst stateValid.valid.unit.1 stateValid.valid.unit.2.1 stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
+  have evalue := interpreted_expression (contextFirst := state.contextFirst) (contextPositive := stateValid.valid.unit.1) (contextBound := stateValid.valid.unit.2.1) (integerHidden := false) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) calls equations.toRawHelperEquations text valid state.position state.names stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have efits := interpreted_fits calls equations.toRawHelperEquations text valid _ state.capacity resultValid stateValid.valid.2.2.2.2.1
   rw [equations.output text valid state stateValid]
   dsimp +instances only [outputBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
   simp only [reduceCtorEq, ↓reduceIte, ↓reduceDIte]
   rw [efits, evalue]
-  cases h : fits (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true) state.capacity <;> simp [outputAt, h]
+  cases h : fits (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst) state.capacity <;> simp [outputAt, h]
 
 @[simp] theorem interpreted_comparison (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : NativeState domain text state) :
     calls.function .comparison text state = comparisonAt text state := by
-  let lhs := calls.function .expression text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true
+  let lhs := calls.function .expression text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst
   let after := calls.function .takeToken text lhs.after (.symbol "=")
-  let rhs := calls.function .expression text after state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true
-  have blhs : NativeResult text lhs := equations.ranges.expression text valid _ _ state.scalarNames false state.arrayNames.table state.arrayNames.values true stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
+  let rhs := calls.function .expression text after state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst
+  have blhs : NativeResult text lhs := equations.ranges.expression text valid _ _ state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst stateValid.valid.unit.1 stateValid.valid.unit.2.1 stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have bafter : ValidCursor text after := equations.ranges.token text valid _ _ blhs.base.1 (by unfold ValidToken; decide)
-  have brhs : NativeResult text rhs := equations.ranges.expression text valid _ _ state.scalarNames false state.arrayNames.table state.arrayNames.values true bafter stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
-  have elhs : lhs = expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true :=
-    interpreted_expression (integerHidden := false) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) calls equations.toRawHelperEquations text valid _ _ stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
+  have brhs : NativeResult text rhs := equations.ranges.expression text valid _ _ state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst stateValid.valid.unit.1 stateValid.valid.unit.2.1 bafter stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
+  have elhs : lhs = expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst :=
+    interpreted_expression (contextFirst := state.contextFirst) (contextPositive := stateValid.valid.unit.1) (contextBound := stateValid.valid.unit.2.1) (integerHidden := false) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) calls equations.toRawHelperEquations text valid _ _ stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have eafter : after = fixedAfter text lhs.after "=" false :=
     interpreted_take calls equations.toRawHelperEquations text valid _ _ blhs.base.1 (by unfold ValidToken; decide)
-  have erhs : rhs = expressionAt text after state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true :=
-    interpreted_expression (integerHidden := false) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) calls equations.toRawHelperEquations text valid _ _ bafter stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
+  have erhs : rhs = expressionAt text after state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst :=
+    interpreted_expression (contextFirst := state.contextFirst) (contextPositive := stateValid.valid.unit.1) (contextBound := stateValid.valid.unit.2.1) (integerHidden := false) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) calls equations.toRawHelperEquations text valid _ _ bafter stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have flhs := interpreted_fits calls equations.toRawHelperEquations text valid lhs state.capacity blhs stateValid.valid.2.2.2.2.1
   have frhs := interpreted_fits calls equations.toRawHelperEquations text valid rhs state.capacity brhs stateValid.valid.2.2.2.2.1
   rw [equations.comparison text valid state stateValid]
@@ -204,10 +204,10 @@ decreasing_by
     !(lhs.namedSeen || rhs.namedSeen) then invalidState else {state with position := rhs.after}) = _
   rw [flhs, frhs, erhs, eafter, elhs]
   dsimp only [comparisonAt]
-  generalize fits (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true) state.capacity = a
-  generalize fits (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true).after "=" false) state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true) state.capacity = b
-  generalize (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true).namedSeen = c
-  generalize (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true).after "=" false) state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true).namedSeen = d
+  generalize fits (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst) state.capacity = a
+  generalize fits (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst).after "=" false) state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst) state.capacity = b
+  generalize (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst).namedSeen = c
+  generalize (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst).after "=" false) state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst).namedSeen = d
   cases a <;> cases b <;> cases c <;> cases d <;> rfl
 
 @[simp] theorem interpreted_target (calls : Calls) (equations : HelperEquations calls (domain := domain))
@@ -242,8 +242,8 @@ decreasing_by
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : NativeState domain text state) :
     calls.function .assignmentValue text state = assignmentAt text state := by
-  have resultValid := equations.ranges.expression text valid state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
-  have evalue := interpreted_expression (integerHidden := false) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) calls equations.toRawHelperEquations text valid state.position state.names stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
+  have resultValid := equations.ranges.expression text valid state.position state.names state.scalarNames false state.arrayNames.table state.arrayNames.values true state.contextFirst stateValid.valid.unit.1 stateValid.valid.unit.2.1 stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
+  have evalue := interpreted_expression (contextFirst := state.contextFirst) (contextPositive := stateValid.valid.unit.1) (contextBound := stateValid.valid.unit.2.1) (integerHidden := false) (arrays := state.arrayNames.table) (initials := state.arrayNames.values) (elaborating := true) calls equations.toRawHelperEquations text valid state.position state.names stateValid.valid.1 stateValid.nativeNames stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have efits := interpreted_fits calls equations.toRawHelperEquations text valid _ state.capacity resultValid stateValid.valid.2.2.2.2.1
   rw [equations.assignmentValue text valid state stateValid]
   dsimp +instances only [assignmentBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]

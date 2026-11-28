@@ -1,0 +1,82 @@
+{
+  "runs": [
+    {
+      "run_id": "20261122T160820-3e8265d55e25",
+      "state": "success",
+      "native_host": "linux-x86_64",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-audit",
+      "revision": "8dea77baad8f17d61c9a61549f22cb8d91c11c0c",
+      "dirty_native_input": "src/silver_platform.ads (exact primary02608f1622 bytes)",
+      "mode": "canonical focused whole-unit final policy",
+      "scope": [
+        "compiler",
+        "silver_report_projection_audit"
+      ],
+      "command": [
+        "gnatprove"
+      ],
+      "fingerprint": "7fb31099256c9e5d35f42e816d8336ec20bf068e788f6edfd09941f8cb38c85b",
+      "duration_seconds": 21.42736073,
+      "complete_unit_coverage": {
+        "entity_count": 3,
+        "flow_checks": 2,
+        "proof_checks": 16
+      },
+      "allocation": {
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "resource_reason": "Share the host eight-CPU allocation with focused package source and semantic proofs",
+      "checked_input_count": 2642,
+      "all_managed_inputs_match_after_completion": true
+    },
+    {
+      "run_id": "20261122T160926-0f44e0ffe644",
+      "state": "success",
+      "native_host": "linux-x86_64",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-audit",
+      "revision": "8dea77baad8f17d61c9a61549f22cb8d91c11c0c",
+      "dirty_native_input": "src/silver_platform.ads (exact primary02608f1622 bytes)",
+      "mode": "canonical focused whole-unit final policy",
+      "scope": [
+        "compiler",
+        "silver_platform"
+      ],
+      "command": [
+        "gnatprove"
+      ],
+      "fingerprint": "a97a6f42b3149573ee8dca7bf1907600d7db9a9c6ea7c930fa8a5cda55b02998",
+      "duration_seconds": 39.460568323,
+      "complete_unit_coverage": {
+        "entity_count": 9,
+        "flow_checks": 36,
+        "proof_checks": 132
+      },
+      "allocation": {
+        "workers": {
+          "actual": 2,
+          "automatic": 4,
+          "requested": 2
+        }
+      },
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "resource_reason": "Share the host eight-CPU allocation with focused package source and semantic proofs",
+      "checked_input_count": 2642,
+      "all_managed_inputs_match_after_completion": true
+    }
+  ],
+  "scope": "Whole-unit focused contracts only; complete native and Lean/source integration remains pending. Earlier library packet retains its own original platform bytes.",
+  "native_snapshot_file_count": 156,
+  "selected_model_effort": "Astra Max for proof integration; live setting unavailable",
+  "cli_memory_updated": false
+}

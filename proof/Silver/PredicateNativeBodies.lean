@@ -97,25 +97,33 @@ def booleanArrayBody : Expr .number :=
 def booleanAtomBody : Expr .number :=
   let text : Expr .source := .variable "text"
   let context : Expr .context := .variable "context"
+  let reference : Expr .reference := .variable "reference"
   let first : Expr .number := .variable "first"
   let after : Expr .number := .variable "after"
-  .locals <| .local "first" ["literal_position"] (.callSkip text (.variable "position")) <|
-    .local "after" ["literal_position"] (.callNameAfter text first) <|
-    .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.eq first (.number 0)) (.le after first))
-        (.group (.andThen (.ne (.field .contextMaskFirst context) (.number 0))
-          (.callEqualName text (.field .contextMaskFirst context) (.field .contextMaskAfter context) first after))))
-        (.ne (.callScalarLookup text (.field .contextScalarNames context) first after) (.number 0)))
-        (.ne (.callLookup text (.field .contextNames context) first after) (.number 0)))
-        (.ne (.callArrayLookup text (.field .contextArrays context) first after) (.number 0)))
-        (.ne (.callArrayTypeLookup text (.field .arrayTypes (.field .contextArrays context)) first after) (.number 0)))
-      (.number 0)
-      (.elsif (.ne (.callBooleanLookup text (.field .contextBooleans context) first after) (.number 0)) after
+  .locals <| .local "reference" ["scalar_expressions", ".", "name_reference"]
+      (.callReadReference text (.variable "position")) <|
+    .local "first" ["literal_position"] (.field .referenceFirst reference) <|
+    .local "after" ["literal_position"] (.field .referenceAfter reference) <|
+    .group <| .ite (.orElse (.eq first (.number 0)) (.le after first)) (.number 0)
+      (.elsif (.ne (.field .referenceQualifierFirst reference) (.number 0))
+        (.group <| .ite (.ne (.callBooleanQualifiedLookup text (.field .contextBooleans context)
+          first after (.field .referenceQualifierFirst reference) (.field .referenceQualifierAfter reference))
+          (.number 0)) after (.number 0))
         (.elsif
-          (.orElse (.group (.andThen (.callNameIs text first after (.word "true"))
-            (.not (.field .contextTrueHidden context))))
-            (.group (.andThen (.callNameIs text first after (.word "false"))
-              (.not (.field .contextFalseHidden context))))) after (.number 0)))
+          (.orElse (.orElse (.orElse (.orElse
+            (.group (.andThen (.ne (.field .contextMaskFirst context) (.number 0))
+              (.callEqualName text (.field .contextMaskFirst context) (.field .contextMaskAfter context) first after)))
+            (.ne (.callScalarLookup text (.field .contextScalarNames context) first after) (.number 0)))
+            (.ne (.callLookup text (.field .contextNames context) first after) (.number 0)))
+            (.ne (.callArrayLookup text (.field .contextArrays context) first after) (.number 0)))
+            (.ne (.callArrayTypeLookup text (.field .arrayTypes (.field .contextArrays context)) first after) (.number 0)))
+          (.number 0)
+          (.elsif (.ne (.callBooleanLookup text (.field .contextBooleans context) first after) (.number 0)) after
+            (.elsif
+              (.orElse (.group (.andThen (.callNameIs text first after (.word "true"))
+                (.not (.field .contextTrueHidden context))))
+                (.group (.andThen (.callNameIs text first after (.word "false"))
+                  (.not (.field .contextFalseHidden context))))) after (.number 0)))))
 
 def primaryBody : Expr .condition :=
   let text : Expr .source := .variable "text"
@@ -145,7 +153,8 @@ def primaryBody : Expr .condition :=
             (.group (.orElse (.subtypeHidden context (.operation .validity))
               (.group (.andThen (.ne (.field .contextMaskFirst context) (.number 0))
                 (.callNameIs text (.field .contextMaskFirst context) (.field .contextMaskAfter context) .validityCallWord)))))
-            (.field .contextBooleans context)) <|
+            (.field .contextBooleans context) (.field .contextFirst context)
+            (.field .contextPackageFirst context) (.field .contextPackageAfter context)) <|
           .group <| .ite (.eq afterCall (.number 0)) (.invalid facts)
             (.condition true (.field .flowCount facts) afterCall
               (.updatePath facts (.callAssumeValid path)) (.updatePath facts (.callAssumeInvalid path)))))))

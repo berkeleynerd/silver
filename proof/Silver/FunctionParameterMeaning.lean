@@ -52,7 +52,7 @@ private theorem parameter_analysis_append_index (names : ScalarExpression.Enviro
 
 
 def integerFormalBinding (parameter : FunctionBindings.Formal) : ScalarExpression.Binding :=
-  ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩
+  {first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := false}
 
 theorem functionScalarAnalysis_integer (frame : ParserState)
     (parameter : FunctionBindings.Formal) (declarations : Nat)
@@ -118,8 +118,7 @@ theorem ParameterFramesAt.analyses {frame index final}
               simp [appendParameter, named, kind, full, invalidState] at accepted
             have step : appendParameter before (FunctionBindings.parameter before.functions index) =
                 {before with booleanNames := before.booleanNames ++
-                  [⟨(FunctionBindings.parameter before.functions index).first,
-                    (FunctionBindings.parameter before.functions index).after, false⟩]} := by
+                  [{first := (FunctionBindings.parameter before.functions index).first, after := (FunctionBindings.parameter before.functions index).after, mutable := false}]} := by
               simp [appendParameter, named, kind, space]
             rw [step] at tail
             simpa only [formalType, named, ↓reduceIte, kind, parameterAnalysis, parameterBooleans,

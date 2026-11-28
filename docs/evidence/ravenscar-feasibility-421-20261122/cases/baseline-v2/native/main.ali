@@ -1,0 +1,94 @@
+V "GNAT Lib v16"
+M P W=b
+A -gnatA
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+A -mtune=generic
+A -march=x86-64
+P DB LC TF ES ZX
+
+RN
+RR SIMPLE_BARRIERS
+RR NO_ABORT_STATEMENTS
+RR NO_ASYNCHRONOUS_CONTROL
+RR NO_CALENDAR
+RR NO_DYNAMIC_ATTACHMENT
+RR NO_DYNAMIC_CPU_ASSIGNMENT
+RR NO_DYNAMIC_PRIORITIES
+RR NO_ENTRY_QUEUE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_LOCAL_TIMING_EVENTS
+RR NO_LOCAL_PROTECTED_OBJECTS
+RR NO_PROTECTED_TYPE_ALLOCATORS
+RR NO_RELATIVE_DELAY
+RR NO_REQUEUE_STATEMENTS
+RR NO_SELECT_STATEMENTS
+RR NO_SPECIFIC_TERMINATION_HANDLERS
+RR NO_TASK_ALLOCATORS
+RR NO_TASK_ATTRIBUTES_PACKAGE
+RR NO_TASK_HIERARCHY
+RR NO_TASK_TERMINATION
+RR NO_TERMINATE_ALTERNATIVES
+RV NO_IMPLEMENTATION_PRAGMAS
+RR MAX_PROTECTED_ENTRIES=1
+RR MAX_SELECT_ALTERNATIVES=0
+RR MAX_TASK_ENTRIES=0
+RR MAX_ASYNCHRONOUS_SELECT_NESTING=0
+RV MAX_ENTRY_QUEUE_LENGTH=1+
+R ada.execution_time.group_budgets
+R ada.execution_time.timers
+R system.multiprocessors.dispatching_domains
+R ada.synchronous_barriers
+
+U main%b		main.adb		10da58ce NE OO SU
+W bounded_probe%s	bounded_probe.adb	bounded_probe.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-except.ads		20260430083320 8699d7ff ada.exceptions%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D bounded_probe.ads	20261122123740 12ea3a01 bounded_probe%s
+D interfac.ads		20260430083320 9111f9c1 interfaces%s
+D i-c.ads		20260430083320 dbdd3be7 interfaces.c%s
+D main.adb		20261122123740 023062cf main%b
+D system.ads		20260430083320 e2b7c99d system%s
+D s-atacco.ads		20260430083320 5868e3ba system.address_to_access_conversions%s
+D s-c_time.ads		20260430083320 e502d0c0 system.c_time%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-linux.ads		20260430083320 96312dab system.linux%s
+D s-multip.ads		20260430083320 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20260626180101 d0718993 system.os_constants%s
+D s-osinte.ads		20260430083320 bfc41750 system.os_interface%s
+D s-oslock.ads		20260430083320 13fa6b78 system.os_locks%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-soflin.ads		20260430083320 5d88fdea system.soft_links%s
+D s-stache.ads		20260430083320 0b81c1fe system.stack_checking%s
+D s-stausa.ads		20260430083320 f470ae2d system.stack_usage%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+D s-tasinf.ads		20260430083320 528dde74 system.task_info%s
+D s-taspri.ads		20260430083320 4fd5ef41 system.task_primitives%s
+D s-taskin.ads		20260430083320 e3b5765b system.tasking%s
+D s-taprob.ads		20260430083320 acd6094d system.tasking.protected_objects%s
+D s-tasres.ads		20260430083320 0c8ef6fb system.tasking.restricted%s
+D s-tarest.ads		20260430083320 c88b6d9a system.tasking.restricted.stages%s
+D s-traent.ads		20260430083320 c81cbf8c system.traceback_entries%s
+D s-unstyp.ads		20260430083320 fa2a7f59 system.unsigned_types%s
+D /home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline-v2/ravenscar.adc  20261122123740 00000000
+G a e
+G c Z b b [main standard 3 11 none]
+G r p none [main standard 3 11 none] [increment bounded_probe__counter 4 17 none]
+X 4 bounded_probe.ads
+2K9*Bounded_Probe 11e18 7|2w6 5r4
+3w14*Counter 7|5r18
+4U17 Increment 7|5s26
+X 7 main.adb
+3U11*Main 3b11 6l5 6t9
+X 21 s-stausa.ads
+206U14*Initialize 207i<c,__gnat_stack_usage_initialize>22
+265U14*Output_Results 269i<c,__gnat_stack_usage_output_results>22
+X 29 s-tarest.ads
+231U14*Activate_All_Tasks_Sequential 232i<c,__gnat_activate_all_tasks>22
+

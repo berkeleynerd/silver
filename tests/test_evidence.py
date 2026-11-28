@@ -139,7 +139,7 @@ class ProofEvidenceTests(unittest.TestCase):
                             {"arg": 2, "predicate": "CLAIM_EFFECTS"}]}]
         self.sarif["runs"][0]["invocations"][0]["commandLine"] += " --no-inlining"
 
-    def audit_functions(self, names: tuple[str, ...] = ("mixed", "UNUSED")) -> dict[str, int]:
+    def audit_functions(self, names: tuple[str, ...] = ("MiXeD", "Unused")) -> dict[str, int]:
         (self.path / "main.spark").write_text(json.dumps(self.report))
         self.refresh_reports()
         return audit_reports(self.path, {"main"}, application_kind="assigned",
@@ -182,7 +182,8 @@ class ProofEvidenceTests(unittest.TestCase):
     def test_function_inventory_is_independent_of_report_entities(self) -> None:
         self.prepare_functions()
         for names in ((), ("MiXeD",), ("MiXeD", "Unused", "Absent"),
-                      ("MiXeD", "mixed"), ("Main.Unused",), ("Bad__Name",)):
+                      ("MiXeD", "mixed"), ("mixed", "UNUSED"),
+                      ("Main.Unused",), ("Bad__Name",)):
             with self.subTest(names=names), self.assertRaises(EvidenceError):
                 self.audit_functions(names)
         with self.assertRaisesRegex(EvidenceError, "requires an application"):

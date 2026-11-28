@@ -1,6 +1,6 @@
 module
 
-public import Silver.ScalarExpressionNativeDenotations
+public import Silver.ScalarReferenceNative
 public import Silver.ScalarExpressionNativeTypes
 public import Silver.ScalarArrayAttributeNative
 
@@ -46,12 +46,20 @@ structure Primitives (calls : Calls) : Prop where
 /-- Typed body interpretation and exact checked runtime refinements. These
 premises retain the actual native preconditions and do not assert admission. -/
 structure Equations (calls : Calls) : Prop where
-  lookupModel : ∀ text, ValidText text → ∀ names, ValidEnvironment text names → ∀ first after index,
+  lookupModel : ∀ text, ValidText text → ∀ names, ValidEnvironment text names →
+    ∀ first after index qualifierFirst qualifierAfter,
     first ≤ text.length + 1 → after ≤ text.length + 1 → index ≤ names.length →
-    calls.lookupModel text names first after index = lookupBody.eval calls ({text,names,first,after,index} : Context).locals
-  lookup : ∀ text, ValidText text → ∀ names, ValidEnvironment text names → ∀ first after,
+    QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    calls.lookupModel text names first after index qualifierFirst qualifierAfter =
+      lookupBody.eval calls ({text,names,first,after,index,qualifierFirst,qualifierAfter} : Context).locals
+  lookup : ∀ text, ValidText text → ∀ names, ValidEnvironment text names →
+    ∀ first after qualifierFirst qualifierAfter,
     first ≤ text.length + 1 → after ≤ text.length + 1 →
-    calls.lookup text names first after = calls.lookupModel text names first after names.length
+    QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    calls.lookup text names first after qualifierFirst qualifierAfter =
+      calls.lookupModel text names first after names.length qualifierFirst qualifierAfter
+  readReference : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
+    calls.readReference text position = referenceBody.eval calls ({text,position} : Context).locals
   skip : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.skip text position = if position = 0 then 0 else calls.trivia text position
   nameAfter : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -123,6 +131,14 @@ theorem interpreted_nameAfter (calls : Calls) (primitives : Primitives calls) (e
   · simp [nameAfter, zero]
   · simp [nameAfter, zero, primitives.identifier text valid position (by omega) bound]
 
+theorem interpreted_readReference (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
+    (text : Source) (valid : ValidText text) (position : Nat) (bound : position ≤ text.length + 1) :
+    calls.readReference text position = readReference text position := by
+  rw [equations.readReference text valid position bound]
+  exact reference_body_meaning calls text position bound
+    (fun next within => interpreted_skip calls primitives equations text valid next within)
+    (fun next within => interpreted_nameAfter calls primitives equations text valid next within)
+
 theorem interpreted_binaryAfter (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (bound : position ≤ text.length + 1) :
     calls.binaryAfter text position = binaryAfter text position := by
@@ -191,36 +207,78 @@ theorem interpreted_close (calls : Calls) (primitives : Primitives calls) (equat
   rw [equations.close text valid value typed bound, close_denotation]
   simp only [closeEquation, interpreted_symbol calls primitives equations text valid value.after 41 bound (by decide), closeResult]
 
-theorem interpreted_lookupModel (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
+theorem interpreted_qualifier (calls : Calls) (primitives : Primitives calls)
+    (text : Source) (valid : ValidText text) (item : Binding)
+    (itemValid : QualifiedNames.ValidSpan text item.qualifierFirst item.qualifierAfter)
+    (first after : Nat) (queryValid : QualifiedNames.ValidSpan text first after) :
+    (if first = 0 then item.qualifierFirst == 0 else
+      decide (0 < item.qualifierFirst) &&
+        calls.equalName text item.qualifierFirst item.qualifierAfter first after) =
+      QualifiedNames.qualifierMatches text item.qualifierFirst item.qualifierAfter first after := by
+  by_cases zero : first = 0
+  · simp [QualifiedNames.qualifierMatches, zero]
+  · rcases queryValid with absent | span
+    · exact False.elim (zero absent.1)
+    · by_cases itemZero : item.qualifierFirst = 0
+      · simp [QualifiedNames.qualifierMatches, zero, itemZero]
+      · rcases itemValid with absent | itemSpan
+        · exact False.elim (itemZero absent.1)
+        · simp only [QualifiedNames.qualifierMatches, zero, ↓reduceIte]
+          rw [primitives.equalName text valid _ _ _ _ itemSpan span]
+
+theorem interpreted_lookupModel_qualified (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (names : Environment) (environment : ValidEnvironment text names)
     (first after index : Nat) (firstBound : first ≤ text.length + 1) (afterBound : after ≤ text.length + 1)
-    (indexBound : index ≤ names.length) :
-    calls.lookupModel text names first after index = lookupFrom text names first after index := by
+    (indexBound : index ≤ names.length) (qualifierFirst qualifierAfter : Nat)
+    (queryValid : QualifiedNames.ValidSpan text qualifierFirst qualifierAfter) :
+    calls.lookupModel text names first after index qualifierFirst qualifierAfter =
+      lookupFrom text names first after index qualifierFirst qualifierAfter := by
   induction index with
   | zero =>
-      rw [equations.lookupModel text valid names environment first after 0 firstBound afterBound indexBound,
-        lookup_denotation]
+      rw [equations.lookupModel text valid names environment first after 0 qualifierFirst qualifierAfter
+        firstBound afterBound indexBound queryValid,
+        lookup_denotation calls text names first after 0 qualifierFirst qualifierAfter]
       simp [lookupEquation, lookupFrom]
   | succ index ih =>
-      rw [equations.lookupModel text valid names environment first after (index + 1) firstBound afterBound indexBound,
-        lookup_denotation]
+      rw [equations.lookupModel text valid names environment first after (index + 1) qualifierFirst qualifierAfter
+        firstBound afterBound indexBound queryValid,
+        lookup_denotation calls text names first after (index + 1) qualifierFirst qualifierAfter]
       by_cases bad : first = 0 ∨ after ≤ first
       · simp [lookupEquation, lookupFrom, bad]
       · have itemValid := environment.2 _ (binding_mem (by omega) indexBound)
         have compared := primitives.equalName text valid (binding names (index + 1)).first
           (binding names (index + 1)).after first after
           ⟨itemValid.1,itemValid.2.1,itemValid.2.2.1⟩ ⟨by omega,by omega,afterBound⟩
+        have qualifier := interpreted_qualifier calls primitives text valid _ itemValid.2.2.2.2.2
+          qualifierFirst qualifierAfter queryValid
         simp only [lookupEquation, lookupFrom, bad, Nat.add_eq_zero_iff, Nat.one_ne_zero,
-          and_false, or_false, ↓reduceIte, compared, Nat.add_sub_cancel, ih (by omega)]
+          and_false, or_false, ↓reduceIte, compared, qualifier, Nat.add_sub_cancel, ih (by omega)]
+
+theorem interpreted_lookup_qualified (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
+    (text : Source) (valid : ValidText text) (names : Environment) (environment : ValidEnvironment text names)
+    (first after : Nat) (firstBound : first ≤ text.length + 1) (afterBound : after ≤ text.length + 1)
+    (qualifierFirst qualifierAfter : Nat) (queryValid : QualifiedNames.ValidSpan text qualifierFirst qualifierAfter) :
+    calls.lookup text names first after qualifierFirst qualifierAfter =
+      lookup text names first after qualifierFirst qualifierAfter := by
+  rw [equations.lookup text valid names environment first after qualifierFirst qualifierAfter
+    firstBound afterBound queryValid]
+  exact interpreted_lookupModel_qualified calls primitives equations text valid names environment
+    first after names.length firstBound afterBound (Nat.le_refl _) qualifierFirst qualifierAfter queryValid
+
+theorem interpreted_lookupModel (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
+    (text : Source) (valid : ValidText text) (names : Environment) (environment : ValidEnvironment text names)
+    (first after index : Nat) (firstBound : first ≤ text.length + 1) (afterBound : after ≤ text.length + 1)
+    (indexBound : index ≤ names.length) :
+    calls.lookupModel text names first after index = lookupFrom text names first after index :=
+  interpreted_lookupModel_qualified calls primitives equations text valid names environment first after index
+    firstBound afterBound indexBound 0 0 (Or.inl ⟨rfl,rfl⟩)
 
 theorem interpreted_lookup (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (names : Environment) (environment : ValidEnvironment text names)
     (first after : Nat) (firstBound : first ≤ text.length + 1) (afterBound : after ≤ text.length + 1) :
-    calls.lookup text names first after = lookup text names first after := by
-  rw [equations.lookup text valid names environment first after firstBound afterBound,
-    interpreted_lookupModel calls primitives equations text valid names environment first after names.length
-      firstBound afterBound (by omega)]
-  rfl
+    calls.lookup text names first after = lookup text names first after :=
+  interpreted_lookup_qualified calls primitives equations text valid names environment first after
+    firstBound afterBound 0 0 (Or.inl ⟨rfl,rfl⟩)
 
 theorem nameAfter_bounds (text : Source) (position : Nat) : nameAfter text position ≤ text.length + 1 := by
   by_cases zero : position = 0

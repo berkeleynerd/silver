@@ -7,7 +7,8 @@ public import Silver.PredicateScalarHeaderReady
 
 /-! The function parser uses the existing checked Valid_State representation
 boundary. This module spells out its scalar-value and String-bound clauses;
-capacity and First_Parameter ceilings come from Parser_State component types.
+capacity and formal-index ceilings and the positive context origin come from
+Parser_State component types.
 No extra reachability or declaration-history hypothesis is introduced. -/
 namespace Silver.Compose.FunctionDeclarationNative
 open Silver.Compose.Expressions
@@ -37,6 +38,8 @@ Each environment predicate uses its existing source/representation bridge;
 Valid_Names includes the separately established object-bound invariant. -/
 structure StateClauses (text : Source) (state : ParserState) : Prop where
   position : state.position ≤ text.length + 1
+  contextFirst : state.contextFirst ≤ text.length + 1
+  packageName : Names.ValidNameState text state.packageFirst state.packageAfter
   functions : FunctionBindings.ValidMetadata text state.functions
   procedures : ProcedureBindings.ValidMetadata text state.procedures
   firstParameter : state.firstParameter ≤ state.functions.parameters.length + 1
@@ -52,6 +55,7 @@ structure StateClauses (text : Source) (state : ParserState) : Prop where
   target : state.target ≤ state.names.length
 
 structure StateTypeBounds (state : ParserState) : Prop where
+  contextFirst : 1 ≤ state.contextFirst
   capacity : state.capacity ≤ maxSourceLength
   firstParameter : state.firstParameter ≤ FunctionBindings.maxFormals
   firstProcedureParameter : state.firstProcedureParameter ≤ ProcedureBindings.maxFormals
@@ -62,21 +66,23 @@ structure NativeValidState (text : Source) (state : ParserState) : Prop where
   bounds : NamesBoundsValid state.names
 
 /-- The strengthened parser input is exactly the existing checked predicate
-plus the three native component bounds omitted from its Boolean expression. -/
+plus the native component bounds omitted from its Boolean expression. -/
 theorem nativeValidState_iff (text : Source) (state : ParserState) :
     NativeValidState text state ↔ StateTypeBounds state ∧ StateClauses text state := by
   constructor
   · rintro ⟨base, ready, bounds⟩
     rcases base with ⟨position, names, dynamic, target, capacity, scalars, arrays,
-      subtypes, booleans, functions, firstParameter, parameterCapacity, procedures, procedureFirst, procedureCapacity⟩
+      subtypes, booleans, functions, firstParameter, parameterCapacity, procedures, procedureFirst, procedureCapacity, context⟩
     have values := (headerReady_iff state.scalarNames).mp ready
-    exact ⟨⟨capacity, parameterCapacity, procedureCapacity⟩, ⟨position, functions, procedures, firstParameter, procedureFirst,
+    exact ⟨⟨context.1, capacity, parameterCapacity, procedureCapacity⟩,
+      ⟨position, context.2.1, context.2.2, functions, procedures, firstParameter, procedureFirst,
       ⟨names, bounds⟩, scalars, arrays, subtypes, booleans, values.1, values.2, dynamic, target⟩⟩
   · rintro ⟨typed, clauses⟩
     exact ⟨⟨clauses.position, clauses.names.1, clauses.dynamic, clauses.target,
       typed.capacity, clauses.scalars, clauses.arrays, clauses.subtypes, clauses.booleans,
       clauses.functions, clauses.firstParameter, typed.firstParameter, clauses.procedures,
-      clauses.firstProcedureParameter, typed.firstProcedureParameter⟩,
+      clauses.firstProcedureParameter, typed.firstProcedureParameter,
+      typed.contextFirst, clauses.contextFirst, clauses.packageName⟩,
       (headerReady_iff state.scalarNames).mpr ⟨clauses.mutableBounds, clauses.declarationValues⟩,
       clauses.names.2⟩
 

@@ -111,15 +111,20 @@ theorem atom_correspondence {text : Source} {names : Environment} (valid : Valid
       · split
         · rfl
         · rename_i nameGood
-          have positive : 0 < lookup text names (skip text position) (nameAfter text (skip text position)) := by omega
-          have bounded := binding_bounded valid positive (lookup_bound text names _ _)
-          have afterPositive : nameAfter text (skip text position) ≠ 0 := by
-            intro zero
-            have zeroLookup : lookup text names (skip text position) 0 = 0 := by
-              unfold lookup
-              cases names.length <;> simp [lookupFrom]
-            simp only [zero, zeroLookup] at positive
+          let reference := readReference text (skip text position)
+          have positive : 0 < lookup text names reference.first reference.after
+              reference.qualifierFirst reference.qualifierAfter := by
+            dsimp only [reference]
             omega
+          have lookupBound := lookup_bound text names reference.first reference.after
+            reference.qualifierFirst reference.qualifierAfter
+          have bounded := binding_bounded valid positive lookupBound
+          have afterPositive : reference.after ≠ 0 := by
+            intro zero
+            have zeroLookup := lookup_invalid text names reference.first reference.after
+              reference.qualifierFirst reference.qualifierAfter (Or.inr (by omega))
+            omega
+          dsimp only [reference] at positive lookupBound bounded afterPositive
           simp only [summarize, afterPositive, leaves, maxOperands,
             show ¬ 64 < 1 by decide, false_or, ↓reduceIte, Integer.Expr.infer,
             ranges, positive, lookup_bound, and_self, Option.bind_some,

@@ -9,12 +9,12 @@ namespace Silver.Predicate
 open Compose
 
 theorem ActualNameFreeTrace.validityOperation {text : Source}
-    {position limit targetFirst targetAfter : Nat} {hidden : Bool}
+    {position limit targetFirst targetAfter contextFirst packageFirst packageAfter : Nat} {hidden : Bool}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
     (positionBound : position ≤ text.length + 1)
-    (accepted : Names.operationAfter text position .validity hidden ≠ 0)
-    (finishBound : Names.operationAfter text position .validity hidden ≤ limit) :
-    ActualNameFreeTrace text limit targetFirst targetAfter (Names.operationAfter text position .validity hidden) := by
+    (accepted : Names.operationAfter text position .validity hidden contextFirst packageFirst packageAfter ≠ 0)
+    (finishBound : Names.operationAfter text position .validity hidden contextFirst packageFirst packageAfter ≤ limit) :
+    ActualNameFreeTrace text limit targetFirst targetAfter (Names.operationAfter text position .validity hidden contextFirst packageFirst packageAfter) := by
   simp only [Names.operationAfter, reduceCtorEq, or_self, ↓reduceIte] at accepted finishBound ⊢
   split at accepted
   · contradiction

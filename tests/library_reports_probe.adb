@@ -5,6 +5,8 @@ with Ada.Command_Line;
 with Ada.Strings.Unbounded;
 with Silver_Library_Reports;
 with Silver_Output_Profile;
+with Silver_Application_Units;
+with Silver_Application_Report_Metadata;
 procedure Library_Reports_Probe is
    Procedure_Source : constant String :=
      "with Silver_IO;procedure Main is pragma SPARK_Mode(On);" &
@@ -49,6 +51,43 @@ procedure Library_Reports_Probe is
      (Silver_Library_Reports.Complete_Application_Proof
         (Text, Silver_Library_Reports.Static_Output));
 begin
+   if Ada.Command_Line.Argument (1) = "package-main"
+     or else Ada.Command_Line.Argument (1) = "package-body"
+   then
+      pragma Assert (Ada.Command_Line.Argument_Count = 4);
+      pragma Assert (Silver_Application_Units.Fits
+        (Ada.Command_Line.Argument (2), Ada.Command_Line.Argument (3), Ada.Command_Line.Argument (4)));
+      declare
+         package Units renames Silver_Application_Units;
+         package Metadata renames Silver_Application_Report_Metadata;
+         Sources : constant Units.Bundle := Units.Pack
+           (Ada.Command_Line.Argument (2), Ada.Command_Line.Argument (3), Ada.Command_Line.Argument (4));
+         Analysis : constant Silver_Output_Profile.Analysis_Result :=
+           Silver_Output_Profile.Analyze (Sources);
+         Package_Report : constant Boolean := Ada.Command_Line.Argument (1) = "package-body";
+         Assigned : constant Boolean :=
+           (if Package_Report then Analysis.Package_Info.Assigned else Analysis.Uses_Assignment);
+         Policy : constant Silver_Library_Reports.Application_Kind :=
+           (if not Package_Report and then Analysis.Uses_Arguments then
+              (if Assigned then Silver_Library_Reports.Selected_Output
+               else Silver_Library_Reports.Argument_Output)
+            elsif Assigned then Silver_Library_Reports.Assigned_Output
+            else Silver_Library_Reports.Static_Output);
+      begin
+         pragma Assert (Analysis.Accepted);
+         Ada.Text_IO.Put_Line
+           (if Silver_Library_Reports.Complete_Application_Proof
+             (Report, Policy, Sources.Pool (1 .. Sources.Used),
+              (if Package_Report then Metadata.Owned_Functions (Analysis.Package_Info)
+               else Analysis.Main_Functions),
+              (if Package_Report then Metadata.Owned_Procedures (Analysis.Package_Info)
+               else Analysis.Main_Procedures),
+              (if Package_Report then Metadata.For_Package (Analysis.Package_Info)
+               else Metadata.For_Main (Analysis.Package_Info)))
+            then "accepted" else "rejected");
+      end;
+      return;
+   end if;
    if Ada.Command_Line.Argument (1) = "procedures"
      or else Ada.Command_Line.Argument (1) = "procedures-static"
      or else Ada.Command_Line.Argument (1) = "procedures-argument"

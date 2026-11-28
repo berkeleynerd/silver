@@ -1,0 +1,184 @@
+Lean phase build started at 2026-11-27T20:49:16.768005+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageDeclarationsSpecificationBranchImports +Silver.AxiomAudit
+✔ [496/520] Built Silver.ApplicationPackageBodiesModel (1.8s)
+✔ [497/520] Built Silver.ApplicationPackageBodiesCompletion (1.2s)
+✔ [498/520] Built Silver.ApplicationPackageProcedureControl (2.4s)
+✔ [499/520] Built Silver.ApplicationPackageDeclarationsControl (2.1s)
+✔ [500/520] Built Silver.ApplicationPackageDeclarationsTransfers (1.8s)
+✔ [501/520] Built Silver.ApplicationPackageDeclarationsSpecificationNative (5.6s)
+✔ [502/520] Built Silver.ApplicationPackageDeclarationsLoopSimulation (1.0s)
+✔ [503/520] Built Silver.ApplicationPackageDeclarationsSpecificationEquations (2.2s)
+✔ [504/520] Built Silver.ApplicationPackageDeclarationsSignatureNative (7.8s)
+✔ [505/520] Built Silver.ApplicationPackageDeclarationsSpecificationBranches (2.4s)
+✔ [506/520] Built Silver.ApplicationPackageDeclarationsSpecificationIteration (1.5s)
+✔ [507/520] Built Silver.ApplicationPackageDeclarationsSpecificationSimulation (1.0s)
+✔ [508/520] Built Silver.ApplicationPackageDeclarationsSignatureEquations (5.8s)
+✔ [509/520] Built Silver.ApplicationPackageDeclarationsSignatureFinish (4.7s)
+✔ [510/520] Built Silver.ApplicationPackageDeclarationsSignatureStorage (2.5s)
+✔ [511/520] Built Silver.ApplicationPackageDeclarationsSignatureMode (2.6s)
+✔ [512/520] Built Silver.ApplicationPackageDeclarationsSignatureName (1.3s)
+✔ [513/520] Built Silver.ApplicationPackageDeclarationsSignatureSlots (10s)
+✔ [514/520] Built Silver.ApplicationPackageDeclarationsSignatureIteration (13s)
+✔ [515/520] Built Silver.ApplicationPackageDeclarationsSignatureLoopSimulation (968ms)
+✔ [516/520] Built Silver.ApplicationPackageDeclarationsSignatureSimulation (1.0s)
+✔ [517/520] Built Silver.ApplicationPackageDeclarationsReaderExecution (1.0s)
+✔ [518/520] Built Silver.ApplicationPackageDeclarationsReaderImports (3.5s)
+✔ [519/520] Built Silver.ApplicationPackageDeclarationsSpecificationImports (1.3s)
+✖ [520/520] Building Silver.ApplicationPackageDeclarationsSpecificationBranchImports (1.9s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationBranchImports.setup.json --json
+error: Silver/ApplicationPackageDeclarationsSpecificationBranchImports.lean:96:4: Tactic `rfl` failed: The left-hand side
+  SpecificationStep.ready state
+is not definitionally equal to the right-hand side
+  if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "end") ≠ 0 then
+    SpecificationStep.ready state
+  else
+    if
+        (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+          (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+      specificationRoutine (modelSpecificationCalls reader) text state
+    else
+      if state.info.exports.length = PackageBindings.maxExports then
+        SpecificationStep.returned (rejectedSpecification state.info)
+      else
+        if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "subtype") ≠ 0 then
+          specificationSubtype (modelSpecificationCalls reader) text state
+        else specificationObject (modelSpecificationCalls reader) text state
+
+case isTrue
+library : NameLibraries
+other : SpecificationCalls
+reader : BooleanElaboration.Native.Reader
+text : Source
+valid : ValidText text
+state : SpecificationState
+framed : ReaderFrame text state.exports
+signature : other.signature text state.exports state.info false = readSignature text state.exports state.info false
+subtype : other.subtype text state.exports false = subtypeDeclarationAt text state.exports false
+object :
+  other.object text state.exports state.info false = objectStep (modelObjectCalls reader) text state.exports state.info
+token :
+  ∀ (word : String),
+    ValidToken (ShellToken.word word) →
+      (library.specification other).take text state.exports.position (ShellToken.word word) =
+        tokenAfter text state.exports.position (ShellToken.word word)
+h✝ : tokenAfter text state.exports.position (ShellToken.word "end") ≠ 0
+⊢ SpecificationStep.ready state =
+    if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "end") ≠ 0 then
+      SpecificationStep.ready state
+    else
+      if
+          (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+            (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+        specificationRoutine (modelSpecificationCalls reader) text state
+      else
+        if state.info.exports.length = PackageBindings.maxExports then
+          SpecificationStep.returned (rejectedSpecification state.info)
+        else
+          if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "subtype") ≠ 0 then
+            specificationSubtype (modelSpecificationCalls reader) text state
+          else specificationObject (modelSpecificationCalls reader) text state
+error: Silver/ApplicationPackageDeclarationsSpecificationBranchImports.lean:98:6: Type mismatch
+  specification_routine library other reader valid state framed signature
+has type
+  specificationRoutine (library.specification other) text state =
+    specificationRoutine (modelSpecificationCalls reader) text state
+but is expected to have type
+  specificationRoutine (library.specification other) text state =
+    if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "end") ≠ 0 then
+      SpecificationStep.ready state
+    else
+      if
+          (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+            (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+        specificationRoutine (modelSpecificationCalls reader) text state
+      else
+        if state.info.exports.length = PackageBindings.maxExports then
+          SpecificationStep.returned (rejectedSpecification state.info)
+        else
+          if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "subtype") ≠ 0 then
+            specificationSubtype (modelSpecificationCalls reader) text state
+          else specificationObject (modelSpecificationCalls reader) text state
+error: Silver/ApplicationPackageDeclarationsSpecificationBranchImports.lean:100:8: Tactic `rfl` failed: The left-hand side
+  SpecificationStep.returned (rejectedSpecification state.info)
+is not definitionally equal to the right-hand side
+  if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "end") ≠ 0 then
+    SpecificationStep.ready state
+  else
+    if
+        (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+          (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+      specificationRoutine (modelSpecificationCalls reader) text state
+    else SpecificationStep.returned (rejectedSpecification state.info)
+
+case isFalse.isFalse.isTrue
+library : NameLibraries
+other : SpecificationCalls
+reader : BooleanElaboration.Native.Reader
+text : Source
+valid : ValidText text
+state : SpecificationState
+framed : ReaderFrame text state.exports
+signature : other.signature text state.exports state.info false = readSignature text state.exports state.info false
+subtype : other.subtype text state.exports false = subtypeDeclarationAt text state.exports false
+object :
+  other.object text state.exports state.info false = objectStep (modelObjectCalls reader) text state.exports state.info
+token :
+  ∀ (word : String),
+    ValidToken (ShellToken.word word) →
+      (library.specification other).take text state.exports.position (ShellToken.word word) =
+        tokenAfter text state.exports.position (ShellToken.word word)
+h✝² : ¬tokenAfter text state.exports.position (ShellToken.word "end") ≠ 0
+h✝¹ :
+  ¬(tokenAfter text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+      tokenAfter text state.exports.position (ShellToken.word "procedure") ≠ 0)
+h✝ : state.info.exports.length = PackageBindings.maxExports
+⊢ SpecificationStep.returned (rejectedSpecification state.info) =
+    if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "end") ≠ 0 then
+      SpecificationStep.ready state
+    else
+      if
+          (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+            (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+        specificationRoutine (modelSpecificationCalls reader) text state
+      else SpecificationStep.returned (rejectedSpecification state.info)
+error: Silver/ApplicationPackageDeclarationsSpecificationBranchImports.lean:102:10: Type mismatch
+  specification_subtype library other reader valid state framed subtype
+has type
+  specificationSubtype (library.specification other) text state =
+    specificationSubtype (modelSpecificationCalls reader) text state
+but is expected to have type
+  specificationSubtype (library.specification other) text state =
+    if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "end") ≠ 0 then
+      SpecificationStep.ready state
+    else
+      if
+          (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+            (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+        specificationRoutine (modelSpecificationCalls reader) text state
+      else
+        if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "subtype") ≠ 0 then
+          specificationSubtype (modelSpecificationCalls reader) text state
+        else specificationObject (modelSpecificationCalls reader) text state
+error: Silver/ApplicationPackageDeclarationsSpecificationBranchImports.lean:103:10: Type mismatch
+  specification_object library other reader valid state framed object
+has type
+  specificationObject (library.specification other) text state =
+    specificationObject (modelSpecificationCalls reader) text state
+but is expected to have type
+  specificationObject (library.specification other) text state =
+    if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "end") ≠ 0 then
+      SpecificationStep.ready state
+    else
+      if
+          (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "function") ≠ 0 ∨
+            (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "procedure") ≠ 0 then
+        specificationRoutine (modelSpecificationCalls reader) text state
+      else
+        if (modelSpecificationCalls reader).take text state.exports.position (ShellToken.word "subtype") ≠ 0 then
+          specificationSubtype (modelSpecificationCalls reader) text state
+        else specificationObject (modelSpecificationCalls reader) text state
+Some required targets logged failures:
+- Silver.ApplicationPackageDeclarationsSpecificationBranchImports
+error: build failed
+
+Lean phase build finished at 2026-11-27T20:50:21.919825+00:00; elapsed 65.152s; exit 1

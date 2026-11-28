@@ -32,13 +32,17 @@ structure Context where
   pure : Bool := false
   integerHidden : Bool := false
   arrayTypes : ArrayBindings.TypeEnvironment := []
+  contextFirst : Nat := 1
+  packageFirst : Nat := 0
+  packageAfter : Nat := 0
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden, context.arrayTypes⟩
+    context.pure, context.integerHidden, context.arrayTypes,
+    context.contextFirst, context.packageFirst, context.packageAfter⟩
 
 structure Scan where
   state : ParserState
@@ -52,7 +56,8 @@ def contextOf (scan : Scan) : Context :=
     scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls, scan.state.booleanNames,
     scan.state.subtypeNames.trueHidden || scan.state.hiding.trueHidden,
     scan.state.subtypeNames.falseHidden || scan.state.hiding.falseHidden, false, 0, 0,
-    scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types⟩
+    scan.state.pure, scan.state.hiding.integerHidden, scan.state.arrayNames.types,
+    scan.state.contextFirst, scan.state.packageFirst, scan.state.packageAfter⟩
 
 def initialFlow (context : Context) : ActiveFlow :=
   ActiveFlow.initial context.scalarNames
@@ -211,7 +216,7 @@ def Expr.eval (imports : Imports) (frame : Frame) : Expr α → α
   | .addBoolean position first after mutable =>
       {frame.state with
         position := position.eval imports frame
-        booleanNames := frame.state.booleanNames ++ [⟨first.eval imports frame, after.eval imports frame, mutable.eval imports frame⟩]}
+        booleanNames := frame.state.booleanNames ++ [{first := first.eval imports frame, after := after.eval imports frame, mutable := mutable.eval imports frame}]}
 
 def call (name : List String) (arguments : List (List String)) : List String :=
   name ++ ["("] ++ List.flatten (arguments.intersperse [","]) ++ [")"]
@@ -261,7 +266,7 @@ def Expr.render : Expr α → List String
       ["(", "state", "with", "delta", "position", "=>"] ++ position.render ++
       [",", "boolean_names", "=>", "(", "count", "=>", "state", ".", "boolean_names", ".", "count", "+", "1", ",",
         "items", "=>", "(", "state", ".", "boolean_names", ".", "items", "with", "delta", "state", ".", "boolean_names", ".", "count", "+", "1", "=>", "("] ++
-      first.render ++ [","] ++ after.render ++ [","] ++ mutable.render ++ [")", ")", ")", ")"]
+      first.render ++ [","] ++ after.render ++ [","] ++ mutable.render ++ [",", "0", ",", "0", ",", "false", ",", "false", ")", ")", ")", ")"]
 
 def Expr.primary : Expr α → Bool
   | .local _ | .statePosition | .booleanCount | .scalarCount | .maxBooleans |
@@ -497,7 +502,7 @@ def equation (imports : Imports) (text : Source) (state : ParserState) (argument
       state.scalarNames.length state.arrayNames.values
     let following := imports.take text value.after .semicolon
     if following ≤ state.position then imports.invalid else
-      {state with position := following, booleanNames := state.booleanNames ++ [⟨p.first, p.after, decide (p.constantAfter = 0)⟩]}
+      {state with position := following, booleanNames := state.booleanNames ++ [{first := p.first, after := p.after, mutable := decide (p.constantAfter = 0)}]}
 
 theorem denotation (imports : Imports) (text : Source) (state : ParserState) (arguments : Bool) :
     body.eval imports {text, state, arguments} = equation imports text state arguments := by

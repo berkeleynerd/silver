@@ -1,0 +1,195 @@
+{
+  "assumptions": [
+  ],
+  "entities": {
+    " 1": {
+      "name": "Main",
+      "sloc": [
+        {
+          "column": 11,
+          "file": "main.adb",
+          "line": 2
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 4,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "flow",
+      "line": 4,
+      "message": {
+        "text": "initialization of \"Value\" has no effect"
+      },
+      "msg_id": 0,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "main~1__flow__0.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 15,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "statement has no effect"
+      },
+      "msg_id": 1,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 15,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "\"audit_state.stored\" is set by \"Reset\" but not used after the call"
+      },
+      "msg_id": 2,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "main~1__flow__1.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 15,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "\"audit_state.flag\" is set by \"Reset\" but not used after the call"
+      },
+      "msg_id": 3,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "main~1__flow__2.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 15,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "flow",
+      "line": 8,
+      "message": {
+        "text": "statement has no effect"
+      },
+      "msg_id": 4,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 24,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "flow",
+      "line": 8,
+      "message": {
+        "text": "\"Value\" is set by \"Depend\" but not used after the call"
+      },
+      "msg_id": 5,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "tracefile": "main~1__flow__3.trace",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 15,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "flow",
+      "line": 9,
+      "message": {
+        "text": "statement has no effect"
+      },
+      "msg_id": 6,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 25,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "flow",
+      "line": 9,
+      "message": {
+        "text": "\"Value\" is set by \"Produce\" but not used after the call"
+      },
+      "msg_id": 7,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 5.53000019863248E-04
+    },
+    "global": {
+      "flow analysis": 1.17699999827892E-03,
+      "globals (advanced)": 3.94000002415851E-04,
+      "globals (basic)": 3.50999995134771E-04,
+      "init_why_sections": 4.22000011894852E-04,
+      "marking": 2.09000005270354E-04,
+      "properties (advanced)": 3.79999983124435E-05,
+      "translation of standard": 1.23099994380027E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

@@ -36,7 +36,8 @@ structure HeaderLinks (calls : Calls) (inherited : Expressions.Calls)
   strings : calls .lookupString = inherited.function .lookupName
   scalars : calls .lookupScalar = inherited.function .scalarLookup
   booleans : calls .lookupBoolean = inherited.function .booleanLookup
-  subtypes : calls .lookupSubtype = inherited.function .subtypeLookup
+  subtypes : calls .lookupSubtype = fun text names first after =>
+    inherited.function .subtypeLookup text names first after 0 0
   arrays : calls .lookupArray = inherited.function .arrayLookup
   arrayTypes : calls .lookupArrayType = inherited.function .arrayTypeLookup
   arrayType : calls .arrayTypeAt = inherited.function .arrayTypeAt

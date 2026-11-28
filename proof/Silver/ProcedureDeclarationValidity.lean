@@ -10,7 +10,7 @@ namespace Silver.Compose
 open Silver.Compose.Expressions Named
 
 private theorem procedure_invalid_valid (text : Source) : ValidState text invalidState := by
-  simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState,
+  simp [ValidState, Names.ValidContext, Names.ValidNameState, ValidCursor, ValidNames, NameState.Valid, invalidState,
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
     ArrayBindings.ValidNativeEnvironment, ArrayBindings.ValidTable, ArrayBindings.ValidTypes,
     ArrayBindings.Env.table, ArrayBindings.ValidInitials, ArrayBindings.maxTypes, ArrayBindings.maxBindings,

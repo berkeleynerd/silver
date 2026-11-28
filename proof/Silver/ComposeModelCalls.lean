@@ -17,7 +17,8 @@ def modelCalls : Calls where
     | .fixedBoundsValid => fixedBoundsValid
     | .characterLiteral => characterLiteralAfter
     | .guardedAt => guardedAt
-    | .indexed => indexedAt
+    | .indexed => fun text position names scalarNames arrays initials elaborating element contextFirst =>
+        indexedAt text position names scalarNames arrays initials elaborating element contextFirst
     | .characterValue => fun text position names scalarNames arrays initials elaborating =>
         characterAt text position names scalarNames arrays initials elaborating
     | .concatenatedFirst => concatenatedFirst
@@ -37,10 +38,11 @@ def modelCalls : Calls where
     | .normalize => id
     | .allowed => fun text => text.all allowedCharacter
     | .contextAfter => Names.contextAfter
-    | .operationAfter => Names.operationAfter
+    | .operationAfter => fun text position operation hidden contextFirst packageFirst packageAfter =>
+        Names.operationAfter text position operation hidden contextFirst packageFirst packageAfter
     | .associationAfter => Names.associationAfter
-    | .callAfter => fun text names position operation scalarNames arrays subtypeHidden booleans =>
-      callAfter text names position operation scalarNames arrays subtypeHidden booleans
+    | .callAfter => fun text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter =>
+      callAfter text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter
     | .skip => skipAt
     | .nameAfter => nameAfter
     | .fixedAfter => fun text position token => fixedAfter text position (spelling token) (isWord token)
@@ -54,7 +56,7 @@ def modelCalls : Calls where
       imageAt text position names scalarNames integerHidden arrays initials elaborating
     | .imageMinimum => fun bounds => (LengthSummary.ofImage bounds).minimumLength
     | .imageMaximum => fun bounds => (LengthSummary.ofImage bounds).staticLength
-    | .value => fun text position names scalarNames integerHidden arrays initials elaborating => valueAt text position names scalarNames integerHidden arrays initials elaborating
+    | .value => fun text position names scalarNames integerHidden arrays initials elaborating contextFirst => valueAt text position names scalarNames integerHidden arrays initials elaborating contextFirst
     | .newName => newNameAllowed
     | .functionLookup => FunctionBindings.lookup
     | .procedureLookup => ProcedureBindings.lookup
@@ -64,7 +66,11 @@ def modelCalls : Calls where
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
     | .scalarConstraint => fun text position names bounds arrays => scalarConstraintAt text position names bounds arrays
-    | .subtypeLookup => IntegerSubtypes.lookup | .subtypeLookupModel => IntegerSubtypes.lookupFrom
+    | .readReference => QualifiedNames.read
+    | .subtypeLookup => fun text names first after qualifierFirst qualifierAfter =>
+        IntegerSubtypes.lookup text names first after qualifierFirst qualifierAfter
+    | .subtypeLookupModel => fun text names first after index qualifierFirst qualifierAfter =>
+        IntegerSubtypes.lookupFrom text names first after index qualifierFirst qualifierAfter
     | .scalarType => scalarTypeAt | .subtypeDeclaration => subtypeDeclarationAt
     | .scalarDeclaration => scalarDeclarationAt
     | .scalarLookup => ScalarExpression.lookup
@@ -93,11 +99,11 @@ def modelCalls : Calls where
     | .argument => argumentAt
     | .declarations => declarationsAt
     | .readDeclarations => declarationsAt
-    | .expressionStep => fun text names scan scalarNames integerHidden arrays initials elaborating => expressionStep text names scan scalarNames integerHidden arrays initials elaborating
+    | .expressionStep => fun text names scan scalarNames integerHidden arrays initials elaborating contextFirst => expressionStep text names scan scalarNames integerHidden arrays initials elaborating contextFirst
     | .fits => fits
     | .comparison => comparisonAt
-    | .tail => fun text names scan scalarNames integerHidden arrays initials elaborating => expressionTail text names scan scalarNames integerHidden arrays initials elaborating
-    | .expression => fun text position names scalarNames integerHidden arrays initials elaborating => expressionAt text position names scalarNames integerHidden arrays initials elaborating
+    | .tail => fun text names scan scalarNames integerHidden arrays initials elaborating contextFirst => expressionTail text names scan scalarNames integerHidden arrays initials elaborating contextFirst
+    | .expression => fun text position names scalarNames integerHidden arrays initials elaborating contextFirst => expressionAt text position names scalarNames integerHidden arrays initials elaborating contextFirst
     | .target => targetAt
     | .dynamic => dynamicAt
     | .assignmentValue => assignmentAt

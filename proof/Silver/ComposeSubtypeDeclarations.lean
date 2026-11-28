@@ -166,18 +166,45 @@ theorem scalarConstraintAt_bounded_all (text : Source) (position : Nat)
       · exact Integer.Interval.empty_bounded
       · simp_all
 
-theorem scalarTypeAt_position_valid (text : Source) (state : ParserState) (position : Nat) :
-    (scalarTypeAt text state position).after ≤ text.length + 1 := by
-  have bound := model_name_valid text (skipAt text position)
-  unfold scalarTypeAt
+private theorem reference_after_bound (text : Source) (position : Nat) :
+    (QualifiedNames.read text position).after ≤ text.length + 1 := by
+  unfold QualifiedNames.read
+  dsimp only
+  repeat' split
+  all_goals first | exact Nat.zero_le _ | exact QualifiedNames.nameAfter_bounds text _
+
+private theorem reference_bare_after (text : Source) (position : Nat)
+    (bare : (QualifiedNames.read text position).qualifierFirst = 0) :
+    (QualifiedNames.read text position).qualifierAfter = 0 := by
+  revert bare
+  unfold QualifiedNames.read
   dsimp only
   split
   · simp
-  · split
-    · exact bound
+  · rename_i valid
+    split
     · split
-      · exact bound
       · simp
+      · dsimp only
+        intro zero
+        omega
+    · simp
+
+theorem scalarTypeAt_after (text : Source) (state : ParserState) (position : Nat) :
+    (scalarTypeAt text state position).after = 0 ∨
+      (scalarTypeAt text state position).after = (QualifiedNames.read text position).after := by
+  unfold scalarTypeAt
+  dsimp only
+  repeat' split
+  all_goals simp
+
+theorem scalarTypeAt_position_valid (text : Source) (state : ParserState) (position : Nat) :
+    (scalarTypeAt text state position).after ≤ text.length + 1 := by
+  have bound := reference_after_bound text position
+  unfold scalarTypeAt
+  dsimp only
+  repeat' split
+  all_goals first | exact bound | exact Nat.zero_le _
 
 theorem subtypeBinding_mem {environment : IntegerSubtypes.Environment} {index : Nat}
     (positive : 0 < index) (bound : index ≤ environment.items.length) :
@@ -190,26 +217,24 @@ theorem subtypeBinding_mem {environment : IntegerSubtypes.Environment} {index : 
 theorem scalarTypeAt_bounded (text : Source) (state : ParserState) (position : Nat)
     (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     (scalarTypeAt text state position).bounds.Bounded := by
-  have bound := IntegerSubtypes.lookup_bound text state.subtypeNames (skipAt text position)
-    (nameAfter text (skipAt text position))
+  have bound := IntegerSubtypes.lookup_bound text state.subtypeNames
+    (QualifiedNames.read text position).first (QualifiedNames.read text position).after
+    (QualifiedNames.read text position).qualifierFirst (QualifiedNames.read text position).qualifierAfter
   unfold scalarTypeAt
   dsimp only
-  split
-  · exact Integer.Interval.empty_bounded
-  · split
-    · exact Integer.Interval.full_bounded
-    · rename_i _
-      split
-      · rename_i present
-        exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.1
-      · exact Integer.Interval.empty_bounded
+  repeat' split
+  all_goals first
+    | exact Integer.Interval.empty_bounded
+    | exact Integer.Interval.full_bounded
+    | exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.1
 
 /-- Independent type-mark reading: a visible Integer name or an earlier named
 subtype resolves without allocating a value cell. -/
 inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
     ScalarConstraintResult → Prop
   | integer {first after : Nat} :
-      first = skipAt text position → after = nameAfter text first →
+      first = (QualifiedNames.read text position).first → after = (QualifiedNames.read text position).after →
+      (QualifiedNames.read text position).qualifierFirst = 0 →
       first ≠ 0 → first < after →
       lookupName text state.names first after = 0 →
       ScalarExpression.lookup text state.scalarNames first after = 0 →
@@ -223,7 +248,8 @@ inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
       Named.nameIs text first after ("integer".toList.map Char.toNat) = true →
       ScalarTypeAt text state position ⟨after, .full⟩
   | named {first after target : Nat} :
-      first = skipAt text position → after = nameAfter text first →
+      first = (QualifiedNames.read text position).first → after = (QualifiedNames.read text position).after →
+      (QualifiedNames.read text position).qualifierFirst = 0 →
       first ≠ 0 → first < after →
       lookupName text state.names first after = 0 →
       ScalarExpression.lookup text state.scalarNames first after = 0 →
@@ -237,6 +263,12 @@ inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
       Named.nameIs text first after ("integer".toList.map Char.toNat) = false →
       target = IntegerSubtypes.lookup text state.subtypeNames first after → target ≠ 0 →
       ScalarTypeAt text state position ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩
+  | qualified {reference : QualifiedNames.Reference} {target : Nat} :
+      reference = QualifiedNames.read text position → reference.qualifierFirst ≠ 0 →
+      reference.first ≠ 0 → reference.first < reference.after →
+      target = IntegerSubtypes.lookup text state.subtypeNames reference.first reference.after
+        reference.qualifierFirst reference.qualifierAfter → target ≠ 0 →
+      ScalarTypeAt text state position ⟨reference.after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩
 
 theorem scalarTypeAt_sound (text : Source) (state : ParserState) (position : Nat)
     (positive : (scalarTypeAt text state position).after ≠ 0) :
@@ -246,28 +278,37 @@ theorem scalarTypeAt_sound (text : Source) (state : ParserState) (position : Nat
   split
   · simp_all
   · rename_i ready
-    have good := ready
-    simp only [not_or, Nat.not_le, ne_eq, Decidable.not_not, Bool.not_eq_true] at good
-    rcases good with ⟨first, advance, strings, scalars, arrays, arrayTypes, booleans, functions, procedures, formals, visible⟩
+    have span := ready
+    simp only [not_or, Nat.not_le] at span
     split
-    · rename_i integer
-      exact .integer rfl rfl first advance strings scalars arrays arrayTypes booleans functions procedures formals visible integer
-    · rename_i named
+    · rename_i qualified
       split
       · rename_i found
-        exact .named rfl rfl first advance strings scalars arrays arrayTypes booleans functions procedures formals visible
-          (Bool.eq_false_iff.mpr named) rfl found
+        exact .qualified rfl qualified span.1 span.2 rfl found
       · simp_all
+    · rename_i bare
+      have bare : (QualifiedNames.read text position).qualifierFirst = 0 := by omega
+      have qualifierAfter := reference_bare_after text position bare
+      split
+      · simp_all
+      · rename_i good
+        simp only [not_or, ne_eq, Decidable.not_not, Bool.not_eq_true] at good
+        rcases good with ⟨strings, scalars, arrays, arrayTypes, booleans, functions, procedures, formals, visible⟩
+        split
+        · rename_i integer
+          exact .integer rfl rfl bare span.1 span.2 strings scalars arrays arrayTypes booleans functions procedures formals visible integer
+        · rename_i named
+          split
+          · rename_i found
+            simpa only [bare, qualifierAfter] using
+              (ScalarTypeAt.named rfl rfl bare span.1 span.2 strings scalars arrays arrayTypes booleans functions procedures formals visible
+                (Bool.eq_false_iff.mpr named) rfl (by simpa only [bare, qualifierAfter] using found))
+          · simp_all
 
 theorem scalarTypeAt_complete {text state position result}
     (reading : ScalarTypeAt text state position result) : scalarTypeAt text state position = result := by
-  cases reading with
-  | integer first after positive advance strings scalars arrays arrayTypes booleans functions procedures formals visible integer =>
-      subst first; subst after
-      simp_all [scalarTypeAt, Nat.not_le.mpr advance]
-  | named first after positive advance strings scalars arrays arrayTypes booleans functions procedures formals visible integer target nonzero =>
-      subst first; subst after; subst target
-      simp_all [scalarTypeAt, Nat.not_le.mpr advance]
+  have qualifier := reference_bare_after text position
+  cases reading <;> subst_vars <;> simp_all [scalarTypeAt] <;> omega
 
 theorem ScalarTypeAt.bounded {text state position result}
     (reading : ScalarTypeAt text state position result)
@@ -280,10 +321,15 @@ theorem ScalarTypeAt.nonempty {text state position result}
     (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) : result.bounds.lower ≤ result.bounds.upper := by
   cases reading with
   | integer => exact (by decide : Integer.Interval.full.lower ≤ Integer.Interval.full.upper)
-  | @named first after target _ _ _ _ _ _ _ _ _ _ _ _ _ _ found nonzero =>
+  | @named first after target _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ found nonzero =>
       have bound := IntegerSubtypes.lookup_bound text state.subtypeNames first after
       rw [← found] at bound
-      exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.2
+      exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.2.1
+  | @qualified reference target _ _ _ _ found nonzero =>
+      have bound := IntegerSubtypes.lookup_bound text state.subtypeNames reference.first reference.after
+        reference.qualifierFirst reference.qualifierAfter
+      rw [← found] at bound
+      exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.2.1
 
 /-- Every admitted subtype names Integer directly and has a mandatory,
 nonempty static range. Names of value objects remain unavailable as parents. -/
@@ -369,16 +415,16 @@ theorem subtype_declaration_valid {text arguments state next}
       · have room := ready.2.2.1
         have limit := valid.1
         omega
-      · have allowed := ready.1
-        simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
+      · have allowed := newNameAllowed_span text state parts.first parts.after arguments ready.1
         have nameBound : parts.after ≤ text.length + 1 := by
           rw [← partsEq]
           exact model_name_valid text _
-        rcases allowed with ⟨⟨⟨⟨⟨⟨nonzero, advance⟩, _⟩, _⟩, _⟩, _⟩, _⟩
-        refine ⟨Nat.pos_of_ne_zero nonzero, advance, nameBound,
+        rcases allowed with ⟨nonzero, advance⟩
+        refine ⟨nonzero, advance, nameBound,
           constraint.bounded Integer.Interval.full_bounded, ?_⟩
         have nonempty := ready.2.2.2.2.2.2.2.1
-        simpa only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt] using nonempty
+        exact ⟨by simpa only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt] using nonempty,
+          Or.inl ⟨rfl, rfl⟩⟩
 
 theorem subtype_declaration_hiding {text arguments state next} {otherNames : List (Nat × Nat)}
     (reading : SubtypeDeclarationAt text arguments state next)

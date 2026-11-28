@@ -246,26 +246,16 @@ theorem arraysReadStep_congr {text : Source} {names : Environment}
               · rfl
               · rename_i supported
                 rw [same _ false (binaryAfter_bounds supported).2]
-    · simp only [arraysAtomStep]
+    · simp only [arraysAtomStep_dispatch]
       split
       · rfl
       · split
         · rfl
-        · split
+        · simp only [arrayAtomStep]
+          split
           · rfl
-          · split
-            · rfl
-            · split
-              · rfl
-              · split
-                · rfl
-                · split
-                  · rfl
-                  · simp only [arrayAtomStep]
-                    split
-                    · rfl
-                    · rename_i opening
-                      rw [scalarSame _ true (symbol_bounds (nameAfter_cursor_bound text _) (not_or.mp opening).1).2]
+          · rename_i opening
+            rw [scalarSame _ true (symbol_bounds (nameAfter_cursor_bound text _) (not_or.mp opening).1).2]
 
 theorem arrays_read_step {text : Source} {names : Environment}
     (valid : ValidEnvironment text names) {arrays : ArrayBindings.Metadata}

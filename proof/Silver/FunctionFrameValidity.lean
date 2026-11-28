@@ -197,8 +197,8 @@ theorem appendParameter_valid {text frame parameter}
           have bounded := valid.2.2.2.2.2.1.1
           omega
         have scalars := ScalarExpression.validEnvironment_append valid.2.2.2.2.2.1 space
-          (item := ⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds, false⟩)
-          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1⟩
+          (item := {first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := false})
+          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, typed.2.1, typed.2.1, .inl ⟨rfl, rfl⟩⟩
         exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
           valid.2.2.2.2.1, scalars, valid.2.2.2.2.2.2⟩
     · split
@@ -208,7 +208,8 @@ theorem appendParameter_valid {text frame parameter}
           have bounded := valid.booleans.1
           omega
         have booleans := BooleanBindings.valid_append valid.booleans space
-          (item := ⟨parameter.first, parameter.after, false⟩) typed.1
+          (item := {first := parameter.first, after := parameter.after, mutable := false})
+          ⟨typed.1.1, typed.1.2.1, typed.1.2.2, .inl ⟨rfl, rfl⟩⟩
         exact ⟨valid.1, valid.2.1, valid.2.2.1, valid.2.2.2.1,
           valid.2.2.2.2.1, valid.2.2.2.2.2.1, valid.2.2.2.2.2.2.1,
           valid.2.2.2.2.2.2.2.1, booleans, valid.2.2.2.2.2.2.2.2.2⟩

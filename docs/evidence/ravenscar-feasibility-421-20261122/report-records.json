@@ -1,0 +1,2108 @@
+{
+  "baseline": [],
+  "baseline-v2": [
+    {
+      "report": "out/obj/explore/initial/gnatprove/main.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 1,
+          "file": "main.adb",
+          "line": 3,
+          "col": 11,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        }
+      ]
+    },
+    {
+      "report": "out/obj/explore/initial/gnatprove/bounded_probe.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 10
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 10
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all",
+        " 4": "all",
+        " 5": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "bounded_probe.ads",
+          "line": 5,
+          "col": 16,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "bounded_probe.adb",
+          "line": 7,
+          "col": 28,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 10,
+          "col": 9,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_TASK_TERMINATION",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 10,
+          "col": 9,
+          "message": {
+            "text": "nontermination of task proved"
+          }
+        }
+      ]
+    }
+  ],
+  "package-state": [
+    {
+      "report": "out/obj/explore/initial/gnatprove/main.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 4
+            }
+          ]
+        },
+        " 2": {
+          "name": "Hidden_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 3": {
+          "name": "Visible_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": []
+    },
+    {
+      "report": "out/obj/explore/initial/gnatprove/hidden_state.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Hidden_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "hidden_state.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 2": {
+          "name": "Hidden_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 3": {
+          "name": "Hidden_State",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "hidden_state.ads",
+              "line": 2
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Hidden_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "hidden_state.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 2": {
+          "name": "Hidden_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 3": {
+          "name": "Hidden_State",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "hidden_state.ads",
+              "line": 2
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "hidden_state.ads",
+          "line": 4,
+          "col": 13,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "hidden_state.adb",
+          "line": 7,
+          "col": 25,
+          "message": {
+            "text": "range check proved"
+          }
+        }
+      ]
+    },
+    {
+      "report": "out/obj/explore/initial/gnatprove/visible_state.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Visible_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "visible_state.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Visible_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Visible_State",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "visible_state.ads",
+              "line": 2
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Visible_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "visible_state.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Visible_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Visible_State",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "visible_state.ads",
+              "line": 2
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "visible_state.ads",
+          "line": 5,
+          "col": 13,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "visible_state.adb",
+          "line": 6,
+          "col": 25,
+          "message": {
+            "text": "range check proved"
+          }
+        }
+      ]
+    }
+  ],
+  "package-composition": [
+    {
+      "report": "out/obj/explore/no-inlining/gnatprove/main.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 5
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Hidden_State.Reset",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 3": {
+          "name": "Package_Client.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "package_client.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 4": {
+          "name": "Package_Client.Step",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "package_client.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 5": {
+          "name": "Visible_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 6": {
+          "name": "Visible_State.Reset",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": []
+    },
+    {
+      "report": "out/obj/explore/no-inlining/gnatprove/hidden_state.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Hidden_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "hidden_state.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Hidden_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Hidden_State",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "hidden_state.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 4": {
+          "name": "Hidden_State.Reset",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Hidden_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "hidden_state.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Hidden_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Hidden_State",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "hidden_state.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 4": {
+          "name": "Hidden_State.Reset",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all",
+        " 4": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "hidden_state.ads",
+          "line": 5,
+          "col": 13,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "hidden_state.adb",
+          "line": 12,
+          "col": 25,
+          "message": {
+            "text": "range check proved"
+          }
+        }
+      ]
+    },
+    {
+      "report": "out/obj/explore/no-inlining/gnatprove/visible_state.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Visible_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "visible_state.ads",
+              "line": 6
+            }
+          ]
+        },
+        " 2": {
+          "name": "Visible_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 3": {
+          "name": "Visible_State",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "visible_state.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 4": {
+          "name": "Visible_State.Reset",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Visible_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "visible_state.ads",
+              "line": 6
+            }
+          ]
+        },
+        " 2": {
+          "name": "Visible_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 3": {
+          "name": "Visible_State",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "visible_state.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 4": {
+          "name": "Visible_State.Reset",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "visible_state.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all",
+        " 4": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "visible_state.ads",
+          "line": 6,
+          "col": 13,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "visible_state.adb",
+          "line": 11,
+          "col": 25,
+          "message": {
+            "text": "range check proved"
+          }
+        }
+      ]
+    },
+    {
+      "report": "out/obj/explore/no-inlining/gnatprove/package_client.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Package_Client.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "package_client.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 2": {
+          "name": "Package_Client",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "package_client.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 3": {
+          "name": "Package_Client.Step",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "package_client.ads",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Package_Client.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "package_client.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 2": {
+          "name": "Package_Client",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "package_client.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 3": {
+          "name": "Package_Client.Step",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "package_client.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 4": {
+          "name": "Hidden_State.Increment",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 5": {
+          "name": "Hidden_State.Read",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "hidden_state.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 6": {
+          "name": "Hidden_State.Reset",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "hidden_state.ads",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "package_client.ads",
+          "line": 4,
+          "col": 13,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        }
+      ]
+    }
+  ],
+  "entry": [
+    {
+      "report": "out/obj/explore/initial/gnatprove/main.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Release",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 1,
+          "file": "main.adb",
+          "line": 3,
+          "col": 11,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        }
+      ]
+    },
+    {
+      "report": "out/obj/explore/initial/gnatprove/bounded_probe.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 6
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Await_Release",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 12
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 6": {
+          "name": "Bounded_Probe.Counter.Release",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 6
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Await_Release",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 12
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 6": {
+          "name": "Bounded_Probe.Counter.Release",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all",
+        " 4": "all",
+        " 5": "all",
+        " 6": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "bounded_probe.ads",
+          "line": 6,
+          "col": 16,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "bounded_probe.adb",
+          "line": 13,
+          "col": 28,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 12,
+          "col": 9,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_TASK_TERMINATION",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 12,
+          "col": 9,
+          "message": {
+            "text": "nontermination of task proved"
+          }
+        }
+      ]
+    }
+  ],
+  "entry-two-callers": [
+    {
+      "report": "out/obj/explore/initial/gnatprove/main.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Await_Release",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Counter.Release",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "CONCURRENT_ACCESS",
+          "severity": "high",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "main.adb",
+          "line": 3,
+          "col": 11,
+          "message": {
+            "text": "more tasks than allowed might queue on protected entry \"bounded_probe.counter.await_release\" (restriction No_Entry_Queue active) (SPARK RM 9(11))"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 1,
+          "file": "main.adb",
+          "line": 3,
+          "col": 11,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        }
+      ]
+    },
+    {
+      "report": "out/obj/explore/initial/gnatprove/bounded_probe.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 6
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Await_Release",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 12
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 6": {
+          "name": "Bounded_Probe.Counter.Release",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 6
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Await_Release",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 12
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 6": {
+          "name": "Bounded_Probe.Counter.Release",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all",
+        " 4": "all",
+        " 5": "all",
+        " 6": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "bounded_probe.ads",
+          "line": 6,
+          "col": 16,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "bounded_probe.adb",
+          "line": 13,
+          "col": 28,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 12,
+          "col": 9,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_TASK_TERMINATION",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 12,
+          "col": 9,
+          "message": {
+            "text": "nontermination of task proved"
+          }
+        }
+      ]
+    }
+  ],
+  "clock-naive": [
+    {
+      "report": "out/obj/explore/initial/gnatprove/main.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 1,
+          "file": "main.adb",
+          "line": 3,
+          "col": 11,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        }
+      ]
+    },
+    {
+      "report": "out/obj/explore/initial/gnatprove/bounded_probe.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 10
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 10
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 6": {
+          "name": "Ada.Real_Time.\"+\"",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "a-reatim.ads",
+              "line": 73
+            }
+          ]
+        },
+        " 7": {
+          "name": "Ada.Real_Time.Clock",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "a-reatim.ads",
+              "line": 69
+            }
+          ]
+        },
+        " 8": {
+          "name": "Ada.Real_Time.Milliseconds",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "a-reatim.ads",
+              "line": 127
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all",
+        " 4": "all",
+        " 5": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "bounded_probe.ads",
+          "line": 5,
+          "col": 16,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "bounded_probe.adb",
+          "line": 9,
+          "col": 28,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "medium",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.adb",
+          "line": 25,
+          "col": 23,
+          "message": {
+            "text": "range check might fail"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.adb",
+          "line": 21,
+          "col": 65,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 10,
+          "col": 9,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_TASK_TERMINATION",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 10,
+          "col": 9,
+          "message": {
+            "text": "nontermination of task proved"
+          }
+        }
+      ]
+    }
+  ],
+  "clock-guarded": [
+    {
+      "report": "out/obj/explore/initial/gnatprove/main.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Main",
+          "sloc": [
+            {
+              "column": 11,
+              "file": "main.adb",
+              "line": 3
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 1,
+          "file": "main.adb",
+          "line": 3,
+          "col": 11,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        }
+      ]
+    },
+    {
+      "report": "out/obj/explore/initial/gnatprove/bounded_probe.spark",
+      "owned_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 10
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        }
+      },
+      "all_entities": {
+        " 1": {
+          "name": "Bounded_Probe.Counter.Read",
+          "sloc": [
+            {
+              "column": 16,
+              "file": "bounded_probe.ads",
+              "line": 5
+            }
+          ]
+        },
+        " 2": {
+          "name": "Bounded_Probe.Counter.Increment",
+          "sloc": [
+            {
+              "column": 17,
+              "file": "bounded_probe.ads",
+              "line": 4
+            }
+          ]
+        },
+        " 3": {
+          "name": "Bounded_Probe.Worker",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 10
+            }
+          ]
+        },
+        " 4": {
+          "name": "Bounded_Probe",
+          "sloc": [
+            {
+              "column": 9,
+              "file": "bounded_probe.ads",
+              "line": 2
+            }
+          ]
+        },
+        " 5": {
+          "name": "Bounded_Probe.Counter",
+          "sloc": [
+            {
+              "column": 14,
+              "file": "bounded_probe.ads",
+              "line": 3
+            }
+          ]
+        },
+        " 6": {
+          "name": "Ada.Real_Time.\"+\"",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "a-reatim.ads",
+              "line": 73
+            }
+          ]
+        },
+        " 7": {
+          "name": "Ada.Real_Time.\"-\"",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "a-reatim.ads",
+              "line": 77
+            }
+          ]
+        },
+        " 8": {
+          "name": "Ada.Real_Time.Clock",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "a-reatim.ads",
+              "line": 69
+            }
+          ]
+        },
+        " 9": {
+          "name": "Ada.Real_Time.Milliseconds",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "a-reatim.ads",
+              "line": 127
+            }
+          ]
+        }
+      },
+      "spark": {
+        " 1": "all",
+        " 2": "all",
+        " 3": "all",
+        " 4": "all",
+        " 5": "all"
+      },
+      "skip_flow_proof": [],
+      "skip_proof": [],
+      "pragma_assume": [],
+      "warn_error": [],
+      "stop_reason": "STOP_REASON_NONE",
+      "records": [
+        {
+          "kind": "flow",
+          "rule": "SUBPROGRAM_TERMINATION",
+          "severity": "info",
+          "how_proved": "flow",
+          "entity": 1,
+          "file": "bounded_probe.ads",
+          "line": 5,
+          "col": 16,
+          "message": {
+            "text": "implicit aspect Always_Terminates on \"Read\" has been proved, subprogram will terminate"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 2,
+          "file": "bounded_probe.adb",
+          "line": 9,
+          "col": 28,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.adb",
+          "line": 26,
+          "col": 26,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.adb",
+          "line": 25,
+          "col": 45,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_RANGE_CHECK",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.adb",
+          "line": 21,
+          "col": 65,
+          "message": {
+            "text": "range check proved"
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 10,
+          "col": 9,
+          "message": {
+            "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+          }
+        },
+        {
+          "kind": "proof",
+          "rule": "VC_TASK_TERMINATION",
+          "severity": "info",
+          "how_proved": "prover",
+          "entity": 3,
+          "file": "bounded_probe.ads",
+          "line": 10,
+          "col": 9,
+          "message": {
+            "text": "nontermination of task proved"
+          }
+        }
+      ]
+    }
+  ]
+}

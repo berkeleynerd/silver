@@ -28,10 +28,14 @@ def scalarConstraintEquation (calls : Calls) (text : Source) (position : Nat)
     else ⟨high.after, ⟨low.bounds.lower, high.bounds.lower⟩⟩
 
 def scalarTypeEquation (calls : Calls) (text : Source) (state : ParserState) (position : Nat) : ScalarConstraintResult :=
-  let first := calls.function .skip text position
-  let after := calls.function .nameAfter text first
-  let target := calls.function .subtypeLookup text state.subtypeNames first after
-  if decide (first = 0) || decide (after ≤ first) ||
+  let reference := calls.function .readReference text position
+  let first := reference.first
+  let after := reference.after
+  let target := calls.function .subtypeLookup text state.subtypeNames first after reference.qualifierFirst reference.qualifierAfter
+  if decide (first = 0) || decide (after ≤ first) then ⟨0, .empty⟩
+  else if decide (reference.qualifierFirst ≠ 0) then
+    if decide (target ≠ 0) then ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩ else ⟨0, .empty⟩
+  else if
       decide (calls.function .lookupName text state.names first after ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames first after ≠ 0) ||
       decide (calls.function .arrayLookup text state.arrayNames.table first after ≠ 0) ||
@@ -77,7 +81,7 @@ def subtypeDeclarationEquation (calls : Calls) (text : Source) (state : ParserSt
     { state with
       position := following
       subtypeNames := {
-        items := state.subtypeNames.items ++ [⟨first,after,constraint.bounds⟩]
+        items := state.subtypeNames.items ++ [⟨first,after,constraint.bounds,0,0⟩]
         trueHidden := state.subtypeNames.trueHidden || calls.function .nameIs text first after "true"
         falseHidden := state.subtypeNames.falseHidden || calls.function .nameIs text first after "false"
         hiddenCalls := {
@@ -121,7 +125,7 @@ def scalarDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
       decide (calls.function .arrayLookup text state.arrayNames.table typeFirst typeAfter ≠ 0) ||
       decide (calls.function .arrayTypeLookup text state.arrayNames.types typeFirst typeAfter ≠ 0)
     then invalidState
-    else {state with position := following, scalarNames := (calls.function .scalarAppend state.scalarNames ⟨first, after, value.bounds, decide (constant ≠ 0) && value.isStatic, constraint.bounds, decide (constant = 0)⟩)}
+    else {state with position := following, scalarNames := (calls.function .scalarAppend state.scalarNames ⟨first, after, value.bounds, decide (constant ≠ 0) && value.isStatic, constraint.bounds, decide (constant = 0), 0, 0⟩)}
 
 theorem scalarConstraint_denotation (calls : Calls) (text : Source) (position : Nat)
     (scalarNames : ScalarExpression.Environment) (baseBounds : Integer.Interval) (arrays : ArrayBindings.Table) :

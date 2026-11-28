@@ -26,10 +26,10 @@ theorem model_guarded_denotation (text : Source) (position limit depth : Nat) (c
 /-- Interpret every assignment and early return in the complete native index reader. -/
 theorem model_indexed_denotation (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
-    (initials : ArrayBindings.Initials) (elaborating element : Bool) :
+    (initials : ArrayBindings.Initials) (elaborating element : Bool) (contextFirst : Nat) :
     indexedBody.eval modelCalls
-      (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating,characterElement := element}) =
-      indexedAt text position names scalarNames arrays initials elaborating element := by
+      (Context.locals {text,contextFirst,position,names,scalarNames,arrays,initials,elaborating,characterElement := element}) =
+      indexedAt text position names scalarNames arrays initials elaborating element contextFirst := by
   have max_toNat (value : Int) : (max 0 value).toNat = value.toNat := by omega
   have max_capacity (value : Int) : (max 0 value > (maxSourceLength : Int)) ↔
       value.toNat > maxSourceLength := by omega

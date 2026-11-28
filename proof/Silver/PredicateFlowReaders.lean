@@ -30,7 +30,7 @@ theorem overlay_meaning {reading}
 structure Calls where
   reading : FlowSourceBridge.Context → ActiveFlow.Storage → FlowSourceBridge.NameStorage
   scalar : Source → Nat → ScalarExpression.Environment → Nat → Nat → ArrayBindings.Table → ArrayBindings.Initials → Bool → ScalarExpression.Result
-  string : Source → Nat → BindingEnvironment → ScalarExpression.Environment → Bool → ArrayBindings.Table → ArrayBindings.Initials → Bool → ExpressionResult
+  string : Source → Nat → BindingEnvironment → ScalarExpression.Environment → Bool → ArrayBindings.Table → ArrayBindings.Initials → Bool → Nat → ExpressionResult
   booleanHidesInteger : Source → BooleanBindings.Environment → Bool
   nameIs : Source → Nat → Nat → String → Bool
 
@@ -61,17 +61,19 @@ inductive Expr : Ty → Type
   | initials : Expr .initials
   | names : Expr .context → Expr .names
   | arrays : Expr .context → Expr .arrays
+  | contextFirst : Expr .context → Expr .position
   | elaborating : Expr .context → Expr .truth
   | integerHidden : Expr .source → Expr .context → Expr .truth
   | reading : Expr .context → Expr .facts → Expr .scalarNames
   | scalar : Expr .source → Expr .position → Expr .scalarNames → Expr .position → Expr .position → Expr .arrays → Expr .initials → Expr .truth → Expr .scalar
-  | string : Expr .source → Expr .position → Expr .names → Expr .scalarNames → Expr .truth → Expr .arrays → Expr .initials → Expr .truth → Expr .string
+  | string : Expr .source → Expr .position → Expr .names → Expr .scalarNames → Expr .truth → Expr .arrays → Expr .initials → Expr .truth → Expr .position → Expr .string
 
 def Expr.render : Expr ty → List String
   | .text => ["text"] | .context => ["context"] | .position => ["position"] | .facts => ["facts"]
   | .maskFirst => ["mask_first"] | .maskAfter => ["mask_after"] | .initials => ["initials"]
   | .names contextExpr => contextExpr.render ++ [".", "names"]
   | .arrays contextExpr => contextExpr.render ++ [".", "array_names"]
+  | .contextFirst contextExpr => contextExpr.render ++ [".", "context_first"]
   | .elaborating contextExpr => contextExpr.render ++ [".", "elaborating"]
   | .integerHidden textExpr contextExpr =>
       contextExpr.render ++ [".", "integer_hidden", "or", "else"] ++
@@ -85,16 +87,18 @@ def Expr.render : Expr ty → List String
         [textExpr.render, positionExpr.render, environmentExpr.render, startExpr.render, endExpr.render,
           ["arrays", "=>"] ++ arraysExpr.render, ["initials", "=>"] ++ initialsExpr.render,
           ["elaborating", "=>"] ++ elaboratingExpr.render]
-  | .string textExpr positionExpr environmentExpr scalarsExpr hiddenExpr arraysExpr initialsExpr elaboratingExpr =>
+  | .string textExpr positionExpr environmentExpr scalarsExpr hiddenExpr arraysExpr initialsExpr elaboratingExpr contextFirstExpr =>
       Expressions.call "expression_at" [textExpr.render, positionExpr.render, environmentExpr.render, scalarsExpr.render,
         ["integer_hidden", "=>"] ++ hiddenExpr.render, ["arrays", "=>"] ++ arraysExpr.render,
-        ["initials", "=>"] ++ initialsExpr.render, ["elaborating", "=>"] ++ elaboratingExpr.render]
+        ["initials", "=>"] ++ initialsExpr.render, ["elaborating", "=>"] ++ elaboratingExpr.render,
+        ["context_first", "=>"] ++ contextFirstExpr.render]
 
 def Expr.eval (calls : Calls) (inputs : Inputs) : Expr ty → ty.meaning
   | .text => inputs.text | .context => inputs.context | .position => inputs.position | .facts => inputs.facts
   | .maskFirst => inputs.maskFirst | .maskAfter => inputs.maskAfter | .initials => inputs.initials
   | .names contextExpr => (contextExpr.eval calls inputs).names
   | .arrays contextExpr => (contextExpr.eval calls inputs).arrayTable
+  | .contextFirst contextExpr => (contextExpr.eval calls inputs).contextFirst
   | .elaborating contextExpr => (contextExpr.eval calls inputs).elaborating
   | .integerHidden textExpr contextExpr =>
       let context := contextExpr.eval calls inputs
@@ -106,16 +110,16 @@ def Expr.eval (calls : Calls) (inputs : Inputs) : Expr ty → ty.meaning
       calls.scalar (textExpr.eval calls inputs) (positionExpr.eval calls inputs)
         (environmentExpr.eval calls inputs) (startExpr.eval calls inputs) (endExpr.eval calls inputs)
         (arraysExpr.eval calls inputs) (initialsExpr.eval calls inputs) (elaboratingExpr.eval calls inputs)
-  | .string textExpr positionExpr environmentExpr scalarsExpr hiddenExpr arraysExpr initialsExpr elaboratingExpr =>
+  | .string textExpr positionExpr environmentExpr scalarsExpr hiddenExpr arraysExpr initialsExpr elaboratingExpr contextFirstExpr =>
       calls.string (textExpr.eval calls inputs) (positionExpr.eval calls inputs)
         (environmentExpr.eval calls inputs) (scalarsExpr.eval calls inputs) (hiddenExpr.eval calls inputs)
-        (arraysExpr.eval calls inputs) (initialsExpr.eval calls inputs) (elaboratingExpr.eval calls inputs)
+        (arraysExpr.eval calls inputs) (initialsExpr.eval calls inputs) (elaboratingExpr.eval calls inputs) (contextFirstExpr.eval calls inputs)
 
 def scalarRhs : Expr .scalar :=
   .scalar .text .position (.reading .context .facts) .maskFirst .maskAfter (.arrays .context) .initials (.elaborating .context)
 def stringRhs : Expr .string :=
   .string .text .position (.names .context) (.reading .context .facts) (.integerHidden .text .context)
-    (.arrays .context) .initials (.elaborating .context)
+    (.arrays .context) .initials (.elaborating .context) (.contextFirst .context)
 
 def integerHidden (text : Source) (context : Native.Context) : Bool :=
   context.integerHidden || BooleanBindings.hidesInteger text context.booleanNames ||
@@ -133,11 +137,12 @@ structure Meaning (calls : Calls) : Prop where
     ArrayBindings.ValidInitials initials →
     calls.scalar text position names first after arrays initials elaborating =
       ScalarExpression.ArrayGrammar.read text position names arrays first after (initials := initials) (elaborating := elaborating)
-  string : ∀ text, ValidText text → ∀ position names scalars hidden arrays initials elaborating,
+  string : ∀ text, ValidText text → ∀ position names scalars hidden arrays initials elaborating contextFirst,
+    1 ≤ contextFirst → contextFirst ≤ text.length + 1 →
     position ≤ text.length + 1 → Expressions.NativeNames text names → ScalarExpression.ValidEnvironment text scalars →
     ArrayBindings.ValidTable text arrays → ArrayBindings.ValidInitials initials →
-    calls.string text position names scalars hidden arrays initials elaborating =
-      expressionAt text position names scalars hidden (arrays := arrays) (initials := initials) (elaborating := elaborating)
+    calls.string text position names scalars hidden arrays initials elaborating contextFirst =
+      expressionAt text position names scalars hidden (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst)
 
 /-- Initials validity interprets the fixed Ada Element_Array type. It imposes no
 source-allocation or initialized-prefix premise on an arbitrary native call. -/
@@ -177,7 +182,7 @@ theorem string_meaning {calls wrapper} (meaning : Meaning calls) (verified : Str
     wrapper inputs.text inputs.context inputs.position inputs.facts inputs.initials =
       expressionAt inputs.text inputs.position inputs.context.names (inputs.context.model.readingNames inputs.facts)
         (integerHidden inputs.text inputs.context) (arrays := inputs.context.arrayTable)
-        (initials := inputs.initials) (elaborating := inputs.context.elaborating) := by
+        (initials := inputs.initials) (elaborating := inputs.context.elaborating) (contextFirst := inputs.context.contextFirst) := by
   rw [verified.equation inputs legal]
   dsimp +instances only [stringRhs, Expr.eval]
   rw [overlay_meaning meaning.reading legal.context legal.flow]
@@ -191,7 +196,7 @@ theorem string_meaning {calls wrapper} (meaning : Meaning calls) (verified : Str
       simp [zero]
     · rw [meaning.nameIs inputs.text legal.text _ _ present]
   rw [meaning.booleanHidesInteger inputs.text legal.text _ legal.context.booleans, maskedName]
-  apply meaning.string inputs.text legal.text _ _ _ _ _ _ _ legal.position legal.context.nativeNames _ legal.context.arrays legal.initials
+  apply meaning.string inputs.text legal.text _ _ _ _ _ _ _ _ legal.context.unit.1 legal.context.unit.2.1 legal.position legal.context.nativeNames _ legal.context.arrays legal.initials
   exact ScalarMetadata.readingNames_valid legal.context.2.2.1
     legal.flow.2.compatible.count legal.flow.2.bounded
 
@@ -199,8 +204,8 @@ def modelCalls : Calls where
   reading := FlowSourceBridge.readingStorage
   scalar text position names first after arrays initials elaborating :=
     ScalarExpression.ArrayGrammar.read text position names arrays first after (initials := initials) (elaborating := elaborating)
-  string text position names scalars hidden arrays initials elaborating :=
-    expressionAt text position names scalars hidden (arrays := arrays) (initials := initials) (elaborating := elaborating)
+  string text position names scalars hidden arrays initials elaborating contextFirst :=
+    expressionAt text position names scalars hidden (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst)
   booleanHidesInteger := BooleanBindings.hidesInteger
   nameIs text first after word := Named.nameIs text first after (word.toList.map Char.toNat)
 

@@ -1,0 +1,86 @@
+{
+  "assumptions": [
+  ],
+  "entities": {
+    " 1": {
+      "name": "Silver_Runtime",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "silver_runtime.ads",
+          "line": 3
+        }
+      ]
+    },
+    " 2": {
+      "name": "Silver_Runtime.Argument_Count",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_runtime.ads",
+          "line": 10
+        }
+      ]
+    },
+    " 3": {
+      "name": "Silver_Runtime.Argument",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "silver_runtime.ads",
+          "line": 15
+        }
+      ]
+    },
+    " 4": {
+      "name": "Silver_Runtime.Set_Exit_Status",
+      "sloc": [
+        {
+          "column": 14,
+          "file": "silver_runtime.ads",
+          "line": 21
+        }
+      ]
+    }
+  },
+  "flow": [
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "spec",
+    " 3": "spec",
+    " 4": "spec"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 2": {
+      "gnat2why.vc_generation": 4.18000010540709E-04
+    },
+    " 3": {
+      "gnat2why.vc_generation": 5.99999984842725E-05
+    },
+    " 4": {
+      "gnat2why.vc_generation": 2.59999997069826E-05
+    },
+    "global": {
+      "flow analysis": 2.84999987343326E-04,
+      "globals (advanced)": 6.49099983274937E-03,
+      "globals (basic)": 6.59300014376640E-03,
+      "init_why_sections": 4.00999997509643E-04,
+      "marking": 2.16999993426725E-04,
+      "properties (advanced)": 2.80000003840541E-05,
+      "translation of standard": 1.33400002960116E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

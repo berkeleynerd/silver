@@ -41,7 +41,8 @@ theorem scalarLookupFrom_spelling {text : Source} {names : ScalarExpression.Envi
       · split at found
         · rename_i matching
           cases found
-          exact matching
+          simp only [Bool.and_eq_true] at matching
+          exact matching.1
         · exact ih found
 
 theorem booleanLookupFrom_spelling {text : Source} {names : BooleanBindings.Environment}
@@ -59,7 +60,8 @@ theorem booleanLookupFrom_spelling {text : Source} {names : BooleanBindings.Envi
       · split at found
         · rename_i matching
           cases found
-          exact matching
+          simp only [Bool.and_eq_true] at matching
+          exact matching.1
         · exact ih found
 
 /-- Two spellings resolving to one scalar binding must compare equal even

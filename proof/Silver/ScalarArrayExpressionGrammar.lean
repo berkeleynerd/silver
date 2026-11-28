@@ -123,7 +123,8 @@ theorem arrayAtom_complete {fuel : Nat} {text : Source} {names : Environment} {a
       have closeEquation := symbolAt_iff.mp closing
       unfold Sign at notSign
       have ordinary : atom text position names maskFirst maskAfter allowSign = none := by
-        simp [atom, nonzero, Nat.not_lt.mpr within, notSign, numberEquation, nameAfter, nameEquation, noScalar]
+        have reference := reference_before_symbol nonzero named opening (by decide : (40 : Nat) ≠ 46)
+        simp [atom, nonzero, Nat.not_lt.mpr within, notSign, numberEquation, reference, noScalar]
       simp [arrayAtom, ordinary, nonzero, Nat.not_lt.mpr within, nameAfter, nameEquation,
         show after ≠ 0 by omega, targetEq, targetGood, integerKind, noScalar, notSign, numberEquation, unmasked,
         openEquation.1, openEquation.2, indexEquation, closeEquation.1, Nat.not_le.mpr later]

@@ -20,8 +20,8 @@ def inheritedCalls
   reading := reading
   scalar text position names first after arrays initials elaborating :=
     scalars.readExpression text position names first after true arrays initials elaborating .allElements
-  string text position names scalarNames hidden arrays initials elaborating :=
-    composed.function .expression text position names scalarNames hidden arrays initials elaborating
+  string text position names scalarNames hidden arrays initials elaborating contextFirst :=
+    composed.function .expression text position names scalarNames hidden arrays initials elaborating contextFirst
   booleanHidesInteger := booleans.hidesInteger
   nameIs := composed.function .nameIs
 
@@ -38,8 +38,10 @@ theorem inherited_meaning {reading composed scalars}
   scalar text tv position names first after arrays initials elaborating pv nv mask av iv :=
     ScalarExpression.Native.interpreted_readExpression_table scalars primitives equations
       text tv position names first after true arrays initials elaborating .allElements pv nv mask av iv
-  string text tv position names scalarNames hidden arrays initials elaborating pv nv sv av iv :=
-    Expressions.interpreted_expression composed composedEquations text tv position names pv nv sv av iv
+  string text tv position names scalarNames hidden arrays initials elaborating contextFirst
+      contextPositive contextBound pv nv sv av iv :=
+    Expressions.interpreted_expression (contextFirst := contextFirst)
+      composed composedEquations text tv position names contextPositive contextBound pv nv sv av iv
 
 abbrev FullScalarWrapper := Source → Native.Context → Nat → ActiveFlow → ArrayBindings.Initials → ScalarExpression.Result
 abbrev DefaultScalarWrapper := Source → Native.Context → Nat → ActiveFlow → ScalarExpression.Result

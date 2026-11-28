@@ -1,0 +1,38 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+---------------------------------------------------------------------------------
+SPARK Analysis results        Total       Flow     Provers   Justified   Unproved
+---------------------------------------------------------------------------------
+Data Dependencies                 2          2           .           .          .
+Flow Dependencies                 .          .           .           .          .
+Initialization                    .          .           .           .          .
+Non-Aliasing                      .          .           .           .          .
+Run-time Checks                   6          .      6 (Z3)           .          .
+Assertions                        .          .           .           .          .
+Functional Contracts             10          .     10 (Z3)           .          .
+LSP Verification                  .          .           .           .          .
+Termination                       .          .           .           .          .
+Concurrency                       .          .           .           .          .
+---------------------------------------------------------------------------------
+Total                            18    2 (11%)    16 (89%)           .          .
+
+
+max steps used for successful proof: 1
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 1 unit
+in unit silver_report_projection_audit, 3 subprograms and packages out of 3 analyzed
+  Silver_Report_Projection_Audit at silver_report_projection_audit.ads:7 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Silver_Report_Projection_Audit.Application at silver_report_projection_audit.ads:14 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (8 checks)
+  Silver_Report_Projection_Audit.Runtime at silver_report_projection_audit.ads:29 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (8 checks)

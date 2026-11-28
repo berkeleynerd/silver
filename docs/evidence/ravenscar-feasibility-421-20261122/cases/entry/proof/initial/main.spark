@@ -1,0 +1,160 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "arg": 2,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 2,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 2,
+          "predicate": "CLAIM_AORTE"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_AORTE"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Main",
+      "sloc": [
+        {
+          "column": 11,
+          "file": "main.adb",
+          "line": 3
+        }
+      ]
+    },
+    " 2": {
+      "name": "Bounded_Probe.Counter.Release",
+      "sloc": [
+        {
+          "column": 17,
+          "file": "bounded_probe.ads",
+          "line": 4
+        }
+      ]
+    }
+  },
+  "flow": [
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+    {
+      "check_col": 11,
+      "check_file": "main.adb",
+      "check_line": 3,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 6.91800000000000E-03
+            },
+            "Z3": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.00000000000000E-06
+            },
+            "altergo": {
+              "result": "High failure (signaled)",
+              "steps": 1,
+              "time": 9.48100000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 11,
+      "entity": 1,
+      "file": "main.adb",
+      "how_proved": "prover",
+      "line": 3,
+      "message": {
+        "text": "ceiling priority protocol is respected for \"Bounded_Probe.Counter\""
+      },
+      "msg_id": 0,
+      "rule": "VC_CEILING_PRIORITY_PROTOCOL",
+      "severity": "info",
+      "stats": {
+        "Z3": {
+          "count": 1,
+          "max_steps": 1,
+          "max_time": 9.99999997475243E-07
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 6.30000024102628E-04,
+      "gnatwhy3.init": 2.72343009710312E-01,
+      "gnatwhy3.register_vcs": 1.21899903751910E-03,
+      "gnatwhy3.run_vcs": 4.99899988426478E-06,
+      "gnatwhy3.save_session": 7.74000014644116E-04,
+      "gnatwhy3.schedule_vcs": 7.40899890661240E-03,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 4.32000000728294E-04,
+      "gnatwhy3.transformations.detect_polymorphism": 2.70000000455184E-05,
+      "gnatwhy3.transformations.discriminate_if_poly": 3.00000010611257E-06,
+      "gnatwhy3.transformations.eliminate_algebraic": 3.99999000364915E-04,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 9.89990003290586E-05,
+      "gnatwhy3.transformations.eliminate_builtin": 7.11000000592321E-04,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 3.70000016118865E-05,
+      "gnatwhy3.transformations.eliminate_epsilon": 6.70000008540228E-05,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 6.70000008540228E-05,
+      "gnatwhy3.transformations.eliminate_inductive": 4.89990015921649E-05,
+      "gnatwhy3.transformations.eliminate_literal": 6.02999003604054E-04,
+      "gnatwhy3.transformations.eliminate_projections_sums": 6.90000015310943E-05,
+      "gnatwhy3.transformations.eliminate_recursion": 7.99900044512469E-06,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 9.99000008050643E-07,
+      "gnatwhy3.transformations.inline_trivial": 2.58100009523332E-03,
+      "gnatwhy3.transformations.introduce_premises": 2.59989992628107E-05,
+      "gnatwhy3.transformations.monomorphise_goal": 3.99900000047637E-06,
+      "gnatwhy3.transformations.remove_unused": 4.61999006802216E-04,
+      "gnatwhy3.transformations.simplify_formula": 1.13000001874752E-04,
+      "gnatwhy3.transformations.split_goal_wp_conj": 4.59000002592802E-04,
+      "gnatwhy3.transformations.split_premise_right": 4.89990015921649E-05
+    },
+    "global": {
+      "flow analysis": 2.83000001218170E-04,
+      "globals (advanced)": 3.80999990738928E-04,
+      "globals (basic)": 3.38999991072342E-04,
+      "init_why_sections": 4.29999985499308E-04,
+      "marking": 2.07000004593283E-04,
+      "properties (advanced)": 2.49999993684469E-05,
+      "translation of standard": 1.28800002858043E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

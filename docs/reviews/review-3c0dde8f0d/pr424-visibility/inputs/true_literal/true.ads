@@ -1,0 +1,1 @@
+package True is pragma SPARK_Mode(On);procedure Noop;end True;

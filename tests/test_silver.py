@@ -93,6 +93,31 @@ class SilverIntegrationTests(unittest.TestCase):
                          "named_character_variable", "character_expression", "character_assignment",
                          "character_comparison", "string_indexing", "string_element_assignment",
                          "string_slice"} <= set(constructs))
+        packages = constructs["bounded_library_packages"]["conditions"]
+        self.assertEqual(packages["application_units"],
+                         ["one_package_specification", "matching_package_body", "main_body"])
+        self.assertEqual(packages["shared_source_byte_budget"], catalogue["max_source_bytes"])
+        self.assertEqual(packages["shared_arithmetic_concatenation_operator_budget"],
+                         catalogue["max_program_operators"])
+        self.assertEqual(packages["minimum_routine_count"], 1)
+        self.assertEqual(packages["standard_package_name_exclusions"],
+                         ["Boolean", "False", "True", "Integer", "Natural", "Positive",
+                          "Short_Short_Integer", "Short_Integer", "Long_Integer",
+                          "Long_Long_Integer", "Long_Long_Long_Integer", "Short_Float",
+                          "Float", "Long_Float", "Long_Long_Float", "Character",
+                          "Wide_Character", "Wide_Wide_Character", "String", "Wide_String",
+                          "Wide_Wide_String", "Duration", "Constraint_Error", "Program_Error",
+                          "Storage_Error", "Tasking_Error", "Numeric_Error", "ASCII"])
+        self.assertEqual(packages["runtime_operation_hiding"],
+                         "application package identity hides same-named use-visible Put_Line, Put, "
+                         "First_Or_Default, Input_Is_Valid or Reject; qualified runtime calls remain available")
+        self.assertEqual(packages["function_calls"],
+                         "whole scalar assignment RHS only; no procedure calls from functions")
+        self.assertFalse(packages["closed_main_callable_package_values_or_calls"])
+        self.assertTrue(packages["closed_main_callable_exported_subtype_marks"])
+        self.assertFalse(packages["additional_application_dependencies"])
+        self.assertFalse(packages["package_arrays"])
+        self.assertFalse(packages["package_io"])
         compositions = {item["name"]: item for item in catalogue["compositions"]}
         self.assertEqual(set(compositions), {"null", "static_statements", "argument_statements"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])

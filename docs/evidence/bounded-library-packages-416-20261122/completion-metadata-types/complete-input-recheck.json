@@ -1,0 +1,17 @@
+{
+  "run_id": "20261127T220400-d5e10a9d3127",
+  "captured_sources": 1553,
+  "matched": 1553,
+  "mismatches": [],
+  "primary_shared_mismatches": [],
+  "private_new_files": [
+    "proof/Silver/ApplicationPackageDeclarationsMetadataTypes.lean",
+    "proof/Silver/ApplicationPackageDeclarationsSignatureMetadataStages.lean",
+    "proof/Silver/ApplicationPackageDeclarationsSignatureMetadataTypes.lean"
+  ],
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "audited_declarations": 46870
+}

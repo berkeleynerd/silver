@@ -1,0 +1,14 @@
+{
+  "run_id": "20261127T191602-328d03550e9a",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageProcedureFlow"
+  ],
+  "declarations": 30965,
+  "source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "143653e256d3a92e68cc7c4c12c0bbfd0bf85a233c06145f9aeea1b2a8118cd2",
+    "evidence.json": "1a0a0eceacd90b1d648e72f58ee0c4e51884af68b110dd7b1dfb152078b2865f",
+    "lean-focused.log.gz": "19941e1fe4a5befb60a2ebed977509044f38e3c2d11c910efe5b42dcb1404876"
+  }
+}

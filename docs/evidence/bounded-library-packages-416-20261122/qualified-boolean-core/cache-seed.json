@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-11-22T14:27:04.165771+00:00",
+  "seed_checkout": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-proof-410",
+  "seed_commit": "562207798fc96110e29e1fca4963bcac338e63ff",
+  "target_checkout": "/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native",
+  "target_commit": "2f013fd796e1fd17298f4f0d51329b934f56f00a",
+  "copied_paths": [
+    ".tools/linux-x86_64/lean",
+    ".tools/linux-x86_64/lean-4.34.1-linux.zip",
+    ".silver/linux-x86_64/proof"
+  ],
+  "copy_method": "cp -a --reflink=auto; preserve all .olean sidecars, Lake traces and manifests",
+  "seed_evidence_sha256": "43c664a362d6294a28edb93d6c7d3b7652da2006999c49eb124ca8bf2ccfed2d",
+  "distribution_sha256": "3013aba02bb8bf31b1cf8c9d956d60fb95bb1c10920dfe91abcaa59cb461ddac",
+  "claim": "cache seed only, not current-input validation"
+}

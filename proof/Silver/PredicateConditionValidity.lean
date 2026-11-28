@@ -56,8 +56,8 @@ private theorem length_meaning {text context position facts left right leftResul
 private theorem string_meaning {text context position facts left right leftResult rightResult initials}
     (normal : NamesNormal context.names)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (integerHidden := context.integerHidden text) text context.names position left leftResult)
-    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (integerHidden := context.integerHidden text) text context.names (comparisonAt text leftResult.after).after right rightResult)
+    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) text context.names position left leftResult)
+    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayTable) (initials := initials) (elaborating := context.elaborating) (contextFirst := context.contextFirst) (integerHidden := context.integerHidden text) text context.names (comparisonAt text leftResult.after).after right rightResult)
     (ready : StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after)) :
     ConditionMeaning context facts (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
       (stringResult facts leftResult rightResult (comparisonAt text leftResult.after)) initials := by
@@ -162,11 +162,11 @@ mutual
         exact ⟨meaning.parenthesized _, rfl⟩
     | boolean _ _ _ _ _ atom =>
         cases atom with
-        | name _ found =>
+        | @name reference _ found =>
             have initialized : (ArrayBindings.booleanAnalysis context.arrayNames
                 (BooleanBindings.analysis context.booleanNames)).initialized
-                (BooleanBindings.lookup text context.booleanNames (skipAt text position)
-                  (nameAfter text (skipAt text position))) = true := by
+                (BooleanBindings.lookup text context.booleanNames reference.first reference.after
+                  reference.qualifierFirst reference.qualifierAfter) = true := by
               apply Bool.or_eq_true_iff.mpr
               exact Or.inr (BooleanBindings.lookup_initialized found)
             exact ⟨⟨trivial, initialized, initialized, rfl, rfl⟩, rfl⟩

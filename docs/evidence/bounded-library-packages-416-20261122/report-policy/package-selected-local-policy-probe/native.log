@@ -1,0 +1,112 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ warning: initialization of "Value" has no effect
+--> main.adb:4:04
+    4 |       Value : Audit_State.Small := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: statement has no effect
+--> main.adb:6:15
+    6 |       Audit_State.Reset;
+      |       ~~~~~~~~~~~^~~~~~
+
+ warning: "audit_state.stored" is set by "Reset" but not used after the call
+--> main.adb:6:15
+    6 |       Audit_State.Reset;
+      |       ~~~~~~~~~~~^~~~~~
+
+ warning: "audit_state.flag" is set by "Reset" but not used after the call
+--> main.adb:6:15
+    6 |       Audit_State.Reset;
+      |       ~~~~~~~~~~~^~~~~~
+
+ warning: statement has no effect
+--> main.adb:8:15
+    8 |       Audit_State.Depend (Value, 1);
+      |       ~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+
+ warning: "Value" is set by "Depend" but not used after the call
+--> main.adb:8:24
+    8 |       Audit_State.Depend (Value, 1);
+      |                           ^~~~~
+
+ warning: statement has no effect
+--> main.adb:9:15
+    9 |       Audit_State.Produce (Value, 1);
+      |       ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+
+ warning: "Value" is set by "Produce" but not used after the call
+--> main.adb:9:25
+    9 |       Audit_State.Produce (Value, 1);
+      |                            ^~~~~
+ warning: initialization of "Idle" has no effect
+--> audit_state.adb:28:07
+   28 |          Idle : Small := 0;
+      |          ^~~~~~~~~~~~~~~~~
+
+ warning: initialization of "Changed" has no effect
+--> audit_state.adb:29:07
+   29 |          Changed : Small := 1;
+      |          ^~~~~~~~~~~~~~~~~~~~
+
+ warning: initialization of "Flag_Local" has no effect
+--> audit_state.adb:30:07
+   30 |          Flag_Local : Boolean := False;
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: unused assignment
+--> audit_state.adb:32:15
+   32 |          Changed := 2;
+      |          ~~~~~~~~^~~~
+
+ warning: unused assignment
+--> audit_state.adb:33:14
+   33 |          Stored := Changed;
+      |          ~~~~~~~^~~~~~~~~~
+
+ warning: statement has no effect
+--> audit_state.adb:34:07
+   34 |          Reset;
+      |          ^~~~~
+
+ warning: "Stored" is set by "Reset" but not used after the call
+--> audit_state.adb:34:07
+   34 |          Reset;
+      |          ^~~~~
+
+ warning: "Flag" is set by "Reset" but not used after the call
+--> audit_state.adb:34:07
+   34 |          Reset;
+      |          ^~~~~
+
+ warning: statement has no effect
+--> audit_state.adb:36:07
+   36 |          if False then
+      |          ^~
+
+ warning: this statement is never reached
+--> audit_state.adb:37:17
+   37 |             Stored := 1;
+      |             ~~~~~~~^~~~
+
+ info: initialization of "Answer" proved
+--> audit_state.ads:5:23
+
+ warning: unused variable "Unread"
+--> audit_state.ads:5:43
+    5 |       procedure Produce (Answer : out Small; Unread : in Small);
+      |                                              ^~~~~~
+
+ warning: unused initial value of "Value"
+--> audit_state.ads:6:22
+    6 |       procedure Depend (Value : in out Small; Drop : in Small);
+      |                         ^~~~~
+
+ info: implicit aspect Always_Terminates on "Read" has been proved, subprogram will terminate
+--> audit_state.ads:10:13
+
+ info: implicit aspect Always_Terminates on "Ignore" has been proved, subprogram will terminate
+--> audit_state.ads:11:13
+Success: all checks proved (3 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-audit/tmp/package-selected-local-policy-probe/out/obj/explore/indexed/gnatprove/gnatprove.out

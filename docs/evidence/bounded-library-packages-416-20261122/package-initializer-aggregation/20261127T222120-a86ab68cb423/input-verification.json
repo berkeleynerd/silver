@@ -1,0 +1,23 @@
+{
+  "run_id": "20261127T222120-a86ab68cb423",
+  "captured_source_count": 1617,
+  "changed": [
+    "proof/Silver/ApplicationPackageInitializerInventory.lean",
+    "proof/Silver/ApplicationPackageMainInitialization.lean",
+    "proof/Silver/ComposeInitializerTrace.lean",
+    "proof/Silver/FunctionDeclarationInitialDomain.lean",
+    "proof/Silver/FunctionDeclarationNative.lean",
+    "proof/Silver/FunctionFrameValidity.lean",
+    "proof/Silver/PredicateStringActualInitializers.lean",
+    "proof/Silver/PredicateStringBoundsSources.lean",
+    "proof/Silver/ProcedureDeclarationSyntax.lean"
+  ],
+  "missing": [],
+  "outcome": "failure",
+  "returncode": 1,
+  "cpu_affinity": [
+    6,
+    7
+  ],
+  "workers": 2
+}

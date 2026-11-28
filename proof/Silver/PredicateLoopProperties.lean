@@ -234,7 +234,7 @@ theorem loopInner_valid_environment {text : Source} {context : ParseContext} {sc
   have afterBound := model_name_valid text (loopFirst text scan)
   exact ScalarExpression.validEnvironment_append valid (by have := valid.1; omega)
     ⟨Nat.pos_of_ne_zero firstPositive, ordered, afterBound,
-      typed, typed⟩
+      typed, typed, Or.inl ⟨rfl, rfl⟩⟩
 
 theorem loopBody_shape {text : Source} {context : ParseContext} {scan : BodyScan}
     (positive : (loopBody (catalog := catalog) (procedures := procedures) text context scan).position ≠ 0) :

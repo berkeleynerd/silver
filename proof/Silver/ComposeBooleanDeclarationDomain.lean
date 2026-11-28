@@ -26,13 +26,15 @@ def toNative (context : BooleanDeclarationNative.Context) : Native.Context :=
   ⟨context.names, context.dynamicFirst, context.dynamicAfter, context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden, context.arrayTypes⟩
+    context.pure, context.integerHidden, context.arrayTypes,
+    context.contextFirst, context.packageFirst, context.packageAfter⟩
 
 def fromNative (context : Native.Context) : BooleanDeclarationNative.Context :=
   ⟨context.names, context.dynamicFirst, context.dynamicAfter, context.scalarNames,
     context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
     context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter,
-    context.pure, context.integerHidden, context.arrayTypes⟩
+    context.pure, context.integerHidden, context.arrayTypes,
+    context.contextFirst, context.packageFirst, context.packageAfter⟩
 
 @[simp] theorem toNative_model (context : BooleanDeclarationNative.Context) :
     (toNative context).model = context.model := rfl
@@ -67,7 +69,8 @@ theorem initializer_context_valid (text : Source) (state : ParserState) (argumen
     exact ready.1
   have name := model_new_name_valid text state _ _ arguments bounds.after allowed
   rcases valid.1 with ⟨_, names, dynamic, _, _, scalars, arrays, _, booleans, _, _, _⟩
-  exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, Or.inr name, valid.bounds⟩
+  exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, Or.inr name,
+    valid.bounds, valid.base.unit⟩
 
 theorem initializer_flow_valid (text : Source) (state : ParserState)
     (valid : OuterReadiness.ValidState text state) (p : BooleanDeclarationParts) :

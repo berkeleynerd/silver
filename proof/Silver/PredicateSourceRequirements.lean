@@ -236,7 +236,7 @@ def scan_result_declaration : List String :=
   ["record", "state", ":", "parser_state", ";", "assigned", ",", "output", ":", "boolean", ";", "end", "record"]
 
 def body_context_declaration : List String :=
-  (Source.lexLine "record Names : Binding_Environment; Scalar_Names : Scalar_Expressions.Environment; Array_Names : Array_Bindings.Metadata; Subtype_Hiding : Subtype_Visibility; Boolean_Names : Boolean_Environment; True_Hidden, False_Hidden, Elaborating, Pure, Integer_Hidden : Boolean; Mask_First, Mask_After : Literal_Position; Declaration_Count : Scalar_Expressions.Binding_Count; Dynamic_First, Dynamic_After : Literal_Position; end record").getD []
+  (Source.lexLine "record Context_First : Cursor := 1; Package_First, Package_After : Literal_Position := 0; Names : Binding_Environment; Scalar_Names : Scalar_Expressions.Environment; Array_Names : Array_Bindings.Metadata; Subtype_Hiding : Subtype_Visibility; Boolean_Names : Boolean_Environment; True_Hidden, False_Hidden, Elaborating, Pure, Integer_Hidden : Boolean; Mask_First, Mask_After : Literal_Position; Declaration_Count : Scalar_Expressions.Binding_Count; Dynamic_First, Dynamic_After : Literal_Position; end record").getD []
 
 def body_scan_declaration : List String :=
   (Source.lexLine "(Count : Scalar_Expressions.Binding_Count) is record Facts : Scalar_Flow (Count); Position : Literal_Position; Target : Binding_Count; Capacity : Capacity_Value; Assigned, Output : Boolean; end record").getD []
@@ -287,7 +287,7 @@ def concatenation_count_declaration : List String :=
   ["natural", "range", "0", "..", "max_concatenations"]
 
 def valid_context_expression : List String :=
-  (Source.lexLine "Valid_Names (Text, Context.Names) and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names) and then Array_Bindings.Valid_Metadata (Text, Context.Array_Names) and then Valid_Booleans (Text, Context.Boolean_Names) and then Valid_Name_State (Text, Context.Mask_First, Context.Mask_After) and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count) and then Valid_Mutable_Bounds (Context.Scalar_Names) and then (for all Index in 1 .. Context.Scalar_Names.Count => (if Context.Scalar_Names.Items (Index).Mutable and then not Context.Elaborating then Context.Scalar_Names.Items (Index).Bounds = Context.Scalar_Names.Items (Index).Declared_Bounds)) and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After)").getD []
+  (Source.lexLine "Context.Context_First <= Text'Last + 1 and then Valid_Name_State (Text, Context.Package_First, Context.Package_After) and then Valid_Names (Text, Context.Names) and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names) and then Array_Bindings.Valid_Metadata (Text, Context.Array_Names) and then Valid_Booleans (Text, Context.Boolean_Names) and then Valid_Name_State (Text, Context.Mask_First, Context.Mask_After) and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count) and then Valid_Mutable_Bounds (Context.Scalar_Names) and then (for all Index in 1 .. Context.Scalar_Names.Count => (if Context.Scalar_Names.Items (Index).Mutable and then not Context.Elaborating then Context.Scalar_Names.Items (Index).Bounds = Context.Scalar_Names.Items (Index).Declared_Bounds)) and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After)").getD []
 
 def valid_body_expression : List String :=
   (Source.lexLine "Scan.Position <= Text'Last + 1 and then Scan.Target <= Context.Names.Count and then Valid_Flow (Context, Scan.Facts)").getD []

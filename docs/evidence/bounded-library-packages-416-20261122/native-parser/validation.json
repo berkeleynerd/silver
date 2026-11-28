@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-22",
+  "task": "#416 bounded packages parser",
+  "native_platform": "linux-x86_64",
+  "parser_build": "20261122T143711-723ea2c0f05e",
+  "parser_fixtures": "20261122T143738-c92aaf56a41d",
+  "frontend_controls": "20261122T143639-7304fac3412f",
+  "methods": 33,
+  "parser_checks": 92,
+  "workers_actual": 8,
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "scope": "Native parser build and membership fixtures plus pinned Ada original-unit frontend controls; complete native/Lean/application assurance remains pending.",
+  "inputs_sha256": {
+    "src/silver_output_profile.ads": "196aa3b3a9f4401cf542397e34c1c0a93d9375b462d3e4fb4460fafa8029f2f1",
+    "src/silver_output_profile.adb": "1f41d4dc195de8e2b801309c4cacd4e7c80c14d5ae79162a317dd70332161038",
+    "src/silver_scalar_expressions.ads": "6d8a5af1aa49df6c8e7e7cc3b0e663e2b76c4ed0d7d0983098dab7f3611c5b7d",
+    "src/silver_scalar_expressions.adb": "34967ac706987c643366a937ee4cb2d24da302044fc3e0a819fcdf0b592914a6",
+    "tmp/helper-syntax/parser_cases.py": "59f7f75265f9438c55d3cefbbfa8ba2f3522b30f0a0c9bb81a1550998c838fca",
+    "tmp/body-legality/probe.py": "008e8bc1cf4ab61f4b922b83ebe1cd098fc46d99a7628fdc07143e72e45292f8"
+  },
+  "frontend_summary": {
+    "zero_routines": "required body rejected",
+    "one_routine": "compiled and linked",
+    "Ada": "language-defined units cannot be recompiled",
+    "Interfaces": "language-defined units cannot be recompiled",
+    "System": "system.ads not formatted correctly",
+    "Standard": "compiled and linked no-op control",
+    "GNAT": "compiled and linked no-op control"
+  },
+  "native_commit": "fdc0442807b28a7fc4f3dbe0a2efca7194056942",
+  "primary_equivalent": "af24ff5237"
+}

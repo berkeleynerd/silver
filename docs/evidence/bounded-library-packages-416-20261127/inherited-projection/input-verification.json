@@ -1,0 +1,10 @@
+{
+  "run_id": "20261127T231407-0d43916d14ec",
+  "captured_inputs": 1688,
+  "checking_mismatches": [],
+  "primary_mismatches_before_integration": [
+    "proof/Silver/ApplicationPackageAssignmentResultImports.lean",
+    "proof/Silver/ApplicationPackageInheritedProjection.lean"
+  ],
+  "primary_commit": "36f9fc1562a88d7bcd699ed492f54dac5cf55c34"
+}

@@ -39,8 +39,9 @@ def closeResult (text : Source) (value : Result) : Result :=
 def atomResult (text : Source) (position : Nat) (names : Environment)
     (maskFirst maskAfter : Nat) (allowSign : Bool) : Result :=
   let first := skip text position
-  let after := nameAfter text first
-  let index := lookup text names first after
+  let reference := readReference text first
+  let after := reference.after
+  let index := lookup text names reference.first after reference.qualifierFirst reference.qualifierAfter
   if first = 0 ∨ first > text.length then invalid
   else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 then
     if !allowSign then invalid else
@@ -48,7 +49,7 @@ def atomResult (text : Source) (position : Nat) (names : Environment)
   else
     let number := ScalarLiteral.read text first
     if number.after ≠ 0 then literalResult number false
-    else if index = 0 ∨ (maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter first after = true)
+    else if index = 0 ∨ QualifiedNames.masked text reference maskFirst maskAfter = true
     then invalid
     else ⟨after, (binding names index).bounds.normalize, 1, (binding names index).isStatic⟩
 
@@ -133,9 +134,10 @@ def arraysAtomStep (recurse : Reader) (text : Source) (position : Nat) (names : 
     (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
     (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
   let first := skip text position
-  let after := nameAfter text first
-  let index := lookup text names first after
-  let target := ArrayBindings.lookup text arrays first after
+  let reference := readReference text first
+  let after := reference.after
+  let index := lookup text names reference.first after reference.qualifierFirst reference.qualifierAfter
+  let target := if reference.qualifierFirst = 0 then ArrayBindings.lookup text arrays reference.first after else 0
   if first = 0 ∨ first > text.length then invalid
   else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 then
     if !allowSign then invalid else
@@ -144,9 +146,9 @@ def arraysAtomStep (recurse : Reader) (text : Source) (position : Nat) (names : 
     let number := ScalarLiteral.read text first
     if number.after ≠ 0 then literalResult number false
     else if after = 0 then invalid
-    else if maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter first after = true then invalid
+    else if QualifiedNames.masked text reference maskFirst maskAfter = true then invalid
     else if index ≠ 0 then ⟨after, (binding names index).bounds.normalize, 1, (binding names index).isStatic⟩
-    else if target = 0 then invalid
+    else if reference.qualifierFirst ≠ 0 ∨ target = 0 then invalid
     else arrayAtomStep recurse text after names maskFirst maskAfter target arrays initials elaborating
 
 def arraysUnaryStep (recurse : ArraysReader) (text : Source) (position : Nat) (names : Environment)
@@ -215,9 +217,10 @@ def tableAtomStep (recurse : TableReader) (text : Source) (position : Nat) (name
     (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool) (arrayReads : ArrayReadMode) : Result :=
   let first := skip text position
-  let after := nameAfter text first
-  let index := lookup text names first after
-  let target := ArrayBindings.lookup text arrays.items first after
+  let reference := readReference text first
+  let after := reference.after
+  let index := lookup text names reference.first after reference.qualifierFirst reference.qualifierAfter
+  let target := if reference.qualifierFirst = 0 then ArrayBindings.lookup text arrays.items reference.first after else 0
   if first = 0 ∨ first > text.length then invalid
   else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 then
     if !allowSign then invalid else
@@ -226,8 +229,9 @@ def tableAtomStep (recurse : TableReader) (text : Source) (position : Nat) (name
     let number := ScalarLiteral.read text first
     if number.after ≠ 0 then literalResult number false
     else if after = 0 then invalid
-    else if maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter first after = true then invalid
+    else if QualifiedNames.masked text reference maskFirst maskAfter = true then invalid
     else if index ≠ 0 then ⟨after, (binding names index).bounds.normalize, 1, (binding names index).isStatic⟩
+    else if reference.qualifierFirst ≠ 0 then invalid
     else if symbol text after 39 ≠ 0 then ArrayAttributes.read text position names arrays maskFirst maskAfter
     else if target = 0 ∨ arrayReads = .noElements ∨
         (arrayReads = .mutableElements ∧ (ArrayBindings.binding arrays.items target).mutable = false) then invalid
@@ -268,8 +272,9 @@ def tableReadStep (recurse : TableReader) (text : Source) (position : Nat) (name
   else tableAtomStep (@recurse) text first names maskFirst maskAfter allowSign arrays initials elaborating arrayReads
 
 structure Calls where
-  lookupModel : Source → Environment → Nat → Nat → Nat → Nat
-  lookup : Source → Environment → Nat → Nat → Nat
+  lookupModel : Source → Environment → Nat → Nat → Nat → optParam Nat 0 → optParam Nat 0 → Nat
+  lookup : Source → Environment → Nat → Nat → optParam Nat 0 → optParam Nat 0 → Nat
+  readReference : Source → Nat → NameReference
   skip : Source → Nat → Nat
   symbol : Source → Nat → Nat → Nat
   nameAfter : Source → Nat → Nat
@@ -295,8 +300,9 @@ structure Calls where
   lowercase : Nat → Nat
 
 def modelCalls : Calls where
-  lookupModel := lookupFrom
-  lookup := ScalarExpression.lookup
+  lookupModel := @lookupFrom
+  lookup := @ScalarExpression.lookup
+  readReference := ScalarExpression.readReference
   skip := ScalarExpression.skip
   symbol := ScalarExpression.symbol
   nameAfter := ScalarExpression.nameAfter

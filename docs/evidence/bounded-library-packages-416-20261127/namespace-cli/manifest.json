@@ -1,0 +1,42 @@
+{
+  "20261127T183110-7541c9fe4e7b-events.jsonl.gz": {
+    "uncompressed_sha256": "e2d81ad99bf4d3c3647df85a488f2f23936f4437958bf5702da56cc444e725b6",
+    "compressed_sha256": "2da36c23c1a9dbbbcbc60b972a1da17218d94a5f10fe280a79f483267e09cbad"
+  },
+  "20261127T183110-7541c9fe4e7b-native.log.gz": {
+    "uncompressed_sha256": "da640f3d9039bc0aec46cad845eee9c6e45b55db542ab429d7998824011ea22e",
+    "compressed_sha256": "51725ffbdbf37a584dc025a661f0830baabce2f08ed2b031628f5cbcd24f3a58"
+  },
+  "20261127T183444-8b0345b32bda-events.jsonl.gz": {
+    "uncompressed_sha256": "6ebfc2f7f0eab216f32d7f3624e45739486c8a80f02d7c9cad96e0e6ff69ff33",
+    "compressed_sha256": "3ba5cc7fedaf2e5f9fda6cf45ea922564cf935fef342db2314760beb4bb528ed"
+  },
+  "20261127T183444-8b0345b32bda-native.log.gz": {
+    "uncompressed_sha256": "2b7baf9c03780960ced387db302bb7d7e6fc80898eafa7d3a87a9b80e2ca6fa8",
+    "compressed_sha256": "85b32be27249c182cb358a999b39bfbb31b1a91a2ff39fbb069255c7b6caaa10"
+  },
+  "20261127T183527-88bbb020e8f5-events.jsonl.gz": {
+    "uncompressed_sha256": "229506cd2525693126f87a061d4eb925f403c73ada6be6e95ef6e4060dddb2c7",
+    "compressed_sha256": "4df2c2c6236061d52a9bbd0f76e7568842d06830894c8d6d3d89912a4bc5b128"
+  },
+  "20261127T183527-88bbb020e8f5-native.log.gz": {
+    "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compressed_sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+  },
+  "20261127T183535-d8e1029bdea6-events.jsonl.gz": {
+    "uncompressed_sha256": "b4ed30aa9732df1f2932e73508868f42f3d0e3d7b31601ffe68f3d899955cf2d",
+    "compressed_sha256": "ffb3d3ac96512810464517d0da3c2fa6045fbfb1216b1be919aa80a1ae796366"
+  },
+  "20261127T183535-d8e1029bdea6-native.log.gz": {
+    "uncompressed_sha256": "e1813b44ab620b77a625878b450758704d944c7ab09cb768356d2481886d8479",
+    "compressed_sha256": "b1a9846ff4c20accb06256b260bc75a6a92548d32876f35583cca64643701041"
+  },
+  "20261127T183554-86532f5bb1e9-events.jsonl.gz": {
+    "uncompressed_sha256": "08c8bbe093fc6494ba9c5e18164806e08c4d7713d9ed9b9c23dcd97314d9872a",
+    "compressed_sha256": "17cee675abaa5e3e931c9b5479f9a7df55ad287a3250637ee87dc215c834a742"
+  },
+  "20261127T183554-86532f5bb1e9-native.log.gz": {
+    "uncompressed_sha256": "c49a803edf5337d3f40befecf8f286e1a5a85ce1401cf6c1709d10fad56a2775",
+    "compressed_sha256": "584217332db81e0505c4aa40c8bfb77df9ab4cf4f8fbaf16effb493bca34c954"
+  }
+}

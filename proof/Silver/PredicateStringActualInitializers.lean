@@ -215,7 +215,7 @@ def RawStringInitializerActualBounds (text : Source) (state : ParserState)
   ∃ raw result,
     ExpressionAt text state.names (declarationValuePosition text state) raw result
       state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.table state.arrayNames.values true ∧
+      state.arrayNames.table state.arrayNames.values true state.contextFirst ∧
     declaration.initializer = raw.freezeImages
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) ∧
     raw.ActualBoundsSafe bounds state.names values input

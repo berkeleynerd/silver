@@ -60,11 +60,10 @@ def appendProcedureParameter (frame : ParserState) (parameter : ProcedureBinding
   else if parameter.kind = .integer then
     if frame.scalarNames.length = ScalarExpression.maxBindings then invalidState
     else {frame with scalarNames := frame.scalarNames ++
-      [⟨parameter.first, parameter.after, parameter.bounds, false, parameter.bounds,
-        decide (parameter.mode ≠ .input)⟩]}
+      [{first := parameter.first, after := parameter.after, bounds := parameter.bounds, isStatic := false, declaredBounds := parameter.bounds, mutable := decide (parameter.mode ≠ .input)}]}
   else if frame.booleanNames.length = BooleanBindings.maxBindings then invalidState
   else {frame with booleanNames := frame.booleanNames ++
-    [⟨parameter.first, parameter.after, decide (parameter.mode ≠ .input)⟩]}
+    [{first := parameter.first, after := parameter.after, mutable := decide (parameter.mode ≠ .input)}]}
 
 def procedureInputFrameModel (frame : ParserState) (index : Nat) : ParserState :=
   if frame.position = 0 then invalidState

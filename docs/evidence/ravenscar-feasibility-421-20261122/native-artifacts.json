@@ -1,0 +1,12 @@
+{
+  "baseline-v2": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/baseline-v2/out/bin/native/main",
+    "sha256": "f116f538f8b265caa116f393758f67e5222b627b139e35dc403a3ec389c20ea2",
+    "size": 1303544
+  },
+  "entry": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/out/bin/native/main",
+    "sha256": "ccb93a2abdbf8697a811c946e513c7907dbab4f17a47a0b8b067a3c0c33133be",
+    "size": 1323664
+  }
+}

@@ -1,0 +1,320 @@
+{
+  "run": "20261127T193939-4dba03f7ee42",
+  "outcome": "success",
+  "duration_seconds": 810.94417606,
+  "scope": [
+    "compiler",
+    "--limit-subp=silver_output_profile.adb:9492"
+  ],
+  "focused_options": [
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30"
+  ],
+  "allocation": {
+    "workers": {
+      "actual": 2,
+      "automatic": 4,
+      "requested": 2
+    }
+  },
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "sources": {
+    "src/silver_names.adb": "7660b0a119b1ac53afa9478880e93a4b05e4f7ed3c601316e0cd61637539cdb6",
+    "src/silver_names.ads": "20eb7b268611e056c3fba698ec6d946956ebdcf1bd9b57ae680cc9b85afbdd74",
+    "src/silver_output_profile.adb": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+    "src/silver_output_profile.ads": "196aa3b3a9f4401cf542397e34c1c0a93d9375b462d3e4fb4460fafa8029f2f1",
+    "src/silver_package_bindings.ads": "dbcb91fe15d79508705cd56f93917d37ce5c9898a0205cfea5c158d2512e9d26",
+    "src/silver_package_bindings.adb": "21f668c90945d60b13939b06a71ca5eb4c634478cf3aa8140a0cf53a282dd9dc"
+  },
+  "reports": [
+    {
+      "file": "silver_output_profile.spark",
+      "flow": 5,
+      "proof": 47,
+      "spark": {
+        " 1": "all"
+      },
+      "entities": {
+        " 1": {
+          "name": "Silver_Output_Profile.Package_Main_At",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 9492
+            }
+          ]
+        },
+        " 10": {
+          "name": "Silver_Output_Profile.Skip_At",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 377
+            }
+          ]
+        },
+        " 11": {
+          "name": "Silver_Output_Profile.Spark_Pragma_After",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 7908
+            }
+          ]
+        },
+        " 12": {
+          "name": "Silver_Output_Profile.Take_Token",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 457
+            }
+          ]
+        },
+        " 13": {
+          "name": "Silver_Package_Bindings.Valid_Metadata",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_package_bindings.ads",
+              "line": 164
+            }
+          ]
+        },
+        " 14": {
+          "name": "Silver_Application_Units.Valid",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_application_units.ads",
+              "line": 45
+            }
+          ]
+        },
+        " 15": {
+          "name": "Silver_Function_Bindings.Valid_Metadata",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_function_bindings.ads",
+              "line": 46
+            }
+          ]
+        },
+        " 16": {
+          "name": "Silver_Output_Lexical.Valid_Name_State",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_lexical.ads",
+              "line": 268
+            }
+          ]
+        },
+        " 17": {
+          "name": "Silver_Output_Profile.Application_Of",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 8675
+            }
+          ]
+        },
+        " 18": {
+          "name": "Silver_Output_Profile.Context_Of",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 2946
+            }
+          ]
+        },
+        " 19": {
+          "name": "Silver_Output_Profile.Same_Package_Spelling",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 9478
+            }
+          ]
+        },
+        " 2": {
+          "name": "Silver_Application_Units.Unit_Source",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_application_units.ads",
+              "line": 69
+            }
+          ]
+        },
+        " 20": {
+          "name": "Silver_Output_Profile.Valid_Body",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 3068
+            }
+          ]
+        },
+        " 21": {
+          "name": "Silver_Output_Profile.Valid_Context",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 3038
+            }
+          ]
+        },
+        " 22": {
+          "name": "Silver_Output_Profile.Valid_Flow",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 3059
+            }
+          ]
+        },
+        " 23": {
+          "name": "Silver_Output_Profile.Valid_State",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 330
+            }
+          ]
+        },
+        " 24": {
+          "name": "Silver_Package_Bindings.Complete_Metadata",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_package_bindings.ads",
+              "line": 170
+            }
+          ]
+        },
+        " 25": {
+          "name": "Silver_Package_Bindings.Valid_Name",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_package_bindings.ads",
+              "line": 134
+            }
+          ]
+        },
+        " 26": {
+          "name": "Silver_Path_Facts.Completed",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_path_facts.ads",
+              "line": 47
+            }
+          ]
+        },
+        " 27": {
+          "name": "Silver_Procedure_Bindings.Valid_Metadata",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_procedure_bindings.ads",
+              "line": 47
+            }
+          ]
+        },
+        " 3": {
+          "name": "Silver_Names.Read_Context",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_names.ads",
+              "line": 28
+            }
+          ]
+        },
+        " 4": {
+          "name": "Silver_Output_Profile.Application_Tail",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 8992
+            }
+          ]
+        },
+        " 5": {
+          "name": "Silver_Output_Profile.Argument_At",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 2708
+            }
+          ]
+        },
+        " 6": {
+          "name": "Silver_Output_Profile.Body_Of",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 2986
+            }
+          ]
+        },
+        " 7": {
+          "name": "Silver_Output_Profile.Imported_Frame",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 9444
+            }
+          ]
+        },
+        " 8": {
+          "name": "Silver_Output_Profile.Imported_Package",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.ads",
+              "line": 100
+            }
+          ]
+        },
+        " 9": {
+          "name": "Silver_Output_Profile.Read_Declarations",
+          "sloc": [
+            {
+              "column": 13,
+              "file": "silver_output_profile.adb",
+              "line": 2752
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

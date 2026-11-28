@@ -7,6 +7,8 @@ public import Silver.ScalarExpressionConstants
 @[expose] public section
 
 namespace Silver.Compose
+
+variable {contextFirst : Nat}
 open Bindings
 
 def frozenIntegers (names : ScalarExpression.Environment)
@@ -39,7 +41,7 @@ theorem expressionAt_frozen_summary {text : Source} {names : BindingEnvironment}
     {expression : Expression} {result : ExpressionResult}
     (normal : NamesNormal names) (static : ScalarExpression.StaticEnvironment scalarNames)
     (stored : ∀ item ∈ arrays.items, item.viewSlot = 0)
-    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
+    (parsed : ExpressionAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
     (exact : result.minimumLength = result.staticLength) :
     (expression.freezeImages (frozenIntegers scalarNames arrays.items initials)).summary names.shape =
       ⟨result.staticLength, result.dynamicCount⟩ := by
@@ -57,7 +59,7 @@ theorem expressionAt_safe {text : Source} {names : BindingEnvironment}
     {expression : Expression} {result : ExpressionResult}
     (normal : NamesNormal names) (static : ScalarExpression.StaticEnvironment scalarNames)
     (stored : ∀ item ∈ arrays.items, item.viewSlot = 0)
-    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
+    (parsed : ExpressionAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
     (bounded : fits result capacity = true) :
     SafeExpression (expression.freezeImages (frozenIntegers scalarNames arrays.items initials)) names.shape capacity := by
   have known := expressionAt_inferLength normal parsed
@@ -80,7 +82,7 @@ theorem expressionAt_frozen_execution {text : Source} {names : BindingEnvironmen
     {expression : Expression} {result : ExpressionResult} {values : Values} {input : Source}
     (normal : NamesNormal names) (static : ScalarExpression.StaticEnvironment scalarNames)
     (stored : ∀ item ∈ arrays.items, item.viewSlot = 0)
-    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
+    (parsed : ExpressionAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
     (bounded : fits result capacity = true) (state : Fits names.shape input values)
     (inputBound : input.length ≤ capacity) :
     expression.checkedEvaluate values input (frozenIntegers scalarNames arrays.items initials) =

@@ -1,0 +1,27 @@
+Lean phase build started at 2026-11-22T15:22:28.851923+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 build +Silver.BooleanBindingsSourceBridge +Silver.BooleanBindingsSourceChecks +Silver.AxiomAudit
+✔ [17/17] Built Silver.BooleanBindingsSourceChecks (746ms)
+Build completed successfully (17 jobs).
+
+Lean phase build finished at 2026-11-22T15:22:32.846345+00:00; elapsed 3.994s; exit 0
+Lean phase audit started at 2026-11-22T15:22:33.653502+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lake -K silverThreads=2 env /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-native/.tools/linux-x86_64/lean/bin/lean -DwarningAsError=true -j2 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.IntegerIntervals
+SILVER_MODULE Silver.BooleanModel
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.OutputLiteral
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.OutputAdmission
+SILVER_MODULE Silver.NamedIdentifier
+SILVER_MODULE Silver.QualifiedNames
+SILVER_MODULE Silver.BooleanBindings
+SILVER_MODULE Silver.SourceLexer
+SILVER_MODULE Silver.SourceDeclarations
+SILVER_MODULE Silver.BooleanBindingsNative
+SILVER_MODULE Silver.BooleanBindingsSourceBridge
+SILVER_MODULE Silver.BooleanBindingsSourceChecks
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 1526 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-22T15:22:36.338604+00:00; elapsed 2.685s; exit 0

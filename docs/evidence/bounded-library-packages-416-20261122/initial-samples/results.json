@@ -1,0 +1,83 @@
+[
+  {
+    "source": "rosetta_include_a_file/main.adb",
+    "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-bPuS9Q",
+    "audit": {
+      "units": 6,
+      "entities": 19,
+      "flow_checks": 20,
+      "proof_checks": 47,
+      "limitation_notes": 0,
+      "imported_entities": 6,
+      "trusted_math_notes": 0,
+      "vendor_spec_entities": 0,
+      "array_initialization_advisories": 0,
+      "operator_reassociation_advisories": 0,
+      "assignment_advisories": 1,
+      "image_advisories": 1,
+      "termination_checks": 1,
+      "initialization_checks": 0
+    },
+    "sha256": {
+      "main.adb": "306a0b964246ba3922862674fc46211cf8ddbdaf11c1dc9b2b252aa669e464f0",
+      "included.ads": "e7dac62555d0c2e7fa6ab99abce5354e9b2a346c71e0a09f602667774a2eef7e",
+      "included.adb": "904a7320fad9a36b091a10269ab0ccf5075d6a385a63f108e206e446432c8fbb"
+    },
+    "stdout": " 8\n",
+    "exit_status": 0
+  },
+  {
+    "source": "package_counter/main.adb",
+    "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-2xScd9",
+    "audit": {
+      "units": 6,
+      "entities": 21,
+      "flow_checks": 20,
+      "proof_checks": 48,
+      "limitation_notes": 0,
+      "imported_entities": 6,
+      "trusted_math_notes": 0,
+      "vendor_spec_entities": 0,
+      "array_initialization_advisories": 0,
+      "operator_reassociation_advisories": 0,
+      "assignment_advisories": 1,
+      "image_advisories": 1,
+      "termination_checks": 1,
+      "initialization_checks": 0
+    },
+    "sha256": {
+      "main.adb": "5346ca5a4d4c4d16c9a6847e50595fa9b462a7b9acf1c375bfcc955caf06ebfb",
+      "counter.ads": "4a2246ac036f4f9707f8a52ae0b86b1fae6554a94ac507ae63773eec4f089381",
+      "counter.adb": "9dffbc431099d21fe07c90a44d6d0c61a37a6b1982e777ebd5d53ee5d0195311"
+    },
+    "stdout": " 9\n",
+    "exit_status": 0
+  },
+  {
+    "source": "rosetta_queue_definition/main.adb",
+    "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/program-lXFcrr",
+    "audit": {
+      "units": 6,
+      "entities": 21,
+      "flow_checks": 23,
+      "proof_checks": 47,
+      "limitation_notes": 0,
+      "imported_entities": 6,
+      "trusted_math_notes": 0,
+      "vendor_spec_entities": 0,
+      "array_initialization_advisories": 0,
+      "operator_reassociation_advisories": 0,
+      "assignment_advisories": 8,
+      "image_advisories": 3,
+      "termination_checks": 1,
+      "initialization_checks": 3
+    },
+    "sha256": {
+      "main.adb": "9a8235272edf4681f04cd79e15e1666d392e9c15346ce8f2fdd4a821e4d3386b",
+      "queue.ads": "954fed359753ac94d20629029dcd8c18a02589834d3128fcf85ffba5553afe36",
+      "queue.adb": "5a4e0400c019deb321f6cd65e31670728532241db4d3200f0b9fc8d72028693e"
+    },
+    "stdout": "initially empty\nqueue full\n 11\n 22\n 33\nqueue empty\nfinally empty\n",
+    "exit_status": 0
+  }
+]

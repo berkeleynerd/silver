@@ -1,0 +1,17 @@
+Lean phase build started at 2026-11-27T20:37:33.505900+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageDeclarationsSpecificationDomains +Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains +Silver.ApplicationPackageDeclarationsSpecificationObjectDomains +Silver.ApplicationPackageDeclarationsSpecificationStepDomains +Silver.AxiomAudit
+✖ [492/495] Building Silver.ApplicationPackageDeclarationsSpecificationDomains (9.9s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ApplicationPackageDeclarationsSpecificationDomains.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationDomains.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationDomains.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationDomains.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationDomains.setup.json --json
+error: Silver/ApplicationPackageDeclarationsSpecificationDomains.lean:31:15: Invalid field `specification_header`: The environment does not contain `Silver.ApplicationPackageFrames.StateType.specification_header`, so it is not possible to project the field `specification_header` from an expression
+  frame.typed
+of type `StateType state`
+error: Silver/ApplicationPackageDeclarationsSpecificationDomains.lean:77:4: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Some required targets logged failures:
+- Silver.ApplicationPackageDeclarationsSpecificationDomains
+error: build failed
+
+Lean phase build finished at 2026-11-27T20:37:47.715081+00:00; elapsed 14.209s; exit 1

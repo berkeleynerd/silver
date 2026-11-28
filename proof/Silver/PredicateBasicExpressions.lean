@@ -14,7 +14,7 @@ namespace Silver.Predicate.BasicNative
 open Compose Bindings
 
 structure Primitives where
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Table → Bool → BooleanBindings.Environment → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Table → Bool → BooleanBindings.Environment → Nat → Nat → Nat → Nat
   associationAfter : Source → Nat → Bool → Nat
   token : Source → Nat → ShellToken → Nat
   expression : Source → Native.Context → Nat → ActiveFlow → ExpressionResult
@@ -64,7 +64,7 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
   | .procedureCallee => decide (primitive.procedureCallee frame.text frame.context frame.result.position frame.procedures ≠ 0)
   | .pure => frame.context.pure
   | .impure => !frame.context.pure
-  | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayTable (frame.context.subtypeHiding.get value) frame.context.booleanNames ≠ 0)
+  | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayTable (frame.context.subtypeHiding.get value) frame.context.booleanNames frame.context.contextFirst frame.context.packageFirst frame.context.packageAfter ≠ 0)
   | .zeroResult => decide (frame.result.position = 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .present token => decide (primitive.token frame.text frame.result.position token ≠ 0)
@@ -91,7 +91,7 @@ def Test.render : Test → List String
   | .procedureCallee => call "procedure_callee_at" [["text"], ["context"], ["result", ".", "position"], ["procedure_catalog"]] ++ ["/=", "0"]
   | .pure => ["context", ".", "pure"]
   | .impure => ["not", "context", ".", "pure"]
-  | .operation value => call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"]] ++ ["/=", "0"]
+  | .operation value => call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"], ["context", ".", "context_first"], ["context", ".", "package_first"], ["context", ".", "package_after"]] ++ ["/=", "0"]
   | .zeroResult => ["result", ".", "position", "=", "0"]
   | .nonadvancing => ["result", ".", "position", "<=", "scan", ".", "position"]
   | .present token => call "take_token" [["text"], ["result", ".", "position"], [Compose.Expressions.tokenName token]] ++ ["/=", "0"]
@@ -128,7 +128,7 @@ def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
       else if boolean then primitive.booleanAssignment frame.text frame.context frame.result
       else primitive.scalarAssignment frame.text frame.context frame.result
   | .procedureCall => primitive.procedureCall frame.text frame.context frame.result frame.procedures
-  | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayTable (frame.context.subtypeHiding.get value) frame.context.booleanNames}
+  | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayTable (frame.context.subtypeHiding.get value) frame.context.booleanNames frame.context.contextFirst frame.context.packageFirst frame.context.packageAfter}
   | .association => {frame.result with position := primitive.associationAfter frame.text frame.result.position false}
   | .token tok => primitive.bodyToken frame.text frame.context frame.result tok
   | .scalarAssignment => primitive.scalarAssignment frame.text frame.context frame.result
@@ -151,7 +151,7 @@ def Update.render : Update → List String
       call (if boolean then "boolean_assignment_body" else "scalar_assignment_body")
         [["text"], ["context"], ["result"]] ++ [")", ";", "end", ";"]
   | .procedureCall => ["result", ":="] ++ call "procedure_call_body" [["text"], ["context"], ["result"], ["procedure_catalog"]] ++ [";"]
-  | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"]] ++ [";"]
+  | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"], ["context", ".", "context_first"], ["context", ".", "package_first"], ["context", ".", "package_after"]] ++ [";"]
   | .association => ["result", ".", "position", ":=", "names", "."] ++ call "association_after" [["text"], ["result", ".", "position"], ["false"]] ++ [";"]
   | .token tok => ["result", ":="] ++ call "body_token"
       [["text"], ["context"], ["result"], [Compose.Expressions.tokenName tok]] ++ [";"]
@@ -199,7 +199,7 @@ mutual
     | .indexed => ["character_value", ":="] ++ call "indexed_at"
         [["text"], ["scan", ".", "position"], ["context", ".", "names"],
           call "reading_names" [["context"], ["result", ".", "facts"]], ["context", ".", "array_names"],
-          ["array_bindings", ".", "empty_values"], ["false"], ["true"]] ++ [";"]
+          ["array_bindings", ".", "empty_values"], ["false"], ["true"], ["1"]] ++ [";"]
     | .target => ["target", ":="] ++ call "body_string_target"
         [["text"], ["context"], ["result", ".", "position"]] ++ [";"]
     | .returnInvalid => ["return", "invalid_body", "(", "scan", ")", ";"] | .returnResult => ["return", "result", ";"]
@@ -261,13 +261,14 @@ def basicEval (primitive : Primitives) (text : Source) (context : Native.Context
   basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}, {}, catalog, procedures⟩ (fun _ => primitive.invalid scan)
 
 def modelPrimitives : Primitives where
-  callAfter := fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans
+  callAfter := fun text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter => Compose.callAfter text names position operation scalarNames arrays hidden booleans contextFirst packageFirst packageAfter
   associationAfter := Names.associationAfter
   token := tokenAfter
   expression := fun text context position facts => readStringInFlow text context.model position facts
   readingNames := fun context facts => context.model.readingNames facts
   character := fun text position names scalarNames arrays => characterAt text position names scalarNames arrays
-  indexed := indexedAt
+  indexed := fun text position names scalarNames arrays initials elaborating element =>
+    indexedAt text position names scalarNames arrays initials elaborating element 1
   target := ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
   bodyToken := fun text _ scan token => Predicate.bodyToken text scan token
   invalid := invalidBody

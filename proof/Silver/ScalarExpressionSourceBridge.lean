@@ -15,6 +15,21 @@ structure InterpretedSource (calls : Native.Calls) : Prop where
   primitives : Native.Primitives calls
   definitions : Native.Equations calls
 
+theorem interpreted_readReference (calls : Native.Calls) (source : InterpretedSource calls)
+    (text : Source) (valid : Native.ValidText text) (position : Nat) (bound : position ≤ text.length + 1) :
+    calls.readReference text position = readReference text position :=
+  Native.interpreted_readReference calls source.primitives source.definitions text valid position bound
+
+theorem interpreted_lookup_qualified (calls : Native.Calls) (source : InterpretedSource calls)
+    (text : Source) (valid : Native.ValidText text) (names : Environment)
+    (environment : ValidEnvironment text names) (first after : Nat)
+    (firstBound : first ≤ text.length + 1) (afterBound : after ≤ text.length + 1)
+    (qualifierFirst qualifierAfter : Nat) (queryValid : QualifiedNames.ValidSpan text qualifierFirst qualifierAfter) :
+    calls.lookup text names first after qualifierFirst qualifierAfter =
+      lookup text names first after qualifierFirst qualifierAfter :=
+  Native.interpreted_lookup_qualified calls source.primitives source.definitions
+    text valid names environment first after firstBound afterBound qualifierFirst qualifierAfter queryValid
+
 theorem interpreted_readExpression (calls : Native.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Native.ValidText text) (position : Nat) (names : Environment)
     (maskFirst maskAfter : Nat) (allowSign : Bool) (bound : position ≤ text.length + 1)

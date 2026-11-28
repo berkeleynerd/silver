@@ -127,6 +127,7 @@ theorem model_definitions :
   stringDeclaration text tv state arguments sv :=
     base_definitions.stringDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
   scalarConstraint := base_definitions.scalarConstraint
+  readReference := base_definitions.readReference
   subtypeLookupModel := base_definitions.subtypeLookupModel
   subtypeLookup := base_definitions.subtypeLookup
   scalarType text tv state position sv pv :=

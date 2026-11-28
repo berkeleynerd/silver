@@ -13,10 +13,28 @@ set_option maxHeartbeats 2000000
 theorem decide_nat_eq (a b : Nat) : decide (a = b) = (a == b) := by
   by_cases same : a = b <;> simp [same]
 
-def lookupEquation (calls : Calls) (text : Source) (names : Environment) (first after index : Nat) : Nat :=
+def lookupEquation (calls : Calls) (text : Source) (names : Environment) (first after index : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) : Nat :=
   if first = 0 ∨ after ≤ first ∨ index = 0 then 0
-  else if calls.equalName text (binding names index).first (binding names index).after first after
-  then index else calls.lookupModel text names first after (index - 1)
+  else if calls.equalName text (binding names index).first (binding names index).after first after &&
+      (if qualifierFirst = 0 then (binding names index).qualifierFirst == 0
+       else decide (0 < (binding names index).qualifierFirst) &&
+         calls.equalName text (binding names index).qualifierFirst (binding names index).qualifierAfter
+           qualifierFirst qualifierAfter)
+  then index else calls.lookupModel text names first after (index - 1) qualifierFirst qualifierAfter
+
+def referenceEquation (calls : Calls) (text : Source) (position : Nat) : NameReference :=
+  let first := calls.skip text position
+  let after := calls.nameAfter text first
+  let dot := calls.skip text after
+  if first = 0 ∨ after ≤ first then {}
+  else if 0 < dot ∧ dot ≤ text.length ∧ Cursor.byteAt text dot = 46 ∧
+      (dot = text.length ∨ Cursor.byteAt text (dot + 1) ≠ 46) then
+    let memberFirst := calls.skip text (dot + 1)
+    let memberAfter := calls.nameAfter text memberFirst
+    if memberFirst = 0 ∨ memberAfter ≤ memberFirst then {}
+    else ⟨memberFirst, memberAfter, first, after⟩
+  else ⟨first, after, 0, 0⟩
 
 def symbolEquation (calls : Calls) (text : Source) (position item : Nat) : Nat :=
   let first := calls.skip text position
@@ -63,9 +81,10 @@ def atomEquation (calls : Calls) (text : Source) (position : Nat) (names : Envir
     (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Table)
     (initials : ArrayBindings.Initials) (elaborating : Bool) (arrayReads : ArrayReadMode) : Result :=
   let first := calls.skip text position
-  let after := calls.nameAfter text first
-  let index := calls.lookup text names first after
-  let target := calls.arrays.lookup text arrays first after
+  let reference := calls.readReference text first
+  let after := reference.after
+  let index := calls.lookup text names reference.first after reference.qualifierFirst reference.qualifierAfter
+  let target := if reference.qualifierFirst = 0 then calls.arrays.lookup text arrays reference.first after else 0
   if first = 0 ∨ first > text.length then invalid
   else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 then
     if !allowSign then invalid else
@@ -74,8 +93,11 @@ def atomEquation (calls : Calls) (text : Source) (position : Nat) (names : Envir
     let number := calls.integerLiteral text first
     if number.after ≠ 0 then calls.literalResult number false
     else if after = 0 then invalid
-    else if maskFirst ≠ 0 ∧ calls.equalName text maskFirst maskAfter first after = true then invalid
+    else if maskFirst ≠ 0 ∧
+        (if reference.qualifierFirst = 0 then calls.equalName text maskFirst maskAfter reference.first after
+         else calls.equalName text maskFirst maskAfter reference.qualifierFirst reference.qualifierAfter) = true then invalid
     else if index ≠ 0 then ⟨after, calls.scalars.normalize (binding names index).bounds, 1, (binding names index).isStatic⟩
+    else if reference.qualifierFirst ≠ 0 then invalid
     else if calls.symbol text after 39 ≠ 0 then
       calls.readArrayAttribute text position names arrays maskFirst maskAfter false
     else if target = 0 ∨ arrayReads = .noElements ∨
@@ -133,10 +155,19 @@ theorem binaryAfter_denotation (calls : Calls) (text : Source) (position : Nat) 
   dsimp +instances only [binaryAfterBody, Expr.eval, Context.locals, Calls.get, apply4, apply3, apply2, Locals.set]
   simp [binaryAfterEquation, Bool.or_eq_true, Bool.and_eq_true]
 
-theorem lookup_denotation (calls : Calls) (text : Source) (names : Environment) (first after index : Nat) :
-    lookupBody.eval calls ({text,names,first,after,index} : Context).locals = lookupEquation calls text names first after index := by
-  dsimp +instances only [lookupBody, Expr.eval, Context.locals, Calls.get, Field.get, apply5, apply4, apply3, apply2]
+theorem lookup_denotation (calls : Calls) (text : Source) (names : Environment) (first after index : Nat)
+    (qualifierFirst qualifierAfter : Nat := 0) :
+    lookupBody.eval calls ({text,names,first,after,index,qualifierFirst,qualifierAfter} : Context).locals =
+      lookupEquation calls text names first after index qualifierFirst qualifierAfter := by
+  dsimp +instances only [lookupBody, Expr.eval, Context.locals, Calls.get, Field.get,
+    apply6, apply5, apply4, apply3, apply2]
   simp [lookupEquation, Bool.or_eq_true, or_assoc]
+
+theorem reference_denotation (calls : Calls) (text : Source) (position : Nat) :
+    referenceBody.eval calls ({text,position} : Context).locals = referenceEquation calls text position := by
+  dsimp +instances only [referenceBody, Expr.eval, Context.locals, Calls.get, Field.get,
+    apply2, Locals.set]
+  simp [referenceEquation, Bool.and_eq_true, Bool.or_eq_true, and_assoc]
 
 theorem symbol_denotation (calls : Calls) (text : Source) (position item : Nat) :
     symbolBody.eval calls ({text,position,item} : Context).locals = symbolEquation calls text position item := by
@@ -177,7 +208,8 @@ theorem atom_denotation (calls : Calls) (text : Source) (position : Nat) (names 
     atomBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign,arrays,initials,elaborating,arrayReads} : Context).locals =
       atomEquation calls text position names maskFirst maskAfter allowSign arrays initials elaborating arrayReads := by
   dsimp +instances only [atomBody, readArrayArgs, arrayArgs, Expr.eval, Context.locals, Calls.get, Field.get, apply6, apply5, apply4, apply3, apply2, Locals.set]
-  simp [atomEquation, decide_nat_eq, Bool.or_eq_true, Bool.and_eq_true, or_assoc]
+  by_cases qualified : (calls.readReference text (calls.skip text position)).qualifierFirst = 0 <;>
+    simp [atomEquation, qualified, decide_nat_eq, Bool.or_eq_true, Bool.and_eq_true, or_assoc]
 
 theorem unary_read_denotation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
     (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Table)

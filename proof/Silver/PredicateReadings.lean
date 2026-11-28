@@ -123,8 +123,8 @@ theorem lengthAt_unique {text context position literal left right leftResult rig
             omega⟩)
       | binding _ otherEq _ _ _ _ _ _ => exact congrArg LengthOperand.binding (indexEq.trans otherEq.symm)
 
-theorem expression_reading_ready {text names scalarNames integerHidden arrays initials elaborating position expression result}
-    (normal : NamesNormal names) (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position expression result) :
+theorem expression_reading_ready {text names scalarNames integerHidden arrays initials elaborating contextFirst position expression result}
+    (normal : NamesNormal names) (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst) text names position expression result) :
     (expression.StringReadable names.shape ∧ expression.LiteralsPrintable ∧
       expression ≠ [] ∧ expression.length ≤ maxExpressionOperands) ∧
       expression.inferLength names.shape (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by

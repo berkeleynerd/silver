@@ -1,0 +1,7 @@
+# Completion output-prefix import transport
+
+Authorized #416 source-domain closure, 2026-11-27. Selected Astra Max; live model/effort and token/cost measurements unavailable.
+
+`CompletionOutputImports` derives the actual output-initializer and complete output-prefix fold from original lexical/name, Context_Of, Initial_Flow, Actual_After and State_Reads imports. It retains the actual native context and formal bounds; initializer call domains and both effect-reader cursors follow from the original ReaderFrame. Formal append transport permits arbitrary native-typed intervals and uses the original valid-name guard. Intermediate appends preserve OutputFrame, which does not assert a valid frame before the original Valid_State guard.
+
+The same focus checks the two inherited `ProcedureDeclarationMeaning` callers against the current function-valued signature validity interface. It passed on Linux x86-64 with a fresh 83,282-declaration axiom audit; all 1,591 captured local source hashes match at retention. Exact run and timing are in the manifest/events. CPUs 4–5, two workers, two threads/process, 8192 MiB/process. The retained initial failure exposed context body-environment length normalization and large dictionary reductions. Generic fold congruence keeps dictionaries opaque; no budgets or native domains changed. This is focused helper evidence, not complete Completion or feature assurance.

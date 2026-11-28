@@ -27,21 +27,22 @@ theorem model_definition_scalarConstraint : ∀ text, ValidText text → ∀ pos
   dsimp +instances only [modelCalls, spelling, isWord, ShellToken.symbol, ShellToken.word, scalarConstraintAt]
   simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
-theorem model_definition_subtypeLookupModel : ∀ text, ValidText text → ∀ subtypeNames first after index,
+theorem model_definition_subtypeLookupModel : ∀ text, ValidText text → ∀ subtypeNames first after index qualifierFirst qualifierAfter,
     IntegerSubtypes.ValidEnvironment text subtypeNames → ValidCursor text first → ValidCursor text after →
-    index ≤ subtypeNames.items.length →
-    modelCalls.function .subtypeLookupModel text subtypeNames first after index =
-      subtypeLookupModelBody.eval modelCalls (Context.locals {text,subtypeNames,first,after,index}) := by
-  intro text _ subtypeNames first after index _ _ _ _
+    index ≤ subtypeNames.items.length → QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    modelCalls.function .subtypeLookupModel text subtypeNames first after index qualifierFirst qualifierAfter =
+      subtypeLookupModelBody.eval modelCalls (Context.locals {text,subtypeNames,first,after,index,qualifierFirst,qualifierAfter}) := by
+  intro text _ subtypeNames first after index qualifierFirst qualifierAfter _ _ _ _ _
   dsimp +instances only [subtypeLookupModelBody, lookupArrayType, Expr.eval, modelCalls, Context.locals, Field.get, Calls.get, modelPrimitives]
   cases index with
   | zero => simp [IntegerSubtypes.lookupFrom]
-  | succ index => simp [IntegerSubtypes.lookupFrom, Bool.or_eq_true]
+  | succ index => simp [IntegerSubtypes.lookupFrom, QualifiedNames.qualifierMatches, Bool.or_eq_true]
 
-theorem model_definition_subtypeLookup : ∀ text, ValidText text → ∀ subtypeNames first after,
+theorem model_definition_subtypeLookup : ∀ text, ValidText text → ∀ subtypeNames first after qualifierFirst qualifierAfter,
     IntegerSubtypes.ValidEnvironment text subtypeNames → ValidCursor text first → ValidCursor text after →
-    modelCalls.function .subtypeLookup text subtypeNames first after =
-      modelCalls.function .subtypeLookupModel text subtypeNames first after subtypeNames.items.length := by
+    QualifiedNames.ValidSpan text qualifierFirst qualifierAfter →
+    modelCalls.function .subtypeLookup text subtypeNames first after qualifierFirst qualifierAfter =
+      modelCalls.function .subtypeLookupModel text subtypeNames first after subtypeNames.items.length qualifierFirst qualifierAfter := by
   intros; rfl
 
 theorem model_definition_scalarType : ∀ text, ValidText text → ∀ state position,
@@ -65,10 +66,10 @@ theorem model_definition_subtypeDeclaration : ∀ text, ValidText text → ∀ s
   simp only [Bool.decide_coe, Bool.decide_or, Bool.or_assoc]
   all_goals rfl
 
-theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
-    modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans =
-      callAfterBody.eval modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
+theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidTable text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position → Names.ValidContext text contextFirst packageFirst packageAfter →
+    modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans contextFirst packageFirst packageAfter =
+      callAfterBody.eval modelCalls (Context.locals {text,contextFirst,packageFirst,packageAfter,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
   intros
   dsimp +instances only [modelCalls, Names.modelCalls, Context.locals, lookupArrayType, Expr.eval, Calls.get, Locals.set, callAfterBody, Field.get, callAfter] <;> simp +instances [Bool.or_assoc]
 

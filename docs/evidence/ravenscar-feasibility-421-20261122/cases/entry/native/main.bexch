@@ -1,0 +1,22 @@
+[GENERATED OBJECT FILE]
+b__main.o
+[PROJECT FILES]
+/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/probe.gpr
+20261122124200 1b16c3edef33379f4d2e59c97295144c
+[BOUND OBJECT FILES]
+/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/out/obj/native/bounded_probe.o
+/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/out/obj/native/main.o
+[GENERATED SOURCE FILES]
+b__main.ads
+b__main.adb
+b__main.ali
+[RESULTING OPTIONS]
+-L/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/out/obj/native/
+-L/home/canto/src/github.com/berkeleynerd/silver/tmp/ravenscar-feasibility-421/entry/out/obj/native/
+-L/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/
+-static
+/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnarl.a
+/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a
+-lrt
+-lpthread
+-ldl

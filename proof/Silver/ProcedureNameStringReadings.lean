@@ -11,12 +11,14 @@ set_option maxHeartbeats 800000
 namespace Silver.Predicate
 open Compose ScalarProcedures Bindings
 
+variable {contextFirst : Nat}
+
 theorem ActualNameFreeTrace.stringValue {text : Source} {names : Compose.BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Table}
     {initials : ArrayBindings.Initials} {elaborating integerHidden : Bool}
     {position target limit targetFirst targetAfter : Nat} {value : Operand} {result : ValueResult}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
-    (source : ValueAt text names position value result scalarNames integerHidden arrays initials elaborating)
+    (source : ValueAt (contextFirst := contextFirst) text names position value result scalarNames integerHidden arrays initials elaborating)
     (positionBound : position ≤ text.length + 1) (finishBound : result.after ≤ limit)
     (targetFound : ScalarExpression.lookup text scalarNames targetFirst targetAfter = target)
     (targetBound : target ≤ ArrayBindings.scalarLimit) :
@@ -42,17 +44,17 @@ theorem ActualNameFreeTrace.stringEmission {text : Source} {names : Compose.Bind
     {initials : ArrayBindings.Initials} {elaborating integerHidden : Bool}
     {scan : ExpressionState} {emitted : Expression} {target limit targetFirst targetAfter : Nat}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter scan.position)
-    (source : EmissionAt text names scan emitted scalarNames integerHidden arrays initials elaborating)
+    (source : EmissionAt (contextFirst := contextFirst) text names scan emitted scalarNames integerHidden arrays initials elaborating)
     (positive : scan.position ≠ 0) (unfinished : scan.complete = false)
-    (accepted : (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position ≠ 0)
+    (accepted : (expressionStep (contextFirst := contextFirst) text names scan scalarNames integerHidden arrays initials elaborating).position ≠ 0)
     (positionBound : scan.position ≤ text.length + 1)
-    (finishBound : (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position ≤ limit)
+    (finishBound : (expressionStep (contextFirst := contextFirst) text names scan scalarNames integerHidden arrays initials elaborating).position ≤ limit)
     (targetFound : ScalarExpression.lookup text scalarNames targetFirst targetAfter = target)
     (targetBound : target ≤ ArrayBindings.scalarLimit) :
     emitted.any (stringMentions target) = false ∧
       ActualNameFreeTrace text limit targetFirst targetAfter
-        (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position := by
-  generalize stepEq : expressionStep text names scan scalarNames integerHidden arrays initials elaborating = next at accepted finishBound ⊢
+        (expressionStep (contextFirst := contextFirst) text names scan scalarNames integerHidden arrays initials elaborating).position := by
+  generalize stepEq : expressionStep (contextFirst := contextFirst) text names scan scalarNames integerHidden arrays initials elaborating = next at accepted finishBound ⊢
   by_cases need : scan.needOperand = true
   · by_cases opened : fixedAfter text scan.position "(" false ≠ 0
     · have empty : emitted = [] := by simpa only [EmissionAt, need, opened, and_false, ↓reduceIte] using source
@@ -87,7 +89,7 @@ theorem ActualNameFreeTrace.stringEmission {text : Source} {names : Compose.Bind
         · cases stepEq; exact False.elim (accepted rfl)
 
 private theorem stringTail_positive {text names scalarNames integerHidden arrays initials elaborating scan expression result}
-    (source : ExpressionTailAt text names scan expression result scalarNames integerHidden arrays initials elaborating) :
+    (source : ExpressionTailAt (contextFirst := contextFirst) text names scan expression result scalarNames integerHidden arrays initials elaborating) :
     result.after ≠ 0 := by
   induction source with
   | done positive _ => exact positive
@@ -95,10 +97,10 @@ private theorem stringTail_positive {text names scalarNames integerHidden arrays
   | next _ _ _ _ _ _ _ ih => exact ih
 
 private theorem stringTail_monotone {text names scalarNames integerHidden arrays initials elaborating scan expression result}
-    (source : ExpressionTailAt text names scan expression result scalarNames integerHidden arrays initials elaborating) :
+    (source : ExpressionTailAt (contextFirst := contextFirst) text names scan expression result scalarNames integerHidden arrays initials elaborating) :
     scan.position ≤ result.after := by
   have forward := Compose.Expressions.model_tail_nondecreasing (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) (contextFirst := contextFirst) text names scan
   rw [expressionTail_complete source] at forward
   exact forward.resolve_left (stringTail_positive source)
 
@@ -108,7 +110,7 @@ theorem ActualNameFreeTrace.stringTail {text : Source} {names : Compose.BindingE
     {scan : ExpressionState} {expression : Expression} {result : ExpressionResult}
     {target limit targetFirst targetAfter : Nat}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter scan.position)
-    (source : ExpressionTailAt text names scan expression result scalarNames integerHidden arrays initials elaborating)
+    (source : ExpressionTailAt (contextFirst := contextFirst) text names scan expression result scalarNames integerHidden arrays initials elaborating)
     (positionBound : scan.position ≤ text.length + 1) (finishBound : result.after ≤ limit)
     (targetFound : ScalarExpression.lookup text scalarNames targetFirst targetAfter = target)
     (targetBound : target ≤ ArrayBindings.scalarLimit) :
@@ -130,7 +132,7 @@ theorem ActualNameFreeTrace.stringSyntax {text : Source} {names : Compose.Bindin
     {initials : ArrayBindings.Initials} {elaborating integerHidden : Bool}
     {position target limit targetFirst targetAfter : Nat} {expression : Expression} {result : ExpressionResult}
     (trace : ActualNameFreeTrace text limit targetFirst targetAfter position)
-    (source : ExpressionAt text names position expression result scalarNames integerHidden arrays initials elaborating)
+    (source : ExpressionAt (contextFirst := contextFirst) text names position expression result scalarNames integerHidden arrays initials elaborating)
     (positionBound : position ≤ text.length + 1) (finishBound : result.after ≤ limit)
     (targetFound : ScalarExpression.lookup text scalarNames targetFirst targetAfter = target)
     (targetBound : target ≤ ArrayBindings.scalarLimit) :

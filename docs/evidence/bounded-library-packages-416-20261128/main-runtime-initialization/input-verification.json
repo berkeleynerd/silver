@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-11-28T02:21:35.035465+00:00",
+  "run_id": "20261128T022014-b862f0aede21",
+  "captured_sources": 1749,
+  "changed": [],
+  "missing": [],
+  "owned_file": "proof/Silver/ApplicationPackageMainRuntimeInitialization.lean",
+  "owned_sha256": "8286a003dbd4ff3db6df0c9f3ba3d0abbf10138f775796b1d775c272dcab53d2",
+  "workspace_copy_matches": true,
+  "artifacts_sha256": {
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageMainRuntimeInitialization.olean": "fa40aee2e641f06a09b286e53add10a384fa4ca81b9259f4267cd1c5f32cb0e9",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageMainRuntimeInitialization.olean.server": "05052824f60d2b25c716aa7332207cd8e02186f2b70a6cd498c0edf46ab0efa0",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageMainRuntimeInitialization.olean.private": "ccb9b5c042c7ad67b0eebf6a596af4653a9acb9eb3234fd304e435901edcc4ae",
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageMainRuntimeInitialization.ilean": "357a808e1258a741b224143137c1ce1c0c17544f0816df2757accd68004a96d4"
+  },
+  "cpu_affinity": [
+    4,
+    5
+  ],
+  "allocation": {
+    "memory_mb": {
+      "actual": 8192,
+      "automatic": null,
+      "requested": 8192
+    },
+    "threads": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": null
+    },
+    "workers": {
+      "actual": 2,
+      "automatic": 2,
+      "requested": null
+    }
+  }
+}

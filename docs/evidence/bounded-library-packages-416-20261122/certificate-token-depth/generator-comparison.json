@@ -1,0 +1,10 @@
+{
+  "sources_compared": 36,
+  "changes": [
+    {
+      "file": "silver_output_profile.adb",
+      "only_added_line": "set_option maxRecDepth 400000 in",
+      "token_count": 99910
+    }
+  ]
+}

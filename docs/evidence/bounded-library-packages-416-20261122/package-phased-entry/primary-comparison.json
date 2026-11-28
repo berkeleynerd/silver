@@ -1,0 +1,32 @@
+{
+  "primary_head": "766f032ffafb116845d20c9d2b3710bc763f02c7",
+  "captured_inputs": 1662,
+  "local_hashes_verified": true,
+  "changed_in_primary": [
+    "proof/Silver/ApplicationPackageInitializerInventory.lean",
+    "proof/Silver/ApplicationPackageRoutineInitialization.lean",
+    "proof/Silver/ComposeInitializerTrace.lean",
+    "proof/Silver/FunctionDeclarationInitialDomain.lean",
+    "proof/Silver/FunctionDeclarationNative.lean",
+    "proof/Silver/FunctionFrameValidity.lean",
+    "proof/Silver/FunctionHeaderSource.lean",
+    "proof/Silver/ProcedureDeclarationHeaderMeaning.lean",
+    "proof/Silver/ProcedureDeclarationMeaning.lean",
+    "proof/Silver/ProcedureDeclarationSyntax.lean",
+    "proof/Silver/ProcedureFrameMeaning.lean",
+    "proof/Silver/ProcedurePrefixExpressionMeaning.lean"
+  ],
+  "missing_in_primary": [
+    "proof/Silver/ApplicationPackageLoopLayout.lean",
+    "proof/Silver/PackageGlobalChecking.lean",
+    "proof/Silver/PackageInitializerPhases.lean",
+    "proof/Silver/PackagePhasedRoutineSafety.lean"
+  ],
+  "changed_imported": [],
+  "missing_imported": [
+    "proof/Silver/ApplicationPackageLoopLayout.lean",
+    "proof/Silver/PackageGlobalChecking.lean",
+    "proof/Silver/PackageInitializerPhases.lean",
+    "proof/Silver/PackagePhasedRoutineSafety.lean"
+  ]
+}

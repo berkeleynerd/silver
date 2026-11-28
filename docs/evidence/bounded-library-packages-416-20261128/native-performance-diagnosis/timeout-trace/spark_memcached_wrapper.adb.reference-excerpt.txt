@@ -1,0 +1,40 @@
+168:    function Compute_Key return Message_Digest is
+169:       C : Hash_Context;
+170:    begin
+171:       C.Init_Hash_Context;
+172:
+173:       --  We first hash the salt (first argument of the command line)
+174:
+175:       C.Update_Hash_Context (Argument (1));
+176:
+177:       --  The file is hashed separately here, it always comes last on the
+178:       --  command line.
+179:
+180:       Hash_File (C, Argument (Argument_Count));
+181:
+182:       --  Hash the rest of the command line
+183:
+184:       Hash_Commandline (C);
+185:
+186:       --  Read the binary hash if present
+187:
+188:       if Argument_Count >= 3 then
+189:          Hash_Binary (C, Argument (3));
+190:       end if;
+191:       return C.Hash_Digest;
+192:    end Compute_Key;
+
+638:       else
+639:          declare
+640:             Arguments : Argument_List (1 .. Argument_Count - 3);
+641:          begin
+642:             for I in Arguments'Range loop
+643:                Arguments (I) := new String'(Argument (I + 3));
+644:             end loop;
+645:             declare
+646:                Cmd : String renames Argument (3);
+647:
+648:                Raw : constant String :=
+649:                  Get_Command_Output
+650:                    (Cmd, Arguments, "", Status'Access, Err_To_Out => True);
+651:

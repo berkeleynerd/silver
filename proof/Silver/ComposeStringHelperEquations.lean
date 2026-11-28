@@ -31,12 +31,13 @@ private theorem max_capacity (value : Int) : (max 0 value > (maxSourceLength : I
 @[simp] theorem interpreted_indexed (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Table)
-    (initials : ArrayBindings.Initials) (elaborating element : Bool)
+    (initials : ArrayBindings.Initials) (elaborating element : Bool) (contextFirst : Nat)
+    (contextPositive : 1 ≤ contextFirst) (contextBound : ValidCursor text contextFirst)
     (bound : ValidCursor text position) (namesValid : NativeNames text names)
     (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
     (arraysValid : ArrayBindings.ValidTable text arrays) (initialsValid : ArrayBindings.ValidInitials initials) :
-    calls.function .indexed text position names scalarNames arrays initials elaborating element =
-      indexedAt text position names scalarNames arrays initials elaborating element := by
+    calls.function .indexed text position names scalarNames arrays initials elaborating element contextFirst =
+      indexedAt text position names scalarNames arrays initials elaborating element contextFirst := by
   let first := skipAt text position
   let after := nameAfter text first
   let start := fixedAfter text after "(" false
@@ -49,9 +50,9 @@ private theorem max_capacity (value : Int) : (max 0 value > (maxSourceLength : I
   have bl := model_arrayScalar_valid text start scalarNames arrays initials elaborating bs
   have bhs : ValidCursor text highStart := model_fixed_valid text low.after ".." false bl.1
   have bh := model_arrayScalar_valid text highStart scalarNames arrays initials elaborating bhs
-  rw [equations.indexed text valid position names scalarNames arrays initials elaborating element
-    bound namesValid scalarValid arraysValid initialsValid, indexed_denotation]
-  change indexedEquation calls text position names scalarNames arrays initials elaborating element = _
+  rw [equations.indexed text valid position names scalarNames arrays initials elaborating element contextFirst
+    contextPositive contextBound bound namesValid scalarValid arraysValid initialsValid, indexed_denotation]
+  change indexedEquation calls text position names scalarNames arrays initials elaborating element contextFirst = _
   dsimp only [indexedEquation]
   rw [interpreted_skip calls equations text valid position bound,
     interpreted_name calls equations text valid first bf,
@@ -71,7 +72,7 @@ private theorem max_capacity (value : Int) : (max 0 value > (maxSourceLength : I
         equations.scalarRead text valid highStart scalarNames arrays initials elaborating bhs scalarValid arraysValid initialsValid,
         interpreted_symbol calls equations text valid high.after ")" bh.1 (by unfold ValidToken; decide),
         equations.scalarEmpty high.bounds bh.2,
-        interpreted_guarded calls equations text valid 1 position 0 false false (by omega) (by unfold ValidCursor; omega)
+        interpreted_guarded calls equations text valid contextFirst position 0 false false contextPositive contextBound
           bound (by unfold maxSourceLength; omega)]
       simp only [indexedAt, indexedParts, Bool.false_eq_true, ↓reduceIte, Bool.or_eq_true,
         Bool.and_eq_true, decide_eq_true_eq, or_assoc, and_assoc,
@@ -127,7 +128,7 @@ theorem model_character_after_valid (text : Source) (position : Nat) (names : Bi
   by_cases absent : opened = 0
   · simp only [absent, ne_eq, not_true_eq_false, decide_false, ↓reduceIte]
     rw [equations.scalarLookup text valid scalarNames first after scalarValid bf ba,
-      interpreted_indexed calls equations text valid position names scalarNames arrays initials elaborating true
+      interpreted_indexed calls equations text valid position names scalarNames arrays initials elaborating true 1 (by omega) (by unfold ValidCursor; omega)
         bound namesValid scalarValid arraysValid initialsValid]
     conv => rhs; rw [characterAt]
     simp only [first, after, opened] at absent ⊢

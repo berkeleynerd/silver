@@ -113,7 +113,7 @@ termination_by form.tokens.length + 1 - index
 decreasing_by omega
 
 private theorem initial_valid (text : Source) : ValidState text initialState := by
-  simp +instances [ValidState, ValidCursor, ValidNames, initialState, NameState.Valid, maxBindings, maxSourceLength, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
+  simp +instances [ValidState, Names.ValidContext, Names.ValidNameState, ValidCursor, ValidNames, initialState, NameState.Valid, maxBindings, maxSourceLength, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
     ArrayBindings.ValidNativeEnvironment, ArrayBindings.ValidTable, ArrayBindings.Env.table,
     ArrayBindings.ValidTypes, ArrayBindings.ValidInitials,
     ArrayBindings.maxBindings, ArrayBindings.maxElements, IntegerSubtypes.valid_empty, BooleanBindings.valid_empty,

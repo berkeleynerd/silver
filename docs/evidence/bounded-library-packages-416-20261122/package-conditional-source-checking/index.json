@@ -1,0 +1,14 @@
+{
+  "run_id": "20261127T200925-8f0e179f3cbe",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ApplicationPackageConditionalChecking"
+  ],
+  "declarations": 29633,
+  "source_sha256": "95c0f3b33e522adb0bec348520b196a51d8d700ef5bae754056f247fa83c9b09",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "c94e5eb138c264a3a9c5e426f0cd06eb7cd0d7552c884f97706e69ddf3fe1f9b",
+    "evidence.json": "3376a9e6c2f375da82f5015d768bce76ab65053944b0049e514b4c50c1b09193",
+    "lean-focused.log.gz": "992ced4def37c837bfa4028a358ff4daedef29869facfb5f8939db7010fbe84c"
+  }
+}

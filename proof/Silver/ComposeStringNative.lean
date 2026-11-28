@@ -307,7 +307,7 @@ def indexedBody : Body .value :=
         .le following position, .app (.function .scalarEmpty) (bounds high), .ge operands .maxOperands,
         .integerGt (.integerSub (.wideInteger (upper low)) (.wideInteger (lower high))) .maximumInteger,
         .group <| .andThen (.group <| .orElse (.not (.field .scalarStatic low)) (.not (.field .scalarStatic high)))
-          (.app (.app (.app (.app (.app (.app (.function .guardedAt) text) (.number 1)) position)
+          (.app (.app (.app (.app (.app (.app (.function .guardedAt) text) (.variable "context_first")) position)
             (.number 0)) (.truth false)) (.truth false)),
         .group <| .andThen (.integerLe (lower low) (upper high))
           (.group <| .orElse (.integerLt (lower low) (.field .bindingFirstIndex info))
@@ -359,7 +359,7 @@ def characterBody : Body .value :=
       (.returned (.nativeValue after (.number 0) (.number 1) (.number 1)
         (.truth false) (.truth true) (.truth false) target (.number 1)
         (.singleton (.integerNumber 1)) (.singleton (.integerNumber 1))))
-      (.returnNamedBoolean indexed "character_element" (.truth true))⟩
+      (.returned (.app (.app indexed (.truth true)) (.number 1)))⟩
 
 def characterDeclarationBody : Body .state :=
   let text : Expr .source := .variable "text"
@@ -401,7 +401,8 @@ def characterDeclarationBody : Body .state :=
       lookup (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)),
       lookup (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))),
       .ne (lookupArrayType text (.field .arrayNames (.field .stateArrayNames state)) typeFirst typeAfter) (.number 0),
-      lookup (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)),
+      .ne (.defaultQualifier (.app (.app (.app (.app (.function .subtypeLookup) text)
+        (.field .stateSubtypeNames state)) typeFirst) typeAfter)) (.number 0),
       lookup (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state))])
       text state typeFirst typeAfter) .invalid,
       .returnNamedBoolean add "character_object" (.truth true)]⟩
@@ -413,7 +414,7 @@ abbrev WellFormedTrees : Prop := indexedBody.wellFormed = true ∧ characterBody
   ∧ guardedBody.wellFormed = true
 
 abbrev WellScopedTrees : Prop :=
-  indexedBody.scoped [("text", .source), ("position", .number), ("names", .names),
+  indexedBody.scoped [("context_first", .number), ("text", .source), ("position", .number), ("names", .names),
     ("scalar_names", .scalarNames), ("arrays", .arrayMetadata), ("initials", .arrayInitials),
     ("elaborating", .truth), ("character_element", .truth)] = true ∧
   characterBody.scoped [("text", .source), ("position", .number), ("names", .names),

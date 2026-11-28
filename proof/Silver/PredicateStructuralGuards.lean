@@ -159,6 +159,8 @@ end Silver.Predicate.ScalarBodyNative
 namespace Silver.Predicate.Native.ScalarHelpers
 
 def Expr.prefix : Expr ty → Bool
+  | .referenceFirst _ | .referenceAfter _ | .qualifierFirst _ | .qualifierAfter _
+  | .readReference _ _ | .qualifiedLookup _ _ _ _ _ _ => true
   | .variable _ | .scalarComparison _ | .names _ | .declarations _ | .bindingAt _ _
   | .mutable _ | .lower _ | .upper _ | .resultBounds _ | .resultAfter _
   | .resultStatic _ | .count _ | .cell _ _ | .skip _ _ | .nameAfter _ _
@@ -171,6 +173,8 @@ def Expr.prefix : Expr ty → Bool
   | .replace _ _ _ | .condition _ _ _ _ => false
 
 def Expr.primary : Expr ty → Bool
+  | .referenceFirst _ | .referenceAfter _ | .qualifierFirst _ | .qualifierAfter _
+  | .readReference _ _ | .qualifiedLookup _ _ _ _ _ _ => true
   | .variable _ | .number _ | .truth _ | .scalarComparison _ | .names _
   | .declarations _ | .bindingAt _ _ | .mutable _ | .lower _ | .upper _
   | .resultBounds _ | .resultAfter _ | .resultStatic _ | .count _ | .cell _ _
@@ -202,6 +206,14 @@ def Expr.isLocals : Expr ty → Bool | .locals _ => true | _ => false
 def Expr.isLocal : Expr ty → Bool | .local _ _ _ _ => true | _ => false
 
 def Expr.wellFormed : Expr ty → Bool
+  | .referenceFirst value | .referenceAfter value | .qualifierFirst value | .qualifierAfter value =>
+      value.prefix && value.wellFormed
+  | .readReference text position =>
+      text.expression && position.expression && text.wellFormed && position.wellFormed
+  | .qualifiedLookup text environment first after qFirst qAfter =>
+      text.expression && environment.expression && first.expression && after.expression &&
+      qFirst.expression && qAfter.expression && text.wellFormed && environment.wellFormed &&
+      first.wellFormed && after.wellFormed && qFirst.wellFormed && qAfter.wellFormed
   | .variable _ | .number _ | .truth _ | .scalarComparison _ => true
   | .names value | .declarations value => value.prefix && value.wellFormed
   | .mutable value => value.prefix && value.wellFormed
@@ -302,7 +314,7 @@ def Expr.prefix : Expr α → Bool
   | .nameCount _ | .completed _ | .bodyEnvironment _ | .takeToken _ _ | .invalid
   | .contextOf _ | .bodyOf _ | .expand _ _ _ | .read _ _ _ _ _ => true
   | .truth _ | .number _ | .zero _ | .nonzero _ | .not _ | .or _ _ | .orElse _ _
-  | .tokenEqual _ | .choose _ _ _ | .contextValue _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  | .tokenEqual _ | .choose _ _ _ | .contextValue ..
   | .bodyValue _ _ _ _ _ _ _ | .stateValue _ _ _ _ _ _ _ _ _ | .scanValue _ _ _
   | .bodyToken _ _ | .stopCase _ _ _ _ => false
 
@@ -310,7 +322,7 @@ def Expr.primary : Expr α → Bool
   | .scan | .body | .context | .truth _ | .number _ | .original
   | .result | .position | .token | .stop | .field _ _ | .stopValue _
   | .choose _ _ _ | .initial _ | .initialFlow _ | .nameCount _ | .completed _
-  | .bodyEnvironment _ | .contextValue _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  | .bodyEnvironment _ | .contextValue ..
   | .bodyValue _ _ _ _ _ _ _ | .stateValue _ _ _ _ _ _ _ _ _ | .scanValue _ _ _
   | .bodyToken _ _ | .takeToken _ _ | .invalid | .contextOf _ | .bodyOf _
   | .expand _ _ _ | .read _ _ _ _ _ | .stopCase _ _ _ _ => true
@@ -346,13 +358,15 @@ def Expr.wellFormed : Expr α → Bool
       test.wellFormed && yes.wellFormed && no.wellFormed
   | .initial value | .initialFlow value | .completed value | .bodyEnvironment value
   | .contextOf value | .bodyOf value => value.expression && value.wellFormed
-  | .contextValue names scalarNames arrayNames hidden booleans trueHidden falseHidden pure integerHidden elaborating maskFirst maskAfter count first after =>
+  | .contextValue names scalarNames arrayNames hidden booleans trueHidden falseHidden pure integerHidden elaborating maskFirst maskAfter count first after unitFirst packageFirst packageAfter =>
       names.expression && scalarNames.expression && arrayNames.expression && hidden.expression && booleans.expression &&
       trueHidden.expression && falseHidden.expression && pure.expression && integerHidden.expression && elaborating.expression && maskFirst.expression &&
       maskAfter.expression && count.expression && first.expression && after.expression &&
+      unitFirst.expression && packageFirst.expression && packageAfter.expression &&
       names.wellFormed && scalarNames.wellFormed && arrayNames.wellFormed && hidden.wellFormed && booleans.wellFormed &&
       trueHidden.wellFormed && falseHidden.wellFormed && pure.wellFormed && integerHidden.wellFormed && elaborating.wellFormed && maskFirst.wellFormed &&
-      maskAfter.wellFormed && count.wellFormed && first.wellFormed && after.wellFormed
+      maskAfter.wellFormed && count.wellFormed && first.wellFormed && after.wellFormed &&
+      unitFirst.wellFormed && packageFirst.wellFormed && packageAfter.wellFormed
   | .bodyValue count facts pos target capacity assigned output =>
       count.expression && facts.expression && pos.expression && target.expression && capacity.expression &&
       assigned.expression && output.expression && count.wellFormed && facts.wellFormed && pos.wellFormed &&

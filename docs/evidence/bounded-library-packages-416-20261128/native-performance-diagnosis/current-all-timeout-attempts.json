@@ -1,0 +1,774 @@
+{
+  "snapshot_utc": "2026-11-28T05:24:15.130213+00:00",
+  "run": "20261127T195636-5b2a2f886237",
+  "session_cutoff": "Current-run XML mtime >= managed native-tool start; active incomplete helpers excluded. Historical sessions excluded.",
+  "counts_by_prover_and_status": [
+    {
+      "prover": "CVC5",
+      "status": "failure",
+      "count": 1
+    },
+    {
+      "prover": "CVC5",
+      "status": "highfailure",
+      "count": 2749
+    },
+    {
+      "prover": "CVC5",
+      "status": "timeout",
+      "count": 21
+    },
+    {
+      "prover": "CVC5",
+      "status": "unknown",
+      "count": 1
+    },
+    {
+      "prover": "CVC5",
+      "status": "valid",
+      "count": 23036
+    },
+    {
+      "prover": "CVC5_CE",
+      "status": "timeout",
+      "count": 8
+    },
+    {
+      "prover": "Trivial",
+      "status": "valid",
+      "count": 3181
+    },
+    {
+      "prover": "Z3",
+      "status": "failure",
+      "count": 1
+    },
+    {
+      "prover": "Z3",
+      "status": "highfailure",
+      "count": 722
+    },
+    {
+      "prover": "Z3",
+      "status": "outofmemory",
+      "count": 6
+    },
+    {
+      "prover": "Z3",
+      "status": "timeout",
+      "count": 16
+    },
+    {
+      "prover": "Z3",
+      "status": "valid",
+      "count": 25063
+    },
+    {
+      "prover": "altergo",
+      "status": "failure",
+      "count": 258
+    },
+    {
+      "prover": "altergo",
+      "status": "highfailure",
+      "count": 4295
+    },
+    {
+      "prover": "altergo",
+      "status": "timeout",
+      "count": 19
+    },
+    {
+      "prover": "altergo",
+      "status": "valid",
+      "count": 21236
+    }
+  ],
+  "timeout_buckets": [
+    {
+      "prover": "CVC5",
+      "configured_limit_seconds": "30",
+      "root_proved": false,
+      "count": 8
+    },
+    {
+      "prover": "CVC5",
+      "configured_limit_seconds": "30",
+      "root_proved": true,
+      "count": 13
+    },
+    {
+      "prover": "CVC5_CE",
+      "configured_limit_seconds": "10",
+      "root_proved": false,
+      "count": 8
+    },
+    {
+      "prover": "Z3",
+      "configured_limit_seconds": "30",
+      "root_proved": false,
+      "count": 8
+    },
+    {
+      "prover": "Z3",
+      "configured_limit_seconds": "30",
+      "root_proved": true,
+      "count": 8
+    },
+    {
+      "prover": "altergo",
+      "configured_limit_seconds": "30",
+      "root_proved": false,
+      "count": 8
+    },
+    {
+      "prover": "altergo",
+      "configured_limit_seconds": "30",
+      "root_proved": true,
+      "count": 11
+    }
+  ],
+  "timeouts": [
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.131",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.131",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.132",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.132",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.133",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.133",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.139",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.139",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.192",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.193",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.193",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.203",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.204",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.204",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.289",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "within_work_budget",
+      "helper_root_proved": true,
+      "goal": "def'vc.289",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.323",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.323",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.323",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.323.0",
+      "prover": "CVC5_CE",
+      "configured_seconds": "10",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.335",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.335",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.335",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.335.0",
+      "prover": "CVC5_CE",
+      "configured_seconds": "10",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.347",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.347",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.347",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_model",
+      "helper_root_proved": false,
+      "goal": "def'vc.347.0",
+      "prover": "CVC5_CE",
+      "configured_seconds": "10",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.323",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.323",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.323",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.323.0",
+      "prover": "CVC5_CE",
+      "configured_seconds": "10",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.335",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.335",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.335",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.335.0",
+      "prover": "CVC5_CE",
+      "configured_seconds": "10",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.347",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.347",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.347",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "array_declaration_at",
+      "helper_root_proved": false,
+      "goal": "def'vc.347.0",
+      "prover": "CVC5_CE",
+      "configured_seconds": "10",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_primary_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.476",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_relation_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.226",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_relation_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.425",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_relation_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.425",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_chain_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.509",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_chain_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.769",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_chain_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.817",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_boolean_relation_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.181",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "read_boolean_relation_into",
+      "helper_root_proved": true,
+      "goal": "def'vc.185",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "loop_body",
+      "helper_root_proved": true,
+      "goal": "def'vc.394",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "parameter_step",
+      "helper_root_proved": false,
+      "goal": "def'vc.78",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "parameter_step",
+      "helper_root_proved": false,
+      "goal": "def'vc.78",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "parameter_step",
+      "helper_root_proved": false,
+      "goal": "def'vc.78",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "parameter_step",
+      "helper_root_proved": false,
+      "goal": "def'vc.78.0",
+      "prover": "CVC5_CE",
+      "configured_seconds": "10",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "procedure_parameter_step",
+      "helper_root_proved": false,
+      "goal": "def'vc.82",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "procedure_parameter_step",
+      "helper_root_proved": false,
+      "goal": "def'vc.82",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "procedure_parameter_step",
+      "helper_root_proved": false,
+      "goal": "def'vc.82",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "procedure_parameter_step",
+      "helper_root_proved": false,
+      "goal": "def'vc.82.0",
+      "prover": "CVC5_CE",
+      "configured_seconds": "10",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "procedure_prefix",
+      "helper_root_proved": true,
+      "goal": "def'vc.318",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "function_body_at",
+      "helper_root_proved": true,
+      "goal": "def'vc.99",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "procedure_body_at",
+      "helper_root_proved": true,
+      "goal": "def'vc.120",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "package_signature_at",
+      "helper_root_proved": true,
+      "goal": "def'vc.310",
+      "prover": "altergo",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "package_call_at",
+      "helper_root_proved": true,
+      "goal": "def'vc.218",
+      "prover": "CVC5",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    },
+    {
+      "helper": "package_call_at",
+      "helper_root_proved": true,
+      "goal": "def'vc.218",
+      "prover": "Z3",
+      "configured_seconds": "30",
+      "result": {
+        "status": "timeout"
+      }
+    }
+  ],
+  "measured_time_available_in_xml": false
+}

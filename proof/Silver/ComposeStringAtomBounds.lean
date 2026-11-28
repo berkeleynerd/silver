@@ -38,7 +38,7 @@ theorem value_fixed_bounds {text : Source} {names : BindingEnvironment}
     {position : Nat} {value : Operand} {result : ValueResult} {integers : Integer.Store}
     (input : Source) (normal : NamesNormal names)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result)
     (fixed : result.dynamicSeen = false) :
     result.ContainsBounds (value.objectBounds names input integers) := by
@@ -77,7 +77,7 @@ theorem value_objectBounds_length {text : Source} {names : BindingEnvironment}
     {input : Source} {values : Values} (normal : NamesNormal names)
     (strings : Fits names.shape input values)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
     (value.objectBounds names input integers).length = (value.evaluate values input integers).length := by
   cases parsed with
@@ -112,7 +112,7 @@ theorem value_objectBounds_valid {text : Source} {names : BindingEnvironment}
     {input : Source} (textBound : text.length ≤ maxSourceLength) (inputBound : input.length ≤ maxSourceLength)
     (metadata : NamesBoundsValid names)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
     (value.objectBounds names input integers).Valid := by
   cases parsed with
@@ -148,7 +148,7 @@ theorem value_objectBounds_firstBound {text : Source} {names : BindingEnvironmen
     {position : Nat} {value : Operand} {result : ValueResult} {integers : Integer.Store}
     (input : Source) (metadata : NamesBoundsValid names)
     (scalars : Integer.Fits (ArrayBindings.viewRanges arrays.items initials elaborating (ScalarExpression.ranges scalarNames)) integers)
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
+    (parsed : ValueAt (contextFirst := contextFirst) (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
       (initials := initials) (elaborating := elaborating) text names position value result) :
     (value.objectBounds names input integers).FirstBound (namesBoundCeiling names) := by
   have ceiling := namesBoundCeiling_positive names

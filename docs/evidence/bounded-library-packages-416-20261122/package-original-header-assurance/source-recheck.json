@@ -1,0 +1,10 @@
+{
+  "run_id": "20261128T024046-a299f2a081fc",
+  "inputs": 1759,
+  "missing": [],
+  "changed": [],
+  "protected_source_hashes": {
+    "ApplicationPackageOriginalAssembly": "9e2b8e1905fdb3bb39295de2ca3ff8f8f62f41b49e195f66de88feb8177493e8",
+    "ApplicationPackageOriginalAssurance": "a9fa9c89f3e36ef854dab3732335814856cf52a0754293be476bb43ffce7f42b"
+  }
+}

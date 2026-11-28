@@ -44,9 +44,13 @@ private theorem lookup_zero_end (text : Source) (names : ScalarExpression.Enviro
 private theorem bareTarget_nonletter (text : Source) (context : ParseContext) (position after : Nat)
     (notLetter : Named.letter (Cursor.byteAt text (skipAt text position)) = false) :
     bareTarget text context position after = 0 := by
-  have noName : nameAfter text (skipAt text position) = 0 := by
+  have noName : QualifiedNames.nameAfter text (QualifiedNames.skip text position) = 0 := by
+    change nameAfter text (skipAt text position) = 0
     simp [nameAfter, Named.identifierEnd, notLetter]
-  simp only [bareTarget, noName, lookup_zero_end, ne_eq, not_true_eq_false, false_and, ↓reduceIte]
+  have noReference : ScalarExpression.readReference text position = {} := by
+    simp [ScalarExpression.readReference, QualifiedNames.read, noName]
+  simp only [bareTarget, noReference]
+  simp only [lookup_zero_end, ne_eq, not_true_eq_false, false_and, ↓reduceIte]
 
 private theorem integer_not_letter {text : Source} {position value finish : Nat}
     (parsed : ScalarLiteral.IntegerAt text position value finish) :
@@ -101,25 +105,25 @@ theorem syntax_bareTarget {text : Source} {context : ParseContext} {facts : Acti
             · rw [plus]; decide
             · rw [minus]; decide
           exact bareTarget_nonletter text context position _ notLetter
-      | @name bytes finish index _ _ _ _ identifier found nonzeroIndex _ =>
-          have nameEnd := Named.identifierEnd_complete identifier
-          rw [fixed] at nameEnd found
-          have firstNonzero : skipAt text position ≠ 0 := nonzero
-          have last : nameAfter text (skipAt text position) = finish := by
-            change Named.identifierEnd text (skipAt text position) = finish at nameEnd
-            simpa only [nameAfter, firstNonzero, ↓reduceIte] using nameEnd
-          have lookup : ScalarExpression.lookup text context.scalarNames (skipAt text position) finish = index := by
-            change ScalarExpression.lookup text (context.readingNames facts) (skipAt text position) finish = index at found
+      | @name reference index _ _ _ _ identifier found nonzeroIndex _ =>
+          have referenceEquation : ScalarExpression.readReference text position = reference := by
+            have equation := QualifiedNames.read_complete identifier
+            change QualifiedNames.read text (QualifiedNames.skip text (QualifiedNames.skip text position)) = reference at equation
+            simpa only [ScalarExpression.readReference, QualifiedNames.read_skipped] using equation
+          have lookup : ScalarExpression.lookup text context.scalarNames reference.first reference.after
+              reference.qualifierFirst reference.qualifierAfter = index := by
             simpa only [ParseContext.readingNames, ScalarMetadata.readingNames_lookup] using found
           have bounded : index ≤ context.scalarNames.length := by
             rw [← lookup]
-            exact ScalarExpression.lookup_bound ..
-          simp only [bareTarget, last, lookup, nonzeroIndex, ne_eq, not_false_eq_true, true_and,
+            exact ScalarExpression.lookup_bound text context.scalarNames reference.first reference.after
+              reference.qualifierFirst reference.qualifierAfter
+          simp only [bareTarget, referenceEquation, lookup, nonzeroIndex, ne_eq, not_false_eq_true, true_and,
             guardTarget, ParseContext.analysis, ArrayViews.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
             ArrayBindings.refinability_scalar _ _ (Nat.le_trans bounded size),
             ScalarMetadata.analysis, ScalarMetadata.refinable,
             show 0 < index ∧ index ≤ context.scalarNames.length from ⟨by omega, bounded⟩,
             decide_true, Bool.true_and]
+
   | signed opened _ _ _ =>
       apply bareTarget_nonletter
       change Named.letter (Cursor.byteAt text (ScalarExpression.skip text position)) = false
@@ -145,18 +149,19 @@ theorem syntax_bareTarget {text : Source} {context : ParseContext} {facts : Acti
       decide
 
 private theorem bareTarget_hidden_scalar {text : Source} {context : ParseContext} {facts : ActiveFlow}
-    {position after finish : Nat} {bytes : Source} (nonzero : ScalarExpression.skip text position ≠ 0)
+    {position after finish byte delimiter : Nat} {bytes : Source} (nonzero : ScalarExpression.skip text position ≠ 0)
     (identifier : Named.IdentifierAt text (ScalarExpression.skip text position) bytes after)
-    (scalar : ScalarExpression.lookup text (context.readingNames facts) (ScalarExpression.skip text position) after = 0) :
+    (scalar : ScalarExpression.lookup text (context.readingNames facts) (ScalarExpression.skip text position) after = 0)
+    (separated : ScalarExpression.SymbolAt text after byte delimiter) (notDot : byte ≠ 46) :
     bareTarget text context position finish = 0 := by
-  have nameEnd : nameAfter text (skipAt text position) = after := by
-    change Named.IdentifierAt text (skipAt text position) bytes after at identifier
-    simpa only [nameAfter, show skipAt text position ≠ 0 from nonzero, ↓reduceIte] using
-      Named.identifierEnd_complete identifier
-  have absent : ScalarExpression.lookup text context.scalarNames (skipAt text position) after = 0 := by
-    change ScalarExpression.lookup text (context.readingNames facts) (skipAt text position) after = 0 at scalar
+  have reference : ScalarExpression.readReference text position = ⟨ScalarExpression.skip text position, after, 0, 0⟩ := by
+    have equation := ScalarExpression.reference_before_symbol nonzero identifier separated notDot
+    change QualifiedNames.read text (QualifiedNames.skip text position) = _ at equation
+    simpa only [ScalarExpression.readReference, QualifiedNames.read_skipped] using equation
+  have absent : ScalarExpression.lookup text context.scalarNames (ScalarExpression.skip text position) after = 0 := by
     simpa only [ParseContext.readingNames, ScalarMetadata.readingNames_lookup] using scalar
-  simp only [bareTarget, nameEnd, absent, ne_eq, not_true_eq_false, false_and, ↓reduceIte]
+  simp only [bareTarget, reference]
+  simp only [absent, ne_eq, not_true_eq_false, false_and, ↓reduceIte]
 
 theorem sourceSyntax_bareTarget {text : Source} {context : ParseContext} {facts : ActiveFlow}
     {position maskFirst maskAfter : Nat} {mode : ScalarExpression.ArrayReadMode}
@@ -170,9 +175,10 @@ theorem sourceSyntax_bareTarget {text : Source} {context : ParseContext} {facts 
       exact syntax_bareTarget size (.atom nonzero within notGroup atom)
   | shape _ _ _ _ reading =>
       cases reading with
-      | read positive spelling scalar _ _ _ _ _ _ => exact bareTarget_hidden_scalar positive spelling scalar
-  | indexed nonzero _ _ _ _ _ spelling scalar _ _ _ _ _ _ _ _ _ _ =>
-      exact bareTarget_hidden_scalar nonzero spelling scalar
+      | read positive spelling scalar _ _ tick _ _ _ =>
+          exact bareTarget_hidden_scalar positive spelling scalar tick (by decide : (39 : Nat) ≠ 46)
+  | indexed nonzero _ _ _ _ _ spelling scalar _ _ _ _ _ _ opening _ _ _ =>
+      exact bareTarget_hidden_scalar nonzero spelling scalar opening (by decide : (40 : Nat) ≠ 46)
   | signed opened _ _ _ =>
       apply bareTarget_nonletter
       change Named.letter (Cursor.byteAt text (ScalarExpression.skip text position)) = false

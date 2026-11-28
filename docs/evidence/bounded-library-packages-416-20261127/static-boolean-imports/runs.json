@@ -1,0 +1,92 @@
+[
+  {
+    "run_id": "20261127T211416-4406e062436e",
+    "scope": [
+      "Silver.ApplicationStaticBooleanLeafImports"
+    ],
+    "started_at": "2026-11-27T21:14:19.668019+00:00",
+    "finished_at": "2026-11-27T21:15:46.103194+00:00",
+    "outcome": "interrupted",
+    "returncode": null,
+    "workers": 2,
+    "cpu_affinity": [
+      0,
+      1
+    ]
+  },
+  {
+    "run_id": "20261127T211923-ffff77768a6c",
+    "scope": [
+      "Silver.ApplicationStaticBooleanLeafImports"
+    ],
+    "started_at": "2026-11-27T21:19:26.205893+00:00",
+    "finished_at": "2026-11-27T21:19:56.619646+00:00",
+    "outcome": "failure",
+    "returncode": 1,
+    "workers": 2,
+    "cpu_affinity": [
+      4,
+      5
+    ]
+  },
+  {
+    "run_id": "20261127T212103-ea61898b8047",
+    "scope": [
+      "Silver.ApplicationStaticBooleanBodyImports"
+    ],
+    "started_at": "2026-11-27T21:21:05.718939+00:00",
+    "finished_at": "2026-11-27T21:21:21.495770+00:00",
+    "outcome": "failure",
+    "returncode": 1,
+    "workers": 2,
+    "cpu_affinity": [
+      4,
+      5
+    ]
+  },
+  {
+    "run_id": "20261127T212209-8dbbd3f8e693",
+    "scope": [
+      "Silver.ApplicationStaticBooleanReaderImports"
+    ],
+    "started_at": "2026-11-27T21:22:12.254632+00:00",
+    "finished_at": "2026-11-27T21:22:30.943869+00:00",
+    "outcome": "failure",
+    "returncode": 1,
+    "workers": 2,
+    "cpu_affinity": [
+      4,
+      5
+    ]
+  },
+  {
+    "run_id": "20261127T212250-68ba593827cd",
+    "scope": [
+      "Silver.ApplicationStaticBooleanReaderImports"
+    ],
+    "started_at": "2026-11-27T21:22:52.415256+00:00",
+    "finished_at": "2026-11-27T21:23:15.118795+00:00",
+    "outcome": "success",
+    "returncode": null,
+    "workers": 2,
+    "cpu_affinity": [
+      4,
+      5
+    ]
+  },
+  {
+    "run_id": "20261127T212948-73c26a2026c3",
+    "scope": [
+      "Silver.ApplicationStaticBooleanReaderImports"
+    ],
+    "started_at": "2026-11-27T21:29:50.330196+00:00",
+    "finished_at": "2026-11-27T21:30:10.850313+00:00",
+    "outcome": "success",
+    "returncode": null,
+    "workers": 2,
+    "cpu_affinity": [
+      4,
+      5
+    ]
+  }
+]

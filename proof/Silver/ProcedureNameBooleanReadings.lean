@@ -47,20 +47,32 @@ theorem ActualNameFreeTrace.booleanAtom {text : Source} {context : ParseContext}
   change position ≤ skipAt text position ∧ skipAt text position ≤ text.length + 1 at skipped
   have firstPositive : skipAt text position ≠ 0 := by omega
   cases source with
-  | name identifier found =>
-      have bounds := Named.identifier_bounds identifier
+  | name reference found =>
+      have following := trace.reference reference positionBound finishBound
+      refine ⟨?_, following⟩
       cases spelling with
-      | integer =>
-          refine ⟨by simp [conditionMentions], (trace.identifier (by omega) rfl firstPositive identifier finishBound).2⟩
+      | integer => simp [conditionMentions]
       | boolean _ targetFound targetPositive =>
-          obtain ⟨apart, rest⟩ := trace.booleanName (by omega) rfl firstPositive identifier finishBound rfl targetFound targetPositive
-          refine ⟨?_, rest⟩
-          simp only [conditionMentions, beq_eq_false_iff_ne]
-          intro same
-          exact apart (Cell.boolean.inj same).symm
-  | literal identifier _ _ =>
-      have bounds := Named.identifier_bounds identifier
-      exact ⟨rfl, (trace.identifier (by omega) rfl firstPositive identifier finishBound).2⟩
+          cases reference with
+          | bare namePositive identifier _ =>
+              dsimp only at finishBound
+              have start : position ≤ QualifiedNames.skip text position := skipped.1
+              have bounds := Named.identifier_bounds identifier
+              obtain ⟨apart, _⟩ := trace.booleanName (by omega) rfl
+                (Nat.ne_of_gt namePositive) identifier finishBound rfl targetFound targetPositive
+              simp only [conditionMentions, beq_eq_false_iff_ne]
+              intro same
+              exact apart (Cell.boolean.inj same).symm
+          | @qualified packageBytes memberBytes packageAfter memberAfter qualifierPositive _ _ _ _ =>
+              have apart := booleanLookup_qualified_ne_bare
+                (first := QualifiedNames.skip text (QualifiedNames.skip text packageAfter + 1))
+                (after := memberAfter) (qualifierAfter := packageAfter)
+                (Nat.ne_of_gt qualifierPositive) rfl targetFound targetPositive
+              simp only [conditionMentions, beq_eq_false_iff_ne]
+              intro same
+              exact apart (Cell.boolean.inj same).symm
+  | literal reference _ _ _ =>
+      exact ⟨rfl, trace.reference reference positionBound finishBound⟩
 
 theorem ActualNameFreeTrace.booleanArray {text : Source} {context : ParseContext} {facts : ActiveFlow}
     {position limit targetFirst targetAfter finish : Nat} {condition : Condition} {target : Cell}

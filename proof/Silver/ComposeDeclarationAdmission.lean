@@ -11,6 +11,7 @@ open Named Bindings
 
 def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (arguments : Bool) : Bool :=
   decide (first ≠ 0 ∧ after > first) && !forbiddenName text first after &&
+    (decide (state.packageFirst = 0) || !equalName text state.packageFirst state.packageAfter first after) &&
     (!arguments || !Arguments.forbiddenName text first after) &&
     decide (lookupName text state.names first after = 0 ∧
       ScalarExpression.lookup text state.scalarNames first after = 0 ∧
@@ -21,6 +22,13 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
     !formalHides text state first after &&
     (state.pure || decide (FunctionBindings.lookup text state.functions first after = 0 ∧
       ProcedureBindings.lookup text state.procedures first after = 0))
+
+theorem newNameAllowed_span (text : Source) (state : ParserState)
+    (first after : Nat) (arguments : Bool)
+    (allowed : newNameAllowed text state first after arguments = true) :
+    0 < first ∧ first < after := by
+  simp only [newNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
+  omega
 
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) (characterObject : Bool := false) : ParserState :=
@@ -60,9 +68,9 @@ def declarationIntegerHidden (text : Source) (state : ParserState) : Bool :=
 def declarationParts (text : Source) (state : ParserState) : DeclarationParts :=
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
     expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.table state.arrayNames.values true,
+      state.arrayNames.table state.arrayNames.values true state.contextFirst,
     fixedAfter text (expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.table state.arrayNames.values true).after ";" false⟩
+      state.arrayNames.table state.arrayNames.values true state.contextFirst).after ";" false⟩
 
 def fixedDeclarationBounds (value : ExpressionResult) (slot : Nat) : Bool :=
   !(decide (value.dynamicCount = 0) &&
@@ -154,10 +162,14 @@ def scalarConstraintAt (text : Source) (position : Nat)
     then ⟨0, .empty⟩ else ⟨upper.after, ⟨lower.bounds.lower, upper.bounds.lower⟩⟩
 
 def scalarTypeAt (text : Source) (state : ParserState) (position : Nat) : ScalarConstraintResult :=
-  let first := skipAt text position
-  let after := nameAfter text first
-  let target := IntegerSubtypes.lookup text state.subtypeNames first after
-  if first = 0 ∨ after ≤ first ∨ lookupName text state.names first after ≠ 0 ∨
+  let reference := QualifiedNames.read text position
+  let first := reference.first
+  let after := reference.after
+  let target := IntegerSubtypes.lookup text state.subtypeNames first after reference.qualifierFirst reference.qualifierAfter
+  if first = 0 ∨ after ≤ first then ⟨0, .empty⟩
+  else if reference.qualifierFirst ≠ 0 then
+    if target ≠ 0 then ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩ else ⟨0, .empty⟩
+  else if lookupName text state.names first after ≠ 0 ∨
       ScalarExpression.lookup text state.scalarNames first after ≠ 0 ∨
       ArrayBindings.lookup text state.arrayNames.names first after ≠ 0 ∨
       ArrayBindings.lookupType text state.arrayNames.types first after ≠ 0 ∨
@@ -189,7 +201,7 @@ def subtypeDeclarationParts (text : Source) (state : ParserState) : SubtypeDecla
   ⟨first, after, typeFirst, typeAfter, constraint, fixedAfter text constraint.after ";" false⟩
 
 def addSubtypeBinding (text : Source) (state : ParserState) (parts : SubtypeDeclarationParts) : ParserState :=
-  {state with position := parts.following, subtypeNames := IntegerSubtypes.append text state.subtypeNames ⟨parts.first, parts.after, parts.constraint.bounds⟩}
+  {state with position := parts.following, subtypeNames := IntegerSubtypes.append text state.subtypeNames {first := parts.first, after := parts.after, bounds := parts.constraint.bounds}}
 
 def arrayTypeAt (text : Source) (state : ParserState) (position : Nat) : Nat :=
   let first := skipAt text position
@@ -285,9 +297,9 @@ def scalarDeclarationParts (text : Source) (state : ParserState) : ScalarDeclara
 
 def addScalarBinding (state : ParserState) (parts : ScalarDeclarationParts) : ParserState :=
   {state with position := parts.following, scalarNames := state.scalarNames ++
-    [⟨parts.first, parts.after, parts.value.bounds,
-      decide (parts.constantAfter ≠ 0) && parts.value.isStatic,
-      parts.constraint.bounds, decide (parts.constantAfter = 0)⟩]}
+    [{first := parts.first, after := parts.after, bounds := parts.value.bounds,
+      isStatic := decide (parts.constantAfter ≠ 0) && parts.value.isStatic,
+      declaredBounds := parts.constraint.bounds, mutable := decide (parts.constantAfter = 0)}]}
 
 def scalarDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := scalarDeclarationParts text state
@@ -399,7 +411,10 @@ def booleanInitializerContext (state : ParserState) (maskFirst maskAfter : Nat) 
     outerIntegerHidden := state.hiding.integerHidden
     elaborating := true
     maskFirst := maskFirst
-    maskAfter := maskAfter }
+    maskAfter := maskAfter
+    contextFirst := state.contextFirst
+    packageFirst := state.packageFirst
+    packageAfter := state.packageAfter }
 
 def booleanInitializerFacts (state : ParserState) : Predicate.ActiveFlow :=
   Predicate.ActiveFlow.initial state.scalarNames
@@ -525,7 +540,10 @@ def booleanDeclarationContext (state : ParserState) (parts : BooleanDeclarationP
     outerIntegerHidden := state.hiding.integerHidden
     elaborating := true
     maskFirst := parts.first
-    maskAfter := parts.after }
+    maskAfter := parts.after
+    contextFirst := state.contextFirst
+    packageFirst := state.packageFirst
+    packageAfter := state.packageAfter }
 
 def booleanDeclarationFacts (state : ParserState) : Predicate.ActiveFlow :=
   Predicate.ActiveFlow.initial state.scalarNames
@@ -542,7 +560,7 @@ def booleanDeclarationFollowing (text : Source) (state : ParserState) : Nat :=
 
 def addBooleanBinding (state : ParserState) (parts : BooleanDeclarationParts) (following : Nat) : ParserState :=
   {state with position := following, booleanNames := state.booleanNames ++
-    [⟨parts.first, parts.after, decide (parts.constantAfter = 0)⟩]}
+    [{first := parts.first, after := parts.after, mutable := decide (parts.constantAfter = 0)}]}
 
 def booleanDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := booleanDeclarationParts text state

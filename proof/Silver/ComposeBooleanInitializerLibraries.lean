@@ -35,7 +35,8 @@ theorem context_valid (text : Source) (state : ParserState) (first after : Nat)
     (mask : (⟨first, after⟩ : Named.NameState).Valid text) :
     Native.ValidContext text (nativeContext state first after) := by
   rcases valid.1 with ⟨_, names, dynamic, _, _, scalars, arrays, _, booleans, _, _, _⟩
-  exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, mask, valid.bounds⟩
+  exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, mask,
+    valid.bounds, valid.base.unit⟩
 
 theorem flow_valid (text : Source) (state : ParserState) (first after : Nat)
     (valid : OuterReadiness.ValidState text state) :
@@ -47,6 +48,21 @@ theorem flow_valid (text : Source) (state : ParserState) (first after : Nat)
   · exact PathFacts.Context.initial_bounded (Nat.le_refl _)
   · exact Nat.zero_le _
 
+theorem context_meaning {imports condition} (links : Links imports condition) (state : ParserState) (first after : Nat)
+    (bounded : state.scalarNames.length ≤ ScalarExpression.maxBindings) :
+    context imports state first after = context modelImports state first after := by
+  unfold context
+  rw [links.context _ bounded]
+  rfl
+
+theorem initial_meaning {imports condition} (links : Links imports condition) (state : ParserState) (first after : Nat)
+    (bounded : state.scalarNames.length ≤ ScalarExpression.maxBindings) :
+    imports.initialFlow (context modelImports state first after) = booleanInitializerFacts state := by
+  obtain ⟨library, initial, meaning, verified, linked⟩ := links.initial
+  rw [linked, Adapter.Environment.initialCall_interpreted library meaning initial verified _ bounded]
+  change ActiveFlow.initial state.scalarNames (initialFacts (decide (state.dynamicFirst ≠ 0))) = _
+  simp only [initialFacts, booleanInitializerFacts, decide_eq_true_eq]
+
 theorem imports_meaning {imports condition}
     (helpers : Native.HelperMeaning condition) (definitions : Native.DefinitionEquations condition)
     (contracts : Native.Contracts condition) (links : Links imports condition)
@@ -56,15 +72,8 @@ theorem imports_meaning {imports condition}
     body.eval imports ⟨text, state, position, first, after⟩ =
       booleanInitializerAfter text state position first after := by
   have scalars := valid.1.2.2.2.2.2.1
-  have sameContext : context imports state first after = context modelImports state first after := by
-    unfold context
-    rw [links.context _ scalars.1]
-    rfl
-  have initial : imports.initialFlow (context modelImports state first after) = booleanInitializerFacts state := by
-    obtain ⟨library, initial, meaning, verified, linked⟩ := links.initial
-    rw [linked, Adapter.Environment.initialCall_interpreted library meaning initial verified _ scalars.1]
-    change ActiveFlow.initial state.scalarNames (initialFacts (decide (state.dynamicFirst ≠ 0))) = _
-    simp only [initialFacts, booleanInitializerFacts, decide_eq_true_eq]
+  have sameContext := context_meaning links state first after scalars.1
+  have initial := initial_meaning links state first after scalars.1
   rw [denotation]
   dsimp only
   rw [sameContext, initial, links.condition]

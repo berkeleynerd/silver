@@ -1,0 +1,146 @@
+Lean phase build started at 2026-11-27T20:33:18.814626+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 -K silverMemoryMb=8192 build +Silver.ApplicationPackageDeclarationsSpecificationDomains +Silver.ApplicationPackageDeclarationsSpecificationSignatureDomains +Silver.ApplicationPackageDeclarationsSpecificationObjectDomains +Silver.ApplicationPackageDeclarationsSpecificationStepDomains +Silver.AxiomAudit
+✔ [318/367] Built Silver.PackageBindingsSpecSource (632ms)
+✔ [471/495] Built Silver.PackageBindingsSpecCertificate (113s)
+✔ [472/495] Built Silver.PackageBindingsSourceChecks (16s)
+✔ [473/495] Built Silver.PackageBindingsSourceBridge (989ms)
+✔ [474/495] Built Silver.ApplicationPackagePrimitiveImports (1.0s)
+✔ [475/495] Built Silver.ApplicationPackageNamesImports (1.3s)
+✔ [476/495] Built Silver.ApplicationPackageHideImports (1.5s)
+✔ [477/495] Built Silver.ApplicationPackageNamesTypeImports (1.1s)
+✔ [478/495] Built Silver.ApplicationPackageNameReaders (1.1s)
+✔ [479/495] Built Silver.ApplicationPackageDeclarationDomains (1.2s)
+✔ [480/495] Built Silver.ApplicationPackageDeclarationsNameImports (1.4s)
+✔ [481/495] Built Silver.ApplicationPackageDeclarationsSignatureImports (1.0s)
+✔ [482/495] Built Silver.ApplicationPackageDeclarationsSignatureDomains (4.3s)
+✔ [483/495] Built Silver.ApplicationPackageDeclarationsSignatureFinishImports (1.6s)
+✔ [484/495] Built Silver.ApplicationPackageDeclarationsValueImports (8.1s)
+✔ [485/495] Built Silver.ApplicationPackageDeclarationsFormalDomains (1.6s)
+✔ [486/495] Built Silver.ApplicationPackageDeclarationsSignatureStoreImports (2.6s)
+✔ [487/495] Built Silver.ApplicationPackageDeclarationsObjectMeaning (5.3s)
+✔ [488/495] Built Silver.ApplicationPackageDeclarationsSignatureTypeImports (4.0s)
+✔ [489/495] Built Silver.ApplicationPackageDeclarationsSignatureStepImports (2.0s)
+✔ [490/495] Built Silver.ApplicationPackageDeclarationsSignatureLoopDomains (3.7s)
+✔ [491/495] Built Silver.ApplicationPackageDeclarationsSignatureLoopImports (1.1s)
+✖ [492/495] Building Silver.ApplicationPackageDeclarationsSpecificationDomains (10s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.tools/linux-x86_64/lean/bin/lean -j2 -M8192 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/Silver/ApplicationPackageDeclarationsSpecificationDomains.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationDomains.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ApplicationPackageDeclarationsSpecificationDomains.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationDomains.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/packages-416-visibility-proof/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ApplicationPackageDeclarationsSpecificationDomains.setup.json --json
+error: Silver/ApplicationPackageDeclarationsSpecificationDomains.lean:29:4: Application type mismatch: The argument
+  frame.imports
+has type
+  ValidityNative.ImportedTypes state
+but is expected to have type
+  ValidityNative.ImportedTypes
+    { position := position, names := state.names, dynamicFirst := state.dynamicFirst,
+      dynamicAfter := state.dynamicAfter, target := state.target, capacity := state.capacity,
+      scalarNames := state.scalarNames, arrayNames := state.arrayNames, subtypeNames := state.subtypeNames,
+      booleanNames := state.booleanNames, functions := state.functions, pure := state.pure,
+      assignedInFunctions := state.assignedInFunctions, «hiding» := flags, firstParameter := state.firstParameter,
+      procedures := state.procedures, firstProcedureParameter := state.firstProcedureParameter,
+      contextFirst := state.contextFirst, packageFirst := state.packageFirst, packageAfter := state.packageAfter }
+in the application
+  {
+    typed :=
+      { context := frame.typed.context, capacity := frame.typed.capacity, namesCount := frame.typed.namesCount,
+        names := frame.typed.names, scalarCount := frame.typed.scalarCount, scalars := frame.typed.scalars,
+        subtypeCount := frame.typed.subtypeCount, subtypes := frame.typed.subtypes,
+        booleanCount := frame.typed.booleanCount, firstParameter := frame.typed.firstParameter,
+        firstProcedureParameter := frame.typed.firstProcedureParameter },
+    imports := frame.imports }
+error: Silver/ApplicationPackageDeclarationsSpecificationDomains.lean:43:10: Application type mismatch: The argument
+  frame.typed
+has type
+  StateType state
+but is expected to have type
+  StateType
+    { position := state.position, names := state.names, dynamicFirst := state.dynamicFirst,
+      dynamicAfter := state.dynamicAfter, target := state.target, capacity := state.capacity,
+      scalarNames := state.scalarNames, arrayNames := state.arrayNames, subtypeNames := state.subtypeNames,
+      booleanNames := state.booleanNames, functions := state.functions, pure := state.pure,
+      assignedInFunctions := state.assignedInFunctions, «hiding» := state.hiding,
+      firstParameter := state.firstParameter, procedures := state.procedures,
+      firstProcedureParameter := state.firstProcedureParameter, contextFirst := state.contextFirst,
+      packageFirst := name.first, packageAfter := name.after }
+in the application
+  mk frame.typed
+error: Silver/ApplicationPackageDeclarationsSpecificationDomains.lean:73:12: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: Silver/ApplicationPackageDeclarationsSpecificationDomains.lean:74:51: (deterministic) timeout at `«synthesize pending MVars»`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: Silver/ApplicationPackageDeclarationsSpecificationDomains.lean:92:2: Dependent elimination failed: Failed to solve equation
+  Decidable.rec (fun h => (fun x => addSubtypeBinding text frame (subtypeDeclarationParts text frame)) h)
+      (fun h => (fun x => invalidState) h)
+      (instDecidableEqBool
+        (!newNameAllowed text frame (subtypeDeclarationParts text frame).first
+                    (subtypeDeclarationParts text frame).after arguments ||
+                Named.nameIs text (subtypeDeclarationParts text frame).first (subtypeDeclarationParts text frame).after
+                  (List.map Char.toNat "integer".toList) ||
+              decide
+                (frame.subtypeNames.items.length = IntegerSubtypes.maxBindings ∨
+                  (subtypeDeclarationParts text frame).typeAfter = 0 ∨
+                    fixedAfter text (subtypeDeclarationParts text frame).typeAfter "range" true = 0 ∨
+                      (subtypeDeclarationParts text frame).constraint.after = 0 ∨
+                        (subtypeDeclarationParts text frame).following ≤ frame.position) ||
+            (subtypeDeclarationParts text frame).constraint.bounds.isEmpty ||
+          decide
+            (lookupName text frame.names (subtypeDeclarationParts text frame).typeFirst
+                  (subtypeDeclarationParts text frame).typeAfter ≠
+                0 ∨
+              ScalarExpression.lookup text frame.scalarNames (subtypeDeclarationParts text frame).typeFirst
+                    (subtypeDeclarationParts text frame).typeAfter ≠
+                  0 ∨
+                ArrayBindings.lookup text frame.arrayNames.names (subtypeDeclarationParts text frame).typeFirst
+                      (subtypeDeclarationParts text frame).typeAfter ≠
+                    0 ∨
+                  ArrayBindings.lookupType text frame.arrayNames.types (subtypeDeclarationParts text frame).typeFirst
+                        (subtypeDeclarationParts text frame).typeAfter ≠
+                      0 ∨
+                    BooleanBindings.lookup text frame.booleanNames (subtypeDeclarationParts text frame).typeFirst
+                          (subtypeDeclarationParts text frame).typeAfter ≠
+                        0 ∨
+                      FunctionBindings.lookup text frame.functions (subtypeDeclarationParts text frame).typeFirst
+                            (subtypeDeclarationParts text frame).typeAfter ≠
+                          0 ∨
+                        ProcedureBindings.lookup text frame.procedures (subtypeDeclarationParts text frame).typeFirst
+                              (subtypeDeclarationParts text frame).typeAfter ≠
+                            0 ∨
+                          formalHides text frame (subtypeDeclarationParts text frame).typeFirst
+                                (subtypeDeclarationParts text frame).typeAfter =
+                              true ∨
+                            (frame.hiding.integerHidden &&
+                                  Named.nameIs text (subtypeDeclarationParts text frame).typeFirst
+                                    (subtypeDeclarationParts text frame).typeAfter
+                                    (List.map Char.toNat "integer".toList)) =
+                                true ∨
+                              (frame.hiding.booleanHidden &&
+                                    Named.nameIs text (subtypeDeclarationParts text frame).typeFirst
+                                      (subtypeDeclarationParts text frame).typeAfter
+                                      (List.map Char.toNat "boolean".toList)) =
+                                  true ∨
+                                (frame.hiding.characterHidden &&
+                                    Named.nameIs text (subtypeDeclarationParts text frame).typeFirst
+                                      (subtypeDeclarationParts text frame).typeAfter
+                                      (List.map Char.toNat "character".toList)) =
+                                  true))
+        true) =
+    { position := parts✝.following, names := frame.names, dynamicFirst := frame.dynamicFirst,
+      dynamicAfter := frame.dynamicAfter, target := frame.target, capacity := frame.capacity,
+      scalarNames := frame.scalarNames, arrayNames := frame.arrayNames,
+      subtypeNames :=
+        IntegerSubtypes.append text frame.subtypeNames
+          { first := parts✝.first, after := parts✝.after, bounds := parts✝.constraint.bounds },
+      booleanNames := frame.booleanNames, functions := frame.functions, pure := frame.pure,
+      assignedInFunctions := frame.assignedInFunctions, «hiding» := frame.hiding,
+      firstParameter := frame.firstParameter, procedures := frame.procedures,
+      firstProcedureParameter := frame.firstProcedureParameter, contextFirst := frame.contextFirst,
+      packageFirst := frame.packageFirst, packageAfter := frame.packageAfter }
+Some required targets logged failures:
+- Silver.ApplicationPackageDeclarationsSpecificationDomains
+error: build failed
+
+Lean phase build finished at 2026-11-27T20:36:17.715134+00:00; elapsed 178.901s; exit 1

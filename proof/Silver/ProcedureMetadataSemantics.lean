@@ -77,21 +77,13 @@ theorem signatureModel_valid {text : Source} {catalog : Metadata} {entry : Signa
     {types : ArrayBindings.TypeEnvironment} (typesValid : ArrayBindings.ValidTypes text types)
     (known : ∀ i, entry.formalFirst ≤ i → i < entry.formalFirst + entry.count →
       (parameter catalog i).typeId ≤ types.length)
-    (writable : ScalarProcedures.outputTypes (signatureModel catalog entry types).formals ≠ []) :
+    (_writable : ScalarProcedures.outputTypes (signatureModel catalog entry types).formals ≠ []) :
     (signatureModel catalog entry types).Valid := by
-  refine ⟨?_, ?_, writable⟩
-  · intro empty
-    have size := formalModels_length catalog entry.formalFirst entry.count types
-    have positive := entryValid.2.1
-    change formalModels catalog entry.formalFirst entry.count types = [] at empty
-    rw [empty] at size
-    simp only [List.length_nil] at size
-    omega
-  · exact formalModels_valid catalog entry.formalFirst entry.count valid entryValid.2.2.1 (by
-      have start := entryValid.2.2.1
-      have within := entryValid.2.2.2.1
-      have count := entryValid.2.2.2.2
-      omega) typesValid known
+  exact formalModels_valid catalog entry.formalFirst entry.count valid entryValid.2.2.1 (by
+    have start := entryValid.2.2.1
+    have within := entryValid.2.2.2.1
+    have count := entryValid.2.2.2.2
+    omega) typesValid known
 
 theorem catalogSignatures_lookup {catalog : Metadata} {index : Nat}
     (positive : 0 < index) (bounded : index ≤ catalog.items.length) {types : ArrayBindings.TypeEnvironment} :

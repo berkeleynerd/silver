@@ -1,0 +1,10 @@
+with "containers.gpr";
+project Probe is
+   for Source_Dirs use (".", "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/src", "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/generated");
+   for Object_Dir use "../outputs/obj";
+   for Exec_Dir use "../outputs/bin";
+   for Main use ("admission_probe.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnato", "-g");
+   end Compiler;
+end Probe;

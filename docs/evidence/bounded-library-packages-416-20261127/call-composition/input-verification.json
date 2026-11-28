@@ -1,0 +1,16 @@
+{
+  "run_id": "20261127T230447-aae36b861061",
+  "captured_inputs": 1641,
+  "checking_mismatches": [],
+  "primary_mismatches_before_integration": [
+    "proof/Silver/ApplicationPackageCallComposition.lean",
+    "proof/Silver/ApplicationPackageCallValidityImports.lean",
+    "proof/Silver/ComposeInitializerTrace.lean",
+    "proof/Silver/FunctionHeaderSource.lean",
+    "proof/Silver/ProcedureDeclarationHeaderMeaning.lean",
+    "proof/Silver/ProcedureDeclarationMeaning.lean",
+    "proof/Silver/ProcedureFrameMeaning.lean",
+    "proof/Silver/ProcedurePrefixExpressionMeaning.lean"
+  ],
+  "primary_commit": "58663ecbcb6c8097966922a096e5d2e47aeb6586"
+}

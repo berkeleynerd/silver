@@ -1,0 +1,15 @@
+{
+  "run_id": "20261127T230204-39f370e06097",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.PackagePhasedRoutineSafety",
+    "Silver.ApplicationPackageLoopLayout"
+  ],
+  "declarations": 37739,
+  "source_sha256": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+  "artifacts_sha256": {
+    "events.jsonl.gz": "1cf39a931fea641f642be571fc046c97ecb9cdd32d92c5123318571ce7d17eb0",
+    "evidence.json": "97fce3c9ae87e4af65bbb2d94ba92e2749fb18874d4f2abf2cbcf0aeae3a1bb3",
+    "lean-focused.log.gz": "e998f75b629b6262dd636403ddfb25dc1528d9ed6b7273ba0d051cbb3fb9b8a3"
+  }
+}

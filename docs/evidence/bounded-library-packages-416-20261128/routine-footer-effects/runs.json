@@ -1,0 +1,18 @@
+[
+  {
+    "run_id": "20261128T005024-27aa6277a271",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T005225-5bfbd5cb1d38",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T005309-97ccdc46cad7",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T005354-bc158b54c052",
+    "outcome": "success"
+  }
+]
