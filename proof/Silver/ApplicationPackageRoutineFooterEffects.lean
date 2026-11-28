@@ -98,6 +98,35 @@ theorem footer_effects {reader : BooleanElaboration.Native.Reader} {calls : Comp
   rw [selected, read.stored]
   rfl
 
+/-- Function execution preserves the complete incoming global frame. This
+uses the original return's empty write mask and complete inferred-effect
+inclusion; phased checking alone would not establish this correspondence. -/
+theorem function_execution_readonly {reader : BooleanElaboration.Native.Reader} {calls : CompletionCalls}
+    {text : Source} {globals : ParserState} {info : Metadata} {result : CompletionResult} {readers}
+    {frames : CompletionFrames (declarationReaders reader calls) text globals info result}
+    (source : RoutineCode frames readers) (specRows : List SpecificationItem)
+    (pending : info.completed < info.routines.length) (present : result.globals.position ≠ 0)
+    (kind : (frames.signature.info.routineAt (info.completed + 1)).kind = .function)
+    {environment : SharedEnvironment} {earlier : EffectEnvironment} {inferred : Effects}
+    (previous : environment.RespectsEffects earlier)
+    (inference : (source.definition specRows).inferEffects earlier = some inferred)
+    (included : Included inferred (source.summaryEntry specRows).effects)
+    (state : ScalarFunctions.Frame) (inputs : List ScalarFunctions.Value) :
+    ((source.definition specRows).execute environment state inputs).1 = state := by
+  obtain ⟨read⟩ := completion_body_read frames.executed present
+  have empty := (completionReturn_function kind read.readReturn).2.2.2.1
+  have stored := footer_effects frames read pending
+  change Included inferred ((result.info.routineAt result.info.completed).effects result.info) at included
+  rw [stored] at included
+  have changes := (source.definition specRows).execute_changes previous inference state inputs
+  apply changesOnly_empty
+  apply changesOnly_mono (large := []) ?_ changes
+  intro cell member
+  have covered := included.writes cell member
+  change cell ∈ frames.signature.info.effectCells read.returned.writes at covered
+  rw [empty, empty_cells] at covered
+  exact covered
+
 theorem constant_seed_reads (seed : ConstantSeed) :
     globalCells seed.initializer.layout (actualReads seed.initializer.value) = [] := by
   cases seed <;> rfl
