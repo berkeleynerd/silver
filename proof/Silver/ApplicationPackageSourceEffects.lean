@@ -551,6 +551,209 @@ theorem actual_read_included {text : Source} {context : ParseContext}
 
 end NativeReads
 
+namespace SourceFrames
+open ApplicationPackageCalls ApplicationPackages
+
+def rowSyntax (row : PackageActual) : Nat × Nat × ProcedureActualResult :=
+  (row.first, row.after, row.target)
+
+/-- The existing source trace retains syntax and association control, while
+native read/write masks are derived independently from execution. -/
+structure SameSyntax (left right : ActualFrame) : Prop where
+  cursor : left.cursor = right.cursor
+  named : left.named = right.named
+  seen : left.seen = right.seen
+  rows : left.actuals.map rowSyntax = right.actuals.map rowSyntax
+
+theorem SameSyntax.refl (frame : ActualFrame) : SameSyntax frame frame :=
+  ⟨rfl, rfl, rfl, rfl⟩
+
+theorem SameSyntax.row {left right : ActualFrame} (same : SameSyntax left right) (slot : Nat) :
+    rowSyntax (left.actual slot) = rowSyntax (right.actual slot) := by
+  have selected := congrArg (fun rows : List (Nat × Nat × ProcedureActualResult) =>
+    rows.getD (slot - 1) (rowSyntax {})) same.rows
+  simpa only [ActualFrame.actual, List.getD_eq_getElem?_getD,
+    List.getElem?_map, Option.getD_map] using selected
+
+private theorem payload_pair (calls : ApplicationPackageCalls.Calls) (text : Source) (context : ParseContext)
+    (input : ApplicationScan) (info : PackageBindings.Metadata) (parameter : PackageBindings.Formal)
+    (cursor : Nat) (left right : PackageActual) (targets : left.target = right.target) :
+    (actualPayload calls text context input parameter info cursor left).1 =
+      (actualPayload calls text context input parameter info cursor right).1 ∧
+    (actualPayload calls text context input parameter info cursor left).2.target =
+      (actualPayload calls text context input parameter info cursor right).2.target := by
+  unfold actualPayload
+  split
+  · exact ⟨rfl, targets⟩
+  · exact ⟨rfl, rfl⟩
+
+/-- Source associations determine each original actual span and target even
+though the source relation intentionally omits native effect masks. -/
+theorem step_syntax {calls text context input info item ordinal leftBefore leftAfter leftEntry
+    rightBefore rightAfter rightEntry}
+    (left : ActualSourceStep calls text context input info item ordinal leftBefore leftAfter leftEntry)
+    (right : ActualSourceStep calls text context input info item ordinal rightBefore rightAfter rightEntry)
+    (same : SameSyntax leftBefore rightBefore) : SameSyntax leftAfter rightAfter := by
+  have association : actualAssociation calls text info item ordinal leftBefore =
+      actualAssociation calls text info item ordinal rightBefore := by
+    simp only [actualAssociation, same.cursor, same.named]
+  have selected := Option.some.inj (left.association.symm.trans (association.trans right.association))
+  have slots := congrArg Prod.fst selected
+  have names := congrArg (fun choice : Nat × Bool × Nat => choice.2.1) selected
+  have starts := congrArg (fun choice : Nat × Bool × Nat => choice.2.2) selected
+  dsimp only at slots names starts
+  have targets := congrArg (fun value : Nat × Nat × ProcedureActualResult => value.2.2)
+    (same.row leftEntry.1)
+  have payloads := payload_pair calls text context input info (info.parameterAt leftEntry.1)
+    leftEntry.2.first {leftBefore.actual leftEntry.1 with first := leftEntry.2.first}
+    {rightBefore.actual leftEntry.1 with first := leftEntry.2.first} targets
+  have rightPayload := right.payload
+  rw [← slots, ← starts] at rightPayload
+  have ends := left.payload.1.trans (payloads.1.trans rightPayload.1.symm)
+  have targetEq := left.payload.2.trans (payloads.2.trans rightPayload.2.symm)
+  have rows : rowSyntax leftEntry.2 = rowSyntax rightEntry.2 :=
+    Prod.ext starts (Prod.ext ends targetEq)
+  constructor
+  · rw [left.separator, right.separator, ends]
+  · exact names
+  · rw [left.seen, right.seen, same.seen, slots]
+  · rw [left.written, right.written, List.map_set, List.map_set, same.rows, slots, rows]
+
+theorem trace_syntax {calls text context input info item offsets leftBefore leftAfter leftEntries
+    rightBefore rightAfter rightEntries}
+    (left : ActualSourceTrace calls text context input info item offsets leftBefore leftAfter leftEntries)
+    (right : ActualSourceTrace calls text context input info item offsets rightBefore rightAfter rightEntries)
+    (same : SameSyntax leftBefore rightBefore) : SameSyntax leftAfter rightAfter := by
+  induction left generalizing rightBefore rightAfter rightEntries with
+  | nil => cases right; exact same
+  | cons first remaining ih =>
+    cases right with
+    | cons other suffix => exact ih suffix (step_syntax first other same)
+
+theorem list_syntax {calls text context input info item afterName leftFrame leftEntries rightFrame rightEntries}
+    (left : ActualListAt calls text context input info item afterName leftFrame leftEntries)
+    (right : ActualListAt calls text context input info item afterName rightFrame rightEntries) :
+    SameSyntax leftFrame rightFrame := by
+  cases left with
+  | empty zero =>
+    cases right with
+    | empty => exact SameSyntax.refl _
+    | supplied positive _ _ => omega
+  | supplied positive _ trace =>
+    cases right with
+    | empty zero => omega
+    | supplied _ _ other => exact trace_syntax trace other (SameSyntax.refl _)
+
+/-- Join the original source trace to the frame returned by the actual raw
+reader using the fields already retained by that trace. -/
+theorem original_executed {calls text context input info item afterName frame entries executed}
+    (source : ActualListAt calls text context input info item afterName frame entries)
+    (read : readActuals calls text context input info item afterName = some executed) :
+    SameSyntax frame executed := by
+  obtain ⟨_, original⟩ := readActuals_source read
+  exact list_syntax source original
+
+theorem SameSyntax.actual {text context left right slot facts formal actual}
+    (same : SameSyntax left right)
+    (source : ActualAt text context (left.actual slot).first facts formal actual (left.actual slot).after) :
+    ActualAt text context (right.actual slot).first facts formal actual (right.actual slot).after := by
+  have first := congrArg Prod.fst (same.row slot)
+  have after := congrArg (fun value : Nat × Nat × ProcedureActualResult => value.2.1) (same.row slot)
+  dsimp only [rowSyntax] at first after
+  simpa only [first, after] using source
+
+theorem SameSyntax.function_arguments {text context input info left right slots values}
+    (same : SameSyntax left right)
+    (source : ApplicationPackageBodies.Basic.FunctionArgumentsAt text context input info left slots values) :
+    ApplicationPackageBodies.Basic.FunctionArgumentsAt text context input info right slots values := by
+  induction source with
+  | nil => exact .nil
+  | cons source _ ih => exact .cons (same.actual source) ih
+
+theorem SameSyntax.procedure_arguments {text context input info left right slots values}
+    (same : SameSyntax left right)
+    (source : ApplicationPackageBodies.Basic.ProcedureArgumentsAt text context input info left slots values) :
+    ApplicationPackageBodies.Basic.ProcedureArgumentsAt text context input info right slots values := by
+  induction source with
+  | nil => exact .nil
+  | value source _ ih => exact .value (same.actual source) ih
+  | @target slot slots values mode target after _ ih =>
+      have firstEq := congrArg Prod.fst (same.row slot)
+      have afterEq := congrArg (fun value : Nat × Nat × ProcedureActualResult => value.2.1) (same.row slot)
+      have targetEq := congrArg (fun value : Nat × Nat × ProcedureActualResult => value.2.2) (same.row slot)
+      dsimp only [rowSyntax] at firstEq afterEq targetEq
+      rw [firstEq, targetEq] at target
+      rw [afterEq, targetEq] at after
+      rw [targetEq]
+      exact .target mode target after ih
+
+/-- Aggregate original function arguments in formal order. The native fold
+may traverse named associations in a different order, and is joined through
+the original span/target projection rather than mask equality. -/
+theorem function_arguments_reads {text : Source} {context : Predicate.Native.Context}
+    {input : ApplicationScan} {info : PackageBindings.Metadata} {item : PackageBindings.Routine}
+    {afterName bound : Nat} {frame : ActualFrame} {slots : List Nat} {values : List ScalarFunctions.Actual}
+    (source : ApplicationPackageBodies.Basic.FunctionArgumentsAt text context input info frame slots values)
+    (read : readActuals ApplicationPackageCalls.modelCalls text context.model input info item afterName = some frame)
+    (domain : ∀ slot ∈ slots, 0 < slot ∧ (info.parameterAt slot).mode ≠ .output ∧
+      (frame.actual slot).first ≤ text.length + 1)
+    (declarations : StateDeclarations text info.states)
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (scalarCapacity : context.model.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (booleanCapacity : context.model.booleanNames.length ≤ BooleanBindings.maxBindings) :
+    ∀ cell ∈ globalCells (layout bound info context.model) (actualsReads values),
+      cell ∈ info.effectCells frame.result.result.reads := by
+  induction source with
+  | nil =>
+      intro cell member
+      simp only [actualsReads, List.flatMap_nil, globalCells, List.filterMap_nil, List.not_mem_nil] at member
+  | @cons slot slots value values head _ ih =>
+      have slotDomain := domain slot (List.mem_cons_self ..)
+      have first := NativeReads.actual_read_included (bound := bound) read head
+        slotDomain.1 slotDomain.2.1 slotDomain.2.2 declarations capacity scalarCapacity booleanCapacity
+      have later := ih (fun index member => domain index (List.mem_cons_of_mem _ member))
+      intro cell member
+      obtain ⟨localCell, used, selected⟩ := globalCells_mem.mp member
+      simp only [actualsReads, List.flatMap_cons] at used
+      rcases List.mem_append.mp used with headRead | tailRead
+      · exact first cell (globalCells_mem.mpr ⟨localCell, headRead, selected⟩)
+      · exact later cell (globalCells_mem.mpr ⟨localCell, tailRead, selected⟩)
+
+theorem function_call_reads {text : Source} {context : Predicate.Native.Context}
+    {input : ApplicationScan} {info : PackageBindings.Metadata} {position bound : Nat}
+    {call : ScalarFunctions.Call} {executed : ActualFrame}
+    (original : ApplicationPackageBodies.Basic.FunctionCallAt text context input info position call)
+    (read : readActuals ApplicationPackageCalls.modelCalls text context.model input info (info.routineAt call.callee)
+      (ApplicationPackageCalls.modelCalls.reference text position).after = some executed)
+    (declared : ApplicationPackageDeclarations.DeclaredFormalModes info)
+    (present : info.routineAt call.callee ∈ info.routines)
+    (kind : (info.routineAt call.callee).kind = .function)
+    (formals : 0 < (info.routineAt call.callee).count →
+      (info.routineAt call.callee).formalFirst + (info.routineAt call.callee).count - 1 ≤ PackageBindings.maxFormals)
+    (declarations : StateDeclarations text info.states)
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (scalarCapacity : context.model.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (booleanCapacity : context.model.booleanNames.length ≤ BooleanBindings.maxBindings) :
+    ∀ cell ∈ globalCells (layout bound info context.model) (actualsReads call.actuals),
+      cell ∈ info.effectCells executed.result.result.reads := by
+  obtain ⟨_, sourceFrame, entries, trace, arguments⟩ := original
+  have same := original_executed trace read
+  have source := same.function_arguments arguments
+  apply function_arguments_reads source read ?_ declarations capacity scalarCapacity booleanCapacity
+  intro slot member
+  have positions := trace.slot_positions formals slot member
+  have firstEq := congrArg Prod.fst (same.row slot)
+  dsimp only [rowSyntax] at firstEq
+  rw [firstEq] at positions
+  obtain ⟨offset, inRange, equal⟩ := List.mem_map.mp member
+  have mode := declared _ present offset (List.mem_range.mp inRange)
+  subst slot
+  have inputMode : (info.parameterAt ((info.routineAt call.callee).formalFirst + offset)).mode = .input :=
+    mode.2.2 kind
+  exact ⟨mode.1, by rw [inputMode]; decide, positions.1⟩
+
+end SourceFrames
+
 namespace NativeMasks
 open ApplicationPackageCalls ApplicationPackages ApplicationPackageBodies
 open Packages.EffectSummaries

@@ -211,3 +211,27 @@ and RoutineEffects consumer passed in `20261128T011011-fb54b725ce68`, with a fre
 84,437-declaration audit and all captured input hashes matching. The same Linux,
 Lean, automatic two-worker/two-thread, CPU 6–7 and 8,192 MiB settings apply. No
 native source, domain or proof budget changed; no complete assurance is claimed.
+
+## Existing source traces joined to executed argument frames
+
+`SourceFrames.original_executed` derives equality of association control and all
+actual span/target projections between an existing `ActualListAt` source frame
+and the frame returned by the raw native reader. Step and trace induction use
+only fields already retained by the source relation. The read/write masks may
+differ, so mask equality is neither assumed nor added to that relation.
+
+`SameSyntax.actual`, `function_arguments` and `procedure_arguments` transport the
+original semantic arguments unchanged to the executed frame. `function_call_reads`
+then derives all original function-argument shared reads in its raw accumulator,
+using the original formal declarations and native table bounds. This resolves
+the earlier actual-step interface concern without changing shared source relations.
+
+Final focused run `20261128T011802-6c3bd0dca068` passed SourceEffects and its
+RoutineEffects consumer, freshly auditing 84,468 declarations with all 1,724
+captured inputs matching. Preceding successful increments and the one failed
+consumer draft are retained; the latter needed an explicit `parameterAt` row
+projection before rewriting its declared mode. Linux x86_64 / Lean 4.34.1,
+CPUs 6–7, automatic two workers/two threads and 8,192 MiB per process. No changed
+source relation, domain or proof budget; no independent replay or complete
+package assurance is claimed. Body-added assignment/call/guard/loop effects and
+their final recursive aggregate remain the outstanding source proof.
