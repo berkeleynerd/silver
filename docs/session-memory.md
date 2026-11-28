@@ -1,5 +1,18 @@
 # Session memory
 
+## 2026-11-28 — Investigate native verification cost
+
+The owner instructed **“We will need to investigate the slowness of native
+verification.”** Inspect current and retained native evidence alongside the
+authorized #416 delivery. Preserve productive jobs and caches, distinguish
+observed timings from inferred costs, and keep the host's shared eight-CPU
+allocation. The [bounded diagnosis](evidence/bounded-library-packages-416-20261128/native-performance-diagnosis/README.md)
+records the workload, solver limits, host observations and next focused checks.
+The existing deferred [#381](https://github.com/berkeleynerd/silver/issues/381)
+is the home for a later demonstrated-hotspot comparison; this investigation does
+not select a broad benchmark, change proof strategy or authorize a merge.
+Worca remains stopped. CLI memory was not updated.
+
 ## 2026-11-27 — Independent open-PR reviews and package admission repairs
 
 The owner requested independent review of the outstanding PRs in sequence and

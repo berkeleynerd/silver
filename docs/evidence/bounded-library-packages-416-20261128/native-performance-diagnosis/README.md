@@ -127,6 +127,42 @@ Exact supporting extractions:
 - [Generated helpers awaiting current sessions](pending-generated-helpers.json)
   at its explicit snapshot time; this is not a remaining-duration estimate.
 
+## Host allocation and comparison limits
+
+The lead's [30-second host sample](host-summary.json), from 05:24:37 to 05:25:07
+UTC, found about 51 GiB available RAM at the end, no swap, negligible guest
+I/O wait and CPU steal. The subsequent [constraint snapshot](host-constraints.json)
+records no cgroup CPU throttling, effective cpuset 0–7 and about 82 GiB free disk.
+Pressure-stall interfaces were unavailable, so no PSI measurement is claimed.
+This bounded observation does not establish the resource history of the whole run.
+
+The original run has two workers on CPUs 2–3, deliberately sharing the eight-CPU
+host with concurrent proof work. The clean 60-second probe has two workers on
+6–7; the source/Lean batch subsequently took 0,1,4,5. All sampled native child
+threads remained within their respective two-CPU masks. The original process
+tree accumulated about 43.67 CPU seconds during the 30-second interval; the
+probe accumulated 59.96. Raw [start](host-start.json) and [end](host-end.json)
+snapshots retain the process accounting. Process exits, waited-child accounting
+and sampling races limit those estimates. Summed RSS was about 6.1 and 2.5 GB,
+respectively; those sums are neither private memory nor peak memory.
+
+The original run is therefore not an eight-core speed test. A future native
+checkpoint can use the automatic larger allocation when other managed jobs
+release their shares, without stopping the present work. More workers may
+accelerate independent solver tasks; the observed transformation costs mean
+linear scaling is not established.
+
+Historical short complete audits used retained work. The
+[#410 checkpoint](../../named-array-parameters-410-20261121/final-native/README.md)
+took 492.560 seconds with two workers, forced full analysis and retained
+sessions/cache. The [#373 preparation](../../proof-iteration-efficiency-373-20261120/preparation/README.md)
+took 10,713.478 seconds at the outer wrapper, with twelve workers on the earlier
+22-CPU host and an existing cache; its later
+[warm final audit](../../proof-iteration-efficiency-373-20261120/final/README.md)
+took 48.245 seconds. Different source, cache, scope and host allocation preclude
+a measured regression or speedup ratio from these numbers. They do show why the
+last successful warm audit is an unsuitable estimate for new broad proof work.
+
 ## Smallest next checks
 
 Finish the already-running clean 60-second complete Model probe, inspect every
@@ -142,5 +178,8 @@ one heavy successful helper's full-domain contract/context and existing timing
 counters for a bounded transformation-reduction experiment. A future cache-reuse
 review can ask whether proven-identical inputs permit safe reuse across the
 focused/complete boundary; this record neither changes that boundary nor
-promotes cached attempts into new-policy evidence. Complete obligation discharge,
+promotes cached attempts into new-policy evidence. The existing deferred
+[#381](https://github.com/berkeleynerd/silver/issues/381) is the tracking home
+for a later selected hotspot comparison; this diagnosis does not reactivate its
+whole strategy experiment or introduce a scheduler. Complete obligation discharge,
 source correspondence and final validation remain required.

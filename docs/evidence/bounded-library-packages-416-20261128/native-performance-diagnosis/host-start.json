@@ -1,0 +1,596 @@
+{
+  "unix_time": 1795843477.6858354,
+  "clock_ticks": 100,
+  "groups": {
+    "original": {
+      "root": 176352,
+      "processes": [
+        {
+          "pid": 176352,
+          "ppid": 176351,
+          "name": "python3",
+          "state": "S",
+          "self_ticks": 525,
+          "waited_child_ticks": 28,
+          "rss_bytes": 272494592,
+          "start_ticks": 2833060,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 176469,
+          "ppid": 176352,
+          "name": "alr",
+          "state": "S",
+          "self_ticks": 12,
+          "waited_child_ticks": 0,
+          "rss_bytes": 25837568,
+          "start_ticks": 2833621,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 176472,
+          "ppid": 176469,
+          "name": "gnatprove",
+          "state": "S",
+          "self_ticks": 12,
+          "waited_child_ticks": 1107,
+          "rss_bytes": 23506944,
+          "start_ticks": 2833633,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 176611,
+          "ppid": 176472,
+          "name": "why3server",
+          "state": "S",
+          "self_ticks": 4428,
+          "waited_child_ticks": 2786727,
+          "rss_bytes": 2129920,
+          "start_ticks": 2834708,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 176612,
+          "ppid": 176472,
+          "name": "gprbuild",
+          "state": "S",
+          "self_ticks": 5,
+          "waited_child_ticks": 6,
+          "rss_bytes": 12132352,
+          "start_ticks": 2834709,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 176622,
+          "ppid": 176612,
+          "name": "gnat2why",
+          "state": "S",
+          "self_ticks": 4311,
+          "waited_child_ticks": 2116675,
+          "rss_bytes": 699035648,
+          "start_ticks": 2834722,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 409225,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1736704,
+          "start_ticks": 5232549,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 409382,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1777664,
+          "start_ticks": 5232810,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 411620,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1724416,
+          "start_ticks": 5272872,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 415900,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1736704,
+          "start_ticks": 5328947,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 416948,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1622016,
+          "start_ticks": 5333681,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 418855,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1687552,
+          "start_ticks": 5369550,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 419353,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 2,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1679360,
+          "start_ticks": 5373301,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 422932,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1699840,
+          "start_ticks": 5421041,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 424077,
+          "ppid": 176622,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1736704,
+          "start_ticks": 5430553,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 456822,
+          "ppid": 409225,
+          "name": "spark_memcached",
+          "state": "S",
+          "self_ticks": 8,
+          "waited_child_ticks": 0,
+          "rss_bytes": 2633728,
+          "start_ticks": 6047102,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 456823,
+          "ppid": 456822,
+          "name": "gnatwhy3",
+          "state": "R",
+          "self_ticks": 128837,
+          "waited_child_ticks": 0,
+          "rss_bytes": 5070700544,
+          "start_ticks": 6047111,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 464336,
+          "ppid": 176611,
+          "name": "spark_memcached",
+          "state": "S",
+          "self_ticks": 0,
+          "waited_child_ticks": 0,
+          "rss_bytes": 2596864,
+          "start_ticks": 6240855,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 464337,
+          "ppid": 464336,
+          "name": "cvc5",
+          "state": "R",
+          "self_ticks": 165,
+          "waited_child_ticks": 0,
+          "rss_bytes": 88887296,
+          "start_ticks": 6240857,
+          "cpus": [
+            2,
+            3
+          ]
+        },
+        {
+          "pid": 464357,
+          "ppid": 176611,
+          "name": "spark_memcached",
+          "state": "S",
+          "self_ticks": 1,
+          "waited_child_ticks": 0,
+          "rss_bytes": 2764800,
+          "start_ticks": 6241119,
+          "cpus": [
+            2,
+            3
+          ]
+        }
+      ],
+      "cumulative_tree_ticks": 5042857
+    },
+    "probe60": {
+      "root": 461937,
+      "processes": [
+        {
+          "pid": 461937,
+          "ppid": 461936,
+          "name": "python3",
+          "state": "S",
+          "self_ticks": 607,
+          "waited_child_ticks": 24,
+          "rss_bytes": 195784704,
+          "start_ticks": 6203314,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 461989,
+          "ppid": 461937,
+          "name": "alr",
+          "state": "S",
+          "self_ticks": 12,
+          "waited_child_ticks": 0,
+          "rss_bytes": 26341376,
+          "start_ticks": 6203952,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 461994,
+          "ppid": 461989,
+          "name": "gnatprove",
+          "state": "S",
+          "self_ticks": 13,
+          "waited_child_ticks": 2075,
+          "rss_bytes": 23633920,
+          "start_ticks": 6203965,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 462349,
+          "ppid": 461994,
+          "name": "why3server",
+          "state": "S",
+          "self_ticks": 9,
+          "waited_child_ticks": 22139,
+          "rss_bytes": 1671168,
+          "start_ticks": 6205470,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 462350,
+          "ppid": 461994,
+          "name": "gprbuild",
+          "state": "S",
+          "self_ticks": 18,
+          "waited_child_ticks": 872,
+          "rss_bytes": 13430784,
+          "start_ticks": 6205470,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 462468,
+          "ppid": 462350,
+          "name": "gnat2why",
+          "state": "S",
+          "self_ticks": 789,
+          "waited_child_ticks": 0,
+          "rss_bytes": 393809920,
+          "start_ticks": 6205888,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 462511,
+          "ppid": 462468,
+          "name": "spark_semaphore",
+          "state": "S",
+          "self_ticks": 0,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1904640,
+          "start_ticks": 6206630,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 462512,
+          "ppid": 462511,
+          "name": "spark_memcached",
+          "state": "S",
+          "self_ticks": 6,
+          "waited_child_ticks": 0,
+          "rss_bytes": 2498560,
+          "start_ticks": 6206631,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 462513,
+          "ppid": 462512,
+          "name": "gnatwhy3",
+          "state": "S",
+          "self_ticks": 13535,
+          "waited_child_ticks": 0,
+          "rss_bytes": 1088360448,
+          "start_ticks": 6206638,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 462991,
+          "ppid": 462349,
+          "name": "spark_memcached",
+          "state": "S",
+          "self_ticks": 0,
+          "waited_child_ticks": 0,
+          "rss_bytes": 2629632,
+          "start_ticks": 6212971,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 462992,
+          "ppid": 462991,
+          "name": "cvc5",
+          "state": "R",
+          "self_ticks": 21659,
+          "waited_child_ticks": 0,
+          "rss_bytes": 194113536,
+          "start_ticks": 6212973,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 463872,
+          "ppid": 462349,
+          "name": "spark_memcached",
+          "state": "S",
+          "self_ticks": 0,
+          "waited_child_ticks": 0,
+          "rss_bytes": 2543616,
+          "start_ticks": 6231686,
+          "cpus": [
+            6,
+            7
+          ]
+        },
+        {
+          "pid": 463873,
+          "ppid": 463872,
+          "name": "alt-ergo",
+          "state": "R",
+          "self_ticks": 9428,
+          "waited_child_ticks": 0,
+          "rss_bytes": 654848000,
+          "start_ticks": 6231687,
+          "cpus": [
+            6,
+            7
+          ]
+        }
+      ],
+      "cumulative_tree_ticks": 71186
+    }
+  },
+  "cpu": {
+    "cpu": [
+      14146469,
+      0,
+      1783508,
+      33817294,
+      39095,
+      0,
+      42604,
+      64161,
+      0,
+      0
+    ],
+    "cpu0": [
+      1379952,
+      0,
+      255329,
+      4580598,
+      6695,
+      0,
+      18733,
+      9607,
+      0,
+      0
+    ],
+    "cpu1": [
+      1419817,
+      0,
+      239021,
+      4554347,
+      7646,
+      0,
+      6091,
+      10349,
+      0,
+      0
+    ],
+    "cpu2": [
+      3535675,
+      0,
+      260691,
+      2424053,
+      1856,
+      0,
+      3880,
+      5502,
+      0,
+      0
+    ],
+    "cpu3": [
+      3603309,
+      0,
+      289446,
+      2318022,
+      1768,
+      0,
+      6349,
+      6412,
+      0,
+      0
+    ],
+    "cpu4": [
+      1172520,
+      0,
+      190853,
+      4857095,
+      4862,
+      0,
+      3648,
+      8073,
+      0,
+      0
+    ],
+    "cpu5": [
+      1208803,
+      0,
+      175934,
+      4838419,
+      4504,
+      0,
+      1488,
+      7938,
+      0,
+      0
+    ],
+    "cpu6": [
+      889222,
+      0,
+      182914,
+      5150714,
+      5522,
+      0,
+      1401,
+      7953,
+      0,
+      0
+    ],
+    "cpu7": [
+      937168,
+      0,
+      189316,
+      5094044,
+      6237,
+      0,
+      1012,
+      8322,
+      0,
+      0
+    ]
+  },
+  "memory": {
+    "MemTotal": "65931660 kB",
+    "MemAvailable": "54146604 kB",
+    "SwapTotal": "0 kB",
+    "SwapFree": "0 kB"
+  }
+}
