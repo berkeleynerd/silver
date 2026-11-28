@@ -1030,3 +1030,30 @@ within guest CPUs 0–7. Proof roles retain the selected Astra Max setting; live
 runtime settings are not independently exposed. Complete validation, applicable
 regressions, Rosetta delivery and independent closing review remain outstanding.
 PR #424 stays draft; #426/#427 remain open. No merge or successor work is authorized.
+
+### Original Main scope and application summary consumer, 2026-11-28 00:34 UTC
+
+The [Main entry-scope proof](evidence/bounded-library-packages-416-20261128/main-entry-scope/README.md)
+passed its focused check and fresh 83,100-declaration audit. Original imports,
+optional argument and declaration histories now derive Main's source cursor and
+scope. The [argument String adapter](evidence/bounded-library-packages-416-20261128/main-argument-string-bounds/README.md)
+passed 83,115 declarations and derives actual bounds, initialization traces and
+runtime fit for every bounded printable argument, including an empty one.
+
+The [admission and summary consumer](evidence/bounded-library-packages-416-20261128/admission-summary-composition/README.md)
+passed 86,501 declarations. Analyze's original Specification/Unit results and
+executable guards establish Main's full callee domain. Routine checks retain
+original initializer phases, body and results; inferred effects must be included
+in the compiler's conservative summary. The application consumer uses that
+checked library for execution safety and obligation discharge. Source construction
+of the complete library and application remains required, with no successful
+semantic decoder or safety certificate assumed from the program author.
+
+The native containing-unit check remains active on its frozen source inputs.
+Its six provisional array-declaration timeout roots await the final report and
+diagnosis; no complete native checkpoint will start while they remain unresolved.
+Eight CPUs are detected after reboot, and an inspection of active tool processes
+and their threads found no affinity outside guest CPUs 0–7. Concurrent managed
+allocations remain within that ceiling. Complete native/Lean assurance,
+regressions, Rosetta promotion and independent closing review remain pending.
+PR #424 stays draft, and #426/#427 remain open through final validation.
