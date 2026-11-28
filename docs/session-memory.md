@@ -1,5 +1,23 @@
 # Session memory
 
+## 2026-11-28 — Increase the native solver timeout where timeouts were observed
+
+The owner instructed **“Double all default timeouts if it will help.”**
+The active #416 containing-unit run recorded six provisional array-declaration
+roots with all 18 main-prover attempts timing out at the configured 30 seconds,
+without a reported counterexample. This authorizes raising the shared native
+compiler proof default to **60 seconds per prover** for subsequent focused and
+complete runs. Preserve the productive live run and its captured 30-second
+policy; do not relabel its results as a run under the new policy.
+
+The [timeout record](evidence/bounded-library-packages-416-20261128/native-timeout-policy/README.md)
+retains the diagnostic and the pending focused verification. Longer runtime is
+not yet a demonstrated fix. Lean has no wall-clock cutoff in the managed runner;
+its resource limits and ordinary elaboration errors are distinct. No evidence
+currently supports increasing unrelated test, network or counterexample budgets.
+The host eight-CPU ceiling, complete discharge and source correspondence remain
+required. This change may accompany PR #424 and authorizes no merge or successor.
+
 ## 2026-11-27 — Independent open-PR reviews and package admission repairs
 
 The owner requested independent review of the outstanding PRs in sequence and

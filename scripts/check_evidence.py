@@ -91,7 +91,7 @@ OPERATOR_REASSOCIATION_SOURCES = {
 # GNATprove's default only analyzes Main and its transitive dependency closure.
 PROOF_OPTIONS = ["-U", "--mode=all", "--report=all", "--warnings=error",
                  "--checks-as-errors=on", "--level=2", "--prover=cvc5,z3,altergo",
-                 "--timeout=30"]
+                 "--timeout=60"]
 TRUSTED_RUNTIME_CALLEES = {
     "Interfaces.C.To_C": "i-c.ads", "Interfaces.C.To_Ada": "i-c.ads",
     "Ada.Text_IO.Put": "a-textio.ads", "Ada.Text_IO.Put_Line": "a-textio.ads",

@@ -90,7 +90,8 @@ is the subprogram declaration line. Select one form; omit `--full`, `--cold` and
 forwarded subdirectory or solver overrides. `--unit` includes the body when a
 specification is selected, checking owned-entity coverage through the existing
 native auditor, including its pinned import/vendor-spec exceptions. Both forms
-use the complete compiler policy's solver/budget options, including 30 seconds.
+use the complete compiler policy's solver/budget options, including 60 seconds
+per prover.
 
 GNATprove may expand an always-inlined local subprogram selector into its calling
 context. The focused runner rejects that expansion as whole-helper evidence;

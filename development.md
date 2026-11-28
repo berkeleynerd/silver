@@ -171,7 +171,7 @@ states permitted by the precondition, even when current successful callers avoid
 them. Do not narrow a domain, weaken a contract or suppress an obligation to pass.
 
 The focused native entry point shares the complete audit's canonical solver and
-budget options, including the unchanged 30-second timeout, and separates its
+budget options, including the 60-second per-prover timeout, and separates its
 proof sessions/cache from exploratory runs. The managed policy classification
 helps review compatibility; it does not infer helper/callee/caller coverage or
 replace report/provenance audits. Direct `dev.py tool -- gnatprove` trials remain

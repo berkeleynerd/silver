@@ -1,0 +1,555 @@
+{
+  "recorded_at": "2026-11-28T00:42:04.515472+00:00",
+  "run_id": "20261127T195636-5b2a2f886237",
+  "scope": "interim read-only diagnostic; current native run preserved; no final audit claim",
+  "source_sha256": "f91894e7a0f7088abd621313e731b71424fd031783faa5d8b9a2f3a180f699da",
+  "helpers": [
+    {
+      "name": "array_declaration_model",
+      "session": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove/silver_output_profile__array_declaration_model/why3session.xml",
+      "session_sha256": "bd348eb8b72ab9dc27cb76ffab9e3abc1f9a05a8a1deb69c44ec1d23b7399a49",
+      "session_mtime_utc": "2026-11-27T21:24:42.270434+00:00",
+      "unproved_attempts": [
+        {
+          "goal": {
+            "name": "def'vc.323"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "0",
+                "name": "altergo",
+                "version": "1.30-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "0"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "1",
+                "name": "CVC5",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "1"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "2",
+                "name": "Z3",
+                "version": "4.5.1-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "2"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.323.0"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "4",
+                "name": "CVC5_CE",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "10",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "4"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.335"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "0",
+                "name": "altergo",
+                "version": "1.30-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "0"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "1",
+                "name": "CVC5",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "1"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "2",
+                "name": "Z3",
+                "version": "4.5.1-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "2"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.335.0"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "4",
+                "name": "CVC5_CE",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "10",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "4"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.347"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "0",
+                "name": "altergo",
+                "version": "1.30-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "0"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "1",
+                "name": "CVC5",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "1"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "2",
+                "name": "Z3",
+                "version": "4.5.1-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "2"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.347.0"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "4",
+                "name": "CVC5_CE",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "10",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "4"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        }
+      ],
+      "old_source_fragments": [
+        {
+          "line": 2123,
+          "bytes": 491,
+          "sha256": "35a6516c8455906f47c3bf000a4024c69cb3b037af036f2dcdead43860b8e5db"
+        },
+        {
+          "line": 2131,
+          "bytes": 7421,
+          "sha256": "318e65899c0ffc3360d4de172eda5e864049164909650847827c9952a75a94b7"
+        }
+      ],
+      "live_source_fragments": [
+        {
+          "line": 2193,
+          "bytes": 491,
+          "sha256": "35a6516c8455906f47c3bf000a4024c69cb3b037af036f2dcdead43860b8e5db"
+        },
+        {
+          "line": 2201,
+          "bytes": 7421,
+          "sha256": "318e65899c0ffc3360d4de172eda5e864049164909650847827c9952a75a94b7"
+        }
+      ],
+      "helper_source_and_contract_unchanged": true
+    },
+    {
+      "name": "array_declaration_at",
+      "session": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-array-parameters-410/.silver/linux-x86_64/compiler/obj/focused/4a9057104dad17e3/gnatprove/silver_output_profile__array_declaration_at/why3session.xml",
+      "session_sha256": "4cf71164f0ace3bc247c4daa2ff496a67855f5cb58a65c352c0d318205589929",
+      "session_mtime_utc": "2026-11-27T21:58:09.643683+00:00",
+      "unproved_attempts": [
+        {
+          "goal": {
+            "name": "def'vc.323"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "0",
+                "name": "altergo",
+                "version": "1.30-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "0"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "1",
+                "name": "CVC5",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "1"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "2",
+                "name": "Z3",
+                "version": "4.5.1-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "2"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.323.0"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "4",
+                "name": "CVC5_CE",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "10",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "4"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.335"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "0",
+                "name": "altergo",
+                "version": "1.30-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "0"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "1",
+                "name": "CVC5",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "1"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "2",
+                "name": "Z3",
+                "version": "4.5.1-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "2"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.335.0"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "4",
+                "name": "CVC5_CE",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "10",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "4"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.347"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "0",
+                "name": "altergo",
+                "version": "1.30-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "0"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "1",
+                "name": "CVC5",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "1"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            },
+            {
+              "prover": {
+                "id": "2",
+                "name": "Z3",
+                "version": "4.5.1-gnatprove",
+                "timelimit": "30",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "2"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        },
+        {
+          "goal": {
+            "name": "def'vc.347.0"
+          },
+          "attempts": [
+            {
+              "prover": {
+                "id": "4",
+                "name": "CVC5_CE",
+                "version": "0.0.7-gnatprove",
+                "timelimit": "10",
+                "steplimit": "0",
+                "memlimit": "1000"
+              },
+              "proof": {
+                "prover": "4"
+              },
+              "result": {
+                "status": "timeout"
+              }
+            }
+          ]
+        }
+      ],
+      "old_source_fragments": [
+        {
+          "line": 2465,
+          "bytes": 574,
+          "sha256": "53c74e95ebfe95aa6c1c983f480acc1f57b220fa7786e125fd8497563a75262c"
+        },
+        {
+          "line": 2474,
+          "bytes": 7765,
+          "sha256": "b663214f7f462f83d8cbf121577d705dda9fdec1ac27f155c0f1ce418a0326d4"
+        }
+      ],
+      "live_source_fragments": [
+        {
+          "line": 2535,
+          "bytes": 574,
+          "sha256": "53c74e95ebfe95aa6c1c983f480acc1f57b220fa7786e125fd8497563a75262c"
+        },
+        {
+          "line": 2544,
+          "bytes": 7765,
+          "sha256": "b663214f7f462f83d8cbf121577d705dda9fdec1ac27f155c0f1ce418a0326d4"
+        }
+      ],
+      "helper_source_and_contract_unchanged": true
+    }
+  ],
+  "comparison_ref": "1fac6fa1331fe6e778e6b2ae46b867ab44f362c6",
+  "assessment": {
+    "main_prover_attempts": 18,
+    "main_status": "all timeout",
+    "main_configured_limit_seconds": 30,
+    "counterexample_attempts": 6,
+    "counterexample_status": "all timeout",
+    "counterexample_configured_limit_seconds": 10,
+    "measured_per_attempt_time": "not recorded in these XML result nodes; final report pending",
+    "invalid_unknown_counterexample_results_observed": false,
+    "recommendation": "After current run ends, a targeted 60-second whole-helper diagnostic of both unchanged array declaration helpers is justified as an experiment. No proof of success at 60 seconds; inspect final mapped obligations first. Current evidence does not support doubling unrelated default timeouts.",
+    "source_shape_mapping": "Candidate sequence mapping retained separately; not yet authoritative final VC-to-source association."
+  }
+}

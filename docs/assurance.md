@@ -1596,7 +1596,7 @@ policies. Both depend on faithful producer reports.
 Run the complete compiler audit with `python3 scripts/dev.py prove --full`.
 It forces analysis and refreshes reports, with explicit logical options:
 `--mode=all --report=all --warnings=error --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --timeout=30`, all selected units, configurable workers
+--prover=cvc5,z3,altergo --timeout=60`, all selected units, configurable workers
 (default all available cores), and the host-local native solver cache.
 Full analysis may reuse native proof results and is not a cold-performance claim.
 Optional `--cold` allocates separate fresh output/session/cache directories while

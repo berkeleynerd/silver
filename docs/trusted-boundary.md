@@ -1020,8 +1020,8 @@ assumption, suppression and check-policy exclusions remain rejected. This
 compiler-owned proof annotation does not change Silver application pragma rules.
 
 The logical proof configuration is explicit: full flow/proof, all reports,
-warnings/checks as errors, level 2, bundled `cvc5,z3,altergo`, and a 30-second
-timeout. Worker count is configurable and defaults to all detected cores.
+warnings/checks as errors, level 2, bundled `cvc5,z3,altergo`, and a 60-second
+per-prover timeout. Worker count is configurable and defaults to all detected cores.
 GNATprove's native filesystem solver cache is host-local and keyed by the Alire
 lock. Native tool caching, including correct matching of proof tasks and results,
 remains part of the trusted GNATprove dependency. Managed warm sessions and
