@@ -1,0 +1,14 @@
+{
+  "run_id": "20261128T025034-ba7716aecb3f",
+  "outcome": "failure",
+  "captured_source_count": 1731,
+  "changed": [
+    "proof/Silver/ApplicationPackageOriginalScalarHeaders.lean"
+  ],
+  "missing": [],
+  "cpu_affinity": [
+    6,
+    7
+  ],
+  "workers": 2
+}
