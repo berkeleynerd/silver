@@ -115,11 +115,11 @@ private theorem step_rows (reader : BooleanElaboration.Native.Reader) (text : So
         · exact subtype_rows reader text state prior
         · exact object_rows reader text state prior
 
-private def ExitRows (original : Metadata) : SpecificationExit → Prop
+def ExitRows (original : Metadata) : SpecificationExit → Prop
   | .returned result => result.exports.position = 0
   | .ready state => ExportRows original state.info state.exports
 
-private theorem loop_rows {reader : BooleanElaboration.Native.Reader} {text : Source}
+theorem loop_rows {reader : BooleanElaboration.Native.Reader} {text : Source}
     {before : SpecificationState} {exit : SpecificationExit}
     (run : SpecificationLoop (modelSpecificationCalls reader) text before exit) {original : Metadata}
     (prior : ExportRows original before.info before.exports) : ExitRows original exit := by
@@ -137,11 +137,11 @@ private theorem loop_rows {reader : BooleanElaboration.Native.Reader} {text : So
     rw [step] at checked
     exact ih checked
 
-private def StartRows (info : Metadata) : SpecificationStart → Prop
+def StartRows (info : Metadata) : SpecificationStart → Prop
   | .returned result => result.exports.position = 0
   | .loop state => ExportRows info state.info state.exports
 
-private theorem start_rows (calls : SpecificationCalls) (text : Source) (info : Metadata) :
+theorem start_rows (calls : SpecificationCalls) (text : Source) (info : Metadata) :
     StartRows info (specificationStart calls text info) := by
   dsimp only [specificationStart]
   split
