@@ -196,3 +196,18 @@ ambiguous call type, corrected record syntax and explicit projection/branch
 normalization, and kept the native call model opaque during structural
 conversion. No native source, input domain or proof budget changed. Inclusion
 of newly introduced body effects still requires its separate source-syntax fold.
+
+## Exact native actual-row reads
+
+`NativeReads.read_actuals_row_reads` derives the lexical read-mask equation for
+every populated non-output actual row, including named associations and arbitrary
+backing indices. `actual_read_included` joins that equation with the original
+Integer/Boolean `ActualAt` and source declaration identities, proving all its
+shared reads occur in the executed call accumulator. No row-mask correspondence
+is assumed. The original source-trace-to-executed-frame join remains separate.
+
+Focused run `20261128T010857-932d2fdbd64a` checked the row fold; the complete helper
+and RoutineEffects consumer passed in `20261128T011011-fb54b725ce68`, with a fresh
+84,437-declaration audit and all captured input hashes matching. The same Linux,
+Lean, automatic two-worker/two-thread, CPU 6–7 and 8,192 MiB settings apply. No
+native source, domain or proof budget changed; no complete assurance is claimed.

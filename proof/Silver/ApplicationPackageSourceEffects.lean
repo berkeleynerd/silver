@@ -450,6 +450,105 @@ theorem read_actuals_incoming {calls text context input info item afterName fram
     · simp only [zero, missing, ite_false] at accepted
       exact fold_incoming _ capacity accepted
 
+/-- Every populated non-output row carries the exact lexical read mask for
+its original actual span. Unpopulated rows retain the native zero endpoint. -/
+def RowReads (calls : ApplicationPackageCalls.Calls) (text : Source) (context : ParseContext)
+    (info : PackageBindings.Metadata) (frame : ActualFrame) : Prop :=
+  ∀ slot, 0 < slot → (info.parameterAt slot).mode ≠ .output → (frame.actual slot).after ≠ 0 →
+    (frame.actual slot).reads = calls.stateReads text context info (frame.actual slot).first (frame.actual slot).after
+
+theorem actual_step_row_reads {calls text context input info item ordinal before after}
+    (previous : RowReads calls text context info before)
+    (accepted : actualStep calls text context input info item ordinal before = some after) :
+    RowReads calls text context info after := by
+  obtain ⟨index, named, cursor, _, positive, _, _, _, written, _, _, _⟩ := actual_step_fields accepted
+  intro slot slotPositive mode present
+  by_cases same : index - 1 = slot - 1
+  · have equal : index = slot := by omega
+    subst index
+    by_cases inside : slot - 1 < before.actuals.length
+    · have row : after.actual slot = recordedActual calls text context info (info.parameterAt slot) cursor
+          (actualPayload calls text context input (info.parameterAt slot) info cursor
+            {before.actual slot with first := cursor}) := by
+        simp only [ActualFrame.actual, written, List.getD_eq_getElem?_getD,
+          List.getElem?_set_self inside, Option.getD_some]
+      rw [row]
+      by_cases inputMode : (info.parameterAt slot).mode = .input <;>
+        simp [recordedActual, actualPayload, inputMode, mode]
+    · have length : after.actuals.length ≤ slot - 1 := by
+        rw [written, List.length_set]
+        omega
+      have absent : after.actual slot = {} := by
+        simp only [ActualFrame.actual, List.getD_eq_getElem?_getD,
+          List.getElem?_eq_none length, Option.getD_none]
+      exact (present (by rw [absent])).elim
+  · have unchanged : after.actual slot = before.actual slot := by
+      simp only [ActualFrame.actual, written, List.getD_eq_getElem?_getD, List.getElem?_set_ne same]
+    rw [unchanged] at present ⊢
+    exact previous slot slotPositive mode present
+
+private theorem initial_row_reads (calls : ApplicationPackageCalls.Calls) (text : Source) (context : ParseContext)
+    (info : PackageBindings.Metadata) (input : ApplicationScan) (item : PackageBindings.Routine) (cursor : Nat) :
+    RowReads calls text context info (initialActualFrame input item cursor) := by
+  intro slot _ _ present
+  have row : (initialActualFrame input item cursor).actual slot = {} := by
+    simp only [initialActualFrame, ActualFrame.actual, List.getD_eq_getElem?_getD, List.getElem?_replicate]
+    split <;> rfl
+  exact (present (by rw [row])).elim
+
+private theorem fold_row_reads {calls text context input info item before after} (indices : List Nat)
+    (previous : RowReads calls text context info before)
+    (accepted : indices.foldlM (fun frame index => actualStep calls text context input info item (index + 1) frame)
+      before = some after) : RowReads calls text context info after := by
+  induction indices generalizing before with
+  | nil => cases Option.some.inj accepted; exact previous
+  | cons index rest ih =>
+    simp only [List.foldlM_cons, Option.bind_eq_bind, Option.bind_eq_some_iff] at accepted
+    obtain ⟨middle, first, remaining⟩ := accepted
+    exact ih (actual_step_row_reads previous first) remaining
+
+theorem read_actuals_row_reads {calls text context input info item afterName frame}
+    (accepted : readActuals calls text context input info item afterName = some frame) :
+    RowReads calls text context info frame := by
+  unfold readActuals at accepted
+  by_cases zero : item.count = 0
+  · simp only [zero, ite_true, Option.some.injEq] at accepted
+    subst frame
+    exact initial_row_reads calls text context info input item afterName
+  · by_cases missing : calls.take text afterName (.symbol "(") = 0
+    · simp only [zero, missing, ite_false, ite_true, reduceCtorEq] at accepted
+    · simp only [zero, missing, ite_false] at accepted
+      exact fold_row_reads _ (initial_row_reads calls text context info input item _) accepted
+
+/-- Original scalar argument syntax, the executed native actual fold and the
+state declaration origins derive the argument's complete shared read footprint. -/
+theorem actual_read_included {text : Source} {context : ParseContext}
+    {input : ApplicationScan} {info : PackageBindings.Metadata} {item : PackageBindings.Routine}
+    {afterName slot bound : Nat} {frame : ActualFrame} {actual : ScalarFunctions.Actual}
+    (read : readActuals ApplicationPackageCalls.modelCalls text context input info item afterName = some frame)
+    (source : ActualAt text context (frame.actual slot).first input.scan.facts
+      (inputFormal (info.parameterAt slot)) actual (frame.actual slot).after)
+    (positive : 0 < slot) (mode : (info.parameterAt slot).mode ≠ .output)
+    (firstBound : (frame.actual slot).first ≤ text.length + 1)
+    (declarations : StateDeclarations text info.states)
+    (capacity : info.states.length ≤ PackageBindings.maxStates)
+    (scalarCapacity : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (booleanCapacity : context.booleanNames.length ≤ BooleanBindings.maxBindings) :
+    ∀ cell ∈ globalCells (layout bound info context) (actualReads actual),
+      cell ∈ info.effectCells frame.result.result.reads := by
+  have nonzero : (frame.actual slot).first ≠ 0 := by
+    intro zero
+    have original := source.equation
+    rw [zero, actualAfter_zero] at original
+    exact source.positive original.symm
+  have lexical := actual_global_reads (bound := bound) source rfl nonzero firstBound (Nat.le_refl _)
+    declarations capacity scalarCapacity booleanCapacity
+  have recorded := read_actuals_row_reads read slot positive mode source.positive
+  intro cell member
+  apply read_actuals_stored capacity read slot cell
+  rw [recorded]
+  exact lexical cell member
+
 end NativeReads
 
 namespace NativeMasks
