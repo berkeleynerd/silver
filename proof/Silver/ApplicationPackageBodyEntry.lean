@@ -166,4 +166,42 @@ theorem source_state_entry (reader : BooleanElaboration.Native.Reader)
   exact StateEntry.of_frame phase (units.trans fields.units) (states.trans fields.states) globals
     fields.order fields.capacity (Nat.le_trans next (Nat.le_of_lt advanced.1)) advanced.2
 
+private theorem cursor_fields {before after : ParserState} {position : Nat}
+    (same : after = {before with position}) :
+    after.scalarNames = before.scalarNames ∧ after.position = position := by
+  cases same
+  exact ⟨rfl, rfl⟩
+
+/-- The original packed body starts strictly after the specification, and
+the header advances its cursor without changing the exported scalar rows. -/
+theorem source_state_entry_positions (reader : BooleanElaboration.Native.Reader)
+    (completion : Source → ParserState → PackageBindings.Metadata → CompletionResult) (sources : Bundle)
+    (valid : sources.Valid) {specification : SpecificationResult} {state : UnitState}
+    (specified : readSpecification reader (sources.prefix .packageSpecification) {units := sources.units} = specification)
+    (accepted : specification.exports.position ≠ 0)
+    (entered : startUnit (unitReaders reader completion) (sources.prefix .packageBody)
+      specification.exports specification.info = .continued state) :
+    state.globals.scalarNames = specification.exports.scalarNames ∧
+      (sources.prefix .packageSpecification).length < state.globals.position ∧
+      (sources.units .packageBody).first < state.globals.position := by
+  obtain ⟨fields, _⟩ := accepted_specification_rows reader _ _ specified accepted
+  obtain ⟨adjacent, bodyBound⟩ := body_span_bounds valid
+  have within : (specification.info.units .packageBody).first ≤ (sources.prefix .packageBody).length + 1 := by
+    rw [fields.units]
+    exact bodyBound
+  obtain ⟨present, _, _, _, globals⟩ := startUnit_fields entered
+  have stored := cursor_fields (before := specification.exports)
+    (position := startCursor (unitReaders reader completion) (sources.prefix .packageBody) specification.info) globals
+  have advanced := body_cursor (reader := reader) (completion := completion) (info := specification.info)
+    (text := sources.prefix .packageBody) present within
+  have same : (specification.info.units .packageBody).first = (sources.units .packageBody).first :=
+    congrArg (fun units => (units .packageBody).first) fields.units
+  have afterBody : (sources.units .packageBody).first < state.globals.position := by
+    calc
+      _ = (specification.info.units .packageBody).first := same.symm
+      _ < startCursor (unitReaders reader completion) (sources.prefix .packageBody) specification.info := advanced.1
+      _ = state.globals.position := stored.2.symm
+  exact ⟨stored.1,
+    Nat.lt_trans (Nat.lt_of_lt_of_le (Nat.lt_succ_self _) adjacent) afterBody, afterBody⟩
+
 end Silver.ApplicationPackageBodies

@@ -1,0 +1,38 @@
+[
+  {
+    "run_id": "20261128T003542-d80d07ff72af",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T003628-eb4b100528c0",
+    "outcome": "success"
+  },
+  {
+    "run_id": "20261128T003812-90d2083da934",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T003856-640a956086a0",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T003949-7f1be7590445",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T004137-40af0b954e58",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T004255-1103fa109c4a",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T004328-175f4ef13c75",
+    "outcome": "failure"
+  },
+  {
+    "run_id": "20261128T004431-880ecf034076",
+    "outcome": "success"
+  }
+]
