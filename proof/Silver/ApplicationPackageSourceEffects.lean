@@ -5,6 +5,7 @@ public import Silver.ApplicationPackageVisibleStateLayout
 public import Silver.PredicateFunctionCallMeaning
 public import Silver.PackageEffectSummaries
 public import Silver.ApplicationPackageCallsActualOrder
+public import Silver.ApplicationPackageRecursiveSyntax
 
 @[expose] public section
 
@@ -450,5 +451,213 @@ theorem read_actuals_incoming {calls text context input info item afterName fram
       exact fold_incoming _ capacity accepted
 
 end NativeReads
+
+namespace NativeMasks
+open ApplicationPackageCalls ApplicationPackages ApplicationPackageBodies
+open Packages.EffectSummaries
+
+attribute [local irreducible] PackageBindings.stateUnion
+attribute [local irreducible] packageCallAt
+
+/-- Raw calls retain incoming effects through actual parsing, alias checks,
+summary union and visible-state resets, including rejected calls. -/
+theorem call_incoming (calls : ApplicationPackageCalls.Calls) (text : Source) (context : ParseContext)
+    (input : ApplicationScan) (info : PackageBindings.Metadata) (position : Nat)
+    (kind : PackageBindings.RoutineKind) (capacity : info.states.length ≤ PackageBindings.maxStates) :
+    Included (scanEffects info input)
+      (scanEffects info (packageCallAt calls text context input info position kind).result) := by
+  cases stages : callStages calls text context input info position kind with
+  | none =>
+      simpa only [packageCallAt, stages, ApplicationPackageCalls.failure, invalidApplication, scanEffects] using
+        Included.refl (scanEffects info input)
+  | some stagesValue =>
+      rcases stagesValue with ⟨callee, item, frame, result⟩
+      obtain ⟨_, _, _, _, checked, read, aliases, finished, _, _⟩ := callStages_success stages
+      have incoming := NativeReads.read_actuals_incoming capacity read
+      have same := checkAliases_footprint aliases
+      have masks := finishCall_footprint calls text context info kind item frame checked
+      rw [← finished] at masks
+      have reads := congrArg Prod.fst masks
+      have writes := congrArg Prod.snd masks
+      have aliasReads := congrArg Prod.fst same
+      have aliasWrites := congrArg Prod.snd same
+      dsimp only [footprint] at reads writes aliasReads aliasWrites
+      simp only [packageCallAt, stages]
+      apply mask_included
+      · rw [reads, aliasReads]
+        exact fun cell member => union_left capacity _ _ cell (incoming.1 cell member)
+      · rw [writes, aliasWrites, incoming.2]
+        exact union_left capacity _ _
+
+theorem mark_incoming (info : PackageBindings.Metadata) (value : ApplicationScan) (identity : Nat) :
+    Included (scanEffects info value)
+      (scanEffects info {value with writes := markState value.writes identity}) :=
+  ⟨fun _ member => member, marked_mono info value.writes identity⟩
+
+theorem assignment_incoming (calls : BasicCalls) (source : Statement.Input)
+    (capacity : source.info.states.length ≤ PackageBindings.maxStates)
+    (called : ∀ position kind, Included (scanEffects source.info source.input)
+      (scanEffects source.info (calls.packageCallAt source.text source.context source.input source.info position kind).result)) :
+    Included (scanEffects source.info source.input)
+      (scanEffects source.info (functionAssignment calls source.text source.context source.input source.info
+        source.catalog source.procedures)) := by
+  let call := calls.packageCallAt source.text source.context source.input source.info
+    (assignmentFirst calls source.text source.input) .function
+  let result := if call.value.after ≠ 0 then
+      let assigned := calls.callAssignmentResult source.context
+        {call.result.scan with position := source.input.scan.position}
+        (calls.scalarTarget source.text source.context source.input.scan.position)
+        (calls.booleanTarget source.text source.context source.input.scan.position) call.value
+      {call.result with scan := calls.bodyToken source.text source.context assigned (.symbol ";")}
+    else
+      let scan := calls.basicBody source.text source.context source.input.scan source.catalog source.procedures
+      {source.input with scan, reads := (PackageBindings.stateUnion source.input.reads
+        (calls.stateReads source.text source.context source.info
+          (assignmentFirst calls source.text source.input) scan.position))}
+  have initial : Included (scanEffects source.info source.input) (scanEffects source.info result) := by
+    dsimp only [result]
+    split
+    · exact called _ _
+    · exact ⟨union_left capacity _ _, fun _ member => member⟩
+  have written := initial.trans
+    (mark_incoming source.info result (calls.stateTarget source.text source.context source.info source.input.scan.position))
+  change Included _ (scanEffects source.info
+    (if calls.stateTarget source.text source.context source.info source.input.scan.position ≠ 0 then
+      {result with writes := (result.writes.set
+        (calls.stateTarget source.text source.context source.info source.input.scan.position - 1) true)}
+    else result))
+  by_cases zero : calls.stateTarget source.text source.context source.info source.input.scan.position = 0
+  · simpa only [zero, ne_eq, not_true_eq_false, ite_false] using initial
+  · simpa only [zero, ne_eq, not_false_eq_true, ite_true, markState, ite_false] using written
+
+/-- The original Basic wrapper never discards an incoming mask bit. The
+effect/target callbacks can be arbitrary here; their semantic coverage is
+proved separately from source expressions and names. -/
+theorem basic_incoming (calls : BasicCalls) (source : Statement.Input)
+    (capacity : source.info.states.length ≤ PackageBindings.maxStates)
+    (native : calls.packageCallAt = packageCallAt modelCalls) :
+    Included (scanEffects source.info source.input)
+      (scanEffects source.info (applicationBasic calls source.text source.context source.input source.info
+        source.catalog source.procedures)) := by
+  have called (position : Nat) (kind : PackageBindings.RoutineKind) :
+      Included (scanEffects source.info source.input)
+        (scanEffects source.info (calls.packageCallAt source.text source.context source.input source.info position kind).result) := by
+    rw [native]
+    exact call_incoming _ _ _ _ _ _ _ capacity
+  have result : Included (scanEffects source.info source.input)
+      (scanEffects source.info (basicResult calls source.text source.context source.input source.info
+        source.catalog source.procedures)) := by
+    unfold basicResult
+    split
+    · exact assignment_incoming calls source capacity called
+    · split
+      · exact called _ _
+      · exact Included.refl _
+  unfold applicationBasic
+  split
+  · exact Included.refl _
+  · dsimp only
+    split
+    · exact Included.refl _
+    · exact result
+
+theorem then_incoming (calls : Statement.Calls) (source : Statement.Input)
+    (state : Statement.Arms) (condition : ConditionResult)
+    (capacity : source.info.states.length ≤ PackageBindings.maxStates) :
+    Included (scanEffects source.info state.value)
+      (scanEffects source.info (Statement.thenInput calls source state condition)) :=
+  ⟨union_left capacity _ _, fun _ member => member⟩
+
+theorem arm_masks {calls : Statement.Calls} {source : Statement.Input}
+    {read : Statement.ReadArm} {after : Statement.Arms}
+    (finished : Statement.armState (Statement.finishArm calls source read) = some after) :
+    scanEffects source.info after.value = scanEffects source.info read.branch := by
+  unfold Statement.finishArm at finished
+  dsimp only at finished
+  split at finished
+  · simp only [Statement.armState, Option.some.injEq] at finished
+    cases finished; rfl
+  · split at finished
+    · contradiction
+    · simp only [Statement.armState, Option.some.injEq] at finished
+      cases finished; rfl
+
+theorem header_incoming {calls : Statement.Calls} {source : Statement.Input}
+    {afterFor : Nat} {iteration : Statement.Iteration}
+    (capacity : source.info.states.length ≤ PackageBindings.maxStates)
+    (parsed : Statement.forHeader calls source afterFor = some iteration) :
+    Included (scanEffects source.info source.input) (scanEffects source.info iteration.value) := by
+  unfold Statement.forHeader at parsed
+  dsimp only at parsed
+  split at parsed
+  · contradiction
+  · split at parsed
+    · unfold Statement.arrayHeader at parsed
+      dsimp only at parsed
+      split at parsed
+      · contradiction
+      · split at parsed
+        · contradiction
+        · cases parsed; exact Included.refl _
+    · cases parsed
+      dsimp only [Statement.countedHeader]
+      split <;> exact ⟨union_left capacity _ _, fun _ member => member⟩
+
+/-- Every original branch, loop and tail retains the mask accumulated by its
+predecessor. This follows from raw native updates alone, independent of any
+semantic checker or effect-correspondence premise. -/
+theorem tail_incoming {readers : Recursive.Readers} {names source stop required seen result code}
+    (original : SourceSyntax.TailCodeAt readers names source stop required seen result code)
+    (native : readers.basic.packageCallAt = packageCallAt modelCalls)
+    (capacity : source.info.states.length ≤ PackageBindings.maxStates) :
+    Included (scanEffects source.info source.input) (scanEffects source.info result) := by
+  apply SourceSyntax.TailCodeAt.rec
+    (motive_1 := fun source result _ _ => source.info.states.length ≤ PackageBindings.maxStates →
+      Included (scanEffects source.info source.input) (scanEffects source.info result))
+    (motive_2 := fun source before after _ _ => source.info.states.length ≤ PackageBindings.maxStates →
+      Included (scanEffects source.info before.value) (scanEffects source.info after.value))
+    (motive_3 := fun source state _ _ => source.info.states.length ≤ PackageBindings.maxStates →
+      Included (scanEffects source.info state.value)
+        (scanEffects source.info (Statement.elseResult readers.statement source state)))
+    (motive_4 := fun source _ _ _ result _ _ => source.info.states.length ≤ PackageBindings.maxStates →
+      Included (scanEffects source.info source.input) (scanEffects source.info result))
+    ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_ original capacity
+  · intro source result item _ _ _ _ _ reading capacity
+    cases reading with
+    | inherited _ returned _ | functionCall _ _ returned _ | procedureCall _ _ returned _ =>
+      rw [← returned]
+      exact basic_incoming readers.basic source capacity native
+  · intro source state result codes alternative _ _ _ _ closing armsIH elseIH capacity
+    rw [closing.resultEq]
+    exact (armsIH capacity).trans (elseIH capacity)
+  · intro source iteration result lower upper body _ _ _ header _ _ _ insideIH capacity
+    rw [header.resultEq]
+    exact (header_incoming capacity header.header).trans (insideIH capacity)
+  · intro source iteration result body _ _ _ header _ _ insideIH capacity
+    rw [header.resultEq]
+    exact (header_incoming capacity header.header).trans (insideIH capacity)
+  · intro source before read after condition body _ _ _ finished insideIH capacity
+    have same := arm_masks (show Statement.armState (Statement.finishArm readers.statement source read) = some after by
+      rw [finished]; rfl)
+    rw [same]
+    exact (then_incoming readers.statement source before _ capacity).trans (insideIH capacity)
+  · intro source before read after final condition body rest _ _ _ continued _ insideIH restIH capacity
+    have same := arm_masks (show Statement.armState (Statement.finishArm readers.statement source read) = some after by
+      rw [continued]; rfl)
+    have first := (then_incoming readers.statement source before _ capacity).trans (insideIH capacity)
+    change Included (scanEffects source.info before.value) (scanEffects source.info read.branch) at first
+    rw [← same] at first
+    exact first.trans (restIH capacity)
+  · intro source state missing capacity
+    simp only [Statement.elseResult, missing, ne_eq, not_true_eq_false, ite_false]
+    exact Included.refl _
+  · intro source state body _ _ insideIH capacity
+    exact insideIH capacity
+  · intro source stop required seen _ _ _ capacity
+    exact Included.refl _
+  · intro source stop required seen first result head rest _ _ _ _ _ _ headIH restIH capacity
+    exact (headIH capacity).trans (restIH capacity)
+
+end NativeMasks
 
 end Silver.ApplicationPackageSourceEffects

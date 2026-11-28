@@ -177,3 +177,22 @@ CPUs 6–7, automatic two workers/two threads and 8,192 MiB per process. The fai
 draft is retained; its repair changed a mutual-block comment and used explicit
 equation rewrites for recursive definitions. Source domains, semantics and proof
 budgets are unchanged. Complete original body mask inclusion remains pending.
+
+## Incoming effects through the complete original body
+
+`NativeMasks.call_incoming` derives incoming read/write inclusion through the raw
+actual, alias, finishing and reset stages, including rejected calls.
+`basic_incoming` covers the original assignment, procedure and inherited routes.
+`tail_incoming` then covers every original conditional arm, optional else, loop
+and tail node. Thus initializer masks survive the entire original body before
+the footer is read. The theorem requires only the actual call interpretation and
+native state capacity; it assumes no semantic checker or effect coverage.
+
+Focused batch `20261128T010529-de2c853e2e0b` passed SourceEffects and its
+RoutineEffects consumer, with 84,428 declarations freshly audited and all captured
+inputs matching. Linux/Lean/CPU/memory settings and incremental scope remain as
+above. The three preceding failed drafts are retained; repairs qualified an
+ambiguous call type, corrected record syntax and explicit projection/branch
+normalization, and kept the native call model opaque during structural
+conversion. No native source, input domain or proof budget changed. Inclusion
+of newly introduced body effects still requires its separate source-syntax fold.
