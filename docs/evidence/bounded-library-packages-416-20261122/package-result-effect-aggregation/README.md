@@ -252,3 +252,22 @@ elaboration drafts are retained separately. Linux x86_64 / Lean 4.34.1,
 CPUs 6–7, automatic two workers/two threads and 8,192 MiB per process. No native
 source, input domain or proof budget changed. The original procedure-call and
 recursive body aggregate remain outstanding; this is focused partial validation.
+
+## Procedure-call effect aggregate
+
+`ApplicationPackageProcedureEffects` joins the original procedure actuals to
+their executed physical rows, derives all copy-in reads and copy-back writes,
+and combines those effects with the earlier callee's native summary.
+`procedure_call_effects` proves inclusion of the complete inferred procedure
+statement effect in the outgoing native masks. Input modes come from the exact
+formal binding; `out` targets add no read, and `in out` targets do. Named
+association order, local shadowing and the full native table domains remain.
+
+The argument fold first passed `20261128T013310-9b67a9f2ab31`. The complete
+procedure-call theorem and RoutineEffects consumer then passed
+`20261128T013540-fd6e5de238f4`: 84,499 audited declarations, all 1,725 captured
+input hashes matching. Both failed drafts are retained; repairs made the
+recursive output binding explicit and avoided substituting a callee through the
+wrong equality. No native source, language domain, budget or guarantee changed.
+The existing Linux/Lean/CPU/memory settings apply. Function assignment and the
+recursive body aggregate remain outstanding.
